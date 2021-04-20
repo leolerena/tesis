@@ -1,6 +1,73 @@
 \documentclass[tesis.tex]{subfiles}
 \begin{document}
+\section{Teoría de lenguajes.}	
+En esta sección vamos a introducir los elementos básicos de la teoría de lenguajes formales que utilizaremos en este trabajo. 
+\begin{deff}
+Un conjunto finito $\Sigma$ lo vamos a llamar un \blue{alfabeto}. Una \blue{palabra} $w$ en este alfabeto es un elemento de $\Sigma^k$ para algún $k \le 0$ y su \blue{longitud} es este número k.
+\end{deff}
+La analogía es que un lenguaje formal va a ser un conjunto de palabras sobre este alfabeto. Más formalmente para poder hablar de palabras sobre un alfabeto necesitamos definir el monoide libre sobre el alfabeto.
+\begin{deff}
+	El \blue{monoide libre} sobre un alfabeto $\Sigma$ es el siguiente conjunto
+	\[
+	\Sigma^{*} = \bigcup_{k=0}^{\infty} \Sigma^k
+	\]
+	tal que es un monoide con la operación $\cdot$ que es la concatenación de palabras. Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que es la única palabra de longitud $0$. 
+\end{deff}
 
-sdfsdfsdf	
+\begin{obs}
+	Este monoide es libre con la siguiente propiedad. Si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama.
+\end{obs}
+
+\begin{obs}
+	De esta manera podemos pensar a una {presentación} de un monoide $M$  como un epimorfismo de monoides $\pi: \Sigma^{*} \to M$. De esta manera nuestro $M$ tiene como generadores a $\Sigma$ y sus relaciones están dadas por el núcleo del morfismo $\pi$.
+\end{obs}
+
+\begin{deff}
+	Un \blue{lenguaje} $L$ es un subconjunto de $\Sigma^{*}$. 
+\end{deff}
+
+\subsection{Lenguajes independientes de contexto.}
+\subsubsection{Gramáticas.}
+En esta sección vamos a ver una manera de clasificar a los lenguajes. Para eso nos vamos a enfocar primero en cómo generarlos. Una herramienta para poder generarlos son las gramáticas.
+
+\begin{deff}
+	Una gramática es una tupla ${\cal G} = (V, \Sigma, P, S)$ que la interpretamos de la siguiente manera,
+\begin{itemize}
+		\item $V$ es un conjunto finito de variables;
+		\item $S \in V$ es el símbolo inicial;
+		\item $\Sigma$ es un conjunto finito de símbolos terminales ;
+		\item $P \subseteq (V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de producciones.
+\end{itemize}
+\end{deff}
+
+La gramática permite generar al lenguaje de la siguiente manera...
+
+
+Un lenguaje independiente de contexto es un lenguaje tal que es generado por una gramática donde sus producciones son del estilo..
+
+\subsubsection{Autómatas.}
+Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas que nos permiten aceptar un lenguaje. En nuestro caso en particular vamos a usar automátas de pila para aceptar los lenguajes independientes de contexto.
+
+\begin{deff}
+	Un \blue{automáta de pila finito} es una tupla ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F)$ que la interpretamos de la siguiente manera,
+	\begin{itemize}
+		\item $Q$ denota los finitos estados;
+		\item $\Sigma$ es el alfabeto finito del lenguaje que queremos reconocer;
+		\item $Z$ es el alfabeto finito de la pila;
+		\item $\delta$ es la función de transición donde $\delta: Z^* \times Q \times \Sigma^* \to Z^* \times Q^*$;
+		\item $F \subseteq Q$ es el conjunto de estados finales;
+		\item $q_0$ es el estado inicial;
+	\end{itemize}
+\end{deff}
+
+El automáta de pila finito funciona de la siguiente manera. Dada una palabra $w \in \Sigma$ queremos saber si está palabra es aceptada por el autómata de pila o no. Un prefijo de $w$ será una subpalabra $\gamma$ tal que $w=\gamma w'$ visto con la concatenación de palabras en $\Sigma^*$. 
+Para eso vamos a ir leyendo esta palabra de izquierda a derecha. Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro automáta. Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos.
+
+si tenemos a algún par $(Z_0 q_0 w, z q)$ donde la primer coordenada nos dice qué tenemos en el tope de la pila, en qué estado estamo y qué palabra estamos viendo.
+
+Dentro de las transiciones $\delta$ buscamos alguna
+ 
+
+
 \end{document}
 
