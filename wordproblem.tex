@@ -1,0 +1,63 @@
+\documentclass[tesis.tex]{subfiles}
+\begin{document}
+	
+\section{El problema de la palabra.}
+En esta sección consideraremos un grupo $G$ finitamente generado y una presentación $\pi: \Sigma^* \twoheadrightarrow  G$ de este grupo con finitos generadores $\Sigma$. 
+
+El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explicitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano una presentación posible del grupo.
+
+En esta sección vamos a considerarnos el siguiente lenguaje 
+
+$$\text{WP}_\pi (G) = \{ \omega \in \Sigma^* \ | \ \pi(\omega)=1 \}$$
+
+que llamaremos el problema de la palabra de la presentación $\pi$ de $G$. Es un lenguaje formal porque justamente es un subconjunto de un monoide libre.
+
+\begin{obs}
+	El tipo del lenguaje de la palabra no depende de la presentación elegida.
+\end{obs}
+\begin{proof}
+	Para ver esto recordemos [] y []. De esta manera si tuvieramos dos presentaciones sean estas
+$\pi_:\Sigma^* \to G$ y sea la otra presentación $\pi': \Delta^* \to G$	luego por la propiedad universal del monoide libre tenemos un morfismo $\varphi:\Sigma^* \to \Delta^*$ que hace conmutar el siguiente diagrama. 
+	\[
+	\begin{tikzcd}
+	\Sigma^*  \arrow{d}{\pi}  \arrow[dashrightarrow]{dr}{\varphi}   \\
+	G     &  \Delta^* \arrow{l}{\pi'}
+	\end{tikzcd}
+	\]
+Notemos en particular que este morfismo envía el problema de la palabra de una presentación al de la otra, es decir $\varphi(\text{WP}_\pi (G)) \subseteq (\text{WP}_\pi' (G))$
+\end{proof}
+
+Una pregunta natural es intentar entender la relación entre los distintos tipos de lenguajes de la jerarquía de Chomsky que pueda tener el problema de la palabra de $G$ y
+
+De esta manera a los grupos que tengan problema de la palabra independiente de contexto los llamaremos directamente independientes de contexto.
+
+\begin{teo}
+	Todo grupo virtualmente libre es tal que su problema de la palabra es aceptado por un automáta determinístico especial de pila finito.
+\end{teo}
+
+\begin{proof}
+	Para demostrar este teorema necesitamos construirnos al automáta para una presentación fijada de un grupo virtualmente libre.
+	
+	Fijemos entonces el subgrupo libre de índice finito $F_\Sigma$. Sea $R$ representantes de coclases a derecha de $G/F_\Sigma$ que sabemos son finitos. De esta manera podemos considerar entonces $\Delta = \Sigma \cup \Sigma^{-1} \cup R$ ta que nos da una presentación de nuestro grupo.
+	
+	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura dado por 
+	\[
+	S = \{ ab \to w(a,b)r  \}
+	\] 
+	donde $w(a,b) \in F_\Sigma$ es una palabra reducida y $r \in R$ tal que $ab = w(a,b)r$. Vamos a usar este sistema para construirnos la función de transición de nuestro automáta. 
+	
+	Nuestro automáta lo definimos así 
+	\[
+	{\cal M }= (Q,\Delta, Z, \delta, q_0, F)
+	\]
+	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. Nuestra función de transición entonces hace lo siguiente
+	\begin{align*}
+		asdasd
+	\end{align*}
+\end{proof}
+
+\begin{obs}
+	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto y así vimos que los grupos virtualmente libres son independientes de contexto siguiendo la definición [].
+\end{obs}
+	
+\end{document}
