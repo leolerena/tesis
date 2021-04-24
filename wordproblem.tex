@@ -1,20 +1,20 @@
 \documentclass[tesis.tex]{subfiles}
 \begin{document}
 	
-\section{El problema de la palabra.}
+\chapter{El problema de la palabra.}
 En esta sección consideraremos un grupo $G$ finitamente generado y una presentación $\pi: \Sigma^* \twoheadrightarrow  G$ de este grupo con finitos generadores $\Sigma$. 
 
 El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explicitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano una presentación posible del grupo.
 
-En esta sección vamos a considerarnos el siguiente lenguaje 
+En esta sección vamos a considerarnos al siguiente lenguaje 
 
 $$\text{WP}_\pi (G) = \{ \omega \in \Sigma^* \ | \ \pi(\omega)=1 \}$$
 
 que llamaremos el problema de la palabra de la presentación $\pi$ de $G$. Es un lenguaje formal porque justamente es un subconjunto de un monoide libre.
 
-\begin{obs}
+\begin{lema}
 	El tipo del lenguaje de la palabra no depende de la presentación elegida.
-\end{obs}
+\end{lema}
 \begin{proof}
 	Para ver esto recordemos [] y []. De esta manera si tuvieramos dos presentaciones sean estas
 $\pi_:\Sigma^* \to G$ y sea la otra presentación $\pi': \Delta^* \to G$	luego por la propiedad universal del monoide libre tenemos un morfismo $\varphi:\Sigma^* \to \Delta^*$ que hace conmutar el siguiente diagrama. 
@@ -27,9 +27,22 @@ $\pi_:\Sigma^* \to G$ y sea la otra presentación $\pi': \Delta^* \to G$	luego p
 Notemos en particular que este morfismo envía el problema de la palabra de una presentación al de la otra, es decir $\varphi(\text{WP}_\pi (G)) \subseteq (\text{WP}_\pi' (G))$
 \end{proof}
 
-Una pregunta natural es intentar entender la relación entre los distintos tipos de lenguajes de la jerarquía de Chomsky que pueda tener el problema de la palabra de $G$ y
+Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden.De esta manera a los grupos que tengan problema de la palabra independiente de contexto los llamaremos directamente independientes de contexto. 
 
-De esta manera a los grupos que tengan problema de la palabra independiente de contexto los llamaremos directamente independientes de contexto.
+Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos se corresponden a tener un lenguaje independiente de contexto.
+
+\begin{ej}[Automáta de un grupo libre]
+	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. Pensemos un ADPND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
+	Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento y cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en la pila. Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. Más formalmente al automáta lo podemos describir de la siguiente manera.
+	
+	\[
+	{\cal M } = \{    \}
+	\]
+	
+	\red{Adjuntar una imágen del automata para $F_{ \{ a,b \} } $ que es bastante fácil de escribir.}
+\end{ej}
+
+Esta idea que usamos para los grupos libres se puede extender más en general para grupos virtualmente libres con algunas modificaciones. Esta es la primera de las equivalencias que vamos a ver.
 
 \begin{teo}
 	Todo grupo virtualmente libre es tal que su problema de la palabra es aceptado por un automáta determinístico especial de pila finito.
@@ -57,7 +70,8 @@ De esta manera a los grupos que tengan problema de la palabra independiente de c
 \end{proof}
 
 \begin{obs}
-	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto y así vimos que los grupos virtualmente libres son independientes de contexto siguiendo la definición [].
+	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto y así vimos que los grupos virtualmente libres son independientes de contexto.
 \end{obs}
+
 	
 \end{document}

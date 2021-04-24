@@ -1,4 +1,4 @@
-\documentclass[11pt]{scrartcl}
+\documentclass[12pt]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{geometry}\geometry{margin=1in}
@@ -48,13 +48,14 @@
 % By including [theorem], the lemma follows the numbering of theorem
 % e.g. Thm 1, Lemma 2, Thm 3, Thm 4, \dots
 \theoremstyle{definition}
-\newtheorem{deff}{Definición} % the star prevents numbering
+\newtheorem{deff}{Definición} 
+\newtheorem*{ej}{ Ejemplo}
 
 % Remarks
 \theoremstyle{remark}
 \newtheorem{obs}{Observación}
 \newtheorem{ejj}{ Ejercicio}
-\newtheorem*{ej}{  \color{orange!65!black} Ejemplo}
+
 \newtheorem{preg}{Pregunta}
 
 %Comandos útiles.
@@ -80,7 +81,7 @@
 %opening
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\lhead{Apuntes tesis.} % Left Header
+\lhead{Tesis de licenciatura.} % Left Header
 \rhead{\thepage} % Right Header
 
 \usepackage{subfiles} % Best loaded last in the preamble
@@ -95,7 +96,7 @@
 \newpage
 	
 \subfile{lenguajes}	
-\subfile{sistreescritura}
+\subfile{bassserre}
 \subfile{wordproblem}
 
 	
