@@ -5,10 +5,14 @@
 \usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools,sectsty}
 \pagenumbering{gobble}
 \usepackage{subcaption}
-\usepackage{graphicx}
-\usepackage[pdftex,dvipsnames]{xcolor}
-\usepackage{xargs}
-\usepackage{verbatim}
+%\usepackage{graphicx}
+%\usepackage[pdftex,dvipsnames]{xcolor}
+
+% Tikz y las librerías para automátas
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usetikzlibrary{babel} %para evitar que se jodan los automatas de tikz
 
 \usepackage{hyperref}
 % Para modificar el estilo de las referencias
@@ -30,16 +34,14 @@
 \usepackage{mathpazo}
 \usepackage{amssymb}
 \usepackage{eufrak}
-\usepackage{tikz-cd}
+
 \usepackage{tcolorbox}
 \usepackage{thmtools}
 
-\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
+%\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+%\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 
 %%%%%%%%%%%%%  THEOREMS  %%%%%%%%%%%%%%%%%
-% Let's define some theorem environments
-% To use later in the paper
 \theoremstyle{plain} % other options: definition, remark
 \newtheorem{teo}{\color{rojo} Teorema}
 \newtheorem{prop}[teo]{\color{rojo} Proposición}
@@ -56,7 +58,6 @@
 \newtheorem{obs}{Observación}
 \newtheorem{ejj}{ Ejercicio}
 
-\newtheorem{preg}{Pregunta}
 
 %Comandos útiles.
 \newcommand\RP{\mathbb{RP}}

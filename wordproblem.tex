@@ -31,15 +31,24 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 
 Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos se corresponden a tener un lenguaje independiente de contexto.
 
-\begin{ej}[Automáta de un grupo libre]
+\begin{ej}
 	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. Pensemos un ADPND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
-	Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento y cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en la pila. Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. Más formalmente al automáta lo podemos describir de la siguiente manera.
+	Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento visto como un elemento en el grupo. Esto es, cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en el tope de la pila. Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. Entonces este automáta lo podemos representar de la siguiente manera,
 	
-	\[
-	{\cal M } = \{    \}
-	\]
 	
-	\red{Adjuntar una imágen del automata para $F_{ \{ a,b \} } $ que es bastante fácil de escribir.}
+	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4.5cm,
+	scale = 1.15,transform shape]
+	
+	\node[state,accepting,initial] (1') {$1'$};
+	\node[state] (1) [right of=1'] {$1$};
+	
+	\path (1') edge[bend left]              node {} (1)
+	(1) edge[bend left]              node {} (1');
+	\end{tikzpicture}
+	
+	Donde las transiciones del estado 1' a 1 son todas las transiciones en las cuales la letra que estamos por leer no es la inversa de lo que esté al tope de la pila. Por otro lado las transiciones del estado 1 al estado 1' son todas las que lo que leemos es justamente el inverso de lo que está al tope de la pila.
+	
+	% No sé bien si anotar todas las representaciones o no! Creo que al ser un ejemplo es un poco excesivo y así se entiende mejor pero no me queda claro.
 \end{ej}
 
 Esta idea que usamos para los grupos libres se puede extender más en general para grupos virtualmente libres con algunas modificaciones. Esta es la primera de las equivalencias que vamos a ver.

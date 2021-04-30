@@ -8,18 +8,15 @@ Un conjunto finito $\Sigma$ lo vamos a llamar un \blue{alfabeto}. Una \blue{pala
 La analogía es que un lenguaje formal va a ser un conjunto de palabras sobre este alfabeto. Más formalmente para poder hablar de palabras sobre un alfabeto necesitamos definir el monoide libre sobre el alfabeto.
 \begin{deff}
 	El \blue{monoide libre} sobre un alfabeto $\Sigma$ es el siguiente conjunto
-	\[
+	\begin{equation*}
 	\Sigma^{*} = \bigcup_{k=0}^{\infty} \Sigma^k
-	\]
+	\end{equation*}
 	con la operación $\cdot$ que es la concatenación de palabras. Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que corresponde a la copia de $\Sigma^0$ que es la única palabra de longitud $0$. 
 \end{deff}
 
 \begin{obs}
 	Este monoide es libre con la siguiente propiedad. Si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama
-	\[\begin{tikzcd}
-	\Sigma^{*} && M \\
-	\Sigma.
-	\end{tikzcd}\]
+	
 	
 	
 \end{obs}
@@ -106,7 +103,7 @@ Un lenguaje $L$ es independiente de contexto sii es aceptado por un automáta de
 	Ver \cite{}.
 \end{proof}
 
-Hasta ahora definimos los automátas de pila no determinísticos que aceptan por estado final. Otra definición posible de lenguaje aceptado podría ser que acepten por pila vacía. Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(\lambda q)$ donde $1$ es la palabra vacía de $Z^*$ el alfabeto de la pila. El siguiente resultado nos permite utilizar las dos maneras de aceptar un lenguaje tal como nos convenga.
+Hasta ahora definimos los automátas de pila no determinísticos que aceptan por estado final. Otra definición posible de lenguaje aceptado podría ser que acepten por pila vacía. Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(\lambda q)$ donde $\lambda$ es la palabra vacía de $Z^*$ el alfabeto de la pila. El siguiente resultado nos permite utilizar las dos maneras de aceptar un lenguaje tal como nos convenga.
 
 \medskip
 \begin{teo}
