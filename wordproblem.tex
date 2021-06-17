@@ -31,7 +31,7 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 
 Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos se corresponden a tener un lenguaje independiente de contexto.
 
-\begin{ej}
+\begin{ej}[Automáta para grupos libres.]
 	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. Pensemos un ADPND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
 	Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento visto como un elemento en el grupo. Esto es, cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en el tope de la pila. Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. Entonces este automáta lo podemos representar de la siguiente manera,
 	
@@ -60,9 +60,9 @@ Esta idea que usamos para los grupos libres se puede extender más en general pa
 \begin{proof}
 	Para demostrar este teorema necesitamos construirnos al automáta para una presentación fijada de un grupo virtualmente libre.
 	
-	Fijemos entonces el subgrupo libre de índice finito $F_\Sigma$. Sea $R$ representantes de coclases a derecha de $G/F_\Sigma$ que sabemos son finitos. De esta manera podemos considerar entonces $\Delta = \Sigma \cup \Sigma^{-1} \cup R$ ta que nos da una presentación de nuestro grupo.
+	Fijemos entonces el subgrupo libre de índice finito $F_\Sigma$. Sea $R$ representantes de coclases a derecha de $G/F_\Sigma$ que sabemos son finitos. De esta manera podemos considerar al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup R$ de generadores de nuestro grupo tal que nos da una presentación.
 	
-	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura dado por 
+	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura convergente dado por 
 	\[
 	S = \{ ab \to w(a,b)r  \}
 	\] 
@@ -72,10 +72,22 @@ Esta idea que usamos para los grupos libres se puede extender más en general pa
 	\[
 	{\cal M }= (Q,\Delta, Z, \delta, q_0, F)
 	\]
-	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. Nuestra función de transición entonces hace lo siguiente
+	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. Notemos a su vez a $m = \max {|w(r,a)|}$ para $r \in R, a \in \Delta$ que es finito porque es el máximo de longitudes de finitas palabras. Cuando tengamos una ecuación en término de las copias la vamos a considerar como el elemento que representa en el grupo. La utilidad radica en poder tener un automáta más declarativo en cuanto a los nombres de los estados. Nuestra función de transición entonces funciona de la siguiente manera si no tenemos nada en la pila
+	
 	\begin{align*}
-		asdasd
+		(r'a,w(r'a)s) \in \delta  \ \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=w(r',a)s \ \ \text{y} \ \ w(r',a) \neq 1  \\
+		(r'a,s') \in \delta  \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=s.  \\ 
 	\end{align*}
+	
+Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a los estados que le corresponden a $R$ mientras que en el otro caso nos quedamos en los estados de la copia $R'$. En particular como el estado inicial es $1' \in R'$ luego siempre que tengamos la pila no vacía vamos a estar en algún estado $r \in R$. Repliquemos esta idea también para el caso que que tengamos algo en la pila,
+	
+	\begin{align*}
+	(xra,ys) \in \delta \ \ \text{para} \ \  s \in R, x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s  \\ & \ \ \text{e} \ \ y \ \text{es la forma reducida de} \ \ xw(r,a)  \\
+	(xra,s') \in \delta\ \ \text{para} \ \  s' \in R', x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s'  \\ & \ \ \text{e}  \ \ xw(r,a)  \ \text{se reduce a 1}. \ \  \\ 
+	\end{align*}
+	En este caso la función de transición cuando tenemos algo en la pila lo que va haciendo es lo mismo que antes y solo pasa a los estados que corresponden a $R'$ cuando la palabra que nos queda la pila vacía. 
+	
+	De esta manera notemos que en particular es un automáta especial determinístico considerando que la transición es determinística porque el sistema de reescritura es convergente por lo que hay una única palabra reducida. Por otro lado como el único estado que acepta es el estado inicial y la única manera de llegar a cualquier estado en $R'$ es con la pila vacía luego el automáta acepta por pila vacía y estado final a la vez.
 \end{proof}
 
 \begin{obs}
