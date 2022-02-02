@@ -3,37 +3,43 @@
 \begin{document}
 \chapter{Teoría de lenguajes.}	
 En esta sección vamos a introducir los elementos básicos de la teoría de lenguajes formales que utilizaremos en este trabajo. 
-\begin{deff}
-Un conjunto finito $\Sigma$ lo vamos a llamar un \blue{alfabeto}. Una \blue{palabra} $w$ en este alfabeto es un elemento de $\Sigma^k$ para algún $k \le 0$ y su \blue{longitud} es este número k.
-\end{deff}
-La analogía es que un lenguaje formal va a ser un conjunto de palabras sobre este alfabeto. Más formalmente para poder hablar de palabras sobre un alfabeto necesitamos definir el monoide libre sobre el alfabeto.
+
+Consideremos un conjunto finito no vacío $\Sigma$ que llamaremos el alfabeto y $\Sigma^k$ el conjunto de sucesiones finitas de elementos $a_1 \dots a_k$ con  $a_i \in \Sigma$. Los elementos de $\Sigma$ se llaman letras y los elementos de $\Sigma^k$ serán palabras de longitud $k$ sobre $\Sigma$. 
 \begin{deff}
 	El \blue{monoide libre} sobre un alfabeto $\Sigma$ es el siguiente conjunto
 	\begin{equation*}
 	\Sigma^{*} = \bigcup_{k=0}^{\infty} \Sigma^k
 	\end{equation*}
-	con la operación $\cdot$ que es la concatenación de palabras. Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que corresponde a la copia de $\Sigma^0$ que es la única palabra de longitud $0$. 
+	con la operación $\cdot$ que es la concatenación de palabras. Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que corresponde a la copia de $\Sigma^0$ que es la única palabra sin letras. 
 \end{deff}
-
 \begin{obs}
-	Este monoide es libre con la siguiente propiedad. Si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama
+	El monoide es libre con la siguiente propiedad: si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama.	
 	
-	
+	\begin{center}
+	\begin{tikzcd}
+		\Sigma \arrow[r, "f"] \arrow[d, hook] & M \\
+		\Sigma^* \arrow[ru, "\overline f"]    &  
+	\end{tikzcd}
+	\end{center}
 	
 \end{obs}
 
-\begin{obs}
-	De esta manera podemos pensar a una {presentación} de un monoide $M$  como un epimorfismo de monoides $\pi: \Sigma^{*} \to M$. Esto nos dice que el monoide $M$ tiene como generadores a $\Sigma$ y sus relaciones están dadas por el núcleo del morfismo $\pi$.
-\end{obs}
+Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$ es una palabra $u \in \Sigma^*$ tal que $w = vuz$ para algunas $v, z \in \Sigma^*$. Si $w = vu$ entonces $v$ es un prefijo de $w$ y $u$ es un subfijo de $w$.
 
 \begin{deff}
-	Un \blue{lenguaje} $L$ es un subconjunto de $\Sigma^{*}$. 
+	Un \blue{lenguaje} sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
 \end{deff}
 
+
+\begin{comment}
+	\begin{obs}
+	De esta manera podemos pensar a una {presentación} de un monoide $M$  como un epimorfismo de monoides $\pi: \Sigma^{*} \to M$. Esto nos dice que el monoide $M$ tiene como generadores a $\Sigma$ y sus relaciones están dadas por el núcleo del morfismo $\pi$.
+	\end{obs}
+\end{comment}
 
 \section{Lenguajes independientes de contexto.}
 \subsection{Gramáticas.}
-En esta sección vamos a ver una manera de clasificar a un tipo de lenguajes que nos van a ser útiles. Para eso nos vamos a enfocar primero en cómo generarlos. Una herramienta para poder generarlos son las gramáticas.
+Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gramática. Esto es esencialmente unh conjunto de reglas que al irse aplicando nos permiten generar todas las palabras del lenguaje.
 
 \begin{deff}
 	Una gramática es una tupla ${\cal G} = (V, \Sigma, P, S)$ que la interpretamos de la siguiente manera,
@@ -47,7 +53,9 @@ En esta sección vamos a ver una manera de clasificar a un tipo de lenguajes que
 
 Las variables en algunos casos son también llamados símbolos no terminales. Las solemos notar en mayúscula y representan lenguajes. Las producciones son reglas recursivas que nos sirven para definir a un lenguaje. A la regla $(\omega, \lambda)$ la vamos a denotar $\omega \to \lambda$.
 
-La gramática permite generar al lenguaje de la siguiente manera. Arrancamos con la producción que tiene al símbolo inicial $S$ a su izquierda y la reemplazamos por lo que aparece a la derecha. Es decir si miramos $S \to \omega$ luego reemplazamos a $S$ por $\omega$ y seguimos. Por cada subpalabra de $\omega\in (V \cup \Sigma)^*$ que aparezca a la izquierda de alguna de las producciones la reemplazamos por la que aparece a la derecha. Más en general definimos la relación $\Rightarrow$ que funciona de la siguiente manera, $\omega \Rightarrow_{\cal G} \xi$ significa que a partir de las reglas de nuestra gramática podemos derivar a $\xi$ usando las producciones sucesivamente. Tomamos la clausura transitiva, reflexiva y simétrica de esta relación que denotaremos $\overset{*}{\Rightarrow_{\cal G}}$.
+La gramática permite generar al lenguaje de la siguiente manera. Arrancamos con la producción que tiene al símbolo inicial $S$ a su izquierda y la reemplazamos por lo que aparece a la derecha. Es decir si miramos $S \to \omega$ luego reemplazamos a $S$ por $\omega$ y seguimos. Por cada subpalabra de $\omega\in (V \cup \Sigma)^*$ que aparezca a la izquierda de alguna de las producciones la reemplazamos por la que aparece a la derecha. 
+
+Más en general definimos la relación $\Rightarrow$ que formaliza esta idea. Para $\omega, \xi \in \Sigma^*$  $\omega \Rightarrow_{\cal G} \xi$ significa que a partir de las reglas de nuestra gramática podemos derivar a $\xi$ usando las producciones sucesivamente. Tomamos la clausura transitiva, reflexiva y simétrica de esta relación que denotaremos $\overset{*}{\Rightarrow_{\cal G}}$.
 
 
 De esta manera podemos definir un lenguaje a partir de la gramática como las palabras en $\Sigma^*$ tales que por medio de las producciones las podemos generar. Formalmente
@@ -64,6 +72,11 @@ Un \textit{lenguaje independiente de contexto} es un lenguaje tal que es generad
 y cumplen que $|\omega| = 1$. 
 
 \begin{ej}[Derivación de un lenguaje ind de contexto para ver el funcionamiento]
+	Sea el alfabeto $\Sigma = \{ a,b \}$. Si $w=a_1 \dots a_k$ es una palabra sobre $\Sigma^*$ entonces podemos considerar a $w^r$ que es la palabra inversa dada por leerla de derecha a izquierda y tiene la siguiente pinta $w^r= a_k \dots a_1$. Consideremos sobre $\Sigma$ el lenguaje $L = \{ w \in \Sigma^* \ | \ w = w^r  \}$ tal que este es el lenguaje de los palíndromos. Construyamos una gramática independiente de contexto para este lenguaje. Sea $w$ una palabra en $L$ luego sabemos que si su longitud es mayor que uno entonces debe ser que $w = a u a$ o $w = b u b$ para cierta palabra $u \in L$ dado que $u$ necesariamente tiene que ser un palíndromo porque $w$ lo es. Esto sucede para todas las palabras del lenguaje exceptuando las palabras de longitud uno que son justamente las letras del alfabeto. De esta manera podemos considerar la siguiente gramática ${\cal G}  =  (\{S\}, \Sigma, P, S )$ donde las producciones $P$ están dadas por :
+	\begin{align*}
+	S  & \to \epsilon \\ S &\to a \\ S &\to b \\ S &\to  aSa \\ S &\to bSb. \\
+	\end{align*}
+	Para ver que esta gramática genera al lenguaje $L$ notemos que si tomamos una palabra en el lenguaje $w \in L$ luego si no es una letra al ser palíndromo sobre el alfabeto $\Sigma$ necesariamente debe comenzar con $a$ o con $b$ y de esta manera tenemos que la primer derivación es $S \to aSa$ o $S \to bSb$. Dado que la subpalabra $w = aua$ que se obtiene de $w$ sin considerar la primera y última letra es un palíndromo (e incluso podría ser la palabra vacía) luego podemos repetir este proceso para llegar a $S \implies^* w$ después de finitos pasos. Por otro lado toda palabra generada por esta gramática es un palíndromo porque todas las reglas son tales que agregan una letra al principio y la misma al final o simplemente agregan letras que también son palíndromos.
 	
 \end{ej}
 
