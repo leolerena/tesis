@@ -41,6 +41,18 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 	\end{obs}
 \end{comment}
 
+\section{Lenguajes regulares.}
+
+%definición automáta finito
+%definición de lenguaje regular por medio del automáta, las otras defs no son necesarias
+% comentar que los regulares son cerrados para grupos? quizá pueda servir para después
+
+%definición de un cono
+
+
+
+
+
 \section{Lenguajes independientes de contexto.}
 \subsection{Gramáticas.}
 Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gramática. Esto es esencialmente unh conjunto de reglas que al irse aplicando nos permiten generar todas las palabras del lenguaje.
@@ -93,7 +105,7 @@ Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas
 		\item $Q$ denota los finitos estados;
 		\item $\Sigma$ es el alfabeto finito del lenguaje que queremos reconocer;
 		\item $\Gamma$ es el alfabeto finito de la pila;
-		\item $\delta$ es la función de transición donde $\delta: Q  \times \Sigma^* \times \Gamma^* \to Q  \times \Sigma^* \times \Gamma^*$;
+		\item $\delta$ es la función de transición donde $\delta: Q  \times \Sigma^* \times \Gamma^* \to {\cal P}( Q  \times \Sigma^* \times \Gamma^*)$;
 		\item $F \subseteq Q$ es el conjunto de estados finales;
 		\item $q_0$ es el estado inicial;
 		\item $Z_0$ es el símbolo inicial en la pila.
@@ -177,6 +189,51 @@ Estos automátas son los que nos surgen de la construcción del automáta del pr
 \begin{ej}
 	Sea el lenguaje $L = \{ a^n b^m   \}$
 \end{ej}
+
+
+\section{Conos de lenguajes y el problema de la palabra.}
+
+En esta sección consideraremos un grupo $G$ finitamente generado y una presentación $\pi: \Sigma^* \twoheadrightarrow  G$ de este grupo con finitos generadores $\Sigma$. 
+
+El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explicitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano una presentación posible del grupo.
+
+Dado un grupo finitamente presentado por alguna presentación $\pi$ consideramos el siguiente lenguaje 
+
+$$\text{WP}_\pi (G) = \{ \omega \in \Sigma^* \ | \ \pi(\omega)=1 \}$$
+
+que llamaremos \emph{el problema de la palabra de la presentación $\pi$ de $G$}. 
+
+
+
+Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos de lenguajes siempre y cuando cumplan las siguientes condiciones.
+
+\begin{deff}
+	Una familia de lenguajes $\CC$ es un \emph{cono} si para todo $L \in \CC$ resulta que:
+	\begin{itemize}
+		\item Es cerrado por imágenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
+		\item Es cerrado por preimagenes de morfismos de monoides. Si $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides luego debe ser que $\phi^{-1}(L) \in \CC$. 
+		\item Es cerrado por intersecciones con lenguajes regulares. Si $R$ es un lenguaje regular sobre $\Sigma^*$ luego $L \cap R \in \CC$ también.
+	\end{itemize}
+\end{deff} 
+
+En particular los conos de lenguajes cumplen la siguiente propiedad.
+
+\begin{prop}
+	Sea $WP_\pi(G)$ el problema de la palabra de cierto grupo en alguna presentación $\pi$ y $\CC$ algún cono de lenguajes. Si $WP(G) \in \CC$ luego valen las siguientes afirmaciones:
+	\begin{itemize}
+		\item $WP(G) \in \CC$ para cualquier presentación elegida $\pi$.
+		\item $WP(H) \in \CC$ para todo subgrupo $H$ finitamente generado de $G$.
+		\item $WP(H) \in \CC$ para todo subgrupo $H$ de índice finito en $G$.
+	\end{itemize} 
+\end{prop}
+
+Esto nos dice que en particular es interesante estudiar el problema de la palabra sobre conos. Veamos que los lenguajes que definimos anteriormente resultan ser un cono...
+
+
+
+
+
+
 
 \section{Sistemas de reescritura.}
 

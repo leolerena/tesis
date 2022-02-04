@@ -2,30 +2,7 @@
 \begin{document}
 	
 \chapter{El problema de la palabra.}
-En esta sección consideraremos un grupo $G$ finitamente generado y una presentación $\pi: \Sigma^* \twoheadrightarrow  G$ de este grupo con finitos generadores $\Sigma$. 
 
-El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explicitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano una presentación posible del grupo.
-
-Dado un grupo finitamente presentado por alguna presentación $\pi$ consideramos el siguiente lenguaje 
-
-$$\text{WP}_\pi (G) = \{ \omega \in \Sigma^* \ | \ \pi(\omega)=1 \}$$
-
-que llamaremos \emph{el problema de la palabra de la presentación $\pi$ de $G$}. 
-
-\begin{lema}
-	El tipo del lenguaje de la palabra no depende de la presentación elegida.
-\end{lema}
-\begin{proof}
-	Para ver esto recordemos [] y []. De esta manera si tuvieramos dos presentaciones sean estas
-$\pi_:\Sigma^* \to G$ y sea la otra presentación $\pi': \Delta^* \to G$	luego por la propiedad universal del monoide libre tenemos un morfismo $\varphi:\Sigma^* \to \Delta^*$ que hace conmutar el siguiente diagrama. 
-	\[
-	\begin{tikzcd}
-	\Sigma^*  \arrow{d}{\pi}  \arrow[dashrightarrow]{dr}{\varphi}   \\
-	G     &  \Delta^* \arrow{l}{\pi'}
-	\end{tikzcd}
-	\]
-Notemos en particular que este morfismo envía el problema de la palabra de una presentación al de la otra, es decir $\varphi(\text{WP}_\pi (G)) \subseteq (\text{WP}_\pi' (G))$
-\end{proof}
 
 Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden.De esta manera a los grupos que tengan problema de la palabra independiente de contexto los llamaremos directamente independientes de contexto. 
 
