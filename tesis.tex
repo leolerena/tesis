@@ -1,7 +1,7 @@
-\documentclass[12pt]{book}
+\documentclass[11pt]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{geometry}\geometry{margin=1in}
+\usepackage{geometry}\geometry{margin=1.15in}
 \usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools,sectsty}
 \pagenumbering{gobble}
 \usepackage{subcaption}
@@ -24,11 +24,11 @@
 }
 \definecolor{astral}{RGB}{46,116,181}
 \colorlet{chulo}{blue!70!purple}
-\colorlet{rojo}{red!65!black}
+\colorlet{rojo}{purple!65!black}
 
 
-
-
+\paragraphfont{\color{astral!70!black}}
+\chapterfont{\color{astral!40!black}}
 \subsectionfont{\color{astral!60!black} }
 \sectionfont{\color{astral!50!black} }
 \usepackage{mathpazo}
@@ -38,25 +38,24 @@
 \usepackage{tcolorbox}
 \usepackage{thmtools}
 
-%\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
-%\newcommandx{\improvement}[2][1=]{\todo[linecolor=Plum,backgroundcolor=Plum!25,bordercolor=Plum,#1]{#2}}
 
-%%%%%%%%%%%%%  THEOREMS  %%%%%%%%%%%%%%%%%
-\theoremstyle{plain} % other options: definition, remark
-\newtheorem{teo}{\color{rojo} Teorema}
+
+%%%%%%%%%%%%%  TEOREMAS  %%%%%%%%%%%%%%%%%
+\theoremstyle{plain} %% el estilo clásico
+\newtheorem{teo}{\color{rojo} Teorema}[section]
 \newtheorem{prop}[teo]{\color{rojo} Proposición}
 \newtheorem{lema}[teo]{\color{rojo} Lema}
 \newtheorem{coro}[teo]{\color{rojo} Corolario}
 % By including [theorem], the lemma follows the numbering of theorem
 % e.g. Thm 1, Lemma 2, Thm 3, Thm 4, \dots
 \theoremstyle{definition}
-\newtheorem{deff}{Definición} 
-\newtheorem*{ej}{ Ejemplo}
+\newtheorem{deff}{\color{orange!80!black} Definición}[section] 
+\newtheorem{ej}{\color{orange!80!black} Ejemplo}[section]
 
 % Remarks
 \theoremstyle{remark}
-\newtheorem{obs}{Observación}
-\newtheorem{ejj}{ Ejercicio}
+\newtheorem{obs}{\color{orange!85!white} Observación}[section]
+
 
 
 %Comandos útiles.

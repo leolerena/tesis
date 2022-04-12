@@ -1,15 +1,27 @@
 \documentclass[tesis.tex]{subfiles}
+
+\newcommand{\APND}{automáta de pila no determinístico }
+\newcommand{\APD}{automáta de pila determinístico }
+\newcommand{\fg}{grupo finitamente generado }
+\newcommand{\fp}{grupo finitamente presentado }
+
 \begin{document}
 	
-\chapter{El problema de la palabra.}
+\chapter{Grupos virtualmente libres.}
+
+Un grupo $G$ es virtualmente libre si existe un subgrupo $F$ libre tal que el índice es finito.
 
 
-Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden.De esta manera a los grupos que tengan problema de la palabra independiente de contexto los llamaremos directamente independientes de contexto. 
+
+
+
+\section{El problema de la palabra de los grupos virtualmente libres.}
+Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. Los grupos que su lenguaje del problema de la palabra sea independiente de contexto los llamaremos directamente independientes de contexto. 
 
 Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos se corresponden a tener un lenguaje independiente de contexto.
 
 \begin{ej}[Automáta para grupos libres.]
-	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. Pensemos un ADPND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
+	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. Pensemos un \APND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
 	Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento visto como un elemento en el grupo. Esto es, cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en el tope de la pila. Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. Entonces este automáta lo podemos representar de la siguiente manera,
 	
 	
@@ -68,8 +80,92 @@ Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a 
 \end{proof}
 
 \begin{obs}
-	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto y así vimos que los grupos virtualmente libres son independientes de contexto.
+	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto determinístico. Como tal tiene las siguientes buenas propiedades algorítmicas \ref{}...
 \end{obs}
 
+
+
+\section{Grafos de Cayley.}
+
+\begin{deff}
+	Sea $G$ un \fg y $A$ el conjunto de sus generadores. Definimos el grafo de Cayley como el grafo que tiene como vértices los elementos del grupo $G$ vistos como palabras en $A$ y las aristas etiquetadas con elementos de $A$. 
+\end{deff}
+
+Como todo grupo libre es tal que sus grafos de Cayley resultan ser árboles es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
+
+\begin{deff}
+	Un grafo $X$ tiene \blue{treewidth finito} si existe un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ que cumple las siguientes condiciones:
+	\begin{itemize}
+		\item Todos los vértices $v \in V(X)$ están en algún $X_t$ para algún $t \in V(T)$. 
+		\item Si hay una arista $e$ entre dos vértices $v,w$ en $X$ luego estos están en un mismo $X_t$ para algún $t \in V(T)$.
+		\item 
+	\end{itemize} 
+\end{deff}
+
+\begin{deff}
+El \blue{bagsize} de una descomposición en un árbol de un grafo $X$ es el siguiente número natural:
+	\begin{equation*}
+		bs(X) = \{ \inf |X_t|, \ t \in V(T) : T \ \text{descomposición de} \ X  \} - 1
+	\end{equation*}
+\end{deff}
+
+En particular si el grafo $X$ es un árbol notemos que podemos tomar como descomposición al mismo árbol y a cada arista...
+
+\begin{teo}
+	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
+\end{teo}
+\begin{proof}
+	\red{ HACER}
+\end{proof}
+
+
+\subsection{Cuasisometrías.}
+A todo grafo lo podemos pensar como un espacio métrico dónde los vértices que están unidos por una arista están a distancia exactamente 1. 
+
+
+\begin{deff}
+	Sean $X,Y$ espacios métricos. Una cuasisometría es una función $f:X \to Y$ tal que:
+	\begin{enumerate}
+	\item 
+	\item 
+	\end{enumerate}
+\end{deff}
+
+\red{Propiedades de las cuasisometrías y un poco de la intuición geométrica detrás.}
+
+Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
+
+\begin{lema}
+	El treewidth finito es un invariante por cuasisometría.
+\end{lema}
+\begin{proof}
+	\red{HACER}
+\end{proof}
+
+A partir de este resultado podemos ver que las dos maneras distintas que teníamos de pensar a los grafos que se parecen a árboles resultan ser equivalentes.
+
+\begin{prop}
+	Un grafo $X$ tiene treewidth finito si y solo si es cuasisométrico con un árbol.
+\end{prop}
+\begin{proof}
+Para la ida veamos de armarnos la cuasisometría a partir de la descomposición en árbol del grafo $X$. Definamos entonces la cuasisometría $q: T \to X$ a partir de mandar $t \to x_t$ donde $x_t \in X_t$ es algún elemento del bolsón correspondiente a $t \in V(T)$ que sabemos que no es vacío. Esta función es una cuasisometría con constante $C=1$ y $A = bs(T) + 1$.
+
+Hay que ver la distancia dentro de un bolsón esté controlada... 
+
+
+Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$ y este tiene treewidth exactamente 1 luego usando la prop anterior vemos que $X$ debe tener treewidth finito tal como queríamos ver.
+\end{proof}
+
+\begin{coro}
+	Todo grupo independiente de contexto es tal que su grafo de Cayley es cuasisométrico a un árbol.
+\end{coro}
+
+\section{Teoría de Bass Serre.}
+
+
+
+	
+	
+	
 	
 \end{document}

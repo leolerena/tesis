@@ -44,7 +44,7 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gramática. Esto es esencialmente unh conjunto de reglas que al irse aplicando nos permiten generar todas las palabras del lenguaje.
 
 \begin{deff}
-	Una gramática es una tupla ${\cal G} = (V, \Sigma, P, S)$ que la interpretamos de la siguiente manera,
+	Una \blue{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ que la interpretamos de la siguiente manera,
 	\begin{itemize}
 		\item $V$ es un conjunto finito de variables;
 		\item $S \in V$ es el símbolo inicial;
@@ -68,7 +68,7 @@ L({\cal G}) = \{ w \in \Sigma^* \ | \ S \overset{*}{\Rightarrow_{\cal G}} w   \}
 De esta manera podemos empezar a clasificar los lenguajes por medio de qué tipo de gramáticas los generan. 
 
 \begin{deff}
-	Los lenguajes regulares son lenguajes generados por gramáticas en las cuales las producciones son del estilo
+	Los \blue{lenguajes regulares} son lenguajes generados por gramáticas en las cuales las producciones son del estilo
 	\begin{enumerate}
 		\item $A \to \lambda$
 		\item $A \to a$
@@ -112,17 +112,17 @@ Dado un grupo finitamente presentado por alguna presentación $\pi$ consideramos
 
 $$\text{WP}_\pi (G) = \{ \omega \in \Sigma^* \ | \ \pi(\omega)=1 \}$$
 
-que llamaremos \emph{el problema de la palabra de la presentación $\pi$ de $G$}. 
+que llamaremos el \blue{problema de la palabra de la presentación $\pi$ de $G$}. 
 
 
 
 Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos de lenguajes siempre y cuando cumplan las siguientes condiciones.
 
 \begin{deff}
-	Una familia de lenguajes $\CC$ es un \emph{cono} si para todo $L \in \CC$ resulta que:
+	Una familia de lenguajes $\CC$ es un \blue{cono} si para todo $L \in \CC$ resulta que:
 	\begin{itemize}
 		\item Es cerrado por imágenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
-		\item Es cerrado por preimagenes de morfismos de monoides. Si $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides luego debe ser que $\phi^{-1}(L) \in \CC$. 
+		\item Es cerrado por preimagenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides luego debe ser que $\phi^{-1}(L) \in \CC$. 
 		\item Es cerrado por intersecciones con lenguajes regulares. Si $R$ es un lenguaje regular sobre $\Sigma^*$ luego $L \cap R \in \CC$ también.
 	\end{itemize}
 \end{deff} 
@@ -178,18 +178,26 @@ Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas
 \paragraph{Funcionamiento del automáta.}
 %Un prefijo de $w$ será una subpalabra $\gamma$ tal que $w=\gamma w'$ visto con la concatenación de palabras en $\Sigma^*$.
 
-El automáta de pila finito funciona de la siguiente manera. Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro automáta. Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. En este caso diremos que nuestro automáta es \textit{no determinístico} dado que en algunos casos existe más de una opción.
+El automáta de pila finito funciona de la siguiente manera. Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro automáta. Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. En este caso diremos que nuestro automáta es \blue{no determinístico} dado que en algunos casos existe más de una opción.
 
-En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. Tenemos algún $z \in Z^{*}$ en la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedaré una subpalabra $\gamma$ de $w$ para leer. Una \textit{configuración} de nuestro automáta entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(zq\gamma)$. 
+En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro automáta entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
 
 Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. En tal caso la palabra $w$ es aceptada por el automáta. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
 
-\paragraph{Descripción instántanea del automata.} Veamos ahora como describir formalmente el funcionamiento de un automáta a partir de lo que estamos haciendo en cierto instante. 
+\begin{obs}
+	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra....
+	
+	Esta manera es equivalente porque...
+	
+	Más en adelante nos va a ser conceptualmente más util para el caso que estemos viendo el problema de la palabra de un grupo para que lo que esté en la pila sea más fácil de comprender...
+\end{obs}
+
+\paragraph{Descripción instántanea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un automáta a partir de lo que estamos haciendo en cierto instante. 
 Consideremos que estamos en el instante que nuestra subpalabra que nos queda por leer es $w$, estamos en un estado $q$ y en nuestra pila tenemos la palabra $\gamma$, entonces vamos a representar al instante por medio de esta tupla $(q,w,\gamma)$.
-Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. Podemos considerar la clausura transitiva de esta relación sobre los triples $Z^* \times Q \times \Sigma^*$ que denotaremos $\vdash^*$.
+Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. Podemos considerar la clausura transitiva de esta relación sobre los triples $Z \times Q \times \Sigma^*$ que denotaremos $\vdash^*$.
 
 
-\paragraph{El lenguaje aceptado por un automáta de pila.} Notemos que en particular el automáta de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del automáta $\Sigma$ que son aceptadas. En general diremos que un automáta acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. Este lenguaje aceptado por el automáta $\cal M$ en algunas casos para hacer énfasis en el automáta lo denotaremos $L {(\cal M)}$ y siguiendo la notación formal anterior lo podemos describir de la siguiente manera,
+\paragraph{El lenguaje aceptado por un autómata de pila.} Notemos que en particular el automáta de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del automáta $\Sigma$ que son aceptadas. En general diremos que un automáta acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. Este lenguaje aceptado por el automáta $\cal M$ en algunas casos para hacer énfasis en el automáta lo denotaremos $L {(\cal M)}$ y siguiendo la notación formal anterior lo podemos describir de la siguiente manera,
 \begin{equation*}
 	L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
 \end{equation*}
@@ -231,7 +239,7 @@ De esta manera sabemos que en particular el lenguaje de los palíndromos definid
 		\item $\delta (q_0, \lambda, Z) = (q_1,Z)$
 		\item $\delta (q_0, X, Z) = (q_1, Z)$ 
 	\end{itemize}
- 		donde $Z=a,b, \$$ es decir cualquier cosa del alfabeto de la pila y $X = a, b$ cualquier elemento de nuestro alfabeto. El automáta en el primer estado apila lo que sea que estemos leyendo sin importar lo que esté en el tope de pila. En el segundo estado desapila cada vez que lo que estemos leyendo coincida con el tope de pila. Finalmente para ir del estado inicial al final tenemos en cuenta dos casos. Nos podemos mover por $\lambda$ es decir sin consumir ninguna letra de la palabra de la entrada o leyendo alguna de las letras de la palabra. Estos casos se corresponden a que el palíndromo tenga longitud par o tenga longitud impar.	
+ 		donde $Z=a,b, \$$ es decir cualquier cosa del alfabeto de la pila y $X = a, b$ cualquier elemento de nuestro alfabeto de entrada. El automáta en el primer estado apila lo que sea que estemos leyendo sin importar lo que esté en el tope de pila. En el segundo estado desapila cada vez que lo que estemos leyendo coincida con el tope de pila. Finalmente para ir del estado inicial al final tenemos en cuenta dos casos. Nos podemos mover por $\lambda$ es decir sin consumir ninguna letra de la palabra de la entrada o leyendo alguna de las letras de la palabra. Estos casos se corresponden a que el palíndromo tenga longitud par o tenga longitud impar.	
 \end{ej}
 
 
