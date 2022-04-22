@@ -88,50 +88,109 @@ Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a 
 \section{Grafos de Cayley.}
 
 \begin{deff}
-	Sea $G$ un \fg y $A$ el conjunto de sus generadores. Definimos el grafo de Cayley como el grafo que tiene como vértices los elementos del grupo $G$ vistos como palabras en $A$ y las aristas etiquetadas con elementos de $A$. 
+	Sea $G$ un \fg y $A$ un conjunto de generadores. Definimos el \blue{grafo de Cayley} $Cay(G,A)$ como el grafo que tiene como vértices los elementos del grupo $G$ vistos como palabras en $A$ y las aristas etiquetadas con elementos de $A$. 
 \end{deff}
 
 Como todo grupo libre es tal que sus grafos de Cayley resultan ser árboles es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
 
 \begin{deff}
-	Un grafo $X$ tiene \blue{treewidth finito} si existe un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ que cumple las siguientes condiciones:
-	\begin{itemize}
+	 Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ (llamaremos a $X_t$ bolsones) que cumple las siguientes condiciones:
+	\begin{enumerate}
 		\item Todos los vértices $v \in V(X)$ están en algún $X_t$ para algún $t \in V(T)$. 
 		\item Si hay una arista $e$ entre dos vértices $v,w$ en $X$ luego estos están en un mismo $X_t$ para algún $t \in V(T)$.
-		\item 
-	\end{itemize} 
+		\item Si $v \in V(X)$ es tal que $v \in X_t \cap X_s$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X_t \}$ forma un subárbol. 
+	\end{enumerate} 
 \end{deff}
+\smallskip
+
+La idea de la descomposición es que los \emph{bolsones} $X_t \in {\cal P}(V(T))$ no tengan muchos vértices si es que queremos modelizar que el grafo se parezca a un árbol. Esto nos conduce a la siguiente definición.
 
 \begin{deff}
-El \blue{bagsize} de una descomposición en un árbol de un grafo $X$ es el siguiente número natural:
+El \blue{bagsize} de una descomposición en un árbol de un grafo $X$ es el siguiente valor:
 	\begin{equation*}
-		bs(X) = \{ \inf |X_t|, \ t \in V(T) : T \ \text{descomposición de} \ X  \} - 1
+		bs(X) = \{ \sup |X_t|, \ t \in V(T) : T \ \text{descomposición de} \ X  \} - 1
 	\end{equation*}
+Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
+\begin{obs}
+ En particular si el grafo $X$ es un árbol notemos que podemos tomar como descomposición al mismo árbol y a cada arista.
+\end{obs}
 
-En particular si el grafo $X$ es un árbol notemos que podemos tomar como descomposición al mismo árbol y a cada arista...
+\red{No sé si hace falta pero agregar lo del cíclico como ejemplo para diferenciar el caso que la descomposición es conexa o no. Esto depende de si lo necesito usar después en la demostración de cuasisometría.}
+
+\begin{obs}
+	Si un grafo $\Gamma$ tiene treewidth finito podemos tomarnos otra descomposición tal que siga siendo de treewidth finito pero los bolsones de la descomposición sean conexos. Si algún bolsón no es conexo agregamos todos los vértices del grafo que estén en la geodésica que une las componentes conexas. Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
+\end{obs}
+
 
 \begin{teo}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
 \begin{proof}
-	\red{ HACER}
+Consideremos el grafo de $\Gamma = Cay(G,A)$ para cierto conjunto de generadores $A$. Queremos ver que tiene treewidth finito independientemente del conjunto de generadores que tomamos.
+	
+Primero consideremos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley. 
+
+Sea $V_n = \Gamma \setminus B_n(1) $ tal que $V_1 = \Gamma \setminus \{1\}$. El árbol que vamos a considerar va a tener como vértices a conjuntos de vértices del grafo $\Gamma$ de manera que resultará evidente los bolsones que vamos a tomar para la descomposición,
+\[
+V(T) = \{  \beta C : C \subseteq V_n \ \text{componente conexa}   \}
+\]
+esto es todas las fronteras de las componentes conexas que nos quedan cuando consideramos algún $V_n$. Las aristas entonces van a estar dadas por lo siguiente,
+\[
+E(T) = \{ (\beta C, \beta D) : C \subseteq D \subseteq V_n, C \subset V_{n+1}   \}
+\]
+esto es que $C$ es una componente conexa del grafo que queda de sacarla la bola de radio un número mayor que el que está $D$.
+
+Podemos ver que así como lo construímos tenemos un árbol $T$ tal que su raíz es $B_1(\Gamma)$. 
+
+Para ver que es un árbol veamos primero que es conexo. Para eso notemos que basta con exhibir un camino entre la raíz $B_1$ y cualquier vértice $\beta C$. Como $C \subseteq V_n$ tiene que existir un camino...
+
+Para terminar de ver que es un árbol veamos que no tiene ciclos. 
+
+Para ver que es una descomposición de árboles debemos ver que cumple las tres condiciones. 
+
+La primera condición la cumple por como lo definimos porque cualquier vértice del grafo $g \in V(\Gamma)$ está a alguna distancia $n$ del $1$ por lo que está en alguna componente conexa $C \subseteq V_{n-1}$. En particular como la distancia es exactamente $n$ tiene que estar conectada con un vértice de $V_{n-1}$ y por lo tanto $g \in \beta C$.
+
+La segunda condición partimos de una arista $uv \in E(\Gamma)$ luego miramos las distancias que hay al $1$ de ambos vértices $g,h \in V(\Gamma)$. Si ambas están a distancia $n$ del $1$ luego están en alguna componente conexa $C \subseteq V_{n-1}$ dado que están conectadas por una arista. De esta manera ambas están en el borde de esta componente. El otro caso es que $d(g,1)=n < d(h,1)=n+1$ y en este caso como están conectadas resulta que están en $\beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_n$ por definición.
+
+La tercera condición supongamos que hay $g \in V(\Gamma)$ tal que está en la intersección de dos bolsones $\beta C \cap \beta D$. Queremos ver que está en todos los bolsones que aparecen en la geodésica de $\beta C$ a $\beta D$ en el árbol T. Si $d(g,1) = n$ luego solo puede estar en la frontera de alguna componente conexa $C$ tal que esté en alguna de estas opciones  $V_{n-1}, V_{n},  V_{n+1}$. Supongamos que $D \subseteq V_{n}$, en tal caso vale que $D \nsubseteq V_{n}$ porque sino tendríamos que resulta ser la misma componente conexa. Sin pérdida de generalidad supongamos que $C \subset V_n$ mientras que $D \subset V_{n+1}$. Como ambas son componentes conexas luego si hay una intersección tiene que haber una contención, esto es que $D \subseteq C$. De esta manera vemos que $(\beta C, \beta D) \in E(T)$ por lo tanto como están unidos por una arista la geodésica es justamente esta arista.
+
+Esta descomposición que hicimos es válida para todo grafo de Cayley. Para ver que tiene treewidth finito lo que vamos a hacer es usar que el grupo es independiente de contexto. Vamos a acotar el tamaño de los bolsones.
+
+	
 \end{proof}
 
 
 \subsection{Cuasisometrías.}
-A todo grafo lo podemos pensar como un espacio métrico dónde los vértices que están unidos por una arista están a distancia exactamente 1. 
+A todo grafo lo podemos pensar como un espacio métrico dónde las aristas son isométricas al intervalo real $[0,1]$. 
 
 
 \begin{deff}
 	Sean $X,Y$ espacios métricos. Una cuasisometría es una función $f:X \to Y$ tal que:
 	\begin{enumerate}
-	\item 
-	\item 
+	\item Para todo par de puntos $x_1,x_2 \in X$ existen constantes $A,B \le 0$ tales que
+	\[
+	\frac{1}{A} d_X(x_1,x_2) - B \le d_Y(f(x_1),f(x_2)) \le A d_X(x_1,x_2) + B
+	\]
+	\item Existe una constante real $C \le 0$ tal que para todo punto $y \in Y$ existe $x \in X$ tal que 
+	\[
+	d(y,f(x)) \le C
+	\]
 	\end{enumerate}
+ 	Dos espacios métricos que se dicen cuasisométricos si existe una cuasisometría entre ellos.
 \end{deff}
 
+
+
 \red{Propiedades de las cuasisometrías y un poco de la intuición geométrica detrás.}
+Si tenemos una cuasisometría $f:X \to Y$ a partir de ésta nos podemos armar otra cuasisometría $g:Y \to X$. De esta manera podemos que la relación de ser cuasisométricos es una relación de equivalencia porque la reflexividad y la transitividad se deducen inmediatamente y la simetría a partir de lo visto anteriormente.
+
+
+Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. El ejemplo clásico es el de la grilla y el plano.
+
+Dado que todo grupo lo podemos pensar como un espacio métrico a partir de la distancia dada por la cantidad de palabras... está bien hablar de cuasisometrías entre grupos si pudieramos ver que esto no depende del conjunto de generadores que hayamos elegido.
+
+
 
 Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
 
@@ -139,7 +198,7 @@ Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi u
 	El treewidth finito es un invariante por cuasisometría.
 \end{lema}
 \begin{proof}
-	\red{HACER}
+Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_1$ tiene treewidth finito, nos gustaría ver que $\Gamma_2$ también tiene treewidth finito...
 \end{proof}
 
 A partir de este resultado podemos ver que las dos maneras distintas que teníamos de pensar a los grafos que se parecen a árboles resultan ser equivalentes.
@@ -148,9 +207,11 @@ A partir de este resultado podemos ver que las dos maneras distintas que teníam
 	Un grafo $X$ tiene treewidth finito si y solo si es cuasisométrico con un árbol.
 \end{prop}
 \begin{proof}
+%La manera más inmediata para la ida es usar el resultado que un subgrupo de índice finito es cuasisométrico con el grupo original.	
+	
 Para la ida veamos de armarnos la cuasisometría a partir de la descomposición en árbol del grafo $X$. Definamos entonces la cuasisometría $q: T \to X$ a partir de mandar $t \to x_t$ donde $x_t \in X_t$ es algún elemento del bolsón correspondiente a $t \in V(T)$ que sabemos que no es vacío. Esta función es una cuasisometría con constante $C=1$ y $A = bs(T) + 1$.
 
-Hay que ver la distancia dentro de un bolsón esté controlada... 
+Hay que ver la distancia dentro de un bolsón esté controlada...
 
 
 Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$ y este tiene treewidth exactamente 1 luego usando la prop anterior vemos que $X$ debe tener treewidth finito tal como queríamos ver.
