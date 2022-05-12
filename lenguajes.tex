@@ -3,12 +3,14 @@
 
 \newcommand{\APND}{automáta de pila no determinístico }
 \newcommand{\APD}{automáta de pila determinístico }
+\newcommand{\deriva}{\overset{*}{\Rightarrow_{\cal G}}}
+\newcommand{\lengderivado}{L({\cal G})}
 
 \begin{document}
 \chapter{Teoría de lenguajes.}	
 En esta sección vamos a introducir los elementos básicos de la teoría de lenguajes formales que utilizaremos en este trabajo. 
 
-Consideremos un conjunto finito no vacío $\Sigma$ que llamaremos el alfabeto y $\Sigma^k$ el conjunto de sucesiones finitas de elementos $a_1 \dots a_k$ con  $a_i \in \Sigma$. Los elementos de $\Sigma$ se llaman letras y los elementos de $\Sigma^k$ serán palabras de longitud $k$ sobre $\Sigma$. 
+Consideremos un conjunto no vacío $\Sigma$ que llamaremos el \blue{alfabeto} y $\Sigma^k$ el conjunto de sucesiones finitas de elementos $a_1 \dots a_k$ con  $a_i \in \Sigma$. Los elementos de $\Sigma$ se llaman \blue{letras} y los elementos de $\Sigma^k$ serán \blue{palabras} de longitud $k$ sobre $\Sigma$. La \blue{palabra vacía} que corresponde a $\Sigma^0$ la denotaremos por $\lambda$.
 \begin{deff}
 	El \blue{monoide libre} sobre un alfabeto $\Sigma$ es el siguiente conjunto
 	\begin{equation*}
@@ -22,7 +24,7 @@ Consideremos un conjunto finito no vacío $\Sigma$ que llamaremos el alfabeto y 
 	\begin{center}
 	\begin{tikzcd}
 		\Sigma \arrow[r, "f"] \arrow[d, hook] & M \\
-		\Sigma^* \arrow[ru, "\overline f"]    &  
+		\Sigma^* \arrow[ru, "\overline f",dashed,swap]    &  
 	\end{tikzcd}
 	\end{center}
 	
@@ -41,40 +43,44 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 	\end{obs}
 \end{comment}
 \section{Gramáticas.}
-Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gramática. Esto es esencialmente unh conjunto de reglas que al irse aplicando nos permiten generar todas las palabras del lenguaje.
+Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gramática. Esto es esencialmente un conjunto de reglas que al irse aplicando nos permiten generar todas las palabras del lenguaje.
 
 \begin{deff}
 	Una \blue{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ que la interpretamos de la siguiente manera,
 	\begin{itemize}
-		\item $V$ es un conjunto finito de variables;
-		\item $S \in V$ es el símbolo inicial;
-		\item $\Sigma$ es un conjunto finito de símbolos terminales ;
-		\item $P \subseteq (V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de producciones.
+		\item $V$ es un conjunto finito de \emph{variables};
+		\item $S \in V$ es el \emph{símbolo inicial};
+		\item $\Sigma$ es un conjunto finito de \emph{símbolos terminales} que lo tomamos disjunto de $\Sigma$;
+		\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
 	\end{itemize}
 \end{deff}
 
-Las variables en algunos casos son también llamados símbolos no terminales. Las producciones son reglas recursivas que nos sirven para definir a un lenguaje. A la regla $(\omega, \lambda)$ la vamos a denotar $\omega \to \lambda$.
+%Las variables en algunos casos son también llamados símbolos no terminales. Las producciones son reglas recursivas que nos sirven para definir a un lenguaje. A la regla $(\omega, \lambda)$ la vamos a denotar $\omega \to \lambda$.
 
-La gramática permite generar al lenguaje de la siguiente manera. Arrancamos con alguna producción que tenga al símbolo inicial $S$ a su izquierda y la reemplazamos por lo que aparece a la derecha. Es decir si miramos $S \to \omega$ luego reemplazamos a $S$ por $\omega$ y seguimos. Por cada subpalabra de $\omega\in (V \cup \Sigma)^*$ que aparezca a la izquierda de alguna de las producciones la reemplazamos por la que aparece a la derecha. 
+%La gramática permite generar al lenguaje de la siguiente manera. Arrancamos con alguna producción que tenga al símbolo inicial $S$ a su izquierda y la reemplazamos por lo que aparece a la derecha. Es decir si miramos $S \to \omega$ luego reemplazamos a $S$ por $\omega$ y seguimos. Por cada subpalabra de $\omega\in (V \cup \Sigma)^*$ que aparezca a la izquierda de alguna de las producciones la reemplazamos por la que aparece a la derecha. 
 
-Más en general definimos la relación $\Rightarrow$ que formaliza esta idea. Para $\omega, \xi \in \Sigma^*$  $\omega \Rightarrow_{\cal G} \xi$ significa que a partir de las reglas de nuestra gramática podemos derivar a $\xi$ usando las producciones sucesivamente. Tomamos la clausura transitiva, reflexiva y simétrica de esta relación que denotaremos $\overset{*}{\Rightarrow_{\cal G}}$.
+Dados $uAv \in (\Sigma \cup V)^* V(\Sigma \cup V)^*$ y $w \in (\Sigma \cup V)^*$ si tenemos alguna producción $uAv \to uwv$ diremos que $uAv$ \emph{deriva} en $uwv$ y lo denotaremos $uAv \Rightarrow_{\cal G} uwv $. Esto nos define una relación $\Rightarrow$ sobre $(\Sigma \cup V)^*$. Tomamos la clausura transitiva, simétrica y reflexiva para así obtener una relación de equivalencia que denotaremos $\deriva$.
 
 
-De esta manera podemos definir un lenguaje a partir de la gramática como las palabras en $\Sigma^*$ tales que por medio de las producciones las podemos generar. Formalmente
-\[
-L({\cal G}) = \{ w \in \Sigma^* \ | \ S \overset{*}{\Rightarrow_{\cal G}} w   \}.
-\]
-
-De esta manera podemos empezar a clasificar los lenguajes por medio de qué tipo de gramáticas los generan. 
+ %$uAv \Rightarrow_{\cal G} \xi$ sii a partir de las reglas de nuestra gramática podemos derivar a $\xi$ usando las producciones. Esto es que existen finitas producciones tales que $\omega \to \gamma_1 \to \dots \to \gamma_n \to \xi$ para ciertas $\gamma_i \in (\Sigma \cup V)^*, i=1 \dots n$. Tomamos la clausura transitiva, reflexiva y simétrica de esta relación que denotaremos $\deriva$ para así llegar a una relación de equivalencia sobre $(\Sigma \cup V)^*$. 
 
 \begin{deff}
-	Los \blue{lenguajes regulares} son lenguajes generados por gramáticas en las cuales las producciones son del estilo
+	El \blue{lenguaje de la gramática} van a ser las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial $S$. Formalmente esto es
+	\[
+	L({\cal G}) = \{ w \in \Sigma^* \ | \ S \overset{*}{\Rightarrow_{\cal G}} w   \}.
+	\]
+\end{deff}
+
+Es posible clasificar los lenguajes a partir de las características de las gramáticas que los generan. 
+
+\begin{deff}
+	Decimos que una gramática es \blue{ regular} si las producciones son del estilo
 	\begin{enumerate}
 		\item $A \to \lambda$
 		\item $A \to a$
 		\item $A \to a B$
 	\end{enumerate}
-	donde $A, B \in V$ y $a \in \Sigma$.
+	donde $A, B \in V$ y $a \in \Sigma$. Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \blue{lenguaje regular}. 
 \end{deff}
 
 
@@ -104,26 +110,25 @@ De esta manera podemos empezar a clasificar los lenguajes por medio de qué tipo
 
 \section{Conos de lenguajes y el problema de la palabra.}
 
-En esta sección consideraremos un grupo $G$ finitamente generado y una presentación $\pi: \Sigma^* \twoheadrightarrow  G$ de este grupo con finitos generadores $\Sigma$. 
+En esta sección consideraremos un grupo $G$ finitamente generado por algún alfabeto $\Sigma$ donde lo vemos como un conjunto de generadores como monoide dado que en particular todos los grupos son monoides. De esta manera tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. En particular en este sección todos los lenguajes $L$ considerados van a estar definidos sobre algún alfabeto finito, esto es que existe $\Delta$ alfabeto finito tal que $L \subseteq \Delta^*$.
 
-El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explicitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano una presentación posible del grupo.
+El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explícitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano algún conjunto de generadores posible del grupo.
 
-Dado un grupo finitamente presentado por alguna presentación $\pi$ consideramos el siguiente lenguaje 
+Dado un grupo finitamente presentado consideramos el siguiente lenguaje 
 
 $$\text{WP}_\pi (G) = \{ \omega \in \Sigma^* \ | \ \pi(\omega)=1 \}$$
 
 que llamaremos el \blue{problema de la palabra de la presentación $\pi$ de $G$}. 
 
 
-
-Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos de lenguajes siempre y cuando cumplan las siguientes condiciones.
+Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos de lenguajes siempre y cuando cumplan las siguientes condiciones. 
 
 \begin{deff}
 	Una familia de lenguajes $\CC$ es un \blue{cono} si para todo $L \in \CC$ resulta que:
 	\begin{itemize}
 		\item Es cerrado por imágenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
-		\item Es cerrado por preimagenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides luego debe ser que $\phi^{-1}(L) \in \CC$. 
-		\item Es cerrado por intersecciones con lenguajes regulares. Si $R$ es un lenguaje regular sobre $\Sigma^*$ luego $L \cap R \in \CC$ también.
+		\item Es cerrado por preimagenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
+		\item Es cerrado por intersecciones con lenguajes regulares. Si $R$ es un lenguaje regular sobre $\Sigma^*$ entonces $L \cap R \in \CC$ también resulta serlo.
 	\end{itemize}
 \end{deff} 
 
@@ -159,10 +164,10 @@ y cumplen que $|\omega| = 1$.
 \end{ej}
 
 \subsection{Autómatas de pila.}
-Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas que nos permiten aceptar un lenguaje. En nuestro caso en particular vamos a usar automátas de pila no determinísticos para aceptar los lenguajes independientes de contexto.
+Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas que nos permiten aceptar un lenguaje. En nuestro caso en particular vamos a usar autómatas de pila no determinísticos para aceptar los lenguajes independientes de contexto.
 
 \begin{deff}
-	Un \blue{automáta de pila finito no determinístico} es una tupla ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)$ que la interpretamos de la siguiente manera,
+	Un \blue{autómata de pila finito no determinístico} es una tupla ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)$ que la interpretamos de la siguiente manera,
 	\begin{itemize}
 		\item $Q$ denota los finitos estados;
 		\item $\Sigma$ es el alfabeto finito del lenguaje que queremos reconocer;
@@ -178,9 +183,9 @@ Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas
 \paragraph{Funcionamiento del automáta.}
 %Un prefijo de $w$ será una subpalabra $\gamma$ tal que $w=\gamma w'$ visto con la concatenación de palabras en $\Sigma^*$.
 
-El automáta de pila finito funciona de la siguiente manera. Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro automáta. Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. En este caso diremos que nuestro automáta es \blue{no determinístico} dado que en algunos casos existe más de una opción.
+El autómata de pila finito funciona de la siguiente manera. Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro autómata. Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. En este caso diremos que nuestro automáta es \blue{no determinístico} dado que en algunos casos existe más de una opción.
 
-En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro automáta entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
+En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro autómata entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
 
 Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. En tal caso la palabra $w$ es aceptada por el automáta. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
 
@@ -189,7 +194,7 @@ Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado 
 	
 	Esta manera es equivalente porque...
 	
-	Más en adelante nos va a ser conceptualmente más util para el caso que estemos viendo el problema de la palabra de un grupo para que lo que esté en la pila sea más fácil de comprender...
+	Más en adelante nos va a ser conceptualmente más útil para el caso que estemos viendo el problema de la palabra de un grupo para que lo que esté en la pila sea más fácil de comprender...
 \end{obs}
 
 \paragraph{Descripción instántanea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un automáta a partir de lo que estamos haciendo en cierto instante. 
