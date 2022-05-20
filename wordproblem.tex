@@ -4,6 +4,8 @@
 \newcommand{\APD}{automáta de pila determinístico }
 \newcommand{\fg}{grupo finitamente generado }
 \newcommand{\fp}{grupo finitamente presentado }
+\newcommand{\WP}{\text{WP}(G, \Sigma)}
+\newcommand{\deriva}{\overset{*}{\Rightarrow_{\cal G}}}
 
 \begin{document}
 	
@@ -93,11 +95,11 @@ Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a 
 
 Como todo grupo libre es tal que sus grafos de Cayley resultan ser árboles es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
 
-\begin{deff}
+\begin{deff}\label{desc-arbol}
 	 Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ (llamaremos a $X_t$ bolsones) que cumple las siguientes condiciones:
 	\begin{enumerate}
-		\item Todos los vértices $v \in V(X)$ están en algún $X_t$ para algún $t \in V(T)$. 
-		\item Si hay una arista $e$ entre dos vértices $v,w$ en $X$ luego estos están en un mismo $X_t$ para algún $t \in V(T)$.
+		\item Dado cualquier vértice $v \in V(X)$ existe $t \in V(T)$ tal que $x \in X_t$. 
+		\item Si hay una arista $e$ entre dos vértices $v,w \in V(X)$ luego existe $t \in V(T)$ tal que $v,w \in X_t$.
 		\item Si $v \in V(X)$ es tal que $v \in X_t \cap X_s$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X_t \}$ forma un subárbol. 
 	\end{enumerate} 
 \end{deff}
@@ -122,41 +124,110 @@ Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un �
 	Si un grafo $\Gamma$ tiene treewidth finito podemos tomarnos otra descomposición tal que siga siendo de treewidth finito pero los bolsones de la descomposición sean conexos. Si algún bolsón no es conexo agregamos todos los vértices del grafo que estén en la geodésica que une las componentes conexas. Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
 \end{obs}
 
+\begin{deff}
+	Dado un grafo $X$, el \blue{borde} de un conjunto de vértices $C \subseteq V(X)$ se define como
+	\[
+	\beta C = \{ u \in V(X) : \exists v \in V(X), \ uv \in E(X), \  \ \ (u \in C \wedge v \in \overline C) \ \ \lor  (u \in \overline C \wedge v \in  C)   \}.
+	\] 
+\end{deff}
 
 \begin{teo}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
 \begin{proof}
-Consideremos el grafo de $\Gamma = Cay(G,A)$ para cierto conjunto de generadores $A$. Queremos ver que tiene treewidth finito independientemente del conjunto de generadores que tomamos.
+Consideremos el grafo de $\Gamma = Cay(G,A)$ para cierto conjunto de generadores $A$. Queremos ver que tiene treewidth finito.
 	
 Primero consideremos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley. 
 
-Sea $V_n = \Gamma \setminus B_n(1) $ tal que $V_1 = \Gamma \setminus \{1\}$. El árbol que vamos a considerar va a tener como vértices a conjuntos de vértices del grafo $\Gamma$ de manera que resultará evidente los bolsones que vamos a tomar para la descomposición,
+Sea $V_n = \Gamma \setminus B_n(1) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
+El árbol que vamos a considerar va a tener como vértices a conjuntos de vértices del grafo $\Gamma$ de manera que resultará evidente los bolsones que vamos a tomar para la descomposición. 
+Los vértices del árbol $T$ van a estar dados por los siguientes conjuntos,
 \[
 V(T) = \{  \beta C : C \subseteq V_n \ \text{componente conexa}   \}
 \]
-esto es todas las fronteras de las componentes conexas que nos quedan cuando consideramos algún $V_n$. Las aristas entonces van a estar dadas por lo siguiente,
+esto es todas las fronteras de las componentes conexas que nos quedan cuando consideramos algún $V_n$. 
+Las aristas entonces van a estar dadas por lo siguiente,
 \[
-E(T) = \{ (\beta C, \beta D) : C \subseteq D \subseteq V_n, C \subset V_{n+1}   \}
+E(T) = \{ \beta C \beta D : C \subseteq D \subseteq V_n, \ C \subset V_{n+1}   \}
 \]
 esto es que $C$ es una componente conexa del grafo que queda de sacarla la bola de radio un número mayor que el que está $D$.
 
-Podemos ver que así como lo construímos tenemos un árbol $T$ tal que su raíz es $B_1(\Gamma)$. 
+Notemos en particular que por como definimos este grafo $T$ resulta que si $C$ es una componente conexa de $V_n$ entonces solo existe una única arista $(\beta C, \beta D)$ tal que $D \subseteq V_{n-1}$. 
+Esto se debe a que al ser $C$ conexo entonces como $V_{n-1} \subseteq V_{n}$ en particular $C \subseteq V_{n}$ y debe estar contenida en una sola componente conexa $D \subseteq V_{n-1}.$
 
-Para ver que es un árbol veamos primero que es conexo. Para eso notemos que basta con exhibir un camino entre la raíz $B_1$ y cualquier vértice $\beta C$. Como $C \subseteq V_n$ tiene que existir un camino...
+%Quizá estaría bueno poner algún dibujito acá.
 
-Para terminar de ver que es un árbol veamos que no tiene ciclos. 
+Podemos ver que así como lo construimos tenemos que el grafo $T$ resulta ser un árbol tal que su raíz es $B_1(\Gamma)$. 
 
-Para ver que es una descomposición de árboles debemos ver que cumple las tres condiciones. 
+Para ver que es un árbol veamos primero que es conexo. Dado un vértice $\beta C \in V(T)$ vamos a armar un camino que lo conecte con la raíz del árbol $B_1(\Gamma)$. 
+Usemos inducción en el $n$ tal que $C$ es una componente conexa de $V_n$. 
+El caso base es algún $C$ tal que es una componente conexa de $V_2$ y queremos armarnos un camino que lo una con $B_1(\Gamma)$. 
+Dado que $V_2 \subseteq V_1$ en particular tenemos que $C \subseteq V_1$. De esta manera por la definición tenemos que existe una arista $(\beta C, B_1(0))$ tal como queríamos ver.
 
-La primera condición la cumple por como lo definimos porque cualquier vértice del grafo $g \in V(\Gamma)$ está a alguna distancia $n$ del $1$ por lo que está en alguna componente conexa $C \subseteq V_{n-1}$. En particular como la distancia es exactamente $n$ tiene que estar conectada con un vértice de $V_{n-1}$ y por lo tanto $g \in \beta C$.
+Para el paso inductivo supongamos que tenemos que para cualquier borde de una componente conexa de $V_{n-1}$ tenemos un camino que lo une con la raíz $B_1(\Gamma)$ y veamos de construirnos un camino con cualquier borde de una componente conexa $C \subseteq V_n$.
+De esta manera debe existir $D$ componente conexa de $V_{n-1}$ tal que $C \subseteq D$. Esto es porque $V_{n-1} \subseteq V_{n}$ y al ser $C$ un conexo si interseca alguna de las componentes conexas de $V_{n-1}$ debe estar contenida en ella. 
+Necesariamente debe intersecar a alguna de estas componentes conexas porque particionan al espacio.
+Así vimos que existe una arista $(\beta C, \beta D)$ y ahora usando la hipótesis inductiva obtenemos un camino de $B_1(\Gamma)$ con $\beta C$.
+Concluimos que el grafo $T$ es conexo.   
 
-La segunda condición partimos de una arista $uv \in E(\Gamma)$ luego miramos las distancias que hay al $1$ de ambos vértices $g,h \in V(\Gamma)$. Si ambas están a distancia $n$ del $1$ luego están en alguna componente conexa $C \subseteq V_{n-1}$ dado que están conectadas por una arista. De esta manera ambas están en el borde de esta componente. El otro caso es que $d(g,1)=n < d(h,1)=n+1$ y en este caso como están conectadas resulta que están en $\beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_n$ por definición.
+% Otra manera que se me ocurrió es tomar un ciclo de longitud mínimo y llegar a un absurdo achicandolo. Creo que es más corto pero no me convence.
+Para terminar de ver que es un árbol veamos que es acíclico. 
+Dado un camino cerrado $\sigma$ en $T$ probemos que necesariamente tiene que repetirse algún vértice por lo tanto ningún camino cerrado puede ser un ciclo. Vamos a probarlo usando inducción en el máximo $n \in \NN$ tal que $C \in V_n$ y $\beta C$ es uno de los vértices en el camino. 
+%Notemos que está bien definido porque los caminos cerrados son compactos.
+Para el caso base notemos que si $\sigma$ es un camino cerrado tal que el máximo $n$ que aparece es $n=1$ entonces necesariamente $\sigma$ es idéntico al camino constante fijo en $B_1(0)$.
+%reescribir esto!
+Para el paso inductivo supongamos que para todo camino cerrado con máximo $m \in \NN$ tal que algún vértice que aparece en este camino es una componente conexa de $V_m$ resulta ser $n-1$ entonces este camino no es un ciclo. Veamos que si $m=n$ entonces este camino cerrado también resulta ser un ciclo.
 
-La tercera condición supongamos que hay $g \in V(\Gamma)$ tal que está en la intersección de dos bolsones $\beta C \cap \beta D$. Queremos ver que está en todos los bolsones que aparecen en la geodésica de $\beta C$ a $\beta D$ en el árbol T. Si $d(g,1) = n$ luego solo puede estar en la frontera de alguna componente conexa $C$ tal que esté en alguna de estas opciones  $V_{n-1}, V_{n},  V_{n+1}$. Supongamos que $D \subseteq V_{n}$, en tal caso vale que $D \nsubseteq V_{n}$ porque sino tendríamos que resulta ser la misma componente conexa. Sin pérdida de generalidad supongamos que $C \subset V_n$ mientras que $D \subset V_{n+1}$. Como ambas son componentes conexas luego si hay una intersección tiene que haber una contención, esto es que $D \subseteq C$. De esta manera vemos que $(\beta C, \beta D) \in E(T)$ por lo tanto como están unidos por una arista la geodésica es justamente esta arista.
+Partamos de un camino tal que pasa por $\beta C$ con $C \subseteq V_n$. 
+Como no existe $(\beta C, \beta C') \in E(T)$ tal que $C,C'$ sean componentes conexas de un mismo $V_n$ por la definición que dimos de las aristas. Necesariamente tiene que haber una arista con alguna componente conexa $D \in V_{n-1}$ dado que $n$ es máximo en este camino cerrado.   
+Como vimos anteriormente solamente hay una única arista que una a $\beta C$ con alguna $\beta D$ con $D \subseteq V_{n-1}$. 
+Esto nos dice que si el camino cerrado pasa por la arista $(\beta C, \beta D)$ necesariamente debe volver a pasar por la arista $(\beta C, \beta D)$ por lo tanto no es un ciclo. 
+Concluimos que el grafo $T$ es acíclico y por lo tanto como es conexo también resulta que $T$ es un árbol.
 
-Esta descomposición que hicimos es válida para todo grafo de Cayley. Para ver que tiene treewidth finito lo que vamos a hacer es usar que el grupo es independiente de contexto. Vamos a acotar el tamaño de los bolsones.
+Para ver que es una descomposición de árboles debemos ver que cumple las tres condiciones \ref{desc-arbol} de la definición. 
+\begin{enumerate}
+	\item La primera condición la cumple por como lo definimos porque cualquier vértice del grafo $g \in V(\Gamma)$ 
+	es tal que existe $n \in \NN$ de manera que $d(1,g)=n$, por lo que está en alguna componente conexa $C \subseteq V_{n-1}$. 
+	En particular como la distancia es exactamente $n$ tiene que existir una arista $gg' \in E(\Gamma)$ con un vértice $g' \in V_{n-1}$ y por lo tanto $g \in \beta C$.
+	
+	\item La segunda condición partimos de una arista $gh \in E(\Gamma)$ luego miramos las distancias que hay al $1$ de ambos vértices para conseguirnos el bolsón adecuado. 
+	Supongamos que ambas están a la misma distancia del $1$. En tal caso sea $n$ tal que $d(g,1)=d(h,1)=n$ luego si miramos $V_{n-1}$ notemos que tienen que estar en la misma componente conexa porque existe una arista entre ambos vértices. Sea esta componente $C$ luego como están a distancia exactamente $n$ ambas están en el borde, esto es que $g,h \in \beta C$ tal como queríamos ver. 
+	El otro caso es que $d(g,1)=n < d(h,1)=n+1$ y en este caso como están conectadas resulta que están en $\beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_n$ por definición del borde de un conjunto de vértices de un grafo.
+	
+	\item La tercera condición supongamos que hay $g \in V(\Gamma)$ tal que está en la intersección de dos bolsones $\beta C \cap \beta D$. 
+	Queremos ver que está en todos los bolsones que aparecen en la geodésica de $\beta C$ a $\beta D$ en el árbol T. 
+	Si $d(g,1) = n$ luego solo puede estar en la frontera de alguna componente conexa $C$ tal que esté en alguna de estas opciones  $V_{n-1}, V_{n},  V_{n+1}$. 
+	Supongamos que $D \subseteq V_{n}$, en tal caso vale que $D \nsubseteq V_{n}$ porque sino tendríamos que resulta ser la misma componente conexa. 
+	Sin pérdida de generalidad supongamos que $C \subset V_n$ mientras que $D \subset V_{n+1}$. 
+	Como ambas son componentes conexas luego si hay una intersección tiene que haber una contención, esto es que $D \subseteq C$. 
+	De esta manera vemos que $(\beta C, \beta D) \in E(T)$ por lo tanto como están unidos por una arista la geodésica es justamente esta arista.
+	
+\end{enumerate}
 
+
+
+Esta descomposición que hicimos es válida para todo grafo de Cayley. 
+Para ver que tiene treewidth finito lo que vamos a hacer es usar que el grupo es independiente de contexto. 
+Buscamos $k \in \NN$ tal que nos permita acotar $|\beta C| \le k$ para todo $\beta C \in V(T)$. 
+Alcanza con ver que el diámetro de cada bolsón $\beta C$ está acotado, esto es que 
+\[
+\text{diam}(\beta C) =  \sup_{g,h \in \beta C} d(g,h) \le k
+\] 
+porque al ser el grupo finitamente generado por $\Sigma$ entonces $|\beta C| \le |\Sigma|^{\text{diam}(\beta C)} < \infty$. 
+
+
+Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $\cal G$ independiente de contexto que lo genera. 
+Consideremos que está en la forma normal de Chomsky.
+
+Para cada variable $A$ de nuestra gramática podemos considerar el siguiente lenguaje
+\[
+L_A = \{ w \in \Sigma^* : A \deriva w  \}.
+\]
+Para este lenguaje introduzcamos un número natural $k_A \in \NN$ definido por $k_A = \min_{w \in L_A} |w|$. 
+Como tenemos finitas variables en nuestra gramática $\cal G$ podemos considerar $k = \max_{A \in V} k_A$. 
+Veamos que $\text{diam}(\beta C) \le 3k$ para todo $\beta C \in V(T)$.
+
+Sean $g,h \in \beta C$ para cierta $C$ componente conexa de $V_n$, veamos de acotar $d(g,h)$. Para eso consideremos una geodésica $\alpha$ que una $1$ con $g$ y análogamente otra $\gamma$ que una $1$ con $h$.
 	
 \end{proof}
 

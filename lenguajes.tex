@@ -60,9 +60,7 @@ Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gra
 %La gramática permite generar al lenguaje de la siguiente manera. Arrancamos con alguna producción que tenga al símbolo inicial $S$ a su izquierda y la reemplazamos por lo que aparece a la derecha. Es decir si miramos $S \to \omega$ luego reemplazamos a $S$ por $\omega$ y seguimos. Por cada subpalabra de $\omega\in (V \cup \Sigma)^*$ que aparezca a la izquierda de alguna de las producciones la reemplazamos por la que aparece a la derecha. 
 
 Dados $uAv \in (\Sigma \cup V)^* V(\Sigma \cup V)^*$ y $w \in (\Sigma \cup V)^*$ si tenemos alguna producción $uAv \to uwv$ diremos que $uAv$ \emph{deriva} en $uwv$ y lo denotaremos $uAv \Rightarrow_{\cal G} uwv $. Esto nos define una relación $\Rightarrow$ sobre $(\Sigma \cup V)^*$. Tomamos la clausura transitiva, simétrica y reflexiva para así obtener una relación de equivalencia que denotaremos $\deriva$.
-
-
- %$uAv \Rightarrow_{\cal G} \xi$ sii a partir de las reglas de nuestra gramática podemos derivar a $\xi$ usando las producciones. Esto es que existen finitas producciones tales que $\omega \to \gamma_1 \to \dots \to \gamma_n \to \xi$ para ciertas $\gamma_i \in (\Sigma \cup V)^*, i=1 \dots n$. Tomamos la clausura transitiva, reflexiva y simétrica de esta relación que denotaremos $\deriva$ para así llegar a una relación de equivalencia sobre $(\Sigma \cup V)^*$. 
+ 
 
 \begin{deff}
 	El \blue{lenguaje de la gramática} van a ser las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial $S$. Formalmente esto es
@@ -143,11 +141,11 @@ En particular los conos de lenguajes cumplen la siguiente propiedad.
 	\end{itemize} 
 \end{prop}
 
-Esto nos dice que en particular es interesante estudiar el problema de la palabra sobre conos. 
+Esto nos dice que en particular es interesante estudiar el problema de la palabra sobre conos de lenguajes. 
+
+
 
 \section{Lenguajes independientes de contexto.}
-
-
 Un \textit{lenguaje independiente de contexto} es un lenguaje tal que es generado por una gramática donde todas sus producciones son del estilo
 \[
  \omega \to \lambda
