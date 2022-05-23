@@ -1,6 +1,5 @@
 # Cosas para hacer.
 
-* 
 * Hacer las demos de conos y profundizar un poco en esa parte de teoría de lenguajes. Podría agregar todo lo de lenguajes regulares y ya definir lo de poly context free. Cuando entienda esto mejor comentarselo a Iván. También podría hablarlo con Verónica ya que le quería hablar por el doctorado y esto es lo más computacional.
 * Masticar mejor el algoritmo para obtener el automáta de pila a partir del grupo virtualmente libre. Iván me sugirió verlo a partir de la presentación dada a partir del grafo de Bass Serre. Estaría bueno entender como encontrar el libre en un caso en general. ¿Es el mismo algoritmo que el de la forma normal para Bass Serre?
   * Ver si es necesario usar sistemas de reescritura para este algoritmo. Así tal como lo tengo lo uso para saber que podemos llevar toda palabra en los generadores a una de una pinta en particular. Creo que en el paper original de Schupp no usaban estas herramientas. Sino ya fue y lo uso porque es bastante útil y poco sofisticadas las definiciones iniciales.
@@ -14,7 +13,7 @@
 ### Grafos de Cayley.
 
 * Reescribir la tercera condición de treewidth finito. Chequear el argumento para ver que es acíclico que está escrito bastante raro.
-* Terminar de pasar la demo de treewidth finito implica gramática independiente de contexto.
+* ~~Terminar de pasar la demo de gramática independiente de contexto implica treewidth finito.~~ 
 * Dar bien la definición de grafo de Cayley. Que quede claro que tomo un grafo con generadores como monoide.
   * Dar un ejemplo. Quizá pueda poner el de $F_2$ que es lindo :)
 * Escribir bien el ejemplo del treewidth de un árbol.
