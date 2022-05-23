@@ -194,7 +194,7 @@ Para ver que es una descomposición de árboles debemos ver que cumple las tres 
 	Supongamos que ambas están a la misma distancia del $1$. En tal caso sea $n$ tal que $d(g,1)=d(h,1)=n$ luego si miramos $V_{n-1}$ notemos que tienen que estar en la misma componente conexa porque existe una arista entre ambos vértices. Sea esta componente $C$ luego como están a distancia exactamente $n$ ambas están en el borde, esto es que $g,h \in \beta C$ tal como queríamos ver. 
 	El otro caso es que $d(g,1)=n < d(h,1)=n+1$ y en este caso como están conectadas resulta que están en $\beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_n$ por definición del borde de un conjunto de vértices de un grafo.
 	
-	\item La tercera condición supongamos que hay $g \in V(\Gamma)$ tal que está en la intersección de dos bolsones $\beta C \cap \beta D$. 
+	\item Para la tercera condición supongamos que hay $g \in V(\Gamma)$ tal que está en la intersección de dos bolsones $\beta C \cap \beta D$. 
 	Queremos ver que está en todos los bolsones que aparecen en la geodésica de $\beta C$ a $\beta D$ en el árbol T. 
 	Si $d(g,1) = n$ luego solo puede estar en la frontera de alguna componente conexa $C$ tal que esté en alguna de estas opciones  $V_{n-1}, V_{n},  V_{n+1}$. 
 	Supongamos que $D \subseteq V_{n}$, en tal caso vale que $D \nsubseteq V_{n}$ porque sino tendríamos que resulta ser la misma componente conexa. 
@@ -233,6 +233,7 @@ Sean $g,h \in \beta C$ para cierta $C$ componente conexa de $V_n$, veamos de aco
 
 
 \subsection{Cuasisometrías.}
+%Mover esto a la sección anterior dado que uso que es un espacio métrico antes.
 A todo grafo lo podemos pensar como un espacio métrico dónde las aristas son isométricas al intervalo real $[0,1]$. 
 
 

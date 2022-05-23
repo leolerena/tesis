@@ -108,7 +108,9 @@ Es posible clasificar los lenguajes a partir de las características de las gram
 
 \section{Conos de lenguajes y el problema de la palabra.}
 
-En esta sección consideraremos un grupo $G$ finitamente generado por algún alfabeto $\Sigma$ donde lo vemos como un conjunto de generadores como monoide dado que en particular todos los grupos son monoides. De esta manera tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. En particular en este sección todos los lenguajes $L$ considerados van a estar definidos sobre algún alfabeto finito, esto es que existe $\Delta$ alfabeto finito tal que $L \subseteq \Delta^*$.
+En esta sección consideraremos un grupo $G$ finitamente generado por algún alfabeto $\Sigma$ donde lo vemos como un conjunto de generadores como monoide dado que en particular todos los grupos son monoides. 
+De esta manera tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. 
+En particular en este sección todos los lenguajes $L$ considerados van a estar definidos sobre algún alfabeto finito, esto es que existe $\Delta$ alfabeto finito tal que $L \subseteq \Delta^*$.
 
 El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explícitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano algún conjunto de generadores posible del grupo.
 
@@ -148,16 +150,23 @@ Esto nos dice que en particular es interesante estudiar el problema de la palabr
 \section{Lenguajes independientes de contexto.}
 Un \textit{lenguaje independiente de contexto} es un lenguaje tal que es generado por una gramática donde todas sus producciones son del estilo
 \[
- \omega \to \lambda
+ A \to \omega.
 \]
-y cumplen que $|\omega| = 1$. 
+ 
 
 \begin{ej}
-	Sea el alfabeto $\Sigma = \{ a,b \}$. Si $w=a_1 \dots a_k$ es una palabra sobre $\Sigma^*$ entonces podemos considerar a $w^r$ que es la palabra inversa dada por leerla de derecha a izquierda y tiene la siguiente pinta $w^r= a_k \dots a_1$. Consideremos sobre $\Sigma$ el lenguaje $L = \{ w \in \Sigma^* \ | \ w = w^r  \}$ tal que este es el lenguaje de los palíndromos. Construyamos una gramática independiente de contexto para este lenguaje. Sea $w$ una palabra en $L$ luego sabemos que si su longitud es mayor que uno entonces debe ser que $w = a u a$ o $w = b u b$ para cierta palabra $u \in L$ dado que $u$ necesariamente tiene que ser un palíndromo porque $w$ lo es. Esto sucede para todas las palabras del lenguaje exceptuando las palabras de longitud uno que son justamente las letras del alfabeto. De esta manera podemos considerar la siguiente gramática ${\cal G}  =  (\{S\}, \Sigma, P, S )$ donde las producciones $P$ están dadas por :
+	Sea el alfabeto $\Sigma = \{ a,b \}$. Si $w=a_1 \dots a_k$ es una palabra sobre $\Sigma^*$ entonces podemos considerar a $w^r$ que es la palabra inversa dada por leerla de derecha a izquierda y tiene la siguiente pinta $w^r= a_k \dots a_1$. 
+	Consideremos sobre $\Sigma$ el lenguaje $L = \{ w \in \Sigma^* \ | \ w = w^r  \}$ tal que este es el lenguaje de los palíndromos. 
+	Construyamos una gramática independiente de contexto para este lenguaje.
+	Sea $w$ una palabra en $L$ luego sabemos que si su longitud es mayor que uno entonces debe ser que $w = a u a$ o $w = b u b$ para cierta palabra $u \in L$ dado que $u$ necesariamente tiene que ser un palíndromo porque $w$ lo es. 
+	Esto sucede para todas las palabras del lenguaje exceptuando las palabras de longitud uno que son justamente las letras del alfabeto. 
+	De esta manera podemos considerar la siguiente gramática ${\cal G}  =  (\{S\}, \Sigma, P, S )$ donde las producciones $P$ están dadas por :
 	\begin{align*}
 	S  & \to \epsilon \\ S &\to a \\ S &\to b \\ S &\to  aSa \\ S &\to bSb. \\
 	\end{align*}
-	Para ver que esta gramática genera al lenguaje $L$ notemos que si tomamos una palabra en el lenguaje $w \in L$ luego si no es una letra al ser palíndromo sobre el alfabeto $\Sigma$ necesariamente debe comenzar con $a$ o con $b$ y de esta manera tenemos que la primer derivación es $S \to aSa$ o $S \to bSb$. Dado que la subpalabra $w = aua$ que se obtiene de $w$ sin considerar la primera y última letra es un palíndromo (e incluso podría ser la palabra vacía) luego podemos repetir este proceso para llegar a $S \implies^* w$ después de finitos pasos. Por otro lado toda palabra generada por esta gramática es un palíndromo porque todas las reglas son tales que agregan una letra al principio y la misma al final o simplemente agregan letras que también son palíndromos.
+	Para ver que esta gramática genera al lenguaje $L$ notemos que si tomamos una palabra en el lenguaje $w \in L$ luego si no es una letra al ser palíndromo sobre el alfabeto $\Sigma$ necesariamente debe comenzar con $a$ o con $b$ y de esta manera tenemos que la primer derivación es $S \to aSa$ o $S \to bSb$. 
+	Dado que la subpalabra $w = aua$ que se obtiene de $w$ sin considerar la primera y última letra es un palíndromo (e incluso podría ser la palabra vacía) luego podemos repetir este proceso para llegar a $S \implies^* w$ después de finitos pasos. 
+	Por otro lado toda palabra generada por esta gramática es un palíndromo porque todas las reglas son tales que agregan una letra al principio y la misma al final o simplemente agregan letras que también son palíndromos.
 	
 \end{ej}
 
@@ -181,11 +190,20 @@ Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas
 \paragraph{Funcionamiento del automáta.}
 %Un prefijo de $w$ será una subpalabra $\gamma$ tal que $w=\gamma w'$ visto con la concatenación de palabras en $\Sigma^*$.
 
-El autómata de pila finito funciona de la siguiente manera. Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro autómata. Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. En este caso diremos que nuestro automáta es \blue{no determinístico} dado que en algunos casos existe más de una opción.
+El autómata de pila finito funciona de la siguiente manera. 
+Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. 
+Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro autómata. 
+Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. 
+Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. 
+En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. 
+Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. 
+En este caso diremos que nuestro automáta es \blue{no determinístico} dado que en algunos casos existe más de una opción.
 
-En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro autómata entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
+En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. 
+Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro autómata entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
 
-Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. En tal caso la palabra $w$ es aceptada por el automáta. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
+Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. 
+En tal caso la palabra $w$ es aceptada por el automáta. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
 
 \begin{obs}
 	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra....
@@ -197,17 +215,24 @@ Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado 
 
 \paragraph{Descripción instántanea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un automáta a partir de lo que estamos haciendo en cierto instante. 
 Consideremos que estamos en el instante que nuestra subpalabra que nos queda por leer es $w$, estamos en un estado $q$ y en nuestra pila tenemos la palabra $\gamma$, entonces vamos a representar al instante por medio de esta tupla $(q,w,\gamma)$.
-Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. Podemos considerar la clausura transitiva de esta relación sobre los triples $Z \times Q \times \Sigma^*$ que denotaremos $\vdash^*$.
+Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. 
+Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. 
+Podemos considerar la clausura transitiva de esta relación sobre los triples $Z \times Q \times \Sigma^*$ que denotaremos $\vdash^*$.
 
 
-\paragraph{El lenguaje aceptado por un autómata de pila.} Notemos que en particular el automáta de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del automáta $\Sigma$ que son aceptadas. En general diremos que un automáta acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. Este lenguaje aceptado por el automáta $\cal M$ en algunas casos para hacer énfasis en el automáta lo denotaremos $L {(\cal M)}$ y siguiendo la notación formal anterior lo podemos describir de la siguiente manera,
+\paragraph{El lenguaje aceptado por un autómata de pila.} 
+Notemos que en particular el automáta de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del automáta $\Sigma$ que son aceptadas. 
+En general diremos que un automáta acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. 
+Este lenguaje aceptado por el automáta $\cal M$ en algunas casos para hacer énfasis en el automáta lo denotaremos $L {(\cal M)}$ y siguiendo la notación formal anterior lo podemos describir de la siguiente manera,
 \begin{equation*}
 	L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
 \end{equation*}
 donde $(q_0, w, Z_0)$ es el instante inicial en el cual tenemos la palabra $w$ en el estado inicial $q_0$ con el símbolo $Z_0$ de la pila. Al finalizar deberíamos estar en un estado $q$ final y lo que nos queda en la pila $\gamma$ es totalmente irrelevante en este caso.
 
 \begin{obs}
-	Al ser un automáta de pila no determinístico existen posiblemente más de una manera de consumir alguna palabra en el automáta. Es así que por la definición que dimos la palabra es aceptada por el automáta si al menos alguna de estas derivaciones la lleva a ser aceptada. No importa si existen derivaciones que no lo hagan mientras una sí lo haga. 
+	Al ser un automáta de pila no determinístico existen posiblemente más de una manera de consumir alguna palabra en el automáta. 
+	Es así que por la definición que dimos la palabra es aceptada por el automáta si al menos alguna de estas derivaciones la lleva a ser aceptada.
+	No importa si existen derivaciones que no lo hagan mientras una sí lo haga. 
 \end{obs}
 \medskip
 \begin{teo}
@@ -242,7 +267,10 @@ De esta manera sabemos que en particular el lenguaje de los palíndromos definid
 		\item $\delta (q_0, \lambda, Z) = (q_1,Z)$
 		\item $\delta (q_0, X, Z) = (q_1, Z)$ 
 	\end{itemize}
- 		donde $Z=a,b, \$$ es decir cualquier cosa del alfabeto de la pila y $X = a, b$ cualquier elemento de nuestro alfabeto de entrada. El automáta en el primer estado apila lo que sea que estemos leyendo sin importar lo que esté en el tope de pila. En el segundo estado desapila cada vez que lo que estemos leyendo coincida con el tope de pila. Finalmente para ir del estado inicial al final tenemos en cuenta dos casos. Nos podemos mover por $\lambda$ es decir sin consumir ninguna letra de la palabra de la entrada o leyendo alguna de las letras de la palabra. Estos casos se corresponden a que el palíndromo tenga longitud par o tenga longitud impar.	
+ 		donde $Z=a,b, \$$ es decir cualquier cosa del alfabeto de la pila y $X = a, b$ cualquier elemento de nuestro alfabeto de entrada. 
+ 		El automáta en el primer estado apila lo que sea que estemos leyendo sin importar lo que esté en el tope de pila. 
+ 		En el segundo estado desapila cada vez que lo que estemos leyendo coincida con el tope de pila. 
+ 		Finalmente para ir del estado inicial al final tenemos en cuenta dos casos. Nos podemos mover por $\lambda$ es decir sin consumir ninguna letra de la palabra de la entrada o leyendo alguna de las letras de la palabra. Estos casos se corresponden a que el palíndromo tenga longitud par o tenga longitud impar.	
 \end{ej}
 
 
@@ -279,15 +307,28 @@ En cierta manera estamos diciendo que de un instante dado solo tenemos a lo sumo
 
 Veamos que esta contención es estricta. Para eso volvamos a considerar el ejemplo del lenguaje de los palíndromos.
 \begin{ej}
-	El lenguaje $L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}$ no es aceptado por un \APD pero sí por uno no determinístico. Supongamos que $M$ es un \APD que lo acepta. Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que al consumirla la pila no puede quedar vacía dado que $ww^r \in L$ y en tal caso no aceptaría a esta palabra. Esto es que la pila nunca está vacía sea cual sea la configuración que lleguemos. Para cada palabra arbitraria $w$ existe otra $x_w$ tal que al procesar $wx_w$ lo que nos queda en la pila es de tamaño mínimo con respecto a todas las palabras $wx$. Sea entonces lo que tiene en la pila la palabra $\alpha_w$ que sabemos es de longitud mínima. Si consideramos palabras del estilo $wx_wz$ sabemos que la longitud de lo que quede en la pila no puede disminuir. Ahora consideremos dos palabras del estilo $r=wx_w, s=uy_u$ tales que sus pilas son de longitud mínima al terminar de recorrer las palabras y que resultan tener el mismo tope de pila y terminar en el mismo estado. Podemos asegurar la existencia de estas palabras debido a que tenemos finitos estados y combinaciones de tope de pilas dado que el automáta de pila es finito pero tenemos infinitas palabras que cumplen esta propiedad. Ahora basta con elegir $z$ de modo que $tz$ sea palíndromo pero que $sz$ no lo sea. 
+	El lenguaje $L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}$ no es aceptado por un \APD pero sí por uno no determinístico. 
+	Supongamos que $M$ es un \APD que lo acepta. 
+	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que al consumirla la pila no puede quedar vacía dado que $ww^r \in L$ y en tal caso no aceptaría a esta palabra. 
+	Esto es que la pila nunca está vacía sea cual sea la configuración que lleguemos. 
+	Para cada palabra arbitraria $w$ existe otra $x_w$ tal que al procesar $wx_w$ lo que nos queda en la pila es de tamaño mínimo con respecto a todas las palabras $wx$. 
+	Sea entonces lo que tiene en la pila la palabra $\alpha_w$ que sabemos es de longitud mínima. Si consideramos palabras del estilo $wx_wz$ sabemos que la longitud de lo que quede en la pila no puede disminuir. 
+	Ahora consideremos dos palabras del estilo $r=wx_w, s=uy_u$ tales que sus pilas son de longitud mínima al terminar de recorrer las palabras y que resultan tener el mismo tope de pila y terminar en el mismo estado. 
+	Podemos asegurar la existencia de estas palabras debido a que tenemos finitos estados y combinaciones de tope de pilas dado que el automáta de pila es finito pero tenemos infinitas palabras que cumplen esta propiedad. 
+	Ahora basta con elegir $z$ de modo que $tz$ sea palíndromo pero que $sz$ no lo sea. 
 	
-	Veamos que podemos elegir a $z$ para que una de las concatenaciones $tz,sz$ sea palíndromo y la otra no. Partamos en distintos casos. Si $|t|=|s|$ basta con tomar $z=s^r$. Si $|t|\neq |s|$ y supongamos que $s$ tiene longitud menor y no es prefijo de $t$ entonces de nuevo podemos tomar el palíndromo $ss^r$ tal que $ts^r$ no es un palíndromo. Finalmente queda el caso que una es un prefijo de la otra, supongamos $t=su$. Si elegimos $x=a,b$ tal que $ux$ no sea un palíndromo luego la palabra $ss^r$ es un palíndromo pero $suxs^r$ no lo es.
+	Veamos que podemos elegir a $z$ para que una de las concatenaciones $tz,sz$ sea palíndromo y la otra no. Partamos en distintos casos. 
+	Si $|t|=|s|$ basta con tomar $z=s^r$. 
+	Si $|t|\neq |s|$ y supongamos que $s$ tiene longitud menor y no es prefijo de $t$ entonces de nuevo podemos tomar el palíndromo $ss^r$ tal que $ts^r$ no es un palíndromo. 
+	Finalmente queda el caso que una es un prefijo de la otra, supongamos $t=su$. 
+	Si elegimos $x=a,b$ tal que $ux$ no sea un palíndromo luego la palabra $ss^r$ es un palíndromo pero $suxs^r$ no lo es.
 	
 	Esto muestra que si bien $sz \notin L$ y $tz \in L$ el \APD no va a poder diferenciarlas por lo tanto no es posible que este lenguaje sea aceptado por un \APD tal como queríamos ver.
 	
 \end{ej}
 
-\subsection{Automátas de pila determinísticos especiales.} Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. A estos los llamaremos \textit{automátas de pila determinístico especiales}.  
+\subsection{Automátas de pila determinísticos especiales.} 
+Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. A estos los llamaremos \textit{automátas de pila determinístico especiales}.  
 Estos automátas son los que nos surgen de la construcción del automáta del problema de la palabra  para grupos virtualmente libres. 
 
 \begin{ej}
@@ -311,7 +352,11 @@ Estos automátas son los que nos surgen de la construcción del automáta del pr
 	
 	donde $Z$ es cualquier letra del alfabeto de la pila. El automáta en el estado inicial $q_0$ apila a todas las $a$ y cambia al estado $q_1$ cuando lee por primera vez una $b$ y en ese caso desapila la a que está en el tope de la pila. En el estado $q_1$ sigue desapilando cada vez que ve una $b$. Finalmente va al estado $q_2$ cuando en la pila sigue quedando $a$ y ya leímos toda la palabra y en tal caso la acepta porque significa que vimos como máximo tantas $b$ como $a$ y este es el lenguaje que buscábamos generar.
 	
-	El lenguaje no es aceptado por un \APD por pila vacía dado que tiene la propiedad de los prefijos. Es decir que existen palabras que están en el lenguaje tales que alguno de sus prefijos también están. Por ejemplo consideremos $a^m b^i$ y  $a^m b^j$ para $m \ge 2$ e $i < j \le m$. Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que $(q_0,a^mb^i,Z_0) \vdash^* (q,\lambda, \lambda)$ con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el automáta necesita leer algún elemento de la pila. De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
+	El lenguaje no es aceptado por un \APD por pila vacía dado que tiene la propiedad de los prefijos. 
+	Es decir que existen palabras que están en el lenguaje tales que alguno de sus prefijos también están. 
+	Por ejemplo consideremos $a^m b^i$ y  $a^m b^j$ para $m \ge 2$ e $i < j \le m$. 
+	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que $(q_0,a^mb^i,Z_0) \vdash^* (q,\lambda, \lambda)$ con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
+	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
 	
 	\begin{comment}[Esto es con la otra definición de automáta de pila.]
 			Por el principio del palomar podemos ver que este lenguaje no es aceptado por \APD por pila vacía y estado final a la vez. Si así lo fuera supongamos que existe un automáta que lo acepta $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$. Debido a que tiene finitos estados podemos elegirnos $m$ suficientemente grande tal que existan palabras $a^mb^j, a^mb^i$ con $1 \le i < j < m$ y elegidas de manera que terminen en el mismo estado final $p$. Notemos que $(q_0,a^mb^ib^{m-j+1},Z_0) \vdash^* (q,\lambda, Z)$ donde $q$ es un estado final dado que $m-j+1+i \le m$. Por otro lado debe ser que $(q_0, a^mb^jb^{m-j+1}) \vdash^* (q,\lambda, Z) $ pero notemos que $a^mb^{m-1} \notin L$. Por lo tanto llegamos a una contradicción y de esta manera vemos que $L$ no es aceptado por un \APD especial tal como queríamos ver.
@@ -334,22 +379,31 @@ En esta sección vamos a introducir otra familia de lenguajes que generalizan le
 
 \section{Sistemas de reescritura.}
 
-Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}.  Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. Un camino en el grafo lo llamaremos una \emph{derivación}.  
+Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
+En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 
+Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. 
+Un camino en el grafo lo llamaremos una \emph{derivación}.  
 
-Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
+Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} 
+A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
 
-Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
+Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. 
+Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
 
 \begin{ej}
 	Considerar como objetos los enteros y como movimiento dividir al número por dos si es posible. Este sistema de reescritura tiene como objetos terminales los números impares.
 \end{ej}
 
-Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
+Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. 
+Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. 
+Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
 
 En particular los sistemas que nos van a interesar en este trabajo son sistemas tales que son confluentes y terminantes que son conocidos como \emph{Church-Roser}.
 
 \subsection{Sistemas de reescritura de cadenas.}
-En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
+En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. 
+Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. 
+Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
 
 Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
 
