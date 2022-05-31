@@ -51,7 +51,9 @@ Esta idea que usamos para los grupos libres se puede extender más en general pa
 \begin{proof}
 	Para demostrar este teorema necesitamos construirnos al automáta para una presentación fijada de un grupo virtualmente libre.
 	
-	Fijemos entonces el subgrupo libre de índice finito $F_\Sigma$. Sea $R$ representantes de coclases a derecha de $G/F_\Sigma$ que sabemos son finitos. De esta manera podemos considerar al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup R$ de generadores de nuestro grupo tal que nos da una presentación.
+	Fijemos entonces el subgrupo libre de índice finito $F_\Sigma$. 
+	Sea $R$ representantes de coclases a derecha de $G/F_\Sigma$ que sabemos son finitos. 
+	De esta manera podemos considerar al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup R$ de generadores de nuestro grupo tal que nos da una presentación.
 	
 	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura convergente dado por 
 	\[
@@ -63,14 +65,22 @@ Esta idea que usamos para los grupos libres se puede extender más en general pa
 	\[
 	{\cal M }= (Q,\Delta, Z, \delta, q_0, F)
 	\]
-	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. Notemos a su vez a $m = \max {|w(r,a)|}$ para $r \in R, a \in \Delta$ que es finito porque es el máximo de longitudes de finitas palabras. Cuando tengamos una ecuación en término de las copias la vamos a considerar como el elemento que representa en el grupo. La utilidad radica en poder tener un automáta más declarativo en cuanto a los nombres de los estados. Nuestra función de transición entonces funciona de la siguiente manera si no tenemos nada en la pila
+	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. 
+	Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. 
+	Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. 
+	Notemos a su vez a $m = \max {|w(r,a)|}$ para $r \in R, a \in \Delta$ que es finito porque es el máximo de longitudes de finitas palabras. 
+	Cuando tengamos una ecuación en término de las copias la vamos a considerar como el elemento que representa en el grupo. 
+	La utilidad radica en poder tener un automáta más declarativo en cuanto a los nombres de los estados. 
+	Nuestra función de transición entonces funciona de la siguiente manera si no tenemos nada en la pila
 	
 	\begin{align*}
 		(r'a,w(r'a)s) \in \delta  \ \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=w(r',a)s \ \ \text{y} \ \ w(r',a) \neq 1  \\
 		(r'a,s') \in \delta  \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=s.  \\ 
 	\end{align*}
 	
-Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a los estados que le corresponden a $R$ mientras que en el otro caso nos quedamos en los estados de la copia $R'$. En particular como el estado inicial es $1' \in R'$ luego siempre que tengamos la pila no vacía vamos a estar en algún estado $r \in R$. Repliquemos esta idea también para el caso que que tengamos algo en la pila,
+Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a los estados que le corresponden a $R$ mientras que en el otro caso nos quedamos en los estados de la copia $R'$. 
+En particular como el estado inicial es $1' \in R'$ luego siempre que tengamos la pila no vacía vamos a estar en algún estado $r \in R$. 
+Repliquemos esta idea también para el caso que que tengamos algo en la pila,
 	
 	\begin{align*}
 	(xra,ys) \in \delta \ \ \text{para} \ \  s \in R, x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s  \\ & \ \ \text{e} \ \ y \ \text{es la forma reducida de} \ \ xw(r,a)  \\
@@ -78,22 +88,48 @@ Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a 
 	\end{align*}
 	En este caso la función de transición cuando tenemos algo en la pila lo que va haciendo es lo mismo que antes y solo pasa a los estados que corresponden a $R'$ cuando la palabra que nos queda la pila vacía. 
 	
-	De esta manera notemos que en particular es un automáta especial determinístico considerando que la transición es determinística porque el sistema de reescritura es convergente por lo que hay una única palabra reducida. Por otro lado como el único estado que acepta es el estado inicial y la única manera de llegar a cualquier estado en $R'$ es con la pila vacía luego el automáta acepta por pila vacía y estado final a la vez.
+	De esta manera notemos que en particular es un automáta especial determinístico considerando que la transición es determinística porque el sistema de reescritura es convergente por lo que hay una única palabra reducida. 
+	Por otro lado como el único estado que acepta es el estado inicial y la única manera de llegar a cualquier estado en $R'$ es con la pila vacía luego el automáta acepta por pila vacía y estado final a la vez.
 \end{proof}
 
 \begin{obs}
-	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto determinístico. Como tal tiene las siguientes buenas propiedades algorítmicas \ref{}...
+	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto determinístico. 
+	Como tal tiene las siguientes buenas propiedades algorítmicas \ref{}...
 \end{obs}
 
-
+\newpage
 
 \section{Grafos de Cayley.}
 
 \begin{deff}
-	Sea $G$ un \fg y $A$ un conjunto de generadores. Definimos el \blue{grafo de Cayley} $Cay(G,A)$ como el grafo que tiene como vértices los elementos del grupo $G$ vistos como palabras en $A$ y las aristas etiquetadas con elementos de $A$. 
+	Sea $G$ un \fg y $\Sigma$ un conjunto de generadores como monoide. 
+	Supongamos que $1 \notin \Sigma$.
+	Definimos el \blue{grafo de Cayley} $\Gamma = Cay(G,\Sigma)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y $E(\Gamma) = G \times (\Sigma \cup \Sigma^{-1})$. 
 \end{deff}
 
-Como todo grupo libre es tal que sus grafos de Cayley resultan ser árboles es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
+Para una arista $(g,a)$ llamaremos la \emph{etiqueta} al generador $a$.
+Extendemos esta definición a caminos sobre el grafo para obtener una palabra en el monoide $\Sigma^*$.
+Este grafo por como lo definimos no tiene aristas múltiples ni tampoco tiene bucles.
+Dado que $\Sigma$ genera tenemos que el grafo $\Gamma$ es conexo.
+
+El grafo de Cayley lo podemos ver como un espacio métrico justamente si hacemos que todas las aristas sean isométricas a $[0,1]$. 
+Esto es que $d(g,ga) = 1$ para todo $g \in G, a \in \Sigma^*$. 
+Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = j-i$ para todo $i,j \in [0,n]$.
+
+\begin{ej}
+	Sea $\Bbb F_2$ el grupo libre en dos generadores $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
+	\bigskip
+	
+	\begin{tikzpicture}
+	\draw l-system [l-system={cayley, axiom=[A] [+A] [-A] [++A], step=2.35cm, order=3}];
+	\end{tikzpicture}
+	
+	 Notemos que este grafo resulta ser un árbol y esto es algo que vale en general para todos los grupos libres cuando miramos respecto a sus generadores canónicos.
+\end{ej}
+
+Como todo grupo libre es tal que sus grafos de Cayley resultan ser árboles por un resultado clásico de Serre, ver \cite{}.
+Es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. 
+La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
 
 \begin{deff}\label{desc-arbol}
 	 Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ (llamaremos a $X_t$ bolsones) que cumple las siguientes condiciones:
@@ -108,21 +144,63 @@ Como todo grupo libre es tal que sus grafos de Cayley resultan ser árboles es r
 La idea de la descomposición es que los \emph{bolsones} $X_t \in {\cal P}(V(T))$ no tengan muchos vértices si es que queremos modelizar que el grafo se parezca a un árbol. Esto nos conduce a la siguiente definición.
 
 \begin{deff}
-El \blue{bagsize} de una descomposición en un árbol de un grafo $X$ es el siguiente valor:
+El \blue{bagsize} de una descomposición en un árbol $T$ de un grafo $X$ es el siguiente valor:
 	\begin{equation*}
-		bs(X) = \{ \sup |X_t|, \ t \in V(T) : T \ \text{descomposición de} \ X  \} - 1
+		bs(X,T) = \{ \sup |X_t|, \ t \in V(T) : T \ \text{descomposición de} \ X  \} - 1
 	\end{equation*}
 Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
 \begin{obs}
- En particular si el grafo $X$ es un árbol notemos que podemos tomar como descomposición al mismo árbol y a cada arista.
+ En particular si el grafo $X$ es un árbol notemos que tiene treewidth exactamente igual a 1.
+ Una manera de probarlo es tomar $T$ la subdivisión baricéntrica de $X$. 
+ Este es el siguiente árbol que tiene como vértices a 
+ \[
+ V(T) = \{ \{ x \} \ | \ x \in V(X)  \} \cup \{ \{ x,y \} \ | \ xy \in E(X) \}.
+ \]
+ Tomamos todos los vértices de $x$ y los agregamos a los de $T$ y agregamos un vértice por cada arista del grafo $X$.
+ Finalmente las aristas están formadas por 
+ \[
+ E(T) = \{  ts \ | \ t \subset s \ \lor s \subset t \}
+ \]
+ agregamos una arista entre cada vértice de $T$ que se corresponde con un vértice de $X$ con los que se corresponden con una arista que lo contiene en $X$. 
+%Por cada arista del grafo $e \in E(X)$ donde $e=xy$ con $x,y \in V(X)$ agregamos un vértice $v_e \in V(T)$ tal que definimos para que $xv_e, v_ey \in E(T)$.
+ 
+ 
+ La descomposición que tomamos entonces es la siguiente. 
+ Por cada $t \in V(T)$ tenemos ya armados los bolsones por la construcción que hicimos. 
+ Esto es que:
+ \begin{itemize}
+ 	\item Si $t$ es un vértice que ya estaba en $V(X)$ entonces $X_t = \{ t \}$. 
+ 	\item Si $t$ lo agregamos por una arista $xy \in E(X)$ entonces $X_t = \{ x,y  \}$.
+ \end{itemize}
+Por como los definimos es evidente que $|X_t| \le 2$ para todo $t \in V(T)$, de esta manera si vemos que se trata de una descomposición en un árbol tendremos probado que $bs(X,T) = 1$ tal como queríamos ver.
+
+Finalmente veamos que se trata de una descomposición. Corroboremos que cumple las tres condiciones necesarias.
+\begin{enumerate}
+	\item Todo vértice $v \in V(X)$ lo podemos ver como uno en $T$. Su bolsón asociado $X_v$ lo tiene como único elemento por la construcción de esta descomposición.
+	\item Si $xy \in E(X)$ entonces tenemos un vértice $t\in V(T)$ tal que $X_{t} = \{ x,y \}$. 
+	\item Sea $x \in X_t \cap X_s$. 
+	Por como armamos los bolsones, si estos son distintos no queda más que al menos uno de los dos, por ejemplo $X_t$ tenga esta pinta, $X_t = \{ x,y\}$ para cierto vértice $y \in V(X)$ tal que junto con $x$ forman una arista $xy \in E(X)$.
+	
+	El primer caso es que $X_s = \{ x \}$.
+	La geodésica que podemos tomar entonces es $st$ puesto que $s$ se corresponde con el vértice $x$ y sabemos que existe una arista $st \in E(T)$ porque justamente $t$ se corresponde con una arista en $X$ que contiene a $x$.
+	
+	En el caso que $s \in V(T)$ sea tal que el bolsón $X_s$ se corresponda con los vértices que aparecen en una arista debería ser del tipo $X_s = \{x,z\}$ para cierto $z \in V(X)$. 
+	Es decir que la arista debe incluir a $x$ necesariamente y como vimos los bolsones solo tienen a lo sumo dos elementos.
+	Si miramos la geodésica sobre $T$ entre ambos vértices no es más que el siguiente camino $tvs$ donde $v \in V(T)$ es el vértice que está tanto en el árbol original $X$ como en la subdivisión baricéntrica $T$.
+	Esto es que $X_v = \{ x \}$.
+	De esta manera $x$ está en todos los bolsones correspondientes a la geodésica sobre $T$ tal como queríamos ver.	
+\end{enumerate}
 \end{obs}
 
-\red{No sé si hace falta pero agregar lo del cíclico como ejemplo para diferenciar el caso que la descomposición es conexa o no. Esto depende de si lo necesito usar después en la demostración de cuasisometría.}
 
-\begin{obs}
-	Si un grafo $\Gamma$ tiene treewidth finito podemos tomarnos otra descomposición tal que siga siendo de treewidth finito pero los bolsones de la descomposición sean conexos. Si algún bolsón no es conexo agregamos todos los vértices del grafo que estén en la geodésica que une las componentes conexas. Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
-\end{obs}
+\begin{comment} [Creo que está bastante mal esto. Si lo tengo que usar más en adelante repensarlo bien.]
+	\begin{obs}
+	Si un grafo $\Gamma$ tiene treewidth finito podemos tomarnos otra descomposición tal que siga siendo de treewidth finito pero los bolsones de la descomposición sean conexos. 
+	Si algún bolsón no es conexo agregamos todos los vértices del grafo que estén en la geodésica que une las componentes conexas. 
+	Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
+	\end{obs}
+\end{comment}
 
 \begin{deff}
 	Dado un grafo $X$, el \blue{borde} de un conjunto de vértices $C \subseteq V(X)$ se define como
@@ -132,9 +210,9 @@ Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un �
 \end{deff}
 
 \begin{ej}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
-	Consideremos el grafo de $\Gamma = Cay(G,A)$ para cierto conjunto de generadores $\Sigma$ finito.
 	
 	Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
+	Consideremos el grafo $\Gamma = Cay(G,\Sigma)$ para cierto conjunto de generadores $\Sigma$ finito.
 	
 	Sea $V_n = \Gamma \setminus B_n(1) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
 	El árbol que vamos a considerar va a tener como vértices a conjuntos de vértices del grafo $\Gamma$ de manera que resultará evidente los bolsones que vamos a tomar para la descomposición. 
@@ -245,7 +323,7 @@ Para este lenguaje introduzcamos un número natural $k_A \in \NN$ definido por $
 Como tenemos finitas variables en nuestra gramática $\cal G$ podemos considerar $k = \max_{A \in V} k_A$. 
 Veamos que $\text{diam}(\beta C) \le 3k$ para todo $\beta C \in V(T)$.
 
-Sean $g,h \in \beta C$ para cierta $C$ componente conexa de $V_n$, veamos de acotar $d(g,h)$. 
+Sean $g,h \in \beta C$ para cierta $C$ componente conexa de $V_n$, acotemos $d(g,h)$. 
 Para eso consideremos una geodésica $\alpha$ que una $1$ con $g$ y análogamente otra $\gamma$ que una $1$ con $h$. 
 Como $C \cup \beta C$ es conexo podemos tomar un arco $\tau$ que una $g$ con  $h$ dentro de $C \cup \beta C$. 
 De esta manera tenemos un triángulo tal que si leemos las letras que están en la etiqueta del arco empezando desde $1$ y moviéndonos por $\alpha$ leemos la etiqueta $u$. 

@@ -38,7 +38,30 @@
 \usepackage{tcolorbox}
 \usepackage{thmtools}
 
-
+\usetikzlibrary{lindenmayersystems,arrows.meta}
+\newcount\quadrant
+\pgfdeclarelindenmayersystem{cayley}{
+	\rule{A -> B [ R [A] [+A] [-A] ]}
+	\symbol{R}{ \pgflsystemstep=0.5\pgflsystemstep } 
+	\symbol{-}{
+		\pgfmathsetcount\quadrant{Mod(\quadrant+1,4)}
+		\tikzset{rotate=90}
+	}
+	\symbol{+}{
+		\pgfmathsetcount\quadrant{Mod(\quadrant-1,4)}
+		\tikzset{rotate=-90}
+	}
+	\symbol{B}{
+		\draw [dot-cayley] (0,0) -- (\pgflsystemstep,0) 
+		node [font=\footnotesize, midway, 
+		anchor={270-mod(\the\quadrant,2)*90}, inner sep=.5ex] 
+		{\ifcase\quadrant$a$\or$b$\or$a^{-1}$\or$b^{-1}$\fi};
+		\tikzset{xshift=\pgflsystemstep}
+	}
+}
+\tikzset{
+	dot/.tip={Circle[sep=-1.5pt,length=3pt]}, cayley/.tip={Stealth[]dot[]}
+}
 
 %%%%%%%%%%%%%  TEOREMAS  %%%%%%%%%%%%%%%%%
 \theoremstyle{plain} %% el estilo clásico
