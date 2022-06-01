@@ -23,9 +23,12 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos se corresponden a tener un lenguaje independiente de contexto.
 
 \begin{ej}[Automáta para grupos libres.]
-	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. Pensemos un \APND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
-	Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento visto como un elemento en el grupo. Esto es, cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en el tope de la pila. Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. Entonces este automáta lo podemos representar de la siguiente manera,
-	
+	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. 
+	Pensemos un \APND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
+	Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento visto como un elemento en el grupo. 
+	Esto es, cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en el tope de la pila. 
+	Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. 
+	Entonces este automáta lo podemos representar de la siguiente manera:	
 	
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4.5cm,
 	scale = 1.15,transform shape]
@@ -97,23 +100,22 @@ Repliquemos esta idea también para el caso que que tengamos algo en la pila,
 	Como tal tiene las siguientes buenas propiedades algorítmicas \ref{}...
 \end{obs}
 
-\newpage
 
 \section{Grafos de Cayley.}
 
 \begin{deff}
-	Sea $G$ un \fg y $\Sigma$ un conjunto de generadores como monoide. 
+	Sea $G$ un \fg y $\Sigma$ un conjunto de generadores como grupo. 
 	Supongamos que $1 \notin \Sigma$.
-	Definimos el \blue{grafo de Cayley} $\Gamma = Cay(G,\Sigma)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y $E(\Gamma) = G \times (\Sigma \cup \Sigma^{-1})$. 
+	Definimos el \blue{grafo de Cayley} $\Gamma = Cay(G,\Sigma)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y $(g,h) \in E(\Gamma)$ sii $h=ga$ para ciertos $g,h \in G$ y $a \in \Sigma \cup \Sigma^-1$. 
 \end{deff}
 
-Para una arista $(g,a)$ llamaremos la \emph{etiqueta} al generador $a$.
+Para una arista $(g,ga)$ llamaremos la \emph{etiqueta} al generador $a$.
 Extendemos esta definición a caminos sobre el grafo para obtener una palabra en el monoide $\Sigma^*$.
 Este grafo por como lo definimos no tiene aristas múltiples ni tampoco tiene bucles.
 Dado que $\Sigma$ genera tenemos que el grafo $\Gamma$ es conexo.
 
 El grafo de Cayley lo podemos ver como un espacio métrico justamente si hacemos que todas las aristas sean isométricas a $[0,1]$. 
-Esto es que $d(g,ga) = 1$ para todo $g \in G, a \in \Sigma^*$. 
+Esto es que $d(g,ga) = 1$ para todo $g \in G, a \in \Sigma \cup \Sigma^{-1}$. 
 Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = j-i$ para todo $i,j \in [0,n]$.
 
 \begin{ej}
@@ -173,7 +175,8 @@ Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un �
  	\item Si $t$ es un vértice que ya estaba en $V(X)$ entonces $X_t = \{ t \}$. 
  	\item Si $t$ lo agregamos por una arista $xy \in E(X)$ entonces $X_t = \{ x,y  \}$.
  \end{itemize}
-Por como los definimos es evidente que $|X_t| \le 2$ para todo $t \in V(T)$, de esta manera si vemos que se trata de una descomposición en un árbol tendremos probado que $bs(X,T) = 1$ tal como queríamos ver.
+Por como los definimos es evidente que $|X_t| \le 2$ para todo $t \in V(T)$.
+De esta manera si vemos que se trata de una descomposición en un árbol tendremos probado que $bs(X,T) = 1$ tal como queríamos ver.
 
 Finalmente veamos que se trata de una descomposición. Corroboremos que cumple las tres condiciones necesarias.
 \begin{enumerate}
@@ -237,7 +240,7 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	Para ver que es un árbol veamos primero que es conexo. Dado un vértice $\beta C \in V(T)$ vamos a armar un camino que lo conecte con la raíz del árbol $B_1(\Gamma)$. 
 	Usemos inducción en el $n$ tal que $C$ es una componente conexa de $V_n$. 
 	El caso base es algún $C$ tal que es una componente conexa de $V_2$ y queremos armarnos un camino que lo una con $B_1(\Gamma)$. 
-	Dado que $V_2 \subseteq V_1$ en particular tenemos que $C \subseteq V_1$. De esta manera por la definición tenemos que existe una arista $(\beta C, B_1(0))$ tal como queríamos ver.
+	Dado que $V_2 \subseteq V_1$ en particular tenemos que $C \subseteq V_1$. De esta manera por la definición tenemos que existe una arista $\beta CB_1(0)$ tal como queríamos ver.
 	
 	Para el paso inductivo supongamos que tenemos que para cualquier borde de una componente conexa de $V_{n-1}$ tenemos un camino que lo une con la raíz $B_1(\Gamma)$ y veamos de construirnos un camino con cualquier borde de una componente conexa $C \subseteq V_n$.
 	De esta manera debe existir $D$ componente conexa de $V_{n-1}$ tal que $C \subseteq D$. Esto es porque $V_{n-1} \subseteq V_{n}$ y al ser $C$ un conexo si interseca alguna de las componentes conexas de $V_{n-1}$ debe estar contenida en ella. 
@@ -254,7 +257,8 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	Para el paso inductivo supongamos que para todo camino cerrado con máximo $m \in \NN$ tal que algún vértice que aparece en este camino es una componente conexa de $V_m$ resulta ser $n-1$ entonces este camino no es un ciclo. Veamos que si $m=n$ entonces este camino cerrado también resulta ser un ciclo.
 	
 	Partamos de un camino tal que pasa por $\beta C$ con $C \subseteq V_n$. 
-	Como no existe $(\beta C, \beta C') \in E(T)$ tal que $C,C'$ sean componentes conexas de un mismo $V_n$ por la definición que dimos de las aristas. Necesariamente tiene que haber una arista con alguna componente conexa $D \in V_{n-1}$ dado que $n$ es máximo en este camino cerrado.   
+	Como no existe $\beta C, \beta C' \in E(T)$ tal que $C,C'$ sean componentes conexas de un mismo $V_n$ por la definición que dimos de las aristas. 
+	Necesariamente tiene que haber una arista con alguna componente conexa $D \in V_{n-1}$ dado que $n$ es máximo en este camino cerrado.   
 	Como vimos anteriormente solamente hay una única arista que una a $\beta C$ con alguna $\beta D$ con $D \subseteq V_{n-1}$. 
 	Esto nos dice que si el camino cerrado pasa por la arista $(\beta C, \beta D)$ necesariamente debe volver a pasar por la arista $(\beta C, \beta D)$ por lo tanto no es un ciclo. 
 	Concluimos que el grafo $T$ es acíclico y por lo tanto como es conexo también resulta que $T$ es un árbol.
@@ -275,7 +279,7 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 		Supongamos que $D \subseteq V_{n}$, en tal caso vale que $D \nsubseteq V_{n}$ porque sino tendríamos que resulta ser la misma componente conexa. 
 		Sin pérdida de generalidad supongamos que $C \subset V_n$ mientras que $D \subset V_{n+1}$. 
 		Como ambas son componentes conexas luego si hay una intersección tiene que haber una contención, esto es que $D \subseteq C$. 
-		De esta manera vemos que $(\beta C, \beta D) \in E(T)$ por lo tanto como están unidos por una arista la geodésica es justamente esta arista.
+		De esta manera vemos que $\beta C, \beta D \in E(T)$ por lo tanto como están unidos por una arista la geodésica es justamente esta arista.
 		
 	\end{enumerate}
 \end{ej}
@@ -296,7 +300,7 @@ tal como queríamos ver.
 \end{obs}
 
 
-
+\medskip
 \begin{teo}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
@@ -305,11 +309,12 @@ tal como queríamos ver.
 La descomposición que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley. 
 Veamos que esta descomposición para un grupo independiente de contexto tiene treewidth finito. 
 Buscamos $k \in \NN$ tal que nos permita acotar $|\beta C| \le k$ para todo $\beta C \in V(T)$. 
-Alcanza con ver que el diámetro de cada bolsón $\beta C$ está acotado uniformemente, esto es que exista $M \in \NN$ tal que 
+Alcanza con ver que los diámetros de los bolsones $\beta C$ están acotados uniformemente, esto es que exista $M \in \NN$ tal que 
 \[
 \text{diam}(\beta C) =  \sup_{g,h \in \beta C} d(g,h) \le M
 \] 
-porque al ser el grupo finitamente generado por $\Sigma$ entonces $|\beta C| \le |\Sigma|^{M} < \infty$. 
+para todo $\beta C$ de la descomposición de árboles.
+Si esto sucede, al ser el grupo finitamente generado por $\Sigma$ entonces $|\beta C| \le |\Sigma|^{M} < \infty$.
 
 
 Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $\cal G$ independiente de contexto que lo genera. 
@@ -439,9 +444,6 @@ Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$ y este t
 
 \section{Teoría de Bass Serre.}
 
-
-
-	
 	
 	
 	

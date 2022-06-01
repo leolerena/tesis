@@ -1,7 +1,7 @@
-\documentclass[11pt]{book}
+\documentclass[12pt]{book}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{geometry}\geometry{margin=1.15in}
+\usepackage{geometry}\geometry{margin=1in}
 \usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools,sectsty}
 \pagenumbering{gobble}
 \usepackage{subcaption}
@@ -14,12 +14,13 @@
 \usetikzlibrary{arrows,automata}
 \usetikzlibrary{babel} %para evitar que se jodan los automatas de tikz
 
-\usepackage{hyperref}
+%Referencias; me gustaría que backref funcione pero no es importante tampoco.
+\usepackage[pagebackref]{hyperref}
 % Para modificar el estilo de las referencias
 \hypersetup{
 	colorlinks,
 	linkcolor={astral},
-	citecolor={blue!50!black},
+	citecolor={blue!30!black},
 	urlcolor={blue!80!black}
 }
 \definecolor{astral}{RGB}{46,116,181}
@@ -34,10 +35,9 @@
 \usepackage{mathpazo}
 \usepackage{amssymb}
 \usepackage{eufrak}
+%\usepackage{thmtools}
 
-\usepackage{tcolorbox}
-\usepackage{thmtools}
-
+%Esto sirve para armar grafos de Cayley de una manera más copada.
 \usetikzlibrary{lindenmayersystems,arrows.meta}
 \newcount\quadrant
 \pgfdeclarelindenmayersystem{cayley}{
@@ -69,8 +69,8 @@
 \newtheorem{prop}[teo]{\color{rojo} Proposición}
 \newtheorem{lema}[teo]{\color{rojo} Lema}
 \newtheorem{coro}[teo]{\color{rojo} Corolario}
-% By including [theorem], the lemma follows the numbering of theorem
-% e.g. Thm 1, Lemma 2, Thm 3, Thm 4, \dots
+% Si pongo [theorem] siguen la numeración de los teoremas. 
+% e.j. Teo 1, Lema 2, Teo 3, Teo 4 ...
 \theoremstyle{definition}
 \newtheorem{deff}{\color{orange!80!black} Definición}[section] 
 \newtheorem{ej}{\color{orange!80!black} Ejemplo}[section]
@@ -97,9 +97,9 @@
 \newcommand{\Gg}{\mathfrak g}
 \newcommand{\SL}{SL_2(\mathbb Z)}
 \newcommand{\stab}{\text{Stab}}
+
 %%%%%%%%%%%%%%  PAGE SETUP %%%%%%%%%%%%%%%%%
-% LaTeX has big default margins
-% The following sets them to 1in
+
 
 %opening
 \usepackage{fancyhdr}
@@ -107,7 +107,7 @@
 \lhead{Tesis de licenciatura.} % Left Header
 \rhead{\thepage} % Right Header
 
-\usepackage{subfiles} % Best loaded last in the preamble
+\usepackage{subfiles} % mejor ponerlos al final
 
 \title{\color{red!55!black} Tesis.}
 
@@ -121,9 +121,8 @@
 \subfile{lenguajes}	
 \subfile{bassserre}
 \subfile{wordproblem}
+\bibliography{bibliografia}
+\bibliographystyle{alpha}
 
-	
-	
-	
-	
+
 \end{document}	
