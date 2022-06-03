@@ -389,11 +389,11 @@ A todo grafo lo podemos pensar como un espacio métrico dónde las aristas son i
 \begin{deff}
 	Sean $X,Y$ espacios métricos. Una cuasisometría es una función $f:X \to Y$ tal que:
 	\begin{enumerate}
-	\item Para todo par de puntos $x_1,x_2 \in X$ existen constantes $A,B \le 0$ tales que
+	\item Para todo par de puntos $x_1,x_2 \in X$ existen constantes $A,B \ge 0$ tales que
 	\[
 	\frac{1}{A} d_X(x_1,x_2) - B \le d_Y(f(x_1),f(x_2)) \le A d_X(x_1,x_2) + B
 	\]
-	\item Existe una constante real $C \le 0$ tal que para todo punto $y \in Y$ existe $x \in X$ tal que 
+	\item Existe una constante real $C \ge 0$ tal que para todo punto $y \in Y$ existe $x \in X$ tal que 
 	\[
 	d(y,f(x)) \le C
 	\]
@@ -401,13 +401,19 @@ A todo grafo lo podemos pensar como un espacio métrico dónde las aristas son i
  	Dos espacios métricos que se dicen cuasisométricos si existe una cuasisometría entre ellos.
 \end{deff}
 
+\red{En el caso que los espacios métricos son grafos podemos definir la cuasisometría sobre los vértices!! 
+Esto facilita algunos argumentos molestos en los que la imágen de un vértice cae en el medio de una arista y cosas así.}
 
 
 \red{Propiedades de las cuasisometrías y un poco de la intuición geométrica detrás.}
 Si tenemos una cuasisometría $f:X \to Y$ a partir de ésta nos podemos armar otra cuasisometría $g:Y \to X$. De esta manera podemos que la relación de ser cuasisométricos es una relación de equivalencia porque la reflexividad y la transitividad se deducen inmediatamente y la simetría a partir de lo visto anteriormente.
 
 
-Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. El ejemplo clásico es el de la grilla y el plano.
+Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. 
+\medskip
+\begin{ej}
+	% El ejemplo clásico de la grilla y el plano.
+\end{ej}
 
 Dado que todo grupo lo podemos pensar como un espacio métrico a partir de la distancia dada por la cantidad de palabras... está bien hablar de cuasisometrías entre grupos si pudieramos ver que esto no depende del conjunto de generadores que hayamos elegido.
 
@@ -419,7 +425,63 @@ Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi u
 	El treewidth finito es un invariante por cuasisometría.
 \end{lema}
 \begin{proof}
-Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_1$ tiene treewidth finito, nos gustaría ver que $\Gamma_2$ también tiene treewidth finito...
+Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_1$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_2$ también tiene treewidth finito.
+Dada la cuasisometría $f$ consideremos $C \ge A + B$.
+
+Partamos de una descomposición en un árbol $T$ para $\Gamma_1$.
+La idea es usar la cuasisometría para empujar esta descomposición a una (con bolsones posiblemente más grandes) en $\Gamma_2$.
+Por cada bolsón $X_t \subset V(\Gamma_1)$ vamos a considerar un bolsón en el otro grafo,
+\[
+Y_t = B(f(X_t),Ck) \cap V(\Gamma_2).
+\] 
+Esto es todos los vértices de $\Gamma_2$ que estén a distancia igual o menor que $Ck$ de la imagen del bolsón $X_t$ por medio de $f$. 
+Donde $k$ es la constante del treewidth del grafo $\Gamma_1$ y $C$ la constante de la cuasisometría anteriormente definida.
+
+Como ya sabemos que $T$ el grafo subyacente de la descomposición es un árbol basta ver que cumple las tres propiedades que debe cumplir toda descomposición \ref{desc-arbol}.
+
+\begin{enumerate}
+	\item Queremos ver que dado $v \in V(\Gamma_2)$ existe $t \in V(T)$ tal que $v \in Y_t$.
+	Por ser un embedding cuasisométrico debe existir $y \in \Gamma_1$ (no necesariamente algún vértice) tal que $d(f(y),v) \le C$. 
+	Tomemos $x \in V(\Gamma_1)$ de manera que $d(x,y) < 1$. 
+	Usando desigualdad triangular notemos que 
+	\[
+	d(f(x),v) \le d(f(x),f(y)) + d(v,f(y)) \le 2C
+	\]
+	donde $d(f(x),f(y)) \le C$ porque $f$ es una cuasisometría.
+	Mientras que la otra cota vale porque justamente así tomamos a $f(y)$. 
+	Como $k \le 2$ tenemos que $2C \le Ck$ y así vemos que $v \in Y_t$ tal como queríamos ver.
+	\item Dado una arista $vw \in E(\Gamma_2)$ veamos que $v, w \in Y_t$ para algún mismo bolsón $Y_t$.
+	Por la cuenta anterior sabemos que todo $v \in V(\Gamma_2)$ es tal que existe algún $x \in V(\Gamma_1)$ de manera que $d(f(x),v) \le C + 1$.
+	Si tomamos este mismo $x$ notemos que como $d(v,w) = 1$ entonces $d(w,x) \le C+2$. 
+	Esto nos dice que $v,w \in Y_t$ donde $Y_t$ es la bolsa correspondiente a $f(x)$. 
+	\item Sea $v \in Y_t \cap Y_s$ queremos ver que $v \in Y_r$ para todo $r$ en la geodésica que une $t$ con $s$ en el árbol $T$.
+	Alcanza con tomarnos $Y_t$ tal que exista $x \in V(\Gamma_1)$ con $x \in X_t$ de manera que $d(f(x),v) \le 2C$.	
+	Esto lo podemos hacer porque $f$ es una cuasisometría. 
+	Fijemos uno de los bolsones y veamos que para toda geodésicas que parten del vértice del árbol $t$ y terminan en $s$ son tales que todos los vértices $r \in V(T)$ que aparecen cumplen que $v \in Y_r$. 
+	Si no pudiéramos hacer esto tendríamos que nuestro grafo $T$ tiene un ciclo pero esto es absurdo puesto que es un árbol.
+	Supongamos que $sr$ es una arista de $T$ y $rt$ es otra arista.
+	Los casos de una geodésica en general se reducen a este usando inducción en la longitud del camino.
+
+	Sabemos que existe $z \in X_r \cap X_t$ por la proposición \ref{}. 
+	De esta manera como $|X_t| \le k$ tenemos que $d(x,z) \le k$. 
+	Usando que $f$ es una cuasisometría tenemos que $d(f(x),f(z) \le Ck$.
+	
+	Entonces veamos de acotar $d(f(z),v)$ y así concluir que $x \in Y_r$ tal como queríamos ver.
+	Usando la desigualdad triangular,
+	\[
+	d(f(z),v) \le d(f(z),f()) + d(v,f(x)) \le Ck + C + 2
+	\]
+	y esto termina la demostración porque inductivamente lo podemos ver para cualquier $r$ en la geodésica.
+	
+	\red{Comentarios:
+	La demo venía bien pero estoy asumiendo que $diam(X_t) \le k$ uniformemente sobre los bolsones. 
+	Esto en principio no es cierto.
+	Otra cosa es que si hago funcionar esto debería modificar las constantes pero creo que eso se puede tomar el máximo de las que usé y ya está.
+	Creo que si pruebo lo que quería probar para otra cosa y que sé que es cierto:
+	\textsc{la descomposición en un árbol se puede tomar de manera que los bolsones sean conexos} entonces en este caso notamos que $diam(X_t) \le k$ donde $k$ es horriblemente más grande pero finito.
+	}
+\end{enumerate}
+
 \end{proof}
 
 A partir de este resultado podemos ver que las dos maneras distintas que teníamos de pensar a los grafos que se parecen a árboles resultan ser equivalentes.
@@ -444,6 +506,7 @@ Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$ y este t
 
 \section{Teoría de Bass Serre.}
 
+\section{Ends de grupos.}
 	
 	
 	
