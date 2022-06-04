@@ -152,7 +152,7 @@ El \blue{bagsize} de una descomposición en un árbol $T$ de un grafo $X$ es el 
 	\end{equation*}
 Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
-\begin{obs}
+\begin{obs}\label{desc-arbol-arbol}
  En particular si el grafo $X$ es un árbol notemos que tiene treewidth exactamente igual a 1.
  Una manera de probarlo es tomar $T$ la subdivisión baricéntrica de $X$. 
  Este es el siguiente árbol que tiene como vértices a 
@@ -197,13 +197,13 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 \end{obs}
 
 
-\begin{comment} [Creo que está bastante mal esto. Si lo tengo que usar más en adelante repensarlo bien.]
-	\begin{obs}
-	Si un grafo $\Gamma$ tiene treewidth finito podemos tomarnos otra descomposición tal que siga siendo de treewidth finito pero los bolsones de la descomposición sean conexos. 
-	Si algún bolsón no es conexo agregamos todos los vértices del grafo que estén en la geodésica que une las componentes conexas. 
-	Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
-	\end{obs}
-\end{comment}
+% [Creo que está bastante mal esto. Si lo tengo que usar más en adelante repensarlo bien.]
+%	\begin{obs}
+%	Si un grafo $\Gamma$ tiene treewidth finito podemos tomarnos otra descomposición tal que siga siendo de treewidth finito pero los bolsones de la descomposición sean conexos. 
+%	Si algún bolsón no es conexo agregamos todos los vértices del grafo que estén en la geodésica que une las componentes conexas. 
+%	Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
+%	\end{obs}
+
 
 \begin{deff}
 	Dado un grafo $X$, el \blue{borde} de un conjunto de vértices $C \subseteq V(X)$ se define como
@@ -242,7 +242,7 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	El caso base es algún $C$ tal que es una componente conexa de $V_2$ y queremos armarnos un camino que lo una con $B_1(\Gamma)$. 
 	Dado que $V_2 \subseteq V_1$ en particular tenemos que $C \subseteq V_1$. De esta manera por la definición tenemos que existe una arista $\beta CB_1(0)$ tal como queríamos ver.
 	
-	Para el paso inductivo supongamos que tenemos que para cualquier borde de una componente conexa de $V_{n-1}$ tenemos un camino que lo une con la raíz $B_1(\Gamma)$ y veamos de construirnos un camino con cualquier borde de una componente conexa $C \subseteq V_n$.
+	Para el paso inductivo supongamos para cualquier borde de una componente conexa de $V_{n-1}$ tenemos un camino que lo une con la raíz $B_1(\Gamma)$ y veamos de construirnos un camino con cualquier borde de una componente conexa $C \subseteq V_n$.
 	De esta manera debe existir $D$ componente conexa de $V_{n-1}$ tal que $C \subseteq D$. Esto es porque $V_{n-1} \subseteq V_{n}$ y al ser $C$ un conexo si interseca alguna de las componentes conexas de $V_{n-1}$ debe estar contenida en ella. 
 	Necesariamente debe intersecar a alguna de estas componentes conexas porque particionan al espacio.
 	Así vimos que existe una arista $(\beta C, \beta D)$ y ahora usando la hipótesis inductiva obtenemos un camino de $B_1(\Gamma)$ con $\beta C$.
@@ -421,67 +421,118 @@ Dado que todo grupo lo podemos pensar como un espacio métrico a partir de la di
 
 Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
 
-\begin{lema}
-	El treewidth finito es un invariante por cuasisometría.
-\end{lema}
+\begin{prop} \label{treewidth-inv}
+	El treewidth finito es un invariante por cuasisometría para grafos con grado acotado uniformemente.
+\end{prop}
+%\begin{proof}[Intento de demo distinta. No salió]
+%Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_1$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_2$ también tiene treewidth finito.
+%Dada la cuasisometría $f$ consideremos $C \ge A + B$.
+%
+%Partamos de una descomposición en un árbol $T$ para $\Gamma_1$.
+%La idea es usar la cuasisometría para empujar esta descomposición a una (con bolsones posiblemente más grandes) en $\Gamma_2$.
+%Por cada bolsón $X_t \subset V(\Gamma_1)$ vamos a considerar un bolsón en el otro grafo,
+%\[
+%Y_t = B(f(X_t),Ck) \cap V(\Gamma_2).
+%\] 
+%Esto es todos los vértices de $\Gamma_2$ que estén a distancia igual o menor que $Ck$ de la imagen del bolsón $X_t$ por medio de $f$. 
+%Donde $k$ es la constante del treewidth del grafo $\Gamma_1$ y $C$ la constante de la cuasisometría anteriormente definida.
+%
+%Como ya sabemos que $T$ el grafo subyacente de la descomposición es un árbol basta ver que cumple las tres propiedades que debe cumplir toda descomposición \ref{desc-arbol}.
+%
+%\begin{enumerate}
+%	\item Queremos ver que dado $v \in V(\Gamma_2)$ existe $t \in V(T)$ tal que $v \in Y_t$.
+%	Por ser un embedding cuasisométrico debe existir $y \in \Gamma_1$ (no necesariamente algún vértice) tal que $d(f(y),v) \le C$. 
+%	Tomemos $x \in V(\Gamma_1)$ de manera que $d(x,y) < 1$. 
+%	Usando desigualdad triangular notemos que 
+%	\[
+%	d(f(x),v) \le d(f(x),f(y)) + d(v,f(y)) \le 2C
+%	\]
+%	donde $d(f(x),f(y)) \le C$ porque $f$ es una cuasisometría.
+%	Mientras que la otra cota vale porque justamente así tomamos a $f(y)$. 
+%	Como $k \le 2$ tenemos que $2C \le Ck$ y así vemos que $v \in Y_t$ tal como queríamos ver.
+%	\item Dado una arista $vw \in E(\Gamma_2)$ veamos que $v, w \in Y_t$ para algún mismo bolsón $Y_t$.
+%	Por la cuenta anterior sabemos que todo $v \in V(\Gamma_2)$ es tal que existe algún $x \in V(\Gamma_1)$ de manera que $d(f(x),v) \le C + 1$.
+%	Si tomamos este mismo $x$ notemos que como $d(v,w) = 1$ entonces $d(w,x) \le C+2$. 
+%	Esto nos dice que $v,w \in Y_t$ donde $Y_t$ es la bolsa correspondiente a $f(x)$. 
+%	\item Sea $v \in Y_t \cap Y_s$ queremos ver que $v \in Y_r$ para todo $r$ en la geodésica que une $t$ con $s$ en el árbol $T$.
+%	Alcanza con tomarnos $Y_t$ tal que exista $x \in V(\Gamma_1)$ con $x \in X_t$ de manera que $d(f(x),v) \le 2C$.	
+%	Esto lo podemos hacer porque $f$ es una cuasisometría. 
+%	Fijemos uno de los bolsones y veamos que para toda geodésicas que parten del vértice del árbol $t$ y terminan en $s$ son tales que todos los vértices $r \in V(T)$ que aparecen cumplen que $v \in Y_r$. 
+%	Si no pudiéramos hacer esto tendríamos que nuestro grafo $T$ tiene un ciclo pero esto es absurdo puesto que es un árbol.
+%	Supongamos que $sr$ es una arista de $T$ y $rt$ es otra arista.
+%%	Los casos de una geodésica en general se reducen a este usando inducción en la longitud del camino.
+%%	Sabemos que existe $z \in X_r \cap X_t$ por la proposición \ref{}. 
+%%	De esta manera como $|X_t| \le k$ tenemos que $d(x,z) \le k$. 
+%%	Usando que $f$ es una cuasisometría tenemos que $d(f(x),f(z) \le Ck$.
+%%	
+%%	Entonces veamos de acotar $d(f(z),v)$ y así concluir que $x \in Y_r$ tal como queríamos ver.
+%%	Usando la desigualdad triangular,
+%%	\[
+%%	d(f(z),v) \le d(f(z),f()) + d(v,f(x)) \le Ck + C + 2
+%%	\]
+%%	y esto termina la demostración porque inductivamente lo podemos ver para cualquier $r$ en la geodésica.
+%
+%\red{Ahora creo que esto no es cierto. La tercera condición se rompa incluso en un ejemplo finito.}
+%\end{enumerate}
+%
+%\end{proof}
+
 \begin{proof}
-Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_1$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_2$ también tiene treewidth finito.
-Dada la cuasisometría $f$ consideremos $C \ge A + B$.
-
-Partamos de una descomposición en un árbol $T$ para $\Gamma_1$.
-La idea es usar la cuasisometría para empujar esta descomposición a una (con bolsones posiblemente más grandes) en $\Gamma_2$.
-Por cada bolsón $X_t \subset V(\Gamma_1)$ vamos a considerar un bolsón en el otro grafo,
-\[
-Y_t = B(f(X_t),Ck) \cap V(\Gamma_2).
-\] 
-Esto es todos los vértices de $\Gamma_2$ que estén a distancia igual o menor que $Ck$ de la imagen del bolsón $X_t$ por medio de $f$. 
-Donde $k$ es la constante del treewidth del grafo $\Gamma_1$ y $C$ la constante de la cuasisometría anteriormente definida.
-
-Como ya sabemos que $T$ el grafo subyacente de la descomposición es un árbol basta ver que cumple las tres propiedades que debe cumplir toda descomposición \ref{desc-arbol}.
-
-\begin{enumerate}
-	\item Queremos ver que dado $v \in V(\Gamma_2)$ existe $t \in V(T)$ tal que $v \in Y_t$.
-	Por ser un embedding cuasisométrico debe existir $y \in \Gamma_1$ (no necesariamente algún vértice) tal que $d(f(y),v) \le C$. 
-	Tomemos $x \in V(\Gamma_1)$ de manera que $d(x,y) < 1$. 
-	Usando desigualdad triangular notemos que 
+	Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_2$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_1$ también tiene esta propiedad.
+	Consideremos $l$ tal que $d(f(v),f(w) \le l$ para vértices $v,w \in V(\Gamma_1)$ que estén conectados por una arista.
+	Esto lo podemos tomar porque al ser una cuasisometría 
 	\[
-	d(f(x),v) \le d(f(x),f(y)) + d(v,f(y)) \le 2C
+	d(f(v),f(w)) \le C d(v,w) + C  \le 2C
 	\]
-	donde $d(f(x),f(y)) \le C$ porque $f$ es una cuasisometría.
-	Mientras que la otra cota vale porque justamente así tomamos a $f(y)$. 
-	Como $k \le 2$ tenemos que $2C \le Ck$ y así vemos que $v \in Y_t$ tal como queríamos ver.
-	\item Dado una arista $vw \in E(\Gamma_2)$ veamos que $v, w \in Y_t$ para algún mismo bolsón $Y_t$.
-	Por la cuenta anterior sabemos que todo $v \in V(\Gamma_2)$ es tal que existe algún $x \in V(\Gamma_1)$ de manera que $d(f(x),v) \le C + 1$.
-	Si tomamos este mismo $x$ notemos que como $d(v,w) = 1$ entonces $d(w,x) \le C+2$. 
-	Esto nos dice que $v,w \in Y_t$ donde $Y_t$ es la bolsa correspondiente a $f(x)$. 
-	\item Sea $v \in Y_t \cap Y_s$ queremos ver que $v \in Y_r$ para todo $r$ en la geodésica que une $t$ con $s$ en el árbol $T$.
-	Alcanza con tomarnos $Y_t$ tal que exista $x \in V(\Gamma_1)$ con $x \in X_t$ de manera que $d(f(x),v) \le 2C$.	
-	Esto lo podemos hacer porque $f$ es una cuasisometría. 
-	Fijemos uno de los bolsones y veamos que para toda geodésicas que parten del vértice del árbol $t$ y terminan en $s$ son tales que todos los vértices $r \in V(T)$ que aparecen cumplen que $v \in Y_r$. 
-	Si no pudiéramos hacer esto tendríamos que nuestro grafo $T$ tiene un ciclo pero esto es absurdo puesto que es un árbol.
-	Supongamos que $sr$ es una arista de $T$ y $rt$ es otra arista.
-	Los casos de una geodésica en general se reducen a este usando inducción en la longitud del camino.
-
-	Sabemos que existe $z \in X_r \cap X_t$ por la proposición \ref{}. 
-	De esta manera como $|X_t| \le k$ tenemos que $d(x,z) \le k$. 
-	Usando que $f$ es una cuasisometría tenemos que $d(f(x),f(z) \le Ck$.
+	entonces basta con tomar $l \ge C+1$.
 	
-	Entonces veamos de acotar $d(f(z),v)$ y así concluir que $x \in Y_r$ tal como queríamos ver.
-	Usando la desigualdad triangular,
+	Veamos de armarnos la descomposición en un árbol $T$ para $\Gamma_1$.	
+	Tomaremos como árbol para descomposición al mismo $T$ que usamos para $\Gamma_2$.
+	Sean $X_t$ los bolsones de esta descomposición. 
+	Recordemos que por \ref{} si tomamos $N^l(X_t)$ los vecinos del bolsón $X_t$ que están a distancia no mayor a $l$ seguimos teniendo una descomposición.  
+	Consideraremos los bolsones $Y_t = f^{-1}(N^l(X_t))$ de vértices en $\Gamma_1$. 
+	
+	Debemos ver que cumplen las tres propiedades.
+	
+	\begin{enumerate}
+		\item La primera se cumple puesto que los bolsones $X_t$ cubren $V(\Gamma_2)$. 
+		De esta manera $\cup_{t \in T} N^l(X_t) = V(\Gamma_2)$ y por lo tanto tomando preimagen tenemos que
+		\[
+		\bigcup_{t \in V(T)} f^{-1} (N^l (X_t)) = \bigcup_{t \in V(T)} Y_t = f^{-1} (V(\Gamma_2)) = V(\Gamma_1)
+		\] 
+		donde usamos que la preimagen de la unión es la unión de las preimágenes.
+		\item La segunda condición usamos que si hay una arista $xy \in E(\Gamma_2)$ luego debe ser que $d(f(x),f(y)) \le l$ por como tomamos a $l$.
+		De esta manera como $f(x) \in X_t$ para algún $t \in V(T)$, notemos que $f(y) \in N^l(X_t)$ también. 
+		Tomando preimagen tenemos que $x,y \in f^{-1}(N^l(X_t))$ y esto es que justamente $x,y \in Y_t$ para un mismo $t \in V(T)$ tal como queríamos ver.		
+		\item Para la tercera condición si $x \in Y_t \cap Y_s$ queremos ver que $x \in Y_r$ para todo $r \in V(T)$ que aparezca en la geodésica de $s$ a $t$.
+		Como la preimagen de una intersección es lo mismo que la intersección de las preimágenes entonces 
+		\[
+		x \in f^{-1}(N^l(X_t)) \cap f^{-1}(N^l(X_s)) = f^{-1}(N^l(X_t) \cap N^l (X_s)
+		\]
+		de esta manera debe existir $v \in V(\Gamma_2)$ tal que $v \in N^l(X_s) \cap N^l(X_t)$.
+		Ahora usamos que esta es una descomposición sobre $\Gamma_2$ para notar que $v \in N^l(X_r)$.
+		Tomando preimagen tenemos que $x \in Y_r$ tal como queríamos ver.
+	\end{enumerate}
+	
+	Finalmente debemos ver que el tamaño de los bolsones está acotado uniformemente.
+	Esto es que exista $k \in \NN$ tal que $|Y_t| \le k$ para todo $t \in V(T)$.
+	Como $\Gamma_2$ tiene treewidth finito tenemos que $|X_t| \le M$ uniformemente para todo $y \in V(T)$ para cierta $M$. 
+	Como el grado de los grafos está acotado uniformemente por alguna constante $d$ tenemos que 
 	\[
-	d(f(z),v) \le d(f(z),f()) + d(v,f(x)) \le Ck + C + 2
+	|N^l(X_t)| \le d^l |X_t| \le d^l M.
 	\]
-	y esto termina la demostración porque inductivamente lo podemos ver para cualquier $r$ en la geodésica.
-	
-	\red{Comentarios:
-	La demo venía bien pero estoy asumiendo que $diam(X_t) \le k$ uniformemente sobre los bolsones. 
-	Esto en principio no es cierto.
-	Otra cosa es que si hago funcionar esto debería modificar las constantes pero creo que eso se puede tomar el máximo de las que usé y ya está.
-	Creo que si pruebo lo que quería probar para otra cosa y que sé que es cierto:
-	\textsc{la descomposición en un árbol se puede tomar de manera que los bolsones sean conexos} entonces en este caso notamos que $diam(X_t) \le k$ donde $k$ es horriblemente más grande pero finito.
-	}
-\end{enumerate}
-
+	Finalmente notemos que al ser $f$ una cuasisometría tenemos que $|f^{-1}(v)| \le k$ para todo $v \in V(\Gamma_2)$.
+	Esto lo podemos ver porque si $f(x) = v = f(y)$ entonces
+	\[
+	\frac{1}{C}d(x,y) - C \le d( f(x), f(y) ) = 0 \implies d(x,y) \le C^2 < \infty
+	\]
+	y esta cota es uniforme para todo $v \in \Gamma_2$. 
+	Así vemos que,
+	\[
+	|Y_t| = |f^{-1}(N^l(X_t))| \le C^2 d^l M < \infty
+	\]
+	y tomamos $k$ suficientemente grande para que haga valer esto.
+	Concluímos así que la descomposición que nos armamos para $\Gamma_1$ tiene treewidth finito.
 \end{proof}
 
 A partir de este resultado podemos ver que las dos maneras distintas que teníamos de pensar a los grafos que se parecen a árboles resultan ser equivalentes.
@@ -497,7 +548,8 @@ Para la ida veamos de armarnos la cuasisometría a partir de la descomposición 
 Hay que ver la distancia dentro de un bolsón esté controlada...
 
 
-Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$ y este tiene treewidth exactamente 1 luego usando la prop anterior vemos que $X$ debe tener treewidth finito tal como queríamos ver.
+Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$, por la observación \ref{desc-arbol-arbol} este tiene treewidth exactamente 1.
+Por la proposición anterior \ref{treewidth-inv} como el treewidth es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
 \end{proof}
 
 \begin{coro}

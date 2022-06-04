@@ -17,6 +17,7 @@
 * Escribir bien la definición de grafo de Cayley para que las aristas no sean una cosa rara como está ahora.
 * Escribir bien la parte de subdivisión baricéntrica. Quizá Iván pueda decirme como la escribiría él. 
 * Reescribir la tercera condición de treewidth finito. Chequear el argumento para ver que es acíclico que está escrito bastante bastante rari.
+* Agregar que los vecinos de un bolsón para cada bolsón nos termina dando otra desc en un árbol.
 * ~~Terminar de pasar la demo de gramática independiente de contexto implica treewidth finito.~~ 
 * ~~Dar bien la definición de grafo de Cayley. Que quede claro que tomo un grafo con generadores como monoide.~~
   * ~~Dar un ejemplo. Quizá pueda poner el de $F_2$ que es lindo :)~~
@@ -62,7 +63,13 @@
 
   * Intersección con lenguajes regulares.
 
+## Cuasisometrías.
 
+* Agregar la otra definición equivalente de cuasisometría. Yo estoy usando que es un embedding y que es bilipschitz cuando a veces la definición original es con una inversa.
+* Agregar la definición particular para grafos definida sobre vértices para facilitar argumentos.
+* Agregar que los grafos de Cayley para distintos generadores son cuasisométricos.
+* Agregar lo del subgrupo de índice finito es cuasisométrico con el grupo.
+* Terminar de pensar la implicación que quería hacer para ver que cuasisométrico con un árbol es equivalente a tener treewidth finito. Puedo pensarlo en el contexto de grafos de Cayley en vez de grafos en general.
 
 
 ---
