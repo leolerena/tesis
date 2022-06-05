@@ -282,7 +282,11 @@ donde $(q_0, w, Z_0)$ es el instante inicial en el cual tenemos la palabra $w$ e
 	No importa si existen derivaciones que no lo hagan mientras una sí lo haga. 
 \end{obs}
 \begin{ej}
-	Sea nuestro alfabeto $\Sigma = \{ a, b\}$ y $L$ el lenguaje de los palíndromos sobre este alfabeto. Consideremos el siguiente autómata de pila $M=(Q,\{q_0\} ,\{a,b\}, \{a,b,\$\}, \$, \{q_1\})$ donde nuestra pila tiene el mismo alfabeto que el de entrada con un símbolo extra que es \$ que va a ser nuestro símbolo inicial de la pila.
+	Sea nuestro alfabeto $\Sigma = \{ a, b\}$ y $L$ el lenguaje de los palíndromos sobre este alfabeto. Consideremos el siguiente autómata de pila 
+	\[
+	M=(Q,\{q_0\} ,\{a,b\}, \{a,b,\$\}, \$, \{q_1\})
+	\]
+	donde nuestra pila tiene el mismo alfabeto que el de entrada con un símbolo extra que es \$ que va a ser nuestro símbolo inicial de la pila.
 	
 	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
 	scale = 1,transform shape]
@@ -350,7 +354,7 @@ Un lenguaje $L$ es aceptado por un automáta de pila no determinístico por esta
 
 \subsection{Propiedades de los lenguajes independientes de contexto.}
 
-En esta sección vamos a considerar la clase de lenguajes \ic que denotaremos \textsc{LIC}.
+En esta sección vamos a considerar a los lenguajes \ic como una clase. 
 Probemos algunas propiedades que cumplen respecto a las operaciones de conjuntos más usuales.
 
 \begin{prop}
@@ -396,6 +400,15 @@ Otras propiedades interesantes tienen que ver con su relación con morfismos de 
 	Ver \cite{sipser13}.
 \end{proof}
 
+Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$ no es \ic es usar el siguiente lema.
+
+\begin{lema}[Pumping]
+	Sea $L$ un lenguaje independiente de contexto entonces ....
+\end{lema}
+
+\begin{proof}
+	Resultado estándar. Ver \cite{hopcraft-ullman}.
+\end{proof}
 
 \section{Automátas de pila determinísticos.} Si en la definición anterior del automáta pedimos que la función de transición de una configuración dada tenga a lo sumo un valor entonces nuestro automáta lo vamos a llamar determinístico. Formalmente esto es que 
 \[
@@ -475,7 +488,8 @@ Estos automátas son los que nos surgen de la construcción del automáta del pr
 
 \section{Lenguajes poly independientes de contexto.}
 
-En esta sección vamos a introducir otra familia de lenguajes que generalizan levemente a los lenguajes independientes de contexto.
+En esta sección vamos a introducir otra familia de lenguajes que generalizan levemente a los lenguajes independientes de contexto. 
+La bibliografía fundamental es \cite{brough_groups_2014}.
 
 
 \section{Conos de lenguajes y el problema de la palabra.}
@@ -519,13 +533,10 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 		\item $WP(H) \in \CC$ para todo subgrupo $H$ de índice finito en $G$.
 	\end{itemize} 
 \end{prop}
-
-Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos. 
-Como corolario de esta proposición y de saber que los lenguajes \ic podemos tomar la siguiente definición.
+\begin{proof}
+	
+\end{proof}
 \medskip
-\begin{deff}
-	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
-\end{deff}
 
 
 

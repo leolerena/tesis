@@ -65,11 +65,13 @@
 
 ## Cuasisometrías.
 
-* Agregar la otra definición equivalente de cuasisometría. Yo estoy usando que es un embedding y que es bilipschitz cuando a veces la definición original es con una inversa.
-* Agregar la definición particular para grafos definida sobre vértices para facilitar argumentos.
-* Agregar que los grafos de Cayley para distintos generadores son cuasisométricos.
-* Agregar lo del subgrupo de índice finito es cuasisométrico con el grupo.
-* Terminar de pensar la implicación que quería hacer para ver que cuasisométrico con un árbol es equivalente a tener treewidth finito. Puedo pensarlo en el contexto de grafos de Cayley en vez de grafos en general.
+* ~~Agregar la otra definición equivalente de cuasisometría. Yo estoy usando que es un embedding y que es bilipschitz cuando a veces la definición original es con una inversa.~~
+* ~~Agregar la definición particular para grafos definida sobre vértices para facilitar argumentos.~~
+* ~~Agregar que los grafos de Cayley para distintos generadores son cuasisométricos.~~
+* ~~Agregar lo del subgrupo de índice finito es cuasisométrico con el grupo.~~
+* Terminar de pensar la implicación que quería hacer para ver que cuasisométrico con un árbol es equivalente a tener treewidth finito. Puedo pensarlo en el contexto de grafos de Cayley en vez de grafos en general. Charlarlo con Iván.
+  * Pensaba ver que todo ciclo geodésico está acotado en tamaño. Pensé que quizá esto valía porque tenemos las reglas de la gramática que nos permiten acortar los ciclos. 
+    * La idea de hacer esto es para que los bolsones nos queden conexos siguiendo el paper de Diestel. 
 
 
 ---

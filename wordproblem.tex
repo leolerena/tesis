@@ -1,5 +1,6 @@
 \documentclass[tesis.tex]{subfiles}
 
+\newcommand{\ic}{independiente de contexto }
 \newcommand{\APND}{automáta de pila no determinístico }
 \newcommand{\APD}{automáta de pila determinístico }
 \newcommand{\fg}{grupo finitamente generado }
@@ -10,17 +11,37 @@
 \begin{document}
 	
 \chapter{Grupos virtualmente libres.}
+\begin{deff}
+Un grupo $G$ es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que el índice es finito.
+\end{deff}
 
-Un grupo $G$ es virtualmente libre si existe un subgrupo $F$ libre tal que el índice es finito.
+\begin{ej}
+	EL grupo $\ZZ \times \ZZ$ no es virtualmente libre.
+\end{ej}
+
 
 
 
 
 
 \section{El problema de la palabra de los grupos virtualmente libres.}
+Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos. 
+Como corolario de esta proposición y de saber que los lenguajes \ic podemos tomar la siguiente definición.
+\medskip
+\begin{deff}
+	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
+\end{deff}
+
+\begin{ej}
+	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
+	Si tomamos los siguientes generadores $\Sigma = \{ a,b,c \}$ tal que ...
+	Usando el lema del pumping \ref{} podemos ver que este lenguaje no es independiente de contexto.
+	Para eso...
+\end{ej}
+
 Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. Los grupos que su lenguaje del problema de la palabra sea independiente de contexto los llamaremos directamente independientes de contexto. 
 
-Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos se corresponden a tener un lenguaje independiente de contexto.
+Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos son independientes de contexto.
 
 \begin{ej}[Automáta para grupos libres.]
 	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. 
@@ -106,7 +127,7 @@ Repliquemos esta idea también para el caso que que tengamos algo en la pila,
 \begin{deff}
 	Sea $G$ un \fg y $\Sigma$ un conjunto de generadores como grupo. 
 	Supongamos que $1 \notin \Sigma$.
-	Definimos el \blue{grafo de Cayley} $\Gamma = Cay(G,\Sigma)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y $(g,h) \in E(\Gamma)$ sii $h=ga$ para ciertos $g,h \in G$ y $a \in \Sigma \cup \Sigma^-1$. 
+	Definimos el \blue{grafo de Cayley} $\Gamma = \text{Cay}(G,\Sigma)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $(g,h) \in E(\Gamma)$ sii $h=ga$ para ciertos $g,h \in G$ y $a \in \Sigma \cup \Sigma^{-1}$. 
 \end{deff}
 
 Para una arista $(g,ga)$ llamaremos la \emph{etiqueta} al generador $a$.
@@ -204,6 +225,19 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 %	Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
 %	\end{obs}
 
+\begin{deff}
+	Sea $\Gamma$ un grafo y $C \in V(\Gamma)$ un conjunto de vértices entonces defimos los vecinos de $C$ por medio de $N(C) = \{ v \in V(\Gamma) : \exists w \in C, \ vw \in E(\Gamma) \}$.
+	De esta manera podemos definir los l-ésimos vecinos por medio de $N^l(C) = ... $
+\end{deff}
+
+
+\begin{prop}
+	Si $(X_t)_{t \in V(T)}$ es una descomposición en un árbol $T$ para un grafo $\Gamma$ entonces si tomamos como bolsones a $N^l(X_t)$ también tenemos una descomposición en un árbol.
+\end{prop}
+\begin{proof}
+	Demostración directa. Ver \cite{diekert_context-free_2022}.
+\end{proof}
+\medskip
 
 \begin{deff}
 	Dado un grafo $X$, el \blue{borde} de un conjunto de vértices $C \subseteq V(X)$ se define como
@@ -382,31 +416,50 @@ tal como queríamos ver.
 
 
 \subsection{Cuasisometrías.}
-%Mover esto a la sección anterior dado que uso que es un espacio métrico antes.
-A todo grafo lo podemos pensar como un espacio métrico dónde las aristas son isométricas al intervalo real $[0,1]$. 
 
 
 \begin{deff}
-	Sean $X,Y$ espacios métricos. Una cuasisometría es una función $f:X \to Y$ tal que:
-	\begin{enumerate}
-	\item Para todo par de puntos $x_1,x_2 \in X$ existen constantes $A,B \ge 0$ tales que
+	Sean $X,Y$ espacios métricos. Una \blue{cuasisometría} es una función $f:X \to Y$ tal que:
+	\begin{itemize}
+	\item Para todo par de puntos $x_1,x_2 \in X$ existe constante $A > 0$ tales que
 	\[
-	\frac{1}{A} d_X(x_1,x_2) - B \le d_Y(f(x_1),f(x_2)) \le A d_X(x_1,x_2) + B
+	\frac{1}{A} d_X(x_1,x_2) - A \le d_Y(f(x_1),f(x_2)) \le A d_X(x_1,x_2) + A
 	\]
 	\item Existe una constante real $C \ge 0$ tal que para todo punto $y \in Y$ existe $x \in X$ tal que 
 	\[
 	d(y,f(x)) \le C
 	\]
-	\end{enumerate}
- 	Dos espacios métricos que se dicen cuasisométricos si existe una cuasisometría entre ellos.
+	\end{itemize}
+ 	Dos espacios métricos que se dicen \emph{cuasisométricos} si existe una cuasisometría entre ellos.
 \end{deff}
 
-\red{En el caso que los espacios métricos son grafos podemos definir la cuasisometría sobre los vértices!! 
-Esto facilita algunos argumentos molestos en los que la imágen de un vértice cae en el medio de una arista y cosas así.}
+\begin{obs}
+	Si nos restringimos a que los espacios métricos sean grafos podemos redefinir una cuasisometría para que sea una función de los vértices de un grafo a los del otro.
+	Esto es si tenemos dos grafos $\Gamma_1$ y $\Gamma_2$ entonces son cuasisométricos como espacios métricos si y solo si existe $f:V(\Gamma_1) \to V(\Gamma_2)$ tal que 
+	\begin{itemize}
+		\item Para todo $v,w \in V(\Gamma_1)$ existe constante $A > 0$ tal que 
+		\[
+		\frac{1}{A} d_X(v,w) - A \le d_Y(f(v),f(w)) \le A d_X(v,w) + A
+		\]
+		\item Existe una constante real $C \ge 0$ tal que para todo vértice $y \in V(\Gamma_2)$ existe $v \in V(\Gamma_1)$ tal que 
+		\[
+		d(y,f(v)) \le C
+		\]
+	\end{itemize}
+	
+	Para ver que son equivalentes consideremos que...
+\end{obs}
 
+\begin{prop}
+	Si existe $f:X \to Y$ cuasisometría entonces también debe haber $g:Y \to X$ cuasisometría.
+\end{prop}
+\begin{proof}
+	Resultado estándar. Ver \cite{bridson2013metric}.
+\end{proof}
 
-\red{Propiedades de las cuasisometrías y un poco de la intuición geométrica detrás.}
-Si tenemos una cuasisometría $f:X \to Y$ a partir de ésta nos podemos armar otra cuasisometría $g:Y \to X$. De esta manera podemos que la relación de ser cuasisométricos es una relación de equivalencia porque la reflexividad y la transitividad se deducen inmediatamente y la simetría a partir de lo visto anteriormente.
+Todo espacio métrico es cuasisométrico consigo mismo por medio de la identidad.
+La composición de cuasisometrías también sigue siendo una cuasisometría.
+Con esta proposición vemos que ser cuasisométricos es una relación de equivalencia entre los espacios métricos. 
 
 
 Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. 
@@ -415,11 +468,21 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 	% El ejemplo clásico de la grilla y el plano.
 \end{ej}
 
-Dado que todo grupo lo podemos pensar como un espacio métrico a partir de la distancia dada por la cantidad de palabras... está bien hablar de cuasisometrías entre grupos si pudieramos ver que esto no depende del conjunto de generadores que hayamos elegido.
+Todo grafo de Cayley lo podemos pensar como un espacio métrico.  
+Veamos que esto no depende de los generadores que hayamos elegido.
+
+\begin{prop}
+	Sea $\Sigma$ y $\Delta$ conjuntos finitos de generadores para $G$ grupo entonces $\text{Cay}(G,\Sigma)$ es cuasisométrico con $\text{Cay}(G, \Delta).$
+\end{prop}
+
+\begin{proof}
+	Resultado estándar. Ver \cite{bridson2013metric}.
+\end{proof}
 
 
 
-Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
+Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. 
+Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
 
 \begin{prop} \label{treewidth-inv}
 	El treewidth finito es un invariante por cuasisometría para grafos con grado acotado uniformemente.
@@ -545,7 +608,8 @@ A partir de este resultado podemos ver que las dos maneras distintas que teníam
 	
 Para la ida veamos de armarnos la cuasisometría a partir de la descomposición en árbol del grafo $X$. Definamos entonces la cuasisometría $q: T \to X$ a partir de mandar $t \to x_t$ donde $x_t \in X_t$ es algún elemento del bolsón correspondiente a $t \in V(T)$ que sabemos que no es vacío. Esta función es una cuasisometría con constante $C=1$ y $A = bs(T) + 1$.
 
-Hay que ver la distancia dentro de un bolsón esté controlada...
+Hay que ver la distancia dentro de un bolsón esté controlada.
+Si los bolsones los tomamos conexos \ref{} entonces notemos que la mayor distancia posible es...
 
 
 Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$, por la observación \ref{desc-arbol-arbol} este tiene treewidth exactamente 1.
@@ -555,6 +619,30 @@ Por la proposición anterior \ref{treewidth-inv} como el treewidth es un invaria
 \begin{coro}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley es cuasisométrico a un árbol.
 \end{coro}
+\begin{proof}
+	Por \ref{} todo grupo independiente de contexto tiene treewidth finito y usando la proposición recién demostrada concluímos que su grafo de Cayley es cuasisométrico a un árbol.
+\end{proof}
+\medskip
+
+\begin{prop}\label{cuasisometria-subgrupo-ind-finito}
+	Sea $G$ grupo \fg entonces si $H$ es un subgrupo de índice finito resulta que $\text{Cay}(G,\Sigma) = \text{Cay}(H, \Sigma)$.
+\end{prop}
+\begin{proof}
+	Resultado estándar pero no tan elemental de demostrar. Ver \cite{loh2017geometric}.
+\end{proof}
+
+Esto nos dice que todo grupo es cuasisométrico con los subgrupos de índice finito. 
+De esta manera obtenemos el siguiente resultado,
+
+\begin{prop}
+	Todo grafo de Cayley de un grupo virtualmente libre es cuasisométrico a un árbol.
+\end{prop}
+
+\begin{proof}
+	Si $G$ es virtualmente libre entonces existe $F \le G$ grupo libre de índice finito.
+	Por la prop anterior \ref{cuasisometria-subgrupo-ind-finito} tenemos que el grafo de Cayley de $G$ es cuasisométrico con el de $H$.
+	Por el resultado \ref{} sabemos que los grafos de grupos libres son árboles y así queda demostrada la proposición.
+\end{proof}
 
 \section{Teoría de Bass Serre.}
 
