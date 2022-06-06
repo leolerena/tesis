@@ -402,8 +402,8 @@ Otras propiedades interesantes tienen que ver con su relación con morfismos de 
 
 Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$ no es \ic es usar el siguiente lema.
 
-\begin{lema}[Pumping]
-	Sea $L$ un lenguaje independiente de contexto entonces ....
+\begin{lema}[Pumping] \label{pumping}
+	Sea $L$ un lenguaje independiente de contexto entonces existe una constante $n \ge 0$ tal que para todas las palabras $w \in L$ de longitud al menos $n$ existe una factorización $w = uvxwy$ con $|vwx| \le n$ y $|vx| > 0$ tal que para todo $i \in \NN$ vale que $uv^iwx^iy \in L$.
 \end{lema}
 
 \begin{proof}
@@ -518,14 +518,14 @@ Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos
 	\end{itemize}
 \end{deff} 
 
-\begin{ej}
+\begin{ej}\label{ic-cono}
 	Los lenguajes independientes de contexto forman un cono.
 	Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \ref{morfismos-monoides-ic}.
 \end{ej}
 
 Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para el estudio del problema de la palabra.
 \medskip
-\begin{prop}
+\begin{prop}\label{prop-cono-wp}
 	Sea $WP_\pi(G)$ el problema de la palabra de cierto grupo en alguna presentación $\pi$ y $\CC$ algún cono de lenguajes. Si $WP(G) \in \CC$ luego valen las siguientes afirmaciones:
 	\begin{itemize}
 		\item $WP(G) \in \CC$ para cualquier presentación elegida $\pi$.
@@ -537,7 +537,7 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	
 \end{proof}
 \medskip
-
+Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
 
 
 \section{Sistemas de reescritura.}

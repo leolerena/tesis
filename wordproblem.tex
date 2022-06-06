@@ -15,8 +15,32 @@
 Un grupo $G$ es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que el índice es finito.
 \end{deff}
 
+\begin{obs}
+	Al subgrupo libre siempre lo podemos tomar normal...?
+\end{obs}
+
+\begin{obs}
+	Si el subgrupo libre es algún grupo libre de rango mayor a $1$ entonces tiene a todos los grupos libres como subgrupos...
+\end{obs}
+
 \begin{ej}
-	EL grupo $\ZZ \times \ZZ$ no es virtualmente libre.
+	El grupo $\ZZ \times \ZZ$ no es virtualmente libre.
+	Como es un grupo conmutativo no puede tener a ningún $F_n$ con $n \ge 2$ como subgrupo. 
+	Para que sea virtualmente libre no queda otra que el libre sea isomorfo a $\ZZ$. 
+	Veamos que esto es imposible.
+	Sea $H$ este subgrupo y sea $K \simeq G/H$ el cociente finito que necesariamente tiene que ser abeliano.
+	Como el subgrupo $H$ tiene índice finito tenemos bien definido el morfismo del transfer $\phi$.
+	Para definirlo necesitamos tomar $\{ x_i \}_{i=1 \dots n}$ representantes de $G/H$ a izquierda en $\ZZ \times \ZZ$ que sabemos son finitos porque $[\ZZ \times \ZZ : H] < \infty$.
+	Luego todo elemento $x \in \ZZ \times \ZZ$ lo podemos escribir como 
+	\[
+	x = \prod_{i=1}^{n} h_i x_i
+	\]
+	donde $h_i \in H$.
+	El transfer es el siguiente morfismo $\phi: \ZZ \times \ZZ \to \ZZ$ dado por $\phi(g) = \prod_{i=1}^{n} h_i$.
+	En particular notemos que es un epimorfismo.
+	Como $\ZZ$ es libre todo epimorfismo se parte. 
+	Esto es que $\ZZ \times \ZZ  \simeq \ZZ \times K$ donde $K$ ya sabemos que es un grupo finito abeliano.
+	Por el teorema de la clasificación de los grupos abelianos llegamos a una contradicción porque el grupo $\ZZ \times K$ sin importar qué grupo finito tomemos tiene torsión mientras que $\ZZ \times \ZZ$ no tiene.	
 \end{ej}
 
 
@@ -24,9 +48,9 @@ Un grupo $G$ es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal qu
 
 
 
-\section{El problema de la palabra de los grupos virtualmente libres.}
-Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos. 
-Como corolario de esta proposición y de saber que los lenguajes \ic podemos tomar la siguiente definición.
+\section{Grupos independientes de contexto.}
+ 
+Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic forman un cono \ref{ic-cono} podemos dar la siguiente definición.
 \medskip
 \begin{deff}
 	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
@@ -34,14 +58,24 @@ Como corolario de esta proposición y de saber que los lenguajes \ic podemos tom
 
 \begin{ej}
 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
-	Si tomamos los siguientes generadores $\Sigma = \{ a,b,c \}$ tal que ...
-	Usando el lema del pumping \ref{} podemos ver que este lenguaje no es independiente de contexto.
-	Para eso...
+	Si tomamos los siguientes generadores $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
+	Bajo esta presentación 
+	\[
+	WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ w = a^nb^nc^n  \}.
+	\]
+	Este lenguaje no es independiente de contexto.
+	Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
+	Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipotesis del lema.
+	Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
+	Si tenemos una factorización $uvwxy = a^nb^nc^n$, que $|vwx| \le n$ implica que no todas las letras aparecen en $vwx$.
+	Supongamos que la letra que no aparece es $c$.
+	Por otro lado como $|vx| \le 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
+	Si tomamos $i=0$ notemos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
 \end{ej}
 
-Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. Los grupos que su lenguaje del problema de la palabra sea independiente de contexto los llamaremos directamente independientes de contexto. 
+Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. 
 
-Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos son independientes de contexto.
+%Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos son independientes de contexto.
 
 \begin{ej}[Automáta para grupos libres.]
 	Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. 
@@ -155,7 +189,7 @@ Es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cay
 La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
 
 \begin{deff}\label{desc-arbol}
-	 Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ (llamaremos a $X_t$ bolsones) que cumple las siguientes condiciones:
+	 Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ que cumple las siguientes condiciones:
 	\begin{enumerate}
 		\item Dado cualquier vértice $v \in V(X)$ existe $t \in V(T)$ tal que $x \in X_t$. 
 		\item Si hay una arista $e$ entre dos vértices $v,w \in V(X)$ luego existe $t \in V(T)$ tal que $v,w \in X_t$.
@@ -225,17 +259,51 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 %	Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
 %	\end{obs}
 
+\begin{prop}\label{prop-camino-desc}
+	Sea $\Gamma$ grafo tal que tiene una descomposición en un árbol $T$.
+	Sean $X,Y,Z$ bolsones tales que el vértice correspondiente a $Z$ en el árbol $T$ está en la geodésica que va de $X$ a $Y$. 
+	Sean $x \in X, y \in Y$ tales que $x = x_0 \dots x_n=y$ es algún camino en $\Gamma$ conectándolos.
+	Entonces debe existir algún $ 0 \le i \le n$ tal que $x_i \in Z$. 
+\end{prop}
+
+\begin{proof}
+	Vamos a demostrarlo haciendo inducción en la longitud $n$ del camino. 
+	El caso base es que $n = 0$ por lo tanto $x=y$. 
+	En este caso por ser una descomposición en un árbol tenemos que usando la tercer propiedad que $x \in Z$ también.
+	
+	Para el paso inductivo tomemos $X'$ bolsón que contiene tanto a $x$ como a $x_1$ que sabemos existe por ser una de las propiedades de las descomposiciones en árboles.
+	Si este bolsón $X'$ es $Z$ ya está porque nos alcanza con tomar $i=1$ de manera que $x_1 \in Z$.
+	En el caso que esto no ocurra miramos el camino de longitud $n-1$ dado por $x_1 x_2 \dots x_n = y$ y usando la hipótesis inductiva llegamos al resultado.	
+\end{proof}
+
+
 \begin{deff}
-	Sea $\Gamma$ un grafo y $C \in V(\Gamma)$ un conjunto de vértices entonces defimos los vecinos de $C$ por medio de $N(C) = \{ v \in V(\Gamma) : \exists w \in C, \ vw \in E(\Gamma) \}$.
-	De esta manera podemos definir los l-ésimos vecinos por medio de $N^l(C) = ... $
+	Sea $\Gamma$ un grafo y $C \in V(\Gamma)$ un conjunto de vértices entonces definimos los \blue{vecinos de $C$} por medio de 
+	\[
+	N(C) = \{ v \in V(\Gamma) : \exists w \in C, \ vw \in E(\Gamma) \}.
+	\]
+	De esta manera podemos definir recursivamente los l-ésimos vecinos por medio de $N^l(C) = N(N^{l-1}(C))$.
 \end{deff}
 
+\begin{obs}
+	Esta definición la podemos escribir de manera más concisa como $N^l (C) = \{ v \in V(\Gamma) : \ \exists w \in C, \  d(v,w) \le l  \}$.
+\end{obs}
 
-\begin{prop}
+\begin{prop}\label{prop-vecinos-desc}
 	Si $(X_t)_{t \in V(T)}$ es una descomposición en un árbol $T$ para un grafo $\Gamma$ entonces si tomamos como bolsones a $N^l(X_t)$ también tenemos una descomposición en un árbol.
 \end{prop}
 \begin{proof}
-	Demostración directa. Ver \cite{diekert_context-free_2022}.
+	
+	Veamos este resultado para $l=1$ y por inducción lo podemos extender para un $l$ genérico.
+	En este caso notemos que las dos primeras condiciones de la descomposición en un árbol se siquen cumpliendo porque no hicimos más que agrandar los bolsones. 
+	Esto es que si $X_t$ era un bolsón luego $X_t \subseteq N(X_t)$.
+	Debemos ver que cumple la tercer condición.
+	Partamos de un vértice $x \in V(X)$ tal que $x \in N(X_s) \cap N(X_t)$ y veamos que si $r \in V(T)$ está en la geodésica de $t$ a $s$ entonces $x \in N(X_r)$.
+	Notemos que en este caso debe existir algún $y \in N(X_s)$ tal que $xy \in E(X)$.
+	Análogamente existe $z \in N(X_t)$ tal que $xz \in E(X)$.
+	Si no fuera así tendríamos que $x \in X_s \cap X_t$ y esta condición ya se cumpliría por ser los bolsones de una descomposición.
+	Entonces si usamos la proposición \ref{prop-camino-desc} tomando el camino $yxz$ tenemos que alguno de estos tres vértices debe estar en $X_r$.
+	De esta manera $x \in N(X_r)$ tal como queríamos ver.
 \end{proof}
 \medskip
 
@@ -320,7 +388,7 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 
 \begin{obs}\label{palabras-wp}
 Si tenemos un grupo $G$ tal que es independiente de contexto consideremos $\cal G$ gramática que genera al lenguaje del problema de la palabra, $\WP = L(\cal G)$.
-Si $A$ es una de las variables de esta gramática consideremos el lenguaje $L_A$ de palabras generadas a partir de esta variable, donde
+Si $A$ es una de las variables de esta gramática podemos obtener el lenguaje $L_A$ de palabras generadas a partir de esta variable, donde
 \[
 L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
 \]
@@ -552,7 +620,7 @@ Veamos que estas categorización es equivalente a pedirle que el treewidth sea f
 	Veamos de armarnos la descomposición en un árbol $T$ para $\Gamma_1$.	
 	Tomaremos como árbol para descomposición al mismo $T$ que usamos para $\Gamma_2$.
 	Sean $X_t$ los bolsones de esta descomposición. 
-	Recordemos que por \ref{} si tomamos $N^l(X_t)$ los vecinos del bolsón $X_t$ que están a distancia no mayor a $l$ seguimos teniendo una descomposición.  
+	Recordemos que por \ref{prop-vecinos-desc} si tomamos $N^l(X_t)$ los vecinos del bolsón $X_t$ que están a distancia no mayor a $l$ seguimos teniendo una descomposición.  
 	Consideraremos los bolsones $Y_t = f^{-1}(N^l(X_t))$ de vértices en $\Gamma_1$. 
 	
 	Debemos ver que cumplen las tres propiedades.
