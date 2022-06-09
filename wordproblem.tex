@@ -12,15 +12,11 @@
 	
 \chapter{Grupos virtualmente libres.}
 \begin{deff}
-Un grupo $G$ es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que el índice es finito.
+Un grupo $G$ \fg es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que su índice en $G$ es finito.
 \end{deff}
 
 \begin{obs}
 	Al subgrupo libre siempre lo podemos tomar normal...?
-\end{obs}
-
-\begin{obs}
-	Si el subgrupo libre es algún grupo libre de rango mayor a $1$ entonces tiene a todos los grupos libres como subgrupos...
 \end{obs}
 
 \begin{ej}
@@ -402,8 +398,10 @@ tal como queríamos ver.
 \end{obs}
 
 
+El siguiente resultado es un teorema de Muller-Schupp demostrado en \cite{muller1985theory}.
+La demostración sigue la exposición del paper \cite{diekert_contextfree_2017}.
 \medskip
-\begin{teo}
+\begin{teo} [Muller - Schupp 1985] \label{teo_schupp_muller_ic_desc}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
 \begin{proof}
@@ -482,6 +480,10 @@ Ahora estamos listos para ver que $d(g,h) \le 3k$. Usamos la desigualdad triangu
 tal como queríamos ver.
 \end{proof}
 
+\begin{ej}
+	Ejemplo de $PSL(2,\ZZ)$ o de algún otro grupo que sea un producto libre de grupos finitos.
+\end{ej}
+
 
 \subsection{Cuasisometrías.}
 
@@ -515,7 +517,17 @@ tal como queríamos ver.
 		\]
 	\end{itemize}
 	
-	Para ver que son equivalentes consideremos que...
+	Para esto si tenemos una cuasisometría $g$ como espacios métrices definamos una sobre los vértices $f$ de la siguiente manera.
+	Por cada vértice $v \in V(\Gamma_1)$ consideremos $g(v) \in \Gamma_2$. 
+	Si $g(v) \in V(\Gamma_2)$ tomamos $f(v)=g(v)$.
+	El otro caso es que $g(v)$ cae en el medio de alguna arista $xy \in E(\Gamma_2)$. 
+	Supongamos que $d(g(v),x) \le \frac{1}{2}$ porque la distancia máxima con alguno de los vértices debe ser no más de $\frac{1}{2}$ porque justamente las aristas son isométricas con el intervalo $[0,1]$. 
+	En este caso definamos $f(v) = x$.
+	Notemos ahora que la distancia entre dos vértices por medio de $f$ a lo sumo aumenta. 
+	Tenemos que $d(f(v),f(w) \le d (g(v),g(w)) + 1$ para $v,w \in V(\Gamma_1)$ porque a lo sumo las imágenes por $g$ están a distancia $\frac{1}{2}$ de alguno de los vértices.
+	De esta manera notemos que si tomamos la constante $C+1$ nos sirve.
+	Para ver que la imagen es cuasidensa idénticamente tomando $C+1$ nos sirve.
+	En definitiva $f$ definida de esta manera es una cuasisometría con constante $C+1$.	
 \end{obs}
 
 \begin{prop}
@@ -532,8 +544,9 @@ Con esta proposición vemos que ser cuasisométricos es una relación de equival
 
 Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. 
 \medskip
+
 \begin{ej}
-	% El ejemplo clásico de la grilla y el plano.
+Ejemplo de $\ZZ \times \ZZ$ para ver que no es cuasisométrico con un árbol o bien podría rehacer el ejemplo de la parte anterior.
 \end{ej}
 
 Todo grafo de Cayley lo podemos pensar como un espacio métrico.  
@@ -553,6 +566,7 @@ Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi u
 Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
 
 \begin{prop} \label{treewidth-inv}
+	\marginnote{\tiny La otra manera no vale. Hay contraejemplo.}
 	El treewidth finito es un invariante por cuasisometría para grafos con grado acotado uniformemente.
 \end{prop}
 %\begin{proof}[Intento de demo distinta. No salió]
@@ -666,34 +680,36 @@ Veamos que estas categorización es equivalente a pedirle que el treewidth sea f
 	Concluímos así que la descomposición que nos armamos para $\Gamma_1$ tiene treewidth finito.
 \end{proof}
 
-A partir de este resultado podemos ver que las dos maneras distintas que teníamos de pensar a los grafos que se parecen a árboles resultan ser equivalentes.
+A partir de este resultado podemos ver que la otra manera que teníamos de pensar a los grafos que se parecen a árboles resulta ser más débil. 
+El siguiente resultado lo demostramos en el caso general de un grafo tal que los grados de sus vértices están acotados uniformemente. 
+Como caso particular tenemos los grafos de Cayley de grupos finitamente generados.
 
-\begin{prop}
-	Un grafo $X$ tiene treewidth finito si y solo si es cuasisométrico con un árbol.
+\begin{prop} \marginnote{\tiny Estuve pensando la vuelta. }
+	Un grafo $X$ de grado acotado uniformemente cuasisométrico con un árbol tiene treewidth finito.
 \end{prop}
-\begin{proof}
-%La manera más inmediata para la ida es usar el resultado que un subgrupo de índice finito es cuasisométrico con el grupo original.	
-	
-Para la ida veamos de armarnos la cuasisometría a partir de la descomposición en árbol del grafo $X$. Definamos entonces la cuasisometría $q: T \to X$ a partir de mandar $t \to x_t$ donde $x_t \in X_t$ es algún elemento del bolsón correspondiente a $t \in V(T)$ que sabemos que no es vacío. Esta función es una cuasisometría con constante $C=1$ y $A = bs(T) + 1$.
+\begin{proof}	
+%Para la ida veamos de armarnos la cuasisometría a partir de la descomposición en árbol del grafo $X$. 
+%Definamos entonces la cuasisometría $q: T \to X$ a partir de mandar $t \to x_t$ donde $x_t \in X_t$ es algún elemento del bolsón correspondiente a $t \in V(T)$ que sabemos que no es vacío. 
+%Esta función es una cuasisometría con constante $C=1$ y $A = bs(T) + 1$.
+%
+%Hay que ver la distancia dentro de un bolsón esté controlada.
+%Si los bolsones los tomamos conexos \ref{} entonces notemos que la mayor distancia posible es...
 
-Hay que ver la distancia dentro de un bolsón esté controlada.
-Si los bolsones los tomamos conexos \ref{} entonces notemos que la mayor distancia posible es...
 
-
-Para la vuelta dado que el grafo $X$ es cuasisométrico a un árbol $T$, por la observación \ref{desc-arbol-arbol} este tiene treewidth exactamente 1.
-Por la proposición anterior \ref{treewidth-inv} como el treewidth es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
+Dado que el grafo $X$ es cuasisométrico a un árbol $T$, por la observación \ref{desc-arbol-arbol} este tiene treewidth exactamente 1.
+Por la proposición anterior \ref{treewidth-inv} como es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
 \end{proof}
 
 \begin{coro}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley es cuasisométrico a un árbol.
 \end{coro}
 \begin{proof}
-	Por \ref{} todo grupo independiente de contexto tiene treewidth finito y usando la proposición recién demostrada concluímos que su grafo de Cayley es cuasisométrico a un árbol.
+	Por \ref{teo_schupp_muller_ic_desc} todo grupo independiente de contexto tiene treewidth finito y usando la proposición recién demostrada concluímos que su grafo de Cayley es cuasisométrico a un árbol.
 \end{proof}
 \medskip
 
 \begin{prop}\label{cuasisometria-subgrupo-ind-finito}
-	Sea $G$ grupo \fg entonces si $H$ es un subgrupo de índice finito resulta que $\text{Cay}(G,\Sigma) = \text{Cay}(H, \Sigma)$.
+	Sea $G$ grupo \fg entonces si $H$ es un subgrupo de índice finito resulta que son cuasisométricos.
 \end{prop}
 \begin{proof}
 	Resultado estándar pero no tan elemental de demostrar. Ver \cite{loh2017geometric}.

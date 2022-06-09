@@ -122,7 +122,7 @@ Es posible clasificar los lenguajes a partir de las características de las gram
 \end{deff}
 
 En particular la gramática del ejemplo \ref{gramatica-regular} es regular. 
-De esta manera $\{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
+De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
 
 
 \begin{deff}
@@ -494,9 +494,9 @@ La bibliografía fundamental es \cite{brough_groups_2014}.
 
 \section{Conos de lenguajes y el problema de la palabra.}
 
-En esta sección consideraremos un grupo $G$ finitamente generado por algún alfabeto $\Sigma$ donde lo vemos como un conjunto de generadores como monoide dado que en particular todos los grupos son monoides. 
+En esta sección consideraremos un grupo $G$ finitamente generado por algún alfabeto $\Sigma$ finito donde lo vemos como un conjunto de generadores como monoide dado que en particular todos los grupos son monoides. 
 De esta manera tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. 
-En esta sección todos los lenguajes $L$ considerados van a estar definidos sobre algún alfabeto finito, esto es que existe $\Sigma$ alfabeto finito tal que $L \subseteq \Sigma^*$.
+%En esta sección todos los lenguajes $L$ considerados van a estar definidos sobre algún alfabeto finito, esto es que existe $\Sigma$ alfabeto finito tal que $L \subseteq \Sigma^*$.
 
 El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explícitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. Notemos que para poder pensar este problema estamos fijando de antemano algún conjunto de generadores posible del grupo.
 
@@ -505,6 +505,8 @@ Dado un grupo finitamente presentado consideramos el siguiente lenguaje
 $$\text{WP} (G, \Sigma) = \{ \omega \in \Sigma^* \ | \ \omega \underset{G}= 1 \}$$
 
 que llamaremos el \blue{problema de la palabra de $G$ para los generadores $\Sigma$}. 
+
+Queremos ver sobre qué clases de lenguajes el problema de la palabra queda bien definido y no depende de los generadores elegidos.
 
 
 Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos siempre y cuando cumplan las siguientes condiciones. 
@@ -526,15 +528,40 @@ Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos
 Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para el estudio del problema de la palabra.
 \medskip
 \begin{prop}\label{prop-cono-wp}
-	Sea $WP_\pi(G)$ el problema de la palabra de cierto grupo en alguna presentación $\pi$ y $\CC$ algún cono de lenguajes. Si $WP(G) \in \CC$ luego valen las siguientes afirmaciones:
+	Sea $WP(G, \Sigma)$ el lenguaje del problema de la palabra de cierto grupo $G$ para algunos generadores $\Sigma$ y $\CC$ cono de lenguajes. 
+	Si $WP(G, \Sigma) \in \CC$ luego valen las siguientes afirmaciones:
 	\begin{itemize}
-		\item $WP(G) \in \CC$ para cualquier presentación elegida $\pi$.
-		\item $WP(H) \in \CC$ para todo subgrupo $H$ finitamente generado de $G$.
-		\item $WP(H) \in \CC$ para todo subgrupo $H$ de índice finito en $G$.
+		\item $WP(G, \Delta) \in \CC$ para cualquier conjunto de generadores $\Delta$.
+		\item $WP(H) \in \CC$ para todo subgrupo $H$ \fg de $G$.
 	\end{itemize} 
 \end{prop}
 \begin{proof}
-	
+	\begin{itemize}
+		\item 
+		Formamos el siguiente diagrama conmutativo,
+		\begin{center}
+			\begin{tikzcd}
+				\Delta^* \arrow[r, "\delta"] \arrow[d,"f",swap] & G \\
+				\Sigma^* \arrow[ru, "\pi",swap]    &  
+			\end{tikzcd}
+		\end{center}
+		donde $f$ es algún morfismo de monoides y donde usamos la propiedad universal de los monoides libres.
+		Notemos que $WP(G, \Delta) = \delta^{-1}(1)$ y como el diagrama conmuta tenemos que 
+		\[
+		f^{-1}(\delta^{-1}(1)) = f^{-1}(WP(G,\Sigma)) = WP(G, \Delta).
+		\]
+		Dado que esto es un cono obtenemos lo que queríamos ver puesto que es cerrado por preimágenes de morfismos de monoides.
+		
+		
+		
+		\item Sea $\Sigma'$ conjunto de generadores de $H$.
+		Siempre podemos extenderlo a $\Sigma$ tal que $\Sigma$ genere a $G$. 
+		De esta manera 
+		\[
+		WP(H, \Sigma') = WP(H, \Sigma) \cap \Sigma'^*
+		\]
+		y de vuelta como es un cono la intersección con lenguajes regulares nos da un lenguaje en el cono. 
+	\end{itemize}
 \end{proof}
 \medskip
 Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
