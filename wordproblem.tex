@@ -1,5 +1,6 @@
 \documentclass[tesis.tex]{subfiles}
 
+%\newcommand{\ol}{\overline{}}
 \newcommand{\ic}{independiente de contexto }
 \newcommand{\APND}{automáta de pila no determinístico }
 \newcommand{\APD}{automáta de pila determinístico }
@@ -7,6 +8,7 @@
 \newcommand{\fp}{grupo finitamente presentado }
 \newcommand{\WP}{\text{WP}(G, \Sigma)}
 \newcommand{\deriva}{\overset{*}{\Rightarrow_{\cal G}}}
+\newcommand{\cG}{ {\cal G} }
 
 \begin{document}
 	
@@ -730,8 +732,213 @@ De esta manera obtenemos el siguiente resultado,
 
 \section{Teoría de Bass Serre.}
 
+Introduciremos los resultados y definiciones más elementales de la teoría de Bass Serre. 
+Las referencias clásicas que seguiremos son \cite{} y \cite{}.
+En esta sección los grafos serán siempre conexos y dirigidos.
+La definición que tomaremos, dada originalmente por Gersten, será levemente diferente a la usada en la sección \ref{}.
+Dado un grafo $Y= (V(Y),E(Y))$ por cada arista $y \in E(Y)$ tendremos una designación $s(y) = P, t(y) = Q$ si la arista comienza en $P$ y termina en $Q$.
+Dada $y \in E(Y)$ denotaremos $\overline y$ la arista con designación opuesta.
+
+\begin{deff}
+	Un \blue{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
+	\begin{enumerate}
+		\item Para cada vértice $P \in V(Y)$ tenemos un grupo $G_P$.
+		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{s(y)}$.
+		\item Para todo $y \in E(Y)$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
+	\end{enumerate}
+\end{deff}
+
+En general para la definición de grafo de grupos no es necesario pedir que $G_y \le G_{s(y)}$ sino que alcanza con tomar un monomorfismo. 
+Para facilitar la construcción más en adelante supondremos que es un subgrupo.
+
+Dado un grafo $Y = (V(Y), E(Y))$ consideremos el grupo libre $F_{E(Y)}$ generado por las aristas del grafo.
+
+\begin{deff}
+	Dado un grafo de grupos $\cal G$ sobre un grafo $Y = (V(Y), E(Y))$ podemos armarnos el siguiente grupo 
+	\begin{equation*}
+	F({\cal G}) = \ast_{P \in V(Y)} G_P \ast F_{E(Y)} / \langle \langle  R \rangle \rangle
+	\end{equation*}
+	donde $R = \{  \overline y = y^{-1}, \ ya^yy^{-1} = a^{\overline y} \}$ para $y \in E(Y), a \in G_y$. 
+\end{deff}
+
+\begin{obs}
+	Las relaciones $R$ por las que dividimos anteriormente se pueden condensar en 
+	\[
+	R = \{  ya^y \overline y = a^{\overline y}  \}.
+	\]
+\end{obs}
+
+\begin{deff} \label{def_pi1_arbol}
+	Sea un grafo de grupos $\cal G$ sobre $Y$.
+	Consideremos $T$ un árbol de expansión del grafo $Y$.
+	Nos armamos el siguiente \blue{grupo fundamental del grafo de grupos}
+	\begin{equation*}
+		\pi_1({\cal G}, T) = F({\cal G}) / \{ y \  | \ y \in E(T)  \}.
+	\end{equation*}
+\end{deff}
+	
+Esto es que para todas las aristas que aparecen en el árbol de expansión las identificamos con el $1$. 
+Esta definición se puede ver que en el caso particular de un grafo coincide con la definición que tenemos del grupo fundamental de un espacio topológico.
+
+\begin{ej}
+Sea un grafo de grupos $\cal G$ sobre un grafo $Y$ tal que $G_y = \{ 1 \}$ para todo $y \in E(Y)$.
+Consideremos una orientación $A$ para las aristas del grafo esto es que para cada par de vértices unido por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.
+El grupo fundamental $\pi({\cal G}, T)$ está generado por los elementos $G_P, P \in V(Y)$ y los elementos $g_y \in A \setminus (T \cap A)$.
+Esto es que nos queda el siguiente grupo
+\[
+\pi_1({\cal G}, T) = \ast_{P \in V(Y)} G_P \ast F
+\]
+donde $F$ es el grupo libre con base $A \setminus (T \cap A)$.
+Esto es que nos queda $\pi_1({\cal G}, T) \simeq \pi_1(Y) \ast_{P \in V(Y)} G_P$.
+\end{ej}
+
+\begin{ej}
+	Si el grafo es un segmento en particular él mismo es el árbol de expansión puesto que es un árbol.
+	De esta manera si $Y$ es el siguiente segmento...
+	entonces
+	\[
+	\pi_1({\cal G}, Y) = G_P \ast_{G_y} G_Q.
+	\]
+\end{ej}
+
+Podemos dar otra definición de grupo fundamental pero está vez usando caminos así como lo hacemos para el grupo fundamental usual.
+
+Dados dos vértices $P,Q \in V(Y)$ sabemos que..
+
+\begin{deff}
+	Grupo fundamental usando la otra def.
+\end{deff}
+
+Notemos que en particular para esta construcción obtuvimos un subgrupo del grupo $F(\cal G)$ mientras que en el caso de la definición anterior \ref{def_pi1_arbol} obtuvimos un cociente.
+Podemos ver que ambas definiciones son equivalentes.
+
+\begin{teo}
+	$\pi_1({\cal G}, P)$ es isomorfo con $\pi_1({\cal G}, T)$.
+\end{teo}
+\begin{proof}
+	Veamos que la composición de la inclusión $\iota: \pi_1( \cG ,P)  \to F(\cG)$ con la proyección $\pi: F(\cG) \to \pi_1(\cG, T)$ es un isomorfismo.
+	
+	Dados $P,Q \in V(Y)$ consideremos la geodésica $\alpha$ que los une sobre $T$.
+	Si leemos la sucesión de aristas que recorre esta geodésica tenemos una palabra en $T(P,Q) \in F_{E(Y)}$ de manera que nos define un elemento en el grupo $F(\cG)$.
+	Ahora definamos el siguiente morfismo (que depende del árbol de expansión que tomamos):
+		
+	\begin{align*}
+	\tau: & F(\cG) \to \pi_1(\cG,P)  \\
+	 & \tau(y) = T[P,s(y)]yT[t(y),P] \ \ \text{para } \ y\in E(Y) \\
+	 & \tau(g) = T[P,Q] g T(Q,P) \ \  \text{para} \ Q \in V(Y), \ g \in G_Q
+	\end{align*}
+	
+	Lo definimos sobre los generadores del producto libre veamos que $\tau(\overline y a^y y) = \tau (a^{\overline y})$.
+	Esto vale porque justamente 
+	\begin{align*}
+	\tau(\overline y a^y y) & = T[P,s(\overline y)]\ol yT[t(\ol y),P] T[P,s(y)] a^y T[t(y),P] T[P,s(\overline y)]yT[t( y),P] \\
+	& = T[P,s(\overline y)]  \ol y a^y y T[t( y),P] \\
+	& = \tau (a^{\ol y})
+	\end{align*}
+	
+	Es un epimorfismo porque en particular cualquier elemento de $\pi_1(\cG, P)$ lo podemos pensar como un camino que termina y comienza en $P$ intercalado con elementos de los estabilizadores de los vértices que aparecen en el camino.
+	De esta manera como $\tau(y)=1$ notemos que pasa al cociente y existe $\ol \tau: \pi_{1}(\cG, T) \to \pi_1 (\cG, P)$ epimorfismo.
+	
+	Para terminar la demostración probemos que componiendo con $\nu$ nos queda la identidad.
+	Si hacemos $\nu \circ \ol \tau$ notemos que 
+	\begin{equation*}
+	\nu \circ \ol \tau (a^y) = a^y, \ \ \nu \circ \ol \tau (y) = y, 
+	\end{equation*}
+	para $y \in E(Y) \setminus E(T)$ porque justamente estamos dividiendo por estas aristas. 
+	Esto porque $T[P,Q]$ es un camino de aristas en el árbol de expansión por lo tanto sobre $\pi_1(\cG, T)$ son la identidad.
+\end{proof}
+
+\begin{ej}
+	Grupo fundamental usando Bass Serre sobre el mapping cylinder de los grupos.
+\end{ej}
+
+
+\subsection{Árbol de Bass Serre.}
+
+\begin{deff}
+	El árbol de Bass Serre es...
+\end{deff}
+
+\begin{ej}
+	Hacer un ejemplo así como hice antes.
+\end{ej}
+
+Dar conexión con la idea topológica de un revestimiento de un grafo..
+
+Dar definiciones de los morfismos que salen del árbol y los que van a parar al grupo libre del grafo de grupos.
+
+
+\begin{teo}
+	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos \fg en los vértices.
+	Entonces $\pi_1(\cal G)$ es \fg si y solo si todos los grupos de los vértices lo son.
+\end{teo}
+
+\begin{proof}
+\end{proof}
+
+
+\begin{teo}
+	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos finitos en los vértices.
+	Entonces $\pi_1(\cal G)$ es un grupo \fg virtualmente libre.
+\end{teo}
+\begin{proof}
+	
+\end{proof}
+
+\subsection{Productos semi directos.}
+
+Ver que todo grupo \fg virtualmente libre es una extensión de un libre por un finito de una manera especial.
+Con Bass Serre concluir que todo grupo es virtualmente libre sii se cumple esto.
+Poner algún ejemplo interesante.
+
 \section{Ends de grupos.}
+
+\begin{deff}
+	Ends de grupos
+\end{deff}
+
+\begin{obs}
+	No dependen de las presentaciones.
+\end{obs}
+
+\begin{teo}[Hopf]
+	La cantidad de ends de un grupo \fg solo puede ser...
+\end{teo}
+\begin{proof}
+\end{proof}
+
+\begin{deff}
+	Grupo accesible.
+\end{deff}
+
+\subsection{Accesibilidad en terminos de teoría de grafos.}
+
+\begin{deff}
+	Def de VK95 usando grafos.
+\end{deff}
+
+\begin{teo}
+	Probar que son equivalentes con la otra construcción.
+\end{teo}
+\begin{proof}
 	
-	
-	
+\end{proof}
+
+
+\begin{deff}
+	Grafos minor excluided
+\end{deff}
+
+\begin{teo}[Khukro]
+	Recaracterización de virtualmente libre usando menores de grafos.
+\end{teo}
+\begin{proof}
+\end{proof}
+
+\begin{teo}
+	Grupo qi a un árbol $\implies$ minor excluded?
+\end{teo}
+\begin{proof}
+\end{proof}
+
 \end{document}
