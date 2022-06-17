@@ -6,6 +6,7 @@
 \newcommand{\APD}{automáta de pila determinístico }
 \newcommand{\fg}{grupo finitamente generado }
 \newcommand{\fp}{grupo finitamente presentado }
+\newcommand{\vl}{virtualmente libre}
 \newcommand{\WP}{\text{WP}(G, \Sigma)}
 \newcommand{\deriva}{\overset{*}{\Rightarrow_{\cal G}}}
 \newcommand{\cG}{ {\cal G} }
@@ -19,7 +20,14 @@ Un grupo $G$ \fg es \blue{virtualmente libre} si existe un subgrupo $F$ libre ta
 \end{deff}
 
 \begin{obs}
-	Al subgrupo libre siempre lo podemos tomar normal...?
+	Al subgrupo libre siempre lo podemos tomar normal.
+	Para eso si $G$ es un grupo \fg \vl entonces existe $F$ subgrupo libre de índice finito.
+	Si consideramos 
+	\[
+	F' = \bigcap_{g \in G} g^{-1}Fg
+	\]
+	es un subgrupo normal de $G$ tal que tiene índice finito en $F$ de manera que también lo tiene en $G$.	
+	Usando el teorema de Nielsen-Schreier vemos que este subgrupo también es libre.
 \end{obs}
 
 \begin{ej}
@@ -49,7 +57,7 @@ Un grupo $G$ \fg es \blue{virtualmente libre} si existe un subgrupo $F$ libre ta
 
 \section{Grupos independientes de contexto.}
  
-Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic forman un cono \ref{ic-cono} podemos dar la siguiente definición.
+Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic \ forman un cono \ref{ic-cono} podemos dar la siguiente definición.
 \medskip
 \begin{deff}
 	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
@@ -60,7 +68,7 @@ Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguaje
 	Si tomamos los siguientes generadores $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
 	Bajo esta presentación 
 	\[
-	WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ w = a^nb^nc^n  \}.
+	WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
 	\]
 	Este lenguaje no es independiente de contexto.
 	Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
@@ -150,12 +158,12 @@ Repliquemos esta idea también para el caso que que tengamos algo en la pila,
 \end{proof}
 
 \begin{obs}
-	En particular esto nos dice que todo grupo virtualmente libre es tal que su problema de la palabra es un lenguaje independiente de contexto determinístico. 
-	Como tal tiene las siguientes buenas propiedades algorítmicas \ref{}...
+	En particular los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}. 
+	Más aún su problema de la palabra es un lenguaje independiente de contexto determinístico y como tal tiene las siguientes buenas propiedades algorítmicas \ref{}.
 \end{obs}
 
 
-\section{Grafos de Cayley.}
+\section{Grafos de Cayley.} \label{seccion_treewidth}
 
 \begin{deff}
 	Sea $G$ un \fg y $\Sigma$ un conjunto de generadores como grupo. 
@@ -552,11 +560,11 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 Ejemplo de $\ZZ \times \ZZ$ para ver que no es cuasisométrico con un árbol o bien podría rehacer el ejemplo de la parte anterior.
 \end{ej}
 
-Todo grafo de Cayley lo podemos pensar como un espacio métrico.  
+Todo grafo de Cayley lo podemos pensar como un espacio métrico tal como lo definimos en la sección \ref{seccion_treewidth}.  
 Veamos que esto no depende de los generadores que hayamos elegido.
 
 \begin{prop}
-	Sea $\Sigma$ y $\Delta$ conjuntos finitos de generadores para $G$ grupo entonces $\text{Cay}(G,\Sigma)$ es cuasisométrico con $\text{Cay}(G, \Delta).$
+	Sea $G$ grupo \fg por $\Sigma$ y $\Delta$ conjuntos finitos entonces $\text{Cay}(G,\Sigma)$ y $\text{Cay}(G, \Delta)$ son cuasisométricos entre sí.
 \end{prop}
 
 \begin{proof}
@@ -715,7 +723,9 @@ Por la proposición anterior \ref{treewidth-inv} como es un invariante por cuasi
 	Sea $G$ grupo \fg entonces si $H$ es un subgrupo de índice finito resulta que son cuasisométricos.
 \end{prop}
 \begin{proof}
-	Resultado estándar pero no tan elemental de demostrar. Ver \cite{loh2017geometric}.
+	Resultado estándar pero no tan elemental de demostrar. 
+	Es un corolario de Milnor Schwarz.
+	Ver \cite{loh2017geometric}.
 \end{proof}
 
 Esto nos dice que todo grupo es cuasisométrico con los subgrupos de índice finito. 
@@ -907,6 +917,8 @@ Por la construcción que hicimos nos queda que $\tilde X / \pi_1(\cG, T) \simeq 
 	El grafo $\tilde X$ anteriormente construído es un árbol.
 \end{teo}
 \begin{proof}
+	Demo no trivial, requiere palabras reducidas.
+	Ver \cite{serre2002trees}.
 \end{proof}
 
 
@@ -919,6 +931,8 @@ Por la construcción que hicimos nos queda que $\tilde X / \pi_1(\cG, T) \simeq 
 \end{ej}
 
 Dar conexión con la idea topológica de un revestimiento de un grafo..
+
+\subsection{Acciones de grupos sobre árboles.}
 
 Dar definiciones de los morfismos que salen del árbol y los que van a parar al grupo libre del grafo de grupos.
 
@@ -999,7 +1013,7 @@ Poner algún ejemplo interesante.
 
 
 \begin{deff}
-	Grafos minor excluided
+	Grafos minor excluded
 \end{deff}
 
 \begin{teo}[Khukro]

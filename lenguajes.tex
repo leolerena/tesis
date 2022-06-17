@@ -126,12 +126,12 @@ De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
 
 
 \begin{deff}
-	Un \blue{autómata finito} es una tupla ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ donde:
+	Un \blue{autómata finito no determinístico} es una tupla ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ donde:
 	\begin{itemize}
 	\item $Q$ es el conjunto de los \emph{estados}.
 	\item $q_0 \in Q$ es el \emph{estado inicial}.
 	\item $\Sigma$ es el \emph{alfabeto}.
-	\item $\delta:Q \times \Sigma \to Q$ es la \emph{función de transición}.
+	\item $\delta:Q \times \Sigma \to {\cal P}(Q)$ es la \emph{función de transición}.
 	\item $F \subseteq Q$ es un subconjunto de estados que llamaremos \emph{finales}.
 	\end{itemize}
 \end{deff}
@@ -253,11 +253,9 @@ Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado 
 En tal caso la palabra $w$ es aceptada por el automáta. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
 \medskip
 \begin{obs}
-	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra....
-	
+	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra.	
 	Esta manera es equivalente porque...
-	
-	Más en adelante nos va a ser conceptualmente más útil para el caso que estemos viendo el problema de la palabra de un grupo para que lo que esté en la pila sea más fácil de comprender...
+	Más en adelante nos va a resultar conceptualmente más útil para el caso que estemos viendo el problema de la palabra de un grupo mientras que para las demostraciones de esta sección usaremos esta otra definición.
 \end{obs}
 
 \paragraph{Descripción instántanea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un automáta a partir de lo que estamos haciendo en cierto instante. 
@@ -318,7 +316,7 @@ Este ejemplo nos da un indicio que los lenguajes aceptados por automátas de pil
 
 \medskip
 
-\begin{teo}
+\begin{teo}\label{teo_ic_apnd}
 Un lenguaje $L$ es independiente de contexto sii es aceptado por un automáta de pila no determinístico.
 \end{teo}
 
