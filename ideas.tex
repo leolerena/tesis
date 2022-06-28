@@ -1,4 +1,4 @@
-\documentclass[12pt]{book}
+\documentclass[12pt]{article}
 \usepackage{geometry}\geometry{top=5cm,bottom=2cm,left=3cm,right=3cm}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
@@ -72,6 +72,7 @@
 \newtheorem{prop}[teo]{\color{rojo} Proposición}
 \newtheorem{lema}[teo]{\color{rojo} Lema}
 \newtheorem{coro}[teo]{\color{rojo} Corolario}
+\newtheorem{preg}[teo]{\color{rojo} Pregunta}
 % Si pongo [theorem] siguen la numeración de los teoremas. 
 % e.j. Teo 1, Lema 2, Teo 3, Teo 4 ...
 \theoremstyle{definition}
@@ -111,61 +112,116 @@
 \rhead{\thepage} % Right Header
 
 \usepackage{subfiles} % mejor ponerlos al final
-
-\title{\color{red!55!black} Tesis.}
-
+\title{Ideas sueltas.}
 \date{}
 
 \begin{document}
-\thispagestyle{empty}
-
-\begin {center}
-
-%\includegraphics[scale=.3]{uba2.jpg}
-
-\medskip
-\textbf{\color{astral!40!black} UNIVERSIDAD DE BUENOS AIRES}
-
-\smallskip
-
-\textbf{\color{astral!40!black}Facultad de Ciencias Exactas y Naturales}
-
-\smallskip
-
-\textbf{\color{astral!40!black}Departamento de Matem\'atica}
-
-\vspace{3.5cm}
-
-\textbf{\large \color{astral!40!black} Tesis de Licenciatura}
-
-
-\vspace{1.5cm}
-
-\textbf{\large \color{astral!40!black} El problema de la palabra para grupos virtualmente libres.}
-
-\vspace{1.5cm}
-
-
-\textbf{\color{astral!40!black} Leopoldo Lerena.}
-
-\end {center}
-
-
-\vspace{1.5cm}
-
-\noindent \textbf{\color{astral!40!black} Director: Iván Sadofschi Costa} \ \dots
-
-
-\vspace{3cm}
-
-\rightline{\color{astral!40!black} Fecha de Presentaci\'on}
-\tableofcontents
-\newpage
 	
-\subfile{lenguajes}	
-\subfile{wordproblem}
+	
+\maketitle
+	
+\section{Dowker y treewidth.}	
+
+Estaría bueno que el teorema de Dowker nos diga algo sobre el treewidth de un grafo.
+
+Si consideremos los mapas
+\[
+X: V(T) \to V(X)
+\]
+y 
+\[
+T: V(X) \to V(T)
+\]
+entonces podemos definirnos una relación $R \subset V(T) \times V(X)$ por medio de $xRt$ si $x \in X_t$.
+
+A partir del teorema de Dowker nos podemos construir complejos simpliciales $K_X$ y $K_T$ tales que resultan homotópicos entre sí.
+
+
+Una observación de esto es que 
+\begin{obs}
+	Si $X$ es un árbol entonces es isomorfo como grafo a su complejo de Dowker. 
+	Esto es que $X \simeq K_X$.
+\end{obs}
+
+En particular 
+
+\begin{obs}
+	$T$ siempre resulta ser un spanning tree del complejo $K_T$.
+\end{obs}
+	
+\section{Otra construcción para que el treewidth sea conexo.}	
+
+Me gustaría probar el siguiente resultado o al menos ver dónde se rompe.
+
+\begin{preg}
+	Todo grupo fundamental de un grafo de grupos finito con grupos finitos tiene treewidth conexo finito.
+\end{preg}
+
+Lo bueno de esto sería dar una descomposición de un árbol distinta a la que aparece en \cite{diekert_contextfree_2017} tal que sea conexa.
+
+Acá estoy usando el siguiente resultado de \cite{karrass1973finite}.
+\begin{teo}
+	Un grupo es virtualmente libre sii es el grupo fundamental de un grafo de grupos finito con grupos finitos.
+\end{teo}
+
+Primero pensé en el caso de un grupo $G = G \ast H$ que en particular es el grupo fundamental del grafo que tiene dos vértices con grupos $G$ y $H$ que asumo finitos. El grupo de la arista es $1$.
+
+Para este caso quería tomar la siguiente descomposición.
+\red{MUY HORRIBLE PARA ESCRIBIRLO ASÍ PERO CON UN DIBUJO CREO QUE QUEDA MÁS CLARO.}
+\begin{align*}
+V(T) &= \{ v \in G_1 \ast G_2 : v = wa_ih  \} & h \in H, w \in G_1 \ast G_2 \\
+ & = \{ v \in G_1 \ast G_2 : v = wb_jg  \} &  g \in G, w \in G_1 \ast G_2 \\
+ & = \{ v \in G_1 \ast G_2 : v = wb_ja_i  \} & w \in G_1 \ast G_2 \\
+ & = \{ v \in G_1 \ast G_2 : v = wa_ib_j  \} & w \in G_1 \ast G_2 \\
+ & = \{ v \in G_1 \ast G_2 : v = a_i, b_j  \} & w \in G_1 \ast G_2 \\
+\end{align*}
+	
+Por como está construído es claro que $T$ es conexo.
+
+Habría que probar que no tiene ciclos... 
+\red{HACER}
+
+Para ver que es una descomposición habría que ver las tres propiedades necesarias.
+
+\begin{itemize}
+	\item Cubren todo.
+	\item Todas las aristas están en algún bolsón por construcción.
+	\item Todo vértice está a lo sumo en dos bolsones que resultan conexos por construcción.
+\end{itemize}	
+	
+Finalmente los bolsones son conexos porque básicamente agregamos todas aristas para que nos queden conexas. 
+Aparte los bolsones tienen dos vértices conectados por una arista o bien son una copia del grafo de Cayley de $G$ o de $H$.
+	
+	
+Esta misma idea creo que se puede extender fácilmente para obtener una descomposición para un producto libre arbitrario de grupos finitos.	
+	
+	
+Quedaría ver entonces el siguiente resultado.
+
+\begin{preg}
+	Un grupo amalgamado $G \ast_{K} H$	de grupos finitos tiene treewidth conexo finito.
+\end{preg}	
+	
+No me queda claro que la idea de antes pueda andar en este caso. 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 \bibliography{bibliografia}
-\bibliographystyle{alpha}
-
-
-\end{document}	
+\bibliographystyle{alpha}	
+\end{document}
