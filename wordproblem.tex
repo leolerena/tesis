@@ -165,6 +165,9 @@ Repliquemos esta idea también para el caso que que tengamos algo en la pila,
 
 \section{Grafos de Cayley.} \label{seccion_treewidth}
 
+Un grafo en esta sección va a estar definido por su conjunto de vértices $V(X)$ y por uno de aristas $E(X) \subseteq V(X) \times V(X)$.
+En particular las aristas no van a estar dirigidas y no tomaremos a $(v,v)$ como una arista para ningún $v \in V(X)$.
+
 \begin{deff}
 	Sea $G$ un \fg y $\Sigma$ un conjunto de generadores como grupo. 
 	Supongamos que $1 \notin \Sigma$.
@@ -179,6 +182,11 @@ Dado que $\Sigma$ genera tenemos que el grafo $\Gamma$ es conexo.
 El grafo de Cayley lo podemos ver como un espacio métrico justamente si hacemos que todas las aristas sean isométricas a $[0,1]$. 
 Esto es que $d(g,ga) = 1$ para todo $g \in G, a \in \Sigma \cup \Sigma^{-1}$. 
 Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = j-i$ para todo $i,j \in [0,n]$.
+
+
+Un \emph{árbol} es un grafo conexo y sin ciclos. 
+En particular los árboles vistos como espacios métricos resultan ser \emph{únicamente geodésicos}. 
+Esto es que dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
 
 \begin{ej}
 	Sea $\Bbb F_2$ el grupo libre en dos generadores $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
@@ -196,10 +204,15 @@ Es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cay
 La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
 
 \begin{deff}\label{desc-arbol}
-	 Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa $q:t \in V(T) \mapsto X_t \in {\cal P}(V(X))$ que cumple las siguientes condiciones:
+	 Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa 
+	 \[
+	 X: V(T) \to {\cal P}(V(X))
+	 \]
+	  que denotaremos $X_t$ para cada vértice $t \in V(T)$. 
+	  Le vamos a pedir que cumpla las siguientes condiciones:
 	\begin{enumerate}
-		\item Dado cualquier vértice $v \in V(X)$ existe $t \in V(T)$ tal que $x \in X_t$. 
-		\item Si hay una arista $e$ entre dos vértices $v,w \in V(X)$ luego existe $t \in V(T)$ tal que $v,w \in X_t$.
+		\item Para todo vértice $v \in V(X)$ debe existir $t \in V(T)$ tal que $x \in X_t$. 
+		\item Para toda arista $e$ entre dos vértices $v,w \in V(X)$ debe existir $t \in V(T)$ tal que $v,w \in X_t$.
 		\item Si $v \in V(X)$ es tal que $v \in X_t \cap X_s$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X_t \}$ forma un subárbol. 
 	\end{enumerate} 
 \end{deff}
@@ -806,7 +819,7 @@ Esto es que nos queda $\pi_1({\cal G}, T) \simeq \pi_1(Y) \ast_{P \in V(Y)} G_P$
 
 \begin{ej}
 	Si el grafo es un segmento en particular él mismo es el árbol de expansión puesto que es un árbol.
-	De esta manera si $Y$ es el siguiente segmento...
+	De esta manera si $Y$ es el siguiente segmento... \red{agregar gráfico}
 	entonces
 	\[
 	\pi_1({\cal G}, Y) = G_P \ast_{G_y} G_Q.
