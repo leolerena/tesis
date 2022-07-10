@@ -94,14 +94,14 @@ Consideremos la clausura transitiva y reflexiva de esta relación que denotaremo
 	\end{align*} 
 	y nos queda tal como queríamos ver.
 	
-	Más aún probemos que $L({\cal G}) = \{ a^kb : k \ge 0 \}$. 
+	Más aún probemos que $L({\cal G}) = \{ a^{k}b : k \ge 0 \}$. 
 	
 	Si $w \in L(\cal G)$ entonces $S \deriva w$ por definición. 
 	La única producción que la gramática tiene donde $S$ está a la izquierda es $S \to Ab$. 
 	De esta manera cualquier palabra $w \in L(\cal G)$ va a tener una $b$ como postfijo de la palabra. 
-	La variable $A$ vemos que solo puede derivar en $a^kA$ o $a^k$ para $k \ge 0$.
+	La variable $A$ vemos que solo puede derivar en $a^{k}A$ o $a^{k}$ para $k \ge 0$.
 	Esto se debe a que podemos aplicar la producción $A \to aA$ tantas veces como querramos por lo tanto $A \deriva a^k$ para cualquier $k \ge 0$.
-	Juntando con lo anterior vemos que $S \deriva a^kb$ así que terminamos de ver que la gramática genera al lenguaje $\{a^kb : k \ge 0\}$ tal como queríamos ver.
+	Juntando con lo anterior vemos que $S \deriva a^{k}b$ así que terminamos de ver que la gramática genera al lenguaje $\{a^kb : k \ge 0\}$ tal como queríamos ver.
 \end{ej}
 
 
@@ -140,8 +140,7 @@ A los automátas finitos los interpretamos como grafos con algunas reglas para m
 Para empezar $Q$ representan los vértices de nuestro grafo.
 
 \begin{ej}
-	Construyamos un automáta $\cal M$ tal que acepte al lenguaje $L = \{ a^kb \ : \ k \ge 0  \}$.
-	...
+	Construyamos un automáta $\cal M$ tal que acepte al lenguaje $L = \{ a^{k}b \ : \ k \ge 0  \}$.
 \end{ej}
 
 
@@ -470,7 +469,7 @@ Estos automátas son los que nos surgen de la construcción del automáta del pr
 	El lenguaje no es aceptado por un \APD por pila vacía dado que tiene la propiedad de los prefijos. 
 	Es decir que existen palabras que están en el lenguaje tales que alguno de sus prefijos también están. 
 	Por ejemplo consideremos $a^m b^i$ y  $a^m b^j$ para $m \ge 2$ e $i < j \le m$. 
-	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que $(q_0,a^mb^i,Z_0) \vdash^* (q,\lambda, \lambda)$ con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
+	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que $(q_0,a^{m}b^{i},Z_0) \vdash^* (q,\lambda, \lambda)$ con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
 	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
 	
 	\begin{comment}[Esto es con la otra definición de automáta de pila.]
@@ -500,7 +499,7 @@ El problema de la palabra es uno de los problemas de teoría de grupos más cent
 
 Dado un grupo finitamente presentado consideramos el siguiente lenguaje 
 
-$$\text{WP} (G, \Sigma) = \{ \omega \in \Sigma^* \ | \ \omega \underset{G}= 1 \}$$
+\[ \text{WP} (G, \Sigma) = \{ \omega \in \Sigma^* \ | \ \omega \underset{G}= 1 \}\]
 
 que llamaremos el \blue{problema de la palabra de $G$ para los generadores $\Sigma$}. 
 
@@ -596,8 +595,11 @@ Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpal
 Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
 
 
+\section{Sistemas de reescritura.}
 
-
+\begin{equation*}
+	S \to R, \ \ R =\{ r_1, \dots, r_n \} 
+\end{equation*}
 
 
 \end{document}
