@@ -1,5 +1,5 @@
 \documentclass[12pt]{book}
-\usepackage{geometry}\geometry{top=5cm,bottom=2cm,left=3cm,right=3cm}
+\usepackage{geometry}\geometry{top=4cm,bottom=3cm,left=3cm,right=3cm}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools,sectsty}
@@ -37,7 +37,6 @@
 \sectionfont{\color{astral!50!black} }
 \usepackage{mathpazo}
 \usepackage{amssymb}
-\usepackage{eufrak}
 %\usepackage{thmtools}
 
 %Esto sirve para armar grafos de Cayley de una manera más copada.
@@ -65,6 +64,9 @@
 \tikzset{
 	dot/.tip={Circle[sep=-1.5pt,length=3pt]}, cayley/.tip={Stealth[]dot[]}
 }
+
+
+
 
 %%%%%%%%%%%%%  TEOREMAS  %%%%%%%%%%%%%%%%%
 \theoremstyle{plain} %% el estilo clásico
@@ -100,14 +102,20 @@
 \newcommand{\SL}{SL_2(\mathbb Z)}
 \newcommand{\stab}{\text{Stab}}
 
-%%%%%%%%%%%%%%  PAGE SETUP %%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%  SETUP DE LA PÁGINA %%%%%%%%%%%%%%%%%
 
 
-%opening
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\lhead{Tesis de licenciatura.} % Left Header
-\rhead{\thepage} % Right Header
+\usepackage{fancyhdr} 
+\fancypagestyle{plain}
+%\foot[C]{\textbf{\thepage}} % except the center
+%\setlength{\headheight}{42pt}% ...at least 51.60004pt
+%\renewcommand{\headrulewidth}{0.8pt}
+%\head[L]{\thepage} 
+%\head[R]{\textsl{\leftmark}} 
+%\fancyfoot[C]{\thepage}
+
+
+
 
 \usepackage{subfiles} % mejor ponerlos al final
 
@@ -163,6 +171,7 @@
 
 \subfile{lenguajes}	
 \subfile{wordproblem}
+\subfile{coset-enum}
 
 \bibliography{bibliografia}
 \bibliographystyle{alpha}

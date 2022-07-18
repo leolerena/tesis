@@ -16,6 +16,6 @@
 
    jugando con la gramática de $SL(3,\Z)$. Otra manera sería hacer algún argumento con el grafo de Cayley o bien con Bass Serre.
 
-4. Charlando con Cami me dijo que estaba intentando ver de armar un isomorfismo entre $O(p^2, n)$ (grupo ortogonal sobre $\Bbb F_p^n$ ) con un producto amalgamado de grupos finitos. Esto implicaría necesariamente que este grupo es virtualmente libre pero quizá no lo es? 
+4. Charlando con Cami me dijo que estaba intentando ver de armar un isomorfismo entre $O(p^2, n)$ (grupo ortogonal sobre $\Bbb F_{p^2}^n$ ) con un producto amalgamado de grupos finitos. Esto implicaría necesariamente que este grupo es virtualmente libre pero quizá no lo es? 
 
 5. Todo grupo con treewidth finito es minor excluded. Esto creo que leyendo por internet vale pero nadie lo dijo en el lenguaje de grupos, quizá porque es obvio?

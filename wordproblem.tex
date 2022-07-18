@@ -189,7 +189,7 @@ En particular los árboles vistos como espacios métricos resultan ser \emph{ún
 Esto es que dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
 
 \begin{ej}
-	Sea $\Bbb F_2$ el grupo libre en dos generadores $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
+	Sea $\mathbb F_2$ el grupo libre en dos generadores $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
 	\bigskip
 	
 	\begin{tikzpicture}
@@ -590,7 +590,6 @@ Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi u
 Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
 
 \begin{prop} \label{treewidth-inv}
-	\marginnote{\tiny La otra manera no vale. Hay contraejemplo.}
 	El treewidth finito es un invariante por cuasisometría para grafos con grado acotado uniformemente.
 \end{prop}
 %\begin{proof}[Intento de demo distinta. No salió]
@@ -708,7 +707,7 @@ A partir de este resultado podemos ver que la otra manera que teníamos de pensa
 El siguiente resultado lo demostramos en el caso general de un grafo tal que los grados de sus vértices están acotados uniformemente. 
 Como caso particular tenemos los grafos de Cayley de grupos finitamente generados.
 
-\begin{prop} \marginnote{\tiny Estuve pensando la vuelta. }
+\begin{prop} 
 	Un grafo $X$ de grado acotado uniformemente cuasisométrico con un árbol tiene treewidth finito.
 \end{prop}
 \begin{proof}	
