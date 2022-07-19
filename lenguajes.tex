@@ -42,12 +42,10 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 \end{deff}
 
 
-\begin{comment}
-	\begin{obs}
-	De esta manera podemos pensar a una {presentación} de un monoide $M$  como un epimorfismo de monoides $\pi: \Sigma^{*} \to M$. Esto nos dice que el monoide $M$ tiene como generadores a $\Sigma$ y sus relaciones están dadas por el núcleo del morfismo $\pi$.
-	\end{obs}
-\end{comment}
-\section{Gramáticas.}
+
+\begin{center}
+	\section{Gramáticas.}
+\end{center}
 Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gramática. Esto es esencialmente un conjunto de reglas que al irse aplicando nos permiten generar todas las palabras del lenguaje.
 
 \begin{deff}
@@ -71,7 +69,7 @@ Consideremos la clausura transitiva y reflexiva de esta relación que denotaremo
 %Esto nos define una relación $\Rightarrow$ sobre $(\Sigma \cup V)^*$. 
 %Tomamos la clausura transitiva, simétrica y reflexiva para así obtener una relación de equivalencia que denotaremos $\deriva$.
  
-\medskip
+
 \begin{deff}
 	El \blue{lenguaje generado por la gramática} van a ser las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial $S$. Formalmente esto es
 	\[
@@ -198,9 +196,9 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 \begin{deff}
 	Una gramática $\gramatica$ independiente de contexto está en su \blue{forma normal de Chomsky} si las producciones son de este tipo:
 	\begin{enumerate}
-		\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.
-		\item $A \to a$ donde $A \in V, a \in \Sigma$.
-		\item $S \to \lambda$ 
+		\item[\textbf{CH1.}] $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.
+		\item[\textbf{CH2.}] $A \to a$ donde $A \in V, a \in \Sigma$.
+		\item[\textbf{CH3.}] $S \to \lambda$ 
 	\end{enumerate}
 \end{deff}
 
@@ -209,7 +207,7 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 \end{ej}
 
 \begin{prop}
-	Para toda gramática $\cal G$ independiente de contexto puede tomar otra $\cal G'$ tal que esté en forma normal de Chomsky y generen el mismo lenguaje. Esto es que $\lengderivado = L(\cal G')$,
+	Para toda gramática $\cal G$ independiente de contexto puede tomar otra $\cal G'$ tal que esté en forma normal de Chomsky y $\lengderivado = L(\cal G')$,
 \end{prop}
 
 \begin{proof}
@@ -486,7 +484,7 @@ Estos automátas son los que nos surgen de la construcción del automáta del pr
 \section{Lenguajes poly independientes de contexto.}
 
 En esta sección vamos a introducir otra familia de lenguajes que generalizan levemente a los lenguajes independientes de contexto. 
-La bibliografía fundamental es \cite{brough_groups_2014}.
+La bibliografía fundamental es \cite{brough2014groups}.
 
 
 \section{Conos de lenguajes y el problema de la palabra.}
@@ -511,9 +509,9 @@ Así como definimos los lenguajes regulares vamos a preocuparnos por otros tipos
 \begin{deff}
 	Una clase de lenguajes $\CC$ es un \blue{cono} si para todo $L \in \CC$ resulta que:
 	\begin{itemize}
-		\item Es cerrado por imágenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
-		\item Es cerrado por preimagenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
-		\item Es cerrado por intersecciones con lenguajes regulares. Si $R$ es un lenguaje regular sobre $\Sigma^*$ entonces $L \cap R \in \CC$ también resulta serlo.
+		\item[\textbf{C1.}] Es cerrado por imágenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
+		\item[\textbf{C2.}] Es cerrado por preimagenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
+		\item[\textbf{C3.}] Es cerrado por intersecciones con lenguajes regulares. Si $R$ es un lenguaje regular sobre $\Sigma^*$ entonces $L \cap R \in \CC$ también resulta serlo.
 	\end{itemize}
 \end{deff} 
 
@@ -528,14 +526,13 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	Sea $WP(G, \Sigma)$ el lenguaje del problema de la palabra de cierto grupo $G$ para algunos generadores $\Sigma$ y $\CC$ cono de lenguajes. 
 	Si $WP(G, \Sigma) \in \CC$ luego valen las siguientes afirmaciones:
 	\begin{itemize}
-		\item $WP(G, \Delta) \in \CC$ para cualquier conjunto de generadores $\Delta$.
-		\item $WP(H) \in \CC$ para todo subgrupo $H$ \fg de $G$.
+		\item[\textbf{W1.}] $WP(G, \Delta) \in \CC$ para cualquier conjunto de generadores $\Delta$.
+		\item[\textbf{W2.}] $WP(H) \in \CC$ para todo subgrupo $H$ \fg de $G$.
 	\end{itemize} 
 \end{prop}
 \begin{proof}
-	\begin{itemize}
-		\item 
-		Formamos el siguiente diagrama conmutativo,
+	
+		Para ver \textbf{W1} formamos el siguiente diagrama conmutativo,
 		\begin{center}
 			\begin{tikzcd}
 				\Delta^* \arrow[r, "\delta"] \arrow[d,"f",swap] & G \\
@@ -551,14 +548,15 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 		
 		
 		
-		\item Sea $\Sigma'$ conjunto de generadores de $H$.
+		Veamos ahora que vale \textbf{W2}. 
+		Sea $\Sigma'$ conjunto de generadores de $H$.
 		Siempre podemos extenderlo a $\Sigma$ tal que $\Sigma$ genere a $G$. 
 		De esta manera 
 		\[
 		WP(H, \Sigma') = WP(H, \Sigma) \cap \Sigma'^*
 		\]
 		y de vuelta como es un cono la intersección con lenguajes regulares nos da un lenguaje en el cono. 
-	\end{itemize}
+
 \end{proof}
 \medskip
 Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.

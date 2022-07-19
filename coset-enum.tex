@@ -1,5 +1,7 @@
 \documentclass[tesis.tex]{subfiles}
-
+\newcommand{\rep}{\textsc{rep}}
+\newcommand{\coin}{\textsc{coincidencia}}
+\newcommand{\mer}{\textsc{merge}}
 
 \begin{document}
 
@@ -9,17 +11,188 @@ Dado un grupo  $G$ y un subgrupo $H$  vamos a construir y probar la correctitud 
 
 
 
-\section{G equivalencias.}
+\section{G-congruencias.}
+En esta sección vamos a considerar un grupo $G = \langle X, R \rangle$ finitamente generado como en el resto del algoritmo aunque vamos a tomar las palabras en el monoide libre de los generadores $A = X \cup X^{-1}$.
+Queremos escribir en qué contexto más general el grupo $G$ se relaciona con los cosets en un momento dado del algoritmo. 
+Sabemos que al finalizar el algoritmo nos queda la acción sobre los cosets $G/H$ si nos restringimos a $\Omega$ pero ¿qué sucede en el medio?
+Para esto es necesario hablar de $G$-congruencias.
+\begin{deff}
+    Un conjunto $X$ que tiene una acción de $G$ se llamará un $G$ conjunto.    
+\end{deff}
+
+En nuestro caso en particular consideremos a $\Omega$ los cosets vivos y $G$ la acción del grupo libre de los generadores por medio de $\chi$.
+Esto es que $\alpha \cdot g = \chi(\alpha,g)$.
+
 
 \begin{deff}
-    Una \blue{G equivalencia} es una relación de equivalencia que aparte satisface la siguiente propiedad.
+    Una \blue{G-congruencia} es una relación de equivalencia sobre un $G$ conjunto $\Omega$ que aparte satisface la siguiente propiedad.
     Si $x \sim y$ luego para todo $g \in G$ vale que $xg \sim yg$.
 \end{deff}
 
+Así como tenemos relaciones de equivalencias generadas a partir de algún subconjunto $S \subseteq X \times X$ podemos considerar la menor $G$ congruencia generada a partir de $S$.
+Tomamos la intersección de todas las $G$-congruencias que contengan a $S$. 
+Sabemos que existe porque al menos tenemos la $G$ congruencia trivial donde todos los elementos están relacionados con todos.
+Otra manera de definir a esta menor congruencia es por medio de la propiedad universal.
+Sea $\sim_S$ esta relación y sea $\sim$ otra relación tal que $\alpha \sim \beta \implies \alpha \sim_S \beta$. 
+En este caso tenemos que
 
-\section{Coincidencias.}
+
+\begin{deff}
+	Dada una $G$-congruencia $(X, \sim)$ y un par $(\alpha, \beta) \in X \times X$ podemos considerar a la $G$ congruencia generada por este par a partir de $\sim$.
+	\footnote{Estamos tomando la menor $G$-congruencia que contenga a $S \cup (\alpha, \beta)$ donde $S$ son todos los pares que definen la relación $\sim$.}
+\end{deff}
+
+Dado un conjunto $X$ con una $G$-congruencia es evidente que $G$ actúa en $X$ porque $X$ es un G conjunto. 
+Podemos ver que baja al cociente.
+\begin{lema}\label{lema-accion-GCong-cociente}
+	La acción de $G$ sobre $X$ se extiende a una acción de $G$ sobre $X / \sim.$
+\end{lema}
+\begin{proof}
+	Queremos ver que la siguiente aplicación es una acción,
+	\begin{align*}
+	G \times X/\sim &\to X/ \sim \\
+	[x]g =& [xg], \ \forall g \in G
+	\end{align*}
+	 Como $\sim$ es una $G$ congruencia tenemos que $[x]g = [y]g$ si y solo si $[x] = [y]$ entonces está bien definida la aplicación.
+	 La buena definición de la acción de $G$ sobre $X$ nos dice que está bien definida la acción sobre el cociente $X/\sim$.
+\end{proof}
+
+Si bien la definición anterior la dimos para una acción de $G$ en nuestro caso en particular nos va a bastar que $G$ tenga una acción parcial. 
+Esto es que exista una función parcial.
+\begin{equation*}
+\rho: X \times G \to X
+\end{equation*}
+donde $\rho(x,g)$ estará definida para algunos pares $(x,g) \in X \times G$ no necesariamente para todos.
+Nuestra definición de una $G$ congruencia la podemos modificar entonces para $x \sim y \implies xg \sim yg$ siempre y cuando $xg$ y $yg$ estén ambas definidas.
 
 
+
+
+
+Sea $([1,\dots,n], \sim$) la $G$ congruencia generada por $p$. 
+Esto es que $\kappa \sim \lambda \iff \rep(\kappa) = \rep (\lambda)$.
+Por como definimos a $\Omega = \{  \alpha \in [1,\dots,n] \ : \ p(\alpha) = \alpha \}$ tenemos que $\Omega \simeq [1, \dots, n] / \sim$.
+
+\section{Algoritmo de coincidencias.}
+
+Cuando llegamos a que dos cosets que inicialmente consideramos diferentes $\alpha, \beta \in [1, \dots, n]$ son tales que resultan ser iguales corremos el algoritmo de \coin($\alpha, \beta$).
+
+
+
+
+
+\subsection{Demostración de la correctitud del algoritmo de coincidencias.}
+
+El algoritmo de coincidencias usa \mer \ y \rep, de manera que modifica el valor de la función $p$.
+Cuando terminamos de correr el algoritmo tenemos una función $p'$ definida sobre los cosets.
+
+\begin{lema}
+	La función $p':[1,\dots,n] \to [1,\dots,n]$ cumple que $p'(\alpha) \le \alpha$ para todo $\alpha \in [1,\dots,n]$. 
+\end{lema}
+\begin{proof}
+	En los únicos momentos que reducimos el valor de $p$ es cuando llamamos a \rep \  o bien a \mer \ en las líneas (...)
+	
+	El algoritmo \mer \  solo reduce el valor de $p$ porque justamente toma el coset que tenga $p$ más bajo y redefine al otro para que tenga el mismo valor.
+	
+	Por otro lado el algoritmo \rep \ podemos ver usando inducción directamente que reduce el valor de $p$ porque justamente $p$ es decreciente y al aplicarla sucesivamente nos queda que $p^i(\alpha) \le \alpha$ para todo $i \in \NN$.
+	
+	En definitiva $p'$ nos queda una función decreciente y definida sobre el mismo intervalo de enteros tal como queríamos ver.	
+\end{proof}
+
+
+Llamemos $\sim_F$ la relación que nos queda a partir de $p'$ al terminar de hacer \coin.
+Esto es que $\kappa \sim_F \lambda$ sii al terminar el algoritmo $\rep (\kappa) = \rep(\lambda)$ donde en este caso el representante lo estamos mirando respecto a esta nueva relación de equivalencia.
+Podemos probar que la propiedad que vale anteriormente para la relación $\sim$ sigue valiendo para nuestra nueva relación $\sim_F$.
+
+\begin{lema}\label{lema-rep-coin}
+	Si existen $\gamma, \delta \in [1,\dots,n], x \in A$ tales que $\gamma^x = \delta$ antes de comenzar el algoritmo entonces al terminarlo vale que $\rep(\gamma)^x = \rep(\delta).$
+\end{lema}
+
+\begin{proof}
+	Esta propiedad sabemos que vale al iniciar el algoritmo para la relación $\sim$ justamente por lo probado en el lema \ref{lema-accion-GCong-cociente}.
+	En el caso que $p(\gamma) = p'(\gamma)$ y que $p(\delta) = p'(\delta)$ como vale para $\sim$ va a valer para $\sim_F$.
+	Esto es porque el representante sigue siendo el mismo en ese caso.
+	Por lo tanto solo nos interesa los casos que $p'$ es distinta de $p$.
+	Siguiendo el algoritmo tenemos tres casos posibles en los que modificamos el valor de $p'$.
+	Así como en el algoritmo tomamos $\mu = \rep(\gamma)$ y $\nu = \rep(\delta)$.
+	\begin{enumerate}[(i).]
+		\item Si $\mu^x = \lambda$ entonces hacemos \mer($\lambda, \nu$). 
+		Esto hace que ahora $\rep (\lambda) = \rep (\nu)$ por lo tanto $\rep(\gamma)^x = \mu^x = \lambda $ y por otro lado vimos que $\lambda \sim \nu $ por lo que $ \rep(\delta) = \rep (\lambda)$ y así terminamos de probar lo que queríamos ver.
+		\item Similar al caso anterior tomando $\nu^{x^{-1}} = \kappa$.
+		\item Este último caso es el que no esté definido $\mu^x$ ni $\nu^{x^{-1}}$ y lo definimos directamente de manera que $\mu^x = \nu$ y en particular $\rep(\gamma)^x = \rep(\delta).$
+	\end{enumerate}
+	
+	
+\end{proof}
+
+
+Finalmente podemos probar lo que queríamos ver.
+Al terminar el algoritmo nos sigue quedando una $G$ congruencia.
+Más aún esta $G$ congruencia la conocemos y es justamente la generada por el par $(\alpha, \beta)$. 
+
+\begin{teo}
+    Al terminar del correr el algoritmo \coin($\alpha, \beta$) obtenemos la siguiente igualdad para todo $\kappa, \lambda \in [1,\dots,n]$,
+    \begin{equation*}
+    	\kappa \sim_F \lambda \iff \kappa \equiv \lambda.
+    \end{equation*}
+\end{teo}
+
+\begin{obs}
+	En particular esto nos dice que $\sim_F$ que en principio solo es una relación  de equivalencia resulta ser una $G$ congruencia.
+\end{obs}
+
+\begin{proof}
+     Primero veamos que $\lambda \sim_F \kappa \implies \kappa \equiv \lambda$.
+     Ni bien comienza el algoritmo sabemos que vale esta implicación porque justamente $\equiv$ es la $G$-congruencia generada a partir de $\sim$ y del par $(\alpha, \beta)$.
+     Los casos que llamamos a \mer \ son los casos que podría modificarse la relación $\sim$.
+     El primer \mer \ justamente agrega al par $(\alpha, \beta)$ a la relación $\sim$ y sabemos que este par está por definición en $\equiv$. 
+     Para los otros llamados de \mer \ tenemos que $\gamma^x = \delta$ tal que podemos suponer inductivamente que $\gamma \sim \mu = \rep(\gamma)$ y que $\delta \sim \nu = \rep (\delta)$ de manera que ahora agregamos $\mu^x \sim \nu$.
+     Como $\equiv$ es una $G$-congruencia vale que $\mu^x \equiv \gamma^x$ porque suponemos inductivamente que $\mu \equiv \gamma$.
+     Si estamos en el caso que está definido $\mu^x=\lambda$  obtenemos que $\mu^x \equiv \nu$. 
+     Análogamente el caso que $\nu^{x^{-1}}$ está definido. 
+     En ambos casos vimos que si $\kappa \sim \lambda \implies \kappa \equiv \lambda$. 
+     Como esto vale en todo paso del algoritmo vale más aún cuando termina así que terminamos de ver esta implicación.
+
+     
+%    Primero notemos que al ser $\equiv$ la generada a partir de $\sim$ resulta que $\lambda \sim \kappa \implies \kappa \equiv \lambda$ para todo $\kappa, \lambda \in [n]$.
+%    Ya tenemos una contención. 
+%    Por otro lado si $\kappa \sim \lambda$ entonces también vale para la relación final $\kappa \sim_F \lambda$ porque al modificar cuanto vale $p$ estamos agregando pares a lo sumo.
+%    En definitiva tenemos el siguiente diagrama.
+%    \begin{center}
+%    \begin{tikzcd}
+%    	{([1, \dots, n], \sim) } \arrow[rrr] \arrow[rdd] &                                         &  & {([1, \dots, n], \sim_F)} \\
+%    	&                                         &  &                    \\
+%    	& {([1, \dots, n], \equiv)} \arrow[rruu, dashed] &  &                   
+%    \end{tikzcd}	
+%    \end{center}
+%    
+    Veamos ahora la otra implicación. 
+    En vez de probarla directamente usemos que $\equiv$ es la menor $G$-congruencia que contiene a $\sim$ y al par $(\alpha, \beta)$. 
+    Si vemos que $\sim_F$ es una $G$-equivalencia entonces terminaríamos de ver que $\kappa \sim_F \lambda \iff \kappa \equiv \lambda$ tal como queríamos ver.
+       
+    Para eso partamos de $\kappa \sim_F \lambda$ y veamos que si $x \in A$ es tal que $\kappa^x$ y $\lambda^x$ estén ambas definidas entonces $\kappa^x \sim_F \lambda^x$.
+    Haciendo inducción en la longitud de la palabra podemos probarlo para $w \in A^*$ genérica por lo tanto alcanza con verlo para este caso de una sola letra.
+    
+    Por el lema anterior \ref{lema-rep-coin} tenemos que al ser $\rep(\kappa) = \rep(\lambda )$ luego $\rep(\kappa)^x = \rep(\kappa^x)$ y similarmente $\rep(\lambda)^x = \rep(\lambda^x)$. 
+    De esta manera obtenemos que $\rep (\kappa^x) = \rep(\lambda^x)$ por lo tanto $\kappa^x \sim_F \lambda^x$.
+\end{proof}
+
+\begin{prop}
+	Al terminar de correr \coin($\alpha, \beta$) todas las propiedades de la tabla de cosets \ref{} siguen valiendo.
+\end{prop}
+
+\begin{proof}
+	Antes de correr el algoritmo todas estas propiedades valen. 
+	Cuando llamamos a \coin($\alpha, \beta$) estamos presuponiendo que $H\tau (\alpha) = H\tau(\beta)$ vistos como elementos en el conjunto de cosets a derecha $G/H$.
+	Por un argumento inductivo similar al que hicimos anteriormente podemos ver que cada vez que hacemos \mer($\kappa, \lambda$) obtenemos que $H \tau (\kappa) = H \tau(\lambda)$. 
+	\begin{enumerate}[P1.]
+		\item No modificamos en ningún momento $\tau(1)$ ni cambiamos $p(1)$ por lo tanto sigue valiendo al finalizar el algoritmo.
+		\item El único caso que definimos una nueva entrada en la tabla de cosets sucede cuando tomamos $\mu^x = \nu, \nu^{x^{-1}} = \mu$ y esto hace que siga valiendo la propiedad.
+		El caso que eliminamos a $\delta^{x^{-1}}$ de la tabla justamente es tal que $\delta$ deja de estar en los cosets vivos por lo tanto no afecta a esta propiedad.
+		\item Vale por lo visto anteriormente porque al agregar $\mu^x = \nu, \nu^{x^{-1}} = \mu$ es el único momento que agregamos entradas a cosets vivos y por el argumento inductivo vemos que $H\tau(\mu^x) = H\tau(\nu)$.
+		\item Sigue valiendo porque vale al comenzar para todos los cosets vivos y en particular vale para los que sobreviven.
+	\end{enumerate}
+\end{proof}
 
 
 

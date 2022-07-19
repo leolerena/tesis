@@ -1,4 +1,4 @@
-\documentclass[12pt]{book}
+\documentclass[11pt]{book}
 \usepackage{geometry}\geometry{top=4cm,bottom=3cm,left=3cm,right=3cm}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
@@ -23,18 +23,32 @@
 \hypersetup{
 	colorlinks,
 	linkcolor={astral},
-	citecolor={blue!30!black},
-	urlcolor={blue!80!black}
+	citecolor={red!70!black},
+	urlcolor={red!80!black}
 }
 \definecolor{astral}{RGB}{46,116,181}
 \colorlet{chulo}{blue!70!purple}
-\colorlet{rojo}{purple!65!black}
+\colorlet{rojo}{purple!45!black}
 
 
+%%%%%%%%%%%%%%%%%%%%% ENUMERAR CON COSAS QUE NO SEAN SOLO NÚMEROS %%%%%%%%%%
+\usepackage[shortlabels]{enumitem}
+\setlist[enumerate]{font=\bfseries}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%% TÍTULOS DE SECCIONES MÁS FANCIES %%%%%%%%%%%%%%
+\usepackage{titlesec}
+\setcounter{secnumdepth}{3} % Hasta que profundidad quiero numerar, 4 sería los párrafos.
+\titleformat{\section}[block]{\color{astral!50!black}\Large\bfseries\filcenter}{\S\thesection.}{1em}{}
+\titleformat{\subsection}[hang]{\color{astral!50!black}\large\bfseries\filcenter}{\S\thesection.}{1em}{}
+
+%%%%%%%%%%%%%%%%%%%%%% COLORES PÁRRAFOS Y CAPÍTULOS %%%%%%%%%%%%%%%%%%%%%%%%
 \paragraphfont{\color{astral!70!black}}
 \chapterfont{\color{astral!40!black}}
-\subsectionfont{\color{astral!60!black} }
-\sectionfont{\color{astral!50!black} }
+%\subsectionfont{\color{astral!60!black} }
+%\sectionfont{\color{astral!50!black} }
+
 \usepackage{mathpazo}
 \usepackage{amssymb}
 %\usepackage{thmtools}
@@ -66,24 +80,57 @@
 }
 
 
-
+\usepackage[framemethod=tikz]{mdframed}
 
 %%%%%%%%%%%%%  TEOREMAS  %%%%%%%%%%%%%%%%%
 \theoremstyle{plain} %% el estilo clásico
-\newtheorem{teo}{\color{rojo} Teorema}[section]
+\newtheorem{teo}{\color{rojo}{ Teorema}}[section]
 \newtheorem{prop}[teo]{\color{rojo} Proposición}
 \newtheorem{lema}[teo]{\color{rojo} Lema}
 \newtheorem{coro}[teo]{\color{rojo} Corolario}
 % Si pongo [theorem] siguen la numeración de los teoremas. 
 % e.j. Teo 1, Lema 2, Teo 3, Teo 4 ...
 \theoremstyle{definition}
-\newtheorem{deff}[teo]{\color{orange!80!black} Definición}
-\newtheorem{ej}[teo]{\color{orange!80!black} Ejemplo}
+\newtheorem{deff}[teo]{\color{orange!50!black} Definición}{\smallskip}
+\newtheorem{ej}[teo]{\color{orange!50!black} Ejemplo}{\smallskip}
 
 % Remarks
 \theoremstyle{remark}
-\newtheorem{obs}[teo]{\color{orange!85!white} Observación}
+\newtheorem{obs}[teo]{\color{yellow!40!rojo} Observación}{\smallskip}
 
+
+\surroundwithmdframed[outerlinewidth=0.4pt,
+innerlinewidth=0.4pt,
+align=center,
+middlelinewidth=1pt,
+middlelinecolor=white,
+innertopmargin=-4pt,
+innerbottommargin=0pt,
+innerrightmargin=4pt,
+innerleftmargin=4pt,
+bottomline=false,topline=false,rightline=false]{teo}
+\surroundwithmdframed[outerlinewidth=0.4pt,
+innerlinewidth=0.4pt,
+align=center,
+middlelinewidth=1pt,
+middlelinecolor=white,
+innertopmargin=-4pt,
+innerbottommargin=0pt,
+innerrightmargin=4pt,
+innerleftmargin=4pt,
+bottomline=false,topline=false,rightline=false]{lema}
+\surroundwithmdframed[outerlinewidth=0.4pt,
+innerlinewidth=0.4pt,
+align=center,
+middlelinewidth=1pt,
+middlelinecolor=white,
+innertopmargin=-4pt,
+innerbottommargin=0pt,
+innerrightmargin=4pt,
+innerleftmargin=4pt,
+bottomline=false,topline=false,rightline=false]{prop}
+% DEMOS EN NEGRITA.
+\renewenvironment{proof}{{\textbf{Demostración.}}}{ \hfill $\blacksquare$ \medskip} 
 
 
 %Comandos útiles.

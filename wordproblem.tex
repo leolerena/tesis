@@ -211,9 +211,9 @@ La primera noción que podemos tomar para modelizar esto es el de tener un treew
 	  que denotaremos $X_t$ para cada vértice $t \in V(T)$. 
 	  Le vamos a pedir que cumpla las siguientes condiciones:
 	\begin{enumerate}
-		\item Para todo vértice $v \in V(X)$ debe existir $t \in V(T)$ tal que $x \in X_t$. 
-		\item Para toda arista $e$ entre dos vértices $v,w \in V(X)$ debe existir $t \in V(T)$ tal que $v,w \in X_t$.
-		\item Si $v \in V(X)$ es tal que $v \in X_t \cap X_s$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X_t \}$ forma un subárbol. 
+		\item[\textbf{T1.}] Para todo vértice $v \in V(X)$ debe existir $t \in V(T)$ tal que $x \in X_t$. 
+		\item[\textbf{T2.}] Para toda arista $e$ entre dos vértices $v,w \in V(X)$ debe existir $t \in V(T)$ tal que $v,w \in X_t$.
+		\item[\textbf{T3.}] Si $v \in V(X)$ es tal que $v \in X_t \cap X_s$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X_t \}$ forma un subárbol. 
 	\end{enumerate} 
 \end{deff}
 \smallskip
@@ -255,9 +255,9 @@ De esta manera si vemos que se trata de una descomposición en un árbol tendrem
 
 Finalmente veamos que se trata de una descomposición. Corroboremos que cumple las tres condiciones necesarias.
 \begin{enumerate}
-	\item Todo vértice $v \in V(X)$ lo podemos ver como uno en $T$. Su bolsón asociado $X_v$ lo tiene como único elemento por la construcción de esta descomposición.
-	\item Si $xy \in E(X)$ entonces tenemos un vértice $t\in V(T)$ tal que $X_{t} = \{ x,y \}$. 
-	\item Sea $x \in X_t \cap X_s$. 
+	\item[\textbf{T1.}] Todo vértice $v \in V(X)$ lo podemos ver como uno en $T$. Su bolsón asociado $X_v$ lo tiene como único elemento por la construcción de esta descomposición.
+	\item[\textbf{T2.}] Si $xy \in E(X)$ entonces tenemos un vértice $t\in V(T)$ tal que $X_{t} = \{ x,y \}$. 
+	\item[\textbf{T3.}] Sea $x \in X_t \cap X_s$. 
 	Por como armamos los bolsones, si estos son distintos no queda más que al menos uno de los dos, por ejemplo $X_t$ tenga esta pinta, $X_t = \{ x,y\}$ para cierto vértice $y \in V(X)$ tal que junto con $x$ forman una arista $xy \in E(X)$.
 	
 	El primer caso es que $X_s = \{ x \}$.
@@ -387,15 +387,15 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	
 	Para ver que es una descomposición de árboles debemos ver que cumple las tres condiciones \ref{desc-arbol} de la definición. 
 	\begin{enumerate}
-		\item La primera condición la cumple por como lo definimos porque cualquier vértice del grafo $g \in V(\Gamma)$ 
+		\item[\textbf{T1.}] La primera condición la cumple por como lo definimos porque cualquier vértice del grafo $g \in V(\Gamma)$ 
 		es tal que existe $n \in \NN$ de manera que $d(1,g)=n$, por lo que está en alguna componente conexa $C \subseteq V_{n-1}$. 
 		En particular como la distancia es exactamente $n$ tiene que existir una arista $gg' \in E(\Gamma)$ con un vértice $g' \in V_{n-1}$ y por lo tanto $g \in \beta C$.
 		
-		\item La segunda condición partimos de una arista $gh \in E(\Gamma)$ luego miramos las distancias que hay al $1$ de ambos vértices para conseguirnos el bolsón adecuado. 
+		\item[\textbf{T2.}] La segunda condición partimos de una arista $gh \in E(\Gamma)$ luego miramos las distancias que hay al $1$ de ambos vértices para conseguirnos el bolsón adecuado. 
 		Supongamos que ambas están a la misma distancia del $1$. En tal caso sea $n$ tal que $d(g,1)=d(h,1)=n$ luego si miramos $V_{n-1}$ notemos que tienen que estar en la misma componente conexa porque existe una arista entre ambos vértices. Sea esta componente $C$ luego como están a distancia exactamente $n$ ambas están en el borde, esto es que $g,h \in \beta C$ tal como queríamos ver. 
 		El otro caso es que $d(g,1)=n < d(h,1)=n+1$ y en este caso como están conectadas resulta que están en $\beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_n$ por definición del borde de un conjunto de vértices de un grafo.
 		
-		\item Para la tercera condición supongamos que hay $g \in V(\Gamma)$ tal que está en la intersección de dos bolsones $\beta C \cap \beta D$. 
+		\item[\textbf{T3.}] Para la tercera condición supongamos que hay $g \in V(\Gamma)$ tal que está en la intersección de dos bolsones $\beta C \cap \beta D$. 
 		Queremos ver que está en todos los bolsones que aparecen en la geodésica de $\beta C$ a $\beta D$ en el árbol T. 
 		Si $d(g,1) = n$ luego solo puede estar en la frontera de alguna componente conexa $C$ tal que esté en alguna de estas opciones  $V_{n-1}, V_{n},  V_{n+1}$. 
 		Supongamos que $D \subseteq V_{n}$, en tal caso vale que $D \nsubseteq V_{n}$ porque sino tendríamos que resulta ser la misma componente conexa. 
@@ -424,7 +424,6 @@ tal como queríamos ver.
 
 El siguiente resultado es un teorema de Muller-Schupp demostrado en \cite{muller1985theory}.
 La demostración sigue la exposición del paper \cite{diekert_contextfree_2017}.
-\medskip
 \begin{teo} [Muller - Schupp 1985] \label{teo_schupp_muller_ic_desc}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
@@ -515,11 +514,11 @@ tal como queríamos ver.
 \begin{deff}
 	Sean $X,Y$ espacios métricos. Una \blue{cuasisometría} es una función $f:X \to Y$ tal que:
 	\begin{itemize}
-	\item Para todo par de puntos $x_1,x_2 \in X$ existe constante $A > 0$ tales que
+	\item[\textbf{Q1.}] Para todo par de puntos $x_1,x_2 \in X$ existe constante $A > 0$ tales que
 	\[
 	\frac{1}{A} d_X(x_1,x_2) - A \le d_Y(f(x_1),f(x_2)) \le A d_X(x_1,x_2) + A
 	\]
-	\item Existe una constante real $C \ge 0$ tal que para todo punto $y \in Y$ existe $x \in X$ tal que 
+	\item[\textbf{Q2.}] Existe una constante real $C \ge 0$ tal que para todo punto $y \in Y$ existe $x \in X$ tal que 
 	\[
 	d(y,f(x)) \le C
 	\]
@@ -663,16 +662,16 @@ Veamos que estas categorización es equivalente a pedirle que el treewidth sea f
 	Debemos ver que cumplen las tres propiedades.
 	
 	\begin{enumerate}
-		\item La primera se cumple puesto que los bolsones $X_t$ cubren $V(\Gamma_2)$. 
+		\item[\textbf{T1.}] La primera se cumple puesto que los bolsones $X_t$ cubren $V(\Gamma_2)$. 
 		De esta manera $\cup_{t \in T} N^l(X_t) = V(\Gamma_2)$ y por lo tanto tomando preimagen tenemos que
 		\[
 		\bigcup_{t \in V(T)} f^{-1} (N^l (X_t)) = \bigcup_{t \in V(T)} Y_t = f^{-1} (V(\Gamma_2)) = V(\Gamma_1)
 		\] 
 		donde usamos que la preimagen de la unión es la unión de las preimágenes.
-		\item La segunda condición usamos que si hay una arista $xy \in E(\Gamma_2)$ luego debe ser que $d(f(x),f(y)) \le l$ por como tomamos a $l$.
+		\item[\textbf{T2.}] La segunda condición usamos que si hay una arista $xy \in E(\Gamma_2)$ luego debe ser que $d(f(x),f(y)) \le l$ por como tomamos a $l$.
 		De esta manera como $f(x) \in X_t$ para algún $t \in V(T)$, notemos que $f(y) \in N^l(X_t)$ también. 
 		Tomando preimagen tenemos que $x,y \in f^{-1}(N^l(X_t))$ y esto es que justamente $x,y \in Y_t$ para un mismo $t \in V(T)$ tal como queríamos ver.		
-		\item Para la tercera condición si $x \in Y_t \cap Y_s$ queremos ver que $x \in Y_r$ para todo $r \in V(T)$ que aparezca en la geodésica de $s$ a $t$.
+		\item[\textbf{T3.}] Para la tercera condición si $x \in Y_t \cap Y_s$ queremos ver que $x \in Y_r$ para todo $r \in V(T)$ que aparezca en la geodésica de $s$ a $t$.
 		Como la preimagen de una intersección es lo mismo que la intersección de las preimágenes entonces 
 		\[
 		x \in f^{-1}(N^l(X_t)) \cap f^{-1}(N^l(X_s)) = f^{-1}(N^l(X_t) \cap N^l (X_s)
