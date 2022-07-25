@@ -92,15 +92,18 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 	Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. 
 	Entonces este automáta lo podemos representar de la siguiente manera:	
 	
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4.5cm,
-	scale = 1.15,transform shape]
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4.5cm,
+		scale = 1.15,transform shape]
+		
+		\node[state,accepting,initial] (1') {$1'$};
+		\node[state] (1) [right of=1'] {$1$};
+		
+		\path (1') edge[bend left]              node {} (1)
+		(1) edge[bend left]              node {} (1');
+		\end{tikzpicture}
+	\end{center}
 	
-	\node[state,accepting,initial] (1') {$1'$};
-	\node[state] (1) [right of=1'] {$1$};
-	
-	\path (1') edge[bend left]              node {} (1)
-	(1) edge[bend left]              node {} (1');
-	\end{tikzpicture}
 	
 	Donde las transiciones del estado 1' a 1 son todas las transiciones en las cuales la letra que estamos por leer no es la inversa de lo que esté al tope de la pila. Por otro lado las transiciones del estado 1 al estado 1' son todas las que lo que leemos es justamente el inverso de lo que está al tope de la pila.
 	
@@ -162,6 +165,10 @@ Repliquemos esta idea también para el caso que que tengamos algo en la pila,
 	Más aún su problema de la palabra es un lenguaje independiente de contexto determinístico y como tal tiene las siguientes buenas propiedades algorítmicas \ref{}.
 \end{obs}
 
+\begin{ej}
+	Ejemplos de autómata para grupos no tan triviales.
+	Para $C_2 \ast C_3$ es un autómata de 12 estados.
+\end{ej}
 
 \section{Grafos de Cayley.} \label{seccion_treewidth}
 
@@ -177,7 +184,7 @@ En particular las aristas no van a estar dirigidas y no tomaremos a $(v,v)$ como
 Para una arista $(g,ga)$ llamaremos la \emph{etiqueta} al generador $a$.
 Extendemos esta definición a caminos sobre el grafo para obtener una palabra en el monoide $\Sigma^*$.
 Este grafo por como lo definimos no tiene aristas múltiples ni tampoco tiene bucles.
-Dado que $\Sigma$ genera tenemos que el grafo $\Gamma$ es conexo.
+Dado que $\Sigma$ es un conjunto d tenemos que el grafo $\Gamma$ es conexo.
 
 El grafo de Cayley lo podemos ver como un espacio métrico justamente si hacemos que todas las aristas sean isométricas a $[0,1]$. 
 Esto es que $d(g,ga) = 1$ para todo $g \in G, a \in \Sigma \cup \Sigma^{-1}$. 
@@ -189,12 +196,14 @@ En particular los árboles vistos como espacios métricos resultan ser \emph{ún
 Esto es que dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
 
 \begin{ej}
-	Sea $\mathbb F_2$ el grupo libre en dos generadores $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
+	Sea $\mathbb F_2 = \langle a, b \rangle$ el grupo libre en $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
 	\bigskip
-	
+	\begin{center}
 	\begin{tikzpicture}
 	\draw l-system [l-system={cayley, axiom=[A] [+A] [-A] [++A], step=2.35cm, order=3}];
 	\end{tikzpicture}
+	\end{center}
+	
 	
 	 Notemos que este grafo resulta ser un árbol y esto es algo que vale en general para todos los grupos libres cuando miramos respecto a sus generadores canónicos.
 \end{ej}
@@ -227,19 +236,19 @@ El \blue{bagsize} de una descomposición en un árbol $T$ de un grafo $X$ es el 
 	\end{equation*}
 Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
-\begin{obs}\label{desc-arbol-arbol}
+\begin{ej}\label{desc-arbol-arbol}
  En particular si el grafo $X$ es un árbol notemos que tiene treewidth exactamente igual a 1.
  Una manera de probarlo es tomar $T$ la subdivisión baricéntrica de $X$. 
  Este es el siguiente árbol que tiene como vértices a 
  \[
- V(T) = \{ \{ x \} \ | \ x \in V(X)  \} \cup \{ \{ x,y \} \ | \ xy \in E(X) \}.
+ V(T) = \{ s \ | \ s \in V(X)  \lor s \in E(X) \}.
  \]
- Tomamos todos los vértices de $x$ y los agregamos a los de $T$ y agregamos un vértice por cada arista del grafo $X$.
+ Tomamos todos los vértices de $X$ y los agregamos a los de $T$ y agregamos un vértice por cada arista del grafo $X$.
  Finalmente las aristas están formadas por 
  \[
- E(T) = \{  ts \ | \ t \subset s \ \lor s \subset t \}
+ E(T) = \{  (s,t) \ | \ t \subset s \ \lor s \subset t \}
  \]
- agregamos una arista entre cada vértice de $T$ que se corresponde con un vértice de $X$ con los que se corresponden con una arista que lo contiene en $X$. 
+ agregamos una arista entre cada par de vértices de $T$ tales que uno se corresponde con un vértice de $X$ y el otro con una arista que lo contiene en $X$. 
 %Por cada arista del grafo $e \in E(X)$ donde $e=xy$ con $x,y \in V(X)$ agregamos un vértice $v_e \in V(T)$ tal que definimos para que $xv_e, v_ey \in E(T)$.
  
  
@@ -248,7 +257,7 @@ Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un �
  Esto es que:
  \begin{itemize}
  	\item Si $t$ es un vértice que ya estaba en $V(X)$ entonces $X_t = \{ t \}$. 
- 	\item Si $t$ lo agregamos por una arista $xy \in E(X)$ entonces $X_t = \{ x,y  \}$.
+ 	\item Si $t$ lo agregamos por una arista $(x,y) \in E(X)$ entonces $X_t = \{ x,y  \}$.
  \end{itemize}
 Por como los definimos es evidente que $|X_t| \le 2$ para todo $t \in V(T)$.
 De esta manera si vemos que se trata de una descomposición en un árbol tendremos probado que $bs(X,T) = 1$ tal como queríamos ver.
@@ -258,18 +267,17 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	\item[\textbf{T1.}] Todo vértice $v \in V(X)$ lo podemos ver como uno en $T$. Su bolsón asociado $X_v$ lo tiene como único elemento por la construcción de esta descomposición.
 	\item[\textbf{T2.}] Si $xy \in E(X)$ entonces tenemos un vértice $t\in V(T)$ tal que $X_{t} = \{ x,y \}$. 
 	\item[\textbf{T3.}] Sea $x \in X_t \cap X_s$. 
-	Por como armamos los bolsones, si estos son distintos no queda más que al menos uno de los dos, por ejemplo $X_t$ tenga esta pinta, $X_t = \{ x,y\}$ para cierto vértice $y \in V(X)$ tal que junto con $x$ forman una arista $xy \in E(X)$.
+	Por como armamos los bolsones, uno de estos dos tiene que corresponderse con una arista de $X$.
+	Supongamos que $X_t$ tiene esa pinta entonces $X_t = \{ x,y\}$ para cierto vértice $y \in V(X)$.
 	
-	El primer caso es que $X_s = \{ x \}$.
-	La geodésica que podemos tomar entonces es $st$ puesto que $s$ se corresponde con el vértice $x$ y sabemos que existe una arista $st \in E(T)$ porque justamente $t$ se corresponde con una arista en $X$ que contiene a $x$.
+	En el caso que $X_s = \{ x \}$ la geodésica que podemos tomar entonces es $st$ puesto que $s$ se corresponde con el vértice $x$ y sabemos que existe una arista $st \in E(T)$ porque justamente $t$ se corresponde con una arista en $X$ que contiene a $x$.
 	
 	En el caso que $s \in V(T)$ sea tal que el bolsón $X_s$ se corresponda con los vértices que aparecen en una arista debería ser del tipo $X_s = \{x,z\}$ para cierto $z \in V(X)$. 
-	Es decir que la arista debe incluir a $x$ necesariamente y como vimos los bolsones solo tienen a lo sumo dos elementos.
 	Si miramos la geodésica sobre $T$ entre ambos vértices no es más que el siguiente camino $tvs$ donde $v \in V(T)$ es el vértice que está tanto en el árbol original $X$ como en la subdivisión baricéntrica $T$.
 	Esto es que $X_v = \{ x \}$.
 	De esta manera $x$ está en todos los bolsones correspondientes a la geodésica sobre $T$ tal como queríamos ver.	
 \end{enumerate}
-\end{obs}
+\end{ej}
 
 
 % [Creo que está bastante mal esto. Si lo tengo que usar más en adelante repensarlo bien.]
@@ -298,7 +306,7 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 
 
 \begin{deff}
-	Sea $\Gamma$ un grafo y $C \in V(\Gamma)$ un conjunto de vértices entonces definimos los \blue{vecinos de $C$} por medio de 
+	Sea $\Gamma$ un grafo y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \blue{vecinos de $C$} por medio de 
 	\[
 	N(C) = \{ v \in V(\Gamma) : \exists w \in C, \ vw \in E(\Gamma) \}.
 	\]
@@ -313,9 +321,9 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	Si $(X_t)_{t \in V(T)}$ es una descomposición en un árbol $T$ para un grafo $\Gamma$ entonces si tomamos como bolsones a $N^l(X_t)$ también tenemos una descomposición en un árbol.
 \end{prop}
 \begin{proof}
-	
-	Veamos este resultado para $l=1$ y por inducción lo podemos extender para un $l$ genérico.
-	En este caso notemos que las dos primeras condiciones de la descomposición en un árbol se siquen cumpliendo porque no hicimos más que agrandar los bolsones. 
+	Probemos este resultado haciendo inducción en $l$.
+	Basta verlo para el caso base porque el paso inductivo es idéntico. 
+	Sea entonces $l=1$, en este caso notemos que las dos primeras condiciones de la descomposición en un árbol se siguen cumpliendo porque no hicimos más que agrandar los bolsones. 
 	Esto es que si $X_t$ era un bolsón luego $X_t \subseteq N(X_t)$.
 	Debemos ver que cumple la tercer condición.
 	Partamos de un vértice $x \in V(X)$ tal que $x \in N(X_s) \cap N(X_t)$ y veamos que si $r \in V(T)$ está en la geodésica de $t$ a $s$ entonces $x \in N(X_r)$.
@@ -508,7 +516,7 @@ tal como queríamos ver.
 \end{ej}
 
 
-\subsection{Cuasisometrías.}
+\section{Cuasisometrías.}
 
 
 \begin{deff}
@@ -646,7 +654,7 @@ Veamos que estas categorización es equivalente a pedirle que el treewidth sea f
 
 \begin{proof}
 	Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_2$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_1$ también tiene esta propiedad.
-	Consideremos $l$ tal que $d(f(v),f(w) \le l$ para vértices $v,w \in V(\Gamma_1)$ que estén conectados por una arista.
+	Consideremos $l$ tal que $d(f(v),f(w)) \le l$ para vértices $v,w \in V(\Gamma_1)$ que estén conectados por una arista.
 	Esto lo podemos tomar porque al ser una cuasisometría 
 	\[
 	d(f(v),f(w)) \le C d(v,w) + C  \le 2C
@@ -705,6 +713,7 @@ Veamos que estas categorización es equivalente a pedirle que el treewidth sea f
 A partir de este resultado podemos ver que la otra manera que teníamos de pensar a los grafos que se parecen a árboles resulta ser más débil. 
 El siguiente resultado lo demostramos en el caso general de un grafo tal que los grados de sus vértices están acotados uniformemente. 
 Como caso particular tenemos los grafos de Cayley de grupos finitamente generados.
+
 
 \begin{prop} 
 	Un grafo $X$ de grado acotado uniformemente cuasisométrico con un árbol tiene treewidth finito.

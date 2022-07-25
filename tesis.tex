@@ -44,7 +44,7 @@
 \titleformat{\subsection}[hang]{\color{astral!50!black}\large\bfseries\filcenter}{\S\thesection.}{1em}{}
 
 %%%%%%%%%%%%%%%%%%%%%% COLORES PÁRRAFOS Y CAPÍTULOS %%%%%%%%%%%%%%%%%%%%%%%%
-\paragraphfont{\color{astral!70!black}}
+%\paragraphfont{\color{astral!70!black}}
 \chapterfont{\color{astral!40!black}}
 %\subsectionfont{\color{astral!60!black} }
 %\sectionfont{\color{astral!50!black} }
@@ -91,7 +91,7 @@
 % Si pongo [theorem] siguen la numeración de los teoremas. 
 % e.j. Teo 1, Lema 2, Teo 3, Teo 4 ...
 \theoremstyle{definition}
-\newtheorem{deff}[teo]{\color{orange!50!black} Definición}{\smallskip}
+\newtheorem{deff}[teo]{ Definición}{\smallskip}
 \newtheorem{ej}[teo]{\color{orange!50!black} Ejemplo}{\smallskip}
 
 % Remarks
@@ -119,6 +119,7 @@ innerbottommargin=0pt,
 innerrightmargin=4pt,
 innerleftmargin=4pt,
 bottomline=false,topline=false,rightline=false]{lema}
+
 \surroundwithmdframed[outerlinewidth=0.4pt,
 innerlinewidth=0.4pt,
 align=center,
@@ -129,8 +130,33 @@ innerbottommargin=0pt,
 innerrightmargin=4pt,
 innerleftmargin=4pt,
 bottomline=false,topline=false,rightline=false]{prop}
+
+
 % DEMOS EN NEGRITA.
 \renewenvironment{proof}{{\textbf{Demostración.}}}{ \hfill $\blacksquare$ \medskip} 
+
+% ========== Para escribir pseudo ==========
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}  % "noend" es para no mostrar los endfor, endif
+%\algrenewcommand\alglinenumber[1]{\tiny #1:}  % Para que los numeros de linea del pseudo sean pequeños
+\renewcommand{\thealgorithm}{}  % Que no aparezca el numero luego de "Algorithm"
+\floatname{algorithm}{ }    % Entre {  } que quiero que aparezca en vez de "Algorithm"
+
+% traducciones
+\algrenewcommand\algorithmicwhile{\textbf{mientras}}
+\algrenewcommand\algorithmicdo{\textbf{hacer}}
+\algrenewcommand\algorithmicreturn{\textbf{devolver}}
+\algrenewcommand\algorithmicif{\textbf{si}}
+\algrenewcommand\algorithmicthen{\textbf{entonces}}
+\algrenewcommand\algorithmicfor{\textbf{para}}
+
+%% indentar dentro de los algoritmos
+\algdef{SE}[SUBALG]{Indent}{EndIndent}{}{\algorithmicend\ }%
+\algtext*{Indent}
+\algtext*{EndIndent}
+
+%=========================================================
+
 
 
 %Comandos útiles.
@@ -174,6 +200,8 @@ bottomline=false,topline=false,rightline=false]{prop}
 \thispagestyle{empty}
 
 \begin {center}
+
+\includegraphics[scale=.4]{logofac.jpg}
 
 %\includegraphics[scale=.3]{uba2.jpg}
 

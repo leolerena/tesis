@@ -2,6 +2,12 @@
 \newcommand{\rep}{\textsc{rep}}
 \newcommand{\coin}{\textsc{coincidencia}}
 \newcommand{\mer}{\textsc{merge}}
+\newcommand{\scan}{\textsc{scan}}
+\newcommand{\definir}{\textsc{definir}}
+\newcommand{\scanfill}{\textsc{scanandfill}}
+\newcommand{\ded}{\textsc{deducir}}
+\newcommand{\recorrer}{\textsc{recorrer}}
+
 
 \begin{document}
 
@@ -20,8 +26,8 @@ Para esto es necesario hablar de $G$-congruencias.
     Un conjunto $X$ que tiene una acción de $G$ se llamará un $G$ conjunto.    
 \end{deff}
 
-En nuestro caso en particular consideremos a $\Omega$ los cosets vivos y $G$ la acción del grupo libre de los generadores por medio de $\chi$.
-Esto es que $\alpha \cdot g = \chi(\alpha,g)$.
+%En nuestro caso en particular consideremos a $\Omega$ los cosets vivos y $G$ la acción del grupo libre de los generadores por medio de $\chi$.
+%Esto es que $\alpha \cdot g = \chi(\alpha,g)$.
 
 
 \begin{deff}
@@ -31,7 +37,7 @@ Esto es que $\alpha \cdot g = \chi(\alpha,g)$.
 
 Así como tenemos relaciones de equivalencias generadas a partir de algún subconjunto $S \subseteq X \times X$ podemos considerar la menor $G$ congruencia generada a partir de $S$.
 Tomamos la intersección de todas las $G$-congruencias que contengan a $S$. 
-Sabemos que existe porque al menos tenemos la $G$ congruencia trivial donde todos los elementos están relacionados con todos.
+Sabemos que esta intersección es no trivial porque siempre podemos tomar la $G$ congruencia donde todos los elementos están relacionados con todos.
 Otra manera de definir a esta menor congruencia es por medio de la propiedad universal.
 Sea $\sim_S$ esta relación y sea $\sim$ otra relación tal que $\alpha \sim \beta \implies \alpha \sim_S \beta$. 
 En este caso tenemos que
@@ -43,7 +49,7 @@ En este caso tenemos que
 \end{deff}
 
 Dado un conjunto $X$ con una $G$-congruencia es evidente que $G$ actúa en $X$ porque $X$ es un G conjunto. 
-Podemos ver que baja al cociente.
+Podemos ver que esta misma acción baja al cociente.
 \begin{lema}\label{lema-accion-GCong-cociente}
 	La acción de $G$ sobre $X$ se extiende a una acción de $G$ sobre $X / \sim.$
 \end{lema}
@@ -63,19 +69,27 @@ Esto es que exista una función parcial.
 \rho: X \times G \to X
 \end{equation*}
 donde $\rho(x,g)$ estará definida para algunos pares $(x,g) \in X \times G$ no necesariamente para todos.
-Nuestra definición de una $G$ congruencia la podemos modificar entonces para $x \sim y \implies xg \sim yg$ siempre y cuando $xg$ y $yg$ estén ambas definidas.
+Nuestra definición de una $G$ congruencia la podemos modificar entonces para que  $x \sim y \implies xg \sim yg$ siempre y cuando $xg$ y $yg$ estén ambas definidas.
 
 
 
 
 
 Sea $([1,\dots,n], \sim$) la $G$ congruencia generada por $p$. 
-Esto es que $\kappa \sim \lambda \iff \rep(\kappa) = \rep (\lambda)$.
+Esto es que para $\kappa, \lambda \in [1,\dots,n]$
+\[
+\kappa \sim \lambda \iff \rep(\kappa) = \rep (\lambda).
+\] 
 Por como definimos a $\Omega = \{  \alpha \in [1,\dots,n] \ : \ p(\alpha) = \alpha \}$ tenemos que $\Omega \simeq [1, \dots, n] / \sim$.
 
 \section{Algoritmo de coincidencias.}
 
-Cuando llegamos a que dos cosets que inicialmente consideramos diferentes $\alpha, \beta \in [1, \dots, n]$ son tales que resultan ser iguales corremos el algoritmo de \coin($\alpha, \beta$).
+Cuando llegamos a que dos cosets $\alpha, \beta \in [1, \dots, n]$ que inicialmente consideramos diferentes  son tales que resultan ser iguales corremos el algoritmo de \coin($\alpha, \beta$).
+
+El siguiente seudocódigo nos da una idea de como funciona la rutina.
+
+
+
 
 
 
@@ -193,6 +207,78 @@ Más aún esta $G$ congruencia la conocemos y es justamente la generada por el p
 		\item Sigue valiendo porque vale al comenzar para todos los cosets vivos y en particular vale para los que sobreviven.
 	\end{enumerate}
 \end{proof}
+
+
+\section{El algoritmo termina si el índice es finito.}
+
+Probemos que el algoritmo de enumeración de cosets termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
+Para probar esto vamos a considerar otra propiedad extra que queremos que cumpla nuestra tabla de cosets.
+A diferencia de las otras propiedades que podíamos interpretar como un invariante de representación del algoritmo esta último propiedad requiere de $ \ol \Omega$ que va a ser el conjunto de los cosets que no son eliminados por ningún llamado de \coin.
+Notemos que no hay razón alguna por la que este conjunto sea finito a diferencia de $\Omega$ que por definición es siempre un subconjunto de $[1, \dots, n]$ para $n \in \NN$.
+
+\paragraph{\textbf{Propiedad 5.}} \label{coset-enum_p5} El conjunto $\ol \Omega$ es tal que
+\begin{enumerate}[(i)]
+	\item Para cada $\alpha \in \overline \Omega$ y para cada $x \in A$ en algún momento $\alpha^x$ va a estar definido;
+	\item Para cada $w \in Y$ en algún momento llamamos a \scan($w$);
+	\item Para cada $\alpha \in \ol \Omega$ y para cada $w \in R$ en algún momento llamamos a \scan$(\alpha, w)$.
+\end{enumerate}
+
+Si tenemos que vale esta propiedad extra y que a todo tiempo valen las propiedades anteriores \ref{} entonces si el índice es finito el algoritmo termina.
+
+\begin{teo}
+	Si las propiedades 1 a 5 se mantienen durante el algoritmo de enumeración de cosets de $G$ con respecto al subgrupo $H$ y $[G:H] < \infty$ entonces el algoritmo eventualmente termina.
+\end{teo}
+
+\begin{proof}
+	Primero probemos que $\ol \Omega$ debe ser infinito sino el algoritmo termina y no hay nada que probar.
+	Por la propiedad 5 sabemos que para todo $\alpha \in \ol \Omega$ es tal que en algún momento se define $\alpha^x$ supongamos $\alpha^x = \beta$. 
+	Por la definición de $\ol \Omega$ nunca eliminamos a $\alpha$ de $\Omega$ por lo tanto usando el resultado anterior \ref{} sabemos que $p[\alpha] = \alpha$ desde que lo definimos.
+	Dado que $\alpha^x$ a lo sumo puede decrecer y al haber una cantidad finita de posibilidades eventualmente se debe estancar en cierto valor. 
+	Usando que bajo nuestra suposición $\ol \Omega$ es finito podemos tomarnos el máximo de todos los tiempos tales que $\alpha^x$ se estanca para todo $\alpha \in \ol \Omega$ y $x \in A$ obteniendo que en ese momento $\ol \Omega = \Omega$ con la tabla completa.  
+	
+	Nos queda ver el caso que $\ol \Omega$ es infinito.
+	Consideremos la tabla de cosets infinita donde los cosets vivos son justamente $\ol \Omega$ y donde $\alpha^x = \beta$ para el valor en el que se estanque $\alpha^x$ que sabemos que está definido en cierto momento. 
+	Como vale la propiedad 5 estamos en las condiciones de usar el teorema \ref{} 
+	de manera que la acción de $G$ por multiplicación a derecha sobre los cosets a derecha tiene orden infinito pero esto contradice que $[G:H] < \infty$.	
+\end{proof}
+
+
+\section{El método de las relaciones.}
+
+El siguiente método es uno de los más sencillos y directos de describir de los posibles métodos para enumerar cosets.
+La idea de este método es definir cosets cada vez que hacemos \scan y nos topamos con un posible coset nuevo sin definir con el propósito de terminar todos los scans.
+El siguiente algoritmo nos va a servir para escanear e ir completando la tabla a medida que la recorremos.
+
+
+Primero implementamos un algoritmo sencillo que dado un coset y una palabra la recorre hasta donde pueda.
+Si $\alpha$ es el coset y la palabra es $w$ (no necesariamente un generador de $H$ ni una relación) entonces este algoritmo nos devuelve un par $(\beta, w_1) \in [1, \dots, n] \times A^{*}$.
+La definimos de manera que $w = vw_1$ donde $v$ es el mayor prefijo para el cual está definido $\alpha^v$.
+Tomamos a $\beta = \alpha^v$ que es el coset al que llegamos leyendo todo lo que podemos leer de la palabra $w$.
+
+
+El algoritmo opera de la siguiente manera.
+Como entrada tenemos un coset $\alpha \in [1, \dots, n]$ y una palabra $w \in R$.
+Sabemos que bajo estas hipótesis $\alpha^w = \alpha$.
+
+%Lo primero que hacemos es recorrer hasta donde podamos usando el algoritmo antes implementado.
+%Una vez que hacemos esto con el posfijo que nos devuelve en la segunda coordenada lo usamos para recorrer desde $\alpha$ pero tomandole el inverso.(??)
+%En base a qué nos quedó el posfijo de este segundo recorrido no hacemos nada, llamamos a \coin, definimos un nuevo coset o deducimos 
+
+\begin{algorithm}[H]
+	\caption{\textsc{scanandfill} \ (\textit{c} : \texttt{tabla de cosets}) $\times $ (\textit{$\alpha$} : \texttt{coset}) $\times$ (\textit{w} : \texttt{$R$}) $\longrightarrow$ (\textit{c'} : \texttt{tabla de cosets})}
+	\begin{algorithmic}[1]
+		\State \blue{sea} ($\beta$,$w_1$) := \recorrer$(c, \alpha, w)$ en
+		\Indent
+			\State \blue{sea} ($\gamma$, $w_2$) :=  \recorrer$(c,\alpha, w_1^{-1})$ en
+			\Indent
+				\State \blue{match} $w_2^{-1}$ 
+				\State $\|$ \ $\emptyset$ = \blue{if} $\beta = \gamma$ \blue{then} c \blue{else} \coin \ $(c, \beta, \gamma)$
+				\State $\|$ \ $x$ = \ded \ $(c,\beta, \gamma, x)$
+				\State $\|$ \ $x_0w'$ = \scanfill \  (\definir \ $(c, \beta, x_0), \alpha, w)$ 
+			\EndIndent
+		\EndIndent 
+	\end{algorithmic}
+\end{algorithm}
 
 
 

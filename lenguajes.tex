@@ -202,9 +202,7 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 	\end{enumerate}
 \end{deff}
 
-\begin{ej}
-	%Poner ejemplo de una gramática en forma de Chomsky y aclarar lo que uso en la sección de treewidth de como es su forma.
-\end{ej}
+
 
 \begin{prop}
 	Para toda gramática $\cal G$ independiente de contexto puede tomar otra $\cal G'$ tal que esté en forma normal de Chomsky y $\lengderivado = L(\cal G')$,
@@ -282,17 +280,19 @@ donde $(q_0, w, Z_0)$ es el instante inicial en el cual tenemos la palabra $w$ e
 	M=(Q,\{q_0\} ,\{a,b\}, \{a,b,\$\}, \$, \{q_1\})
 	\]
 	donde nuestra pila tiene el mismo alfabeto que el de entrada con un símbolo extra que es \$ que va a ser nuestro símbolo inicial de la pila.
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+		scale = 1,transform shape]
+		
+		\node[state,initial] (q_0) {$q_0$};
+		\node[state,accepting] (q_1) [right of=q_0] {$q_1$};
+		
+		\path (q_0) edge [bend right]             node {} (q_1);
+		\path (q_1) edge [loop above] node {}    (   );
+		\path (q_0) edge [loop above] node {}    (   );
+		\end{tikzpicture}
+	\end{center}
 	
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
-	scale = 1,transform shape]
-	
-	\node[state,initial] (q_0) {$q_0$};
-	\node[state,accepting] (q_1) [right of=q_0] {$q_1$};
-	
-	\path (q_0) edge [bend right]             node {} (q_1);
-	\path (q_1) edge [loop above] node {}    (   );
-	\path (q_0) edge [loop above] node {}    (   );
-	\end{tikzpicture}
 	
 	El automáta tiene dos estados, el inicial y el final. La idea es que en el primer estado vamos apilando la palabra y en la segunda vamos desapilando la palabra anteriormente apilada. Nuestra función de transición va a ser la siguiente,
 	\begin{itemize}
@@ -448,19 +448,23 @@ Estos automátas son los que nos surgen de la construcción del automáta del pr
 	
 	Construyamos un \APD que acepte a $L$. Sea $$M = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,Z_0\}, Z_0, q_2) $$ el siguiente \APD que representamos así:
 	
-	\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
-	scale = 1,transform shape]
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+		scale = 1,transform shape]
+		
+		\node[state,initial] (q_0) {$q_0$};
+		\node[state] (q_1) [right of=q_0] {$q_1$};
+		\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
+		
+		\path (q_0) edge    [bend right]          node {$b, a | \lambda$} (q_1)
+		(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
+		(q_1) edge      [bend right]      node {$\lambda, a | Z$}   (q_2)
+		(q_1) edge    [loop above]           node {$b, a | \lambda$} (q_1);
+		
+		\end{tikzpicture}
+	\end{center}
 	
-	\node[state,initial] (q_0) {$q_0$};
-	\node[state] (q_1) [right of=q_0] {$q_1$};
-	\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
 	
-	\path (q_0) edge    [bend right]          node {$b, a | \lambda$} (q_1)
-	(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
-	(q_1) edge      [bend right]      node {$\lambda, a | Z$}   (q_2)
-	(q_1) edge    [loop above]           node {$b, a | \lambda$} (q_1);
-	
-	\end{tikzpicture}
 	
 	donde $Z$ es cualquier letra del alfabeto de la pila. El automáta en el estado inicial $q_0$ apila a todas las $a$ y cambia al estado $q_1$ cuando lee por primera vez una $b$ y en ese caso desapila la a que está en el tope de la pila. En el estado $q_1$ sigue desapilando cada vez que ve una $b$. Finalmente va al estado $q_2$ cuando en la pila sigue quedando $a$ y ya leímos toda la palabra y en tal caso la acepta porque significa que vimos como máximo tantas $b$ como $a$ y este es el lenguaje que buscábamos generar.
 	
@@ -531,7 +535,6 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	\end{itemize} 
 \end{prop}
 \begin{proof}
-	
 		Para ver \textbf{W1} formamos el siguiente diagrama conmutativo,
 		\begin{center}
 			\begin{tikzcd}
@@ -558,39 +561,40 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 		y de vuelta como es un cono la intersección con lenguajes regulares nos da un lenguaje en el cono. 
 
 \end{proof}
-\medskip
+
+
 Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
 
 
-\section{Sistemas de reescritura.}
-
-Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
-En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 
-Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. 
-Un camino en el grafo lo llamaremos una \emph{derivación}.  
-
-Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} 
-A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
-
-Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. 
-Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
-
-\begin{ej}
-	Considerar como objetos los enteros y como movimiento dividir al número por dos si es posible. Este sistema de reescritura tiene como objetos terminales los números impares.
-\end{ej}
-
-Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. 
-Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. 
-Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
-
-En particular los sistemas que nos van a interesar en este trabajo son sistemas tales que son confluentes y terminantes que son conocidos como \emph{Church-Roser}.
-
-\subsection{Sistemas de reescritura de cadenas.}
-En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. 
-Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. 
-Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
-
-Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
+%\section{Sistemas de reescritura.}
+%
+%Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
+%En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 
+%Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. 
+%Un camino en el grafo lo llamaremos una \emph{derivación}.  
+%
+%Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} 
+%A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
+%
+%Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. 
+%Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
+%
+%\begin{ej}
+%	Considerar como objetos los enteros y como movimiento dividir al número por dos si es posible. Este sistema de reescritura tiene como objetos terminales los números impares.
+%\end{ej}
+%
+%Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. 
+%Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. 
+%Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
+%
+%En particular los sistemas que nos van a interesar en este trabajo son sistemas tales que son confluentes y terminantes que son conocidos como \emph{Church-Roser}.
+%
+%\subsection{Sistemas de reescritura de cadenas.}
+%En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. 
+%Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. 
+%Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
+%
+%Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
 
 
 \end{document}
