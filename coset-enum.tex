@@ -16,6 +16,14 @@
 Dado un grupo  $G$ y un subgrupo $H$  vamos a construir y probar la correctitud de un algoritmo para contar la cantidad de cosets $G/H$ a derecha.
 
 
+\section{Ejemplo a mano.}
+
+\section{Tablas de cosets.}
+
+\section{Algoritmos para definir y recorrer cosets.}
+
+
+\section{Correctitud del algoritmo (caso sin coincidencias).}
 
 \section{G-congruencias.}
 En esta sección vamos a considerar un grupo $G = \langle X, R \rangle$ finitamente generado como en el resto del algoritmo aunque vamos a tomar las palabras en el monoide libre de los generadores $A = X \cup X^{-1}$.
@@ -23,7 +31,7 @@ Queremos escribir en qué contexto más general el grupo $G$ se relaciona con lo
 Sabemos que al finalizar el algoritmo nos queda la acción sobre los cosets $G/H$ si nos restringimos a $\Omega$ pero ¿qué sucede en el medio?
 Para esto es necesario hablar de $G$-congruencias.
 \begin{deff}
-    Un conjunto $X$ que tiene una acción de $G$ se llamará un $G$ conjunto.    
+    Un conjunto $X$ que tiene una acción de $G$ se llamará un \blue{$G$-conjunto.    }
 \end{deff}
 
 %En nuestro caso en particular consideremos a $\Omega$ los cosets vivos y $G$ la acción del grupo libre de los generadores por medio de $\chi$.
@@ -51,7 +59,7 @@ En este caso tenemos que
 Dado un conjunto $X$ con una $G$-congruencia es evidente que $G$ actúa en $X$ porque $X$ es un G conjunto. 
 Podemos ver que esta misma acción baja al cociente.
 \begin{lema}\label{lema-accion-GCong-cociente}
-	La acción de $G$ sobre $X$ se extiende a una acción de $G$ sobre $X / \sim.$
+	La acción de $G$ sobre $X$ se restringe a una acción de $G$ sobre $X / \sim.$
 \end{lema}
 \begin{proof}
 	Queremos ver que la siguiente aplicación es una acción,
@@ -182,7 +190,7 @@ Más aún esta $G$ congruencia la conocemos y es justamente la generada por el p
 %    
     Veamos ahora la otra implicación. 
     En vez de probarla directamente usemos que $\equiv$ es la menor $G$-congruencia que contiene a $\sim$ y al par $(\alpha, \beta)$. 
-    Si vemos que $\sim_F$ es una $G$-equivalencia entonces terminaríamos de ver que $\kappa \sim_F \lambda \iff \kappa \equiv \lambda$ tal como queríamos ver.
+    Si vemos que $\sim_F$ es una $G$-congruencia entonces terminaríamos de ver que $\kappa \sim_F \lambda \iff \kappa \equiv \lambda$ tal como queríamos ver.
        
     Para eso partamos de $\kappa \sim_F \lambda$ y veamos que si $x \in A$ es tal que $\kappa^x$ y $\lambda^x$ estén ambas definidas entonces $\kappa^x \sim_F \lambda^x$.
     Haciendo inducción en la longitud de la palabra podemos probarlo para $w \in A^*$ genérica por lo tanto alcanza con verlo para este caso de una sola letra.
@@ -211,7 +219,7 @@ Más aún esta $G$ congruencia la conocemos y es justamente la generada por el p
 
 \section{El algoritmo termina si el índice es finito.}
 
-Probemos que el algoritmo de enumeración de cosets termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
+El algoritmo de enumeración de cosets termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
 Para probar esto vamos a considerar otra propiedad extra que queremos que cumpla nuestra tabla de cosets.
 A diferencia de las otras propiedades que podíamos interpretar como un invariante de representación del algoritmo esta último propiedad requiere de $ \ol \Omega$ que va a ser el conjunto de los cosets que no son eliminados por ningún llamado de \coin.
 Notemos que no hay razón alguna por la que este conjunto sea finito a diferencia de $\Omega$ que por definición es siempre un subconjunto de $[1, \dots, n]$ para $n \in \NN$.

@@ -229,7 +229,7 @@ Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas
 \end{deff}
 
 
-\paragraph{Funcionamiento del automáta.}
+\paragraph{Funcionamiento del autómata.}
 %Un prefijo de $w$ será una subpalabra $\gamma$ tal que $w=\gamma w'$ visto con la concatenación de palabras en $\Sigma^*$.
 
 El autómata de pila finito funciona de la siguiente manera. 
@@ -239,13 +239,13 @@ Nos fijamos en la función de transición que es una función parcial cuánto no
 Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. 
 En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. 
 Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. 
-En este caso diremos que nuestro automáta es \blue{no determinístico} dado que en algunos casos existe más de una opción.
+En este caso diremos que nuestro autómata es \blue{no determinístico} dado que en algunos casos existe más de una opción.
 
 En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. 
 Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro autómata entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
 
 Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. 
-En tal caso la palabra $w$ es aceptada por el automáta. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
+En tal caso la palabra $w$ es aceptada por el autómata. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
 \medskip
 \begin{obs}
 	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra.	
@@ -253,7 +253,7 @@ En tal caso la palabra $w$ es aceptada por el automáta. Formalmente estaremos e
 	Más en adelante nos va a resultar conceptualmente más útil para el caso que estemos viendo el problema de la palabra de un grupo mientras que para las demostraciones de esta sección usaremos esta otra definición.
 \end{obs}
 
-\paragraph{Descripción instántanea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un automáta a partir de lo que estamos haciendo en cierto instante. 
+\paragraph{Descripción instantánea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un autómata a partir de lo que estamos haciendo en cierto instante. 
 Consideremos que estamos en el instante que nuestra subpalabra que nos queda por leer es $w$, estamos en un estado $q$ y en nuestra pila tenemos la palabra $\gamma$, entonces vamos a representar al instante por medio de esta tupla $(q,w,\gamma)$.
 Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. 
 Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. 
@@ -261,17 +261,17 @@ Podemos considerar la clausura transitiva de esta relación sobre los triples $Z
 
 
 \paragraph{El lenguaje aceptado por un autómata de pila.} 
-Notemos que en particular el automáta de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del automáta $\Sigma$ que son aceptadas. 
-En general diremos que un automáta acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. 
-Este lenguaje aceptado por el automáta $\cal M$ en algunas casos para hacer énfasis en el automáta lo denotaremos $L {(\cal M)}$ y siguiendo la notación formal anterior lo podemos describir de la siguiente manera,
+Notemos que en particular el autómata de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del autómata $\Sigma$ que son aceptadas. 
+En general diremos que un autómata acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. 
+Este lenguaje aceptado por el autómata $\cal M$ en algunas casos para hacer énfasis en el autómata lo denotaremos $L {(\cal M)}$ y siguiendo la notación formal anterior lo podemos describir de la siguiente manera,
 \begin{equation*}
 	L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
 \end{equation*}
 donde $(q_0, w, Z_0)$ es el instante inicial en el cual tenemos la palabra $w$ en el estado inicial $q_0$ con el símbolo $Z_0$ de la pila. Al finalizar deberíamos estar en un estado $q$ final y lo que nos queda en la pila $\gamma$ es totalmente irrelevante en este caso.
 
 \begin{obs}
-	Al ser un automáta de pila no determinístico existen posiblemente más de una manera de consumir alguna palabra en el automáta. 
-	Es así que por la definición que dimos la palabra es aceptada por el automáta si al menos alguna de estas derivaciones la lleva a ser aceptada.
+	Al ser un autómata de pila no determinístico existen posiblemente más de una manera de consumir alguna palabra en el autómata. 
+	Es así que por la definición que dimos la palabra es aceptada por el autómata si al menos alguna de estas derivaciones la lleva a ser aceptada.
 	No importa si existen derivaciones que no lo hagan mientras una sí lo haga. 
 \end{obs}
 \begin{ej}
@@ -294,7 +294,7 @@ donde $(q_0, w, Z_0)$ es el instante inicial en el cual tenemos la palabra $w$ e
 	\end{center}
 	
 	
-	El automáta tiene dos estados, el inicial y el final. La idea es que en el primer estado vamos apilando la palabra y en la segunda vamos desapilando la palabra anteriormente apilada. Nuestra función de transición va a ser la siguiente,
+	El autómata tiene dos estados, el inicial y el final. La idea es que en el primer estado vamos apilando la palabra y en la segunda vamos desapilando la palabra anteriormente apilada. Nuestra función de transición va a ser la siguiente,
 	\begin{itemize}
 		\item $\delta(q_0,a,Z) = (q_0,aZ)$ 
 		\item $\delta(q_0,b,Z) = (q_0,ba)$ 
@@ -304,17 +304,17 @@ donde $(q_0, w, Z_0)$ es el instante inicial en el cual tenemos la palabra $w$ e
 		\item $\delta (q_0, X, Z) = (q_1, Z)$ 
 	\end{itemize}
 	donde $Z=a,b, \$$ es decir cualquier cosa del alfabeto de la pila y $X = a, b$ cualquier elemento de nuestro alfabeto de entrada. 
-	El automáta en el primer estado apila lo que sea que estemos leyendo sin importar lo que esté en el tope de pila. 
+	El autómata en el primer estado apila lo que sea que estemos leyendo sin importar lo que esté en el tope de pila. 
 	En el segundo estado desapila cada vez que lo que estemos leyendo coincida con el tope de pila. 
 	Finalmente para ir del estado inicial al final tenemos en cuenta dos casos. Nos podemos mover por $\lambda$ es decir sin consumir ninguna letra de la palabra de la entrada o leyendo alguna de las letras de la palabra. Estos casos se corresponden a que el palíndromo tenga longitud par o tenga longitud impar.	
 \end{ej}
 
-Este ejemplo nos da un indicio que los lenguajes aceptados por automátas de pila también podrían ser \ic y esto efectivamente es cierto.
+Este ejemplo nos da un indicio que los lenguajes aceptados por autómatas de pila también podrían ser \ic y esto efectivamente es cierto.
 
 \medskip
 
 \begin{teo}\label{teo_ic_apnd}
-Un lenguaje $L$ es independiente de contexto sii es aceptado por un automáta de pila no determinístico.
+Un lenguaje $L$ es independiente de contexto sii es aceptado por un autómata de pila no determinístico.
 \end{teo}
 
 \begin{proof}
@@ -324,21 +324,21 @@ Un lenguaje $L$ es independiente de contexto sii es aceptado por un automáta de
  
 
 
-Hasta ahora definimos los automátas de pila no determinísticos que aceptan por estado final. Otra definición posible de lenguaje aceptado podría ser que acepten por pila vacía. 
-Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(q, \lambda, \lambda)$ donde $\lambda$ es la palabra vacía de ambos alfabetos respectivamente. Formalmente notaremos al lenguaje aceptado por pila vacía por un automáta $\cal M$
+Hasta ahora definimos los autómatas de pila no determinísticos que aceptan por estado final. Otra definición posible de lenguaje aceptado podría ser que acepten por pila vacía. 
+Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(q, \lambda, \lambda)$ donde $\lambda$ es la palabra vacía de ambos alfabetos respectivamente. Formalmente notaremos al lenguaje aceptado por pila vacía por un autómata $\cal M$
 de la siguiente manera,
 \begin{equation*}
 	L({\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \lambda, \lambda), \ q \in Q, u \in \Sigma^*    \}
 \end{equation*}
 donde arrancamos en el estado inicial y llegamos a algún estado $q$ cualesquiera y nuestra pila está vacía así como lo que nos queda por leer de la palabra. 
-En este caso obtenemos que nuestro lenguaje es aceptado por un automáta de pila no determinístico por pila vacía.
+En este caso obtenemos que nuestro lenguaje es aceptado por un autómata de pila no determinístico por pila vacía.
 
 
-El siguiente resultado nos dice que en el caso que nuestro automáta sea no determinístico es equivalente usar una u otra manera de definir a nuestro lenguaje.
+El siguiente resultado nos dice que en el caso que nuestro autómata sea no determinístico es equivalente usar una u otra manera de definir a nuestro lenguaje.
 
 \medskip
 \begin{teo}
-Un lenguaje $L$ es aceptado por un automáta de pila no determinístico por estado final sii es aceptado por un automáta de pila no determinístico por pila vacía.
+Un lenguaje $L$ es aceptado por un autómata de pila no determinístico por estado final sii es aceptado por un autómata de pila no determinístico por pila vacía.
 \end{teo}
 
 \begin{proof}
@@ -405,14 +405,14 @@ Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$
 	Resultado estándar. Ver \cite{hopcraft-ullman}.
 \end{proof}
 
-\section{Automátas de pila determinísticos.} Si en la definición anterior del automáta pedimos que la función de transición de una configuración dada tenga a lo sumo un valor entonces nuestro automáta lo vamos a llamar determinístico. Formalmente esto es que 
+\section{Autómatas de pila determinísticos.} Si en la definición anterior del autómata pedimos que la función de transición de una configuración dada tenga a lo sumo un valor entonces nuestro autómata lo vamos a llamar determinístico. Formalmente esto es que 
 \[
 |\delta(q,a, z)| \le 1 \ \ \ \forall z \in Z, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
 \]
 En cierta manera estamos diciendo que de un instante dado solo tenemos a lo sumo una única posibilidad de movernos a otro estado. A los lenguajes aceptados por un \APD los pensamos que son aceptados por un estado final.
 
 
- Por lo tanto para cada palabra tenemos un único camino en el automáta para saber si es aceptada o no a diferencia de un \APND  que podría tener varios caminos posibles para cada palabra.
+ Por lo tanto para cada palabra tenemos un único camino en el autómata para saber si es aceptada o no a diferencia de un \APND  que podría tener varios caminos posibles para cada palabra.
 \begin{obs}
 	Todo \APD en particular es no determinístico y por lo tanto la clase de lenguajes aceptados por los primeros están contenidos en la clase de los segundos.
 \end{obs}
@@ -426,7 +426,7 @@ Veamos que esta contención es estricta. Para eso volvamos a considerar el ejemp
 	Para cada palabra arbitraria $w$ existe otra $x_w$ tal que al procesar $wx_w$ lo que nos queda en la pila es de tamaño mínimo con respecto a todas las palabras $wx$. 
 	Sea entonces lo que tiene en la pila la palabra $\alpha_w$ que sabemos es de longitud mínima. Si consideramos palabras del estilo $wx_wz$ sabemos que la longitud de lo que quede en la pila no puede disminuir. 
 	Ahora consideremos dos palabras del estilo $r=wx_w, s=uy_u$ tales que sus pilas son de longitud mínima al terminar de recorrer las palabras y que resultan tener el mismo tope de pila y terminar en el mismo estado. 
-	Podemos asegurar la existencia de estas palabras debido a que tenemos finitos estados y combinaciones de tope de pilas dado que el automáta de pila es finito pero tenemos infinitas palabras que cumplen esta propiedad. 
+	Podemos asegurar la existencia de estas palabras debido a que tenemos finitos estados y combinaciones de tope de pilas dado que el autómata de pila es finito pero tenemos infinitas palabras que cumplen esta propiedad. 
 	Ahora basta con elegir $z$ de modo que $tz$ sea palíndromo pero que $sz$ no lo sea. 
 	
 	Veamos que podemos elegir a $z$ para que una de las concatenaciones $tz,sz$ sea palíndromo y la otra no. Partamos en distintos casos. 
@@ -439,9 +439,9 @@ Veamos que esta contención es estricta. Para eso volvamos a considerar el ejemp
 	
 \end{ej}
 
-\subsection{Automátas de pila determinísticos especiales.} 
-Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. A estos los llamaremos \textit{automátas de pila determinístico especiales}.  
-Estos automátas son los que nos surgen de la construcción del automáta del problema de la palabra  para grupos virtualmente libres. 
+\subsection{Autómatas de pila determinísticos especiales.} 
+Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. A estos los llamaremos \textit{autómatas de pila determinístico especiales}.  
+Estos autómatas son los que nos surgen de la construcción del autómata del problema de la palabra  para grupos virtualmente libres. 
 
 \begin{ej}
 	Sea el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$ este no es un lenguaje independiente de contexto determinístico especial pero sí es determinístico. 
@@ -466,7 +466,7 @@ Estos automátas son los que nos surgen de la construcción del automáta del pr
 	
 	
 	
-	donde $Z$ es cualquier letra del alfabeto de la pila. El automáta en el estado inicial $q_0$ apila a todas las $a$ y cambia al estado $q_1$ cuando lee por primera vez una $b$ y en ese caso desapila la a que está en el tope de la pila. En el estado $q_1$ sigue desapilando cada vez que ve una $b$. Finalmente va al estado $q_2$ cuando en la pila sigue quedando $a$ y ya leímos toda la palabra y en tal caso la acepta porque significa que vimos como máximo tantas $b$ como $a$ y este es el lenguaje que buscábamos generar.
+	donde $Z$ es cualquier letra del alfabeto de la pila. El autómata en el estado inicial $q_0$ apila a todas las $a$ y cambia al estado $q_1$ cuando lee por primera vez una $b$ y en ese caso desapila la a que está en el tope de la pila. En el estado $q_1$ sigue desapilando cada vez que ve una $b$. Finalmente va al estado $q_2$ cuando en la pila sigue quedando $a$ y ya leímos toda la palabra y en tal caso la acepta porque significa que vimos como máximo tantas $b$ como $a$ y este es el lenguaje que buscábamos generar.
 	
 	El lenguaje no es aceptado por un \APD por pila vacía dado que tiene la propiedad de los prefijos. 
 	Es decir que existen palabras que están en el lenguaje tales que alguno de sus prefijos también están. 

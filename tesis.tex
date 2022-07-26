@@ -41,7 +41,7 @@
 \usepackage{titlesec}
 \setcounter{secnumdepth}{3} % Hasta que profundidad quiero numerar, 4 sería los párrafos.
 \titleformat{\section}[block]{\color{astral!50!black}\Large\bfseries\filcenter}{\S\thesection.}{1em}{}
-\titleformat{\subsection}[hang]{\color{astral!50!black}\large\bfseries\filcenter}{\S\thesection.}{1em}{}
+\titleformat{\subsection}[hang]{\color{astral!50!black}\large\bfseries\filcenter}{\S\thesubsection.}{1em}{}
 
 %%%%%%%%%%%%%%%%%%%%%% COLORES PÁRRAFOS Y CAPÍTULOS %%%%%%%%%%%%%%%%%%%%%%%%
 %\paragraphfont{\color{astral!70!black}}
@@ -98,6 +98,7 @@
 \theoremstyle{remark}
 \newtheorem{obs}[teo]{\color{yellow!40!rojo} Observación}{\smallskip}
 
+%%%%%%%%%% FRAMES PARA TEOREMAS A LO HATCHER %%%%%%%%%%%%%%%%%%%%%%%%%
 
 \surroundwithmdframed[outerlinewidth=0.4pt,
 innerlinewidth=0.4pt,
@@ -132,6 +133,19 @@ innerleftmargin=4pt,
 bottomline=false,topline=false,rightline=false]{prop}
 
 
+\surroundwithmdframed[outerlinewidth=0.4pt,
+innerlinewidth=0.4pt,
+align=center,
+middlelinewidth=1pt,
+middlelinecolor=white,
+innertopmargin=-4pt,
+innerbottommargin=0pt,
+innerrightmargin=4pt,
+innerleftmargin=4pt,
+bottomline=false,topline=false,rightline=false]{coro}
+
+%==================================================================%
+
 % DEMOS EN NEGRITA.
 \renewenvironment{proof}{{\textbf{Demostración.}}}{ \hfill $\blacksquare$ \medskip} 
 
@@ -155,7 +169,8 @@ bottomline=false,topline=false,rightline=false]{prop}
 \algtext*{Indent}
 \algtext*{EndIndent}
 
-%=========================================================
+% =========================================================
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
 
 
 
@@ -176,10 +191,9 @@ bottomline=false,topline=false,rightline=false]{prop}
 \newcommand{\stab}{\text{Stab}}
 
 %%%%%%%%%%%%%%  SETUP DE LA PÁGINA %%%%%%%%%%%%%%%%%
-
-
-\usepackage{fancyhdr} 
-\fancypagestyle{plain}
+%\usepackage{fancyhdr} 
+\pagestyle{headings} 
+\pagenumbering{arabic} 
 %\foot[C]{\textbf{\thepage}} % except the center
 %\setlength{\headheight}{42pt}% ...at least 51.60004pt
 %\renewcommand{\headrulewidth}{0.8pt}
@@ -245,7 +259,9 @@ bottomline=false,topline=false,rightline=false]{prop}
 \newpage
 
 \subfile{lenguajes}	
+\subfile{bass_serre}
 \subfile{wordproblem}
+
 \subfile{coset-enum}
 
 \bibliography{bibliografia}
