@@ -10,6 +10,7 @@
 \newcommand{\WP}{\text{WP}(G, \Sigma)}
 \newcommand{\deriva}{\overset{*}{\Rightarrow_{\cal G}}}
 \newcommand{\cG}{ {\cal G} }
+\newcommand{\Xm}{\widetilde X}
 
 
 \begin{document}
@@ -220,82 +221,159 @@ Dar definiciones de los morfismos que salen del árbol y los que van a parar al 
 El siguiente resultado nos da la estructura de un grupo que actúa sobre un grafo conexo sin inversiones de aristas. 
 Es el resultado central de la teoría de Bass Serre.
 
-\begin{teo}[\cite{serre2002trees}]
+\todo[inline]{La acción de $G$ en realidad es a derecha. Entender bien porqué esto es así porque después facilita la cuenta en la prop posterior.}
+\begin{teo}[\cite{serre2002trees}]\label{teo_Serre}
 	Sea $G$ un grupo actuando en grafo conexo $X$ sin inversiones de aristas y sea $\cal G$ el grafo de grupos asociado sobre $Y = X / G$.
-	Consideremos $T$ un árbol de expansión de $Y$, $\psi: \ol X \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$ luego las siguientes afirmaciones son equivalentes.
+	Consideremos $T$ un árbol de expansión de $Y$, $\psi: \Xm \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$ luego las siguientes afirmaciones son equivalentes.
 	\begin{enumerate}[(a)]
-		\item el grafo $\ol X$ es un árbol;
-		\item el morfismo $\psi: \ol X \to X$ es un isomorfismo de grafos;
+		\item el grafo $\Xm$ es un árbol;
+		\item el morfismo $\psi: \Xm \to X$ es un isomorfismo de grafos;
 		\item el morfismo $\varphi:\pi_1({\cal G}, T) \to G$ es un isomorfismo de grupos.
 	\end{enumerate}
 \end{teo}
 
+\begin{proof}	
+		 \textbf{$a \implies b$}.
+\end{proof}
 
-Como corolario obtenemos una caracterización que usaremos varias veces y es como el resultado es más conocido.
+Como corolarios obtenemos una caracterización para los grupos libres que usaremos varias veces y que es una herramienta fundamental de la teoría geométrica de grupos.
 
 \begin{coro}
 	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
 \end{coro}
 \begin{proof}
-	Se sigue fácilmente.
+	Si $G$ es libre entonces su grafo de Cayley lo podemos tomar como un árbol y usamos que actúa libremente sobre él sin invertir aristas.
+	
+	Para la vuelta usamos \ref{teo_Serre} porque es isomorfo a $\pi_1(\cG, T)$ y este grupo es libre por se el grupo fundamental de un grafo dado que los estabilizadores son triviales por hipótesis.
 \end{proof}
 
 \begin{coro}
 	Dado $G$ un grupo libre todo subgrupo $H \le G$ resulta ser libre.
 \end{coro}
 \begin{proof}
-	Fácil de lo anterior.
+	H actúa sobre el mismo árbol que $G$ también sin inversión y libremente.
 \end{proof}
 
-A partir de este teorema podemos obtener un corolario que nos cuantifique qué tan grande puede ser el índice de un subgrupo de un grupo libre.
+Otra consecuencia de este teorema de Serre es un resultado obtenido por Karass, Pietrowski y Solitar que nos da una cota de qué tan grande puede ser un subgrupo libre dentro de un grupo fundamental de un grafo finito de grupos finitos.
+Este resultado generaliza la fórmula de Schreier para subgrupos libres.
 
 
-\begin{coro}\cite{karrass1973finite}
+Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la demostración de esta fórmula.
+
+\begin{lema}\label{lema_libre_torsion}
+	Todo grupo libre \fg no tiene torsión.
+\end{lema}
+\begin{proof}
+	Como todo grupo libre es tal que su grafo de Cayley se puede tomar como un árbol si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
+\end{proof}
+
+
+\begin{prop}\cite{karrass1973finite}\label{prop_karrass_formula}
 	Sea $\cal G$ un grafo de grupos finito con grupos sobre los vértices finitos.
 	Sea $G = \pi_1 ({\cal G}, T)$ y sea $F$ un subgrupo libre de $G$ de índice finito con rango $r(F)$.
-	Luego la siguiente ecuación vale:
+	Luego la siguiente fórmula vale:
 	
 	\begin{equation*}
 		\frac{r(F) - 1}{(G:F)} = \sum_{y \in E(Y)} \frac{1}{2 \cdot |G_y|} - \sum_{P \in V(Y)} \frac{1}{|G_P|}.
 	\end{equation*}
-\end{coro}
+\end{prop}
 \begin{proof}
-	\red{sorry}
+	Sea $\tilde X$ el árbol de Bass Serre para este grafo de grupos $\cG$.
+	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
+	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.
+	De esta manera $F$ es isomorfo al grupo fundamental de $\Xm / F$ con todos los grupos de los vértices triviales justamente porque los estabilizadores lo son.
+	
+	Dado que $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\widetilde X / F)$.
+	Usando esto calculemos el rango del grupo libre contando todas las aristas que no pertenezcan a un árbol de expansión $T'$ del grafo $\Xm / F$.
+	Recordemos que al ser un árbol generador tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
+	
+	\begin{align*}
+		r(F) &= \frac{1}{2} (|E(\Xm / F)| - |E(T')|) \\
+		&= \frac{1}{2} |E(\Xm / F)| - |V(\Xm / F) | - 1
+	\end{align*}
+
+	donde multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
+	
+	Finalmente para obtener la fórmula que queremos probar tenemos que usar como está construido el árbol de Bass Serre $\Xm$.
+	\begin{equation*}
+		|V(\Xm / F)| = \sum_{P \in V(X)} |(G/G_P)/F|
+	\end{equation*}
+	y acá usamos que que la cantidad de cosets de $(G/G_y)/F$ es la misma que hay en $(F / G)/G_y$
+	por lo tanto 
+	\begin{equation*}
+		|V(\Xm / F)| = \sum_{P \in V(X)} \dfrac{(G:F)}{|G_y|}
+	\end{equation*}
+	Obtenemos una expresión análoga para las aristas y así terminamos de probar la validez de la fórmula.
 \end{proof}
 
-\begin{teo}
-	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos \fg en los vértices.
-	Entonces $\pi_1(\cal G)$ es \fg si y solo sí todos los grupos de los vértices lo son.
-\end{teo}
+%\begin{teo}
+%	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos \fg en los vértices.
+%	Entonces $\pi_1(\cal G)$ es \fg si y solo sí todos los grupos de los vértices lo son.
+%\end{teo}
+%
+%\begin{proof}
+%\end{proof}
 
+Finalmente podemos probar que grupo fundamental de un grafo de grupos finito con grupos finitos es es virtualmente libre. 
+Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
+
+\begin{lema}\label{lema_acciones_finitas}
+	Sea $G$ un grupo que actúa libremente sobre un conjunto finito $X$ de dos maneras distintas $\alpha, \beta : G \to S(X)$. 
+	Entonces debe existir $\varphi \in S(X)$ tal que para todo $g \in G$ valga que 
+	\[
+	\alpha (g) = \varphi^{-1} \circ \beta(g) \circ \varphi.
+	\]
+\end{lema}
 \begin{proof}
+	Tomamos representantes para cada acción $R,S \subseteq X$ tales que
+	\[
+		\bigsqcup_{r \in R} \alpha(G) (r) = \bigsqcup_{s \in S} \beta(G) (s)
+	\]
+	donde la unión es disjunta como órbitas de esta acción. 
+	Como ambas acciones son libres resulta que $\alpha(G)(r)$ y $\beta(G)(s)$ tienen cardinal exactamente $|G|$ usando que $X$ también es finito.
+	De esta manera vemos que $|R| = |X| / |G| = |S|$ por lo tanto existe una biyección $\varphi$ entre ambos conjuntos que la extendemos a todo $X$ de la siguiente manera,
+	\[
+		\varphi (\alpha(g) r) = \beta(g)  s
+	\]
+	siempre y cuando $\varphi(r) = s$. 
+	Esta biyección cumple todo lo que queríamos.
 \end{proof}
 
 
-\begin{teo}
+\begin{teo}\cite{karrass1973finite}
 	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos finitos en los vértices.
 	Entonces $\pi_1(\cal G)$ es un grupo \fg virtualmente libre.
 \end{teo}
 \begin{proof}
-	Sea $X$ un conjunto finito tal que $G_P | |X|$ para todo $P \in V(Y)$, esto lo podemos tomar porque el grafo $Y$ es finito.
+	Sea $X$ un conjunto finito tal que $G_P | |X|$ para todo $P \in V(Y)$
+	Tal conjunto existe porque el grafo $Y$ es finito.
+	Construyamos una acción de ...
 	
 	
 	Para cada $P \in V(Y)$ podemos armarnos una acción libre de $G_P$ en $X$. 
 	Esto nos da un monomorfismo $G_P \to S(X)$ donde $S(X)$ es el grupo simétrico de $X$.
 	A su vez por cada grupo de una arista $G_y$ obtenemos dos acciones libres sobre $X$.
-	Por el lema \ref{} podemos elegirnos para cada $y \in E(Y)$ alguna $\varphi_y \in S(X)$ tal que haga conmutar a ...
-	
+	Por el lema \ref{lema_acciones_finitas} podemos elegirnos para cada $y \in E(Y)$ alguna $\varphi_y \in S(X)$ tal que haga conmutar a ...
+	\[\begin{tikzcd}
+		& {G_{s(y)}} && {S(X)} \\
+		{G_y} \\
+		& {G_{t(y)}} && {S(X)}
+		\arrow[from=1-2, to=1-4]
+		\arrow[from=3-2, to=3-4]
+		\arrow[hook, from=2-1, to=1-2]
+		\arrow[hook', from=2-1, to=3-2]
+		\arrow["\varphi", from=1-4, to=3-4]
+	\end{tikzcd}\]
 	
 	Usando la definición del grupo $F(\cG)$ tenemos un morfismo de grupos $h: F(\cG) \to S(X)$ tal que la restricción a $G_P$ es inyectiva para todo $P \in V(Y)$.
 	Si fijamos $P \in V(Y)$ y consideramos $F = \{  g \in \pi_1(G,P) \ | \ h(g) = 1  \}$  entonces obtenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$.
-	
 	Esto nos dice que el grupo $F$ actúa libremente sobre el árbol de Bass Serre de nuestro grafo de grupos $\cG$.
 	
-	Como actúa libremente sobre un árbol por el resultado \ref{} tenemos que este grupo debe ser libre. 
+	Como actúa libremente sobre un árbol por el resultado \ref{teo_Serre} tenemos que este grupo debe ser libre. 
 	Así obtuvimos un subgrupo libre de $\pi_1(\cG, P)$ y queremos ver que tiene índice finito.
-	Para eso notemos que al ser $|X| < \infty$ entonces...
+	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$...
 	
-	Finalmente notemos que por \ref{} el grupo es \fg tal como queríamos ver.
+	Finalmente notemos que por \ref{prop_karrass_formula} el grupo es \fg tal como queríamos ver.
 \end{proof}
 
 \section{Productos semi directos.}
