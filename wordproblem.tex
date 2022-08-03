@@ -18,7 +18,7 @@
 \begin{deff}
 Un grupo $G$ \fg es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que su índice en $G$ es finito.
 \end{deff}
-
+\todo[inline]{Escribir una mejor justificación y ponerlo como prop o lema}
 \begin{obs}
 	Al subgrupo libre siempre lo podemos tomar normal.
 	Para eso si $G$ es un grupo \fg \vl entonces existe $F$ subgrupo libre de índice finito.
@@ -90,7 +90,7 @@ Esta idea que usamos para los grupos libres se puede extender más en general pa
 \begin{teo}
 	Todo grupo virtualmente libre es tal que su problema de la palabra es aceptado por un automáta determinístico especial de pila finito.
 \end{teo}
-
+\todo[inline]{Escribir mejor lo que está dicho como sist de reescritura, quizá con Todd Coxeter puede andar.}
 \begin{proof}
 	Para demostrar este teorema necesitamos construirnos al automáta para una presentación fijada de un grupo virtualmente libre.
 	
@@ -364,7 +364,7 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	E(T) = \{ \beta C \beta D : C \subseteq D \subseteq V_n, \ C \subset V_{n+1}   \}
 	\]
 	esto es que $C$ es una componente conexa del grafo que queda de sacarla la bola de radio un número mayor que el que está $D$.
-	
+	\todo[inline]{Agregar dibujito de esta descomposición, creo que eso explica mucho mejor.}
 	Notemos en particular que por como definimos este grafo $T$ resulta que si $C$ es una componente conexa de $V_n$ entonces solo existe una única arista $(\beta C, \beta D)$ tal que $D \subseteq V_{n-1}$. 
 	Esto se debe a que al ser $C$ conexo entonces como $V_{n-1} \subseteq V_{n}$ en particular $C \subseteq V_{n}$ y debe estar contenida en una sola componente conexa $D \subseteq V_{n-1}.$
 	
@@ -506,6 +506,13 @@ La palabra $v'$ la leemos justamente cuando vamos del vértice $x$ al vértice $
 Idénticamente hacemos esto para las variables $A$ y $C$.
 Por como definimos a $k$ tenemos las siguientes cotas $d(x,y), d(y,z), d(x,z) \le k$.
 %agregar dibujito, creo que es la manera más clara de explicar esto
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.5]{treewidth.png}
+	\caption*{}
+\end{figure}
+
 
 
 Ahora estamos listos para ver que $d(g,h) \le 3k$. Usamos la desigualdad triangular tres veces,

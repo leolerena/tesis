@@ -216,7 +216,11 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas que nos permiten aceptar un lenguaje. En nuestro caso en particular vamos a usar autómatas de pila no determinísticos para aceptar los lenguajes independientes de contexto.
 
 \begin{deff}
-	Un \blue{autómata de pila finito no determinístico} es una tupla ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)$ donde:
+	Un \blue{autómata de pila finito no determinístico} es una tupla 
+	\[
+	{\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)
+	\]
+	 donde:
 	\begin{itemize}
 		\item $Q$ es un conjunto finito de \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denotaremos el \emph{alfabeto del lenguaje};
@@ -389,7 +393,7 @@ Otras propiedades interesantes tienen que ver con su relación con morfismos de 
 		\item Preimágenes de morfismos de monoides.
 	\end{enumerate}
 \end{prop}
-
+\todo[inline]{Estaría bueno agregarlo por completitud porque no se ve en los cursos usuales y es necesario para definir los grupos IC.}
 \begin{proof}
 	%Escribir las dos demos. La segunda no es tan fácil ni evidente.
 	Ver \cite{sipser13}.
@@ -566,35 +570,35 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
 
 
-%\section{Sistemas de reescritura.}
-%
-%Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
-%En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 
-%Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. 
-%Un camino en el grafo lo llamaremos una \emph{derivación}.  
-%
-%Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} 
-%A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
-%
-%Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. 
-%Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
-%
-%\begin{ej}
-%	Considerar como objetos los enteros y como movimiento dividir al número por dos si es posible. Este sistema de reescritura tiene como objetos terminales los números impares.
-%\end{ej}
-%
-%Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. 
-%Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. 
-%Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
-%
-%En particular los sistemas que nos van a interesar en este trabajo son sistemas tales que son confluentes y terminantes que son conocidos como \emph{Church-Roser}.
-%
-%\subsection{Sistemas de reescritura de cadenas.}
-%En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. 
-%Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. 
-%Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
-%
-%Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
+\section{Sistemas de reescritura.}
+
+Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
+En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 
+Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. 
+Un camino en el grafo lo llamaremos una \emph{derivación}.  
+
+Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} 
+A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
+
+Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. 
+Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
+
+\begin{ej}
+	Considerar como objetos los enteros y como movimiento dividir al número por dos si es posible. Este sistema de reescritura tiene como objetos terminales los números impares.
+\end{ej}
+
+Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. 
+Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. 
+Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
+
+En particular los sistemas que nos van a interesar en este trabajo son sistemas tales que son confluentes y terminantes que son conocidos como \emph{Church-Roser}.
+
+\subsection{Sistemas de reescritura de cadenas.}
+En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. 
+Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. 
+Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
+
+Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
 
 
 \end{document}
