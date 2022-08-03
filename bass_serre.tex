@@ -10,6 +10,7 @@
 \newcommand{\WP}{\text{WP}(G, \Sigma)}
 \newcommand{\deriva}{\overset{*}{\Rightarrow_{\cal G}}}
 \newcommand{\cG}{ {\cal G} }
+\newcommand{\cH}{ {\cal H} }
 \newcommand{\Xm}{\widetilde X}
 
 
@@ -20,23 +21,25 @@
 Introduciremos los resultados y definiciones más importantes de la teoría de Bass Serre. 
 Las referencias clásicas que seguiremos son \cite{serre2002trees} y \cite{}.
 En esta sección los grafos serán siempre conexos y dirigidos.
-La definición que tomaremos, dada originalmente por Gersten, será levemente diferente a la usada en la sección \ref{}.
 Dado un grafo $Y= (V(Y),E(Y))$ por cada arista $y \in E(Y)$ tendremos una designación $s(y) = P, t(y) = Q$ si la arista comienza en $P$ y termina en $Q$.
-Dada $y \in E(Y)$ denotaremos $\overline y$ la arista con designación opuesta.
+Denotaremos $\overline y$ la arista con asignación opuesta, esto es que $s(\ol y) = Q, t(\ol y) = P$.
+Una \blue{orientación} de las aristas es una función $o:E(Y) \to \{ 0 ,1 \}$ tal que si $o(y)=1$ luego $o(\ol y)= 0$.
 
 \begin{deff}
 	Un \blue{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
 	\begin{enumerate}
 		\item Para cada vértice $P \in V(Y)$ tenemos un grupo $G_P$.
-		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{s(y)}$.
+		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{s(y)}$ y $G_y \le G_{t(y)}$.
 		\item Para todo $y \in E(Y)$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
 	\end{enumerate}
 \end{deff}
 
-En general para la definición de grafo de grupos no es necesario pedir que $G_y \le G_{s(y)}$ sino que alcanza con tomar un monomorfismo. 
-Para facilitar la construcción más en adelante supondremos que es un subgrupo.
+En general para la definición de grafo de grupos no es necesario pedir para la condición \textbf{2} que haya una contención sino que alcanza con tomar un monomorfismo. 
+Para facilitar las construcciones más en adelante supondremos que es un subgrupo pero los argumentos se pueden readaptar en el caso de no suponerlo.
 
-Dado un grafo $Y = (V(Y), E(Y))$ consideremos el grupo libre $F_{E(Y)}$ generado por las aristas del grafo.
+\todo[inline]{Hacer ejemplitos básicos de grafos de grupos.}
+
+Dado un grafo $Y = (V(Y), E(Y))$ llamaremos $F_{E(Y)}$ al grupo libre  generado por las aristas del grafo.
 
 \begin{deff}
 	Dado un grafo de grupos $\cal G$ sobre un grafo $Y = (V(Y), E(Y))$ podemos armarnos el siguiente grupo 
@@ -151,17 +154,145 @@ Podemos ver que ambas definiciones son equivalentes porque son isomorfos como gr
 	Esto porque $T[P,Q]$ es un camino de aristas en el árbol de expansión por lo tanto sobre $\pi_1(\cG, T)$ son la identidad.
 \end{proof}
 
-\todo[inline]{Buscar una manera decente de probar este resultado. No es tan trivial como parece.}
-
 \begin{teo}
 	Para todo $P \in V(Y)$ vale que $G_P \le \pi_1(\cG)$. 
 \end{teo}
+\todo[inline]{Buscar una manera decente de probar este resultado. No es tan trivial como parece.}
 \begin{proof}
 	Demo no trivial porque no sabemos bien que al pasar al cociente todo siga andando. 
 	Diekert supera este problema usando sistemas de reescrituras y eso lo vuelve más liviano.
 \end{proof}
 
-\subsection{Árbol de Bass Serre.}
+\section{Palabras reducidas.}
+
+En esta sección vamos a intentar entender cómo son los elementos del grupo $F(\cG)$ que vamos a estar utilizando para probar nuestro resultado central de este capítulo.
+
+Sea $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V(Y)$ y consideremos $\mu = (r_0, \dots r_n)$ una sucesión de elementos tomados de manera que $r_i \in G_{s(y_i)}$ tal como hicimos para la definición de $\pi(\cG, P)$.
+Llamaremos al par $(c, \mu)$ visto como elemento en $\ast_{P \in V(Y)}G_P \ast E(Y)$ a 
+\[
+(c,\mu) = r_0 y_0 r_1 y_1 \dots r_n y_n.
+\]
+Nos interesa saber bajo qué condiciones estas palabras son reducidas en el grupo $F(\cG)$
+
+\begin{deff}
+	Una palabra $(c, \mu)$ es \blue{reducida} si satisface las siguientes dos propiedades:
+	\begin{enumerate}[R1.]
+		\item Si $n=0$ entonces $r_0 \neq 1$.
+		\item Si $n \ge 1$ entonces $r_i \notin G_{y_i}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
+	\end{enumerate}
+\end{deff}
+En particular si tomamos una palabra $(c, \mu)$ tal que el camino $c$ tiene backtracking por la propiedad \textbf{R2} tenemos que esta palabra no va a ser reducida.
+
+Queremos ver que estas condiciones nos alcanzan para probar que estas palabras vistas en $F(\cG)$ son reducidas.
+Para esto emplearemos una construcción previa que nos ayude a probarlo recursivamente a partir de grafos cada vez más chicos.
+
+Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$. 
+Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
+Por inducción supongamos que vale el teorema \ref{} para este grafo $Y'$.
+
+Sea $W = Y / Y'$  el grafo que obtenemos de contraer $Y'$ a un vértice que llamaremos $[Y']$. 
+Como $Y'$ es conexo también lo es $W$.
+Definamos un grafo de grupos sobre $W$.
+
+\begin{enumerate}
+	\item Los vértices son $V(W)= V(Y) \setminus V(Y') \cup \{ [Y'] \}$.
+	\item Las aristas son $E(W) = E(Y) \setminus E(Y')$.
+\end{enumerate}
+
+Si las aristas no empiezan ni terminaban en $Y'$ dentro del grafo $Y$ al contraer el subgrafo siguen idénticas. 
+En el otro caso las definimos para que terminen (o empiecen) en $[Y']$. Sea $y \in E(W)$ entonces,
+\begin{equation*}
+	s(y) = 
+	\begin{cases}
+	s(y),  & \text{si} \ s(y) \notin V(Y') \\ 
+	[Y'], & \text{caso contrario}
+	\end{cases}
+\end{equation*}
+y análogamente,
+\begin{equation*}
+	t(y) = 
+	\begin{cases}
+		t(y),  & \text{si} \ s(y) \notin V(Y') \\ 
+		[Y']. & \text{caso contrario}
+	\end{cases}
+\end{equation*}
+
+
+Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W$ de la siguiente manera,
+\begin{itemize}
+	\item Si $P \in V(Y) \setminus V(Y')$, tomamos $H_P = G_P$;
+	\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$.
+	\item Si $y \in E(W)$ ponemos $H_y = G_y$ tal que como suponemos válido el resultado \ref{} para $Y'$ tenemos que es un subgrupo.
+\end{itemize}
+
+Construyamos un morfismo de grupos $\beta:F(\cG) \to F(\cH)$.
+Para eso primero definamoslo sobre los generadores.
+Para todo $g \in G_P$ con $P \in V(Y)$ definimos,
+\begin{equation*}
+	\beta(g) = 
+	\begin{cases}
+		[g] \in H_P & \text{si} \ P \notin Y' \\
+		[g] \in F(\cG | Y') & \text{si} \ P \in Y'  \\ 
+	\end{cases}
+\end{equation*}
+y para toda arista $ y \in E(Y)$ definimos,
+\begin{equation*}
+	\beta(y) = 
+	\begin{cases}
+		y  & \text{si} \ y \notin E(Y') \\
+		[y] \in F(\cG | Y') & \text{si} \ y \in E(Y')  \\ 
+	\end{cases}
+\end{equation*}
+
+De manera que así como está definida cumple las relaciones porque $F(\cH)$ también las cumple y así vemos que pasa al cociente y así obtenemos que $\beta$ está bien definida.
+
+\begin{lema}
+	El morfismo de grupos $\beta:F(\cG) \to F(\cH)$ es un isomorfismo. 
+\end{lema}
+\begin{proof}
+	Podemos construirnos un morfismo $\alpha:F(\cH) \to F(\cG)$ tal que sea su inversa.
+	La construcción es análoga.
+	
+	Para todo $g \in H_P$ con $P \in V(W) \setminus [Y'] $ definimos,
+	\begin{equation*}
+		\alpha(g) = [g] \in G_P \ \ 
+	\end{equation*}
+	y para toda arista $ y \in E(W)$ tal que no empiece ni termine en $[Y']$ definimos,
+	\begin{equation*}
+		\alpha(y) = y  \ \ \ 
+	\end{equation*}
+	
+	Finalmente sobre $F(\cG | Y')$ definimos de manera análoga mandando todo elemento $g \in G_P$ para para $P \in V(Y')$ a sí mismo en $F(\cG)$ e idénticamente para todas las aristas.
+	Es claro que es un morfismo de grupos que a su vez es la inversa de $\beta$ anteriormente definida.
+\end{proof}
+
+La moraleja de este lema es que podemos tomar considerar el grupo $F(\cG | Y')$ para un subgrafo $Y'$ conexo y después tomar el grupo $F(\cH)$ para el grafo resultante y es exactamente lo mismo que tomar $F(\cG)$ en el comienzo.
+
+Para cada palabra $(c, \mu)$ del grafo de grupos $F(\cG)$ le vamos a asociar una palabra $(c', \mu')$ de $\cH$ tal que $\beta (|c,\mu|) = |c',\mu'|$.
+
+
+
+\begin{lema}
+	Si $(c, \mu)$ es una palabra reducida de $\cG$ entonces $(c', \mu')$ lo es de $\cH$.
+\end{lema}
+\begin{proof}
+	
+\end{proof}
+
+
+Finalmente estamos en condiciones de probar el resultado central de esta sección. 
+
+\begin{proof}[(del teorema \ref{})] 
+Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
+	\begin{enumerate}
+		\item El caso que $Y$ es un segmento.
+		\item El caso que $Y$ es un árbol.
+		\item El caso que $Y$ es un ciclo.
+		\item El caso general.
+	\end{enumerate}
+\end{proof}
+
+\section{Árbol de Bass Serre.}
 
 Vamos a construirnos un revestimiento para un grafo de grupos arbitrario. 
 Como el revestimiento universal de todo grafo es un árbol obtendremos un resultado similar en este caso.
@@ -179,7 +310,7 @@ Queremos construirnos un grafo $\tilde X$ tal que tenga las siguientes propiedad
 
 A nuestras secciones las vamos a denotar de manera que para todo vértice $P \in Y$ tendremos un $ \tilde P \in V(\tilde X)$.
 Mirando la acción de $\pi_1(\cG, T)$ sobre $\tilde X$ nos gustaría que el estabilizador respecto a $\tilde P$ sea el mismo que el estabilizador de $P$ en el grafo de grupos $\cG$. 
-Para esto podemos definir directamente para que $\tilde P \simeq \pi_1(\cG, T) / G_P$.
+Para esto podemos definir directamente para que $\widehat P \simeq \pi_1(\cG, T) / G_P$.
 Análogamente para todas las aristas de nuestro grafo queremos que el estabilizador sea isomorfo al subgrupo $G^y_y$ dentro de $G_{s(y)}$.
 
 Usando estas condiciones tenemos que
@@ -244,7 +375,7 @@ Como corolarios obtenemos una caracterización para los grupos libres que usarem
 \begin{proof}
 	Si $G$ es libre entonces su grafo de Cayley lo podemos tomar como un árbol y usamos que actúa libremente sobre él sin invertir aristas.
 	
-	Para la vuelta usamos \ref{teo_Serre} porque es isomorfo a $\pi_1(\cG, T)$ y este grupo es libre por se el grupo fundamental de un grafo dado que los estabilizadores son triviales por hipótesis.
+	Para la vuelta usamos \ref{teo_Serre} porque es isomorfo a $\pi_1(\cG, T)$ y este grupo es libre por ser el grupo fundamental de un grafo dado que los estabilizadores son triviales por hipótesis.
 \end{proof}
 
 \begin{coro}
@@ -277,6 +408,7 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 		\frac{r(F) - 1}{(G:F)} = \sum_{y \in E(Y)} \frac{1}{2 \cdot |G_y|} - \sum_{P \in V(Y)} \frac{1}{|G_P|}.
 	\end{equation*}
 \end{prop}
+\todo[inline]{Escribir mejor lo de los dobles cosets del final.}
 \begin{proof}
 	Sea $\tilde X$ el árbol de Bass Serre para este grafo de grupos $\cG$.
 	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
@@ -342,39 +474,45 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 
 \begin{teo}\cite{karrass1973finite}
 	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos finitos en los vértices.
-	Entonces $\pi_1(\cal G)$ es un grupo \fg virtualmente libre.
+	Entonces $\pi_1(\cal G)$ es un \fg virtualmente libre.
 \end{teo}
 \begin{proof}
-	Sea $X$ un conjunto finito tal que $G_P | |X|$ para todo $P \in V(Y)$
-	Tal conjunto existe porque el grafo $Y$ es finito.
-	Construyamos una acción de ...
-	
+	Dado que el grafo $Y$ es finito y los grupos $G_P$ para todo $P \in V(Y)$ también lo son podemos tomarnos $X$ un conjunto finito tal que $|G_P| $ divida a $|X|$ .
 	
 	Para cada $P \in V(Y)$ podemos armarnos una acción libre de $G_P$ en $X$. 
-	Esto nos da un monomorfismo $G_P \to S(X)$ donde $S(X)$ es el grupo simétrico de $X$.
-	A su vez por cada grupo de una arista $G_y$ obtenemos dos acciones libres sobre $X$.
-	Por el lema \ref{lema_acciones_finitas} podemos elegirnos para cada $y \in E(Y)$ alguna $\varphi_y \in S(X)$ tal que haga conmutar a ...
+	Esto nos da un monomorfismo $G_P \to S(X)$.
+	A su vez por cada grupo $G_y$ con $y \in E(Y)$ obtenemos dos acciones libres sobre $X$ dependiendo con qué inclusión lo estamos mirando.
+	Por el lema \ref{lema_acciones_finitas} podemos elegirnos para cada $y \in E(Y)$ alguna $\varphi_y \in S(X)$ tal que haga conmutar al siguiente diagrama
 	\[\begin{tikzcd}
 		& {G_{s(y)}} && {S(X)} \\
 		{G_y} \\
 		& {G_{t(y)}} && {S(X)}
-		\arrow[from=1-2, to=1-4]
-		\arrow[from=3-2, to=3-4]
+		\arrow["\sigma", from=1-2, to=1-4]
+		\arrow["\tau", from=3-2, to=3-4]
 		\arrow[hook, from=2-1, to=1-2]
 		\arrow[hook', from=2-1, to=3-2]
-		\arrow["\varphi", from=1-4, to=3-4]
+		\arrow["\varphi_y", from=1-4, to=3-4]
 	\end{tikzcd}\]
-	
+	Para la arista con orientación opuesta tomamos $\varphi_{\ol y} = \varphi_y^{-1}$.
+	De esta manera tenemos un morfismo de grupos definido sobre el grupo libre $\ast_{P \in V(Y)} G_P \ast E(Y)$.
+	Por como tomamos a $\varphi_y$ y como hace conmutar al diagrama tenemos que $\varphi_{\ol y} \circ \sigma \circ \varphi_y = \tau$.	
 	Usando la definición del grupo $F(\cG)$ tenemos un morfismo de grupos $h: F(\cG) \to S(X)$ tal que la restricción a $G_P$ es inyectiva para todo $P \in V(Y)$.
-	Si fijamos $P \in V(Y)$ y consideramos $F = \{  g \in \pi_1(G,P) \ | \ h(g) = 1  \}$  entonces obtenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$.
+	Si fijamos $P \in V(Y)$ y consideramos el subgrupo normal de $\pi_1(\cG, P)$ 
+	\[
+	F = \{  g \in \pi_1(G,P) \ | \ h(g) = 1  \}
+	\]
+	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$.
 	Esto nos dice que el grupo $F$ actúa libremente sobre el árbol de Bass Serre de nuestro grafo de grupos $\cG$.
+	A su vez como $F$ es un subgrupo de $\pi_1 (\cG, P)$ tenemos que actúa sin inversiones.
+	Estamos en condiciones de usar el teorema de Serre \ref{teo_Serre} y así obtenemos que este grupo debe ser libre. 
 	
-	Como actúa libremente sobre un árbol por el resultado \ref{teo_Serre} tenemos que este grupo debe ser libre. 
-	Así obtuvimos un subgrupo libre de $\pi_1(\cG, P)$ y queremos ver que tiene índice finito.
-	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$...
+	Por lo visto obtuvimos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$ y queremos ver que tiene índice finito.
+	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$ y como $S(X) \simeq \pi_1(\cG, P) / F$, por la propiedad universal del cociente, entonces $(\pi_1(\cG, P) : F) < \infty$ tal como queríamos ver.
 	
-	Finalmente notemos que por \ref{prop_karrass_formula} el grupo es \fg tal como queríamos ver.
+	Finalmente notemos que por \ref{prop_karrass_formula} el grupo $F$ es un \fg tal como queríamos ver.
 \end{proof}
+
+
 
 \section{Productos semi directos.}
 

@@ -16,7 +16,7 @@
 * ~~Escribir bien la definición de grafo de Cayley para que las aristas no sean una cosa rara como está ahora.~~
 * ~~Escribir bien la parte de subdivisión baricéntrica. Quizá Iván pueda decirme como la escribiría él.~~ 
 * Reescribir la tercera condición de treewidth finito. Chequear el argumento para ver que es acíclico que está escrito bastante bastante rari.
-* Agregar que los vecinos de un bolsón para cada bolsón nos termina dando otra desc en un árbol.
+* ~~Agregar que los vecinos de un bolsón para cada bolsón nos termina dando otra desc en un árbol.~~
 * ~~Terminar de pasar la demo de gramática independiente de contexto implica treewidth finito.~~ 
 * ~~Dar bien la definición de grafo de Cayley. Que quede claro que tomo un grafo con generadores como monoide.~~
   * ~~Dar un ejemplo. Quizá pueda poner el de $F_2$ que es lindo :)~~
@@ -77,8 +77,8 @@
 
 ## Latex.
 
-* Solucionar lo de las referencias para que ande el backref.
+* ~~Solucionar lo de las referencias para que ande el backref.~~
 
-* Agregar un \halmos a los enviroments de teoremas y demás?
+* ~~Agregar un \halmos a los enviroments de teoremas y demás?~~
 
   
