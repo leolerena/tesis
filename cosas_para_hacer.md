@@ -1,15 +1,9 @@
 # Cosas para hacer.
 
-<img src="https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5ea5339a-7a33-486a-8e47-2cdf3b21336f/dbwripy-a5f13ad2-1079-4328-a4fc-79650aba9913.gif?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzVlYTUzMzlhLTdhMzMtNDg2YS04ZTQ3LTJjZGYzYjIxMzM2ZlwvZGJ3cmlweS1hNWYxM2FkMi0xMDc5LTQzMjgtYTRmYy03OTY1MGFiYTk5MTMuZ2lmIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.xbKwOlRfAdqaoNoKrpVMlfu0wwMxyaMG8r9GNso4kcI" alt="Peon Warcraft 1 Work Work Gif by jpmoses333 on DeviantArt" style="zoom:67%;" />
 
 * ~~Hacer las demos de conos y profundizar un poco en esa parte de teoría de lenguajes. Podría agregar todo lo de lenguajes regulares y ya definir lo de poly context free. Cuando entienda esto mejor comentarselo a Iván. También podría hablarlo con Verónica ya que le quería hablar por el doctorado y esto es lo más computacional.~~
 * Masticar mejor el algoritmo para obtener el automáta de pila a partir del grupo virtualmente libre. Iván me sugirió verlo a partir de la presentación dada a partir del grafo de Bass Serre. Estaría bueno entender como encontrar el libre en un caso en general. ¿Es el mismo algoritmo que el de la forma normal para Bass Serre?
-  * ~~Ver si es necesario usar sistemas de reescritura para este algoritmo. Así tal como lo tengo lo uso para saber que podemos llevar toda palabra en los generadores a una de una pinta en particular. Creo que en el paper original de Schupp no usaban estas herramientas. Sino ya fue y lo uso porque es bastante útil y poco sofisticadas las definiciones iniciales.~~
-* Ver lo que me sugirió Iván de su tesis. El (2.5) tiene una equivalencia de virt libre con Out($F_n$) sobre conjugación. Quizá pueda servirme para algo.
-* Rehacerme todo lo de Bass Serre que nunca lo entendí. Consultarle bien a Iván cuando lo tenga más digerido. Consultarle la construcción topólogica del árbol de Bass Serre.
-* ~~Ver si dado un grupo virtualmente libre puedo tomar el libre tal que sea normal. En qué casos podría hacer esto? Quizá ver en $SL_2(\Z)$ para empezar. Iván también me dijo que podría pensar lo de la intersección de Hannah (algo así...) para este caso aunque parece muy difícil.~~
 
----
 
 ### Grafos de Cayley.
 
