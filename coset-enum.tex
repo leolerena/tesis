@@ -273,21 +273,21 @@ Sabemos que bajo estas hipótesis $\alpha^w = \alpha$.
 %Una vez que hacemos esto con el posfijo que nos devuelve en la segunda coordenada lo usamos para recorrer desde $\alpha$ pero tomandole el inverso.(??)
 %En base a qué nos quedó el posfijo de este segundo recorrido no hacemos nada, llamamos a \coin, definimos un nuevo coset o deducimos 
 
-\begin{algorithm}[H]
-	\caption{\textsc{scanandfill} \ (\textit{c} : \texttt{tabla de cosets}) $\times $ (\textit{$\alpha$} : \texttt{coset}) $\times$ (\textit{w} : \texttt{$R$}) $\longrightarrow$ (\textit{c'} : \texttt{tabla de cosets})}
-	\begin{algorithmic}[1]
-		\State \blue{sea} ($\beta$,$w_1$) := \recorrer$(c, \alpha, w)$ en
-		\Indent
-			\State \blue{sea} ($\gamma$, $w_2$) :=  \recorrer$(c,\alpha, w_1^{-1})$ en
-			\Indent
-				\State \blue{match} $w_2^{-1}$ 
-				\State $\|$ \ $\emptyset$ = \blue{if} $\beta = \gamma$ \blue{then} c \blue{else} \coin \ $(c, \beta, \gamma)$
-				\State $\|$ \ $x$ = \ded \ $(c,\beta, \gamma, x)$
-				\State $\|$ \ $x_0w'$ = \scanfill \  (\definir \ $(c, \beta, x_0), \alpha, w)$ 
-			\EndIndent
-		\EndIndent 
-	\end{algorithmic}
-\end{algorithm}
+%\begin{algorithm}[H]
+%	\caption{\textsc{scanandfill} \ (\textit{c} : \texttt{tabla de cosets}) $\times $ (\textit{$\alpha$} : \texttt{coset}) $\times$ (\textit{w} : \texttt{$R$}) $\longrightarrow$ (\textit{c'} : \texttt{tabla de cosets})}
+%	\begin{algorithmic}[1]
+%		\State \blue{sea} ($\beta$,$w_1$) := \recorrer$(c, \alpha, w)$ en
+%		\Indent
+%			\State \blue{sea} ($\gamma$, $w_2$) :=  \recorrer$(c,\alpha, w_1^{-1})$ en
+%			\Indent
+%				\State \blue{match} $w_2^{-1}$ 
+%				\State $\|$ \ $\emptyset$ = \blue{if} $\beta = \gamma$ \blue{then} c \blue{else} \coin \ $(c, \beta, \gamma)$
+%				\State $\|$ \ $x$ = \ded \ $(c,\beta, \gamma, x)$
+%				\State $\|$ \ $x_0w'$ = \scanfill \  (\definir \ $(c, \beta, x_0), \alpha, w)$ 
+%			\EndIndent
+%		\EndIndent 
+%	\end{algorithmic}
+%\end{algorithm}
 
 
 

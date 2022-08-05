@@ -151,25 +151,25 @@ bottomline=false,topline=false,rightline=false]{coro}
 % DEMOS EN NEGRITA.
 \renewenvironment{proof}{{\textbf{Demostración.}}}{ \hfill $\blacksquare$ \medskip} 
 
-% ========== Para escribir pseudo ==========
-\usepackage{algorithm}
-\usepackage[noend]{algpseudocode}  % "noend" es para no mostrar los endfor, endif
-%\algrenewcommand\alglinenumber[1]{\tiny #1:}  % Para que los numeros de linea del pseudo sean pequeños
-\renewcommand{\thealgorithm}{}  % Que no aparezca el numero luego de "Algorithm"
-\floatname{algorithm}{ }    % Entre {  } que quiero que aparezca en vez de "Algorithm"
-
-% traducciones
-\algrenewcommand\algorithmicwhile{\textbf{mientras}}
-\algrenewcommand\algorithmicdo{\textbf{hacer}}
-\algrenewcommand\algorithmicreturn{\textbf{devolver}}
-\algrenewcommand\algorithmicif{\textbf{si}}
-\algrenewcommand\algorithmicthen{\textbf{entonces}}
-\algrenewcommand\algorithmicfor{\textbf{para}}
-
-%% indentar dentro de los algoritmos
-\algdef{SE}[SUBALG]{Indent}{EndIndent}{}{\algorithmicend\ }%
-\algtext*{Indent}
-\algtext*{EndIndent}
+%% ========== Para escribir pseudo ==========
+%\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}  % "noend" es para no mostrar los endfor, endif
+%%\algrenewcommand\alglinenumber[1]{\tiny #1:}  % Para que los numeros de linea del pseudo sean pequeños
+%\renewcommand{\thealgorithm}{}  % Que no aparezca el numero luego de "Algorithm"
+%\floatname{algorithm}{ }    % Entre {  } que quiero que aparezca en vez de "Algorithm"
+%
+%% traducciones
+%\algrenewcommand\algorithmicwhile{\textbf{mientras}}
+%\algrenewcommand\algorithmicdo{\textbf{hacer}}
+%\algrenewcommand\algorithmicreturn{\textbf{devolver}}
+%\algrenewcommand\algorithmicif{\textbf{si}}
+%\algrenewcommand\algorithmicthen{\textbf{entonces}}
+%\algrenewcommand\algorithmicfor{\textbf{para}}
+%
+%%% indentar dentro de los algoritmos
+%\algdef{SE}[SUBALG]{Indent}{EndIndent}{}{\algorithmicend\ }%
+%\algtext*{Indent}
+%\algtext*{EndIndent}
 
 % =========================================================
 \usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
@@ -264,7 +264,7 @@ bottomline=false,topline=false,rightline=false]{coro}
 \subfile{bass_serre}
 \subfile{wordproblem}
 
-\subfile{coset-enum}
+%\subfile{coset-enum}
 
 \bibliography{bibliografia}
 \bibliographystyle{alpha}

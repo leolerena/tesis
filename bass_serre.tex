@@ -1,3 +1,4 @@
+%!TeX root = bass_serre.tex
 \documentclass[tesis.tex]{subfiles}
 
 %\newcommand{\ol}{\overline{}}
@@ -122,7 +123,7 @@ donde $g_kg'_0 \in G_P$ por lo tanto su producto está bien definido y en defini
 Notemos que en particular para esta construcción obtuvimos un subgrupo del grupo $F(\cal G)$ mientras que en el caso de la definición anterior \ref{def_pi1_arbol} obtuvimos un cociente.
 Podemos ver que ambas definiciones son equivalentes porque son isomorfos como grupos.
 
-\begin{teo}
+\begin{teo}\label{teo_grp_fund_iso}
 	$\pi_1({\cal G}, P)$ es isomorfo con $\pi_1({\cal G}, T)$.
 \end{teo}
 \begin{proof}
@@ -167,6 +168,54 @@ Podemos ver que ambas definiciones son equivalentes porque son isomorfos como gr
 	Diekert supera este problema usando sistemas de reescrituras y eso lo vuelve más liviano.
 \end{proof}
 
+\section{Casos particulares.}
+
+En esta sección vamos entender como son los grupos fundamentales de algunos grafos de grupos cuando los grafos tienen algunas formas en particular. 
+La idea, aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos finitos arbitrarios a grafos de estas formas.
+Entonces probar resultados sobre otros grafos se va a reducir a la demostraciones que tengamos de estos otros casos bases más comprendidos.
+
+\subsection{Segmentos y grupos amalgamados.}
+Consideremos que nuestro grafo de grupos $\cG$ está dado sobre cierto segmento $Y$ de la siguiente pinta.
+
+Calculemos el grupo fundamental de este grafo de grupos.
+Como podemos tomar al árbol de expansión al mismo segmento entonces $\pi_1(\cG, T)$ resulta ser el grupo que tomamos libre sobre $G_P$ y $G_Q$ en el que identificamos al subgrupo $G_y$ de $G_P$ con el subgrupo isomorfo $G_{\overline y}$ de $G_Q$.
+De esta manera el grupo que conseguimos es el grupo amalgamado $G_P \ast_{G_y} G_Q$. 
+
+A continuación veremos un resultado que nos servirá para tener una escritura única y particular de cada palabra sobre los generadores de un grupo amalgamado.
+\begin{prop}
+	Toda palabra sobre el grupo amalgamado $G_P \ast_{G_y} G_Q$ se puede escribir de la siguiente forma:
+	
+\end{prop}
+\begin{proof}
+	\red{sorry}
+\end{proof}
+ 
+Esta forma para cada palabra la llamaremos la forma normal de $w$.
+\subsection{Loops y grupos HNN.}
+
+Si el grafo resulta ser un loop
+\todo[inline]{Agregar grafiquito de un loop.}
+entonces no tiene árbol de expansión de manera que esto nos dice que $F(\cG) \simeq \pi_1(\cG)$.
+Notaremos por $a$ a cada elemento de $G_y$ mientras que notaremos por $\overline{a}$ a cada elemento del grupo isomorfo $G_{\ol{y}}$.
+Sea $g$ el generador de $F_{y}$, es decir el correspondiente a la única arista de este grafo. 
+En este caso las relaciones que tenemos en nuestro grupo son las siguientes
+\[
+	g^{-1}ag = \ol{a}  \  \ \ \text{para todo} \ a \in G_y.
+\]   
+De esta manera tenemos que una presentación de nuestro grupo es la siguiente:
+
+
+Ahora veamos un resultado análogo al que demostramos anteriormente para grupos amalgamados que nos dirá una manera de escribir las palabras en estos grupos.
+\begin{teo}[Britton]
+	Toda palabra $w$ de un grupo $G$ de tipo HNN es tal que se puede escribir de la siguiente manera:
+	\[
+	...
+	\]
+	donde ...
+\end{teo}
+\begin{proof}
+	.
+\end{proof}
 \section{Palabras reducidas.}
 
 En esta sección vamos a caracterizar los elementos del grupo $F(\cG)$.
@@ -204,24 +253,26 @@ En particular de este teorema obtenemos los siguientes corolarios de bastante ut
 \end{proof}
 
 \begin{coro}\label{coro_pal_red_2}
-	Si $(c, \mu)$ es reducida y su longitud es al menos $1$ entonces $|c, \mu| \notin G_P$ donde $P$ es el origen del camino $c$.
+	Si $(c, \mu)$ es reducida y su longitud es al menos $1$ entonces $|c, \mu| \notin G_{P_0}$ donde $P_0$ es el origen del camino $c$.
 \end{coro}
 \begin{proof}
-	Si lo fuera podríamos tomar la palabra..
+	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
+	Sea $c = (P_0y_1P_1\dots P_0)$.
+	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_P$
 \end{proof}
 
 \begin{coro}\label{coro_pal_red_3}
-	Sea $T$ un árbol maximal de $Y$ ...
+	Sea $T$ un árbol de expansión de $Y$ luego si $(c, \mu)$ es una palabra reducida tal que $c$ es un camino cerrado entonces $|c,\mu| \neq 1$ en $\pi_1(\cG, T)$. 
 \end{coro}
 \begin{proof}
-	...
+	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ en el grupo $F(\cG)$ y como estos dos grupos son isomorfos por medio de la inclusión y la proyección al cociente, por el teorema \ref{teo_grp_fund_iso}, entonces esto termina de probar el resultado.
 \end{proof}
 
 Para esto emplearemos una construcción previa que nos ayude a probarlo recursivamente a partir de grafos cada vez más chicos.
 
 Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$. 
 Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
-El grupo de este grafo de grupos lo denotaremso $F(\cG | Y')$.
+El grupo de este grafo de grupos lo denotaremos $F(\cG | Y')$.
 Por inducción supongamos que vale el teorema \ref{teo_pal_red} para este grafo $Y'$.
 
 \[\begin{tikzcd}
@@ -276,7 +327,7 @@ Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W$ de la s
 \end{itemize}
 
 Construyamos un morfismo de grupos $\beta:F(\cG) \to F(\cH)$.
-Para eso primero definamoslo sobre los generadores.
+Para eso primero lo definimos sobre los generadores.
 Para todo $g \in G_P$ con $P \in V(Y)$ definimos,
 \begin{equation*}
 	\beta(g) = 
@@ -343,7 +394,7 @@ Por como las construimos nos queda que $\beta(|c,\mu|) = |c',\mu'|$ tal como que
 Veamos ahora que $\beta$ preserva las palabras reducidas. 
 Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida que vayamos contrayendo subgrafos conexos.
 
-\begin{prop}
+\begin{prop}\label{lema_pal_red_iso}
 	Si $(c, \mu)$ es una palabra reducida para $F(\cG)$ entonces $(c', \mu')$ es reducida para $F(\cH)$.
 \end{prop}
 \begin{proof}
@@ -368,6 +419,25 @@ Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida q
 	\end{enumerate}	
 \end{proof}
 
+Como último resultado previo veamos un lema que nos dice qué pasa cuando contraemos un subárbol de un árbol $Y$.
+
+\begin{lema}\label{lema_subarbol_conexo}
+	Si $Y$ es un árbol finito e $Y'$ es un subárbol de $Y$ entonces $W=Y/Y'$ es un árbol. 
+\end{lema} 
+\begin{proof}
+	Debemos ver que $W$ es un grafo conexo y sin ciclos.
+	
+	Para ver que es \textit{conexo} tomemos dos vértices $w_1,w_2 \in V(W)$ y veamos de construir un camino entre ellos.
+	Si ambos vértices se pueden unir por un camino $c$ en $Y$ tal que no interseca a $W$ podemos tomar ese mismo camino.
+	Sino tomemos $c$ algún camino que los una y notamos que $c'$ tal como lo construimos anteriormente es un camino que los une en $W$.
+	
+	Para ver que \textit{no tiene ciclos} supongamos que $\sigma$ es un ciclo de este grafo.
+	Así como en el caso anterior este ciclo necesariamente tiene que ser sobre el vértice contraído $[Y']$ caso contrario conseguiríamos un ciclo en el grafo $Y$ pero esto no es posible dado que es un árbol.
+	Si miramos por medio del morfismo $\alpha$ definido en la proposición \ref{} obtenemos un camino $c$ en $Y$ tal que debe empezar y terminar en $Y'$. 
+	Como por hipótesis $Y'$ es conexo existe un camino $c$ tal que conecta estos dos vértices. 
+	Esto es una contradicción porque habríamos conseguido un ciclo sobre el grafo $Y$. 
+\end{proof}
+
 
 Finalmente estamos en condiciones de probar el resultado central de esta sección. 
 
@@ -376,23 +446,37 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 	\begin{enumerate}
 		\item El caso que $Y$ es un segmento.
 		\[\begin{tikzcd}
-			{P \ \ \bullet} && {\bullet \ \ Q}
+			{P_{-1} \ \ \bullet} && {\bullet \ \ P_1}
 			\arrow["y"{pos=0.6}, from=1-1, to=1-3]
 		\end{tikzcd}\]
 		El elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
-		Consideremos el morfismo
+		Donde $e_{i} = -e_{i+1}$ para todo $i=1 \dots n$ y los elementos cumplen que $r_0 \in G_{P_{-e_i}}$ y $r_i \in G_{P_{e_i}} \setminus G_{y^{e_i}}$ dado que $(c, \mu)$ es una palabra reducida.
+		El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
+		Para el otro caso, es decir el caso que el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente 
 		\[
-			\phi: F(\cG) \to G_P \ast_{G_y} G_Q
+			\phi: F(\cG) \to G_{P_{-1}} \ast_{G_y} G_{P_1}
 		\]
-		\item El caso que $Y$ es un árbol. 
-		Tomemos un segmento ....
-		\item El caso que $Y$ es un ciclo.
-		Este caso es el más rebuscado. 
+		donde $G_{P_{-1}} \ast_{G_y} G_{P_1} \simeq \pi_1(\cG, T)$ donde $T$ es el mismo segmento $Y$ en este caso. 
+		Acá estamos usando que el grupo fundamental de un segmento es un grupo amalgamado.
+		Dado que conocemos como son las palabras reducidas en los grupos amalgamados por \ref{} entonces vemos que $(c, \mu)$ no es la identidad porque justamente 
+		\[
+			\phi(|c,\mu|) = r_0 \dots r_n \neq 1
+		\]
+		por lo tanto como $\phi(|c,\mu|) \neq 1 $ esto implica que $|c,\mu| \neq 1$ tal como queríamos ver.
 		
-		Para eso consideremos lo obtenido en el lema \ref{}...
+		\item El caso que $Y$ es un árbol. 
+		Lo probamos usando inducción en la cantidad de vértices del grafo.
+		Tomemos un segmento $Y'$ dentro del árbol donde ya sabemos que el resultado vale por el caso anterior.
+		Por el lema recientemente probado \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que tiene menos vértices que $Y$. 
+		De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ sobre $W$ por lo que $|c',\mu'| \neq 1$ y usando el lema \ref{lema_pal_red_iso} tenemos que $|c, \mu| \neq 1$.
+		
+		\item El caso que $Y$ es un ciclo.
+		Dado que en este caso el grupo $F(\cG)$ resulta ser una extensión de tipo HNN por lo visto en la sección anterior podemos aplicar el lema de Britton \ref{} que justamente nos muestra que esta palabra es distinta de la identidad en el grupo $F(\cG)$.
+		
 		\item El caso general.
-		Lo reducimos a los casos anteriores. 
-		Para
+		Lo probamos por inducción en la cantidad de vértices. 
+		Para eso tomamos $Y'$ un segmento o bien un loop dentro de $Y$ y luego aplicamos el resultado a $Y/Y'$.
+		Por inducción en este caso vale el resultado y luego volviendo a usar el lema \ref{lema_pal_red_iso} terminamos de probarlo para un grafo $Y$ conexo y finito arbitrario.
 	\end{enumerate}
 
 
@@ -415,14 +499,31 @@ Queremos construirnos un grafo $\tilde X$ tal que tenga las siguientes propiedad
 A nuestras secciones las vamos a denotar de manera que para todo vértice $P \in Y$ tendremos un $ \tilde P \in V(\tilde X)$.
 Mirando la acción de $\pi_1(\cG, T)$ sobre $\tilde X$ nos gustaría que el estabilizador respecto a $\tilde P$ sea el mismo que el estabilizador de $P$ en el grafo de grupos $\cG$. 
 Para esto podemos definir directamente para que $\widehat P \simeq \pi_1(\cG, T) / G_P$.
-Análogamente para todas las aristas de nuestro grafo queremos que el estabilizador sea isomorfo al subgrupo $G^y_y$ dentro de $G_{s(y)}$.
+Análogamente para todas las aristas de nuestro grafo queremos que el estabilizador sea isomorfo al subgrupo $G_y$ dentro de $G_{t(y)}$.
+Llamemos a los estabilizadores $\pi_{\tilde P}$ y $\pi_{\tilde y} $ respectivamente para diferenciarlos. 
+A su vez diferenciaremos por $\tilde P$ a la imagen de $1$ dentro de los cosets e idénticamente lo haremos para $\tilde y$. 
 
 Usando estas condiciones tenemos que
 \begin{equation*}
 	V(\tilde X) = \coprod_{P \in V(Y)} \pi_1(\cG, T) / G_P, \ \  E(\tilde X) = \coprod_{y \in E(Y)} \pi_1(\cG, T) / G_y
 \end{equation*}
 
-para obtener un grafo nos queda redefinir para tener las aristas con la otra orientación
+para obtener un grafo nos queda definir como son los trasladados de aristas por medio de $g \in \pi_1(\cG, P)$.
+Definimos así las siguientes operaciones sobre el grafo $\tilde X$,
+\begin{enumerate}[(a)]
+	\item $\overline{g \tilde y} = g \tilde{\ol y}$;
+	\item $s(g \tilde y) = g g_y^{-e(y)} \widetilde{s(y)}$
+	\item $t(g \tilde y) = g g_y^{1-e(y)} \widetilde{t(y)}$
+\end{enumerate}
+
+Debemos ver que así como están definidas resultan ser consistentes estas definiciones.
+En el ítem \textbf{(a)} estamos definiendo como son las aristas con orientación opuesta. 
+Por ahora tenemos definidas las aristas correspondientes a $\ol y$ de manera disjunta a las que están definidas correspondientes a $y$.
+Para ver la validez de esta definición usamos que si $h\widetilde{\ol y} = g\widetilde{\ol y}$ entonces esto sucede si y solo sí $h\pi_{\widetilde{\ol y}} =g\pi_{\widetilde{\ol y}} $ pero justamente como $\pi_{\widetilde{\ol y}} = \pi_{y} $ por como definimos a estos grupos por lo tanto resultaban provenir de la misma arista del grafo $\tilde X$.
+
+Para probar que es válida la fórmula de \textbf{(b)} notemos que..
+
+Finalmente la definición \textbf{(c)} es válida porque usando la validez de la anterior y reemplazando $y$ por $\ol y$ obtenemos este resultado.
 
 \medskip
 
@@ -447,7 +548,7 @@ Por la construcción que hicimos nos queda que $\tilde X / \pi_1(\cG, T) \simeq 
 
 Dar conexión con la idea topológica de un revestimiento de un grafo..
 
-\subsection{Acciones de grupos sobre árboles.}
+\section{Acciones de grupos sobre árboles.}
 
 Dar definiciones de los morfismos que salen del árbol y los que van a parar al grupo libre del grafo de grupos.
 
