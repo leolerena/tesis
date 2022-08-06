@@ -258,7 +258,9 @@ En particular de este teorema obtenemos los siguientes corolarios de bastante ut
 \begin{proof}
 	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
 	Sea $c = (P_0y_1P_1\dots P_0)$.
-	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_P$
+	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_P$ y podríamos tomarnos otra palabra reducida $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que $|c,\mu'| = 1$.
+	Sigue siendo una palabra reducida porque justamente por suposición tenemos que la longitud de $c$ es al menos $1$.
+	Esto es una contradicción porque ninguna palabra reducida puede ser la identidad.
 \end{proof}
 
 \begin{coro}\label{coro_pal_red_3}
@@ -470,7 +472,7 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 		Por el lema recientemente probado \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que tiene menos vértices que $Y$. 
 		De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ sobre $W$ por lo que $|c',\mu'| \neq 1$ y usando el lema \ref{lema_pal_red_iso} tenemos que $|c, \mu| \neq 1$.
 		
-		\item El caso que $Y$ es un ciclo.
+		\item El caso que $Y$ es un bucle.
 		Dado que en este caso el grupo $F(\cG)$ resulta ser una extensión de tipo HNN por lo visto en la sección anterior podemos aplicar el lema de Britton \ref{} que justamente nos muestra que esta palabra es distinta de la identidad en el grupo $F(\cG)$.
 		
 		\item El caso general.
@@ -486,7 +488,9 @@ Vamos a construirnos un revestimiento para un grafo de grupos arbitrario.
 Como el revestimiento universal de todo grafo es un árbol obtendremos un resultado similar en este caso.
 
 Dado $\cG$ un grafo de grupos sobre un grafo $Y$ conexo tomemos un árbol $T$ de expansión de este grafo.
-Consideremos también $A$ una orientación de las aristas del grafo $Y$.
+Consideremos también $A$ una orientación de las aristas del grafo $Y$ de manera que $e(y)=0$ si $y \in A$ mientras que $e(y)=1$ si $y \notin A$.
+Dada una arista $y \in E(Y)$ denotaremos por $|y|$ a la arista $y$ o $\ol{y}$ tal que está en la orientación $A$.
+Llamaremos $g_y$ al elemento de $F(\cG)$ correspondiente al generador $y \in E(Y)$ porque vamos a necesitar diferenciar elementos del grupo con las aristas propiamente dichas del grafo.
 
 Queremos construirnos un grafo $\tilde X$ tal que tenga las siguientes propiedades:
 
@@ -521,32 +525,149 @@ En el ítem \textbf{(a)} estamos definiendo como son las aristas con orientació
 Por ahora tenemos definidas las aristas correspondientes a $\ol y$ de manera disjunta a las que están definidas correspondientes a $y$.
 Para ver la validez de esta definición usamos que si $h\widetilde{\ol y} = g\widetilde{\ol y}$ entonces esto sucede si y solo sí $h\pi_{\widetilde{\ol y}} =g\pi_{\widetilde{\ol y}} $ pero justamente como $\pi_{\widetilde{\ol y}} = \pi_{y} $ por como definimos a estos grupos por lo tanto resultaban provenir de la misma arista del grafo $\tilde X$.
 
-Para probar que es válida la fórmula de \textbf{(b)} notemos que..
+Para probar que es válida la definición de \textbf{(b)} veamos que si tomamos dos representantes distintos de alguna coclase donde comienza la arista va a ser en el mismo vértice.
+En definitiva debemos ver para $h \in G_y$ que valga la siguiente igualdad,
+\[
+	hg_y^{-e(y)} \widetilde{s(y)} = g_y^{-e(y)} \widetilde{s(y)}
+\] 
+y esto recae en ver la siguiente igualdad que es básicamente la siguiente inclusión que es parecida a la relación que tenemos en este grupo,
+\[
+	g_y^{e(y)}\pi_{\tilde y}g_y^{-e(y)} \subset G_{\widetilde{s(y)}}.
+\]
+Pensemos en los dos casos posibles dependiendo de si la arista está en la orientación elegida o no lo está,
+\begin{itemize}
+	\item Si $e(y) = 0$ entonces $|y| = y$ y por como lo definimos tenemos que $\pi_{\tilde y} = G_{y}$ es tal que al conjugarlo por $g_y$ nos queda un elemento de $G_{\ol y}$ y tenemos que vale la inclusión $G_{\ol y} \subset G_{s(y)}$ dado que $t(\ol y) = s(y)$ para todo $y \in E(Y)$.
+	\item Si $e(y) = 1$ entonces tenemos la siguiente situación
+	\[
+		\pi_{\tilde y} \subseteq G_{\widetilde{s(y)}}	
+	\] 
+	y para probar esto usamos la definición de estos grupos porque $\pi_{\tilde y} = G_{\ol y}$ dado que esta arista no está en la orientación.
+	Así tenemos usando nuevamente que $s(y) = t(\ol y)$ lo que queríamos probar.  
+\end{itemize}
 
-Finalmente la definición \textbf{(c)} es válida porque usando la validez de la anterior y reemplazando $y$ por $\ol y$ obtenemos este resultado.
+Finalmente la definición \textbf{(c)} es válida porque si usamos lo anteriormente demostrado y reemplazamos $y$ por $\ol y$ obtenemos este resultado.
 
 \medskip
 
 Por la construcción que hicimos nos queda que $\tilde X / \pi_1(\cG, T) \simeq Y$.
+Por otro lado para todo $y \in E(T)$ tenemos que $g_y=1$ por lo que usando las definiciones de las aristas tenemos que $s(\tilde y) = \widetilde{s(y)}$ y similarmente $t(\tilde y) = \widetilde{t(y)}$.
+Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ dado por mandar $P \mapsto \tilde P$ para todo $P \in V(Y)$ y para las aristas mandar $y \mapsto \tilde y$. 
 
 \begin{teo}[Serre]
 	El grafo $\tilde X$ anteriormente construido es un árbol.
 \end{teo}
 \begin{proof}
-	Demo no trivial, requiere palabras reducidas.
-	Ver \cite{serre2002trees}.
+	Debemos ver dos cosas: que es conexo y que no tiene ciclos.
+	
+	Empezamos probando que el grafo es conexo.
+	Dada una arista $\tilde y$ notemos que bien $s(\tilde y) = \widetilde{s(y)}$ o bien que $t(\tilde y) = \widetilde{t(y)}$.
+	Si tomamos el árbol $\tilde T$ éste va a tener como vértices al comienzo o al final de esta arista $\ol y$.
+	De esta manera como $\tilde T$ es conexo y si le agregamos las aristas $\tilde y$ que son conexas e intersecan a $\tilde T$ entonces obtenemos un grafo conexo $W$.
+	Dado que toda arista $\tilde y$ está en $W$ y que $\pi_1(\cG)$ actúa sobre este árbol tenemos que $\pi_1(\cG) \cdot W = \tilde X$.
+	El grupo $\pi_1(\cG)$ está finitamente generado por todos los elementos $g \in G_P$ para todo $P \in V(Y)$ y por los elementos $g_y$ para toda arista $y \in E(Y)$.
+	Llamemos a este conjunto de generadores $S$, luego lo que tenemos es que vale la siguiente igualdad de conjuntos,
+	\[
+		\tilde X = \bigcup_{g \in \pi_1(\cG)} gW = \bigcup_{g=s_1 \dots s_n} \bigcup_{i=1 \dots n} s_{1}\dots s_{i} W  \cup W 
+	\]  
+	donde estamos tomando la unión de todos los elementos de $G$ como la unión de palabras indexadas por su longitud $n$ y todos los trasladados de $W$ por medio de subpalabras de $g$.
+	Probaremos por inducción en la longitud de $g=s_1\dots s_n$, visto sobre el conjunto de generadores $S$, que 
+	\[
+		s_1\dots s_n W \cap s_1 \dots s_{n-1}W \neq \emptyset	
+	\] 
+	por lo tanto la unión 
+	\[
+	W_g = W \cup s_1W \cup \dots \cup s_1\dots s_{n}W
+	\]
+	sería conexa y de esta manera veríamos que $\tilde X$ es conexo tomando la unión sobre todas las palabras del grupo dado que todos los $W_g$ son conexos e intersecan a $W$ un conexo.
+	Para el caso base debemos ver dos casos.
+	\begin{enumerate}
+		\item Si $g=g_y$ para alguna arista $y \in E(Y)$.
+		En este caso dependiendo si $y \in A$ o no obtenemos los siguientes dos casos,
+		\begin{align*}
+			s(g_y \tilde y) &= s(\tilde y)   & \text{si} \ e(y) = 1 \\
+			t(g_y \tilde y) &= t(\tilde y)   & \text{si} \ e(y) = 0 
+		\end{align*}
+		De esta manera $g_yW \cap W = \emptyset$.
+		\item Si $g \in G_P$ para algún $P \in V(Y)$ entonces $g\tilde P = \tilde P \in V(W)$ por lo tanto $gW \cap W \neq \emptyset$. 
+	\end{enumerate} 
+	%Esto se debe a que $W$ lo es y trasladamos por un elemento del grupo y sigue siendo conexo.
+	Ahora para el paso inductivo sigamos con la suposición de que es válido para palabras de longitud no mayor $n-1$. 
+	Queremos verlo para $s_1\dots s_n$ y esto lo podemos hacer notando que 
+	\[
+	s_1(s_2 \dots s_n) W \cap s_2 \dots s_{n} W \neq \emptyset 
+	\]
+	donde usamos la hipótesis inductiva sobre $s_2 \dots s_n W$ que es una palabra de longitud $n-1$ y que al trasladar por $s_1$ lo que está en la intersección está en la intersección de los trasladados.
+	Vimos así que el grafo $\tilde X$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares dado que todos los $W_g$ intersecan a $W$ para todo $g \in \pi_1(\cG)$.
+	
+	Veamos ahora que no tiene ciclos.
+	Probaremos la siguiente proposición equivalente, para todo $n \in \NN$ no existe camino cerrado de longitud $n$ sin backtracking.
+	Sea $\tilde c$ un camino sobre $\tilde X$ con estas propiedades. 
+	Queremos llegar a un absurdo.
+	Sean las aristas de este camino $\tilde c = (s_1\tilde{y_1}, s_2 \tilde{y_2}, \dots, s_n \tilde{ y_n})$.
+	Si miramos la proyección de los vértices tenemos una sucesión de vértices $(P_0, \dots, P_n)$ donde $P_n = P_0$ dado que el camino es cerrado.
+	Introduzcamos la siguiente notación: sea $e_i = e(y_i)$ y sea $g_i = g_{y_i}$.
+	Al ser $\tilde c$ un camino cerrado valen las siguientes igualdades,
+	\begin{align*}
+		t(s_n\tilde y_n) &= s_ng_n^{e_n - 1}\tilde{P_0} = s_1g_1^{-e_1} \tilde{P_0} = s(s_1\tilde{ y_1}) \\ 
+		\vdots \ \ \  &= \ \ \ \ \    \vdots\ \ \ \ \ \ \ \ \ \ \ \ \ \    \vdots \\
+		t(s_{n_1}\widetilde{ y_{n-1}}) &= s_{n-1}g_n^{e_{n-1} - 1}\tilde{P_n} = s_ng_n^{-e_n} = s(s_n\tilde{P_n} )  
+	\end{align*}
+	de manera que considerando $r_i \in G_{P_i} = \pi_{\tilde{ P_i}}$ tal que $r_i = s_ig_i^{e_{i-1}} s_{i+1}^{-1} g_{i+1}^{-e_{i+1}}$ y nombrando a $q_i = s_ig_i^{-e_i}$ 
+	podemos reescribir las igualdades anteriormente obtenidas de la siguiente manera,
+	\begin{align*}
+		q_1 &= q_ng_nr_n \\
+		q_2 &= q_1g_1r_1 \\
+		\vdots & \ \ \ \vdots \\
+		q_n &= q_{n_1}g_{n-1}r_{n-1} 
+	\end{align*}
+	Más aún usando cada ecuación para reescribirla en la anterior obtenemos que,
+	\begin{equation*}
+		g_1r_1 = q_1^{-1} q_2 = \dots = q_n^{-1}q_1
+	\end{equation*}
+	de modo que multiplicando todo de forma telescópica nos termina quedando lo siguiente cuando se nos cancelan todos los $q_i$,
+	\begin{equation*}
+		g_1r_1\dots g_nr_n = 1.
+	\end{equation*} 
+	
+	Para llegar a la contradicción veamos que esto que obtuvimos viene de una palabra reducida de manera que no podría ser la identidad.
+	Sea la palabra $(c, \mu)$ para $F(\cG)$ dada por el camino $c$ anteriormente definido y la sucesión $\mu = (1,r_1, \dots, r_n)$.
+	Solo nos queda ver que efectivamente es una palabra reducida. 
+	Para eso debemos chequear que se cumpla la condición \textbf{R2} de \ref{} ya que suponemos que tiene longitud al menos $1$.
+	
+	Supongamos que existe $i$ tal que $y_{i+1} = \ol{y_i}$ por lo que $g_{i+1} = g_{i}$ y $e_{i+1} = 1 - e_i$.
+	Queremos ver que para ese mismo $i$ vale que $r_i \notin G_{y_i}$.
+	Para eso miramos la ecuación que teníamos 
+	\[
+		q_is_ir_i = q_{i+1}
+	\]
+	de manera que si desarmamos las definiciones y pasamos de lado obtenemos la siguiente igualdad
+	\[
+		r_i = g_i^{e_i - 1} (s_i^{-1} s_{i+1}) g_i^{1-e_i}
+	\]
+	esto es lo mismo que ver que 
+	\[
+		s_i^{-1}s_{i+1} \notin g_i^{1-e_i}G_{y_i} g_i^{e_i - 1}.
+	\]
+	El grupo de la derecha es justamente lo que definimos como $\pi_{y_i}$.
+	Entonces debemos ver que $s_i\pi_{y_i} \neq s_{i+1} \pi_{y_i}$ pero esto vale porque por como definimos las aristas opuestas del grafo $\tilde X$ y por como tomamos a $y_i$ tenemos que 
+	\[
+	\ol{s_{i+1} \tilde{y_{i+1}}} = s_{i+1} \tilde{\ol y_i} 
+	\]
+	pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking.
+	
+	Para concluir notemos que estamos la palabra $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que es camino cerrado no trivial y es una palabra reducida por lo tanto $|c, \mu| \neq 1$ visto en $\pi_1(\cG, T)$ y esto contradice lo anteriormente obtenido.
 \end{proof}
 
 
 \begin{deff}
-	El grafo $\tilde X$ es el \blue{árbol de Bass Serre} del grafo de grupos $\cG$.
+	El grafo $\tilde X$ es el \blue{árbol de Bass Serre} del grafo de grupos $\cG$ sobre un grafo conexo $Y$.
 \end{deff}
 
-\begin{ej}
-	Hacer un ejemplo así como hice antes.
-\end{ej}
-
-Dar conexión con la idea topológica de un revestimiento de un grafo..
+%\begin{ej}
+%	Hacer un ejemplo así como hice antes.
+%\end{ej}
+%
+%Dar conexión con la idea topológica de un revestimiento de un grafo..
 
 \section{Acciones de grupos sobre árboles.}
 
