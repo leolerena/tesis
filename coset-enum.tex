@@ -1,4 +1,7 @@
+%!TeX root = coset-enum.tex
 \documentclass[tesis.tex]{subfiles}
+\newcommand{\fg}{finitamente generado }
+\newcommand{\fp}{finitamente presentado }
 \newcommand{\rep}{\textsc{rep}}
 \newcommand{\coin}{\textsc{coincidencia}}
 \newcommand{\mer}{\textsc{merge}}
@@ -7,23 +10,136 @@
 \newcommand{\scanfill}{\textsc{scanandfill}}
 \newcommand{\ded}{\textsc{deducir}}
 \newcommand{\recorrer}{\textsc{recorrer}}
-
+\newcommand{\In}{[1 \dots n]}
 
 \begin{document}
 
 \chapter{Enumeración de cosets.}
 
-Dado un grupo  $G$ y un subgrupo $H$  vamos a construir y probar la correctitud de un algoritmo para contar la cantidad de cosets $G/H$ a derecha.
+Dado un grupo $G$ \fp muchas de las preguntas más básicas que nos podemos hacer sobre el grupo tales como "¿es finito?" o más aún "¿es el grupo trivial?" resultan ser no decidibles.
+Más aún el problema de la palabra "decidir si dos palabras en los generadores del grupo son idénticas" también resultó ser no decidible.
 
+Dicho esto muchos de estos problemas resultan ser semidecidibles.
+Esto es que si resulta que este grupo es trivial o finito lo podemos probar si bien no tengamos un algoritmo que funcione para este caso.
+
+El procedimiento que vamos a enfocarnos toma un grupo $G$ \fp y un subgrupo $H$ tal que sus generadores están especificados como palabras en los generadores de $G$ e intenta verificar que $(G:H)$ es finito.
+No podemos decir que es un algoritmo porque no siempre va a terminar.
+Si $(G:H)$ es finito entonces va a terminar.
+En cambio si es infinito en principio el procedimiento correría para siempre (en la práctica hasta que se termine la memoria de la computadora).
+Si el procedimiento termina habremos obtenido que el índice es finito y obtendremos cuánto es este índice y como es la tabla de los cosets.
+Esta tabla de cosets resulta ser equivalente a la representación de $G$ como permutaciones de los cosets de $H$ a derecha visto con la multiplicación a derecha.
 
 \section{Ejemplo a mano.}
 
+Veamos primero un ejemplo de como funciona el algoritmo en un caso chiquito.
+Para facilitarnos la lectura cada vez que tenemos un generador $a$ vamos a escribir $\ol a$ cuando estamos hablando de $a^{-1}$.
+
+Consideremos el grupo finito dado por la presentación $G = \langle x , y \ | \ x^2, y^3, xyx^{-1}y^{-1} \rangle$ que es isomorfo al grupo $C_2 \times C_3$. 
+Consideremos que $H = \langle x \rangle $.
+El algoritmo entonces lo que nos debería devolver es $|G:H| = 3$.
+
+Empezamos denotando con \textbf{1} al coset trivial correspondiente a $H$ en $G/H$.
+Como $x \in H$ entonces sabemos que $Hx = H$ denotaremos por $1^x = 1$ a la multiplicación de $1$ por $x$.
+Por otro lado denotemos con \textbf{2} al coset $1^y$ y denotaremos por \textbf{3} al coset $1^{\ol y}$.
+
+¿Qué podemos hacer?
+Sabemos que todo coset $\alpha$ es tal que $\alpha^r = \alpha$ para todo $r \in R$.
+Vamos a introducir un proceso que se llama \textit{escanear las relaciones}.
+
+Por ejemplo tomemos $r = y^3$ y escaneamos a $1$.
+Tenemos que $1^y = 2$ por como definimos al coset $2$. 
+Por otro lado tenemos que $1^{y^2} = 2^y$ todavía no está definido.
+Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta relación tenemos que $1^{\ol y} = 3$ porque así lo definimos y por otro lado que $3^{\ol y}$ no está definido.
+De esto podemos \textit{deducir} que $2^y = 3$.
+Una manera gráfica de ver este proceso de deducción es la siguiente:
+\todo[inline]{Agregar grafiquito como un grafo que nos da la deducción.}
+Notemos que de esta deducción también obtenemos que $3^{\ol y} = 2$. 
+
+Finalmente si escaneamos las otras relaciones para los cosets $1$ y $\textbf{2}$ obtenemos
+que $3^x = 3$ y que $2^x = 2$.
+
+De esta manera podemos juntar todo lo obtenido en la siguiente tabla:
+
+Como todos los cosets escanean correctamente por medio de las relaciones del grupo y todas las entradas de la tabla de cosets están bien definidas el procedimiento termina y obtenemos que el indice del subgrupo resulta ser equivalente a la cantidad de cosets que nos terminaron quedando, en este caso exactamente $3$.
+ 
+
 \section{Tablas de cosets.}
 
+Ahora veamos de definir la tabla en el caso más en general.
+
+Partamos de un grupo \fp $G$ con presentación $\langle X | R \rangle$ y un subgrupo $H$ que es \fg por $\langle Y \rangle$.
+Haremos la distinción nombrando $A = X \cup X^{-1}$ a los generadores como monoide.
+A los conjuntos $R$ e $Y$ los vamos a considerar como subconjuntos de palabras en $A^*$.
+
+Definimos la tabla de cosets $\cal C$ como una tupla con los siguientes $4$ elementos.
+\begin{enumerate}
+	\item $n$ un número natural;
+	\item $\tau:[1\dots n] \to A^*$ una función; 
+	\item $p: [1 \dots n] \to [1 \dots n]$ una función tal que $p(\alpha) \le \alpha$ para todo $\alpha \in [1\dots n]$.
+	\item $\chi:[1 \dots n]  \times A^{*} \to [1 \dots n]$ una función parcial --no necesariamente definida para todas las tuplas $(\alpha, w)$ con $\alpha \in [1 \dots n]$ y $w \in A^*$.
+\end{enumerate}
+
+Todos estos atributos los iremos cambiando a medida que corremos el algoritmo.
+
+La función parcial $\chi$ es lo que nos va a dar la multiplicación por los generadores $A$ en los cosets. 
+Generalmente escribiremos para referirnos a $\chi (\alpha, x) = \beta$ como $\alpha^x = \beta$ así tal como hicimos en el ejemplo anterior.
+
+Definimos los cosets vivos $\Omega = \{ \alpha \in \In  \ | \ p(\alpha) = \alpha \}$.
+El rol de $p$ como función es diferenciarnos qué números de $\In$ efectivamente se corresponden a cosets que, hasta el momento, sepamos que son cosets distintos.
+Esto es porque muchas veces sucede en el algoritmo que nombraremos con $\alpha < \beta$ a dos elementos que resultaron ser efectivamente el mismo coset.
+
+La tabla de cosets vamos a querer que mantenga ciertas propiedades a medida que corramos el algoritmo, esto vendría a ser algo así como el invariante de representación.
+A todo momento queremos que valgan las siguientes cuatro propiedades.
+\begin{enumerate}[P1.]
+	\item $1 \in \Omega$ y $1^{\tau(\alpha)} = \alpha$.
+	\item $\alpha^x = \beta \iff \beta^{\ol x} = \alpha$.
+	\item Si $\alpha^x = \beta$ entonces tenemos que $H \tau(\alpha) x = H \tau(\beta)$
+	\item Para todo $\alpha \in \Omega$ tenemos que $1^{\tau(\alpha)}$ está definido y $1^{\tau(\alpha)} = \alpha$.
+\end{enumerate}
 \section{Algoritmos para definir y recorrer cosets.}
 
+Veamos ahora como son los algoritmos que tenemos para ir llenando la tabla de cosets.
+
+Primero veamos el primer algoritmo que nos sirve para definir un coset nuevo.
+
+\todo[inline]{Agregar el seudocódigo de este algoritmo.}
+
+Notemos que si suponemos que las propiedades \textbf{P1-P4} valen entonces si corremos el algoritmo de definir siguen valiendo.
+
+
+Ahora veamos el procedimiento de escanear un coset bajo una palabra arbitraria $w$.
+
+Cuando estamos escaneando un coset por una palabra podemos llegar a una \textit{deducción} tal como hicimos en los casos anteriores.
+Veamos que estas deducciones no nos rompen las propiedades que queremos que mantengan las tablas de cosets.
+\begin{prop}
+	Si deducimos que $\alpha^x = \beta$ y que $\beta^{\ol x} = \alpha$ a partir de escanear algún coset $\alpha$ para alguna relación $w \in R$ o bien $w \in Y$ luego todas las propiedades \textbf{P1-P4} siguen siendo ciertas después de esta deducción.
+\end{prop}
+\begin{proof}
+	.
+\end{proof}
 
 \section{Correctitud del algoritmo (caso sin coincidencias).}
+
+Probemos la correctitud de este procedimiento en este caso que no tenemos coincidencias.
+Vale el siguiente teorema.
+\begin{teo}
+	Asumamos que:
+	\begin{enumerate}
+		\item Las propiedades \textbf{P1-P4} son válidas;
+		\item La tabla de cosets está completa (dicho de otra forma);
+		\item El \textbf{1} escanea correctamente para todo $w \in Y$;
+		\item Todos los $\alpha \in \In$ escanean correctamente para toda palabra $r \in R$.
+	\end{enumerate}
+	Entonces $|G:H| = |\Omega|$.
+	Más aún para cada $x \in A$ obtenemos $\phi_x(\alpha) : \Omega \to \Omega$ tal que $\phi_x(\alpha) = \alpha^x$ es una permutación de $\Omega$ y podemos extenderlo a $\phi$ un morfismo $G \to S(\Omega)$ que es equivalente a la acción de $G$ sobre los cosets $G/H$.
+\end{teo}
+\begin{proof}
+	.
+\end{proof}
+
+
+
+
 
 \section{G-congruencias.}
 En esta sección vamos a considerar un grupo $G = \langle X, R \rangle$ finitamente generado como en el resto del algoritmo aunque vamos a tomar las palabras en el monoide libre de los generadores $A = X \cup X^{-1}$.
@@ -290,6 +406,12 @@ Sabemos que bajo estas hipótesis $\alpha^w = \alpha$.
 %\end{algorithm}
 
 
+\section{Enumeración de cosets.}
+
+
+
+\section{Ejemplo de $C_2 \ast C_3$}
+Veamos de hacer el ejemplo sobre un grupo infinito.
 
 
 \end{document}
