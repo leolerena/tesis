@@ -30,7 +30,7 @@ Una \blue{orientación} de las aristas es una función $o:E(Y) \to \{ 0 ,1 \}$ t
 	Un \blue{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
 	\begin{enumerate}
 		\item Para cada vértice $P \in V(Y)$ tenemos un grupo $G_P$.
-		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{s(y)}$ y $G_y \le G_{t(y)}$.
+		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{t(y)}$.
 		\item Para todo $y \in E(Y)$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
 	\end{enumerate}
 \end{deff}
@@ -159,14 +159,7 @@ Podemos ver que ambas definiciones son equivalentes porque son isomorfos como gr
 	Esto porque $T[P,Q]$ es un camino de aristas en el árbol de expansión por lo tanto sobre $\pi_1(\cG, T)$ son la identidad.
 \end{proof}
 
-\begin{teo}
-	Para todo $P \in V(Y)$ vale que $G_P \le \pi_1(\cG)$. 
-\end{teo}
-\todo[inline]{Buscar una manera decente de probar este resultado. No es tan trivial como parece.}
-\begin{proof}
-	Demo no trivial porque no sabemos bien que al pasar al cociente todo siga andando. 
-	Diekert supera este problema usando sistemas de reescrituras y eso lo vuelve más liviano.
-\end{proof}
+
 
 \section{Casos particulares.}
 
@@ -651,7 +644,7 @@ Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ d
 	El grupo de la derecha es justamente lo que definimos como $\pi_{y_i}$.
 	Entonces debemos ver que $s_i\pi_{y_i} \neq s_{i+1} \pi_{y_i}$ pero esto vale porque por como definimos las aristas opuestas del grafo $\tilde X$ y por como tomamos a $y_i$ tenemos que 
 	\[
-	\ol{s_{i+1} \tilde{y_{i+1}}} = s_{i+1} \tilde{\ol y_i} 
+	\ol{s_{i+1} \widetilde{y_{i+1}}} = s_{i+1} \widetilde{\ol y_i} 
 	\]
 	pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking.
 	
