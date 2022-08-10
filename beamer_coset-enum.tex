@@ -237,8 +237,8 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	
 	\begin{center}
 		\begin{tikzcd}
-		1 \arrow[r, "x", bend left] & 1 \arrow[r, "y", bend left]         & 2 \arrow[r, "X", dotted, bend left]            & 2 \arrow[r, "Y", bend left] & 1 \\
-		2 \arrow[r, "x", bend left] & 2 \arrow[r, "y", bend left]         & 3 \arrow[r, "X", dotted, bend left]            & 3 \arrow[r, "Y", bend left] & 2
+		\textbf{1} \arrow[r, "x", bend left] & \textbf{1} \arrow[r, "y", bend left]         & \textbf{2} \arrow[r, "X", dotted, bend left]            & \textbf{2} \arrow[r, "Y", bend left] & \textbf{1} \\
+		\textbf{2} \arrow[r, "x", bend left] & \textbf{2} \arrow[r, "y", bend left]         & \textbf{3} \arrow[r, "X", dotted, bend left]            & \textbf{3} \arrow[r, "Y", bend left] & \textbf{2}
 		\end{tikzcd}
 	\end{center}
 
@@ -306,36 +306,143 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}[fragile]{Algoritmo para definir.}
-	.
+\begin{frame}[fragile]{Algoritmo de escanear y completar.}
+	Vamos a usar la siguiente estrategia para enumerar cosets conocido como \scanfill.
+	\pause
+	
+	
+	
+	\pause
+	Vamos a definir las 4 rutinas mencionadas y probar que mantienen las propiedades de la tabla una vez que las aplicamos.
 \end{frame}
+
 
 \begin{frame}[fragile]{Algoritmo para recorrer.}
-.	
+	
+	
+	Como no modificamos nada de la tabla de cosets $\Co$ siguen valiendo las propiedades \textbf{P1-P4}.
 \end{frame}
 
-\begin{frame}[fragile]{Correctitud del algoritmo.}
-asdjasjdajsdjasdjasjd
+
+\begin{frame}[fragile]{Algoritmo para definir.}
+	
+	
+	Todas las propiedades siguen valiendo después de ejecutar esta rutina.
+		.
 \end{frame}
 
-\begin{frame}[fragile]{Coincidencia.}
-	asdasdasd
+\begin{frame}[fragile]{Rep.}
+	Este algoritmo nos busca un representante de la clase de equivalencia de $\alpha$ un coset de una tabla $\Co$.
+	
+	
+\end{frame}
+
+\begin{frame}[fragile]{Merge.}
+	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase.	
 \end{frame}
 
 \begin{frame}[fragile]{$G$-equivalencias.}
- asdasdasd
+	Sabemos que al finalizar el algoritmo nos queda la acción sobre los cosets $G/H$ si nos restringimos a $\Omega$ pero ¿qué sucede en el medio?
+	\pause
+	
+	
+	\begin{alertblock}{Definición}
+		Una \alert{G-congruencia} es una relación de equivalencia sobre un conjunto $X$ con una acción parcial de $G$ que aparte satisface la siguiente propiedad.
+		Si $x \sim y$ luego para todo $g \in G$  vale que $xg \sim yg$ siempre y cuando $xg$ e $yg$ estén definidas.
+	\end{alertblock}
+	\pause
+	
+	
+	
+	Así como tenemos relaciones de equivalencias generadas a partir de algún subconjunto $S \subseteq X \times X$ podemos considerar la menor $G$ congruencia generada a partir de $S$.
+	
+	
+	
+	\pause
+	
+	Cumple la siguiente propiedad universal.
+	
 \end{frame}
+
+\begin{frame}[fragile]{$G$-equivalencias en nuestro contexto.}
+	En nuestro caso consideramos:
+	\begin{itemize}
+		\item El conjunto $X = \In$ los cosets definidos.
+		\pause
+		\item La relación $\sim$ es la generada a partir de $p$.
+		\pause
+		\item El grupo $G$ es el grupo al cual le estamos enumerando los cosets a derecha respecto de un subgrupo $H$.
+		\pause 
+	\end{itemize}
+
+\pause
+
+Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
+\end{frame}
+
+\begin{frame}[fragile]{Coincidencia.}
+	
+	
+	\textbf{Interpretación del algoritmo}:
+	Nos armamos la $G$-equivalencia a partir de $\sim$ más chica que contiene al par $(\alpha, \beta)$.
+	
+\end{frame}
+
 
 \begin{frame}[fragile]{Correctitud del algoritmo de coincidencia.}
 	Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
 \end{frame}
 
-\begin{frame}[fragile]{Algoritmo de escanear y completar.}
-	asdasdasd
-\end{frame}
+
 
 \begin{frame}[fragile]{Algoritmo de enumeración de cosets.}
 asdasdasd
+\end{frame}
+
+
+
+
+\begin{frame}[fragile]{Cuándo termina el procedimiento.}
+	El algoritmo de enumeración de cosets termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
+	\pause
+	
+	
+	Consideremos el (posiblemente infinito) conjunto $\ol \Omega$ de los cosets que no son eliminados por ningún llamado de \coin.
+
+	\pause
+	
+	
+	
+	
+	\textbf{Propiedad 5.} El conjunto $\ol \Omega$ es tal que:
+	\begin{enumerate}
+		\item Para cada $\alpha \in \overline \Omega$ y para cada $x \in A$ en algún momento $\alpha^x$ va a estar definido;
+		\item Para cada $w \in Y$ en algún momento llamamos a \scan($\textbf{1},w$);
+		\item Para cada $\alpha \in \ol \Omega$ y para cada $w \in R$ en algún momento llamamos a \scan$(\alpha, w)$.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Continuación.}
+	\begin{alertblock}{Teorema}
+		Si las propiedades 1 a 5 se mantienen durante el algoritmo de enumeración de cosets de $G$ con respecto al subgrupo $H$ y $[G:H] < \infty$ entonces el algoritmo eventualmente termina.
+	\end{alertblock}
+	\pause
+	
+	
+	\textbf{Demostración.} 
+	\begin{itemize}
+		\item Primero veamos el caso que $\ol \Omega$ es finito.
+		\pause
+		\item Usamos la \textbf{P5} para ver que en algún momento $\alpha^x$ queda definido para todo $\alpha \in \ol\Omega, x \in A$.
+		\pause 
+		Podemos tomar el momento para que todo estos cosets estén estabilizados.
+		\pause
+		En ese momento tendríamos que $\Omega = \ol \Omega$ y nuestra tabla está completa y así nuestro algoritmo termina.
+		\item Veamos el caso que $\ol \Omega$ es infinito.
+		\pause
+		\item Como vale la propiedad 5 estamos en condiciones de usar el teorema anterior \ref{} de manera que el índice de $H$ resulta ser infinito.
+		Contradicción.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo del algoritmo en $C_2 \ast C_3$ pt I.}
