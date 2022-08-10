@@ -1,0 +1,346 @@
+\documentclass[aspectratio=169, 9pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{pifont}
+\newcommand{\xmark}{\ding{55}}
+\usetheme[progressbar=frametitle]{metropolis}
+\usepackage{appendixnumberbeamer}
+\usepackage{hyperref}
+\usepackage{eufrak}
+\usepackage{tikz-cd}
+\usepackage{tcolorbox}
+\usepackage{enumitem}% http://ctan.org/pkg/enumitem
+	\definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
+
+\setbeamercolor{background canvas}{bg=white}
+\usepackage{multicol}
+\usepackage{chronology}
+%%%%%%%%%%%%%%%%%%%%% ENUMERAR CON COSAS QUE NO SEAN SOLO NÚMEROS %%%%%%%%%%
+%\usepackage[shortlabels]{enumitem}
+%\setlist[enumerate]{font=\bfseries}
+
+\usepackage{booktabs}
+%\usepackage[scale=2]{ccicons}
+
+\usepackage{pgfplots}
+%\usepgfplotslibrary{dateplot}
+\colorlet{verde}{green!50!black}
+\definecolor{amber}{rgb}{1.0, 0.49, 0.0}
+\setbeamercolor{progress bar}{fg=amber,bg=alerted text.fg!50!black!10}
+
+\makeatletter
+\setlength{\metropolis@titleseparator@linewidth}{2pt}
+\setlength{\metropolis@progressonsectionpage@linewidth}{2pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{2pt}
+\makeatother
+
+\definecolor{ultramarine}{RGB}{81, 131, 232} 
+\setbeamercolor{frametitle}{bg= ultramarine}
+
+\usepackage{framed}
+\definecolor{shadecolor}{gray}{0.9}
+
+\renewcommand\qedsymbol{\textcolor{orange}{$\blacksquare$}}
+
+\usepackage[font={footnotesize}]{caption}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+\newcommand{\fg}{finitamente generado }
+\newcommand{\fp}{finitamente presentado }
+\newcommand{\rep}{\textsc{rep}}
+\newcommand{\coin}{\textsc{coincidencia}}
+\newcommand{\mer}{\textsc{merge}}
+\newcommand{\scan}{\textsc{scan}}
+\newcommand{\definir}{\textsc{definir}}
+\newcommand{\scanfill}{\textsc{scanandfill}}
+\newcommand{\ded}{\textsc{deducir}}
+\newcommand{\recorrer}{\textsc{recorrer}}
+\newcommand{\In}{[1 \dots n]}
+\newcommand{\ol}{\overline}
+\newcommand{\Co}{\cal{C}}
+
+
+
+\title{Algoritmo de enumeración de cosets.}
+\subtitle{Final de teoría de grupos.}
+\date{\today}
+\author{Leopoldo Lerena}
+\institute{Universidad de Buenos Aires}
+% \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
+
+\begin{document}
+\maketitle
+
+\begin{frame}[fragile]{}
+
+El algoritmo de enumeración de cosets nos permite responder, en algunos casos, las siguientes preguntas elementales de un grupo $G$ conociendo una presentación suya.
+
+\begin{itemize}
+	\item ¿Cuál es su orden?
+	\pause
+	\item ¿Cuál es 	el índice de un subgrupo $H$ dado por generadores?
+	\pause
+	\item ¿Cómo es su grafo de Cayley?
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Algoritmos en teoría de grupos.}
+	Muchos preguntas elementales de la teoría de grupos tales como:
+	\begin{itemize}
+		\item ¿Es un grupo finito?
+		\pause
+		\item Más aún, ¿es el grupo trivial?
+	\end{itemize}
+	\pause
+	No son \textit{decidibles}. 
+	Esto es que no existe un algoritmo que nos pueda responder estas preguntas para cualquier grupo que le preguntemos.
+	\medskip
+	
+	\pause
+	
+	
+	Nos tenemos que conformar con que existan procedimientos que son \textit{semidecidibles}. 
+	Esto es que si resulta que este grupo cumple estas propiedades podremos probarlo
+	que este procedimiento da la respuesta correcta.
+\end{frame}
+
+\begin{frame}[fragile]{Descripción del algoritmo.}
+	El procedimiento de enumeración de cosets requiere los siguientes parámetros para la entrada:
+	\begin{itemize}
+		\item Un grupo $G$ \fp;
+		\pause
+		\item Una presentación finita de este grupo $\langle X | R \rangle$;
+		\pause
+		\item Un subgrupo $H \le G$  \fg con generadores $Y$ visto como palabras en $A = X \cup X^{-1}$.
+	\end{itemize}
+	\pause
+	\medskip
+	
+	En el caso que el procedimiento termine nos va a devolver lo siguiente:
+	\begin{itemize}
+		\item El índice del subgrupo $H$ en $G$.
+		\pause
+		\item La representación de $G$ por permutaciones actuando a derecha por multiplicación sobre los cosets a derecha de $H$.
+		\pause 
+	\end{itemize}  
+\end{frame}
+
+\begin{frame}[fragile]{Un poco de historia.}
+	El primer algoritmo de esta familia fue construido por Todd--Coxeter en el paper ""
+	\alert{Agregar imagen del paper}
+	con la idea de poder hacer manualmente este conteo de  
+\end{frame}
+
+\begin{frame}[fragile]{}
+	\section{Ejemplo a mano del procedimiento.}
+	Partamos del grupo \fp $G = \langle x, y | x^2, y^3, xyXY \rangle$.
+	\pause
+	Tomemos como subgrupo $H = \langle x \rangle$.
+	\pause
+	El algoritmo entonces lo que nos debería devolver es $|G:H| = 3$.
+	\pause
+	\medskip
+	
+	
+	Empezamos denotando con \textbf{1} al coset trivial correspondiente a $H$ en $G/H$.
+	\pause 
+	Como $x \in H$ entonces sabemos que $Hx = H$, denotaremos por $\textbf{1}^x = \textbf{1}$ a la multiplicación de $\textbf{1}$ por $x$.
+	Similarmente $\textbf{1}^{X} = \textbf{1}$.
+	\pause
+	Por otro lado denotemos con \textbf{2} al coset $\textbf{1}^y$ y denotaremos por \textbf{3} al coset $\textbf{1}^{Y}$.
+	\pause
+	
+	Por ahora esto es lo que sabemos de la acción de $G$ sobre los cosets.
+	\begin{table}[]
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			Coset     & x          & X          & y          & Y          \\ \hline
+			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
+			\textbf{2} &            &            &            &  \textbf{1}          \\ \hline
+			\textbf{3} &            &            &     \textbf{1}       &            \\ \hline
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+\begin{frame}[fragile]{Continuación del ejemplo.}
+	
+\begin{alertblock}{Pregunta.}
+	¿Qué podemos hacer?
+\end{alertblock}
+\pause
+Sabemos que todo coset $\alpha$ es tal que $\alpha^r = \alpha$ para todo $r \in R$.
+\pause
+
+Vamos a introducir un proceso que se llama \textit{escanear las relaciones}.
+
+\pause
+Por ejemplo tomemos $r = y^3$ y escaneamos a $\textbf{1}$.
+
+
+\begin{table}[]
+	\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		Coset     & x          & X          & y          & Y          \\ \hline
+		\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
+		\textbf{2} &            &            &            &  \textbf{1}          \\ \hline
+		\textbf{3} &            &            &     \textbf{1}       &            \\ \hline
+	\end{tabular}
+\end{table}
+\pause
+
+Tenemos que $\textbf{1}^y = \textbf{2}$ por como definimos al coset $\textbf{2}$. 
+Por otro lado tenemos que $\textbf{1}^{y^2} = \textbf{2}^y$ todavía no está definido.
+\pause
+
+
+Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta relación tenemos que $\textbf{1}^{Y} = \textbf{3}$ porque así lo definimos y por otro lado que $\textbf{3}^{Y}$ no está definido.
+\pause
+
+\end{frame}
+
+\begin{frame}[fragile]{Continuación}
+	De lo anterior podemos \textit{deducir} que $\textbf{2}^y = \textbf{3}$.
+	
+	\medskip
+	\begin{center}
+		\begin{tikzcd}
+		\textbf{1} \arrow[r, "y", bend left] & \textbf{2} \arrow[r, "y", dotted, bend left] & \textbf{3} \arrow[r, "y", bend left] & \textbf{1}
+		\end{tikzcd}
+	\end{center}
+	\pause
+	
+	De esta manera nuestra tabla ahora tiene la siguiente pinta.
+	
+
+	
+	
+	\begin{table}[]
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			Cosets     & x          & X          & y          & Y          \\ \hline
+			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
+			\textbf{2} &            &            & \color{verde}\textbf{3} &     \textbf{1}       \\ \hline
+			{\textbf{3}} &            &            &   \textbf{1}         & \color{verde}\textbf{2} \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	
+\end{frame}
+
+\begin{frame}[fragile]{Continuación}
+	Cuando escaneamos la relación $xyXY$ para los cosets \textbf{1} y \textbf{2} 
+	llegamos a las siguientes deducciones 
+	
+	\begin{center}
+		\begin{tikzcd}
+		1 \arrow[r, "x", bend left] & 1 \arrow[r, "y", bend left]         & 2 \arrow[r, "X", dotted, bend left]            & 2 \arrow[r, "Y", bend left] & 1 \\
+		2 \arrow[r, "x", bend left] & 2 \arrow[r, "y", bend left]         & 3 \arrow[r, "X", dotted, bend left]            & 3 \arrow[r, "Y", bend left] & 2
+		\end{tikzcd}
+	\end{center}
+
+\pause
+	Así terminamos de completar la tabla.
+	
+	\begin{table}[]
+		\begin{tabular}{|l|l|l|l|l|}
+			\hline
+			Cosets     & x          & X          & y          & Y          \\ \hline
+			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
+			\textbf{2} & \color{verde}\textbf{2} & \color{verde}\textbf{2} & \textbf{3} & \textbf{1} \\ \hline
+			\textbf{3} & \color{verde}\textbf{3} & \color{verde}\textbf{3} & \textbf{1} & \textbf{2} \\ \hline
+		\end{tabular}
+	\end{table}
+	
+	El procedimiento terminó y obtenemos que el índice del subgrupo $H$ en $G$ resulta ser la cantidad de cosets que nos terminaron quedando, en este caso exactamente $3$.
+\end{frame}
+
+\begin{frame}[fragile]{Tabla de cosets.}
+	\section{Tabla de cosets.}
+	Sea $G = \langle X | R \rangle$ un grupo \fp y sea $A = X \cup X^{-1}$ sus generadores y sus inversos.
+	\pause
+	
+	La tabla de cosets $\Co $ va a ser una tupla $(n, \tau, \chi, p)$ donde:
+	\pause
+	\begin{itemize}
+		\item $n$ es la cantidad de cosets que tenemos definidos, esto es el intervalo $\In$ va a representar a todos los cosets definidos;
+		\pause
+		\item $\tau : \In \to A^*$ es una función que a cada coset $\alpha$ le asigna una palabra en los generadores tal que $\tau(\alpha)$ sea un representante de la clase de este coset.
+		\pause
+		\item $\chi: \In \times A \to \In$ una función parcial que (cuando está definida) tal que $\chi(\alpha, x) = \beta \iff \alpha^x = \beta$.
+		\pause
+		\item $p: [1 \dots n] \to [1 \dots n]$ una función tal que $p(\alpha) \le \alpha$ para todo $\alpha \in [1\dots n]$.
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}[fragile]{Continuación}
+	Definimos los \emph{cosets vivos} como $\Omega = \{ \alpha \in \In  \ | \ p(\alpha) = \alpha \}$.
+	Muchas veces nos va suceder que dos valores $\alpha, \beta \in \In$ se corresponden al mismo coset.
+	El rol de $p$ es diferenciarnos qué elementos de $\In$ efectivamente se corresponden a distintos cosets.
+	\pause
+	\medskip
+	
+	
+	
+	La tabla está \emph{completa} si la restricción $\chi:\Omega \times A \to \In$ está definida para todos los pares $(\alpha, x) \in \Omega \times A$. 
+\end{frame}
+
+\begin{frame}[fragile]{Propiedades de la tabla de cosets.}
+	La tabla de cosets vamos a querer que mantenga ciertas propiedades a medida que corramos el algoritmo, esto vendría a ser el invariante de representación.
+	\pause
+	
+	
+	
+	\begin{enumerate}
+		\item $1 \in \Omega$ y $1^{\tau(\alpha)} = \alpha$.
+		\pause
+		\item $\alpha^x = \beta \iff \beta^{X} = \alpha$.
+		\pause
+		\item Si $\alpha^x = \beta$ entonces tenemos que $H \tau(\alpha) x = H \tau(\beta)$
+		\pause
+		\item Para todo $\alpha \in \Omega$ tenemos que $1^{\tau(\alpha)}$ está definido y $1^{\tau(\alpha)} = \alpha$.
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Algoritmo para definir.}
+	.
+\end{frame}
+
+\begin{frame}[fragile]{Algoritmo para recorrer.}
+.	
+\end{frame}
+
+\begin{frame}[fragile]{Correctitud del algoritmo.}
+asdjasjdajsdjasdjasjd
+\end{frame}
+
+\begin{frame}[fragile]{Coincidencia.}
+	asdasdasd
+\end{frame}
+
+\begin{frame}[fragile]{$G$-equivalencias.}
+ asdasdasd
+\end{frame}
+
+\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia.}
+	Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
+\end{frame}
+
+\begin{frame}[fragile]{Algoritmo de escanear y completar.}
+	asdasdasd
+\end{frame}
+
+\begin{frame}[fragile]{Algoritmo de enumeración de cosets.}
+asdasdasd
+\end{frame}
+
+\begin{frame}[fragile]{Ejemplo del algoritmo en $C_2 \ast C_3$ pt I.}
+asdasdasdasd
+\end{frame}
+
+
+\end{document}

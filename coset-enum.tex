@@ -17,12 +17,13 @@
 \chapter{Enumeración de cosets.}
 
 Dado un grupo $G$ \fp muchas de las preguntas más básicas que nos podemos hacer sobre el grupo tales como "¿es finito?" o más aún "¿es el grupo trivial?" resultan ser no decidibles.
-Más aún el problema de la palabra "decidir si dos palabras en los generadores del grupo son idénticas" también resultó ser no decidible.
+El problema de la palabra que es el de "decidir si dos palabras en los generadores del grupo son idénticas" también resultó ser no decidible.
 
 Dicho esto muchos de estos problemas resultan ser semidecidibles.
 Esto es que si resulta que este grupo es trivial o finito lo podemos probar si bien no tengamos un algoritmo que funcione para este caso.
 
-El procedimiento que vamos a enfocarnos toma un grupo $G$ \fp y un subgrupo $H$ tal que sus generadores están especificados como palabras en los generadores de $G$ e intenta verificar que $(G:H)$ es finito.
+El procedimiento que vamos a enfocarnos toma un grupo $G$ \fp y un subgrupo $H$ tal que sus generadores están especificados como palabras en los generadores de $G$. 
+Este procedimiento intenta verificar que $(G:H)$ es finito.
 No podemos decir que es un algoritmo porque no siempre va a terminar.
 Si $(G:H)$ es finito entonces va a terminar.
 En cambio si es infinito en principio el procedimiento correría para siempre (en la práctica hasta que se termine la memoria de la computadora).
@@ -136,9 +137,6 @@ Vale el siguiente teorema.
 \begin{proof}
 	.
 \end{proof}
-
-
-
 
 
 \section{G-congruencias.}
