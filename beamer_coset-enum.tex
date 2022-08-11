@@ -25,6 +25,13 @@
 \usepackage{booktabs}
 %\usepackage[scale=2]{ccicons}
 
+\usepackage{clrscode3e}
+
+%%%%%%%% ALGORITMOS %%%%%%%%
+%\usepackage{algorithm}
+%\usepackage[noend]{algpseudocode}  % "noend" es para no mostrar los endfor, endif
+
+
 \usepackage{pgfplots}
 %\usepgfplotslibrary{dateplot}
 \colorlet{verde}{green!50!black}
@@ -61,7 +68,7 @@
 \newcommand{\recorrer}{\textsc{recorrer}}
 \newcommand{\In}{[1 \dots n]}
 \newcommand{\ol}{\overline}
-\newcommand{\Co}{\cal{C}}
+\newcommand{\Co}{{\cal{C}}}
 
 
 
@@ -306,9 +313,37 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	\end{enumerate}
 \end{frame}
 
-\begin{frame}[fragile]{Algoritmo de escanear y completar.}
-	Vamos a usar la siguiente estrategia para enumerar cosets conocido como \scanfill.
+\begin{frame}[fragile]{Método de las relaciones.}
+	
+	La estrategia para enumerar cosets que vamos a seguir se llama el \alert{el método de las relaciones}.
 	\pause
+	
+	
+	
+	El siguiente grafo nos va a orientar con los procesos que vamos a definir:
+	
+	
+	
+\end{frame}
+
+
+\begin{frame}[fragile]{Algoritmo de escanear y completar.}
+	
+\begin{codebox}
+	\Procname{
+		$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ \alpha : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$
+	}
+	\li \textbf{Sea} ($\beta$,$w_1$) := \recorrer$(\Co, \alpha, w)$ en
+	\Do 
+	\li			\textbf{Sea} ($\gamma$, $w_2$) :=  \recorrer$(\Co,\alpha, w_1^{-1})$ en
+	\Do 
+	\li 		\textbf{Match} $w_2^{-1}$, 
+	\Do 
+	\li $\|$ \ $\emptyset$ = \ \textbf{Si }\ $\beta = \gamma$ \  \textbf{entonces} \  \Co \ \ \textbf{sino} \coin \ $(\Co, \beta, \gamma)$
+	\li $\|$ \ $x$ = \ded \ $(\Co, \beta, \gamma, x)$
+	\li $\|$ \ $x_0w'$ = \scanfill \  (\definir \ $(\Co, \beta, x_0), \alpha, w)$ 
+	\End
+\end{codebox}
 	
 	
 	
@@ -347,14 +382,14 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	
 	
 	\begin{alertblock}{Definición}
-		Una \alert{G-congruencia} es una relación de equivalencia sobre un conjunto $X$ con una acción parcial de $G$ que aparte satisface la siguiente propiedad.
+		Una \alert{G-equivalencia} es una relación de equivalencia sobre un conjunto $X$ con una acción parcial de $G$ que aparte satisface la siguiente propiedad.
 		Si $x \sim y$ luego para todo $g \in G$  vale que $xg \sim yg$ siempre y cuando $xg$ e $yg$ estén definidas.
 	\end{alertblock}
 	\pause
 	
 	
 	
-	Así como tenemos relaciones de equivalencias generadas a partir de algún subconjunto $S \subseteq X \times X$ podemos considerar la menor $G$ congruencia generada a partir de $S$.
+	Así como tenemos relaciones de equivalencias generadas a partir de algún subconjunto $S \subseteq X \times X$ podemos considerar la menor $G$ equivalencia generada a partir de $S$.
 	
 	
 	
@@ -396,11 +431,27 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 
 
 \begin{frame}[fragile]{Algoritmo de enumeración de cosets.}
-asdasdasd
+
+\begin{codebox}
+	\Procname{
+		$\proc{CosetEnumeration}(G : \text{Grupo}, X : \text{Conjunto}, \ R : {\cal P}(A^{*}), \ Y : {\cal P}{(A^*)} ) : \ \  (\Co : \text{Tabla de cosets})$
+	}
+	\li  \Comment Inicializamos la tabla de cosets para nuestra presentación de $G$.
+	\li $n=1, p[1]=1$,
+	\li \textsc{LoopOverGens}$(\Co, Y)$ 
+	\li \textsc{LoopOverCosets}$(\Co, A)$
+	\End
+\end{codebox}
+
+
+
 \end{frame}
 
 
+\begin{frame}[fragile]{Correctitud del algoritmo.}
 
+
+\end{frame}
 
 \begin{frame}[fragile]{Cuándo termina el procedimiento.}
 	El algoritmo de enumeración de cosets termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
