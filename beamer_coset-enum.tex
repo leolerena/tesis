@@ -61,6 +61,7 @@
 \newcommand{\rep}{\textsc{rep}}
 \newcommand{\coin}{\textsc{coincidencia}}
 \newcommand{\mer}{\textsc{merge}}
+\newcommand{\edeff}{\textsc{estáDefinido}}
 \newcommand{\scan}{\textsc{scan}}
 \newcommand{\definir}{\textsc{definir}}
 \newcommand{\scanfill}{\textsc{scanandfill}}
@@ -322,7 +323,7 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	
 	El siguiente grafo nos va a orientar con los procesos que vamos a definir:
 	
-	
+	%Hacer un tikzcd con el grafo con palabras así como aparecía en el manual.
 	
 \end{frame}
 
@@ -331,8 +332,7 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	
 \begin{codebox}
 	\Procname{
-		$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ \alpha : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$
-	}
+		$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ \alpha : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$}
 	\li \textbf{Sea} ($\beta$,$w_1$) := \recorrer$(\Co, \alpha, w)$ en
 	\Do 
 	\li			\textbf{Sea} ($\gamma$, $w_2$) :=  \recorrer$(\Co,\alpha, w_1^{-1})$ en
@@ -341,39 +341,73 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	\Do 
 	\li $\|$ \ $\emptyset$ = \ \textbf{Si }\ $\beta = \gamma$ \  \textbf{entonces} \  \Co \ \ \textbf{sino} \coin \ $(\Co, \beta, \gamma)$
 	\li $\|$ \ $x$ = \ded \ $(\Co, \beta, \gamma, x)$
-	\li $\|$ \ $x_0w'$ = \scanfill \  (\definir \ $(\Co, \beta, x_0), \alpha, w)$ 
+	\li $\|$ \ $xw'$ = \scanfill \  (\definir \ $(\Co, \beta, x), \alpha, w)$ 
 	\End
 \end{codebox}
-	
-	
-	
-	\pause
-	Vamos a definir las 4 rutinas mencionadas y probar que mantienen las propiedades de la tabla una vez que las aplicamos.
 \end{frame}
 
 
 \begin{frame}[fragile]{Algoritmo para recorrer.}
+	\subsection{Algoritmo para recorrer cosets.}
+	\begin{codebox}
+		\Procname{$\proc{Recorrer}(\Co : \text{Tabla de Cosets}, \alpha : \text{Coset}, w : A^*) :  (\beta : \text{Coset}, \ v : A^*)$}
+		\li \textbf{Match} $w$, 
+		\Do 
+		\li $ | \  \ \emptyset = (\alpha, \emptyset)$ 
+		\li $ | \ \  xu =$ \textbf{si} $\edeff(\Co, \alpha,x)$ \textbf{entonces}  $\recorrer(\Co, \alpha^x, u) $ \textbf{sino} $(\alpha, w)$
+		\End
+	\end{codebox}
+	\pause
 	
-	
-	Como no modificamos nada de la tabla de cosets $\Co$ siguen valiendo las propiedades \textbf{P1-P4}.
+	Donde la función \edeff($\Co, \alpha, x$) nos devuelve \textsc{true} si $\alpha^x$ está definido y \textsc{false} si no lo está.
+
+	\pause
+	\bigskip
+	Como no modificamos nada de la tabla de cosets $\Co$ siguen valiendo todas las propiedades \textbf{P1-P4}.
 \end{frame}
 
 
 \begin{frame}[fragile]{Algoritmo para definir.}
 	
+Este algoritmo nos define $\beta := \alpha^x$ como un nuevo coset aumentando la cantidad de cosets definidos hasta el momento en uno. 
+\pause	
+\begin{codebox}
+	\Procname{$\proc{Definir} (\Co : \text{Tabla de Cosets}, \alpha : \text{Coset}, x : A) : ( \Co' : \text{Tabla de Cosets})  $}
+	\li $n = n+1$
+	\li $p(n+1) = n+1$
+	\li $\alpha^x = n+1,  {(n+1)}^X = \alpha $
+	\li \Comment $\tau(n+1) = \tau(\alpha) x$
+\end{codebox}
+\pause
 	
-	Todas las propiedades siguen valiendo después de ejecutar esta rutina.
-		.
+Todas las propiedades siguen valiendo después de ejecutar esta rutina.	
+%Agregar las propiedades al costadito para recordarlas y comentar por arriba porqué siguen valiendo.	.
 \end{frame}
 
 \begin{frame}[fragile]{Rep.}
-	Este algoritmo nos busca un representante de la clase de equivalencia de $\alpha$ un coset de una tabla $\Co$.
 	
+	Este algoritmo nos busca un representante de la clase de equivalencia de $\alpha$, un coset de una tabla $\Co$, con respecto a la $G-$equivalencia generada por $p$.
 	
+	\pause
+	
+	\begin{codebox}
+		\Procname{$\proc{rep}( \Co : \text{Tabla de cosets}, \alpha : \text{coset}) : (\gamma : \text{coset})  $}
+		\li \textbf{Si} $p(\alpha) = \alpha$ \textbf{entonces} $\alpha$ \textbf{sino} $\rep(\Co, p(\alpha))$
+	\end{codebox}
+\pause
+
+En particular como $p$ es una función decreciente sobre un subconjunto de naturales tenemos que si la aplicamos consecutivamente en algún momento tiene un punto fijo.
 \end{frame}
 
 \begin{frame}[fragile]{Merge.}
-	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase.	
+	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase.
+	\pause
+	\begin{codebox}
+		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, \alpha : \text{coset}, \beta : \text{coset}) : (\Co' : \text{Tabla de cosets})$}
+		\li 
+		\li 
+	\end{codebox}
+		
 \end{frame}
 
 \begin{frame}[fragile]{$G$-equivalencias.}
@@ -416,11 +450,13 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 \end{frame}
 
 \begin{frame}[fragile]{Coincidencia.}
-	
-	
 	\textbf{Interpretación del algoritmo}:
 	Nos armamos la $G$-equivalencia a partir de $\sim$ más chica que contiene al par $(\alpha, \beta)$.
-	
+	\pause
+	\begin{codebox}
+		\Procname{$\proc{coincidencia}(\Co : \text{Tabla de cosets}, \alpha : \text{coset}, \beta : \text{coset}): ( \Co' : \text{Tabla de cosets} )$}
+		\li
+	\end{codebox}
 \end{frame}
 
 
@@ -438,10 +474,13 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 	}
 	\li  \Comment Inicializamos la tabla de cosets para nuestra presentación de $G$.
 	\li $n=1, p[1]=1$,
-	\li \textsc{LoopOverGens}$(\Co, Y)$ 
+	\li \textsc{ProcesarCoset}$(\Co, 1, Y)$ 
 	\li \textsc{LoopOverCosets}$(\Co, A)$
 	\End
 \end{codebox}
+
+\pause
+Donde las funciones auxiliares son variaciones de \scanfill que realicen este procedimiento en listas de palabras y sobre todos los cosets definidos hasta el momento.
 
 
 
