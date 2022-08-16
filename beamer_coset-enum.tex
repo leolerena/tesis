@@ -54,6 +54,11 @@
 
 \usepackage[font={footnotesize}]{caption}
 
+% Para agregar columnas.
+\usepackage{graphicx}
+\usepackage{adjustbox}
+
+
 \usepackage{xspace}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 \newcommand{\fg}{finitamente generado }
@@ -400,12 +405,15 @@ En particular como $p$ es una función decreciente sobre un subconjunto de natur
 \end{frame}
 
 \begin{frame}[fragile]{Merge.}
-	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase.
+	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase y nos devuelve una lista con todos los cosets a los cuales les cambiamos el representante.
 	\pause
 	\begin{codebox}
-		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, \alpha : \text{coset}, \beta : \text{coset}) : (\Co' : \text{Tabla de cosets})$}
-		\li 
-		\li 
+		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, \alpha : \text{coset}, \beta : \text{coset}, q : \text{lista de Cosets}) : (\Co' : \text{Tabla de cosets})$}
+		\li \textbf{Sean} $\gamma = \rep(\alpha), \kappa = \rep(\beta)$
+		\li \textbf{Si} $ \gamma \neq \kappa$ \textbf{entonces} 
+		\Do 
+		\li \textbf{Sean} $\mu = \max(\gamma, \kappa), \nu = \min(\gamma, \kappa)$
+		\li $p(\mu) = \nu, q = q: \mu$
 	\end{codebox}
 		
 \end{frame}
@@ -428,9 +436,22 @@ En particular como $p$ es una función decreciente sobre un subconjunto de natur
 	
 	
 	\pause
-	
-	Cumple la siguiente propiedad universal.
-	
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			Cumple la siguiente propiedad universal.
+			Si $\equiv$ es la menor $G$-equivalencia que contiene a $S$ y $\sim$ es otra $G$ equivalencia que contiene a $S$ entonces:
+		\end{column}
+		\pause
+		\begin{column}{0.4\textwidth}
+			\begin{center}
+				{\large \begin{tikzcd}
+					{X} \arrow[d, "\pi_S"', two heads] \arrow[r, "\pi", two heads] & {X / \sim} \\
+					{ X  / \sim_S} \arrow[ru, "\exists \ol{ \pi_S}"', dashed]                       &                       
+				\end{tikzcd}}
+			\end{center}
+		\end{column}
+	\end{columns}
+
 \end{frame}
 
 \begin{frame}[fragile]{$G$-equivalencias en nuestro contexto.}
@@ -450,21 +471,146 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 \end{frame}
 
 \begin{frame}[fragile]{Coincidencia.}
-	\textbf{Interpretación del algoritmo}:
-	Nos armamos la $G$-equivalencia a partir de $\sim$ más chica que contiene al par $(\alpha, \beta)$.
+	\textbf{Idea del algoritmo}:
+	Nos armamos la $G$-equivalencia generada a partir de $\sim$ y del par $(\alpha, \beta)$.
 	\pause
 	\begin{codebox}
 		\Procname{$\proc{coincidencia}(\Co : \text{Tabla de cosets}, \alpha : \text{coset}, \beta : \text{coset}): ( \Co' : \text{Tabla de cosets} )$}
-		\li
+		\li \textbf{Sea} ($\Co', q$) = \mer($\Co, \alpha$, $\beta$, $[]$), 
+		\Do 
+		\li \textbf{Sea} $\gamma = q[0]$ ,
+		%\li \edeff($ \alpha, \gamma$)
+		\li \textbf{Si} \edeff($\Co', \gamma, x$) para $x \in A$,
+		%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
+		\Do 
+		\li \textbf{Sea} $\delta = \gamma^x, \mu = \rep(\gamma), \nu = \rep(\delta)$
+		\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu, q$)
+		\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu, q$)
+ 		\li \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
 	\end{codebox}
 \end{frame}
 
 
-\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia.}
-	Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
+\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (1/2).}
+	%Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
+	Sea $\equiv$ la $G$-equivalencia generada a partir de la relación $\sim$ dada por $p$ y del par $(\alpha, \beta)$.
+	\pause
+	Llamemos $\sim_F$ la relación que nos queda al terminar de hacer \coin.
+	Esto es que $\kappa \sim_F \lambda$ si y solo sí al terminar el algoritmo $\rep (\kappa) = \rep(\lambda)$ donde en este caso el representante lo estamos mirando respecto a esta nueva relación de equivalencia.
+	\pause
+%	\begin{alertblock}{Teorema.}
+%		Al terminar de ejecutar el algoritmo \coin($\alpha, \beta$)
+%		\begin{enumerate}
+%			\item $\Omega \simeq \In / \equiv$
+%			\item Si antes teníamos $\gamma^x = \kappa$ entonces ahora tenemos que $\rep(\gamma)^x = \rep (\kappa)$.
+%			\item Todas las propiedades de la tabla de coset siguen valiendo.	
+%		\end{enumerate}
+%	\end{alertblock}
+	
+	\begin{alertblock}{Lema}
+		Si existen $\gamma, \delta \in [1,\dots,n], x \in A$ tales que $\gamma^x = \delta$ antes de comenzar el algoritmo entonces al terminarlo vale que $\rep(\gamma)^x = \rep(\delta).$
+	\end{alertblock}
+	\pause
+	\textbf{Demostración.} 
+	\pause
+	Solo nos interesa los casos que modificamos el valor de $p'$. 
+	Tomemos $\mu = \rep(\gamma) $ y $\nu = \rep(\delta)$.
+	\pause
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{enumerate}
+				\item Sea $\mu^x = \lambda$. 
+				Como $\rep (\lambda) = \rep (\nu)$ por lo tanto $\rep(\gamma)^x = \mu^x = \lambda $ y $\lambda \sim \nu $ por lo que $ \rep(\delta) = \rep (\lambda)$.
+				\item Similar al caso anterior tomando $\nu^{x^{-1}} = \kappa$.
+				\item En particular $\rep(\gamma)^x = \rep(\delta).$
+			\end{enumerate}
+		\end{column}
+		\begin{column}{0.5\textwidth}  %%<--- here
+			\begin{enumerate}
+				\item  \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces}
+				
+				 \mer($\Co', \mu^x, \nu, q$) 
+				\item  \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces}
+				
+				  \mer($\Co', \nu^X, \mu, q$)
+				\item \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
+			\end{enumerate}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 
+\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (2/2).}
+	\begin{alertblock}{Teorema.}
+		Al terminar del correr el algoritmo \coin($\alpha, \beta$) obtenemos la siguiente igualdad para todo $\kappa, \lambda \in [1,\dots,n]$,
+		\begin{equation*}
+			\gamma \sim_F \delta \iff \gamma \equiv \delta.
+		\end{equation*}
+	\end{alertblock}
+	\pause 
+	
+	\textbf{Demostración.} $(\Rightarrow)$
+	\pause
+	Ni bien comienza el algoritmo sabemos que vale esta implicación porque justamente $\equiv$ es la $G$-congruencia generada a partir de $\sim$ y del par $(\alpha, \beta)$.
+	\pause
+	Los casos que llamamos a \mer \ son los casos que podría modificarse la relación $\sim$.
+	El primer \mer \ agrega al par $(\alpha, \beta)$ a la relación $\sim$ y sabemos que este par está por definición en $\equiv$.
+	\pause
+	
+	
+	En los otros llamados de \mer \ si tomamos $\mu = \rep(\gamma) $ y $\nu = \rep(\delta)$.
+	\medskip
+	\pause
+	\begin{columns}
+		\begin{column}{0.1\textwidth}
+			
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\begin{center}
+				{ Tenemos $\gamma^x = \delta$ tal que podemos suponer inductivamente que $\gamma \sim \mu$ y que $\delta \sim \nu $.
+				Si estamos en el caso \textbf{1} entonces está definido $\mu^x \sim_F \nu$ y como es una $G$-equivalencia obtenemos que $\mu^x \equiv \gamma^x \equiv \delta \equiv \nu$. 
+				Análogamente el caso \textbf{2}.}
+			\end{center} 	
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			{\small \begin{enumerate}
+				\item  \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces}
+				
+				\mer($\Co', \mu^x, \nu, q$) 
+				\item  \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces}
+				
+				\mer($\Co', \nu^X, \mu, q$)
+			\end{enumerate}}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (3/3).}
+	\textbf{Demostración.} $(\Leftarrow)$
+	\pause
+	\medskip
+	\begin{columns}
+		\begin{column}{0.7\textwidth}
+			Usemos que $\equiv$ es la menor $G$-equivalencia que contiene a $\sim$ y al par $(\alpha, \beta)$. 
+			Veamos que $\sim_F$ es una $G$-equivalencia.
+			\pause
+			
+			
+			Para eso partamos de $\kappa \sim_F \lambda$ y veamos que si $x \in A$ es tal que $\kappa^x$ y $\lambda^x$ estén ambas definidas entonces $\kappa^x \sim_F \lambda^x$.
+			\pause
+			Esto es una consecuencia del lema anterior.
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			\begin{tikzcd}
+			{[1 \dots n]} \arrow[d, "\pi"', two heads] \arrow[r, "\pi_F", two heads] & {[1 \dots n] / \sim_F} \\
+			{[1 \dots n] / \equiv} \arrow[ru, "\ol{ \pi}"', dashed]                       &                       
+			\end{tikzcd}
+			
+			Donde $\ol {\pi}$ es sobreyectiva. 
+		\end{column}
+	\end{columns}
+\qedsymbol
+\end{frame}
 
 \begin{frame}[fragile]{Algoritmo de enumeración de cosets.}
 
@@ -474,35 +620,27 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 	}
 	\li  \Comment Inicializamos la tabla de cosets para nuestra presentación de $G$.
 	\li $n=1, p[1]=1$,
-	\li \textsc{ProcesarCoset}$(\Co, 1, Y)$ 
-	\li \textsc{LoopOverCosets}$(\Co, A)$
+	\li \scanfill$(\Co, 1, y)$ para $y \in Y$ 
+	\li \scanfill$(\Co', A)$ para todo $\alpha \in \Omega, x \in A$
 	\End
 \end{codebox}
-
+%Acá hay un leve abuso de notación porque en realidad estamos llamando a \scanfill sobre tabla de cosets distintas...
 \pause
-Donde las funciones auxiliares son variaciones de \scanfill que realicen este procedimiento en listas de palabras y sobre todos los cosets definidos hasta el momento.
-
-
 
 \end{frame}
 
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
-
-
+asdasd
 \end{frame}
 
 \begin{frame}[fragile]{Cuándo termina el procedimiento.}
 	El algoritmo de enumeración de cosets termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
 	\pause
-	
-	
+
 	Consideremos el (posiblemente infinito) conjunto $\ol \Omega$ de los cosets que no son eliminados por ningún llamado de \coin.
 
 	\pause
-	
-	
-	
 	
 	\textbf{Propiedad 5.} El conjunto $\ol \Omega$ es tal que:
 	\begin{enumerate}
