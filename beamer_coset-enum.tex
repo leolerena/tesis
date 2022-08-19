@@ -90,14 +90,14 @@
 \begin{document}
 \maketitle
 
-\begin{frame}[fragile]{}
+\begin{frame}[fragile]{Introducción.}
 
 El algoritmo de enumeración de cosets nos permite responder, en algunos casos, las siguientes preguntas elementales de un grupo $G$ conociendo una presentación suya.
 
 \begin{itemize}
 	\item ¿Cuál es su orden?
 	\pause
-	\item ¿Cuál es 	el índice de un subgrupo $H$ dado por generadores?
+	\item ¿Cuál es 	el índice de un subgrupo $H$?
 	\pause
 	\item ¿Cómo es su grafo de Cayley?
 \end{itemize}
@@ -106,6 +106,8 @@ El algoritmo de enumeración de cosets nos permite responder, en algunos casos, 
 \begin{frame}[fragile]{Algoritmos en teoría de grupos.}
 	Muchos preguntas elementales de la teoría de grupos tales como:
 	\begin{itemize}
+		\item Dada una palabra en los generadores, ¿es igual a la identidad del grupo?
+		\pause
 		\item ¿Es un grupo finito?
 		\pause
 		\item Más aún, ¿es el grupo trivial?
@@ -144,11 +146,11 @@ El algoritmo de enumeración de cosets nos permite responder, en algunos casos, 
 	\end{itemize}  
 \end{frame}
 
-\begin{frame}[fragile]{Un poco de historia.}
-	El primer algoritmo de esta familia fue construido por Todd--Coxeter en el paper ""
-	\alert{Agregar imagen del paper}
-	con la idea de poder hacer manualmente este conteo de  
-\end{frame}
+%\begin{frame}[fragile]{Un poco de historia.}
+%	El primer algoritmo de esta familia fue construido por Todd--Coxeter en el paper ""
+%	\alert{Agregar imagen del paper}
+%	con la idea de poder hacer manualmente este conteo de  
+%\end{frame}
 
 \begin{frame}[fragile]{Ejemplo (1/4)}
 	\section{Ejemplo a mano del procedimiento.}
@@ -277,7 +279,7 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	La tabla de cosets $\Co $ va a ser una tupla $(n, \tau, \chi, p)$ donde:
 	\pause
 	\begin{itemize}
-		\item $n$ es la cantidad de cosets que tenemos definidos, esto es el intervalo $\In$ va a representar a todos los cosets definidos;
+		\item $n \in  \mathbb{N}$ es la cantidad de cosets que tenemos definidos, esto es el intervalo $\In$ va a representar a todos los cosets definidos;
 		\pause
 		\item $\tau : \In \to A^*$ es una función que a cada coset $\textbf{i}$ le asigna una palabra en los generadores tal que $\tau(\textbf{i})$ sea un representante de la clase de este coset.
 		\pause
@@ -494,19 +496,34 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 	\textbf{Idea del algoritmo}:
 	Nos armamos la $G$-equivalencia generada a partir de $\sim$ y del par $(\textbf{i}, \textbf{j})$.
 	\pause
+	Primero una función auxiliar,
+	\begin{codebox}\Procname{$\proc{coincidenciaLista}(\Co : \text{tabla de cosets}, q : \text{lista cosets}) : (\Co' : \text{tabla de cosets} )$}
+		\li \textbf{Match} $(\Co, q)$,
+		\li $(\Co, []) = \Co$
+		\li $(\Co, i::q) =$ 
+		\Do 
+		\li \textbf{Sea} $(\Co', q') = \proc{procesarLetras} (\Co, i , A)$
+		\li \proc{coincidenceLista}$(\Co', q ++ q')$
+	\end{codebox}
+	\pause
+	Y finalmente podemos definir \coin.
 	\begin{codebox}
 		\Procname{$\proc{coincidencia}(\Co : \text{Tabla de cosets}, \textbf{i} : \text{coset}, \textbf{j} : \text{coset}): ( \Co' : \text{Tabla de cosets} )$}
 		\li \textbf{Sea} ($\Co', q$) = \mer($\Co, \textbf{i}$, $\textbf{j}$, $[]$), 
 		\Do 
-		\li \textbf{Sea} $\textbf{k} = q[0]$ ,
-		%\li \edeff($ \textbf{i}, \textbf{k}$)
-		\li \textbf{Si} \edeff($\Co', \textbf{k}, x$) para $x \in A$,
-		%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
-		\Do 
-		\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
-		\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu, q$)
-		\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu, q$)
- 		\li \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
+		%\li \textbf{Sea} $\textbf{k} = q[0]$ ,
+		%%\li \edeff($ \textbf{i}, \textbf{k}$)
+		%\li \textbf{Si} \edeff($\Co', \textbf{k}, x$) para $x \in A$,
+		%%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
+		%\Do 
+		%\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
+		%\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu, q$)
+		%\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu, q$)
+ 		%\li \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
+ 		\li  Sea $(\Co'', q')$ =  \proc{procesarLetras} ($\Co, i,  x$) para $x \in A$
+ 		\Do 
+ 		\li \proc{coincidenciaLista} {$ (\Co'', q)$}.
+ 		
 	\end{codebox}
 \end{frame}
 \begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (1/3).}
@@ -516,14 +533,6 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 	Llamemos $\sim_F$ la relación que nos queda al terminar de hacer \coin.
 	Esto es que $\textbf{k} \sim_F \textbf{l}$ si y solo sí al terminar el algoritmo $\rep (\textbf{k}) = \rep(\textbf{l})$ donde en este caso el representante lo estamos mirando respecto a esta nueva relación de equivalencia.
 	\pause
-%	\begin{alertblock}{Teorema.}
-%		Al terminar de ejecutar el algoritmo \coin($\textbf{i}, \textbf{j}$)
-%		\begin{enumerate}
-%			\item $\Omega \simeq \In / \equiv$
-%			\item Si antes teníamos $\textbf{k}^x = \textbf{k}$ entonces ahora tenemos que $\rep(\textbf{k})^x = \rep (\textbf{k})$.
-%			\item Todas las propiedades de la tabla de coset siguen valiendo.	
-%		\end{enumerate}
-%	\end{alertblock}
 	
 	\begin{alertblock}{Lema}
 		Si existen $\textbf{k}, \textbf{l} \in [1,\dots,n], x \in A$ tales que $\textbf{k}^x = \textbf{l}$ antes de comenzar el algoritmo entonces al terminarlo vale que $\rep(\textbf{k})^x = \rep(\textbf{l}).$
