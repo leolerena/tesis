@@ -59,9 +59,11 @@
 % Para agregar columnas.
 \usepackage{graphicx}
 \usepackage{adjustbox}
+\setbeamercovered{invisible}
 
 
 \usepackage{xspace}
+\newcommand{\Z}{\mathbb{Z}}
 \newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
 \newcommand{\fg}{finitamente generado }
 \newcommand{\fp}{finitamente presentado }
@@ -81,7 +83,7 @@
 
 
 \title{Algoritmo de enumeración de cosets.}
-\subtitle{Final de teoría de grupos.}
+\subtitle{Seminario de topología - UBA.}
 \date{\today}
 \author{Leopoldo Lerena}
 \institute{Universidad de Buenos Aires}
@@ -92,19 +94,23 @@
 
 \begin{frame}[fragile]{Introducción.}
 
-El algoritmo de enumeración de cosets nos permite responder, en algunos casos, las siguientes preguntas elementales de un grupo $G$ conociendo una presentación suya.
+
+Muchas preguntas naturales que nos podemos hacer conociendo una presentación de algún grupo tales cómo:
 
 \begin{itemize}
 	\item ¿Cuál es su orden?
 	\pause
-	\item ¿Cuál es 	el índice de un subgrupo $H$?
+	\item ¿Cuál es 	el índice de un subgrupo?
 	\pause
 	\item ¿Cómo es su grafo de Cayley?
+	\pause
 \end{itemize}
+
+Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 \end{frame}
 
 \begin{frame}[fragile]{Algoritmos en teoría de grupos.}
-	Muchos preguntas elementales de la teoría de grupos tales como:
+	Tengamos en cuenta que muchas preguntas elementales de la teoría de grupos tales como:
 	\begin{itemize}
 		\item Dada una palabra en los generadores, ¿es igual a la identidad del grupo?
 		\pause
@@ -114,15 +120,13 @@ El algoritmo de enumeración de cosets nos permite responder, en algunos casos, 
 	\end{itemize}
 	\pause
 	No son \textit{decidibles}. 
-	Esto es que no existe un algoritmo que nos pueda responder estas preguntas para cualquier grupo que le preguntemos.
+	No existe un algoritmo que nos pueda responder estas preguntas dada una presentación finita arbitraria.
 	\medskip
 	
 	\pause
 	
 	
 	Nos tenemos que conformar con que existan procedimientos que son \textit{semidecidibles}. 
-	Esto es que si resulta que este grupo cumple estas propiedades podremos probarlo
-	que este procedimiento da la respuesta correcta.
 \end{frame}
 
 \begin{frame}[fragile]{Descripción del algoritmo.}
@@ -130,19 +134,20 @@ El algoritmo de enumeración de cosets nos permite responder, en algunos casos, 
 	\begin{itemize}
 		\item Un grupo $G$ \fp;
 		\pause
-		\item Una presentación finita de este grupo $\langle X | R \rangle$;
-		\pause
+		\item Una presentación finita de este grupo $\langle X | R \rangle$.
+			Donde $X = \{ x_1, \dots, x_n \}$ y $R = \{ r_1, \dots, r_m \}$ son conjuntos finitos;
+ 		\pause
 		\item Un subgrupo $H \le G$  \fg con generadores $Y$ visto como palabras en $A = X \cup X^{-1}$.
 	\end{itemize}
 	\pause
 	\medskip
 	
 	En el caso que el procedimiento termine nos va a devolver lo siguiente:
+	\pause
 	\begin{itemize}
 		\item El índice del subgrupo $H$ en $G$.
 		\pause
 		\item La representación de $G$ por permutaciones actuando a derecha por multiplicación sobre los cosets a derecha de $H$.
-		\pause 
 	\end{itemize}  
 \end{frame}
 
@@ -154,39 +159,46 @@ El algoritmo de enumeración de cosets nos permite responder, en algunos casos, 
 
 \begin{frame}[fragile]{Ejemplo (1/4)}
 	\section{Ejemplo a mano del procedimiento.}
-	Partamos del grupo \fp $G = \langle x, y | x^2, y^3, xyXY \rangle$.
+	Partamos del grupo \fp $G = \langle x, y | x^2, y^3, [x,y] \rangle$ tal que $G \simeq \Z / 2\Z \times \Z / 3\Z$.
+	Notaremos $X = x^{-1}$ e $Y = y^{-1}$.
 	\pause
 	Tomemos como subgrupo $H = \langle x \rangle$.
 	\pause
-	El algoritmo entonces lo que nos debería devolver es $|G:H| = 3$.
+	El algoritmo va enumerando los cosets de $H$ en $G$ que por el teorema de estructura sabemos que son exactamente 3.
 	\pause
 	\medskip
 	
-	
-	Empezamos denotando con \textbf{1} al coset trivial correspondiente a $H$ en $G/H$.
+
+	Empezamos asignando el número {1} al coset trivial correspondiente a $H$ en $G/H$.
 	\pause 
 	Como $x \in H$ entonces sabemos que $Hx = H$, denotaremos por $\textbf{1}^x = \textbf{1}$ a la multiplicación de $\textbf{1}$ por $x$.
+	\pause
 	Similarmente $\textbf{1}^{X} = \textbf{1}$.
 	\pause
-	Por otro lado denotemos con \textbf{2} al coset $\textbf{1}^y$ y denotaremos por \textbf{3} al coset $\textbf{1}^{Y}$.
+	Por otro lado denotemos con \textbf{2} al coset $\textbf{1}^y$ y \pause denotaremos por \textbf{3} al coset $\textbf{1}^{Y}$.
 	\pause
+	De esta manera $2^Y = 1$ \pause y por otro lado $3^y = 1$.
 	
-	Por ahora esto es lo que sabemos de la acción de $G$ sobre los cosets.
+
+	\onslide<4->
 	\begin{table}[]
-		\begin{tabular}{|l|l|l|l|l|}
+		\begin{tabular}{|c | c | c | c | c |} 
 			\hline
-			Coset     & x          & X          & y          & Y          \\ \hline
-			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
-			\textbf{2} &            &            &            &  \textbf{1}          \\ \hline
-			\textbf{3} &            &            &     \textbf{1}       &            \\ \hline
+			Coset     & x          & X          & y          & Y          \\ 	\hline 
+			\textbf{1} & \onslide<5-> \textbf{1} & \onslide<6-> \textbf{1} & \onslide<7-> \textbf{2} & \onslide<8-> \textbf{3}  \\   \hline 
+			\onslide<7-> \textbf{2} &            &            &            &  \onslide<9-> \textbf{1}         \\ \hline 
+			\onslide<8-> \textbf{3} &            &            &    \onslide<10-> \textbf{1}       &            \\ \hline
 		\end{tabular}
 	\end{table}
+	
+
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo (2/4).}
 % ¿Qué podemos hacer?
+Sabemos que todo coset $Hg \in G/H$ es tal que $(Hg)r = 1$ para toda $r \in R$. 
 \pause
-Sabemos que todo coset $\textbf{i}$ es tal que $\textbf{i}^r = \textbf{i}$ para todo $r \in R$.
+Queremos que valga esto mismo para los que estamos enumerando, esto es que $i^r = i$ para todo $i \in \{ 1,2,3 \}$ y toda $r \in \{  x^2, y^3, xyXY  \}$.
 \pause
 
 Vamos a introducir un proceso que se llama \textit{escanear las relaciones}.
@@ -195,31 +207,53 @@ Vamos a introducir un proceso que se llama \textit{escanear las relaciones}.
 Por ejemplo tomemos $r = y^3$ y escaneamos a $\textbf{1}$.
 
 
-\begin{table}[]
-	\begin{tabular}{|l|l|l|l|l|}
-		\hline
-		Coset     & x          & X          & y          & Y          \\ \hline
-		\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
-		\textbf{2} &            &            &            &  \textbf{1}          \\ \hline
-		\textbf{3} &            &            &     \textbf{1}       &            \\ \hline
-	\end{tabular}
-\end{table}
 \pause
 
-Tenemos que $\textbf{1}^y = \textbf{2}$ por como definimos al coset $\textbf{2}$. 
-Por otro lado tenemos que $\textbf{1}^{y^2} = \textbf{2}^y$ todavía no está definido.
+Queremos garantizar que $1^{y^3} = 1$. 
 \pause
+\begin{columns}
+	\begin{column}{0.6\textwidth}
+		\begin{align*}
+			&1^{yyy} = 1 \\
+			\iff&	1^{yy}	= 1^{Y} \\ 
+			\iff&	(1^y)^y = 3 \\ 
+			\iff&	2^y = 3 
+		\end{align*}
+	\end{column}
+	\begin{column}{0.4\textwidth}
+		\onslide<5->
+		\begin{table}[]
+			\begin{tabular}{|l|l|l|l|l|}
+				\hline
+				Coset     & x          & X          & y          & Y          \\ \hline
+				\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
+				\textbf{2} &            &            &            &  \textbf{1}          \\ \hline
+				\textbf{3} &            &            &     \textbf{1}       &            \\ \hline
+			\end{tabular}
+		\end{table}
+	\end{column}
+\end{columns}
 
 
-Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta relación tenemos que $\textbf{1}^{Y} = \textbf{3}$ porque así lo definimos y por otro lado que $\textbf{3}^{Y}$ no está definido.
+
+
+
+
+%Tenemos que $\textbf{1}^y = \textbf{2}$ por como definimos al coset $\textbf{2}$. 
+%Por otro lado tenemos que $\textbf{1}^{y^2} = \textbf{2}^y$ todavía no está definido.
+%\pause
+%
+%
+%Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta relación tenemos que $\textbf{1}^{Y} = \textbf{3}$ porque así lo definimos y por otro lado que $\textbf{3}^{Y}$ no está definido.
 \pause
 
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo (3/4)}
-	De lo anterior podemos \textit{deducir} que $\textbf{2}^y = \textbf{3}$.
+	De lo anterior podemos \textit{deducir} que $\textbf{2}^y = \textbf{3}$ y simultaneamente que $3^Y = 2$.
 	
 	\medskip
+	\pause
 	\begin{center}
 		\begin{tikzcd}
 		\textbf{1} \arrow[r, "y", bend left] & \textbf{2} \arrow[r, "y", dotted, bend left] & \textbf{3} \arrow[r, "y", bend left] & \textbf{1}
@@ -235,10 +269,10 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 	\begin{table}[]
 		\begin{tabular}{|l|l|l|l|l|}
 			\hline
-			Cosets     & x          & X          & y          & Y          \\ \hline
-			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
-			\textbf{2} &            &            & \color{verde}\textbf{3} &     \textbf{1}       \\ \hline
-			{\textbf{3}} &            &            &   \textbf{1}         & \color{verde}\textbf{2} \\ \hline
+			Cosets     & x          & X          & y          & Y          \\ \hline \onslide<3->
+			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline \onslide<3->
+			\textbf{2} &            &            & \onslide<4>\color{verde}\textbf{3} &     \onslide<3->\textbf{1}       \\ \hline \onslide<3->
+			{\textbf{3}} &       \onslide<3->     &     \onslide<3->       & \onslide<3->  \textbf{1}         & \onslide<4>\color{verde}\textbf{2} \\ \hline 
 		\end{tabular}
 	\end{table}
 	
@@ -246,12 +280,12 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo (4/4)}
-	Cuando escaneamos la relación $xyXY$ para los cosets \textbf{1} y \textbf{2} 
+	Cuando escaneamos la relación $r=xyXY$ para los cosets \textbf{1} y \textbf{2} 
 	llegamos a las siguientes deducciones 
-	
+	\pause
 	\begin{center}
 		\begin{tikzcd}
-		\textbf{1} \arrow[r, "x", bend left] & \textbf{1} \arrow[r, "y", bend left]         & \textbf{2} \arrow[r, "X", dotted, bend left]            & \textbf{2} \arrow[r, "Y", bend left] & \textbf{1} \\
+		\textbf{1} \arrow[r, "x", bend left] & \textbf{1} \arrow[r, "y", bend left]         & \textbf{2} \arrow[r, "X", dotted, bend left]            & \textbf{2} \arrow[r, "Y", bend left] & \textbf{1} \\ 
 		\textbf{2} \arrow[r, "x", bend left] & \textbf{2} \arrow[r, "y", bend left]         & \textbf{3} \arrow[r, "X", dotted, bend left]            & \textbf{3} \arrow[r, "Y", bend left] & \textbf{2}
 		\end{tikzcd}
 	\end{center}
@@ -268,7 +302,7 @@ Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta rela
 			\textbf{3} & \color{verde}\textbf{3} & \color{verde}\textbf{3} & \textbf{1} & \textbf{2} \\ \hline
 		\end{tabular}
 	\end{table}
-	
+	\pause
 	El procedimiento terminó y obtenemos que el índice del subgrupo $H$ en $G$ resulta ser la cantidad de cosets que nos terminaron quedando, en este caso exactamente $3$.
 \end{frame}
 
@@ -431,12 +465,12 @@ En particular como $p$ es una función decreciente sobre un subconjunto de natur
 	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase y nos devuelve una lista con todos los cosets a los cuales les cambiamos el representante.
 	\pause
 	\begin{codebox}
-		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, \textbf{i} : \text{coset}, \textbf{j} : \text{coset}, q : \text{lista de Cosets}) : (\Co' : \text{Tabla de cosets})$}
+		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, \textbf{i} : \text{coset}, \textbf{j} : \text{coset}) : (\Co' : \text{Tabla de cosets}, q : \text{lista de cosets})$}
 		\li \textbf{Sean} $\textbf{k} = \rep(\textbf{i}), \textbf{l} = \rep(\textbf{j})$
 		\li \textbf{Si} $ \textbf{k} \neq \textbf{l}$ \textbf{entonces} 
 		\Do 
 		\li \textbf{Sean} $\mu = \max(\textbf{k}, \textbf{l}), \nu = \min(\textbf{k}, \textbf{l})$
-		\li $p(\mu) = \nu, q = q: \mu$
+		\li $p(\mu) = \nu, q = [\mu]$
 	\end{codebox}
 		
 \end{frame}
@@ -493,20 +527,39 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 \end{frame}
 
 \begin{frame}[fragile]{Coincidencia.}
-	\textbf{Idea del algoritmo}:
-	Nos armamos la $G$-equivalencia generada a partir de $\sim$ y del par $(\textbf{i}, \textbf{j})$.
+
+	Primero unas funciones auxiliares,
 	\pause
-	Primero una función auxiliar,
-	\begin{codebox}\Procname{$\proc{coincidenciaLista}(\Co : \text{tabla de cosets}, q : \text{lista cosets}) : (\Co' : \text{tabla de cosets} )$}
-		\li \textbf{Match} $(\Co, q)$,
-		\li $(\Co, []) = \Co$
-		\li $(\Co, i::q) =$ 
+	\begin{codebox}\Procname{$\proc{procesarLetra}(\Co : \text{Tabla de cosets}, \textbf{i} : \In, x : A ) : (\Co' : \text{Tabla de cosets}, q: \text{lista de cosets})$}
+		\li \textbf{Si} \edeff($\Co, \textbf{i}, x$)
+		%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
 		\Do 
-		\li \textbf{Sea} $(\Co', q') = \proc{procesarLetras} (\Co, i , A)$
-		\li \proc{coincidenceLista}$(\Co', q ++ q')$
+		\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
+		\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu$)
+		\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu$)
+		\li \textbf{Sino} $(\definir(\Co, \mu,x), [])$
 	\end{codebox}
 	\pause
-	Y finalmente podemos definir \coin.
+	%Podemos extender esta función para que tome una lista de letras.
+	\begin{codebox}\Procname{$\proc{coincidenciaLista}(\Co : \text{tabla de cosets}, q : \text{lista cosets}) : (\Co' : \text{tabla de cosets} )$}
+		\li \textbf{Match} $(\Co, q)$,
+		\Do
+		\li $(\Co, []) = \Co$
+		\li $(\Co, i::q) = \proc{coincidenceLista}(\Co'', q ++ q')$ 
+		\Do 
+		\li \textbf{Donde} $(\Co'', q') = \proc{procesarLetras} (\Co, i , A)$
+		\li 
+	\end{codebox}
+	\pause
+\end{frame}
+
+\begin{frame}[fragile]{Algoritmo de \coin}
+	Finalmente podemos definir \coin.
+	\pause
+	\begin{alertblock}{Idea del algoritmo.}
+		Nos armamos la $G$-equivalencia generada a partir de $\sim$ y del par $(\textbf{i}, \textbf{j})$.
+	\end{alertblock}
+	\pause
 	\begin{codebox}
 		\Procname{$\proc{coincidencia}(\Co : \text{Tabla de cosets}, \textbf{i} : \text{coset}, \textbf{j} : \text{coset}): ( \Co' : \text{Tabla de cosets} )$}
 		\li \textbf{Sea} ($\Co', q$) = \mer($\Co, \textbf{i}$, $\textbf{j}$, $[]$), 
@@ -519,13 +572,14 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 		%\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
 		%\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu, q$)
 		%\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu, q$)
- 		%\li \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
- 		\li  Sea $(\Co'', q')$ =  \proc{procesarLetras} ($\Co, i,  x$) para $x \in A$
- 		\Do 
- 		\li \proc{coincidenciaLista} {$ (\Co'', q)$}.
- 		
+		%\li \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
+		\li  Sea $(\Co'', q')$ =  \proc{procesarLetras} ($\Co, i,  A$) 
+		\Do 
+		\li $\Co'  = $\proc{coincidenciaLista} {$ (\Co'', q')$}.
+		
 	\end{codebox}
 \end{frame}
+
 \begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (1/3).}
 	%Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
 	Sea $\equiv$ la $G$-equivalencia generada a partir de la relación $\sim$ dada por $p$ y del par $(\textbf{i}, \textbf{j})$.
@@ -671,6 +725,7 @@ Probemos que si el algoritmo termina entonces es correcto.
 		\item \textbf{1} escanea correctamente para todo $w \in Y$;
 		\item $\textbf{i}$ escanea correctamente para todo $r \in R$ y para todo $\textbf{i} \in \Omega$.
 	\end{itemize}
+	\pause
 	entonces $[G:H] = |\Omega|$ y para todo $x \in A$, $\varphi(x): \Omega \to \Omega$ definida por $\varphi(x)(i) = i^x$ es una permutación.
 	A su vez podemos extender $\varphi$ para que esté definida sobre elementos $g \in G$ y sea morfismo de grupos y su acción sobre los cosets vivos coincida con la acción de $G$ en los cosets a derecha de $H$.
 \end{alertblock}
@@ -699,10 +754,9 @@ Probemos que si el algoritmo termina entonces es correcto.
 			% Lo definimos sobre el monoide libre en un pcpio y con la P2 lo tenemos sobre el grupo libre.
 			
 			\medskip
-			Sea $C$ el conjunto de los cosets a derecha de $H$ sobre $G$.
 			Definimos la función 
 			\[
-			\ol \tau: \Omega \to C
+			\ol \tau: \Omega \to G/H
 			\]
 			tal que $\ol \tau (\textbf{i}) = H \tau (\textbf{i})$.
 			\pause
@@ -744,24 +798,31 @@ Probemos que si el algoritmo termina entonces es correcto.
 	\pause
 	
 	\textbf{Demostración.} 
+	Primero veamos el caso que $\ol \Omega$ es finito.
 	\begin{itemize}
-		\item Primero veamos el caso que $\ol \Omega$ es finito.
 		\pause
 		\item Usamos la \textbf{P5} para ver que en algún momento $\textbf{i}^x$ queda definido para todo $\textbf{i} \in \ol\Omega, x \in A$.
 		\pause 
 		Podemos tomar el momento para que todo estos cosets estén estabilizados.
 		\pause
 		En ese momento tendríamos que $\Omega = \ol \Omega$ y nuestra tabla está completa y así nuestro algoritmo termina.
-		\item Veamos el caso que $\ol \Omega$ es infinito.
+	\end{itemize}
+	\pause
+	Veamos el caso que $\ol \Omega$ es infinito.
+	\begin{itemize}
 		\pause
-		\item Como vale la propiedad 5 estamos en condiciones de usar el teorema anterior \ref{} de manera que el índice de $H$ resulta ser infinito.
+		\item Como vale \textbf{P5} estamos en condiciones de usar el teorema anterior de manera que el índice de $H$ resulta ser infinito.
 		Contradicción.
 		\qedsymbol
-		%Agregar la propiedad y la proposición anterior al costadito.
 	\end{itemize}
+		
+	
+		%Agregar la propiedad y la proposición anterior al costadito.
+	
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo del algoritmo en $C_2 \ast C_3$ pt I.}
 Primero podría probar que esto tiene que dar lo que tiene que dar usando el argumento topológico y después usar al algoritmo.
+
 \end{frame}
 \end{document}
