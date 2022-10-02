@@ -84,7 +84,7 @@
 
 \title{Algoritmo de enumeración de cosets.}
 \subtitle{Seminario de topología - UBA.}
-\date{\today}
+\date{12 de octubre de 2022.}
 \author{Leopoldo Lerena}
 \institute{Universidad de Buenos Aires}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
@@ -157,6 +157,208 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 %	con la idea de poder hacer manualmente este conteo de  
 %\end{frame}
 
+\begin{frame}[fragile]{Tabla de cosets.}
+	Sea $G = \langle X | R \rangle$ un grupo \fp y sea $A = X \cup X^{-1}$ sus generadores y sus inversos.
+	Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
+	\pause
+	\begin{alertblock}{Definición.}
+		La tabla de cosets $\Co $ va a ser una tupla $(n, \tau, \chi)$ donde:
+		\pause
+		\begin{itemize}
+			\item $n \in  \mathbb{N}$ es la cantidad de cosets que tenemos definidos, esto es el intervalo $\In$ va a representar a todos los cosets enumerados hasta el momento;
+			\pause
+			\item $\tau : \In \to A^*$ es una función que a cada coset $i$ le asigna una palabra en los generadores tal que $\tau(i)$ sea un representante de la clase de este coset.
+			\pause
+			\item $\chi: \In \times A \rightharpoonup \In$ una función parcial tal que si $\chi(i, x) = j$ esto lo interpretamos como que al coset $i$ al multiplicarlo por la letra $x$ vamos al coset $j$.
+			\pause
+			Notación: $i^x = j$.
+			%		\pause
+			%		\item $p: [1 \dots n] \to [1 \dots n]$ una función tal que $p(i) \le i$ para todo $i \in [1\dots n]$.
+		\end{itemize}
+		
+		
+		
+	\end{alertblock}
+	
+	
+\end{frame}
+
+\begin{frame}[fragile]{Observaciones previas.}
+	Algunas observaciones previas.
+	\begin{itemize}
+		\item El $1 \in \In$ lo reservamos para referirnos al coset trivial $H \in G/H$.
+		Esto es $\tau (1) = 1$.
+		
+		\pause
+		\item  Podemos extender la definición de $\chi: \In \times A^{*} \rightharpoonup \In$ de manera que tome palabras de la siguiente manera recursiva. 
+		Dado $i \in \In, x \in A, w \in A^{*}$
+		\[
+		\chi(i,xw) = \chi (\chi(i,x), w)
+		\]
+		siempre y cuando esté definido.
+		
+		\pause
+		
+		\item Todo coset $Hg \in G/H$ es tal que $(Hg)r = 1$ para toda $r \in R$.
+		
+		\pause
+		
+		\item Similarmente tenemos que para todo $y \in Y$ vale que $Hy = H$.
+	\end{itemize}
+\end{frame}
+\begin{frame}[fragile]{Escanear cosets.} 
+	\begin{alertblock}{Definición.}
+		Dada una tabla de cosets $\Co$ diremos que un \emph{coset $i \in \In$ escanea correctamente a una relación $r \in R$} si suceden estas dos cosas:
+		\begin{itemize}
+			\item El coset $i^r$ está definido.
+			\item Vale que $i^r = i$.
+		\end{itemize}
+	\end{alertblock}
+	
+	\pause
+	
+	\begin{alertblock}{Definición.}
+		Dada una tabla de cosets $\Co$ diremos que \emph{el coset $1 \in \In$ escanea correctamente al generador $y \in Y$} si suceden estas dos cosas:
+		\begin{itemize}
+			\item El coset $1^y$ está definido.
+			\item Vale que $1^y = 1$.
+		\end{itemize}
+	\end{alertblock}
+	
+	
+
+	\pause
+	\medskip
+	
+	
+	
+	La tabla está \emph{completa} si $\chi:\In \times A \to \In$ está definida para todos los pares $(i, x) \in \In \times A$. 
+\end{frame}
+
+%\begin{frame}[fragile]{Propiedades de la tabla de cosets.}
+%	La tabla de cosets vamos a querer que mantenga ciertas propiedades a medida que corramos el algoritmo, esto vendría a ser el invariante de representación.
+%	\pause
+%	
+%	
+%	
+%	\begin{enumerate}
+%		\item $1 \in \Omega$ y $1^{\tau(i)} = i$.
+%		\pause
+%		\item $i^x = j \iff j^{X} = i$
+%		\pause
+%		\item Si $i^x = j$ entonces tenemos que $H \tau(i) x = H \tau(j)$
+%		\pause
+%		\item Para todo $i \in \In$ tenemos que $1^{\tau(i)}$ está definido y $1^{\tau(i)} = i$.
+%	\end{enumerate}
+%\end{frame}
+
+\begin{frame}[fragile]{Correctitud del algoritmo.}
+	Nuestro objetivo es ver qué condiciones tiene que cumplir la tabla de cosets para garantizar que enumera correctamente a todos los cosets.
+	
+	\pause
+	\begin{alertblock}{Proposición.}
+		Si $\Co$ cumple que:
+		\begin{itemize}
+			\item  $i^x = j \iff j^{X} = i$.
+			\item Todos los cosets $\In \in \Co$ escanean correctamente a todas las relaciones $r \in R$. 
+		\end{itemize}
+		entonces tenemos un morfismo de grupos 
+		\[
+			\varphi: G \to S(\In)
+		\]
+		dado por $\varphi(g) (i) = i^g$.
+	\end{alertblock}
+	\medskip
+	\pause
+	\textbf{Demostración}
+	Lo tenemos definido sobre los generadores $A = X \cup X^{-1}$.
+	\pause 
+	Esto nos da un morfismo sobre el monoide libre $A^{*}$.
+	\pause
+	Usando la propiedad que $i^x = j \iff j^{X} = i$ lo podemos definir sobre el grupo libre $F(X)$.
+	\pause
+	Finalmente como todos los cosets enumerados escanean correctamente todas las relaciones tenemos que baja a un morfismo del grupo $G$. \qedsymbol
+\end{frame}
+
+
+\begin{frame}[fragile]{Correctitud del algoritmo.}
+	Definamos la siguiente función del conjunto de cosets enumerados en los cosets.
+	\[
+	\ol \tau: \In \to G/H
+	\]
+	tal que $\ol \tau (i) = H \tau (i)$.
+	\pause
+	Veamos bajo qué condiciones nos queda una biyección. 
+	En tal caso habremos enumerado correctamente a los cosets.
+	\medskip
+	\pause
+	\begin{alertblock}{Proposición.}
+		Si la tabla de cosets $\Co$ está completa, si $i^x = j$ entonces tenemos que $H \tau(i) x = H \tau(j)$ y para todo $i \in \In$ tenemos que $1^{\tau(i)}$ está definido y $1^{\tau(i)} = i$ entonces $\ol \tau$ resulta ser sobreyectiva.
+	\end{alertblock}
+	\pause
+	
+	\textbf{Demostración.}
+	Dado $Hg \in G/H$ como la tabla está completa tenemos definido $i$ tal que $H\tau(i) = Hg$ usando que $g = x_1 \dots x_n$ en los generadores $A$. \qedsymbol
+	
+	\pause
+	\begin{alertblock}{Proposición}
+		Si la tabla de cosets $\Co$ es tal que el coset $1$ escanea correctamente a todo generador $y \in Y$ entonces $\ol \tau$ resulta ser inyectiva.
+	\end{alertblock}
+	\pause
+	\textbf{Demostración.}
+	Si $\ol \tau (i) = \ol \tau (j)$ entonces $H \tau (i) \tau (j)^{-1} = H$ \pause y acá usamos que escanea correctamente a todos los generadores de $H$. \qedsymbol
+\end{frame}
+
+
+\begin{frame}[fragile]{Correctitud del algoritmo.}
+	En definitiva probamos el siguiente resultado sobre la tabla de cosets.
+	\pause
+	\begin{alertblock}{Teorema}
+		Si valen las siguientes condiciones,
+		\begin{itemize}
+			\item Para todo $i \in \In$ tenemos que $1^{\tau(i)}$ está definido y $1^{\tau(i)} = i$;
+			\item $i^x = j \iff j^{X} = i$;
+			\item Si $i^x = j$ entonces tenemos que $H \tau(i) x = H \tau(j)$;
+			\item La tabla de cosets está completa;
+			\item 1 escanea correctamente para todo $y \in Y$;
+			\item $i$ escanea correctamente para todo $r \in R$ y para todo $i \in \Omega$.
+		\end{itemize}
+		\pause
+		entonces $[G:H] = n$ y para todo $g \in G$, $\varphi(x): \In \to \In$ definida por $\varphi(g)(i) = i^g$ es una permutación.
+		A su vez la acción sobre los cosets enumerados coincide con la acción de $G$ sobre los cosets a derecha de $H$.
+	\end{alertblock}
+	\pause
+	\medskip
+\end{frame}
+
+%\begin{frame}[fragile]{Demostración correctitud de enumeración de cosets.}
+%	\textbf{Demostración}.  
+%	
+%			Se extiende a un morfismo de grupos por la \textbf{P2} y porque escanea todas las relaciones.	
+%			\pause
+%			% Lo definimos sobre el monoide libre en un pcpio y con la P2 lo tenemos sobre el grupo libre.
+%			
+%			\medskip
+%			Definimos la función 
+%			\[
+%			\ol \tau: \Omega \to G/H
+%			\]
+%			tal que $\ol \tau (i) = H \tau (i)$.
+%			\pause
+%			Probemos que es una biyección.
+%			\pause
+%			\begin{itemize}
+%				\item Sobreyectiva. Usamos que la tabla está completa y que vale \textbf{P4}.
+%				\pause
+%				\item Inyectiva. Si $\ol \tau (i) = \ol \tau (j)$ entonces $H \tau (i) \tau (j)^{-1} = H$ y acá usamos que escanea correctamente a todos los generadores de $H$.
+%				\pause
+%			\end{itemize}
+%			Con esto concluimos que $[G:H] = |C| = |\Omega|$ y que la acción sobre $\Omega$ coincide con la acción sobre los cosets a derecha.	
+%			\qedsymbol
+%		
+%\end{frame}
+
+
 \begin{frame}[fragile]{Ejemplo (1/4)}
 	\section{Ejemplo a mano del procedimiento.}
 	Partamos del grupo \fp $G = \langle x, y | x^2, y^3, [x,y] \rangle$ tal que $G \simeq \Z / 2\Z \times \Z / 3\Z$.
@@ -196,14 +398,13 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 
 \begin{frame}[fragile]{Ejemplo (2/4).}
 % ¿Qué podemos hacer?
-Sabemos que todo coset $Hg \in G/H$ es tal que $(Hg)r = 1$ para toda $r \in R$. 
-\pause
-Queremos que valga esto mismo para los que estamos enumerando, esto es que $i^r = i$ para todo $i \in \{ 1,2,3 \}$ y toda $r \in \{  x^2, y^3, xyXY  \}$.
-\pause
 
-Vamos a introducir un proceso que se llama \textit{escanear las relaciones}.
+%\pause
+%Queremos que valga esto mismo para los que estamos enumerando, esto es que $i^r = i$ para todo $i \in \{ 1,2,3 \}$ y toda $r \in \{  x^2, y^3, xyXY  \}$.
 
-\pause
+%Vamos a introducir un proceso que se llama \textit{escanear las relaciones}.
+
+Veamos de escanear los cosets por las relaciones del grupo.
 Por ejemplo tomemos $r = y^3$ y escaneamos a $\textbf{1}$.
 
 
@@ -221,7 +422,7 @@ Queremos garantizar que $1^{y^3} = 1$.
 		\end{align*}
 	\end{column}
 	\begin{column}{0.4\textwidth}
-		\onslide<5->
+		\onslide<4->
 		\begin{table}[]
 			\begin{tabular}{|l|l|l|l|l|}
 				\hline
@@ -303,55 +504,13 @@ Queremos garantizar que $1^{y^3} = 1$.
 		\end{tabular}
 	\end{table}
 	\pause
-	El procedimiento terminó y obtenemos que el índice del subgrupo $H$ en $G$ resulta ser la cantidad de cosets que nos terminaron quedando, en este caso exactamente $3$.
+	¿El procedimiento terminó? 
+	\pause
+	Deberíamos verificar que escanea correctamente a todas las relaciones.
+	\pause
+	Una vez verificado esto obtenemos que el índice del subgrupo $H$ en $G$ resulta ser la cantidad de cosets que nos terminaron quedando, en este caso exactamente $3$.
 \end{frame}
 
-\begin{frame}[fragile]{Tabla de cosets.}
-	Sea $G = \langle X | R \rangle$ un grupo \fp y sea $A = X \cup X^{-1}$ sus generadores y sus inversos.
-	\pause
-	
-	La tabla de cosets $\Co $ va a ser una tupla $(n, \tau, \chi, p)$ donde:
-	\pause
-	\begin{itemize}
-		\item $n \in  \mathbb{N}$ es la cantidad de cosets que tenemos definidos, esto es el intervalo $\In$ va a representar a todos los cosets definidos;
-		\pause
-		\item $\tau : \In \to A^*$ es una función que a cada coset $\textbf{i}$ le asigna una palabra en los generadores tal que $\tau(\textbf{i})$ sea un representante de la clase de este coset.
-		\pause
-		\item $\chi: \In \times A \to \In$ una función parcial que (cuando está definida) tal que $\chi(\textbf{i}, x) = \textbf{j} \iff \textbf{i}^x = \textbf{j}$.
-		\pause
-		\item $p: [1 \dots n] \to [1 \dots n]$ una función tal que $p(\textbf{i}) \le \textbf{i}$ para todo $\textbf{i} \in [1\dots n]$.
-	\end{itemize}
-	
-\end{frame}
-
-\begin{frame}[fragile]{Cosets vivos.}
-	Definimos los \emph{cosets vivos} como $\Omega = \{ \textbf{i} \in \In  \ | \ p(\textbf{i}) = \textbf{i} \}$.
-	Muchas veces nos va suceder que dos valores $\textbf{i}, \textbf{j} \in \In$ se corresponden al mismo coset.
-	El rol de $p$ es diferenciarnos qué elementos de $\In$ efectivamente se corresponden a distintos cosets.
-	\pause
-	\medskip
-	
-	
-	
-	La tabla está \emph{completa} si la restricción $\chi:\Omega \times A \to \In$ está definida para todos los pares $(\textbf{i}, x) \in \Omega \times A$. 
-\end{frame}
-
-\begin{frame}[fragile]{Propiedades de la tabla de cosets.}
-	La tabla de cosets vamos a querer que mantenga ciertas propiedades a medida que corramos el algoritmo, esto vendría a ser el invariante de representación.
-	\pause
-	
-	
-	
-	\begin{enumerate}
-		\item $1 \in \Omega$ y $1^{\tau(\textbf{i})} = \textbf{i}$.
-		\pause
-		\item $\textbf{i}^x = \textbf{j} \iff \textbf{j}^{X} = \textbf{i}$.
-		\pause
-		\item Si $\textbf{i}^x = \textbf{j}$ entonces tenemos que $H \tau(\textbf{i}) x = H \tau(\textbf{j})$
-		\pause
-		\item Para todo $\textbf{i} \in \Omega$ tenemos que $1^{\tau(\textbf{i})}$ está definido y $1^{\tau(\textbf{i})} = \textbf{i}$.
-	\end{enumerate}
-\end{frame}
 
 \begin{frame}[fragile]{Método de las relaciones.}
 	
@@ -393,16 +552,16 @@ Queremos garantizar que $1^{y^3} = 1$.
 \begin{frame}[fragile]{Algoritmo de escanear y completar.}
 Primero definimos un algoritmo que dado un coset y una palabra recorre hasta donde puede y nos devuelve hasta donde llegó y qué es lo que le quedó por leer de la palabra.
 \begin{codebox}
-	\Procname{$\proc{Recorrer}(\Co : \text{Tabla de Cosets}, \textbf{i} : \text{Coset}, w : A^*) :  (\textbf{j} : \text{Coset}, \ v : A^*)$}
+	\Procname{$\proc{Recorrer}(\Co : \text{Tabla de Cosets}, i : \text{Coset}, w : A^*) :  (j : \text{Coset}, \ v : A^*)$}
 	\li \textbf{Match} $w$, 
 	\Do 
-	\li $ | \  \ \emptyset = (\textbf{i}, \emptyset)$ 
-	\li $ | \ \  xu =$ \textbf{si} $\edeff(\Co, \textbf{i},x)$ \textbf{entonces}  $\recorrer(\Co, \textbf{i}^x, u) $ \textbf{sino} $(\textbf{i}, w)$
+	\li $ | \  \ \emptyset = (i, \emptyset)$ 
+	\li $ | \ \  xu =$ \textbf{si} $\edeff(\Co, i,x)$ \textbf{entonces}  $\recorrer(\Co, i^x, u) $ \textbf{sino} $(i, w)$
 	\End
 \end{codebox}
 \pause
 
-Donde la función \edeff($\Co, \textbf{i}, x$) nos devuelve \textsc{true} si $\textbf{i}^x$ está definido y \textsc{false} si no lo está.
+Donde la función \edeff($\Co, i, x$) nos devuelve \textsc{true} si $i^x$ está definido y \textsc{false} si no lo está.
 \medskip
 \pause	
 
@@ -414,16 +573,16 @@ Donde la función \edeff($\Co, \textbf{i}, x$) nos devuelve \textsc{true} si $\t
 	
 	\begin{codebox}
 		\Procname{
-			$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ \textbf{i} : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$}
-		\li \textbf{Sea} ($\textbf{j}$,$w_1$) := \recorrer$(\Co, \textbf{i}, w)$ en
+			$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ i : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$}
+		\li \textbf{Sea} ($j$,$w_1$) := \recorrer$(\Co, i, w)$ en
 		\Do 
-		\li			\textbf{Sea} ($\textbf{k}$, $w_2$) :=  \recorrer$(\Co,\textbf{i}, w_1^{-1})$ en
+		\li			\textbf{Sea} ($\textbf{k}$, $w_2$) :=  \recorrer$(\Co,i, w_1^{-1})$ en
 		\Do 
 		\li 		\textbf{Match} $w_2^{-1}$, 
 		\Do 
-		\li $\|$ \ $\emptyset$ = \ \textbf{Si }\ $\textbf{j} = \textbf{k}$ \  \textbf{entonces} \  \Co \ \ \textbf{sino} \coin \ $(\Co, \textbf{j}, \textbf{k})$
-		\li $\|$ \ $x$ = \ded \ $(\Co, \textbf{j}, \textbf{k}, x)$
-		\li $\|$ \ $xw'$ = \scanfill \  (\definir \ $(\Co, \textbf{j}, x), \textbf{i}, w)$ 
+		\li $\|$ \ $\emptyset$ = \ \textbf{Si }\ $j = \textbf{k}$ \  \textbf{entonces} \  \Co \ \ \textbf{sino} \coin \ $(\Co, j, \textbf{k})$
+		\li $\|$ \ $x$ = \ded \ $(\Co, j, \textbf{k}, x)$
+		\li $\|$ \ $xw'$ = \scanfill \  (\definir \ $(\Co, j, x), i, w)$ 
 		\End
 	\end{codebox}
 \end{frame}
@@ -431,7 +590,7 @@ Donde la función \edeff($\Co, \textbf{i}, x$) nos devuelve \textsc{true} si $\t
 
 \begin{frame}[fragile]{Algoritmo para definir.}
 	
-Este algoritmo nos define $\textbf{i}^x$ como un nuevo coset aumentando la cantidad de cosets definidos hasta el momento en uno. 
+Este algoritmo nos define $i^x$ como un nuevo coset aumentando la cantidad de cosets definidos hasta el momento en uno. 
 \pause	
 \begin{codebox}
 	\Procname{$\proc{Definir} (\Co : \text{Tabla de Cosets}, i : \In , x : A) : ( \Co' : \text{Tabla de Cosets})  $}
@@ -446,15 +605,28 @@ Todas las propiedades siguen valiendo después de ejecutar esta rutina.
 %Agregar las propiedades al costadito para recordarlas y comentar por arriba porqué siguen valiendo.	.
 \end{frame}
 
+\begin{frame}[fragile]{Cosets vivos.}
+	Cuando enumeramos los cosets muchas veces sucederá que enumeraremos de manera distinta a un mismo coset. 
+	Esto es que para ciertos $i \neq j \in \In$ tendremos que $H \tau (i) = H \tau (j)$.
+	\pause
+	Para distinguirlos introduciremos una función decreciente de los cosets en sí mismo $p: \In \to \In$.
+	
+	\pause
+	\begin{alertblock}{Definición.}
+		Los \emph{cosets vivos} son el subconjunto de cosets enumerados dados por $\Omega = \{ i \in \In  \ | \ p(i) = i \}$.
+	\end{alertblock}
+	
+\end{frame}
+
 \begin{frame}[fragile]{Rep.}
 	
-	Este algoritmo nos busca un representante de la clase de equivalencia de $\textbf{i}$, un coset de una tabla $\Co$, con respecto a la $G-$equivalencia generada por $p$.
+	Este algoritmo nos busca un representante de la clase de equivalencia de $i$, un coset de una tabla $\Co$, con respecto a la $G-$equivalencia generada por $p$.
 	
 	\pause
 	
 	\begin{codebox}
-		\Procname{$\proc{rep}( \Co : \text{Tabla de cosets}, \textbf{i} : \text{coset}) : (\textbf{k} : \text{coset})  $}
-		\li \textbf{Si} $p(\textbf{i}) = \textbf{i}$ \textbf{entonces} $\textbf{i}$ \textbf{sino} $\rep(\Co, p(\textbf{i}))$
+		\Procname{$\proc{rep}( \Co : \text{Tabla de cosets}, i : \text{coset}) : (\textbf{k} : \text{coset})  $}
+		\li \textbf{Si} $p(i) = i$ \textbf{entonces} $i$ \textbf{sino} $\rep(\Co, p(i))$
 	\end{codebox}
 \pause
 
@@ -465,8 +637,8 @@ En particular como $p$ es una función decreciente sobre un subconjunto de natur
 	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase y nos devuelve una lista con todos los cosets a los cuales les cambiamos el representante.
 	\pause
 	\begin{codebox}
-		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, \textbf{i} : \text{coset}, \textbf{j} : \text{coset}) : (\Co' : \text{Tabla de cosets}, q : \text{lista de cosets})$}
-		\li \textbf{Sean} $\textbf{k} = \rep(\textbf{i}), \textbf{l} = \rep(\textbf{j})$
+		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, i : \text{coset}, j : \text{coset}) : (\Co' : \text{Tabla de cosets}, q : \text{lista de cosets})$}
+		\li \textbf{Sean} $\textbf{k} = \rep(i), \textbf{l} = \rep(j)$
 		\li \textbf{Si} $ \textbf{k} \neq \textbf{l}$ \textbf{entonces} 
 		\Do 
 		\li \textbf{Sean} $\mu = \max(\textbf{k}, \textbf{l}), \nu = \min(\textbf{k}, \textbf{l})$
@@ -530,8 +702,8 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 
 	Primero unas funciones auxiliares,
 	\pause
-	\begin{codebox}\Procname{$\proc{procesarLetra}(\Co : \text{Tabla de cosets}, \textbf{i} : \In, x : A ) : (\Co' : \text{Tabla de cosets}, q: \text{lista de cosets})$}
-		\li \textbf{Si} \edeff($\Co, \textbf{i}, x$)
+	\begin{codebox}\Procname{$\proc{procesarLetra}(\Co : \text{Tabla de cosets}, i : \In, x : A ) : (\Co' : \text{Tabla de cosets}, q: \text{lista de cosets})$}
+		\li \textbf{Si} \edeff($\Co, i, x$)
 		%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
 		\Do 
 		\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
@@ -557,15 +729,15 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 	Finalmente podemos definir \coin.
 	\pause
 	\begin{alertblock}{Idea del algoritmo.}
-		Nos armamos la $G$-equivalencia generada a partir de $\sim$ y del par $(\textbf{i}, \textbf{j})$.
+		Nos armamos la $G$-equivalencia generada a partir de $\sim$ y del par $(i, j)$.
 	\end{alertblock}
 	\pause
 	\begin{codebox}
-		\Procname{$\proc{coincidencia}(\Co : \text{Tabla de cosets}, \textbf{i} : \text{coset}, \textbf{j} : \text{coset}): ( \Co' : \text{Tabla de cosets} )$}
-		\li \textbf{Sea} ($\Co', q$) = \mer($\Co, \textbf{i}$, $\textbf{j}$, $[]$), 
+		\Procname{$\proc{coincidencia}(\Co : \text{Tabla de cosets}, i : \text{coset}, j : \text{coset}): ( \Co' : \text{Tabla de cosets} )$}
+		\li \textbf{Sea} ($\Co', q$) = \mer($\Co, i$, $j$, $[]$), 
 		\Do 
 		%\li \textbf{Sea} $\textbf{k} = q[0]$ ,
-		%%\li \edeff($ \textbf{i}, \textbf{k}$)
+		%%\li \edeff($ i, \textbf{k}$)
 		%\li \textbf{Si} \edeff($\Co', \textbf{k}, x$) para $x \in A$,
 		%%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
 		%\Do 
@@ -582,7 +754,7 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 
 \begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (1/3).}
 	%Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
-	Sea $\equiv$ la $G$-equivalencia generada a partir de la relación $\sim$ dada por $p$ y del par $(\textbf{i}, \textbf{j})$.
+	Sea $\equiv$ la $G$-equivalencia generada a partir de la relación $\sim$ dada por $p$ y del par $(i, j)$.
 	\pause
 	Llamemos $\sim_F$ la relación que nos queda al terminar de hacer \coin.
 	Esto es que $\textbf{k} \sim_F \textbf{l}$ si y solo sí al terminar el algoritmo $\rep (\textbf{k}) = \rep(\textbf{l})$ donde en este caso el representante lo estamos mirando respecto a esta nueva relación de equivalencia.
@@ -623,7 +795,7 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 
 \begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (2/3).}
 	\begin{alertblock}{Teorema.}
-		Al terminar del correr el algoritmo \coin($\textbf{i}, \textbf{j}$) obtenemos la siguiente igualdad para todo $\textbf{k}, \textbf{l} \in [1,\dots,n]$,
+		Al terminar del correr el algoritmo \coin($i, j$) obtenemos la siguiente igualdad para todo $\textbf{k}, \textbf{l} \in [1,\dots,n]$,
 		\begin{equation*}
 			\textbf{k} \sim_F \textbf{l} \iff \textbf{k} \equiv \textbf{l}.
 		\end{equation*}
@@ -632,10 +804,10 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 	
 	\textbf{Demostración.} $(\Rightarrow)$
 	\pause
-	Ni bien comienza el algoritmo sabemos que vale esta implicación porque justamente $\equiv$ es la $G$-congruencia generada a partir de $\sim$ y del par $(\textbf{i}, \textbf{j})$.
+	Ni bien comienza el algoritmo sabemos que vale esta implicación porque justamente $\equiv$ es la $G$-congruencia generada a partir de $\sim$ y del par $(i, j)$.
 	\pause
 	Los casos que llamamos a \mer \ son los casos que podría modificarse la relación $\sim$.
-	El primer \mer \ agrega al par $(\textbf{i}, \textbf{j})$ a la relación $\sim$ y sabemos que este par está por definición en $\equiv$.
+	El primer \mer \ agrega al par $(i, j)$ a la relación $\sim$ y sabemos que este par está por definición en $\equiv$.
 	\pause
 	
 	
@@ -672,7 +844,7 @@ Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
 	\medskip
 	\begin{columns}
 		\begin{column}{0.7\textwidth}
-			Usemos que $\equiv$ es la menor $G$-equivalencia que contiene a $\sim$ y al par $(\textbf{i}, \textbf{j})$. 
+			Usemos que $\equiv$ es la menor $G$-equivalencia que contiene a $\sim$ y al par $(i, j)$. 
 			Veamos que $\sim_F$ es una $G$-equivalencia.
 			\pause
 			
@@ -705,7 +877,7 @@ La idea es hacer \scanfill \ en todos los generadores de $H$ sobre el coset $1$ 
 	\li  \Comment Inicializamos la tabla de cosets para nuestra presentación de $G$.
 	\li $n=1, p[1]=1$,
 	\li \scanfill$(\Co, 1, y)$ para $y \in Y$ 
-	\li \scanfill$(\Co', A)$ para todo $\textbf{i} \in \Omega, x \in A$
+	\li \scanfill$(\Co', A)$ para todo $i \in \Omega, x \in A$
 	\End
 \end{codebox}
 %Acá hay un leve abuso de notación porque en realidad estamos llamando a \scanfill sobre tabla de cosets distintas...
@@ -714,69 +886,13 @@ La idea es hacer \scanfill \ en todos los generadores de $H$ sobre el coset $1$ 
 \end{frame}
 
 
-\begin{frame}[fragile]{Correctitud del algoritmo.}
-Probemos que si el algoritmo termina entonces es correcto.
-\pause
-\begin{alertblock}{Teorema}
-	Si valen las siguientes condiciones,
-	\begin{itemize}
-		\item Todas las propiedades \textbf{P1-P4} valen;
-		\item La tabla de cosets está completa;
-		\item \textbf{1} escanea correctamente para todo $w \in Y$;
-		\item $\textbf{i}$ escanea correctamente para todo $r \in R$ y para todo $\textbf{i} \in \Omega$.
-	\end{itemize}
-	\pause
-	entonces $[G:H] = |\Omega|$ y para todo $x \in A$, $\varphi(x): \Omega \to \Omega$ definida por $\varphi(x)(i) = i^x$ es una permutación.
-	A su vez podemos extender $\varphi$ para que esté definida sobre elementos $g \in G$ y sea morfismo de grupos y su acción sobre los cosets vivos coincida con la acción de $G$ en los cosets a derecha de $H$.
-\end{alertblock}
-\pause
-\medskip
-\end{frame}
 
-\begin{frame}[fragile]{Demostración correctitud de enumeración de cosets.}
-	\textbf{Demostración}.  
-	\begin{columns}
-		\begin{column}{0.3 \textwidth}
-			\begin{enumerate}
-				\item $1 \in \Omega$ y $1^{\tau(\textbf{i})} = \textbf{i}$.
-				
-				\item $\textbf{i}^x = \textbf{j} \iff \textbf{j}^{X} = \textbf{i}$.
-				
-				\item Si $\textbf{i}^x = \textbf{j}$ entonces tenemos que $H \tau(\textbf{i}) x = H \tau(\textbf{j})$
-				
-				\item Para todo $\textbf{i} \in \Omega$ tenemos que $1^{\tau(\textbf{i})}$ está definido y $1^{\tau(\textbf{i})} = \textbf{i}$.
-				\pause
-			\end{enumerate}
-		\end{column}
-		\begin{column}{0.7 \textwidth}
-			Se extiende a un morfismo de grupos por la \textbf{P2} y porque escanea todas las relaciones.	
-			\pause
-			% Lo definimos sobre el monoide libre en un pcpio y con la P2 lo tenemos sobre el grupo libre.
-			
-			\medskip
-			Definimos la función 
-			\[
-			\ol \tau: \Omega \to G/H
-			\]
-			tal que $\ol \tau (\textbf{i}) = H \tau (\textbf{i})$.
-			\pause
-			Probemos que es una biyección.
-			\pause
-			\begin{itemize}
-				\item Sobreyectiva. Usamos que la tabla está completa y que vale \textbf{P4}.
-				\pause
-				\item Inyectiva. Si $\ol \tau (\textbf{i}) = \ol \tau (\textbf{j})$ entonces $H \tau (\textbf{i}) \tau (\textbf{j})^{-1} = H$ y acá usamos que escanea correctamente a todos los generadores de $H$.
-				\pause
-			\end{itemize}
-			Con esto concluimos que $[G:H] = |C| = |\Omega|$ y que la acción sobre $\Omega$ coincide con la acción sobre los cosets a derecha.	
-			\qedsymbol
-		\end{column}
-	\end{columns}
-\end{frame}
 
 
 \begin{frame}[fragile]{Cuándo termina el procedimiento.}
-	El algoritmo de enumeración de cosets termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
+	¿En qué caso termina el algoritmo de enumeración de cosets?
+	\pause
+	Termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
 	\pause
 
 	Consideremos el (posiblemente infinito) conjunto $\ol \Omega$ de los cosets que no son eliminados por ningún llamado de \coin.
@@ -785,9 +901,9 @@ Probemos que si el algoritmo termina entonces es correcto.
 	
 	\textbf{Propiedad 5.} El conjunto $\ol \Omega$ es tal que:
 	\begin{enumerate}
-		\item Para cada $\textbf{i} \in \overline \Omega$ y para cada $x \in A$ en algún momento $\textbf{i}^x$ va a estar definido;
+		\item Para cada $i \in \overline \Omega$ y para cada $x \in A$ en algún momento $i^x$ va a estar definido;
 		\item Para cada $w \in Y$ en algún momento llamamos a \scan($\textbf{1},w$);
-		\item Para cada $\textbf{i} \in \ol \Omega$ y para cada $w \in R$ en algún momento llamamos a \scan$(\textbf{i}, w)$.
+		\item Para cada $i \in \ol \Omega$ y para cada $w \in R$ en algún momento llamamos a \scan$(i, w)$.
 	\end{enumerate}
 \end{frame}
 
@@ -801,7 +917,7 @@ Probemos que si el algoritmo termina entonces es correcto.
 	Primero veamos el caso que $\ol \Omega$ es finito.
 	\begin{itemize}
 		\pause
-		\item Usamos la \textbf{P5} para ver que en algún momento $\textbf{i}^x$ queda definido para todo $\textbf{i} \in \ol\Omega, x \in A$.
+		\item Usamos la \textbf{P5} para ver que en algún momento $i^x$ queda definido para todo $i \in \ol\Omega, x \in A$.
 		\pause 
 		Podemos tomar el momento para que todo estos cosets estén estabilizados.
 		\pause
@@ -821,8 +937,4 @@ Probemos que si el algoritmo termina entonces es correcto.
 	
 \end{frame}
 
-\begin{frame}[fragile]{Ejemplo del algoritmo en $C_2 \ast C_3$ pt I.}
-Primero podría probar que esto tiene que dar lo que tiene que dar usando el argumento topológico y después usar al algoritmo.
-
-\end{frame}
 \end{document}
