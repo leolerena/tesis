@@ -79,10 +79,9 @@
 \newcommand{\In}{[1 \dots n]}
 \newcommand{\ol}{\overline}
 \newcommand{\Co}{{\cal{C}}}
+\newcommand{\Par}{\text{Par}(X)}
 
-
-
-\title{Algoritmo de enumeración de cosets.}
+\title{Enumeración de cosets.}
 \subtitle{Seminario de topología - UBA.}
 \date{12 de octubre de 2022.}
 \author{Leopoldo Lerena}
@@ -157,83 +156,62 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 %	con la idea de poder hacer manualmente este conteo de  
 %\end{frame}
 
-\begin{frame}[fragile]{Tabla de cosets.}
-	Sea $G = \langle X | R \rangle$ un grupo \fp y sea $A = X \cup X^{-1}$ sus generadores y sus inversos.
-	Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
-	\pause
+\begin{frame}[fragile]{Acciones parciales.}
+	
+	
+	\bigskip
+	
+	Notación: Dado un conjunto $X$ denotaremos por $\Par = \{ f: X \to X \ | \  f \ \text{es una función parcial} \}$.
+	
 	\begin{alertblock}{Definición.}
-		La tabla de cosets $\Co $ va a ser una tupla $(n, \tau, \chi)$ donde:
-		\pause
+		Dado un conjunto $X$ diremos que una acción parcial de un monoide $M$ sobre $X$ es función $M \to \Par$ tal que cumple las siguientes dos propiedades,
 		\begin{itemize}
-			\item $n \in  \mathbb{N}$ es la cantidad de cosets que tenemos definidos, esto es el intervalo $\In$ va a representar a todos los cosets enumerados hasta el momento;
-			\pause
-			\item $\tau : \In \to A^*$ es una función que a cada coset $i$ le asigna una palabra en los generadores tal que $\tau(i)$ sea un representante de la clase de este coset.
-			\pause
-			\item $\chi: \In \times A \rightharpoonup \In$ una función parcial tal que si $\chi(i, x) = j$ esto lo interpretamos como que al coset $i$ al multiplicarlo por la letra $x$ vamos al coset $j$.
-			\pause
-			Notación: $i^x = j$.
-			%		\pause
-			%		\item $p: [1 \dots n] \to [1 \dots n]$ una función tal que $p(i) \le i$ para todo $i \in [1\dots n]$.
-		\end{itemize}
-		
-		
-		
+			\item $x \cdot 1 = x$ para todo $x \in X$;
+			\item $x \cdot (g \cdot h) = (x \cdot g) \cdot h$ siempre y cuando estén definidos.
+		\end{itemize} 
 	\end{alertblock}
-	
-	
+	\begin{alertblock}{Definición.}
+		Dados $X, Y$ conjuntos con acciones parciales de un monoide $M$ diremos que una función $\tau: X \to Y$ es \emph{equivariante} si $\tau (x) \cdot m = \tau (x \cdot m)$ siempre y cuando ambas estén definidas.
+	\end{alertblock}
 \end{frame}
 
-\begin{frame}[fragile]{Observaciones previas.}
-	Algunas observaciones previas.
-	\begin{itemize}
-		\item El $1 \in \In$ lo reservamos para referirnos al coset trivial $H \in G/H$.
-		Esto es $\tau (1) = 1$.
-		
-		\pause
-		\item  Podemos extender la definición de $\chi: \In \times A^{*} \rightharpoonup \In$ de manera que tome palabras de la siguiente manera recursiva. 
-		Dado $i \in \In, x \in A, w \in A^{*}$
-		\[
-		\chi(i,xw) = \chi (\chi(i,x), w)
-		\]
-		siempre y cuando esté definido.
-		
-		\pause
-		
+
+
+
+\begin{frame}[fragile]{Tabla de cosets.}
+Sea $G = \langle X | R \rangle$ un grupo \fp y sea $A = X \cup X^{-1}$ sus generadores y sus inversos.
+Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
+
+\begin{alertblock}{Definición.}
+	Una tabla de cosets $\Co $ para el grupo $G$ va a ser un conjunto $\In$ con una acción parcial de $A^{*}$ y una función $\tau: \In \to A^*$.		
+\end{alertblock}
+
+%Haremos la siguiente interpretación:
+%El número $n$ representa la cantidad de cosets enumerados hasta el momento.
+%La acción de $A^*$ nos dirá como será la acción de $G$ sobre el conjunto.
+%La función $\tau$ nos guardará un representante de cada coset.
+%	
+
+
+\begin{alertblock}{Definición.}
+	Una tabla de cosets $\Co$ está \emph{completa} si $A^*$ actúa sobre $\In$.
+	%Esto es tenemos una función
+%	\[
+%		A^* \to \In^{\In}
+%	\]
+\end{alertblock}
+
+\end{frame}
+
+\begin{frame}[fragile]{Observaciones.}
+	Algunas observaciones válidas para cosets que queremos que valgan en nuestras tablas.
+	\begin{itemize}		
 		\item Todo coset $Hg \in G/H$ es tal que $(Hg)r = 1$ para toda $r \in R$.
 		
-		\pause
-		
 		\item Similarmente tenemos que para todo $y \in Y$ vale que $Hy = H$.
-	\end{itemize}
+	\end{itemize}	
 \end{frame}
-\begin{frame}[fragile]{Escanear cosets.} 
-	\begin{alertblock}{Definición.}
-		Dada una tabla de cosets $\Co$ diremos que un \emph{coset $i \in \In$ escanea correctamente a una relación $r \in R$} si suceden estas dos cosas:
-		\begin{itemize}
-			\item El coset $i^r$ está definido.
-			\item Vale que $i^r = i$.
-		\end{itemize}
-	\end{alertblock}
-	
-	\pause
-	
-	\begin{alertblock}{Definición.}
-		Dada una tabla de cosets $\Co$ diremos que \emph{el coset $1 \in \In$ escanea correctamente al generador $y \in Y$} si suceden estas dos cosas:
-		\begin{itemize}
-			\item El coset $1^y$ está definido.
-			\item Vale que $1^y = 1$.
-		\end{itemize}
-	\end{alertblock}
-	
-	
 
-	\pause
-	\medskip
-	
-	
-	
-	La tabla está \emph{completa} si $\chi:\In \times A \to \In$ está definida para todos los pares $(i, x) \in \In \times A$. 
-\end{frame}
 
 %\begin{frame}[fragile]{Propiedades de la tabla de cosets.}
 %	La tabla de cosets vamos a querer que mantenga ciertas propiedades a medida que corramos el algoritmo, esto vendría a ser el invariante de representación.
@@ -253,31 +231,22 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 %\end{frame}
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
-	Nuestro objetivo es ver qué condiciones tiene que cumplir la tabla de cosets para garantizar que enumera correctamente a todos los cosets.
-	
-	\pause
+	Nuestro objetivo es ver qué condiciones tiene que cumplir una tabla de cosets $\Co$ para garantizar que enumera correctamente a todos los cosets.
+
 	\begin{alertblock}{Proposición.}
 		Si $\Co$ cumple que:
 		\begin{itemize}
 			\item  $i^x = j \iff j^{X} = i$.
-			\item Todos los cosets $\In \in \Co$ escanean correctamente a todas las relaciones $r \in R$. 
+			\item  $i^r = i$ para todo $i \in \In$ y para toda $r \in R$, 
 		\end{itemize}
-		entonces tenemos un morfismo de grupos 
-		\[
-			\varphi: G \to S(\In)
-		\]
-		dado por $\varphi(g) (i) = i^g$.
+		entonces tenemos que $G$ actúa sobre $\In$.
 	\end{alertblock}
 	\medskip
-	\pause
-	\textbf{Demostración}
-	Lo tenemos definido sobre los generadores $A = X \cup X^{-1}$.
-	\pause 
-	Esto nos da un morfismo sobre el monoide libre $A^{*}$.
-	\pause
-	Usando la propiedad que $i^x = j \iff j^{X} = i$ lo podemos definir sobre el grupo libre $F(X)$.
-	\pause
-	Finalmente como todos los cosets enumerados escanean correctamente todas las relaciones tenemos que baja a un morfismo del grupo $G$. \qedsymbol
+	
+	\begin{proof}
+		Usando la propiedad que $i^x = j \iff j^{X} = i$ nos da una acción del grupo libre $F(X)$.
+		Finalmente como $i^r = i$ para todo $i \in \In, r \in R$ tenemos que baja a una acción del grupo $G$. 
+	\end{proof}
 \end{frame}
 
 
@@ -287,47 +256,57 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 	\ol \tau: \In \to G/H
 	\]
 	tal que $\ol \tau (i) = H \tau (i)$.
-	\pause
+	
 	Veamos bajo qué condiciones nos queda una biyección. 
 	En tal caso habremos enumerado correctamente a los cosets.
 	\medskip
-	\pause
+	
+	
+	
 	\begin{alertblock}{Proposición.}
-		Si la tabla de cosets $\Co$ está completa, si $i^x = j$ entonces tenemos que $H \tau(i) x = H \tau(j)$ y para todo $i \in \In$ tenemos que $1^{\tau(i)}$ está definido y $1^{\tau(i)} = i$ entonces $\ol \tau$ resulta ser sobreyectiva.
+		Si la tabla de cosets $\Co$ está completa, si $\ol \tau$ es \emph{equivariante} y para todo $i \in \In$ tenemos que $1^{\tau(i)} = i$ entonces $\ol \tau$ resulta ser sobreyectiva.
 	\end{alertblock}
-	\pause
 	
-	\textbf{Demostración.}
-	Dado $Hg \in G/H$ como la tabla está completa tenemos definido $i$ tal que $H\tau(i) = Hg$ usando que $g = x_1 \dots x_n$ en los generadores $A$. \qedsymbol
 	
-	\pause
-	\begin{alertblock}{Proposición}
-		Si la tabla de cosets $\Co$ es tal que el coset $1$ escanea correctamente a todo generador $y \in Y$ entonces $\ol \tau$ resulta ser inyectiva.
-	\end{alertblock}
-	\pause
-	\textbf{Demostración.}
-	Si $\ol \tau (i) = \ol \tau (j)$ entonces $H \tau (i) \tau (j)^{-1} = H$ \pause y acá usamos que escanea correctamente a todos los generadores de $H$. \qedsymbol
+\begin{proof}
+	Dado $Hg \in G/H$ como la tabla está completa tenemos definido $i$ tal que $H\tau(i) = Hg$ usando que $g = x_1 \dots x_n$ en los generadores $A$. 
+\end{proof}
+	
+	
+	
+	
 \end{frame}
+
+\begin{frame}[fragile]{Correctitud del algoritmo.}
+	\begin{alertblock}{Proposición}
+		Si la tabla de cosets $\Co$ es tal que el coset $1^y = 1$ para todo $y \in Y$ y aparte $1^{\tau (i)} = i$ para todo $i \in \In$ entonces $\ol \tau$ resulta ser inyectiva.
+	\end{alertblock}
+	
+	\begin{proof}
+		Si $\ol \tau (i) = \ol \tau (j)$ entonces $H \tau (i) \tau (j)^{-1} = H$.
+		Usamos que $ 1^{\tau(i)} = i$ y que $1^y = 1$ para todo $y \in Y$. 
+	\end{proof}
+\end{frame}
+
 
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
 	En definitiva probamos el siguiente resultado sobre la tabla de cosets.
-	\pause
+	
 	\begin{alertblock}{Teorema}
 		Si valen las siguientes condiciones,
 		\begin{itemize}
 			\item Para todo $i \in \In$ tenemos que $1^{\tau(i)}$ está definido y $1^{\tau(i)} = i$;
-			\item $i^x = j \iff j^{X} = i$;
-			\item Si $i^x = j$ entonces tenemos que $H \tau(i) x = H \tau(j)$;
+			\item $i \cdot x = j \iff j \cdot x^{-1} = i$ para $x \in A$;
+			\item $\ol \tau$ es equivariante;
 			\item La tabla de cosets está completa;
-			\item 1 escanea correctamente para todo $y \in Y$;
-			\item $i$ escanea correctamente para todo $r \in R$ y para todo $i \in \Omega$.
+			\item $1^y = 1$ para todo $y \in Y$;
+			\item $i^r  = i$ para toda $r \in R$ y para todo $i \in \In$.
 		\end{itemize}
 		\pause
-		entonces $[G:H] = n$ y para todo $g \in G$, $\varphi(x): \In \to \In$ definida por $\varphi(g)(i) = i^g$ es una permutación.
+		entonces $[G:H] = n$ y para todo $g \in G$, $\varphi(x): \In \to \In$ definida por $\varphi(g)(i) = i^g$ es una biyección.
 		A su vez la acción sobre los cosets enumerados coincide con la acción de $G$ sobre los cosets a derecha de $H$.
 	\end{alertblock}
-	\pause
 	\medskip
 \end{frame}
 
@@ -366,30 +345,28 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 	\pause
 	Tomemos como subgrupo $H = \langle x \rangle$.
 	\pause
-	El algoritmo va enumerando los cosets de $H$ en $G$ que por el teorema de estructura sabemos que son exactamente 3.
+	El algoritmo va enumerando los cosets de $H$ en $G$ que sabemos que son exactamente 3.
 	\pause
 	\medskip
 	
 
 	Empezamos asignando el número {1} al coset trivial correspondiente a $H$ en $G/H$.
 	\pause 
-	Como $x \in H$ entonces sabemos que $Hx = H$, denotaremos por $\textbf{1}^x = \textbf{1}$ a la multiplicación de $\textbf{1}$ por $x$.
+	Como $x \in H$ entonces sabemos que $Hx = H$, por lo tanto $1 \cdot x = 1$.
 	\pause
-	Similarmente $\textbf{1}^{X} = \textbf{1}$.
+	Similarmente $1 \cdot x^{-1} = 1$.
 	\pause
-	Por otro lado denotemos con \textbf{2} al coset $\textbf{1}^y$ y \pause denotaremos por \textbf{3} al coset $\textbf{1}^{Y}$.
-	\pause
-	De esta manera $2^Y = 1$ \pause y por otro lado $3^y = 1$.
+	Por otro lado denotemos con 2 al coset $1 \cdot y$ y así también $2 \cdot y^{-1} = 1$ \pause Denotaremos por 3 al coset $1 \cdot y^{-1}$ y así $3 \cdot y = 1$.
 	
 
 	\onslide<4->
 	\begin{table}[]
 		\begin{tabular}{|c | c | c | c | c |} 
 			\hline
-			Coset     & x          & X          & y          & Y          \\ 	\hline 
-			\textbf{1} & \onslide<5-> \textbf{1} & \onslide<6-> \textbf{1} & \onslide<7-> \textbf{2} & \onslide<8-> \textbf{3}  \\   \hline 
-			\onslide<7-> \textbf{2} &            &            &            &  \onslide<9-> \textbf{1}         \\ \hline 
-			\onslide<8-> \textbf{3} &            &            &    \onslide<10-> \textbf{1}       &            \\ \hline
+			Coset     & x          & $x^{-1}$          & y          & $y^{-1}$          \\ 	\hline 
+			{1} & \onslide<5-> {1} & \onslide<6-> {1} & \onslide<7-> {2} & \onslide<8-> {3}  \\   \hline 
+			\onslide<7-> {2} &            &            &            &  \onslide<7-> {1}         \\ \hline 
+			\onslide<8-> {3} &            &            &    \onslide<8-> {1}       &            \\ \hline
 		\end{tabular}
 	\end{table}
 	
@@ -404,63 +381,34 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 
 %Vamos a introducir un proceso que se llama \textit{escanear las relaciones}.
 
-Veamos de escanear los cosets por las relaciones del grupo.
-Por ejemplo tomemos $r = y^3$ y escaneamos a $\textbf{1}$.
-
+Veamos de garantizar que todo coset $i \in \In$ cumpla que $i \cdot r = i$.
+Partamos usando $r = y^3$ y consideremos a ${1}$.
 
 \pause
 
-Queremos garantizar que $1^{y^3} = 1$. 
+Queremos garantizar que $1\cdot y^3 = 1$. 
 \pause
-\begin{columns}
-	\begin{column}{0.6\textwidth}
+
 		\begin{align*}
-			&1^{yyy} = 1 \\
-			\iff&	1^{yy}	= 1^{Y} \\ 
-			\iff&	(1^y)^y = 3 \\ 
-			\iff&	2^y = 3 
+			&1 \cdot {yyy} = 1 \\
+			\iff&	1\cdot {yy}	= 1\cdot y^{-1} \\ 
+			\iff&	(1 \cdot y)\cdot y = 3 \\ 
+			\iff&	2 \cdot y = 3 
 		\end{align*}
-	\end{column}
-	\begin{column}{0.4\textwidth}
-		\onslide<4->
-		\begin{table}[]
-			\begin{tabular}{|l|l|l|l|l|}
-				\hline
-				Coset     & x          & X          & y          & Y          \\ \hline
-				\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
-				\textbf{2} &            &            &            &  \textbf{1}          \\ \hline
-				\textbf{3} &            &            &     \textbf{1}       &            \\ \hline
-			\end{tabular}
-		\end{table}
-	\end{column}
-\end{columns}
-
-
-
-
-
-
-%Tenemos que $\textbf{1}^y = \textbf{2}$ por como definimos al coset $\textbf{2}$. 
-%Por otro lado tenemos que $\textbf{1}^{y^2} = \textbf{2}^y$ todavía no está definido.
-%\pause
-%
-%
-%Como $r^{-1} = 1$ visto como elemento en $G$ si escanemos ahora viendo esta relación tenemos que $\textbf{1}^{Y} = \textbf{3}$ porque así lo definimos y por otro lado que $\textbf{3}^{Y}$ no está definido.
-\pause
 
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo (3/4)}
-	De lo anterior podemos \textit{deducir} que $\textbf{2}^y = \textbf{3}$ y simultaneamente que $3^Y = 2$.
+	De lo anterior podemos \textit{deducir} que ${2}\cdot y = {3}$ y simultáneamente que $3 \cdot y^{-1} = 2$.
 	
 	\medskip
 	\pause
-	\begin{center}
-		\begin{tikzcd}
-		\textbf{1} \arrow[r, "y", bend left] & \textbf{2} \arrow[r, "y", dotted, bend left] & \textbf{3} \arrow[r, "y", bend left] & \textbf{1}
-		\end{tikzcd}
-	\end{center}
-	\pause
+%	\begin{center}
+%		\begin{tikzcd}
+%		\textbf{1} \arrow[r, "y", bend left] & \textbf{2} \arrow[r, "y", dotted, bend left] & \textbf{3} \arrow[r, "y", bend left] & \textbf{1}
+%		\end{tikzcd}
+%	\end{center}
+	
 	
 	De esta manera nuestra tabla ahora tiene la siguiente pinta.
 	
@@ -470,10 +418,10 @@ Queremos garantizar que $1^{y^3} = 1$.
 	\begin{table}[]
 		\begin{tabular}{|l|l|l|l|l|}
 			\hline
-			Cosets     & x          & X          & y          & Y          \\ \hline \onslide<3->
-			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline \onslide<3->
-			\textbf{2} &            &            & \onslide<4>\color{verde}\textbf{3} &     \onslide<3->\textbf{1}       \\ \hline \onslide<3->
-			{\textbf{3}} &       \onslide<3->     &     \onslide<3->       & \onslide<3->  \textbf{1}         & \onslide<4>\color{verde}\textbf{2} \\ \hline 
+			Cosets     & x          & $x^{-1}$          & y          & $y^{-1}$          \\ \hline \onslide<2->
+			{1} & {1} & {1} & {2} & {3} \\ \hline \onslide<2->
+			{2} &            &            & \onslide<2>\color{verde}{3} &     \onslide<2->{1}       \\ \hline \onslide<2->
+			{{3}} &       \onslide<2->     &     \onslide<2->       & \onslide<2->  {1}         & \onslide<2>\color{verde}{2} \\ \hline 
 		\end{tabular}
 	\end{table}
 	
@@ -481,34 +429,41 @@ Queremos garantizar que $1^{y^3} = 1$.
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo (4/4)}
-	Cuando escaneamos la relación $r=xyXY$ para los cosets \textbf{1} y \textbf{2} 
-	llegamos a las siguientes deducciones 
+	Cuando miramos $1 \cdot xyx^{-1}y^{-1}$ llegamos a las siguientes deducción
 	\pause
 	\begin{center}
 		\begin{tikzcd}
-		\textbf{1} \arrow[r, "x", bend left] & \textbf{1} \arrow[r, "y", bend left]         & \textbf{2} \arrow[r, "X", dotted, bend left]            & \textbf{2} \arrow[r, "Y", bend left] & \textbf{1} \\ 
-		\textbf{2} \arrow[r, "x", bend left] & \textbf{2} \arrow[r, "y", bend left]         & \textbf{3} \arrow[r, "X", dotted, bend left]            & \textbf{3} \arrow[r, "Y", bend left] & \textbf{2}
+		{1} \arrow[r, "x", bend left] & {1} \arrow[r, "y", bend left]         & {2} \arrow[r, "X", dotted, bend left]            & {2} \arrow[r, "Y", bend left] & {1} \\ 
 		\end{tikzcd}
 	\end{center}
-
-\pause
+	\pause
+	y cuando lo hacemos para el coset 2 obtenemos,
+	\begin{center}
+		\begin{tikzcd}
+			{2} \arrow[r, "x", bend left] & {2} \arrow[r, "y", bend left]         & {3} \arrow[r, "X", dotted, bend left]            & {3} \arrow[r, "Y", bend left] & {2}
+		\end{tikzcd}
+	\end{center}
+	\pause
 	Así terminamos de completar la tabla.
 	
 	\begin{table}[]
 		\begin{tabular}{|l|l|l|l|l|}
 			\hline
 			Cosets     & x          & X          & y          & Y          \\ \hline
-			\textbf{1} & \textbf{1} & \textbf{1} & \textbf{2} & \textbf{3} \\ \hline
-			\textbf{2} & \color{verde}\textbf{2} & \color{verde}\textbf{2} & \textbf{3} & \textbf{1} \\ \hline
-			\textbf{3} & \color{verde}\textbf{3} & \color{verde}\textbf{3} & \textbf{1} & \textbf{2} \\ \hline
+			{1} & {1} & {1} & {2} & {3} \\ \hline
+			{2} & \color{verde}{2} & \color{verde}{2} & {3} & {1} \\ \hline
+			{3} & \color{verde}{3} & \color{verde}{3} & {1} & {2} \\ \hline
 		\end{tabular}
 	\end{table}
-	\pause
+	
+	
+	
+	
+	
 	¿El procedimiento terminó? 
 	\pause
-	Deberíamos verificar que escanea correctamente a todas las relaciones.
-	\pause
-	Una vez verificado esto obtenemos que el índice del subgrupo $H$ en $G$ resulta ser la cantidad de cosets que nos terminaron quedando, en este caso exactamente $3$.
+	Deberíamos verificar que para todo coset $i$ y toda relación $r$ vale que $i \cdot r = i$.
+
 \end{frame}
 
 
