@@ -160,7 +160,7 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 	\bigskip
 	
 	Notación: Dado un conjunto $X$ denotaremos por $\Par = \{ f: X \to X \ | \  f \ \text{es una función parcial} \}$.
-	
+	\pause
 	\begin{alertblock}{Definición.}
 		Dado un conjunto $X$ diremos que una acción parcial de un monoide $M$ sobre $X$ es función $M \to \Par$ tal que cumple las siguientes dos propiedades,
 		\begin{itemize}
@@ -168,9 +168,11 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 			\item $x \cdot (g \cdot h) = (x \cdot g) \cdot h$ siempre y cuando estén definidos.
 		\end{itemize} 
 	\end{alertblock}
+	\pause
 	\begin{alertblock}{Definición.}
 		Dados $X, Y$ conjuntos con acciones parciales de un monoide $M$ diremos que una función $\tau: X \to Y$ es \emph{equivariante} si $\tau (x) \cdot m = \tau (x \cdot m)$ siempre y cuando $x \cdot m$ esté definida.
 	\end{alertblock}
+	\pause
 \end{frame}
 
 
@@ -179,7 +181,7 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 \begin{frame}[fragile]{Tabla de cosets.}
 Sea $G = \langle X | R \rangle$ un grupo \fp y sea $A = X \cup X^{-1}$ sus generadores y sus inversos.
 Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
-
+\pause
 \begin{alertblock}{Definición.}
 	Una tabla de cosets $\Co $ para el grupo $G$ va a ser un conjunto $\In$ con una acción parcial de $A^{*}$ y una función $\tau: \In \to A^*$ tal que cumple las siguientes propiedades:
 	\begin{itemize}
@@ -189,7 +191,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 		\item $\ol \tau$ es equivariante;
 	\end{itemize}	
 \end{alertblock}
-
+\pause
 %Haremos la siguiente interpretación:
 %El número $n$ representa la cantidad de cosets enumerados hasta el momento.
 %La acción de $A^*$ nos dirá como será la acción de $G$ sobre el conjunto.
@@ -204,17 +206,18 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 %		A^* \to \In^{\In}
 %	\]
 \end{alertblock}
-
+\pause
 \end{frame}
 
 \begin{frame}[fragile]{Observaciones.}
 	Algunas observaciones válidas para cosets.
+	\pause
 	\begin{itemize}		
 		\item Todo coset $Hg \in G/H$ es tal que $(Hg)r = Hg$ para toda $r \in R$.
 		
 		\item Para todo $y \in Y$ vale que $Hy = H$.
 	\end{itemize}	
-
+	\pause
 	Similarmente vamos a querer que valgan estas propiedades sobre nuestras tablas de cosets.
 	\begin{itemize}
 		\item Todo coset $i \in \In$ es tal que $i \cdot r = i$.
@@ -226,15 +229,16 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
 	Nuestro objetivo es ver qué condiciones tiene que cumplir una tabla de cosets $\Co$ para garantizar que enumera correctamente a todos los cosets.
-
+	\pause
 	\begin{alertblock}{Proposición.}
 		Si $\Co$ cumple que  $i \cdot r = i$ para todo $i \in \In$ y para toda $r \in R$, 
 		entonces tenemos que $G$ actúa parcialmente sobre $\In$.
 	\end{alertblock}
 	\medskip
-	
+	\pause
 	\begin{proof}
 		Usando la propiedad que $i \cdot x = j \iff j\cdot x^{-1} = i$ nos da una acción del grupo libre $F(X)$.
+		\pause
 		Finalmente como $i \cdot r = i$ para todo $i \in \In, r \in R$ tenemos que baja a una acción parcial del grupo $G$. 
 	\end{proof}
 \end{frame}
@@ -246,7 +250,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 	\ol \tau: \In \to G/H
 	\]
 	tal que $\ol \tau (i) = H \tau (i)$.
-	
+	\pause
 	Veamos bajo qué condiciones nos queda una biyección. 
 	En tal caso habremos enumerado correctamente a los cosets.
 	\medskip
@@ -256,10 +260,11 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 	\begin{alertblock}{Proposición.}
 		Si la tabla de cosets $\Co$ está completa entonces $\ol \tau$ resulta ser sobreyectiva.
 	\end{alertblock}
-	
+	\pause
 	
 	\begin{proof}
-		Dado $Hg \in G/H$ consideremos que $g = x_1 \dots x_n$ luego como la tabla está completa tenemos que $1 \cdot x_1 \dots x_n$ está definido y $1 \cdot x_1 \dots x_n  = i$ para algún cierto $i \in \In$.
+		Dado $Hg \in G/H$ consideremos que $g = x_1 \dots x_n$ \pause luego como la tabla está completa tenemos que $1 \cdot x_1 \dots x_n$ está definido y $1 \cdot x_1 \dots x_n  = i$ para algún cierto $i \in \In$.
+		\pause
 		Usamos que $\ol \tau$ es equivariante para deducir que $\ol \tau (i) = Hg$.
 	\end{proof}
 	
@@ -272,10 +277,11 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 	\begin{alertblock}{Proposición}
 		Si la tabla de cosets $\Co$ es tal que el coset $1 \cdot y = 1$ para todo $y \in Y$ entonces $\ol \tau$ resulta ser inyectiva.
 	\end{alertblock}
-	
+	\pause
 	\begin{proof}
 		Si $\ol \tau (i) = \ol \tau (j)$ entonces $H \tau (i) \tau (j)^{-1} = H$.
-		Esto nos dice que $\tau (i) \tau(j)^{-1} \in H$ por lo que usando que $ 1 \cdot {\tau(i)} = i$ y que $1 \cdot y = 1$ para todo $y \in Y$ tenemos que 
+		\pause
+		Esto nos dice que $\tau (i) \tau(j)^{-1} \in H$ por lo que como $ 1 \cdot {\tau(i)} = i$ y  $1 \cdot y = 1$ para todo $y \in Y$ obtenemos que 
 		\[
 		1 \cdot \tau(i)\tau(j)^{-1} = 1 \implies i = j.
 		\]   
@@ -286,7 +292,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
 	En definitiva probamos el siguiente resultado sobre la tabla de cosets.
-	
+	\pause
 	\begin{alertblock}{Teorema}
 		Si valen las siguientes condiciones,
 		\begin{itemize}
@@ -294,7 +300,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 			\item $1\cdot y = 1$ para todo $y \in Y$;
 			\item $i \cdot r  = i$ para toda $r \in R$ y para todo $i \in \In$.
 		\end{itemize}
-		
+		\pause
 		entonces $[G:H] = n$ y tenemos una acción de $G$ sobre $\In$ tal que la función $\ol \tau: \In \to G/H$ resulta ser una biyección equivariante.
 	\end{alertblock}
 	\medskip
@@ -459,7 +465,7 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 \begin{frame}[fragile]{Algoritmos de enumeración de coset.}
 	Queremos definir un algoritmo que comience con una tabla de cosets vacía y por cada operación que hagamos nos siga dando una tabla de cosets.
 	
-	
+	\pause
 	Si garantizamos que completamos la tabla y que $i \cdot r = i$ para todos los cosets $i \in \In$ y todas las $r \in R$ y $1 \cdot y = 1$ para todo $y \in Y$ entonces por el resultado anterior vamos a tener una enumeración de cosets.
 	
 \end{frame}
@@ -468,10 +474,10 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 	
 	La estrategia para enumerar cosets que vamos a seguir se llama el \alert{método de las relaciones}.
 	
+	\pause
 	
 	
-	
-	El siguiente grafo nos va a orientar con los procesos que vamos a definir:
+	El siguiente grafo nos va a orientar con los algoritmos que vamos a definir:
 	\medskip
 	%Hacer un tikzcd con el grafo con palabras así como aparecía en el manual.
 	
@@ -512,7 +518,7 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 	%	\End
 	%\end{codebox}
 	
-
+	\pause
 	Partimos de una tabla de cosets $\Co$, de un coset $i \in \In$ y de una palabra $w \in A^*$.
 		
 	\begin{equation*}
@@ -536,11 +542,11 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 	
 		Partimos de una tabla de cosets $\Co$, un coset $i \in \In$ y alguna relación $w \in R$. 
 		También consideramos el caso que  $i = 1$ y tenemos algún generador $w \in Y$.
-		
+		\pause
 		
 		{Sea} ($j$,$w_1$) := \recorrer$(\Co, i, w)$ y sea $({k}$, $w_2$) :=  \recorrer$(\Co,i, w_1^{-1})$.
 		
-		
+		\pause
 		\begin{equation*}
 			\textsc{EscanearYCompletar}(\Co, i , w) = 
 			\begin{cases}
@@ -551,26 +557,8 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 			\end{cases}
 		\end{equation*}
 		
-		
+		\pause
 		Obtenemos una tabla de cosets $\Co'$ donde $i \cdot w$ está definido y $i \cdot w = i$.
-
-	
-	%	La función \scanfill \  nos va a ir definiendo cosets a medida que escaneamos con el propósito de terminar de escanear sin inconvenientes a la relación.	
-	
-	%	\begin{codebox}
-		%		\Procname{
-			%			$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ i : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$}
-		%		\li \textbf{Sea} ($j$,$w_1$) := \recorrer$(\Co, i, w)$ en
-		%		\Do 
-		%		\li			\textbf{Sea} ($\textbf{k}$, $w_2$) :=  \recorrer$(\Co,i, w_1^{-1})$ en
-		%		\Do 
-		%		\li 		\textbf{Match} $w_2^{-1}$, 
-		%		\Do 
-		%		\li $\|$ \ $\emptyset$ = \ \textbf{Si }\ $j = \textbf{k}$ \  \textbf{entonces} \  \Co \ \ \textbf{sino} \coin \ $(\Co, j, \textbf{k})$
-		%		\li $\|$ \ $x$ = \ded \ $(\Co, j, \textbf{k}, x)$
-		%		\li $\|$ \ $xw'$ = \scanfill \  (\definir \ $(\Co, j, x), i, w)$ 
-		%		\End
-		%	\end{codebox}
 \end{frame}
 
 \begin{frame}[fragile]{Algoritmo para definir y para deducir.}
@@ -580,18 +568,16 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 		Agregamos un coset por lo que nuestro conjunto pasa a ser $[1 \dots n+1]$. 
 		Definimos $i \cdot x = n+1$ y $(n+1) \cdot x^{-1} = i$.
 		Definimos $\tau(n+1) = \tau (i) x$.
+		\pause
 		\item \textbf{Algoritmo para deducir.} Partimos de dos cosets $i,j \in \In$ y de una letra $x$ tal que $i \cdot x$ no está definido y $j \cdot x^{-1}$ no está definido.
 		Definimos que $i \cdot x = j$ y $j \cdot x^{-1} = i$.
 	\end{itemize}
 	
 	
-
+	\pause
 	\begin{alertblock}{Observación.}
 		Estos algoritmos nos devuelven tablas de cosets.
 	\end{alertblock}
-	
-
-	%Agregar las propiedades al costadito para recordarlas y comentar por arriba porqué siguen valiendo.	.
 \end{frame}
 
 
@@ -756,6 +742,7 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 										{Y} \arrow[ru, "\exists \tau'"', dashed]                       &                       
 								\end{tikzcd}}
 		\end{center}
+	\pause
 		tal que:
 		\begin{itemize}
 			\item $\pi(i) = \pi(j)$;
@@ -887,7 +874,7 @@ Veamos finalmente un algoritmo de enumeración de cosets.
 \begin{alertblock}{Input.}
 	Un grupo $G$ dado por una presentación finita $\langle X | R \rangle$ y $H$ un subgrupo \fg dado por generadores $Y$ donde cada generador es un elemento de $A^*$.
 \end{alertblock}
-
+\pause
 \begin{codebox}
 	\Procname{
 		$\proc{CosetEnumeration}(\langle X | R \rangle, Y )$
@@ -915,14 +902,14 @@ Veamos finalmente un algoritmo de enumeración de cosets.
 
 \begin{frame}[fragile]{Cuándo termina el procedimiento.}
 	¿En qué caso termina el algoritmo de enumeración de cosets?
-	
+	\pause
 	Termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
-	
+	\pause
 
 	Consideremos el (posiblemente infinito) conjunto $\ol \Omega$ de los cosets que no son eliminados por ningún llamado de \coin.
 
 	
-	
+	\pause
 	\textbf{Propiedad $\ol \Omega$.} El conjunto $\ol \Omega$ es tal que:
 	\begin{enumerate}
 		\item Para cada $i \in \overline \Omega$ y para cada $x \in A$ en algún momento $i \cdot x$ va a estar definido;
@@ -937,25 +924,28 @@ Veamos finalmente un algoritmo de enumeración de cosets.
 	\end{alertblock}
 	
 	
-	\textbf{Demostración.} 
-	Primero veamos el caso que $\ol \Omega$ es finito.
+	\pause
+\begin{proof}
+	\pause
+		Primero veamos el caso que $\ol \Omega$ es finito.
 	\begin{itemize}
-		
+		\pause
 		\item Usamos la propiedad $\ol \Omega$ para ver que en algún momento $i \cdot x$ queda definido para todo $i \in \ol\Omega, x \in A$.
-		 
+		\pause 
 		Podemos tomar el momento para que todo estos cosets estén estabilizados.
-		
+		\pause
 		En ese momento tendríamos que $\Omega = \ol \Omega$ y nuestra tabla está completa y así nuestro algoritmo termina.
 	\end{itemize}
-	
+	\pause
 	Veamos el caso que $\ol \Omega$ es infinito.
 	\begin{itemize}
-		
+		\pause
 		\item Como vale la propiedad $\ol \Omega$ estamos en condiciones de usar el teorema anterior de manera que el índice de $H$ resulta ser infinito.
 		Esto contradice las hipótesis.
-		\qedsymbol
+		
 	\end{itemize}
 		
+\end{proof}
 	
 		%Agregar la propiedad y la proposición anterior al costadito.
 	
