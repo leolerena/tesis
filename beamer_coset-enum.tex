@@ -37,7 +37,7 @@
 \usepackage{pgfplots}
 %\usepgfplotslibrary{dateplot}
 \colorlet{verde}{green!50!black}
-\definecolor{amber}{rgb}{1.0, 0.49, 0.0}
+\definecolor{amber}{rgb}{1.0, 0.49, 1.15}
 \setbeamercolor{progress bar}{fg=amber,bg=alerted text.fg!50!black!10}
 
 \makeatletter
@@ -46,7 +46,7 @@
 \setlength{\metropolis@progressinheadfoot@linewidth}{2pt}
 \makeatother
 
-\definecolor{ultramarine}{RGB}{81, 131, 232} 
+\definecolor{ultramarine}{RGB}{81, 11, 122} 
 \setbeamercolor{frametitle}{bg= ultramarine}
 
 \usepackage{framed}
@@ -73,7 +73,7 @@
 \newcommand{\edeff}{\textsc{estáDefinido}}
 \newcommand{\scan}{\textsc{scan}}
 \newcommand{\definir}{\textsc{definir}}
-\newcommand{\scanfill}{\textsc{scanandfill}}
+\newcommand{\scanfill}{\textsc{escanearYCompletar}}
 \newcommand{\ded}{\textsc{deducir}}
 \newcommand{\recorrer}{\textsc{recorrer}}
 \newcommand{\In}{[1 \dots n]}
@@ -114,8 +114,8 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 		\item Dada una palabra en los generadores, ¿es igual a la identidad del grupo?
 		\pause
 		\item ¿Es un grupo finito?
-		\pause
-		\item Más aún, ¿es el grupo trivial?
+%		\pause
+%		\item Más aún, ¿es el grupo trivial?
 	\end{itemize}
 	\pause
 	No son \textit{decidibles}. 
@@ -144,8 +144,6 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 	En el caso que el procedimiento termine nos va a devolver lo siguiente:
 	\pause
 	\begin{itemize}
-		\item El índice del subgrupo $H$ en $G$.
-		\pause
 		\item La representación de $G$ por permutaciones actuando a derecha por multiplicación sobre los cosets a derecha de $H$.
 	\end{itemize}  
 \end{frame}
@@ -171,7 +169,7 @@ Vamos a poder responderlas hoy usando un algoritmo de enumeración de cosets.
 		\end{itemize} 
 	\end{alertblock}
 	\begin{alertblock}{Definición.}
-		Dados $X, Y$ conjuntos con acciones parciales de un monoide $M$ diremos que una función $\tau: X \to Y$ es \emph{equivariante} si $\tau (x) \cdot m = \tau (x \cdot m)$ siempre y cuando ambas estén definidas.
+		Dados $X, Y$ conjuntos con acciones parciales de un monoide $M$ diremos que una función $\tau: X \to Y$ es \emph{equivariante} si $\tau (x) \cdot m = \tau (x \cdot m)$ siempre y cuando $x \cdot m$ esté definida.
 	\end{alertblock}
 \end{frame}
 
@@ -183,7 +181,13 @@ Sea $G = \langle X | R \rangle$ un grupo \fp y sea $A = X \cup X^{-1}$ sus gener
 Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 
 \begin{alertblock}{Definición.}
-	Una tabla de cosets $\Co $ para el grupo $G$ va a ser un conjunto $\In$ con una acción parcial de $A^{*}$ y una función $\tau: \In \to A^*$.		
+	Una tabla de cosets $\Co $ para el grupo $G$ va a ser un conjunto $\In$ con una acción parcial de $A^{*}$ y una función $\tau: \In \to A^*$ tal que cumple las siguientes propiedades:
+	\begin{itemize}
+		\item $\tau(1)  = 1$;
+		\item Para todo $i \in \In$ tenemos que $1\cdot {\tau(i)}$ está definido y $1\cdot {\tau(i)} = i$;
+		\item $i \cdot x = j \iff j \cdot x^{-1} = i$ para $x \in A$;
+		\item $\ol \tau$ es equivariante;
+	\end{itemize}	
 \end{alertblock}
 
 %Haremos la siguiente interpretación:
@@ -204,48 +208,34 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 \end{frame}
 
 \begin{frame}[fragile]{Observaciones.}
-	Algunas observaciones válidas para cosets que queremos que valgan en nuestras tablas.
+	Algunas observaciones válidas para cosets.
 	\begin{itemize}		
-		\item Todo coset $Hg \in G/H$ es tal que $(Hg)r = 1$ para toda $r \in R$.
+		\item Todo coset $Hg \in G/H$ es tal que $(Hg)r = Hg$ para toda $r \in R$.
 		
-		\item Similarmente tenemos que para todo $y \in Y$ vale que $Hy = H$.
+		\item Para todo $y \in Y$ vale que $Hy = H$.
 	\end{itemize}	
+
+	Similarmente vamos a querer que valgan estas propiedades sobre nuestras tablas de cosets.
+	\begin{itemize}
+		\item Todo coset $i \in \In$ es tal que $i \cdot r = i$.
+		
+		\item Para todo $y \in Y$ tenemos que $1 \cdot y = 1$.
+	\end{itemize}
 \end{frame}
 
-
-%\begin{frame}[fragile]{Propiedades de la tabla de cosets.}
-%	La tabla de cosets vamos a querer que mantenga ciertas propiedades a medida que corramos el algoritmo, esto vendría a ser el invariante de representación.
-%	\pause
-%	
-%	
-%	
-%	\begin{enumerate}
-%		\item $1 \in \Omega$ y $1^{\tau(i)} = i$.
-%		\pause
-%		\item $i^x = j \iff j^{X} = i$
-%		\pause
-%		\item Si $i^x = j$ entonces tenemos que $H \tau(i) x = H \tau(j)$
-%		\pause
-%		\item Para todo $i \in \In$ tenemos que $1^{\tau(i)}$ está definido y $1^{\tau(i)} = i$.
-%	\end{enumerate}
-%\end{frame}
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
 	Nuestro objetivo es ver qué condiciones tiene que cumplir una tabla de cosets $\Co$ para garantizar que enumera correctamente a todos los cosets.
 
 	\begin{alertblock}{Proposición.}
-		Si $\Co$ cumple que:
-		\begin{itemize}
-			\item  $i^x = j \iff j^{X} = i$.
-			\item  $i^r = i$ para todo $i \in \In$ y para toda $r \in R$, 
-		\end{itemize}
-		entonces tenemos que $G$ actúa sobre $\In$.
+		Si $\Co$ cumple que  $i \cdot r = i$ para todo $i \in \In$ y para toda $r \in R$, 
+		entonces tenemos que $G$ actúa parcialmente sobre $\In$.
 	\end{alertblock}
 	\medskip
 	
 	\begin{proof}
-		Usando la propiedad que $i^x = j \iff j^{X} = i$ nos da una acción del grupo libre $F(X)$.
-		Finalmente como $i^r = i$ para todo $i \in \In, r \in R$ tenemos que baja a una acción del grupo $G$. 
+		Usando la propiedad que $i \cdot x = j \iff j\cdot x^{-1} = i$ nos da una acción del grupo libre $F(X)$.
+		Finalmente como $i \cdot r = i$ para todo $i \in \In, r \in R$ tenemos que baja a una acción parcial del grupo $G$. 
 	\end{proof}
 \end{frame}
 
@@ -264,13 +254,14 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 	
 	
 	\begin{alertblock}{Proposición.}
-		Si la tabla de cosets $\Co$ está completa, si $\ol \tau$ es \emph{equivariante} y para todo $i \in \In$ tenemos que $1^{\tau(i)} = i$ entonces $\ol \tau$ resulta ser sobreyectiva.
+		Si la tabla de cosets $\Co$ está completa entonces $\ol \tau$ resulta ser sobreyectiva.
 	\end{alertblock}
 	
 	
-\begin{proof}
-	Dado $Hg \in G/H$ como la tabla está completa tenemos definido $i$ tal que $H\tau(i) = Hg$ usando que $g = x_1 \dots x_n$ en los generadores $A$. 
-\end{proof}
+	\begin{proof}
+		Dado $Hg \in G/H$ consideremos que $g = x_1 \dots x_n$ luego como la tabla está completa tenemos que $1 \cdot x_1 \dots x_n$ está definido y $1 \cdot x_1 \dots x_n  = i$ para algún cierto $i \in \In$.
+		Usamos que $\ol \tau$ es equivariante para deducir que $\ol \tau (i) = Hg$.
+	\end{proof}
 	
 	
 	
@@ -279,12 +270,15 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
 	\begin{alertblock}{Proposición}
-		Si la tabla de cosets $\Co$ es tal que el coset $1^y = 1$ para todo $y \in Y$ y aparte $1^{\tau (i)} = i$ para todo $i \in \In$ entonces $\ol \tau$ resulta ser inyectiva.
+		Si la tabla de cosets $\Co$ es tal que el coset $1 \cdot y = 1$ para todo $y \in Y$ entonces $\ol \tau$ resulta ser inyectiva.
 	\end{alertblock}
 	
 	\begin{proof}
 		Si $\ol \tau (i) = \ol \tau (j)$ entonces $H \tau (i) \tau (j)^{-1} = H$.
-		Usamos que $ 1^{\tau(i)} = i$ y que $1^y = 1$ para todo $y \in Y$. 
+		Esto nos dice que $\tau (i) \tau(j)^{-1} \in H$ por lo que usando que $ 1 \cdot {\tau(i)} = i$ y que $1 \cdot y = 1$ para todo $y \in Y$ tenemos que 
+		\[
+		1 \cdot \tau(i)\tau(j)^{-1} = 1 \implies i = j.
+		\]   
 	\end{proof}
 \end{frame}
 
@@ -296,16 +290,12 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 	\begin{alertblock}{Teorema}
 		Si valen las siguientes condiciones,
 		\begin{itemize}
-			\item Para todo $i \in \In$ tenemos que $1^{\tau(i)}$ está definido y $1^{\tau(i)} = i$;
-			\item $i \cdot x = j \iff j \cdot x^{-1} = i$ para $x \in A$;
-			\item $\ol \tau$ es equivariante;
 			\item La tabla de cosets está completa;
-			\item $1^y = 1$ para todo $y \in Y$;
-			\item $i^r  = i$ para toda $r \in R$ y para todo $i \in \In$.
+			\item $1\cdot y = 1$ para todo $y \in Y$;
+			\item $i \cdot r  = i$ para toda $r \in R$ y para todo $i \in \In$.
 		\end{itemize}
-		\pause
-		entonces $[G:H] = n$ y para todo $g \in G$, $\varphi(x): \In \to \In$ definida por $\varphi(g)(i) = i^g$ es una biyección.
-		A su vez la acción sobre los cosets enumerados coincide con la acción de $G$ sobre los cosets a derecha de $H$.
+		
+		entonces $[G:H] = n$ y tenemos una acción de $G$ sobre $\In$ tal que la función $\ol \tau: \In \to G/H$ resulta ser una biyección equivariante.
 	\end{alertblock}
 	\medskip
 \end{frame}
@@ -340,8 +330,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 
 \begin{frame}[fragile]{Ejemplo (1/4)}
 	\section{Ejemplo a mano del procedimiento.}
-	Partamos del grupo \fp $G = \langle x, y | x^2, y^3, [x,y] \rangle$ tal que $G \simeq \Z / 2\Z \times \Z / 3\Z$.
-	Notaremos $X = x^{-1}$ e $Y = y^{-1}$.
+	Partamos del grupo \fp $G = \langle x, y \ | \ x^2, y^3, [x,y] \rangle$ tal que $G \simeq \Z / 2\Z \times \Z / 3\Z$.
 	\pause
 	Tomemos como subgrupo $H = \langle x \rangle$.
 	\pause
@@ -433,14 +422,14 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 	\pause
 	\begin{center}
 		\begin{tikzcd}
-		{1} \arrow[r, "x", bend left] & {1} \arrow[r, "y", bend left]         & {2} \arrow[r, "X", dotted, bend left]            & {2} \arrow[r, "Y", bend left] & {1} \\ 
+		{1} \arrow[r, "x", bend left] & {1} \arrow[r, "y", bend left]         & {2} \arrow[r, "x^{-1}", dotted, bend left]            & {2} \arrow[r, "y^{-1}", bend left] & {1} \\ 
 		\end{tikzcd}
 	\end{center}
 	\pause
 	y cuando lo hacemos para el coset 2 obtenemos,
 	\begin{center}
 		\begin{tikzcd}
-			{2} \arrow[r, "x", bend left] & {2} \arrow[r, "y", bend left]         & {3} \arrow[r, "X", dotted, bend left]            & {3} \arrow[r, "Y", bend left] & {2}
+			{2} \arrow[r, "x", bend left] & {2} \arrow[r, "y", bend left]         & {3} \arrow[r, "x^{-1}", dotted, bend left]            & {3} \arrow[r, "y^{-1}", bend left] & {2}
 		\end{tikzcd}
 	\end{center}
 	\pause
@@ -449,10 +438,10 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 	\begin{table}[]
 		\begin{tabular}{|l|l|l|l|l|}
 			\hline
-			Cosets     & x          & X          & y          & Y          \\ \hline
+			Cosets     & x          & $x^{-1}$          & y          & $y^{-1}$          \\ \hline
 			{1} & {1} & {1} & {2} & {3} \\ \hline
-			{2} & \color{verde}{2} & \color{verde}{2} & {3} & {1} \\ \hline
-			{3} & \color{verde}{3} & \color{verde}{3} & {1} & {2} \\ \hline
+			{2} & {2} & {2} & {3} & {1} \\ \hline
+			{3} & {3} & {3} & {1} & {2} \\ \hline
 		\end{tabular}
 	\end{table}
 	
@@ -467,10 +456,18 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 \end{frame}
 
 
+\begin{frame}[fragile]{Algoritmos de enumeración de coset.}
+	Queremos definir un algoritmo que comience con una tabla de cosets vacía y por cada operación que hagamos nos siga dando una tabla de cosets.
+	
+	
+	Si garantizamos que completamos la tabla y que $i \cdot r = i$ para todos los cosets $i \in \In$ y todas las $r \in R$ y $1 \cdot y = 1$ para todo $y \in Y$ entonces por el resultado anterior vamos a tener una enumeración de cosets.
+	
+\end{frame}
+
 \begin{frame}[fragile]{Método de las relaciones.}
 	
-	La estrategia para enumerar cosets que vamos a seguir se llama el \alert{ método de las relaciones}.
-	\pause
+	La estrategia para enumerar cosets que vamos a seguir se llama el \alert{método de las relaciones}.
+	
 	
 	
 	
@@ -480,7 +477,7 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 	
 	% Define block styles
 	\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-	text width=10em, text centered, rounded corners, minimum height=1.5em]
+	text width=12em, text centered, rounded corners, minimum height=2.5em]
 	\tikzstyle{line} = [draw, -latex']
 	
 	\begin{tikzpicture}[node distance = 1.5cm, auto]
@@ -491,352 +488,424 @@ Queremos garantizar que $1\cdot y^3 = 1$.
 	\node [block, right of=def, node distance=5cm] (coincidence) {\coin};
 	\node [block, left of=def, node distance=5cm] (ded) {\ded};
 	
-	\node [block, below of=coincidence] (rep) {\rep};
-	\node [block, left of=rep, node distance=5cm] (merge) {\mer};
+	%\node [block, below of=coincidence] (rep) {\rep};
+	%\node [block, left of=rep, node distance=5cm] (merge) {\mer};
 	% Draw edges
 	\path [line] (cosetenum) -- (scanfill);
 	\path [line] (scanfill) -- (def);
 	\path [line] (scanfill) -- (ded);
 	\path [line] (scanfill) -- (coincidence);
-	\path [line] (coincidence) -- (merge);
-	\path [line] (coincidence) -- (rep);
+	%\path [line] (coincidence) -- (merge);
+	%\path [line] (coincidence) -- (rep);
 	\end{tikzpicture}
 \end{frame}
 
 
-\begin{frame}[fragile]{Algoritmo de escanear y completar.}
-Primero definimos un algoritmo que dado un coset y una palabra recorre hasta donde puede y nos devuelve hasta donde llegó y qué es lo que le quedó por leer de la palabra.
-\begin{codebox}
-	\Procname{$\proc{Recorrer}(\Co : \text{Tabla de Cosets}, i : \text{Coset}, w : A^*) :  (j : \text{Coset}, \ v : A^*)$}
-	\li \textbf{Match} $w$, 
-	\Do 
-	\li $ | \  \ \emptyset = (i, \emptyset)$ 
-	\li $ | \ \  xu =$ \textbf{si} $\edeff(\Co, i,x)$ \textbf{entonces}  $\recorrer(\Co, i^x, u) $ \textbf{sino} $(i, w)$
-	\End
-\end{codebox}
-\pause
+\begin{frame}[fragile]{Algoritmo para recorrer una tabla de cosets.}
+	Primero definimos un algoritmo que dado un coset y una palabra recorre hasta donde puede y nos devuelve hasta donde llegó y qué es lo que le quedó por leer de la palabra.
+	%\begin{codebox}
+	%	\Procname{$\proc{Recorrer}(\Co : \text{Tabla de Cosets}, i : \text{Coset}, w : A^*) :  (j : \text{Coset}, \ v : A^*)$}
+	%	\li \textbf{Match} $w$, 
+	%	\Do 
+	%	\li $ | \  \ \emptyset = (i, \emptyset)$ 
+	%	\li $ | \ \  xu =$ \textbf{si} $\edeff(\Co, i,x)$ \textbf{entonces}  $\recorrer(\Co, i^x, u) $ \textbf{sino} $(i, w)$
+	%	\End
+	%\end{codebox}
+	
 
-Donde la función \edeff($\Co, i, x$) nos devuelve \textsc{true} si $i^x$ está definido y \textsc{false} si no lo está.
-\medskip
-\pause	
+	Partimos de una tabla de cosets $\Co$, de un coset $i \in \In$ y de una palabra $w \in A^*$.
+		
+	\begin{equation*}
+		\textsc{recorrer}(i,w) = 
+		\begin{cases}
+			(i, \emptyset) \ \ &\text{si} \ w = \emptyset \\
+			(i, w) \  &\text{si} \ w = xu \  \text{y} \ \ i \cdot x \ \text{no está definido.} \\
+			\textsc{recorrer}(i \cdot x, u) \ &\text{si} \ w = xu \ \text{y} \  i \cdot x  \text{ está definido.} \\
+		\end{cases}
+	\end{equation*}
 
+	
+	
+	
+	%Donde la función \edeff($\Co, i, x$) nos devuelve \textsc{true} si $i^x$ está definido y \textsc{false} si no lo está.
+	
+	
 \end{frame}
 
 \begin{frame}[fragile]{Algoritmo de Scan and Fill.}
 	
-	La función \scanfill \  nos va a ir definiendo cosets a medida que escaneamos con el propósito de terminar de escanear sin inconvenientes a la relación.	
-	
-	\begin{codebox}
-		\Procname{
-			$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ i : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$}
-		\li \textbf{Sea} ($j$,$w_1$) := \recorrer$(\Co, i, w)$ en
-		\Do 
-		\li			\textbf{Sea} ($\textbf{k}$, $w_2$) :=  \recorrer$(\Co,i, w_1^{-1})$ en
-		\Do 
-		\li 		\textbf{Match} $w_2^{-1}$, 
-		\Do 
-		\li $\|$ \ $\emptyset$ = \ \textbf{Si }\ $j = \textbf{k}$ \  \textbf{entonces} \  \Co \ \ \textbf{sino} \coin \ $(\Co, j, \textbf{k})$
-		\li $\|$ \ $x$ = \ded \ $(\Co, j, \textbf{k}, x)$
-		\li $\|$ \ $xw'$ = \scanfill \  (\definir \ $(\Co, j, x), i, w)$ 
-		\End
-	\end{codebox}
-\end{frame}
-
-
-\begin{frame}[fragile]{Algoritmo para definir.}
-	
-Este algoritmo nos define $i^x$ como un nuevo coset aumentando la cantidad de cosets definidos hasta el momento en uno. 
-\pause	
-\begin{codebox}
-	\Procname{$\proc{Definir} (\Co : \text{Tabla de Cosets}, i : \In , x : A) : ( \Co' : \text{Tabla de Cosets})  $}
-	\li $n = n+1$
-	\li $p(n+1) = n+1$
-	\li $i^x = n+1,  {(n+1)}^X = i $
-	\li \Comment $\tau(n+1) = \tau(i) x$
-\end{codebox}
-\pause
-	
-Todas las propiedades siguen valiendo después de ejecutar esta rutina.	
-%Agregar las propiedades al costadito para recordarlas y comentar por arriba porqué siguen valiendo.	.
-\end{frame}
-
-\begin{frame}[fragile]{Cosets vivos.}
-	Cuando enumeramos los cosets muchas veces sucederá que enumeraremos de manera distinta a un mismo coset. 
-	Esto es que para ciertos $i \neq j \in \In$ tendremos que $H \tau (i) = H \tau (j)$.
-	\pause
-	Para distinguirlos introduciremos una función decreciente de los cosets en sí mismo $p: \In \to \In$.
-	
-	\pause
-	\begin{alertblock}{Definición.}
-		Los \emph{cosets vivos} son el subconjunto de cosets enumerados dados por $\Omega = \{ i \in \In  \ | \ p(i) = i \}$.
-	\end{alertblock}
-	
-\end{frame}
-
-\begin{frame}[fragile]{Rep.}
-	
-	Este algoritmo nos busca un representante de la clase de equivalencia de $i$, un coset de una tabla $\Co$, con respecto a la $G-$equivalencia generada por $p$.
-	
-	\pause
-	
-	\begin{codebox}
-		\Procname{$\proc{rep}( \Co : \text{Tabla de cosets}, i : \text{coset}) : (\textbf{k} : \text{coset})  $}
-		\li \textbf{Si} $p(i) = i$ \textbf{entonces} $i$ \textbf{sino} $\rep(\Co, p(i))$
-	\end{codebox}
-\pause
-
-En particular como $p$ es una función decreciente sobre un subconjunto de naturales tenemos que si la aplicamos consecutivamente en algún momento tiene un punto fijo.
-\end{frame}
-
-\begin{frame}[fragile]{Merge.}
-	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase y nos devuelve una lista con todos los cosets a los cuales les cambiamos el representante.
-	\pause
-	\begin{codebox}
-		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, i : \text{coset}, j : \text{coset}) : (\Co' : \text{Tabla de cosets}, q : \text{lista de cosets})$}
-		\li \textbf{Sean} $\textbf{k} = \rep(i), \textbf{l} = \rep(j)$
-		\li \textbf{Si} $ \textbf{k} \neq \textbf{l}$ \textbf{entonces} 
-		\Do 
-		\li \textbf{Sean} $\mu = \max(\textbf{k}, \textbf{l}), \nu = \min(\textbf{k}, \textbf{l})$
-		\li $p(\mu) = \nu, q = [\mu]$
-	\end{codebox}
+		Partimos de una tabla de cosets $\Co$, un coset $i \in \In$ y alguna relación $w \in R$. 
+		También consideramos el caso que  $i = 1$ y tenemos algún generador $w \in Y$.
 		
+		
+		{Sea} ($j$,$w_1$) := \recorrer$(\Co, i, w)$ y sea $({k}$, $w_2$) :=  \recorrer$(\Co,i, w_1^{-1})$.
+		
+		
+		\begin{equation*}
+			\textsc{EscanearYCompletar}(\Co, i , w) = 
+			\begin{cases}
+				\Co \ &\text{si} \  w_2 = \emptyset \ \text{y} \ j=k  \\
+				\coin({\Co, j,k}) & \text{si} \  w_2 = \emptyset \ \text{y} \ j \neq k   \\
+				\ded(\Co, j, x) & \text{si} \ w_2 = x   \\
+				\scanfill(\definir(\Co,i,x),i,w) & \text{si} \ w_2 = xu
+			\end{cases}
+		\end{equation*}
+		
+		
+		Obtenemos una tabla de cosets $\Co'$ donde $i \cdot w$ está definido y $i \cdot w = i$.
+
+	
+	%	La función \scanfill \  nos va a ir definiendo cosets a medida que escaneamos con el propósito de terminar de escanear sin inconvenientes a la relación.	
+	
+	%	\begin{codebox}
+		%		\Procname{
+			%			$\proc{ScanAndFill}(\Co : \text{Tabla de cosets}, \ i : \text{coset}, \ r : R) : \ \  (\Co' : \text{Tabla de cosets})$}
+		%		\li \textbf{Sea} ($j$,$w_1$) := \recorrer$(\Co, i, w)$ en
+		%		\Do 
+		%		\li			\textbf{Sea} ($\textbf{k}$, $w_2$) :=  \recorrer$(\Co,i, w_1^{-1})$ en
+		%		\Do 
+		%		\li 		\textbf{Match} $w_2^{-1}$, 
+		%		\Do 
+		%		\li $\|$ \ $\emptyset$ = \ \textbf{Si }\ $j = \textbf{k}$ \  \textbf{entonces} \  \Co \ \ \textbf{sino} \coin \ $(\Co, j, \textbf{k})$
+		%		\li $\|$ \ $x$ = \ded \ $(\Co, j, \textbf{k}, x)$
+		%		\li $\|$ \ $xw'$ = \scanfill \  (\definir \ $(\Co, j, x), i, w)$ 
+		%		\End
+		%	\end{codebox}
 \end{frame}
 
-\begin{frame}[fragile]{$G$-equivalencias.}
-	Sabemos que al finalizar el algoritmo nos queda la acción sobre los cosets $G/H$ si nos restringimos a $\Omega$ pero ¿qué sucede en el medio?
-	\pause
-	
-	
-	\begin{alertblock}{Definición}
-		Una \alert{G-equivalencia} es una relación de equivalencia sobre un conjunto $X$ con una acción parcial de $G$ que aparte satisface la siguiente propiedad.
-		Si $x \sim y$ luego para todo $g \in G$  vale que $xg \sim yg$ siempre y cuando $xg$ e $yg$ estén definidas.
-	\end{alertblock}
-	\pause
-	
-	
-	
-	Así como tenemos relaciones de equivalencias generadas a partir de algún subconjunto $S \subseteq X \times X$ podemos considerar la menor $G$ equivalencia generada a partir de $S$.
-	
-	
-	
-	\pause
-	\begin{columns}
-		\begin{column}{0.6\textwidth}
-			Cumple la siguiente propiedad universal.
-			Si $\equiv$ es la menor $G$-equivalencia que contiene a $S$ y $\sim$ es otra $G$ equivalencia que contiene a $S$ entonces:
-		\end{column}
-		\pause
-		\begin{column}{0.4\textwidth}
-			\begin{center}
-				{\large \begin{tikzcd}
-					{X} \arrow[d, "\pi_S"', two heads] \arrow[r, "\pi", two heads] & {X / \sim} \\
-					{ X  / \sim_S} \arrow[ru, "\exists \ol{ \pi_S}"', dashed]                       &                       
-				\end{tikzcd}}
-			\end{center}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{$G$-equivalencias en nuestro contexto.}
-	En nuestro caso consideramos que estamos en algún momento de nuestro algoritmo entonces:
-	\pause
+\begin{frame}[fragile]{Algoritmo para definir y para deducir.}
 	\begin{itemize}
-		\item El conjunto $X = \In$ los cosets definidos.
-		\pause
-		\item La relación $\sim$ es la generada a partir de $p$.
-		\pause
-		\item La acción parcial de $G$ justamente es la multiplicación a derecha de los cosets.
+		\item \textbf{Algoritmo para definir.} 
+		Partimos de un coset $i$ y de alguna letra $x \in A$ tal que $i \cdot x$ no esté definida.
+		Agregamos un coset por lo que nuestro conjunto pasa a ser $[1 \dots n+1]$. 
+		Definimos $i \cdot x = n+1$ y $(n+1) \cdot x^{-1} = i$.
+		Definimos $\tau(n+1) = \tau (i) x$.
+		\item \textbf{Algoritmo para deducir.} Partimos de dos cosets $i,j \in \In$ y de una letra $x$ tal que $i \cdot x$ no está definido y $j \cdot x^{-1}$ no está definido.
+		Definimos que $i \cdot x = j$ y $j \cdot x^{-1} = i$.
 	\end{itemize}
+	
+	
 
-\pause
+	\begin{alertblock}{Observación.}
+		Estos algoritmos nos devuelven tablas de cosets.
+	\end{alertblock}
+	
 
-Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
+	%Agregar las propiedades al costadito para recordarlas y comentar por arriba porqué siguen valiendo.	.
 \end{frame}
 
-\begin{frame}[fragile]{Coincidencia.}
 
-	Primero unas funciones auxiliares,
-	\pause
-	\begin{codebox}\Procname{$\proc{procesarLetra}(\Co : \text{Tabla de cosets}, i : \In, x : A ) : (\Co' : \text{Tabla de cosets}, q: \text{lista de cosets})$}
-		\li \textbf{Si} \edeff($\Co, i, x$)
-		%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
-		\Do 
-		\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
-		\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu$)
-		\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu$)
-		\li \textbf{Sino} $(\definir(\Co, \mu,x), [])$
-	\end{codebox}
-	\pause
-	%Podemos extender esta función para que tome una lista de letras.
-	\begin{codebox}\Procname{$\proc{coincidenciaLista}(\Co : \text{tabla de cosets}, q : \text{lista cosets}) : (\Co' : \text{tabla de cosets} )$}
-		\li \textbf{Match} $(\Co, q)$,
-		\Do
-		\li $(\Co, []) = \Co$
-		\li $(\Co, i::q) = \proc{coincidenceLista}(\Co'', q ++ q')$ 
-		\Do 
-		\li \textbf{Donde} $(\Co'', q') = \proc{procesarLetras} (\Co, i , A)$
-		\li 
-	\end{codebox}
-	\pause
-\end{frame}
+
+
+
+
+%\begin{frame}[fragile]{Rep.}
+%	
+%	Este algoritmo nos busca un representante de la clase de equivalencia de $i$, un coset de una tabla $\Co$, con respecto a la $G-$equivalencia generada por $p$.
+%	
+%	\pause
+%	
+%	\begin{codebox}
+%		\Procname{$\proc{rep}( \Co : \text{Tabla de cosets}, i : \text{coset}) : (\textbf{k} : \text{coset})  $}
+%		\li \textbf{Si} $p(i) = i$ \textbf{entonces} $i$ \textbf{sino} $\rep(\Co, p(i))$
+%	\end{codebox}
+%\pause
+%
+%En particular como $p$ es una función decreciente sobre un subconjunto de naturales tenemos que si la aplicamos consecutivamente en algún momento tiene un punto fijo.
+%\end{frame}
+%
+%\begin{frame}[fragile]{Merge.}
+%	Este algoritmo une dos clases de equivalencia cambiándole el valor de $p$ del representante de una clase a que valga el de la otra clase y nos devuelve una lista con todos los cosets a los cuales les cambiamos el representante.
+%	\pause
+%	\begin{codebox}
+%		\Procname{$\proc{merge}( \Co : \text{Tabla de cosets}, i : \text{coset}, j : \text{coset}) : (\Co' : \text{Tabla de cosets}, q : \text{lista de cosets})$}
+%		\li \textbf{Sean} $\textbf{k} = \rep(i), \textbf{l} = \rep(j)$
+%		\li \textbf{Si} $ \textbf{k} \neq \textbf{l}$ \textbf{entonces} 
+%		\Do 
+%		\li \textbf{Sean} $\mu = \max(\textbf{k}, \textbf{l}), \nu = \min(\textbf{k}, \textbf{l})$
+%		\li $p(\mu) = \nu, q = [\mu]$
+%	\end{codebox}
+%		
+%\end{frame}
+
+%\begin{frame}[fragile]{$M$-equivalencias.}
+%	%Sabemos que al finalizar el algoritmo nos queda la acción sobre los cosets $G/H$ si nos restringimos a $\Omega$ pero ¿qué sucede en el medio?
+%
+%	
+%	
+%	\begin{alertblock}{Definición}
+%		Una \alert{M-equivalencia} es una relación de equivalencia sobre un conjunto $X$ con una acción parcial de un monoide $M$ que aparte satisface la siguiente propiedad.
+%		Si $x \sim y$ luego para todo $m \in M$  vale que $x \cdot m \sim y \cdot m$ siempre y cuando $x \cdot m$ e $y \cdot m$ estén definidas.
+%	\end{alertblock}
+%	
+%	
+%	\begin{alertblock}{Lema.}
+%		La acción parcial de $M$ sobre $X$ se restringe a una acción parcial de $M$ sobre $X / \sim.$
+%	\end{alertblock}
+%
+%	\begin{proof}
+%		Dado $[x] \in X / \sim$ definimos 
+%		\[
+%		[x] \cdot m = [x \cdot m]
+%		\]
+%		que resulta ser una acción parcial porque $M$ actua parcialmente sobre $X$.
+%		
+%		No depende del representante porque estamos dividiendo por una $M$-equivalencia justamente.
+%	\end{proof}
+%
+%	
+%	\begin{alertblock}{Observación.}
+%		Esto nos dice que la proyección $\pi:X \to X / \sim$ resulta ser equivariante.
+%	\end{alertblock}
+%\end{frame}
+%
+%\begin{frame}[fragile]{$M$-equivalencias generada por un subconjunto.}
+%		
+%%	Así como tenemos relaciones de equivalencias generadas a partir de algún subconjunto $S \subseteq X \times X$ podemos considerar la menor $M$ equivalencia generada a partir de $S$.
+%	\begin{alertblock}{Proposición.}
+%		Sea $X$ un conjunto con una acción parcial de un monoide $M$ y sea $S \subset X \times X$ entonces existe una $M$-equivalencia $\sim_S$ que contiene a $S$.
+%		
+%		Si $\sim_S$ es la menor $M$-equivalencia que contiene a $S$ y $\sim$ es otra $M$ equivalencia que contiene a $S$ entonces cumple la siguiente propiedad universal
+%			
+%		\begin{center}
+%			{\large \begin{tikzcd}
+%					{X} \arrow[d, "\pi_S"', two heads] \arrow[r, "\pi", two heads] & {X / \sim} \\
+%					{ X  / \sim_S} \arrow[ru, "\exists \ol{ \pi}"', dashed]                       &                       
+%			\end{tikzcd}}
+%		\end{center}
+%	\end{alertblock}
+%	\begin{proof}
+%		Para ver la existencia consideramos 
+%		\[
+%			\sim_S = \bigcap_{S \subseteq \sim} \sim.
+%		\]
+%		La propiedad universal sale de la propiedad universal del cociente y que las proyecciones son equivariantes.
+%	\end{proof}
+%\end{frame}
+
+%\begin{frame}[fragile]{Cosets vivos.}
+%	Cuando enumeramos los cosets muchas veces sucederá que enumeraremos de manera distinta a un mismo coset. 
+%	Esto es que para ciertos $i \neq j \in \In$ tendremos que $H \tau (i) = H \tau (j)$.
+%	
+%	Para distinguirlos introduciremos una función decreciente de los cosets en sí mismo $p: \In \to \In$.
+%	
+%	
+%	\begin{alertblock}{Definición.}
+%		Los \emph{cosets vivos} son el subconjunto de cosets enumerados dados por $\Omega = \{ i \in \In  \ | \ p(i) = i \}$.
+%	\end{alertblock}
+%	
+%	Consideremos la relación de equivalencia $\sim$ generada a partir de $p$.
+%	Otra manera de decir esto es que 
+%	\[
+%	\Omega \simeq \In / \sim
+%	\]
+%	y queremos ver que $\sim$ es un $A^{*}$-equivalencia sobre $\In$ en todo momento del algoritmo.
+%	
+%\end{frame}
+
+%\begin{frame}[fragile]{$M$-equivalencias en nuestro caso.}
+%	En nuestro caso consideramos que estamos en algún momento de nuestro algoritmo entonces:
+%	
+%	\begin{itemize}
+%		\item El conjunto $X = \In$ los cosets definidos.
+%		
+%		\item La relación $\sim$ es la generada a partir de $p$.
+%		
+%		\item La acción parcial de $M$ justamente es la multiplicación a derecha de los cosets.
+%	\end{itemize}
+%	
+%	
+%	
+%	Con esta notación vemos que $\In /\sim \ \simeq \ \Omega$.
+%\end{frame}	
+
+
+
+%\begin{frame}[fragile]{Coincidencia.}
+%
+%	Primero unas funciones auxiliares,
+%	\pause
+%	\begin{codebox}\Procname{$\proc{procesarLetra}(\Co : \text{Tabla de cosets}, i : \In, x : A ) : (\Co' : \text{Tabla de cosets}, q: \text{lista de cosets})$}
+%		\li \textbf{Si} \edeff($\Co, i, x$)
+%		%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
+%		\Do 
+%		\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
+%		\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu$)
+%		\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu$)
+%		\li \textbf{Sino} $(\definir(\Co, \mu,x), [])$
+%	\end{codebox}
+%	\pause
+%	%Podemos extender esta función para que tome una lista de letras.
+%	\begin{codebox}\Procname{$\proc{coincidenciaLista}(\Co : \text{tabla de cosets}, q : \text{lista cosets}) : (\Co' : \text{tabla de cosets} )$}
+%		\li \textbf{Match} $(\Co, q)$,
+%		\Do
+%		\li $(\Co, []) = \Co$
+%		\li $(\Co, i::q) = \proc{coincidenceLista}(\Co'', q ++ q')$ 
+%		\Do 
+%		\li \textbf{Donde} $(\Co'', q') = \proc{procesarLetras} (\Co, i , A)$
+%		\li 
+%	\end{codebox}
+%	\pause
+%\end{frame}
 
 \begin{frame}[fragile]{Algoritmo de \coin}
-	Finalmente podemos definir \coin.
-	\pause
-	\begin{alertblock}{Idea del algoritmo.}
-		Nos armamos la $G$-equivalencia generada a partir de $\sim$ y del par $(i, j)$.
-	\end{alertblock}
-	\pause
-	\begin{codebox}
-		\Procname{$\proc{coincidencia}(\Co : \text{Tabla de cosets}, i : \text{coset}, j : \text{coset}): ( \Co' : \text{Tabla de cosets} )$}
-		\li \textbf{Sea} ($\Co', q$) = \mer($\Co, i$, $j$, $[]$), 
-		\Do 
-		%\li \textbf{Sea} $\textbf{k} = q[0]$ ,
-		%%\li \edeff($ i, \textbf{k}$)
-		%\li \textbf{Si} \edeff($\Co', \textbf{k}, x$) para $x \in A$,
-		%%No sé si poner una función nueva o dejar esto así, en cierta manera es una auxiliar bastante evidente cómo es su pinta. 
-		%\Do 
-		%\li \textbf{Sea} $\textbf{l} = \textbf{k}^x, \mu = \rep(\textbf{k}), \nu = \rep(\textbf{l})$
-		%\li \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces} \mer($\Co', \mu^x, \nu, q$)
-		%\li \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces} \mer($\Co', \nu^X, \mu, q$)
-		%\li \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
-		\li  Sea $(\Co'', q')$ =  \proc{procesarLetras} ($\Co, i,  A$) 
-		\Do 
-		\li $\Co'  = $\proc{coincidenciaLista} {$ (\Co'', q')$}.
-		
-	\end{codebox}
+	Este algoritmo parte de una tabla de cosets $\Co$, dos cosets distintos $i,j \in \In$ y nos devuelve el cociente más general $Y$ que cumple lo siguiente,
+		\begin{center}
+					{\large \begin{tikzcd}
+										{\In} \arrow[d, "\pi"', two heads] \arrow[r, "\ol\tau"] & {G/H} \\
+										{Y} \arrow[ru, "\exists \tau'"', dashed]                       &                       
+								\end{tikzcd}}
+		\end{center}
+		tal que:
+		\begin{itemize}
+			\item $\pi(i) = \pi(j)$;
+			\item $\tau'$ es equivariante y $\tau' ([x]) = \ol\tau(x)$ para cierto $x$ representante de  $[x]$. 
+		\end{itemize}
 \end{frame}
+%
+%\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (1/3).}
+%	%Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
+%	Sea $\equiv$ la $G$-equivalencia generada a partir de la relación $\sim$ dada por $p$ y del par $(i, j)$.
+%	\pause
+%	Llamemos $\sim_F$ la relación que nos queda al terminar de hacer \coin.
+%	Esto es que $\textbf{k} \sim_F \textbf{l}$ si y solo sí al terminar el algoritmo $\rep (\textbf{k}) = \rep(\textbf{l})$ donde en este caso el representante lo estamos mirando respecto a esta nueva relación de equivalencia.
+%	\pause
+%	
+%	\begin{alertblock}{Lema}
+%		Si existen $\textbf{k}, \textbf{l} \in [1,\dots,n], x \in A$ tales que $\textbf{k}^x = \textbf{l}$ antes de comenzar el algoritmo entonces al terminarlo vale que $\rep(\textbf{k})^x = \rep(\textbf{l}).$
+%	\end{alertblock}
+%	\pause
+%	\textbf{Demostración.} 
+%	\pause
+%	Solo nos interesa los casos que modificamos el valor de $p'$. 
+%	Tomemos $\mu = \rep(\textbf{k}) $ y $\nu = \rep(\textbf{l})$.
+%	\pause
+%	\begin{columns}
+%		\begin{column}{0.5\textwidth}
+%			\begin{enumerate}
+%				\item Sea $\mu^x = \textbf{l}$. 
+%				Como $\rep (\textbf{l}) = \rep (\nu)$ por lo tanto $\rep(\textbf{k})^x = \mu^x = \textbf{l} $ y $\textbf{l} \sim \nu $ por lo que $ \rep(\textbf{l}) = \rep (\textbf{l})$.
+%				\item Similar al caso anterior tomando $\nu^{x^{-1}} = \textbf{k}$.
+%				\item En particular $\rep(\textbf{k})^x = \rep(\textbf{l}).$
+%			\end{enumerate}
+%		\end{column}
+%		\begin{column}{0.5\textwidth}  %%<--- here
+%			\begin{enumerate}
+%				\item  \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces}
+%				
+%				 \mer($\Co', \mu^x, \nu, q$) 
+%				\item  \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces}
+%				
+%				  \mer($\Co', \nu^X, \mu, q$)
+%				\item \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
+%			\end{enumerate}
+%		\end{column}
+%	\end{columns}
+%\end{frame}
+%
+%
+%\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (2/3).}
+%	\begin{alertblock}{Teorema.}
+%		Al terminar del correr el algoritmo \coin($i, j$) obtenemos la siguiente igualdad para todo $\textbf{k}, \textbf{l} \in [1,\dots,n]$,
+%		\begin{equation*}
+%			\textbf{k} \sim_F \textbf{l} \iff \textbf{k} \equiv \textbf{l}.
+%		\end{equation*}
+%	\end{alertblock}
+%	\pause 
+%	
+%	\textbf{Demostración.} $(\Rightarrow)$
+%	\pause
+%	Ni bien comienza el algoritmo sabemos que vale esta implicación porque justamente $\equiv$ es la $G$-congruencia generada a partir de $\sim$ y del par $(i, j)$.
+%	\pause
+%	Los casos que llamamos a \mer \ son los casos que podría modificarse la relación $\sim$.
+%	El primer \mer \ agrega al par $(i, j)$ a la relación $\sim$ y sabemos que este par está por definición en $\equiv$.
+%	\pause
+%	
+%	
+%	En los otros llamados de \mer \ si tomamos $\mu = \rep(\textbf{k}) $ y $\nu = \rep(\textbf{l})$.
+%	\medskip
+%	\pause
+%	\begin{columns}
+%		\begin{column}{0.1\textwidth}
+%			
+%		\end{column}
+%		\begin{column}{0.6\textwidth}
+%			\begin{center}
+%				{ Tenemos $\textbf{k}^x = \textbf{l}$ tal que podemos suponer inductivamente que $\textbf{k} \sim \mu$ y que $\textbf{l} \sim \nu $.
+%				Si estamos en el caso \textbf{1} entonces está definido $\mu^x \sim_F \nu$ y como es una $G$-equivalencia obtenemos que $\mu^x \equiv \textbf{k}^x \equiv \textbf{l} \equiv \nu$. 
+%				Análogamente el caso \textbf{2}.}
+%			\end{center} 	
+%		\end{column}
+%		\begin{column}{0.3\textwidth}
+%			{\small \begin{enumerate}
+%				\item  \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces}
+%				
+%				\mer($\Co', \mu^x, \nu, q$) 
+%				\item  \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces}
+%				
+%				\mer($\Co', \nu^X, \mu, q$)
+%			\end{enumerate}}
+%		\end{column}
+%	\end{columns}
+%\end{frame}
+%
+%\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (3/3).}
+%	\textbf{Demostración.} $(\Leftarrow)$
+%	\pause
+%	\medskip
+%	\begin{columns}
+%		\begin{column}{0.7\textwidth}
+%			Usemos que $\equiv$ es la menor $G$-equivalencia que contiene a $\sim$ y al par $(i, j)$. 
+%			Veamos que $\sim_F$ es una $G$-equivalencia.
+%			\pause
+%			
+%			
+%			Para eso partamos de $\textbf{k} \sim_F \textbf{l}$ y veamos que si $x \in A$ es tal que $\textbf{k}^x$ y $\textbf{l}^x$ estén ambas definidas entonces $\textbf{k}^x \sim_F \textbf{l}^x$.
+%			\pause
+%			Esto es una consecuencia del lema anterior.
+%		\end{column}
+%		\begin{column}{0.3\textwidth}
+%			\begin{tikzcd}
+%			{[1 \dots n]} \arrow[d, "\pi"', two heads] \arrow[r, "\pi_F", two heads] & {[1 \dots n] / \sim_F} \\
+%			{[1 \dots n] / \equiv} \arrow[ru, "\ol{ \pi}"', dashed]                       &                       
+%			\end{tikzcd}
+%			
+%			Donde $\ol {\pi}$ es sobreyectiva. 
+%		\end{column}
+%	\end{columns}
+%\qedsymbol
+%\end{frame}
 
-\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (1/3).}
-	%Idea detallada de la demo. Explicarlo como lo de la $G$-equivalencia.
-	Sea $\equiv$ la $G$-equivalencia generada a partir de la relación $\sim$ dada por $p$ y del par $(i, j)$.
-	\pause
-	Llamemos $\sim_F$ la relación que nos queda al terminar de hacer \coin.
-	Esto es que $\textbf{k} \sim_F \textbf{l}$ si y solo sí al terminar el algoritmo $\rep (\textbf{k}) = \rep(\textbf{l})$ donde en este caso el representante lo estamos mirando respecto a esta nueva relación de equivalencia.
-	\pause
-	
-	\begin{alertblock}{Lema}
-		Si existen $\textbf{k}, \textbf{l} \in [1,\dots,n], x \in A$ tales que $\textbf{k}^x = \textbf{l}$ antes de comenzar el algoritmo entonces al terminarlo vale que $\rep(\textbf{k})^x = \rep(\textbf{l}).$
-	\end{alertblock}
-	\pause
-	\textbf{Demostración.} 
-	\pause
-	Solo nos interesa los casos que modificamos el valor de $p'$. 
-	Tomemos $\mu = \rep(\textbf{k}) $ y $\nu = \rep(\textbf{l})$.
-	\pause
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{enumerate}
-				\item Sea $\mu^x = \textbf{l}$. 
-				Como $\rep (\textbf{l}) = \rep (\nu)$ por lo tanto $\rep(\textbf{k})^x = \mu^x = \textbf{l} $ y $\textbf{l} \sim \nu $ por lo que $ \rep(\textbf{l}) = \rep (\textbf{l})$.
-				\item Similar al caso anterior tomando $\nu^{x^{-1}} = \textbf{k}$.
-				\item En particular $\rep(\textbf{k})^x = \rep(\textbf{l}).$
-			\end{enumerate}
-		\end{column}
-		\begin{column}{0.5\textwidth}  %%<--- here
-			\begin{enumerate}
-				\item  \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces}
-				
-				 \mer($\Co', \mu^x, \nu, q$) 
-				\item  \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces}
-				
-				  \mer($\Co', \nu^X, \mu, q$)
-				\item \textbf{Sino} $\mu^x = \nu$, $\nu^X = \mu$ 
-			\end{enumerate}
-		\end{column}
-	\end{columns}
-\end{frame}
 
 
-\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (2/3).}
-	\begin{alertblock}{Teorema.}
-		Al terminar del correr el algoritmo \coin($i, j$) obtenemos la siguiente igualdad para todo $\textbf{k}, \textbf{l} \in [1,\dots,n]$,
-		\begin{equation*}
-			\textbf{k} \sim_F \textbf{l} \iff \textbf{k} \equiv \textbf{l}.
-		\end{equation*}
-	\end{alertblock}
-	\pause 
-	
-	\textbf{Demostración.} $(\Rightarrow)$
-	\pause
-	Ni bien comienza el algoritmo sabemos que vale esta implicación porque justamente $\equiv$ es la $G$-congruencia generada a partir de $\sim$ y del par $(i, j)$.
-	\pause
-	Los casos que llamamos a \mer \ son los casos que podría modificarse la relación $\sim$.
-	El primer \mer \ agrega al par $(i, j)$ a la relación $\sim$ y sabemos que este par está por definición en $\equiv$.
-	\pause
-	
-	
-	En los otros llamados de \mer \ si tomamos $\mu = \rep(\textbf{k}) $ y $\nu = \rep(\textbf{l})$.
-	\medskip
-	\pause
-	\begin{columns}
-		\begin{column}{0.1\textwidth}
-			
-		\end{column}
-		\begin{column}{0.6\textwidth}
-			\begin{center}
-				{ Tenemos $\textbf{k}^x = \textbf{l}$ tal que podemos suponer inductivamente que $\textbf{k} \sim \mu$ y que $\textbf{l} \sim \nu $.
-				Si estamos en el caso \textbf{1} entonces está definido $\mu^x \sim_F \nu$ y como es una $G$-equivalencia obtenemos que $\mu^x \equiv \textbf{k}^x \equiv \textbf{l} \equiv \nu$. 
-				Análogamente el caso \textbf{2}.}
-			\end{center} 	
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			{\small \begin{enumerate}
-				\item  \textbf{Si} $\edeff(\Co', \mu, x)$ \textbf{entonces}
-				
-				\mer($\Co', \mu^x, \nu, q$) 
-				\item  \textbf{Si} $\edeff(\Co', \nu, X)$  \textbf{entonces}
-				
-				\mer($\Co', \nu^X, \mu, q$)
-			\end{enumerate}}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{Correctitud del algoritmo de coincidencia (3/3).}
-	\textbf{Demostración.} $(\Leftarrow)$
-	\pause
-	\medskip
-	\begin{columns}
-		\begin{column}{0.7\textwidth}
-			Usemos que $\equiv$ es la menor $G$-equivalencia que contiene a $\sim$ y al par $(i, j)$. 
-			Veamos que $\sim_F$ es una $G$-equivalencia.
-			\pause
-			
-			
-			Para eso partamos de $\textbf{k} \sim_F \textbf{l}$ y veamos que si $x \in A$ es tal que $\textbf{k}^x$ y $\textbf{l}^x$ estén ambas definidas entonces $\textbf{k}^x \sim_F \textbf{l}^x$.
-			\pause
-			Esto es una consecuencia del lema anterior.
-		\end{column}
-		\begin{column}{0.3\textwidth}
-			\begin{tikzcd}
-			{[1 \dots n]} \arrow[d, "\pi"', two heads] \arrow[r, "\pi_F", two heads] & {[1 \dots n] / \sim_F} \\
-			{[1 \dots n] / \equiv} \arrow[ru, "\ol{ \pi}"', dashed]                       &                       
-			\end{tikzcd}
-			
-			Donde $\ol {\pi}$ es sobreyectiva. 
-		\end{column}
-	\end{columns}
-\qedsymbol
-\end{frame}
 
 \begin{frame}[fragile]{Algoritmo de enumeración de cosets.}
 
-La idea es hacer \scanfill \ en todos los generadores de $H$ sobre el coset $1$ y después sobre todos los cosets vivos y todas las relaciones (ambos conjuntos finitos) hasta que escanee correctamente.
+Veamos finalmente un algoritmo de enumeración de cosets.
 
+
+\begin{alertblock}{Input.}
+	Un grupo $G$ dado por una presentación finita $\langle X | R \rangle$ y $H$ un subgrupo \fg dado por generadores $Y$ donde cada generador es un elemento de $A^*$.
+\end{alertblock}
 
 \begin{codebox}
 	\Procname{
-		$\proc{CosetEnumeration}(G : \text{Grupo}, X : \text{Conjunto}, \ R : {\cal P}(A^{*}), \ Y : {\cal P}{(A^*)} ) : \ \  (\Co : \text{Tabla de cosets})$
+		$\proc{CosetEnumeration}(\langle X | R \rangle, Y )$
 	}
-	\li  \Comment Inicializamos la tabla de cosets para nuestra presentación de $G$.
-	\li $n=1, p[1]=1$,
-	\li \scanfill$(\Co, 1, y)$ para $y \in Y$ 
-	\li \scanfill$(\Co', A)$ para todo $i \in \Omega, x \in A$
+	\li  \Comment Inicializamos la tabla de cosets.
+	\li $n=1, \tau(1)=1$,
+	\li \For  $y \in Y$ 
+		\Do \li \scanfill$(\sim \Co, 1, y)$  
+	\End
+	\li \For $i \in \In$
+	 \Do \li \For $r \in R$
+	 \Do \li \For \scanfill$(\sim \Co, i, r)$
+	 \End
+	  \End
 	\End
 \end{codebox}
 %Acá hay un leve abuso de notación porque en realidad estamos llamando a \scanfill sobre tabla de cosets distintas...
-\pause
+
 
 \end{frame}
 
@@ -846,44 +915,44 @@ La idea es hacer \scanfill \ en todos los generadores de $H$ sobre el coset $1$ 
 
 \begin{frame}[fragile]{Cuándo termina el procedimiento.}
 	¿En qué caso termina el algoritmo de enumeración de cosets?
-	\pause
+	
 	Termina si el subgrupo que tomamos $H$ es tal que $[G:H] < \infty$.
-	\pause
+	
 
 	Consideremos el (posiblemente infinito) conjunto $\ol \Omega$ de los cosets que no son eliminados por ningún llamado de \coin.
 
-	\pause
 	
-	\textbf{Propiedad 5.} El conjunto $\ol \Omega$ es tal que:
+	
+	\textbf{Propiedad $\ol \Omega$.} El conjunto $\ol \Omega$ es tal que:
 	\begin{enumerate}
-		\item Para cada $i \in \overline \Omega$ y para cada $x \in A$ en algún momento $i^x$ va a estar definido;
-		\item Para cada $w \in Y$ en algún momento llamamos a \scan($\textbf{1},w$);
-		\item Para cada $i \in \ol \Omega$ y para cada $w \in R$ en algún momento llamamos a \scan$(i, w)$.
+		\item Para cada $i \in \overline \Omega$ y para cada $x \in A$ en algún momento $i \cdot x$ va a estar definido;
+		\item Para cada $w \in Y$ en algún momento llamamos a \scanfill($\Co,{1},w$);
+		\item Para cada $i \in \ol \Omega$ y para cada $w \in R$ en algún momento llamamos a \scanfill$(\Co,i, w)$.
 	\end{enumerate}
 \end{frame}
 
 \begin{frame}[fragile]{Continuación.}
 	\begin{alertblock}{Teorema}
-		Si las propiedades 1 a 5 se mantienen durante el algoritmo de enumeración de cosets de $G$ con respecto al subgrupo $H$ y $[G:H] < \infty$ entonces el algoritmo eventualmente termina.
+		Si la propiedad $\ol \Omega$ vale y $[G:H] < \infty$ entonces el algoritmo eventualmente termina.
 	\end{alertblock}
-	\pause
+	
 	
 	\textbf{Demostración.} 
 	Primero veamos el caso que $\ol \Omega$ es finito.
 	\begin{itemize}
-		\pause
-		\item Usamos la \textbf{P5} para ver que en algún momento $i^x$ queda definido para todo $i \in \ol\Omega, x \in A$.
-		\pause 
+		
+		\item Usamos la propiedad $\ol \Omega$ para ver que en algún momento $i \cdot x$ queda definido para todo $i \in \ol\Omega, x \in A$.
+		 
 		Podemos tomar el momento para que todo estos cosets estén estabilizados.
-		\pause
+		
 		En ese momento tendríamos que $\Omega = \ol \Omega$ y nuestra tabla está completa y así nuestro algoritmo termina.
 	\end{itemize}
-	\pause
+	
 	Veamos el caso que $\ol \Omega$ es infinito.
 	\begin{itemize}
-		\pause
-		\item Como vale \textbf{P5} estamos en condiciones de usar el teorema anterior de manera que el índice de $H$ resulta ser infinito.
-		Contradicción.
+		
+		\item Como vale la propiedad $\ol \Omega$ estamos en condiciones de usar el teorema anterior de manera que el índice de $H$ resulta ser infinito.
+		Esto contradice las hipótesis.
 		\qedsymbol
 	\end{itemize}
 		
