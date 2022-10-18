@@ -188,7 +188,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 		\item $\tau(1)  = 1$;
 		\item Para todo $i \in \In$ tenemos que $1\cdot {\tau(i)}$ está definido y $1\cdot {\tau(i)} = i$;
 		\item $i \cdot x = j \iff j \cdot x^{-1} = i$ para $x \in A$;
-		\item $\ol \tau$ es equivariante;
+		\item $\ol \tau: \In \to G/H$ definida como $\ol \tau (i) = H \tau (i)$ es equivariante;
 	\end{itemize}	
 \end{alertblock}
 \pause
@@ -206,7 +206,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 %		A^* \to \In^{\In}
 %	\]
 \end{alertblock}
-\pause
+
 \end{frame}
 
 \begin{frame}[fragile]{Observaciones.}
@@ -231,8 +231,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 	Nuestro objetivo es ver qué condiciones tiene que cumplir una tabla de cosets $\Co$ para garantizar que enumera correctamente a todos los cosets.
 	\pause
 	\begin{alertblock}{Proposición.}
-		Si $\Co$ cumple que  $i \cdot r = i$ para todo $i \in \In$ y para toda $r \in R$, 
-		entonces tenemos que $G$ actúa parcialmente sobre $\In$.
+		Si $\Co$ está completa y cumple que  $i \cdot r = i$ para todo $i \in \In$ y para toda $r \in R$, entonces tenemos que $G$ actúa sobre $\In$.
 	\end{alertblock}
 	\medskip
 	\pause
@@ -245,7 +244,7 @@ Sea $H$ subgrupo generado finitamente por $Y$ un conjunto de elementos de $A^*$.
 
 
 \begin{frame}[fragile]{Correctitud del algoritmo.}
-	Definamos la siguiente función del conjunto de cosets enumerados en los cosets.
+	Consideremos la siguiente función,
 	\[
 	\ol \tau: \In \to G/H
 	\]

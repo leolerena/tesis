@@ -485,20 +485,20 @@ Consideremos también $A$ una orientación de las aristas del grafo $Y$ de maner
 Dada una arista $y \in E(Y)$ denotaremos por $|y|$ a la arista $y$ o $\ol{y}$ tal que está en la orientación $A$.
 Llamaremos $g_y$ al elemento de $F(\cG)$ correspondiente al generador $y \in E(Y)$ porque vamos a necesitar diferenciar elementos del grupo con las aristas propiamente dichas del grafo.
 
-Queremos construirnos un grafo $\tilde X$ tal que tenga las siguientes propiedades:
+Queremos construirnos un grafo $\Xm$ tal que tenga las siguientes propiedades:
 
 \begin{enumerate}
-	\item Una acción de $\pi_1(\cG, T)$ en $\tilde X$.
-	\item Un morfismo de grafos sobreyectivo $p:\tilde X \to Y$. 
-	\item Unas secciones de los vértices de $Y$ en los de $\tilde X$ e idénticamente secciones en las aristas.
+	\item Una acción de $\pi_1(\cG, T)$ en $\Xm$.
+	\item Un morfismo de grafos sobreyectivo $p:\Xm \to Y$. 
+	\item Unas secciones de los vértices de $Y$ en los de $\Xm$ e idénticamente secciones en las aristas.
 \end{enumerate}
 
-A nuestras secciones las vamos a denotar de manera que para todo vértice $P \in Y$ tendremos un $ \tilde P \in V(\tilde X)$.
-Mirando la acción de $\pi_1(\cG, T)$ sobre $\tilde X$ nos gustaría que el estabilizador respecto a $\tilde P$ sea el mismo que el estabilizador de $P$ en el grafo de grupos $\cG$. 
-Para esto podemos definir directamente para que $\widehat P \simeq \pi_1(\cG, T) / G_P$.
+A nuestras secciones las vamos a denotar de manera que para todo vértice $P \in Y$ tendremos un $ \widetilde P \in V(\Xm)$.
+Mirando la acción de $\pi_1(\cG, T)$ sobre $\Xm$ nos gustaría que el estabilizador respecto a $\widetilde P$ sea el mismo que el estabilizador de $P$ en el grafo de grupos $\cG$. 
+Para esto podemos definir directamente para que $\widetilde P \simeq \pi_1(\cG, T) / G_P$.
 Análogamente para todas las aristas de nuestro grafo queremos que el estabilizador sea isomorfo al subgrupo $G_y$ dentro de $G_{t(y)}$.
-Llamemos a los estabilizadores $\pi_{\tilde P}$ y $\pi_{\tilde y} $ respectivamente para diferenciarlos. 
-A su vez diferenciaremos por $\tilde P$ a la imagen de $1$ dentro de los cosets e idénticamente lo haremos para $\tilde y$. 
+Llamemos a los estabilizadores $\pi_{\widetilde P}$ y $\pi_{\widetilde y} $ respectivamente para diferenciarlos. 
+A su vez diferenciaremos por $\widetilde P$ a la imagen de $1$ dentro de los cosets e idénticamente lo haremos para $\widetilde y$. 
 
 Usando estas condiciones tenemos que
 \begin{equation*}
@@ -535,10 +535,10 @@ Pensemos en los dos casos posibles dependiendo de si la arista está en la orien
 		\pi_{\tilde y} \subseteq G_{\widetilde{s(y)}}	
 	\] 
 	y para probar esto usamos la definición de estos grupos porque $\pi_{\tilde y} = G_{\ol y}$ dado que esta arista no está en la orientación.
-	Así tenemos usando nuevamente que $s(y) = t(\ol y)$ lo que queríamos probar.  
+	Usando nuevamente que $s(y) = t(\ol y)$ obtenemos lo que queríamos probar.  
 \end{itemize}
 
-Finalmente la definición \textbf{(c)} es válida porque si usamos lo anteriormente demostrado y reemplazamos $y$ por $\ol y$ obtenemos este resultado.
+Finalmente la definición \textbf{(c)} es válida usando lo anteriormente demostrado y reemplazando $y$ por $\ol y$.
 
 \medskip
 
@@ -547,7 +547,7 @@ Por otro lado para todo $y \in E(T)$ tenemos que $g_y=1$ por lo que usando las d
 Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ dado por mandar $P \mapsto \tilde P$ para todo $P \in V(Y)$ y para las aristas mandar $y \mapsto \tilde y$. 
 
 \begin{teo}[Serre]
-	El grafo $\tilde X$ anteriormente construido es un árbol.
+	El grafo $\Xm$ es un árbol.
 \end{teo}
 \begin{proof}
 	Debemos ver dos cosas: que es conexo y que no tiene ciclos.
@@ -648,7 +648,7 @@ Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ d
 	\]
 	pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking.
 	
-	Para concluir notemos que estamos la palabra $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que es camino cerrado no trivial y es una palabra reducida por lo tanto $|c, \mu| \neq 1$ visto en $\pi_1(\cG, T)$ y esto contradice lo anteriormente obtenido.
+	Para concluir notemos que la palabra $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que es camino cerrado no trivial y es una palabra reducida por lo tanto $|c, \mu| \neq 1$ visto en $\pi_1(\cG, T)$ y esto contradice lo anteriormente obtenido.
 \end{proof}
 
 
@@ -664,26 +664,93 @@ Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ d
 
 \section{Acciones de grupos sobre árboles.}
 
-Dar definiciones de los morfismos que salen del árbol y los que van a parar al grupo libre del grafo de grupos.
+Sea $G$ un grupo \fg actuando sobre $X = (V(X),E(X))$ un grafo conexo tal que su acción es sin inversiones.
+
+Consideremos el grafo $Y = X/G$ tal que está dado por los siguientes vértices y aristas.
+
+Veamos ahora de tomar representantes para cada uno de los vértices y aristas de $Y$ en el grafo $X$.
+Para tomar las aristas las vamos a elegir de esta manera,
+
+Nos armamos un grafo de grupos sobre $Y$ tal que tiene a los siguientes grupos.
+
+Construcción del morfismo de grupos $\varphi$.
+
+\begin{lema}
+	El morfismo de grupos $\varphi$ es inyectivo sobre los grupos $G_P \le \pi_1(\cG, P)$.
+\end{lema}
+
+\begin{prop}
+	El morfismo de grupos $\varphi$ es sobreyectivo.
+\end{prop}
 
 
+Tenemos un morfismo de grafos $\psi:\tilde X \to X$ definido de la siguiente manera.
+Ver buena definición.
+
+\begin{deff}
+	Un morfismo de grafo $\phi: X \to Y$ es una asignación..
+\end{deff}
+
+\begin{deff}
+	Un morfismo de grafos $\phi:X \to Y$ se dice localmente inyectivo si..
+\end{deff}
+
+\begin{lema}
+	Sea $\phi:X \to Y$ morfismo de grafos localmente inyectivo tal que $Y$ es un árbol y $X$ es conexo entonces resulta que $\phi$ es inyectivo.
+\end{lema}
+\begin{proof}
+	Hacer.
+\end{proof}
+
+\begin{prop}
+	$\psi: \Xm \to X$ es un epimorfismo de grafos localmente inyectivo.
+\end{prop}
+\begin{proof}
+	Primero probemos que es un morfismo de grafos.
+	
+	Es un epimorfismo porque $\varphi$ es un epimorfismo de grupos.
+	
+	Veamos que es localmente inyectivo. 
+	Sea 
+\end{proof}
 
 El siguiente resultado nos da la estructura de un grupo que actúa sobre un grafo conexo sin inversiones de aristas. 
 Es el resultado central de la teoría de Bass Serre.
 
-\todo[inline]{La acción de $G$ en realidad es a derecha. Entender bien porqué esto es así porque después facilita la cuenta en la prop posterior.}
 \begin{teo}[\cite{serre2002trees}]\label{teo_Serre}
 	Sea $G$ un grupo actuando en grafo conexo $X$ sin inversiones de aristas y sea $\cal G$ el grafo de grupos asociado sobre $Y = X / G$.
 	Consideremos $T$ un árbol de expansión de $Y$, $\psi: \Xm \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$ luego las siguientes afirmaciones son equivalentes.
 	\begin{enumerate}[(a)]
-		\item el grafo $\Xm$ es un árbol;
+		\item el grafo $X$ es un árbol;
 		\item el morfismo $\psi: \Xm \to X$ es un isomorfismo de grafos;
 		\item el morfismo $\varphi:\pi_1({\cal G}, T) \to G$ es un isomorfismo de grupos.
 	\end{enumerate}
 \end{teo}
 
 \begin{proof}	
-		 \textbf{$a \implies b$}.
+		 La implicación \textbf{a $\Rightarrow$ b} la hacemos usando el lema \ref{}.
+		 Para ver \textbf{b $\Rightarrow$ a} usamos que $\Xm$ es un árbol por lo tanto $X$ al ser isomorfo también es un árbol.
+		 
+		 Probemos \textbf{b $\Rightarrow$ c}. 
+		 Para eso notemos que al ser $\varphi$ sobreyectivo nos alcanza con ver que es inyectivo.
+		 Si $g \in \pi_1({\cal G}, T)$ y $g \neq 1$ tal que $\varphi(g)= 1$ entonces necesariamente $g \notin G_P$ por el lema anterior \ref{} dado que la restricción a estos subgrupos es inyectiva.
+		 Esto nos dice que $g G_P P \neq G_P P$ dado que los cosets $gG_P$ y $G_P$ son distintos. Por como definimos a $\psi$ tenemos que 
+		 \[
+		 \psi (gG_P P) = \varphi(g) P  = \psi(G_P P)
+		 \] 
+		 pero esto contradice que $\psi$ sea un isomorfismo.
+		 
+		 Finalmente probemos \textbf{c $\Rightarrow$ b}. 
+		 Para esto como $\psi$ es sobreyectivo nos alcanza con ver que es inyectivo.
+		 Sean $gG_PP, hG_QQ \in V(\Xm)$ tales que $\psi(gG_PP) = \psi(hG_QQ)$.
+		 Por la definición del morfismo $\psi$ obtenemos que 
+		 \[
+		 	\varphi(g)P = \varphi(h)Q
+		 \]
+		 pero esto nos diría que $P = Q$ dado que ambos son representantes de las órbitas de la acción de $G$ sobre el árbol $T$. 
+		 Por otro lado obtenemos que $\varphi(g h^{-1}) P  =  P$ y así $\varphi(gh^{-1}) \in G_P$. 
+		 Como $\varphi$ es un isomorfismo y en particular es inyectiva restringida al subgrupo $G_P$ por el lema \ref{} deducimos que $gh^{-1} \in G_P$.
+		 Así ambos cosets son idénticos $g G_P = h G_P$ y por lo tanto vimos que los dos vértices son idénticos $gG_PP  = hG_QQ$ y de esta manera probamos que $\psi$ es inyectiva.
 \end{proof}
 
 Como corolarios obtenemos una caracterización para los grupos libres que usaremos varias veces y que es una herramienta fundamental de la teoría geométrica de grupos.
@@ -701,7 +768,7 @@ Como corolarios obtenemos una caracterización para los grupos libres que usarem
 	Dado $G$ un grupo libre todo subgrupo $H \le G$ resulta ser libre.
 \end{coro}
 \begin{proof}
-	H actúa sobre el mismo árbol que $G$ también sin inversión y libremente.
+	H actúa sin inversiones y libremente sobre el mismo árbol que actúa $G$.
 \end{proof}
 
 Otra consecuencia de este teorema de Serre es un resultado obtenido por Karass, Pietrowski y Solitar que nos da una cota de qué tan grande puede ser un subgrupo libre dentro de un grupo fundamental de un grafo finito de grupos finitos.
@@ -796,7 +863,7 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 	Entonces $\pi_1(\cal G)$ es un \fg virtualmente libre.
 \end{teo}
 \begin{proof}
-	Dado que el grafo $Y$ es finito y los grupos $G_P$ para todo $P \in V(Y)$ también lo son podemos tomarnos $X$ un conjunto finito tal que $|G_P| $ divida a $|X|$ .
+	Dado que el grafo $Y$ es finito y los grupos $G_P$ para todo $P \in V(Y)$ también son finitos podemos tomarnos $X$ un conjunto finito tal que $|G_P| $ divida a $|X|$ .
 	
 	Para cada $P \in V(Y)$ podemos armarnos una acción libre de $G_P$ en $X$. 
 	Esto nos da un monomorfismo $G_P \to S(X)$.
@@ -848,56 +915,56 @@ La referencia de esta sección es el paper \cite{} que a su vez se basó en los 
 \begin{ej}
 	Ejemplo de $SL_2(\ZZ)$.
 \end{ej}
-
-\section{Ends de grupos.}
-
-\begin{deff}
-	Ends de grupos
-\end{deff}
-
-\begin{obs}
-	No dependen de las presentaciones.
-\end{obs}
-
-\begin{teo}[Hopf]
-	La cantidad de ends de un grupo \fg solo puede ser...
-\end{teo}
-\begin{proof}
-\end{proof}
-
-\begin{deff}
-	Grupo accesible.
-\end{deff}
-
-\subsection{Accesibilidad en terminos de teoría de grafos.}
-
-\begin{deff}
-	Def de VK95 usando grafos.
-\end{deff}
-
-\begin{teo}
-	Probar que son equivalentes con la otra construcción.
-\end{teo}
-\begin{proof}
-	
-\end{proof}
-
-
-\begin{deff}
-	Grafos minor excluded
-\end{deff}
-
-\begin{teo}[Khukro]
-	Recaracterización de virtualmente libre usando menores de grafos.
-\end{teo}
-\begin{proof}
-\end{proof}
-
-\begin{teo}
-	Grupo qi a un árbol $\implies$ minor excluded?
-\end{teo}
-\begin{proof}
-\end{proof}
+%
+%\section{Ends de grupos.}
+%
+%\begin{deff}
+%	Ends de grupos
+%\end{deff}
+%
+%\begin{obs}
+%	No dependen de las presentaciones.
+%\end{obs}
+%
+%\begin{teo}[Hopf]
+%	La cantidad de ends de un grupo \fg solo puede ser...
+%\end{teo}
+%\begin{proof}
+%\end{proof}
+%
+%\begin{deff}
+%	Grupo accesible.
+%\end{deff}
+%
+%\subsection{Accesibilidad en terminos de teoría de grafos.}
+%
+%\begin{deff}
+%	Def de VK95 usando grafos.
+%\end{deff}
+%
+%\begin{teo}
+%	Probar que son equivalentes con la otra construcción.
+%\end{teo}
+%\begin{proof}
+%	
+%\end{proof}
+%
+%
+%\begin{deff}
+%	Grafos minor excluded
+%\end{deff}
+%
+%\begin{teo}[Khukro]
+%	Recaracterización de virtualmente libre usando menores de grafos.
+%\end{teo}
+%\begin{proof}
+%\end{proof}
+%
+%\begin{teo}
+%	Grupo qi a un árbol $\implies$ minor excluded?
+%\end{teo}
+%\begin{proof}
+%\end{proof}
 
 
 
