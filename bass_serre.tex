@@ -584,7 +584,7 @@ Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ d
 		\item Si $g \in G_P$ para algún $P \in V(Y)$ entonces $g\tilde P = \tilde P \in V(W)$ por lo tanto $gW \cap W \neq \emptyset$. 
 	\end{enumerate} 
 	%Esto se debe a que $W$ lo es y trasladamos por un elemento del grupo y sigue siendo conexo.
-	Ahora para el paso inductivo sigamos con la suposición de que es válido para palabras de longitud no mayor $n-1$. 
+	Ahora para el paso inductivo sigamos con la suposición de que es válido para palabras de longitud no mayor a $n-1$. 
 	Queremos verlo para $s_1\dots s_n$ y esto lo podemos hacer notando que 
 	\[
 	s_1(s_2 \dots s_n) W \cap s_2 \dots s_{n} W \neq \emptyset 
@@ -664,54 +664,157 @@ Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ d
 
 \section{Acciones de grupos sobre árboles.}
 
-Sea $G$ un grupo \fg actuando sobre $X = (V(X),E(X))$ un grafo conexo tal que su acción es sin inversiones.
+Sea $G$ grupo que actúa sin inversiones de aristas sobre un grafo conexo $X = (V(X),E(X))$.
+Consideremos $Y = G / X$ el grafo que conseguimos al cocientar por esta acción.
+Este grafo está dado por los siguientes vértices,
+\[
+	V(Y) = \{ G P :  P \in V(X)    \}
+\]
+y las  aritas 
+\[
+	E(Y) = \{  Gy  : y \in E(X)  \}.
+\]
 
-Consideremos el grafo $Y = X/G$ tal que está dado por los siguientes vértices y aristas.
+En particular como el grafo $X$ es conexo tenemos que $Y$ también lo es.
+Consideremos los siguientes representantes de clase para vértices. 
+Esto nos define un morfismo de grafos que es la proyección $\pi: X \to Y$ tal que
+Consideremos $\iota: Y \to X$ una sección como conjuntos que la armamos con los siguientes dos pasos.
+\begin{enumerate}
+	\item Para cada vértice $P \in V(Y)$ elegimos $\iota (P) = P'$ tal que $\pi(P') = P$.
+	\item Para cada arista $y \in E(Y)$ elegimos $\iota(y) = y'$ de manera que $s(\iota(y)) = \iota s(y)$. 
+	Esto lo podemos hacer para cada arista por separado.
+\end{enumerate}
 
-Veamos ahora de tomar representantes para cada uno de los vértices y aristas de $Y$ en el grafo $X$.
-Para tomar las aristas las vamos a elegir de esta manera,
+Por como hicimos esta construcción nos garantizamos que el comienzo de cara arista cuando la miramos en $X$ sea uno de los vértices que tomamos como representantes de vértices de $Y$ en $X$.
+En principio no sabemos que el vértice del final de la arista de $y$ coincida con el de comienzo de $y$. 
+Lo que sabemos es que existe $g_y \in G$ tal que 
+\[
+	g_y \ol{\iota (y)} = \iota (\ol y)
+\]
+porque ambas aristas en la misma órbita por la acción de $G$.
 
-Nos armamos un grafo de grupos sobre $Y$ tal que tiene a los siguientes grupos.
 
-Construcción del morfismo de grupos $\varphi$.
+Veamos ahora de definir un morfismo del grupo $F(\cG)$ en $G$.
 
 \begin{lema}
-	El morfismo de grupos $\varphi$ es inyectivo sobre los grupos $G_P \le \pi_1(\cG, P)$.
+	Para todo $g \in G_P \le \pi_1(\cG, P)$ tenemos que $\varphi(g)=g$.
 \end{lema}
+
+\begin{proof}
+	Dado $g \in G_P \le \pi_1(\cG, P)$ luego lo podemos representar en el grupo $\pi_1(\cG, P)$ por medio de la palabra reducida $g$.
+	Por como está definido $\varphi$ sabemos que $\varphi(g) = g$. 
+\end{proof}
 
 \begin{prop}
 	El morfismo de grupos $\varphi$ es sobreyectivo.
 \end{prop}
 
 
-Tenemos un morfismo de grafos $\psi:\tilde X \to X$ definido de la siguiente manera.
-Ver buena definición.
-
 \begin{deff}
-	Un morfismo de grafo $\phi: X \to Y$ es una asignación..
+	Sean $\Gamma, \Gamma'$ grafos. Diremos que $\phi:\Gamma \to \Gamma'  $ es un morfismo de grafos si es una función   
+	tal que:
+	\begin{itemize}
+		\item $\psi (V(\Gamma)) \subseteqq  (V(\Gamma'))$;
+		\item $\psi (E(\Gamma)) \subseteqq  (E(\Gamma'))$;
+		\item Si $y \in E(\Gamma)$ entonces $\ol{\phi(y)} = \phi(\ol y)$;
+		\item Si $y \in E(\Gamma)$ entonces $\phi(s(y)) = s(\phi(y))$
+	\end{itemize}   
 \end{deff}
 
-\begin{deff}
-	Un morfismo de grafos $\phi:X \to Y$ se dice localmente inyectivo si..
-\end{deff}
+Sea la asignación $\psi: \Xm \to X$ dada por 
+\begin{align*}
+	\psi(g G_P P) = \varphi(g) P \ \ \text{para todo} \ g \in G, P \in V(Y) \\
+	\psi(g G_y y) = \varphi(g) \iota(y) \text{para todo} \ g \in G, P \in V(Y)
+\end{align*}
+
+Veamos que es una función.
+Sean dos representantes $g,h$ del mismo coset de $G_P$. 
+Queremos ver que $\psi(gG_PP) = \psi(hG_P P)$.
+Para esto notemos que por la definición de $\psi$  esto equivale a ver que $\varphi(g) = \varphi(h)$.
+Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) \in G_P$ porque $\varphi$ restringida a $G_P$ es la identidad por el resultado \ref{}.
 
 \begin{lema}
-	Sea $\phi:X \to Y$ morfismo de grafos localmente inyectivo tal que $Y$ es un árbol y $X$ es conexo entonces resulta que $\phi$ es inyectivo.
+	La función $\psi: \Xm \to X$ resulta ser un morfismo de grafos.
 \end{lema}
 \begin{proof}
-	Hacer.
+	Esta claro por como está definido que cara vértice de $\Xm$ va a parar a un vértice de $X$ y que cada arista va a parar a una arista.
+	
+	Veamos ahora que dada una arista $g G_y y$ tenemos que $\psi(\ol{g G_y y}) = \ol{\psi(g G_y y)}$.
+	
+	
+	Finalmente veamos que respeta los comienzos de aristas.
 \end{proof}
 
+\begin{deff}
+	Un morfismo de grafos $\psi:\Gamma \to \Gamma'$ se dice localmente inyectivo si para todo vértice $P \in V(\Gamma)$ resulta que $\psi: st(P) \to E(\Gamma')$ es inyectiva. 
+\end{deff}
+
 \begin{prop}
-	$\psi: \Xm \to X$ es un epimorfismo de grafos localmente inyectivo.
+	El morfismo $\psi: \Xm \to X$ es sobreyectivo y localmente inyectivo.
 \end{prop}
 \begin{proof}
-	Primero probemos que es un morfismo de grafos.
+	Primero veamos que es sobreyectivo.
+	Sabemos que $G \cdot Y = X$ si miramos a $Y$ como subgrafo de $X$.
+	Consideremos un vértice $\widetilde P \in V(X)$ que por lo visto lo podemos escribir como $\widetilde P = g P$ para cierto $g \in G$ y para cierto $P \in V(Y)$.
+	Por el resultado anterior \ref{} sabemos que el morfismo de grupos $\varphi$ resulta ser sobreyectivo.
+	De esta manera tenemos que dado $g \in G$ existe $h \in G$ tal que $\varphi(h) = g$. 
+	Luego alcanza con tomar como vértice a $h G_P P $ de manera que 
+	\[
+	\psi(h G_P P ) = \varphi(h) P = g P = \widetilde P
+	\]
+	tal como queríamos ver.
 	
-	Es un epimorfismo porque $\varphi$ es un epimorfismo de grupos.
 	
-	Veamos que es localmente inyectivo. 
-	Sea 
+	Finalmente veamos que es localmente inyectivo.
+	Sea $Q \in V(X)$ vértice. 
+	Sean $y,y' \in E(X)$ aristas tales que $s(y) = Q = s(y')$.
+	Consideraremos dos casos dependiendo si las aristas están en la misma órbita por la acción de $G$ o si no lo están.
+	
+	\begin{enumerate}
+		\item Si $Gy \neq Gy'$ entonces no están en la misma órbita.
+		En este caso tenemos que $\psi(y) = \varphi(g) \iota (y)$ mientras que $\psi(y) = \varphi(g) \iota (y')$.
+		Como son elementos de órbitas distintas no pueden ser el mismo elemento y de esta manera concluimos que $\psi(y) \neq \psi(y').$
+		\item El otro caso es que $Gy = Gy'$. 
+		En este caso lo que hacemos primero es fijar algún vértice $P \in V(X)$ tal que nos permita escribir a estas aristas como palabras reducidas usando el resultado \ref{}.
+		De esta manera obtenemos la siguiente escritura 
+		\[
+		Q = (c_0y_1c_1y_2 \dots y_k)
+		\]
+		tal que las aristas van a tener la siguiente pinta 
+		\begin{align*}
+			y = (c_0y_1c_1y_2 \dots y_k c y) \\
+			y' = (c_0y_1c_1y_2 \dots y_k d y)
+		\end{align*}
+		donde $c,d$ son representantes de cosets diferentes de la arista $y$ por medio de la acción de $G$.
+		Para terminar la demostración observamos lo siguiente que $\psi(y) = \psi(y')$ si y solo si $c \iota(y) = d \iota(y)$ y esto sucede si y solo si $c = d$. 
+		Pero en este caso obtendríamos que $y = y'$ por lo tanto el morfismo de grafos $\psi$ resulta ser localmente inyectivo.
+	\end{enumerate}
+\end{proof}
+
+El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea un isomorfismo de grafos pidiéndole a $X$ ser un árbol.
+
+\begin{prop}
+	Todo morfismo de grafos $\psi:\Gamma \to T$ localmente inyectivo tal que $T$ sea un árbol e $\Gamma$ sea conexo es un monomorfismo de grafos.    
+\end{prop}
+\begin{proof}
+	Como el grafo $\Gamma$ es conexo debe existir un camino de vértices $P=P_0 \dots P_k=Q$.
+	Consideremos que este camino está reducido.
+	Probemos por inducción en la longitud del camino que para puntos $P,Q \in V(X)$ a distancia menor que $n$ no vale que $\psi(P) = \psi(Q)$.
+	
+	El caso base es que la longitud del camino sea exactamente $1$.
+	En este caso tenemos que $\psi(P) = \psi(Q)$ donde $y \in E(Y)$ tal que $s(y)= P, t(y) = Q$.
+	Al ser $\psi$ un morfismo de grafos tenemos que 
+	\begin{equation*}
+		s(\psi(y)) = \psi(P) = \psi (Q) = t(\psi(y))
+	\end{equation*}
+	por lo tanto si $\psi(y)$ fuera una arista sería un bucle.
+	Los grafos los tomamos para que no tengan bucles.
+	
+	El paso inductivo partimos de un camino de aristas $(y_1, \dots, y_n)$ reducido.
+	Consideremos la imagen del camino por medio del morfismo.
+	Como estamos en un árbol no puede haber ciclos, de esta manera tiene que ser que $\psi(y_k) = \ol{\psi (y_{k+1})}$ para ciertas aristas $y_k, y_{k+1} \in E(\Gamma)$.
+	Como $\psi$ es un morfismo de grafos cumple que $\ol {\psi(y_k)} = \psi(\ol y_k)$ y así de esta manera obtenemos que $\psi(y_k) =  \psi(\ol{y_{k+1})}$.
+	Como el morfismo es localmente inyectivo y ambas aristas parten del mismo vértice tenemos que $y_{k+1} = \ol{y_k}$. Esto es una contradicción porque asumimos que el camino que tomamos es reducido.    
 \end{proof}
 
 El siguiente resultado nos da la estructura de un grupo que actúa sobre un grafo conexo sin inversiones de aristas. 
@@ -781,7 +884,8 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 	Todo grupo libre \fg no tiene torsión.
 \end{lema}
 \begin{proof}
-	Como todo grupo libre es tal que su grafo de Cayley se puede tomar como un árbol si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
+	El grafo de Cayley de un grupo libre se puede tomar para que sea un árbol.
+	Si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
 \end{proof}
 
 
