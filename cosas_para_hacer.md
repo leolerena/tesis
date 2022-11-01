@@ -1,5 +1,28 @@
 # Cosas para hacer.
 
+#### Bass Serre.
+
+* Reescribir la subsección del árbol de Bass Serre de la manera que aparece en la siguiente subsección.
+* Hacer demo de $\psi$ es un morfismo de grafos.
+* Agregar bien enunciados de los teoremas de grupos amalgamados y productos libres.
+* 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 * ~~Hacer las demos de conos y profundizar un poco en esa parte de teoría de lenguajes. Podría agregar todo lo de lenguajes regulares y ya definir lo de poly context free. Cuando entienda esto mejor comentarselo a Iván. También podría hablarlo con Verónica ya que le quería hablar por el doctorado y esto es lo más computacional.~~
 * Masticar mejor el algoritmo para obtener el automáta de pila a partir del grupo virtualmente libre. Iván me sugirió verlo a partir de la presentación dada a partir del grafo de Bass Serre. Estaría bueno entender como encontrar el libre en un caso en general. ¿Es el mismo algoritmo que el de la forma normal para Bass Serre?
@@ -69,10 +92,3 @@
 
 ---
 
-## Latex.
-
-* ~~Solucionar lo de las referencias para que ande el backref.~~
-
-* ~~Agregar un \halmos a los enviroments de teoremas y demás?~~
-
-  

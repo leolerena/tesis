@@ -1,5 +1,5 @@
-\documentclass[11pt]{book}
-\usepackage{geometry}\geometry{top=4cm,bottom=3cm,left=3cm,right=3cm}
+\documentclass[12pt]{book}
+\usepackage{geometry}\geometry{top=3cm,bottom=3cm,left=2cm,right=2cm}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
 \usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools,sectsty}
@@ -86,19 +86,19 @@
 
 %%%%%%%%%%%%%  TEOREMAS  %%%%%%%%%%%%%%%%%
 \theoremstyle{plain} %% el estilo clásico
-\newtheorem{teo}{\color{rojo}{ Teorema}}[section]
-\newtheorem{prop}[teo]{\color{rojo} Proposición}
-\newtheorem{lema}[teo]{\color{rojo} Lema}
-\newtheorem{coro}[teo]{\color{rojo} Corolario}
+\newtheorem{teo}{\color{rojo}{ \textsc{ Teorema}}}[section]
+\newtheorem{prop}[teo]{\color{rojo} \textsc{Proposición}}
+\newtheorem{lema}[teo]{\color{rojo} \textsc{Lema}}
+\newtheorem{coro}[teo]{\color{rojo} \textsc{Corolario}}
 % Si pongo [theorem] siguen la numeración de los teoremas. 
 % e.j. Teo 1, Lema 2, Teo 3, Teo 4 ...
 \theoremstyle{definition}
-\newtheorem{deff}[teo]{ Definición}{\smallskip}
-\newtheorem{ej}[teo]{\color{orange!50!black} Ejemplo}{\smallskip}
+\newtheorem{deff}[teo]{\textsc{ Definición}}{\smallskip}
+\newtheorem{ej}[teo]{\textsc{Ejemplo}}{\smallskip}
 
 % Remarks
 \theoremstyle{remark}
-\newtheorem{obs}[teo]{\color{yellow!40!rojo} Observación}{\smallskip}
+\newtheorem{obs}[teo]{ \textsc{Observación}}{\smallskip}
 
 %%%%%%%%%% FRAMES PARA TEOREMAS A LO HATCHER %%%%%%%%%%%%%%%%%%%%%%%%%
 

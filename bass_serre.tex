@@ -17,20 +17,69 @@
 
 \begin{document}
 
-\chapter{Teoría de Bass Serre.}
+\section{Teoría de Bass Serre.}
 
-Introduciremos los resultados y definiciones más importantes de la teoría de Bass Serre. 
-Las referencias clásicas que seguiremos son \cite{serre2002trees} y \cite{}.
-En esta sección los grafos serán siempre conexos y dirigidos.
-Dado un grafo $Y= (V(Y),E(Y))$ por cada arista $y \in E(Y)$ tendremos una designación $s(y) = P, t(y) = Q$ si la arista comienza en $P$ y termina en $Q$.
-Denotaremos $\overline y$ la arista con asignación opuesta, esto es que $s(\ol y) = Q, t(\ol y) = P$.
-Una \blue{orientación} de las aristas es una función $o:E(Y) \to \{ 0 ,1 \}$ tal que si $o(y)=1$ luego $o(\ol y)= 0$.
+La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees}.
+
+\subsection{Definiciones básicas.}
+
+	Un \emph{grafo dirigido} es un par de conjuntos $Y= (V(Y),E(Y))$. 
+ 	Al conjunto $V(Y)$ lo llamaremos los vértices del grafo y al conjunto $E(Y)$ las aristas del grafo.
+	Para cada cada arista $y \in E(Y)$ tendremos una designación $s(y) = P \in V(Y), t(y) = Q \in V(Y)$.
+	Para cada $y \in E(Y)$ tendremos $\overline y \in E(Y)$ la arista con \emph{asignación opuesta}, esto es que $s(\ol y) = Q, t(\ol y) = P$. 
+	Una \emph{orientación} de las aristas es una función $o:E(Y) \to \{ 0 ,1 \}$ tal que si $o(y)=1$ luego $o(\ol y)= 0$.
+	
+	Para esta sección nos interesa que los grafos sean \emph{conexos}. 
+	Esto es que dado dos vértices $P,P' \in V(Y)$ existe una sucesión de aristas
+	\[
+		(y_0, y_1, \dots y_k) \ \ \text{tal que} \ y_i \in E(Y)  \ \text{para} \ \ i = 0 \dots k
+	\]
+	de modo que $s(y_0) = P $ y $t (y_k) = P'$.
+	
+	
+	Un \emph{ciclo} es un camino de aristas $(y_0, y_1, \dots y_n)$ de manera que $s(y_0) = t(y_n)$. 
+	Un grafo es un \emph{árbol} si es conexo y no tiene ciclos.
+	Dado un grafo cualesquiera $Y$ conexo podemos construirnos un árbol $T$ tal que $V(T) = V(Y)$ y $E(T) \subseteq E(Y)$. 
+	A este grafo lo llamaremos un \emph{árbol de expansión} de $Y$.
+	
+ 	
+	En este contexto los morfismos que nos van a interesar van a respetar las propiedades de los grafos dirigidos.
 
 \begin{deff}
-	Un \blue{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
+	Sean $Y, Y'$ grafos dirigidos. 
+	Una función $\phi:Y \to Y'  $ es un \emph{morfismo de grafos} si:
+	\begin{itemize}
+		\item $\phi (V(Y)) \subseteqq  (V(Y'))$;
+		\item $\phi (E(Y)) \subseteqq  (E(Y'))$;
+		\item Si $y \in E(Y)$ entonces $\ol{\phi(y)} = \phi(\ol y)$;
+		\item Si $y \in E(Y)$ entonces $\phi(s(y)) = s(\phi(y))$
+	\end{itemize}   
+\end{deff}
+
+Notemos que de esta definición no hace falta pedir que respete el vértice en el cual termina una arista porque justamente para toda arista $y \in E(Y)$ vale que $t(y) = s(\ol y)$.
+
+Como tenemos morfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
+
+\begin{deff}
+	Dado un grupo $G$ diremos que $G$ actúa sobre un grafo dirigido $Y$ si se cumplen las siguientes condiciones,
+	\begin{enumerate}[a.]
+		\item Para cada $g \in G$ tenemos un morfismo de grafos $g \cdot : Y \to Y$;
+		\item $1 \cdot x = x$ para todo $x \in Y$;
+		\item $(gh) \cdot x = g \cdot (h \cdot x)$ para todo $x \in Y$ y todos $g,h \in G$.
+	\end{enumerate}
+\end{deff}
+
+Las acciones que nos van a interesar las vamos a tomar para que \emph{no tengan inversiones} esto es que $g \cdot y \neq \ol y$ para toda arista $y \in E(Y)$ y para todo $g \in G$.
+
+Ahora podemos definir los objetos centrales a la teoría de Bass Serre.
+	
+
+\begin{deff}
+	Dado un grafo dirigido $Y$.
+	Un \emph{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
 	\begin{enumerate}
 		\item Para cada vértice $P \in V(Y)$ tenemos un grupo $G_P$.
-		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{t(y)}$.
+		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{s(y)}$.
 		\item Para todo $y \in E(Y)$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
 	\end{enumerate}
 \end{deff}
@@ -38,7 +87,6 @@ Una \blue{orientación} de las aristas es una función $o:E(Y) \to \{ 0 ,1 \}$ t
 En general para la definición de grafo de grupos no es necesario pedir para la condición \textbf{2} que haya una contención sino que alcanza con tomar un monomorfismo. 
 Para facilitar las construcciones más en adelante supondremos que es un subgrupo pero los argumentos se pueden readaptar en el caso de no suponerlo.
 
-\todo[inline]{Hacer ejemplitos básicos de grafos de grupos.}
 
 Dado un grafo $Y = (V(Y), E(Y))$ llamaremos $F_{E(Y)}$ al grupo libre  generado por las aristas del grafo.
 
@@ -161,13 +209,13 @@ Podemos ver que ambas definiciones son equivalentes porque son isomorfos como gr
 
 
 
-\section{Casos particulares.}
+\subsection{Casos particulares.}
 
 En esta sección vamos entender como son los grupos fundamentales de algunos grafos de grupos cuando los grafos tienen algunas formas en particular. 
 La idea, aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos finitos arbitrarios a grafos de estas formas.
 Entonces probar resultados sobre otros grafos se va a reducir a la demostraciones que tengamos de estos otros casos bases más comprendidos.
 
-\subsection{Segmentos y grupos amalgamados.}
+\subsubsection{Segmentos y grupos amalgamados.}
 Consideremos que nuestro grafo de grupos $\cG$ está dado sobre cierto segmento $Y$ de la siguiente pinta.
 
 Calculemos el grupo fundamental de este grafo de grupos.
@@ -184,7 +232,7 @@ A continuación veremos un resultado que nos servirá para tener una escritura �
 \end{proof}
  
 Esta forma para cada palabra la llamaremos la forma normal de $w$.
-\subsection{Loops y grupos HNN.}
+\subsubsection{Bucles y grupos HNN.}
 
 Si el grafo resulta ser un loop
 \todo[inline]{Agregar grafiquito de un loop.}
@@ -209,7 +257,7 @@ Ahora veamos un resultado análogo al que demostramos anteriormente para grupos 
 \begin{proof}
 	.
 \end{proof}
-\section{Palabras reducidas.}
+\subsection{Palabras reducidas.}
 
 En esta sección vamos a caracterizar los elementos del grupo $F(\cG)$.
 
@@ -475,8 +523,8 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 	\end{enumerate}
 
 
-\section{Árbol de Bass Serre.}
-
+\subsection{Árbol de Bass Serre.}
+\todo[inline]{Reescribir con la notación que uso en la siguiente sección.}
 Vamos a construirnos un revestimiento para un grafo de grupos arbitrario. 
 Como el revestimiento universal de todo grafo es un árbol obtendremos un resultado similar en este caso.
 
@@ -662,7 +710,7 @@ Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ d
 %
 %Dar conexión con la idea topológica de un revestimiento de un grafo..
 
-\section{Acciones de grupos sobre árboles.}
+\subsection{Acciones de grupos sobre árboles.}
 
 Sea $G$ grupo que actúa sin inversiones de aristas sobre un grafo conexo $X = (V(X),E(X))$.
 Consideremos $Y = G / X$ el grafo que conseguimos al cocientar por esta acción.
@@ -733,7 +781,8 @@ Para eso veamos que cumple las relaciones que definen a este cociente.
 De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
 Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol de expansión.
 
-\begin{lema}
+
+\begin{lema}\label{lema_morfismo_pi1_inyectivo}
 	Para todo $g \in G_P \le \pi_1(\cG, P)$ tenemos que $\varphi(g)=g$.
 \end{lema}
 
@@ -750,38 +799,79 @@ Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del gr
 	Dado $g \in G$ queremos ver que $g \in \varphi(\pi_1(\cG, P))$.
 	Sea $P \in \iota(V(Y))$ un vértice.
 	Consideremos $gP \in V(X)$, como el grafo es conexo tenemos un camino que une a $P$ con $gP$. 
-	Sea este camino de vértices
-	\[
-		e_0P_0 e_1P_1 e_2P_2 \dots e_k P_k 
-	\]
-	y las aristas sean $(e_0\iota(y_1), e_1\iota (y_2), \dots e_k\iota(y_{k-1}))$ donde $\iota(y_i)$ es la arista tal que $s(\iota(y_i)) = P_i$.
-	de manera que $P_0 = P, P_k = P$, $P_i \in V(\iota (Y))$ siguiendo nuestra notación anterior y donde $e_i \in G_{s(y_i)}$ tal que $e_i t(y_{i+1}) = P_{i+1}$.
+	Sea este camino 
 	
-	Una primera observación que podemos hacer es que $e_k P = g P$ dado que resultan ser el mismo vértice.
-	Esto nos dice que $g e_k^{-1} \in G_P$.
-	Por el resultado anterior tenemos que $\varphi(h) = h $ para todo $h \in G_P$.
+	\begin{center}
+		\begin{tikzcd}
+			e_0P_0 \arrow[r, "e_0 \iota(y_1)", bend left] & e_1 P_1 \arrow[r, "e_1\iota (y_2)", bend left] & \dots \arrow[r, bend left] & e_{k-1}P_{k-1} \arrow[r, "e_{k-1} \iota(y_k)", bend left] & e_kP_k
+		\end{tikzcd}
+	\end{center}
+	
+%	\[
+%		(e_0P_0 , e_1P_1 ,e_2P_2, \dots, e_k P_k )
+%	\]
+%	y las aristas sean $(e_0\iota(y_1), e_1\iota (y_2), \dots e_k\iota(y_{k-1}))$ donde $\iota(y_i)$ es la arista tal que $s(\iota(y_i)) = P_i$.
+
+
+	de manera que $P_i \in V(\iota (Y))$ y en particular $P_0 = P, P_k = P$ siguiendo nuestra notación anterior y así $s(\iota (y_i)) = P_{i-1}$ por como tomamos las levantadas de las aristas.
+	Los elementos $e_i \in G_{s(\iota (y_i))}$ son tales que $e_i t(\iota (y_{i+1})) = P_{i+1}$ y donde en particular tenemos que $e_k P = g P$.
+	
+	Una primera observación que podemos hacer es que $g e_k^{-1} \in G_P$ dado que  $e_k P = g P$.
+	Por el resultado anterior \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi(h) = h $ para todo $h \in G_P$.
 	Esto nos dice que al ser $\varphi$ un morfismo de grupos luego 
 	\[
-	\varphi(ge_k^{-1}) \varphi(e_k) = \varphi(g) 
+	(ge_k^{-1}) e_k = g
 	\]
-	entonces como $ge_k^{-1} \in G_P \le \pi_1(\cG, P)$ luego si vemos que $\varphi(e_k )\in \pi_1(\cG, P)$ probaríamos que $\varphi (g) \in \pi_1(\cG,P)$ tal como queríamos ver.
+	entonces como $ge_k^{-1} \in G_P \le \pi_1(\cG, P)$ luego si vemos que $e_k \in \varphi(\pi_1(\cG, P))$ probaríamos que $g \in \varphi (\pi_1(\cG,P))$ tal como queríamos ver.
 		
 	Para ver esto lo probaremos por inducción en el camino que tomamos anteriormente.
-	Veamos que $e_i \in \Pi_1(\cG, P, P_i)$ para todo $i = 0 \dots n$.
+	Veamos que $e_i \in \varphi(\Pi_1(\cG, P, P_i))$ para todo $i = 0 \dots n$.
+	
+	El caso base consiste en ver que $e_0 \in \varphi(\Pi_1(\cG, P))$.
+	Esto es cierto porque justamente tenemos que $e_0 \in G_P$ y por el lema anterior \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi$ es la identidad cuando la restringimos a $G_P$.
+	
+	Para el paso inductivo supongamos que $e_{i-1} \in \varphi(\cG, P, P_{i-1})$ y queremos ver que $e_i \in \varphi(\cG, P, P_{i})$.
+	Antes de probar esto veamos de reescribir a $e_i$ en términos de $e_{i-1}$.
+	Observemos que por como tomamos el camino tenemos que
+	\[
+		e_{i-1} t(\iota (y_i)) = e_i P_i 
+	\]
+	y de esta manera obtenemos que $t(\iota (y_i)) = e_{i-1}^{-1} e_i P_i$ y como donde termina una arista es donde empieza la arista con orientación opuesta tenemos que $s(\ol{\iota(y_i)}) = e_{i-1}^{-1} e_i P_i$. 
+	Por como definimos al elemento del grupo $g_{y_i} \in G$ tenemos que $g_{y_i} \iota (\ol y_i) = \ol{\iota (y_i)}$ por lo tanto obtenemos que 
+	\[
+		s(g_{y_i} \iota (\ol{y_i})) = g_{y_i} P_i
+	\]
+	de esta manera obtenemos que $g_{y_i} P_i = e_{i-1}^{-1} e_i P_i$ y por lo tanto llegamos a la siguiente escritura para $e_i$,
+	\begin{equation*}
+		e_{i-1}g_{y_i} h_i  = e_i 
+	\end{equation*}
+	donde $h_i \in G_{P_i}$. 
+	
+	Ahora podemos usar nuestra hipótesis inductiva para obtener un camino 
+	\[
+		h_0y_0 \dots y_{i-1}h_{i-1} \in \Pi_1(\cG, P, P_i)
+	\]
+	de manera que $e_{i-1} =  \varphi(h_0y_0 \dots y_{i-1}h_{i-1})$. 
+	Recordemos que $\varphi(y_i) = g_{y_i}$ por la definición de nuestro morfismo $\varphi$ y por otro lado tenemos que $\varphi(h_i) = h_i$ porque $\varphi$ fija a los grupos $G_{P_i}$ por definición también.
+	Con esto concluímos la siguiente igualdad,
+	\[
+		e_i = \varphi(h_0y_0 \dots y_{i-1}h_{i-1} y_i h_i)
+	\]
+	y como $h_0y_0 \dots y_{i-1}h_{i-1} y_i h_i \in \Pi_1(\cG, P, P_i)$ terminamos de probar que $e_{i} \in \varphi(\Pi_1(\cG, P, P_i))$ tal como queríamos ver. 
+	En particular con esto probamos que $e_k \in \varphi(\cG, P)$ y esto implica que $g \in \varphi(\cG, P)$ tal como queríamos ver.
+	De esta manera la restricción de $\varphi$ al subgrupo $\pi_1(\cG, P)$ es sobreyectiva.
 	
 		
 \end{proof}
 
-\begin{deff}
-	Sean $\Gamma, \Gamma'$ grafos. Diremos que $\phi:\Gamma \to \Gamma'  $ es un morfismo de grafos si es una función   
-	tal que:
-	\begin{itemize}
-		\item $\psi (V(\Gamma)) \subseteqq  (V(\Gamma'))$;
-		\item $\psi (E(\Gamma)) \subseteqq  (E(\Gamma'))$;
-		\item Si $y \in E(\Gamma)$ entonces $\ol{\phi(y)} = \phi(\ol y)$;
-		\item Si $y \in E(\Gamma)$ entonces $\phi(s(y)) = s(\phi(y))$
-	\end{itemize}   
-\end{deff}
+\begin{coro}
+	La restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por el cociente $\pi_1(\cG, T)$.
+\end{coro}
+
+
+\subsubsection{Morfismo de grafos $\psi$.}
+
+Construyamos un morfismo de grafos del árbol de Bass Serre en el grafo $X$ que vendría a ser el análogo al revestimiento.
 
 Sea la asignación $\psi: \Xm \to X$ dada por 
 \begin{align*}
@@ -793,13 +883,13 @@ Veamos que es una función.
 Sean dos representantes $g,h$ del mismo coset de $G_P$. 
 Queremos ver que $\psi(gG_PP) = \psi(hG_P P)$.
 Para esto notemos que por la definición de $\psi$  esto equivale a ver que $\varphi(g) = \varphi(h)$.
-Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) \in G_P$ porque $\varphi$ restringida a $G_P$ es la identidad por el resultado \ref{}.
+Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) = gh^{-1}$ porque $\varphi$ restringida a $G_P$ es la identidad por el resultado \ref{lema_morfismo_pi1_inyectivo}.
 
 \begin{lema}
 	La función $\psi: \Xm \to X$ resulta ser un morfismo de grafos.
 \end{lema}
 \begin{proof}
-	Esta claro por como está definido que cara vértice de $\Xm$ va a parar a un vértice de $X$ y que cada arista va a parar a una arista.
+	Esta claro por como está definido que cada vértice de $\Xm$ va a parar a uno de $X$ y que cada arista va a parar a una de $X$.
 	
 	Veamos ahora que dada una arista $g G_y y$ tenemos que $\psi(\ol{g G_y y}) = \ol{\psi(g G_y y)}$.
 	
@@ -807,9 +897,19 @@ Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) \in G_P$ porque $
 	Finalmente veamos que respeta los comienzos de aristas.
 \end{proof}
 
+Dado un vértice $x \in V(X)$ podemos definir su \emph{star} como el siguiente conjunto de aristas,
+\[
+	st(x) = \{  y \in E(Y) : s(y) = x  \}
+\]
+
+Como queremos que nuestro morfismo $\psi$ represente un morfismo de revestimientos le vamos a pedir que localmente tenga buenas propiedades. 
+En particular vamos a pedirle que mande un star de un vértice inyectivamente en dentro del star del otro vértice.
+
 \begin{deff}
-	Un morfismo de grafos $\psi:\Gamma \to \Gamma'$ se dice localmente inyectivo si para todo vértice $P \in V(\Gamma)$ resulta que $\psi: st(P) \to E(\Gamma')$ es inyectiva. 
+	Un morfismo de grafos $\psi:\Gamma \to \Gamma'$ se dice \emph{localmente inyectivo} si para todo vértice $P \in V(\Gamma)$ resulta que $\psi: st(P) \to E(\Gamma')$ es inyectiva. 
 \end{deff}
+
+Probemos ahora que nuestro morfismo de grafos $\psi$ cumple esta propiedad.
 
 \begin{prop}
 	El morfismo $\psi: \Xm \to X$ es sobreyectivo y localmente inyectivo.
@@ -855,7 +955,7 @@ Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) \in G_P$ porque $
 
 El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea un isomorfismo de grafos pidiéndole a $X$ ser un árbol.
 
-\begin{prop}
+\begin{prop}\label{prop_loc_iny}
 	Todo morfismo de grafos $\psi:\Gamma \to T$ localmente inyectivo tal que $T$ sea un árbol e $\Gamma$ sea conexo es un monomorfismo de grafos.    
 \end{prop}
 \begin{proof}
@@ -893,12 +993,12 @@ Es el resultado central de la teoría de Bass Serre.
 \end{teo}
 
 \begin{proof}	
-		 La implicación \textbf{a $\Rightarrow$ b} la hacemos usando el lema \ref{}.
+		 La implicación \textbf{a $\Rightarrow$ b} la hacemos usando la proposición \ref{prop_loc_iny} dado que $\psi$ es localmente inyectivo.
 		 Para ver \textbf{b $\Rightarrow$ a} usamos que $\Xm$ es un árbol por lo tanto $X$ al ser isomorfo también es un árbol.
 		 
 		 Probemos \textbf{b $\Rightarrow$ c}. 
 		 Para eso notemos que al ser $\varphi$ sobreyectivo nos alcanza con ver que es inyectivo.
-		 Si $g \in \pi_1({\cal G}, T)$ y $g \neq 1$ tal que $\varphi(g)= 1$ entonces necesariamente $g \notin G_P$ por el lema anterior \ref{} dado que la restricción a estos subgrupos es inyectiva.
+		 Si $g \in \pi_1({\cal G}, T)$ y $g \neq 1$ tal que $\varphi(g)= 1$ entonces necesariamente $g \notin G_P$ por el lema anterior \ref{lema_morfismo_pi1_inyectivo} dado que la restricción a estos subgrupos es la identidad.
 		 Esto nos dice que $g G_P P \neq G_P P$ dado que los cosets $gG_P$ y $G_P$ son distintos. Por como definimos a $\psi$ tenemos que 
 		 \[
 		 \psi (gG_P P) = \varphi(g) P  = \psi(G_P P)
@@ -960,7 +1060,6 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 		\frac{r(F) - 1}{(G:F)} = \sum_{y \in E(Y)} \frac{1}{2 \cdot |G_y|} - \sum_{P \in V(Y)} \frac{1}{|G_P|}.
 	\end{equation*}
 \end{prop}
-\todo[inline]{Escribir mejor lo de los dobles cosets del final.}
 \begin{proof}
 	Sea $\tilde X$ el árbol de Bass Serre para este grafo de grupos $\cG$.
 	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
@@ -969,7 +1068,7 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 	
 	Dado que $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\widetilde X / F)$.
 	Usando esto calculemos el rango del grupo libre contando todas las aristas que no pertenezcan a un árbol de expansión $T'$ del grafo $\Xm / F$.
-	Recordemos que al ser un árbol generador tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
+	Recordemos que al ser un árbol de expansión tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
 	
 	\begin{align*}
 		r(F) &= \frac{1}{2} (|E(\Xm / F)| - |E(T')|) \\
@@ -1066,7 +1165,7 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 
 
 
-\section{Productos semi directos.}
+\subsection{Productos semi directos.}
 
 En esta sección vamos a refinar los resultados obtenidos anteriormente para ver que los grupos fundamentales de grafos finitos de grupos finitos y por lo tanto los grupos virtualmente libres se pueden meter dentro de un producto semidirecto $F Q$ donde $F$ es un grupo libre y $Q$ es un cociente finito de $G$.
 La referencia de esta sección es el paper \cite{} que a su vez se basó en los métodos del paper de Dahmani-Guirardel.
@@ -1082,7 +1181,7 @@ La referencia de esta sección es el paper \cite{} que a su vez se basó en los 
 	Ejemplo de $SL_2(\ZZ)$.
 \end{ej}
 %
-%\section{Ends de grupos.}
+%\subsection{Ends de grupos.}
 %
 %\begin{deff}
 %	Ends de grupos
