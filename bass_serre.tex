@@ -692,9 +692,46 @@ Lo que sabemos es que existe $g_y \in G$ tal que
 	g_y \ol{\iota (y)} = \iota (\ol y)
 \]
 porque ambas aristas en la misma órbita por la acción de $G$.
+Si fijamos una orientación de aristas para el grafo $X$ luego podemos elegir para cada arista de la orientación algún $g_y \in G$ tal que $g_y \ol{\iota (y)} = \iota (\ol y)$.
+Para las aristas con la orientación opuesta tendremos algún $g_{\ol y} \in G$ tal que 
+\[
+	g_{\ol y} \ol{\iota(\ol y)} = \iota(y).
+\]
+Como la acción de $G$ sobre $X$ es por morfismos de grafos tenemos que $\ol {g y} = g \ol y$ y así queda claro que podemos elegir a $g_{\ol y} = g_{y}^{-1}$.
+El caso particular que $\ol{\iota (y)} = \iota (\ol y)$ definiremos que $g_y = 1 = g_{\ol y}$.
 
+De esta manera nos podemos construir $\cG$ un grafo de grupos sobre el grafo $Y$.
+Consideremos para $P \in V(Y), y \in E(Y)$ los siguientes grupos,
+\[
+	G_P = G_{\iota (P)}, \ G_y = G_{\iota(y)}
+\]
+donde estamos mirando los estabilizadores de la acción de $G$ sobre $X$.
+La primera observación es que la elección de $\iota$ no afecta los grupos que tomamos para los vértices y aristas porque de cambiar la elección de $\iota$ nos quedarían grupos conjugados porque los vértices o aristas correspondientes están en la misma órbita de la acción de $G$.
+Por otro lado notemos que por esta definición tenemos que $G_y \simeq G_{\ol y}$.
+Consideremos el siguiente morfismo de grupos;
+\begin{align*}
+	\phi: G_{\ol y} &\to G_{y} \\
+	a &\mapsto g_{y}^{-1}ag_{y}
+\end{align*}
+que está bien definido porque justamente $g_y \iota(y) = \ol{\iota(\ol y)}$ dado que $g_y \ol{\iota(y)} = \iota (\ol y)$ por como lo elegimos a $g_y$ y porque $\ol{gw} = g \ol w$ para toda $w \in E(X)$.
+Ahora usamos que si $a \in G_{\iota{\ol y}}$ luego $a \in G_{\ol{\iota(\ol y)}}$ por lo tanto $a \ol{\iota(\ol y)} = \ol{\iota(\ol y)} $.
+Finalmente como $ g_{y}^{-1} \ol {\iota (\ol y) } = \iota (y)$ tal como queríamos ver.
 
-Veamos ahora de definir un morfismo del grupo $F(\cG)$ en $G$.
+Definimos el siguiente morfismo del producto libre de los estabilizadores de los vértices y el grupo libre en las aristas del grafo en el grupo $G$.
+\begin{align*}
+	\varphi: \ast_{P \in V(Y)} G_P \ast F_{E(Y)} &\to G	\\
+	g \mapsto g \\
+	y \mapsto g_y \\
+\end{align*}
+Probemos que este morfismo baja a $F(\cG)$. 
+Para eso veamos que cumple las relaciones que definen a este cociente.
+\begin{enumerate}
+	\item $g_y g_{\ol y} = 1$ para todo $y \in E(Y)$ porque justamente elegimos a $g_{\ol y}$ de esta manera;
+	\item $\ol y a y = a^{\ol y}$ para todo $y \in E(Y), a \in G_y$ porque justamente vimos que $\varphi(\ol y) \varphi (a) \varphi(y) = g_y^{-1}ag_y = a^{\ol y}$.
+\end{enumerate}
+
+De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
+Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol de expansión.
 
 \begin{lema}
 	Para todo $g \in G_P \le \pi_1(\cG, P)$ tenemos que $\varphi(g)=g$.
@@ -706,9 +743,34 @@ Veamos ahora de definir un morfismo del grupo $F(\cG)$ en $G$.
 \end{proof}
 
 \begin{prop}
-	El morfismo de grupos $\varphi$ es sobreyectivo.
+	El morfismo de grupos restringido al subgrupo $\varphi: \pi_1(\cG, P) \to G$ es sobreyectivo.
 \end{prop}
 
+\begin{proof}
+	Dado $g \in G$ queremos ver que $g \in \varphi(\pi_1(\cG, P))$.
+	Sea $P \in \iota(V(Y))$ un vértice.
+	Consideremos $gP \in V(X)$, como el grafo es conexo tenemos un camino que une a $P$ con $gP$. 
+	Sea este camino de vértices
+	\[
+		e_0P_0 e_1P_1 e_2P_2 \dots e_k P_k 
+	\]
+	y las aristas sean $(e_0\iota(y_1), e_1\iota (y_2), \dots e_k\iota(y_{k-1}))$ donde $\iota(y_i)$ es la arista tal que $s(\iota(y_i)) = P_i$.
+	de manera que $P_0 = P, P_k = P$, $P_i \in V(\iota (Y))$ siguiendo nuestra notación anterior y donde $e_i \in G_{s(y_i)}$ tal que $e_i t(y_{i+1}) = P_{i+1}$.
+	
+	Una primera observación que podemos hacer es que $e_k P = g P$ dado que resultan ser el mismo vértice.
+	Esto nos dice que $g e_k^{-1} \in G_P$.
+	Por el resultado anterior tenemos que $\varphi(h) = h $ para todo $h \in G_P$.
+	Esto nos dice que al ser $\varphi$ un morfismo de grupos luego 
+	\[
+	\varphi(ge_k^{-1}) \varphi(e_k) = \varphi(g) 
+	\]
+	entonces como $ge_k^{-1} \in G_P \le \pi_1(\cG, P)$ luego si vemos que $\varphi(e_k )\in \pi_1(\cG, P)$ probaríamos que $\varphi (g) \in \pi_1(\cG,P)$ tal como queríamos ver.
+		
+	Para ver esto lo probaremos por inducción en el camino que tomamos anteriormente.
+	Veamos que $e_i \in \Pi_1(\cG, P, P_i)$ para todo $i = 0 \dots n$.
+	
+		
+\end{proof}
 
 \begin{deff}
 	Sean $\Gamma, \Gamma'$ grafos. Diremos que $\phi:\Gamma \to \Gamma'  $ es un morfismo de grafos si es una función   
