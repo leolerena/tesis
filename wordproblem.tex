@@ -15,39 +15,97 @@
 \begin{document}
 	
 \chapter{Grupos virtualmente libres.}
+En este capítulo veremos como entran en juego las diferentes áreas de la matemática para definir de manera equivalente a los grupos virtualmente libres.
+
 \begin{deff}
 Un grupo $G$ \fg es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que su índice en $G$ es finito.
 \end{deff}
-\todo[inline]{Escribir una mejor justificación y ponerlo como prop o lema}
-\begin{obs}
-	Al subgrupo libre siempre lo podemos tomar normal.
-	Para eso si $G$ es un grupo \fg \vl entonces existe $F$ subgrupo libre de índice finito.
-	Si consideramos 
+
+Veamos que todo grupo \vl \ se puede tomar de manera que el subgrupo sea normal.
+\begin{deff}
+	Sea $G$ un grupo y $H$ un subgrupo entonces el normalizador de $H$ en $G$ es el siguiente subgrupo
+	\begin{equation*}
+		N_G(H) = \{ g\in G : gHg^{-1} = H  \}
+	\end{equation*}
+\end{deff}
+
+Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
+
+\begin{lema}
+	Si $G$ es un grupo \fg y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
+\end{lema}
+\begin{proof}
+	Para ver que tiene índice finito notemos que $H \le N_G(H)$ por lo tanto tenemos que 
 	\[
-	F' = \bigcap_{g \in G} g^{-1}Fg
+		[G:N_G(H)] \le [G:H] < \infty.
 	\]
-	es un subgrupo normal de $G$ tal que tiene índice finito en $F$ de manera que también lo tiene en $G$.	
-	Usando el teorema de Nielsen-Schreier vemos que este subgrupo también es libre.
-\end{obs}
+	
+	Para probar la otra afirmación definimos la siguiente función hacia los cosets a derecha del normalizador desde el conjunto $S$,
+	\begin{align*}
+		S  &\to  G/N_G(H) \\
+		sHs^{-1} &\mapsto N_G(H)s
+	\end{align*}
+	Veamos que es biyectiva.
+	
+	Si $N_G(H)s = N_G(H)t$ entonces tenemos que esto sucede si y solo sí $st^{-1} \in N_G(H)$.
+	Esto nos dice que por la definición del normalizador,
+	\[
+		st^{-1} H ts^{-1} = H \iff s^{-1}Hs = t^{-1}Ht
+ 	\]
+ 	y de esta manera obtenemos que la función está bien definida y es biyectiva.
+\end{proof}
+
+En particular si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por lo tanto podemos considerar el siguiente subgrupo normal
+\[
+	F' = \bigcap_{g \in G} gFg^{-1}
+\]
+donde la cantidad de grupos que estamos intersecando es finita y es normal por construcción.
+
+Veamos que $F'$ nos sirve. 
+Primero probemos que tiene índice finito, para eso consideremos el siguiente resultado.
+\begin{lema}
+	Sea $G$ un grupo \fg \  y sean $K,H$ subgrupos de índice finito entonces $K \cap H$ es un subgrupo de índice finito.
+\end{lema}
+\begin{proof}
+	Primero notemos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos,
+	\[
+		KH / K \simeq K / K \cap H
+	\]
+	y en particular como $|KH / K| \le |G / K| < \infty$ por hipótesis obtenemos así que $|K / K \cap H| < \infty$.
+	
+	Finalmente por una propiedad de índices de subgrupos obtenemos lo siguiente
+	$[G:K\cap H] = [G:K][K: K \cap H]$ y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
+\end{proof}
+
+Con este resultado y haciendo inducción obtenemos que $F'$ tiene índice finito.
+Nos quedaría ver que es libre.
+Para eso usamos el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
+
+Con esto probamos que podemos tomar al subgrupo de un \vl \ para que sea normal.
+
+Veamos ahora unos ejemplos y contrajemplos de grupos \vl s.
 
 \begin{ej}
-	El grupo $\ZZ \times \ZZ$ no es virtualmente libre.
-	Como es un grupo conmutativo no puede tener a ningún $F_n$ con $n \ge 2$ como subgrupo. 
-	Para que sea virtualmente libre no queda otra que el libre sea isomorfo a $\ZZ$. 
-	Veamos que esto es imposible.
-	Sea $H$ este subgrupo y sea $K \simeq G/H$ el cociente finito que necesariamente tiene que ser abeliano.
-	Como el subgrupo $H$ tiene índice finito tenemos bien definido el morfismo del transfer $\phi$.
-	Para definirlo necesitamos tomar $\{ x_i \}_{i=1 \dots n}$ representantes de $G/H$ a izquierda en $\ZZ \times \ZZ$ que sabemos son finitos porque $[\ZZ \times \ZZ : H] < \infty$.
-	Luego todo elemento $x \in \ZZ \times \ZZ$ lo podemos escribir como 
+Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos que no lo sean.
+\begin{enumerate}
+	\item Cualquier extensión de un grupo libre por un grupo finito es un grupo virtualmente libre,
 	\[
-	x = \prod_{i=1}^{n} h_i x_i
+		1 \to F \to G \to K \to 1
 	\]
-	donde $h_i \in H$.
-	El transfer es el siguiente morfismo $\phi: \ZZ \times \ZZ \to \ZZ$ dado por $\phi(g) = \prod_{i=1}^{n} h_i$.
-	En particular notemos que es un epimorfismo.
-	Como $\ZZ$ es libre todo epimorfismo se parte. 
-	Esto es que $\ZZ \times \ZZ  \simeq \ZZ \times K$ donde $K$ ya sabemos que es un grupo finito abeliano.
-	Por el teorema de la clasificación de los grupos abelianos llegamos a una contradicción porque el grupo $\ZZ \times K$ sin importar qué grupo finito tomemos tiene torsión mientras que $\ZZ \times \ZZ$ no tiene.	
+	donde $K$ es un grupo finito y $F$ es un grupo \fg libre.
+	En particular esto nos da los casos más elementales de productos directos y semidirectos, esto es $G= F \times K$ o bien  $G = F \ltimes K$.
+	En este capítulo veremos que todo grupo \vl podemos considerarlo como un subgrupo de una extensión de este tipo.
+	
+	\item El ejemplo más sencillo de un grupo que no es \vl \ es $\ZZ \times \ZZ$.
+	La primera observación es que al ser abeliano si tiene un subgrupo libre necesariamente tiene que ser isomorfo a $\ZZ$.
+	
+	Nos alcanza con ver que no es virtualmente $\ZZ$.
+	Sea $F$ un subgrupo que es isomorfo a $\ZZ$ y que tiene índice finito en $\ZZ \times \ZZ$.
+	Sea $(n,m) \in \ZZ \times \ZZ$ el generador de $F$ de manera que $F = \langle $
+	
+	
+\end{enumerate}
+	
 \end{ej}
 
 
