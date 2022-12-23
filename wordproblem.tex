@@ -12,6 +12,7 @@
 \newcommand{\cG}{ {\cal G} }
 
 
+
 \begin{document}
 	
 \chapter{Grupos virtualmente libres.}
@@ -21,7 +22,8 @@ En este capítulo veremos como entran en juego las diferentes áreas de la matem
 Un grupo $G$ \fg es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que su índice en $G$ es finito.
 \end{deff}
 
-Veamos que todo grupo \vl \ se puede tomar de manera que el subgrupo sea normal.
+Veamos algunas propiedades elementales que cumplen todos los grupos \vl. 
+Antes probemos algunos lemas sobre grupos.
 \begin{deff}
 	Sea $G$ un grupo y $H$ un subgrupo entonces el normalizador de $H$ en $G$ es el siguiente subgrupo
 	\begin{equation*}
@@ -31,7 +33,7 @@ Veamos que todo grupo \vl \ se puede tomar de manera que el subgrupo sea normal.
 
 Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
 
-\begin{lema}
+\begin{lema}\label{lema_normalizador_conjugados}
 	Si $G$ es un grupo \fg y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
 \end{lema}
 \begin{proof}
@@ -55,15 +57,7 @@ Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del sub
  	y de esta manera obtenemos que la función está bien definida y es biyectiva.
 \end{proof}
 
-En particular si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por lo tanto podemos considerar el siguiente subgrupo normal
-\[
-	F' = \bigcap_{g \in G} gFg^{-1}
-\]
-donde la cantidad de grupos que estamos intersecando es finita y es normal por construcción.
-
-Veamos que $F'$ nos sirve. 
-Primero probemos que tiene índice finito, para eso consideremos el siguiente resultado.
-\begin{lema}
+\begin{lema}\label{lema_indice_interseccion}
 	Sea $G$ un grupo \fg \  y sean $K,H$ subgrupos de índice finito entonces $K \cap H$ es un subgrupo de índice finito.
 \end{lema}
 \begin{proof}
@@ -74,14 +68,40 @@ Primero probemos que tiene índice finito, para eso consideremos el siguiente re
 	y en particular como $|KH / K| \le |G / K| < \infty$ por hipótesis obtenemos así que $|K / K \cap H| < \infty$.
 	
 	Finalmente por una propiedad de índices de subgrupos obtenemos lo siguiente
-	$[G:K\cap H] = [G:K][K: K \cap H]$ y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
+	\[
+		[G:K\cap H] = [G:K][K: K \cap H]
+	\]
+	 y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
 \end{proof}
 
-Con este resultado y haciendo inducción obtenemos que $F'$ tiene índice finito.
-Nos quedaría ver que es libre.
-Para eso usamos el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
+Con esto podemos probar estos resultados elementales de grupos \vl.
 
-Con esto probamos que podemos tomar al subgrupo de un \vl \ para que sea normal.
+\begin{prop}\label{prop_vls}
+	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
+	\begin{enumerate}
+		\item Si $F$ es un subgrupo libre de índice finito entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal y libre.
+		\item Si $H$ es un subgrupo de $G$ entonces también resulta ser \vl.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	\begin{enumerate}
+		\item En particular si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por el lema \ref{lema_normalizador_conjugados}.
+		Por lo tanto podemos considerar el siguiente subgrupo normal
+		\[
+		F' = \bigcap_{g \in G} gFg^{-1}
+		\]
+		donde la cantidad de grupos que estamos intersecando es finita y es normal por construcción.
+		Veamos que $F'$ nos sirve. 
+		Para ver que tiene índice finito nos alcanza con usar el lema \ref{lema_indice_interseccion} e inducción para que valga para una intersección finita arbitraria.
+		Finalmente notemos que es libre por el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
+		\item Si $F$ es un libre de índice finito en $G$ podemos tomar $H \cap F$ que es libre por ser subgrupo de un libre de acuerdo al resultado \ref{coro_niels_sch}.
+		El índice resulta ser finito puesto que 
+		\[
+			[H:F\cap H] \le [G:F] < \infty.
+		\]
+	\end{enumerate}
+\end{proof}
 
 Veamos ahora unos ejemplos y contrajemplos de grupos \vl s.
 
@@ -94,15 +114,40 @@ Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos 
 	\]
 	donde $K$ es un grupo finito y $F$ es un grupo \fg libre.
 	En particular esto nos da los casos más elementales de productos directos y semidirectos, esto es $G= F \times K$ o bien  $G = F \ltimes K$.
-	En este capítulo veremos que todo grupo \vl podemos considerarlo como un subgrupo de una extensión de este tipo.
+	En este capítulo veremos que todo grupo \vl \ podemos considerarlo como un subgrupo de una extensión de este tipo.
 	
 	\item El ejemplo más sencillo de un grupo que no es \vl \ es $\ZZ \times \ZZ$.
 	La primera observación es que al ser abeliano si tiene un subgrupo libre necesariamente tiene que ser isomorfo a $\ZZ$.
 	
 	Nos alcanza con ver que no es virtualmente $\ZZ$.
-	Sea $F$ un subgrupo que es isomorfo a $\ZZ$ y que tiene índice finito en $\ZZ \times \ZZ$.
-	Sea $(n,m) \in \ZZ \times \ZZ$ el generador de $F$ de manera que $F = \langle $
+	Sea $F$ un subgrupo que es isomorfo a $\ZZ$.
+	Sea $(n,m) \in \ZZ \times \ZZ$ el generador de $F$.
+	Probaremos que $\ZZ \times \ZZ / F$ tiene orden infinito.
+	Para eso consideraremos $(p,q) \in \ZZ \times \ZZ$	tal que $p,q$ son primos distintos y ambos coprimos con $m,n$.
+	Veamos que $[(p,q)] \in \ZZ \times \ZZ / F$ tiene orden infinito.
+	Si no lo fuera deberían existir $\alpha, \beta \in \ZZ$ de manera que 
+	\begin{align*}
+		\alpha (p,q) = \beta(n,m) 
+	\end{align*}
 	
+	como todos son coprimos entre sí esto nos dice que $p \mid \beta$ y similarmente que $q \mid \beta$, por lo que tenemos que $q \mid \alpha$ y $p \mid \alpha$.
+	Esto nos dice que se pueden escribir de esta manera
+	\begin{align*}
+		\alpha = p^{r_1} q^{s_1} \gamma_1 \\
+		\beta = p^{r_2} q^{s_2} \gamma_2
+	\end{align*}
+	con $r_i, s_i > 1$ para $i=1,2$.
+
+	Finalmente como 
+	\[ 
+		\alpha p = \beta n
+	\]
+	tenemos que $r_1+ 1 = r_2$ pero por otro lado como
+	\[
+		\alpha q  = \beta m
+	\]
+	acá tenemos que al ser $m$ coprimo con $p$ luego la multiplicidad de $p$ en la descomposición en primos de lo que está a la izquierda es $r_2 - 1 \le 0$ mientras que lo que está a la derecha es $r_2$.
+	Esto es una contradicción que vino de suponer que $[(p,q)] \in \ZZ \times \ZZ / F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
 	
 \end{enumerate}
 	
@@ -115,12 +160,15 @@ Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos 
 
 \section{Grupos independientes de contexto.}
  
-Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic \ forman un cono \ref{ic-cono} podemos dar la siguiente definición.
-\medskip
+ En esta sección definiremos una familia de grupos que veremos más en adelante que coincide con los grupos \vl.
+ 
+ \medskip
 \begin{deff}
 	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
 \end{deff}
+Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic \ forman un cono \ref{ic-cono} la definición anterior no depende del conjunto de generadores.
 
+Veamos algunos ejemplos de grupos de esta familia.
 \begin{ej}
 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
 	Si tomamos los siguientes generadores $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
@@ -140,57 +188,55 @@ Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguaje
 
 Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. 
 
-%Dado que tenemos una equivalencia con ser aceptado por un automáta de pila no determinístico veamos qué clase de grupos son independientes de contexto.
 
-
-Esta idea que usamos para los grupos libres se puede extender más en general para grupos virtualmente libres con algunas modificaciones. Esta es la primera de las equivalencias que vamos a ver.
-
-\begin{teo}
-	Todo grupo virtualmente libre es tal que su problema de la palabra es aceptado por un automáta determinístico especial de pila finito.
+\begin{teo}[Muller-Schupp 1983]\cite{}
+	Todo grupo virtualmente libre es independiente de contexto.
 \end{teo}
-\todo[inline]{Escribir mejor lo que está dicho como sist de reescritura, quizá con Todd Coxeter puede andar.}
+
+ 
 \begin{proof}
-	Para demostrar este teorema necesitamos construirnos al automáta para una presentación fijada de un grupo virtualmente libre.
+	Sea $G$ grupo \vl \ presentado por $G  =\langle \Sigma  \mid  R \rangle$.
+	Veamos de construir un automáta de pila de manera que acepta al lenguaje $\WP$.
 	
-	Fijemos entonces el subgrupo libre de índice finito $F_\Sigma$. 
-	Sea $R$ representantes de coclases a derecha de $G/F_\Sigma$ que sabemos son finitos. 
-	De esta manera podemos considerar al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup R$ de generadores de nuestro grupo tal que nos da una presentación.
+	Fijemos entonces un subgrupo libre de índice finito $F$ que lo podemos tomar de manera que sea normal por la proposición \ref{prop_vls}. 
+	Sea $T$ conjunto transversal a derecha de $G/F$ que sabemos que es finito. 
+	Consideremos al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup T$ de generadores de nuestro grupo porque en particular sabemos que $\Sigma$ generaba .
 	
-	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura convergente dado por 
-	\[
-	S = \{ ab \to w(a,b)r  \}
-	\] 
-	donde $w(a,b) \in F_\Sigma$ es una palabra reducida y $r \in R$ tal que $ab = w(a,b)r$. Vamos a usar este sistema para construirnos la función de transición de nuestro automáta. 
-	
-	Nuestro automáta lo definimos así 
-	\[
-	{\cal M }= (Q,\Delta, Z, \delta, q_0, F)
-	\]
-	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. 
-	Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. 
-	Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. 
-	Notemos a su vez a $m = \max {|w(r,a)|}$ para $r \in R, a \in \Delta$ que es finito porque es el máximo de longitudes de finitas palabras. 
-	Cuando tengamos una ecuación en término de las copias la vamos a considerar como el elemento que representa en el grupo. 
-	La utilidad radica en poder tener un automáta más declarativo en cuanto a los nombres de los estados. 
-	Nuestra función de transición entonces funciona de la siguiente manera si no tenemos nada en la pila
-	
-	\begin{align*}
-		(r'a,w(r'a)s) \in \delta  \ \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=w(r',a)s \ \ \text{y} \ \ w(r',a) \neq 1  \\
-		(r'a,s') \in \delta  \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=s.  \\ 
-	\end{align*}
-	
-Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a los estados que le corresponden a $R$ mientras que en el otro caso nos quedamos en los estados de la copia $R'$. 
-En particular como el estado inicial es $1' \in R'$ luego siempre que tengamos la pila no vacía vamos a estar en algún estado $r \in R$. 
-Repliquemos esta idea también para el caso que que tengamos algo en la pila,
-	
-	\begin{align*}
-	(xra,ys) \in \delta \ \ \text{para} \ \  s \in R, x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s  \\ & \ \ \text{e} \ \ y \ \text{es la forma reducida de} \ \ xw(r,a)  \\
-	(xra,s') \in \delta\ \ \text{para} \ \  s' \in R', x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s'  \\ & \ \ \text{e}  \ \ xw(r,a)  \ \text{se reduce a 1}. \ \  \\ 
-	\end{align*}
-	En este caso la función de transición cuando tenemos algo en la pila lo que va haciendo es lo mismo que antes y solo pasa a los estados que corresponden a $R'$ cuando la palabra que nos queda la pila vacía. 
-	
-	De esta manera notemos que en particular es un automáta especial determinístico considerando que la transición es determinística porque el sistema de reescritura es convergente por lo que hay una única palabra reducida. 
-	Por otro lado como el único estado que acepta es el estado inicial y la única manera de llegar a cualquier estado en $R'$ es con la pila vacía luego el automáta acepta por pila vacía y estado final a la vez.
+%	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura convergente dado por 
+%	\[
+%	S = \{ ab \to w(a,b)r  \}
+%	\] 
+%	donde $w(a,b) \in F_\Sigma$ es una palabra reducida y $r \in R$ tal que $ab = w(a,b)r$. Vamos a usar este sistema para construirnos la función de transición de nuestro automáta. 
+%	
+%	Nuestro automáta lo definimos así 
+%	\[
+%	{\cal M }= (Q,\Delta, Z, \delta, q_0, F)
+%	\]
+%	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. 
+%	Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. 
+%	Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. 
+%	Notemos a su vez a $m = \max {|w(r,a)|}$ para $r \in R, a \in \Delta$ que es finito porque es el máximo de longitudes de finitas palabras. 
+%	Cuando tengamos una ecuación en término de las copias la vamos a considerar como el elemento que representa en el grupo. 
+%	La utilidad radica en poder tener un automáta más declarativo en cuanto a los nombres de los estados. 
+%	Nuestra función de transición entonces funciona de la siguiente manera si no tenemos nada en la pila
+%	
+%	\begin{align*}
+%		(r'a,w(r'a)s) \in \delta  \ \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=w(r',a)s \ \ \text{y} \ \ w(r',a) \neq 1  \\
+%		(r'a,s') \in \delta  \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=s.  \\ 
+%	\end{align*}
+%	
+%Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a los estados que le corresponden a $R$ mientras que en el otro caso nos quedamos en los estados de la copia $R'$. 
+%En particular como el estado inicial es $1' \in R'$ luego siempre que tengamos la pila no vacía vamos a estar en algún estado $r \in R$. 
+%Repliquemos esta idea también para el caso que que tengamos algo en la pila,
+%	
+%	\begin{align*}
+%	(xra,ys) \in \delta \ \ \text{para} \ \  s \in R, x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s  \\ & \ \ \text{e} \ \ y \ \text{es la forma reducida de} \ \ xw(r,a)  \\
+%	(xra,s') \in \delta\ \ \text{para} \ \  s' \in R', x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s'  \\ & \ \ \text{e}  \ \ xw(r,a)  \ \text{se reduce a 1}. \ \  \\ 
+%	\end{align*}
+%	En este caso la función de transición cuando tenemos algo en la pila lo que va haciendo es lo mismo que antes y solo pasa a los estados que corresponden a $R'$ cuando la palabra que nos queda la pila vacía. 
+%	
+%	De esta manera notemos que en particular es un automáta especial determinístico considerando que la transición es determinística porque el sistema de reescritura es convergente por lo que hay una única palabra reducida. 
+%	Por otro lado como el único estado que acepta es el estado inicial y la única manera de llegar a cualquier estado en $R'$ es con la pila vacía luego el automáta acepta por pila vacía y estado final a la vez.
 \end{proof}
 
 \begin{obs}
