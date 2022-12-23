@@ -178,7 +178,11 @@ Más aún vale que los lenguajes aceptados por automátas finitos no determinís
 
 \begin{ej}
 	Sea el alfabeto $\Sigma = \{ a,b \}$. Si $w=a_1 \dots a_k$ es una palabra sobre $\Sigma^*$ entonces podemos considerar a $w^r$ que es la palabra inversa dada por leerla de derecha a izquierda y tiene la siguiente pinta $w^r= a_k \dots a_1$. 
-	Consideremos sobre $\Sigma$ el lenguaje $L = \{ w \in \Sigma^* \ | \ w = w^r  \}$ tal que este es el lenguaje de los palíndromos. 
+	Consideremos sobre $\Sigma$ el lenguaje 
+	\[
+	L = \{ w \in \Sigma^* \ | \ w = w^r  \}
+	\]
+	 tal que este es el lenguaje de los palíndromos. 
 	Construyamos una gramática independiente de contexto para este lenguaje.
 	Sea $w$ una palabra en $L$ luego sabemos que si su longitud es mayor que uno entonces debe ser que $w = a u a$ o $w = b u b$ para cierta palabra $u \in L$ dado que $u$ necesariamente tiene que ser un palíndromo porque $w$ lo es. 
 	Esto sucede para todas las palabras del lenguaje exceptuando las palabras de longitud uno que son justamente las letras del alfabeto. 
@@ -479,9 +483,9 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que $(q_0,a^{m}b^{i},Z_0) \vdash^* (q,\lambda, \lambda)$ con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
 	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
 	
-	\begin{comment}[Esto es con la otra definición de automáta de pila.]
-			Por el principio del palomar podemos ver que este lenguaje no es aceptado por \APD por pila vacía y estado final a la vez. Si así lo fuera supongamos que existe un automáta que lo acepta $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$. Debido a que tiene finitos estados podemos elegirnos $m$ suficientemente grande tal que existan palabras $a^mb^j, a^mb^i$ con $1 \le i < j < m$ y elegidas de manera que terminen en el mismo estado final $p$. Notemos que $(q_0,a^mb^ib^{m-j+1},Z_0) \vdash^* (q,\lambda, Z)$ donde $q$ es un estado final dado que $m-j+1+i \le m$. Por otro lado debe ser que $(q_0, a^mb^jb^{m-j+1}) \vdash^* (q,\lambda, Z) $ pero notemos que $a^mb^{m-1} \notin L$. Por lo tanto llegamos a una contradicción y de esta manera vemos que $L$ no es aceptado por un \APD especial tal como queríamos ver.
-	\end{comment}
+%[Esto es con la otra definición de automáta de pila.]
+%			Por el principio del palomar podemos ver que este lenguaje no es aceptado por \APD por pila vacía y estado final a la vez. Si así lo fuera supongamos que existe un automáta que lo acepta $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$. Debido a que tiene finitos estados podemos elegirnos $m$ suficientemente grande tal que existan palabras $a^mb^j, a^mb^i$ con $1 \le i < j < m$ y elegidas de manera que terminen en el mismo estado final $p$. Notemos que $(q_0,a^mb^ib^{m-j+1},Z_0) \vdash^* (q,\lambda, Z)$ donde $q$ es un estado final dado que $m-j+1+i \le m$. Por otro lado debe ser que $(q_0, a^mb^jb^{m-j+1}) \vdash^* (q,\lambda, Z) $ pero notemos que $a^mb^{m-1} \notin L$. Por lo tanto llegamos a una contradicción y de esta manera vemos que $L$ no es aceptado por un \APD especial tal como queríamos ver.
+
 
 	
 \end{ej}
@@ -571,35 +575,35 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
 
 
-\section{Sistemas de reescritura.}
-
-Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
-En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 
-Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. 
-Un camino en el grafo lo llamaremos una \emph{derivación}.  
-
-Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} 
-A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
-
-Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. 
-Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
-
-\begin{ej}
-	Considerar como objetos los enteros y como movimiento dividir al número por dos si es posible. Este sistema de reescritura tiene como objetos terminales los números impares.
-\end{ej}
-
-Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. 
-Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. 
-Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
-
-En particular los sistemas que nos van a interesar en este trabajo son sistemas tales que son confluentes y terminantes que son conocidos como \emph{Church-Roser}.
-
-\subsection{Sistemas de reescritura de cadenas.}
-En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. 
-Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. 
-Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
-
-Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
+%\section{Sistemas de reescritura.}
+%
+%Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
+%En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 
+%Si nuestro sistema de reescritura $\Gamma$ tiene un movimiento de un objeto $a$ en otro objeto $b$ diremos que $a$ puede ser \emph{reescrito} a $b$ y lo denotaremos $a \to_{\Gamma} b$, omitiendo aclarar que estamos considerando el sistema $\Gamma$ en todo caso que no sea ambiguo. 
+%Un camino en el grafo lo llamaremos una \emph{derivación}.  
+%
+%Nosotros queremos que estos sistemas de reescritura sean tales que si tomamos una sucesión de movimientos en algún momento se estabilice y en tal caso llamaremos \emph{terminante.} 
+%A su vez los objetos tales que no puedan ser modificados por ningún movimiento llamaremos objetos \emph{terminales.} 
+%
+%Dado un sistema de reescritura $\Gamma$ por medio de la clausura transitiva que denotaremos $\overset{*}{\rightarrow}_{\Gamma}$ obtenemos una relación transitiva sobre los objetos. 
+%Nuestro interés justamente va a estar en estudiar las relaciones de equivalencia que surgen de sistemas de reescritura particulares. 
+%
+%\begin{ej}
+%	Considerar como objetos los enteros y como movimiento dividir al número por dos si es posible. Este sistema de reescritura tiene como objetos terminales los números impares.
+%\end{ej}
+%
+%Otra característica que le vamos a pedir a los sistema de reescritura es que sean \emph{confluentes}. 
+%Informalmente esto es que a partir de un objeto, si usamos dos derivaciones distintas entonces eventualmente estas derivaciones se encuentran en algún objeto independientemente de qué derivaciones tomemos. 
+%Esto es que dadas derivaciones $a \overset{*}{\rightarrow} b, a \overset{*}{\rightarrow} c$ existe un objeto $d$ tal que $b \overset{*}{\rightarrow} d$ y $c \overset{*}{\rightarrow} d$.
+%
+%En particular los sistemas que nos van a interesar en este trabajo son sistemas tales que son confluentes y terminantes que son conocidos como \emph{Church-Roser}.
+%
+%\subsection{Sistemas de reescritura de cadenas.}
+%En nuestro caso en particular vamos a trabajar con sistemas de reescritura donde los objetos son palabras sobre algún alfabeto $\Sigma$ y los movimientos son reglas del estilo $w \to v$ que interpretamos de la siguiente manera. 
+%Si tenemos alguna palabra que tenga como subpalabra a $w$ podemos modificarla por $v$. 
+%Esto lo representamos por el triple $(p, w \to v, q)$ donde $p,q$ son las subpalabras que vienen antes de $w$ tales que pueden ser vacías. 
+%
+%Al sistema de reescritura $\Gamma$ con alfabeto $\Sigma$ y las reglas $\cal R$ lo vamos a denotar por sr$\left< \Sigma, {\cal R} \right>$. Estos sistemas también son llamados \emph{sistemas de Thue}.
 
 
 \end{document}
