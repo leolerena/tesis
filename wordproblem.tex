@@ -141,7 +141,7 @@ Con esto podemos probar estos resultados elementales de grupos \vl.
 	\end{enumerate}
 \end{proof}
 
-\begin{obs}
+\begin{obs}\label{obs_presentacion_vl}
 	Dado $G$ \vl \ vamos a construirnos una presentación en particular.
 	
 	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
@@ -287,12 +287,54 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 
  
 \begin{proof}
-	Sea $G$ grupo \vl \ presentado por $G  =\langle \Sigma  \mid  R \rangle$.
-	Veamos de construir un automáta de pila de manera que acepta al lenguaje $\WP$.
+	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en la observación \ref{obs_presentacion_vl}.
+	Veamos de construir un autómata de pila de manera que acepta al lenguaje $\text{WP}(G,W)$.
 	
-	Fijemos entonces un subgrupo libre de índice finito $F$ que lo podemos tomar de manera que sea normal por la proposición \ref{prop_vls}. 
-	Sea $T$ conjunto transversal a derecha de $G/F$ que sabemos que es finito. 
-	Consideremos al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup T$ de generadores de nuestro grupo porque en particular sabemos que $\Sigma$ generaba .
+	Vamos a definir un autómata de pila con estados de control finitos que sabemos que es equivalente a un autómata de pila no determinístico por la observación \ref{}.
+	
+	
+	Nuestro autómata lo definimos así: 
+	\[
+	{\cal M }= (T, Y , Z, \delta, 1, \{1\}, K)
+	\]
+	donde $T$ es el conjunto de los transversales que tomamos para la presentación de $G$ y van a ser los estados del autómata $M$.
+	El alfabeto $Y$ es el del grupo libre $F$.
+	Nuestro estado inicial que también es final corresponde a $1$ que es uno de los elementos del transversal.
+	La constante la tomamos como $K = \max |u_{ij},\ z_{ijk}|$ donde $1 \le i,j,k  \le n$. 
+	
+		
+	Ahora podemos definir la función de transición.
+	Si tenemos que $ t_j y_i = u_{ij} t_j $ y que $ t_it_j = z_{ijk}t_k $ luego consideremos la siguiente definición,
+	\begin{align*}
+		\delta(y_iw',t_j, v) = (w', t_j, u_{ij} \cdot v) \\
+		\delta(t_iw',t_j, v) = (w', t_k, z_{ijk} \cdot v) 
+	\end{align*}
+	donde el producto en el grupo libre $\cdot$ para ir reduciendo la palabra de la pila.
+	Sabemos que hacemos tantas reducciones como $|u_{ij}|$ o bien $| z_{ijk}|$ y ambas valores están acotados por la constante $K$.
+	Esto nos dice que está bien definido.
+	
+	
+	Consideremos el lenguaje aceptado por pila vacía y estado final a la vez,
+	
+	\[
+		{\cal L }(M) = \{  w \in W^* \mid (w,1,\lambda)   \vdash^*  (\lambda, 1, 1)  \}
+	\]
+	Debemos ver que el autómata acepta justamente al lenguaje que queremos. 
+	Esto es que $ {\cal L }(M) = \text{WP}(G,W) $ 
+	
+	
+	Dada una palabra $w \in W^*$ por como es esta presentación sabemos que se puede escribir como $w = vt$ donde $v \in F$ reducida y $t \in  T$. 
+	De esta manera $w \in \text{WP}(G,W)$ si y solo si $v=1, t=1$.
+	Notemos que el autómata en toda transición no hace más que reescribir la cadena de izquierda a derecha tal como hicimos en la observación \ref{obs_presentacion_vl}.
+	Esto es que cuando termina de consumir la cadena de entrada llegamos a la configuración $(\lambda, t_i, v)$ es decir que $w = vt_i$.
+	Por lo tanto como aceptamos por estado final y pila vacía esto nos dice que $w \in \text{WP}(G,W)$ si y solo sí $w \in {\cal L}(M)$.
+		
+	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
+	
+	
+%	Fijemos entonces un subgrupo libre de índice finito $F$ que lo podemos tomar de manera que sea normal por la proposición \ref{prop_vls}. 
+%	Sea $T$ conjunto transversal a derecha de $G/F$ que sabemos que es finito. 
+%	Consideremos al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup T$ de generadores de nuestro grupo porque en particular sabemos que $\Sigma$ generaba .
 	
 %	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura convergente dado por 
 %	\[
@@ -332,8 +374,9 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 \end{proof}
 
 \begin{obs}
-	En particular los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}. 
-	Más aún su problema de la palabra es un lenguaje independiente de contexto determinístico y como tal tiene las siguientes buenas propiedades algorítmicas \ref{}.
+	Dado un grupo \vl \ con presentación $\langle W \mid R \rangle$ obtuvimos que el lenguaje $WP(G, W)$ no solo es aceptado por un autómata de pila no determinístico sino que es aceptado por uno determinístico especial tal como en la definición \ref{}.
+	Esto nos dice que sus propiedades algorítmicas son aun mejores. 
+	Siguiendo la referencia \cite{} tenemos que el problema de la palabra se puede resolver en $O (n^2)$ usando algoritmos estándares como...
 \end{obs}
 
 \begin{ej} Consideremos los siguientes ejemplos que nos irán guiando para entender todas las equivalencias.	
