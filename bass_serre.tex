@@ -867,7 +867,9 @@ Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del gr
 \begin{coro}
 	La restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por el cociente $\pi_1(\cG, T)$.
 \end{coro}
-
+\begin{proof}
+	\red{Hacer.}
+\end{proof}
 
 \subsubsection{Morfismo de grafos $\psi$.}
 
@@ -1020,7 +1022,7 @@ Es el resultado central de la teoría de Bass Serre.
 
 Como corolarios obtenemos una caracterización para los grupos libres que usaremos varias veces y que es una herramienta fundamental de la teoría geométrica de grupos.
 
-\begin{coro}
+\begin{coro}\label{coro_libre_sii_actua_arbol}
 	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
 \end{coro}
 \begin{proof}
@@ -1032,8 +1034,9 @@ Como corolarios obtenemos una caracterización para los grupos libres que usarem
 \begin{coro}\label{coro_niels_sch}
 	Dado $G$ un grupo libre todo subgrupo $H \le G$ resulta ser libre.
 \end{coro}
-\begin{proof}
-	H actúa sin inversiones y libremente sobre el mismo árbol que actúa $G$.
+\begin{proof} 
+	Usando el corolario \ref{coro_libre_sii_actua_arbol} tenemos que $G$ actúa libremente sobre un árbol sin inversiones.
+	En particular H actúa sin inversiones y libremente sobre el mismo árbol que actúa $G$ y esto nos dice que es libre.
 \end{proof}
 
 Otra consecuencia de este teorema de Serre es un resultado obtenido por Karass, Pietrowski y Solitar que nos da una cota de qué tan grande puede ser un subgrupo libre dentro de un grupo fundamental de un grafo finito de grupos finitos.
@@ -1064,8 +1067,7 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 	Sea $\tilde X$ el árbol de Bass Serre para este grafo de grupos $\cG$.
 	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
 	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.
-	De esta manera $F$ es isomorfo al grupo fundamental de $\Xm / F$ con todos los grupos de los vértices triviales justamente porque los estabilizadores lo son.
-	
+		
 	Dado que $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\widetilde X / F)$.
 	Usando esto calculemos el rango del grupo libre contando todas las aristas que no pertenezcan a un árbol de expansión $T'$ del grafo $\Xm / F$.
 	Recordemos que al ser un árbol de expansión tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
@@ -1128,7 +1130,10 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 	Entonces $\pi_1(\cal G)$ es un \fg virtualmente libre.
 \end{teo}
 \begin{proof}
-	Dado que el grafo $Y$ es finito y los grupos $G_P$ para todo $P \in V(Y)$ también son finitos podemos tomarnos $X$ un conjunto finito tal que $|G_P| $ divida a $|X|$ .
+	Dado que el grafo $Y$ es finito y para todo $P \in V(Y)$ los grupos $G_P$ también son finitos podemos tomarnos $X$ un conjunto finito de manera que
+	\[
+		|X| = \prod_{P \in V(X)} |G_P|.
+	\] 
 	
 	Para cada $P \in V(Y)$ podemos armarnos una acción libre de $G_P$ en $X$. 
 	Esto nos da un monomorfismo $G_P \to S(X)$.
@@ -1146,7 +1151,10 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 	\end{tikzcd}\]
 	Para la arista con orientación opuesta tomamos $\varphi_{\ol y} = \varphi_y^{-1}$.
 	De esta manera tenemos un morfismo de grupos definido sobre el grupo libre $\ast_{P \in V(Y)} G_P \ast E(Y)$.
-	Por como tomamos a $\varphi_y$ y como hace conmutar al diagrama tenemos que $\varphi_{\ol y} \circ \sigma \circ \varphi_y = \tau$.	
+	Por como tomamos a $\varphi_y$ y como hace conmutar al diagrama tenemos que 
+	\[
+	\varphi_{\ol y} \circ \sigma \circ \varphi_y = \tau.
+	\]	
 	Usando la definición del grupo $F(\cG)$ tenemos un morfismo de grupos $h: F(\cG) \to S(X)$ tal que la restricción a $G_P$ es inyectiva para todo $P \in V(Y)$.
 	Si fijamos $P \in V(Y)$ y consideramos el subgrupo normal de $\pi_1(\cG, P)$ 
 	\[
@@ -1157,7 +1165,7 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 	A su vez como $F$ es un subgrupo de $\pi_1 (\cG, P)$ tenemos que actúa sin inversiones.
 	Estamos en condiciones de usar el teorema de Serre \ref{teo_Serre} y así obtenemos que este grupo debe ser libre. 
 	
-	Por lo visto obtuvimos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$ y queremos ver que tiene índice finito.
+	Tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$ y queremos ver que tiene índice finito.
 	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$ y como $S(X) \simeq \pi_1(\cG, P) / F$, por la propiedad universal del cociente, entonces $(\pi_1(\cG, P) : F) < \infty$ tal como queríamos ver.
 	
 	Finalmente notemos que por \ref{prop_karrass_formula} el grupo $F$ es un \fg tal como queríamos ver.
@@ -1165,21 +1173,21 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 
 
 
-\subsection{Productos semi directos.}
-
-En esta sección vamos a refinar los resultados obtenidos anteriormente para ver que los grupos fundamentales de grafos finitos de grupos finitos y por lo tanto los grupos virtualmente libres se pueden meter dentro de un producto semidirecto $F Q$ donde $F$ es un grupo libre y $Q$ es un cociente finito de $G$.
-La referencia de esta sección es el paper \cite{} que a su vez se basó en los métodos del paper de Dahmani-Guirardel.
-
-\begin{prop}
-	
-\end{prop}
-\begin{proof}
-	\red{ sorry}
-\end{proof}
-
-\begin{ej}
-	Ejemplo de $SL_2(\ZZ)$.
-\end{ej}
+%\subsection{Productos semi directos.}
+%
+%En esta sección vamos a refinar los resultados obtenidos anteriormente para ver que los grupos fundamentales de grafos finitos de grupos finitos y por lo tanto los grupos virtualmente libres se pueden meter dentro de un producto semidirecto $F Q$ donde $F$ es un grupo libre y $Q$ es un cociente finito de $G$.
+%La referencia de esta sección es el paper \cite{} que a su vez se basó en los métodos del paper de Dahmani-Guirardel.
+%
+%\begin{prop}
+%	
+%\end{prop}
+%\begin{proof}
+%	\red{ sorry}
+%\end{proof}
+%
+%\begin{ej}
+%	Ejemplo de $SL_2(\ZZ)$.
+%\end{ej}
 %
 %\subsection{Ends de grupos.}
 %

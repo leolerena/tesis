@@ -10,7 +10,8 @@
 %\newcommand{\fg}{grupo finitamente generado }
 
 \begin{document}
-\chapter{Teoría de lenguajes.}	
+\chapter{Preliminares.}
+\section{Teoría de lenguajes.}	
 En esta sección vamos a introducir los elementos básicos de la teoría de lenguajes formales que utilizaremos en este trabajo. 
 
 Consideremos un conjunto no vacío $\Sigma$ que llamaremos el \blue{alfabeto} y $\Sigma^k$ el conjunto de sucesiones finitas de elementos $a_1 \dots a_k$ con  $a_i \in \Sigma$. Los elementos de $\Sigma$ se llaman \blue{letras} y los elementos de $\Sigma^k$ serán \blue{palabras} de longitud $k$ sobre $\Sigma$. La \blue{palabra vacía} que corresponde a $\Sigma^0$ la denotaremos por $\lambda$.
@@ -43,10 +44,8 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 
 
 
-\begin{center}
-	\section{Gramáticas.}
-\end{center}
-Vamos a considerar lenguajes definidos a partir de lo que se conoce como una gramática. Esto es esencialmente un conjunto de reglas que al irse aplicando nos permiten generar todas las palabras del lenguaje.
+
+\subsection{Gramáticas.}
 
 \begin{deff}
 	Una \blue{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
@@ -106,7 +105,7 @@ Consideremos la clausura transitiva y reflexiva de esta relación que denotaremo
 
 Es posible clasificar los lenguajes a partir de las características de las gramáticas que los generan. 
 
-\section{Lenguajes regulares.}
+\subsection{Lenguajes regulares.}
 
 \begin{deff}
 	Decimos que una gramática $\gramatica$ es \blue{ regular} si las producciones son del estilo
@@ -165,7 +164,7 @@ Más aún vale que los lenguajes aceptados por automátas finitos no determinís
 
 
 
-\section{Lenguajes independientes de contexto.}
+\subsection{Lenguajes independientes de contexto.}
 \begin{deff}
 	Decimos que una gramática $\gramatica $ es \blue{independiente de contexto} si las producciones tienen la siguiente forma:
 	\begin{equation*}
@@ -218,7 +217,6 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 \end{proof}
 
 \subsection{Autómatas de pila.}
-Así como las gramáticas nos permiten generar un lenguaje tenemos las máquinas que nos permiten aceptar un lenguaje. En nuestro caso en particular vamos a usar autómatas de pila no determinísticos para aceptar los lenguajes independientes de contexto.
 
 \begin{deff}
 	Un \blue{autómata de pila finito no determinístico} es una tupla 
@@ -414,7 +412,7 @@ Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$
 	Resultado estándar. Ver \cite{hopcraft-ullman}.
 \end{proof}
 
-\section{Autómatas de pila determinísticos.} Si en la definición anterior del autómata pedimos que la función de transición de una configuración dada tenga a lo sumo un valor entonces nuestro autómata lo vamos a llamar determinístico. Formalmente esto es que 
+\subsection{Autómatas de pila determinísticos.} Si en la definición anterior del autómata pedimos que la función de transición de una configuración dada tenga a lo sumo un valor entonces nuestro autómata lo vamos a llamar determinístico. Formalmente esto es que 
 \[
 |\delta(q,a, z)| \le 1 \ \ \ \forall z \in Z, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
 \]
@@ -428,7 +426,11 @@ En cierta manera estamos diciendo que de un instante dado solo tenemos a lo sumo
 
 Veamos que esta contención es estricta. Para eso volvamos a considerar el ejemplo del lenguaje de los palíndromos.
 \begin{ej}
-	El lenguaje $L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}$ no es aceptado por un \APD pero sí por uno no determinístico. 
+	El lenguaje 
+	\[
+	L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}
+	\]
+	 no es aceptado por un \APD pero sí por uno no determinístico. 
 	Supongamos que $M$ es un \APD que lo acepta. 
 	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que al consumirla la pila no puede quedar vacía dado que $ww^r \in L$ y en tal caso no aceptaría a esta palabra. 
 	Esto es que la pila nunca está vacía sea cual sea la configuración que lleguemos. 
@@ -490,17 +492,17 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 	
 \end{ej}
 
+%
+%
+%
+%
+%\subsection{Lenguajes poly independientes de contexto.}
+%
+%En esta sección vamos a introducir otra familia de lenguajes que generalizan levemente a los lenguajes independientes de contexto. 
+%La bibliografía fundamental es \cite{brough2014groups}.
 
 
-
-
-\section{Lenguajes poly independientes de contexto.}
-
-En esta sección vamos a introducir otra familia de lenguajes que generalizan levemente a los lenguajes independientes de contexto. 
-La bibliografía fundamental es \cite{brough2014groups}.
-
-
-\section{Conos de lenguajes y el problema de la palabra.}
+\subsection{Conos de lenguajes y el problema de la palabra.}
 
 En esta sección consideraremos un grupo $G$ finitamente generado por algún alfabeto $\Sigma$ finito donde lo vemos como un conjunto de generadores como monoide dado que en particular todos los grupos son monoides. 
 De esta manera tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. 
@@ -575,7 +577,7 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
 
 
-%\section{Sistemas de reescritura.}
+%\subsection{Sistemas de reescritura.}
 %
 %Un \emph{sistema de reescritura} podemos pensarlo como un grafo en el sentido de Serre. 
 %En este caso los vértices son los \emph{objetos} mientras que las aristas las llamamos \emph{movimientos}. 

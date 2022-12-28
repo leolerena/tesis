@@ -19,7 +19,7 @@
 En este capítulo veremos como entran en juego las diferentes áreas de la matemática para definir de manera equivalente a los grupos virtualmente libres.
 
 \begin{deff}
-Un grupo $G$ finitamente generado es \blue{virtualmente libre} si existe un subgrupo $F$ libre tal que su índice en $G$ es finito.
+Un grupo $G$ finitamente generado es \blue{virtualmente libre} si existe un subgrupo libre $F$ tal que su índice en $G$ es finito.
 \end{deff}
 
 Veamos algunas propiedades elementales que cumplen todos los grupos \vl. 
@@ -114,7 +114,7 @@ Con esto podemos probar estos resultados elementales de grupos \vl.
 \begin{prop}\label{prop_vls}
 	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
 	\begin{enumerate}
-		\item Si $F$ es un subgrupo libre de índice finito entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal y libre.
+		\item Si $F$ es un subgrupo libre de índice finito entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal, libre y de índice finito.
 		\item Si $H$ es un subgrupo de $G$ de índice finito entonces $H$ también resulta ser \vl.
 	\end{enumerate}
 \end{prop}
@@ -242,7 +242,6 @@ Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos 
 	Esto es una contradicción que vino de suponer que $[(p,q)] \in \ZZ \times \ZZ / F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
 	
 \end{enumerate}
-	
 \end{ej}
 
 
@@ -253,71 +252,153 @@ Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos 
 \section{Grupos independientes de contexto.}
  
  En esta sección definiremos una familia de grupos que veremos más en adelante que coincide con los grupos \vl.
- 
+ Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic \ forman un cono \ref{ic-cono} la siguiente definición no depende del conjunto de generadores.
  \medskip
 \begin{deff}
 	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
 \end{deff}
-Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic \ forman un cono \ref{ic-cono} la definición anterior no depende del conjunto de generadores.
 
-Veamos algunos ejemplos de grupos de esta familia.
-\begin{ej}
-	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
-	Si tomamos los siguientes generadores $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
-	Bajo esta presentación 
-	\[
-	WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
-	\]
-	Este lenguaje no es independiente de contexto.
-	Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
-	Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipotesis del lema.
-	Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
-	Si tenemos una factorización $uvwxy = a^nb^nc^n$, que $|vwx| \le n$ implica que no todas las letras aparecen en $vwx$.
-	Supongamos que la letra que no aparece es $c$.
-	Por otro lado como $|vx| \le 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
-	Si tomamos $i=0$ notemos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
+
+\begin{ej} Consideremos los siguientes ejemplos.	
+	\begin{enumerate}[E1.]
+		\item 
+		Dado $F$ grupo libre de rango finito supongamos generado por el conjunto finito $X$. 
+		Sea  $Y = X \cup X^{-1}$ el conjunto de generadores simétrico de $X$. 
+		Probemos que $\text{WP}(F,Y)$ es un lenguaje independiente de contexto.
+		
+		Consideremos el siguiente autómata de pila,
+		\[
+			M = (\{ 1 \}, Y, Y, \delta, 1, \{1\}).
+		\]
+		
+		Por como lo definimos tiene un solo estado y el alfabeto tanto de entrada como el de la pila que usa es el conjunto de generadores $Y$.
+		La función de transición $\delta$ está definida de la siguiente manera,
+		\[
+		\delta(w, 1 , u)=\left\{
+		\begin{array}{ll}
+			(1 , 1, u )  &\ \text{si} \ w = 1  \\
+			(w',1,y_i \cdot y_ju') &\ \text{si} \ w = y_iw', u = y_jw'  \\
+		\end{array}
+		\right.
+		\]
+		donde al apilar hacemos la multiplicación $y_i \cdot y_j$ en el grupo libre $F$.
+		
+		Consideremos el lenguaje aceptado por pila vacía, esto es
+		
+		\[
+		{\cal L }(M) = \{  y \in Y^* \mid (y,1,1)   \vdash^*  (1, 1, 1)  \}.
+		\]
+		
+		Notemos que ${\cal L }(M) = \text{WP}(F,Y)$ porque justamente en la pila apilamos lo que vamos leyendo de izquierda a derecha y desapilamos cuando leemos el inverso del generador que está en el tope de la pila.
+		Esto es que desapilamos cuando un generador aparece después de su inverso en la palabra.
+	
+		
+%		Dado un grupo libre $F$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. 
+%		
+%		Pensemos un \APND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
+%		Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento visto como un elemento en el grupo. 
+%		Esto es, cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en el tope de la pila. 
+%		Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. 
+%		Entonces este automáta lo podemos representar de la siguiente manera:	
+%		
+%		\begin{center}
+%			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4.5cm,
+%				scale = 1.15,transform shape]
+%				
+%				\node[state,accepting,initial] (1') {$1'$};
+%				\node[state] (1) [right of=1'] {$1$};
+%				
+%				\path (1') edge[bend left]              node {} (1)
+%				(1) edge[bend left]              node {} (1');
+%			\end{tikzpicture}
+%		\end{center}
+%		
+%		
+%		Donde las transiciones del estado 1' a 1 son todas las transiciones en las cuales la letra que estamos por leer no es la inversa de lo que esté al tope de la pila. Por otro lado las transiciones del estado 1 al estado 1' son todas las que lo que leemos es justamente el inverso de lo que está al tope de la pila.
+		
+		\item 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
+		Si tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
+		Bajo esta presentación 
+		\[
+		WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
+		\]
+		Este lenguaje no es independiente de contexto.
+		Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
+		Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipotesis del lema.
+		Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
+		Si tenemos una factorización 
+		\[
+		uvwxy = a^nb^nc^n
+		\]
+		 si $|vwx| \le n$ implica que no todas las letras aparecen en $vwx$.
+		Supongamos que la letra que no aparece es $c$.
+		Por otro lado como $|vx| \le 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
+		Si tomamos $i=0$ notemos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
+		
+	\end{enumerate}
+	
 \end{ej}
 
+\begin{obs}\label{palabras-wp}
+	Si tenemos un grupo $G$ tal que es independiente de contexto consideremos $\cal G$ gramática que genera al lenguaje del problema de la palabra, $\WP = L(\cal G)$.
+	Si $A$ es una de las variables de esta gramática podemos obtener el lenguaje $L_A$ de palabras generadas a partir de esta variable, donde
+	\[
+	L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
+	\]
+	Veamos que si $v,v' \in L_A$ entonces $v =_G v'$, es decir son el mismo elemento vistos en el grupo $G$. 
+	Para eso si tenemos una derivación que en algún momento llega a $S \deriva \beta A \gamma \deriva uvw$ también tenemos otra derivación que deriva en $S \deriva \beta A \gamma  \deriva uv'w$. 
+	Es decir que $uvw, u'v'w' \in \WP$ por lo tanto 
+	\begin{equation*}
+		uvw =_G 1 =_G uv'w \implies v =_G v'
+	\end{equation*}
+	tal como queríamos ver.
+\end{obs}
+
+
+
 Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. 
+La siguiente demostración generaliza la construcción del ejemplo del problema de la palabra de un grupo libre.
 
 
-\begin{teo}[Muller-Schupp 1983]\cite{}
+\begin{teo}\cite{muller1985theory}
 	Todo grupo virtualmente libre es independiente de contexto.
 \end{teo}
 
  
 \begin{proof}
 	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en la observación \ref{obs_presentacion_vl}.
-	Veamos de construir un autómata de pila de manera que acepta al lenguaje $\text{WP}(G,W)$.
+	Veamos de construir un autómata de pila de manera que acepte al lenguaje $\text{WP}(G,W)$.
 	
 	Vamos a definir un autómata de pila con estados de control finitos que sabemos que es equivalente a un autómata de pila no determinístico por la observación \ref{}.
 	
 	
 	Nuestro autómata lo definimos así: 
 	\[
-	{\cal M }= (T, Y , Z, \delta, 1, \{1\}, K)
+	{\cal M }= (T, W , Y, \delta, 1, \{1\}, K)
 	\]
-	donde $T$ es el conjunto de los transversales que tomamos para la presentación de $G$ y van a ser los estados del autómata $M$.
-	El alfabeto $Y$ es el del grupo libre $F$.
+	donde $T$ es el conjunto de los transversales que tomamos para la presentación de $G$ y van a ser los estados del autómata.
+	El alfabeto de entrada es $W$ el conjunto de generadores del grupo.
+	El alfabeto de la pila es $Y$ que es el conjunto de generadores del subgrupo libre $F$.
 	Nuestro estado inicial que también es final corresponde a $1$ que es uno de los elementos del transversal.
-	La constante la tomamos como $K = \max |u_{ij},\ z_{ijk}|$ donde $1 \le i,j,k  \le n$. 
+	La constante que tomamos es $K = \max |u_{ij},\ z_{ijk}|$ donde $1 \le i,j,k  \le n$. 
 	
 		
 	Ahora podemos definir la función de transición.
 	Si tenemos que $ t_j y_i = u_{ij} t_j $ y que $ t_it_j = z_{ijk}t_k $ luego consideremos la siguiente definición,
 	\begin{align*}
-		\delta(y_iw',t_j, v) = (w', t_j, u_{ij} \cdot v) \\
-		\delta(t_iw',t_j, v) = (w', t_k, z_{ijk} \cdot v) 
+		\delta(y_iw',t_j, v) &= (w', t_j, u_{ij} \cdot v) \\
+		\delta(t_iw',t_j, v) &= (w', t_k, z_{ijk} \cdot v) \\
+		\delta(1, t_j, v) &= (1, t_j, v) \\
 	\end{align*}
-	donde el producto en el grupo libre $\cdot$ para ir reduciendo la palabra de la pila.
-	Sabemos que hacemos tantas reducciones como $|u_{ij}|$ o bien $| z_{ijk}|$ y ambas valores están acotados por la constante $K$.
+	donde en la pila al apilar hacemos el producto en el grupo libre para ir reduciendo la palabra de la pila.
+	Sabemos que hacemos tantas reducciones como $|u_{ij}|$ o bien $| z_{ijk}|$ y ambos valores están acotados por la constante $K$.
 	Esto nos dice que está bien definido.
 	
 	
 	Consideremos el lenguaje aceptado por pila vacía y estado final a la vez,
 	
 	\[
-		{\cal L }(M) = \{  w \in W^* \mid (w,1,\lambda)   \vdash^*  (\lambda, 1, 1)  \}
+		{\cal L }(M) = \{  w \in W^* \mid (w,1,1)   \vdash^*  (1, 1, 1)  \}
 	\]
 	Debemos ver que el autómata acepta justamente al lenguaje que queremos. 
 	Esto es que $ {\cal L }(M) = \text{WP}(G,W) $ 
@@ -326,7 +407,7 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 	Dada una palabra $w \in W^*$ por como es esta presentación sabemos que se puede escribir como $w = vt$ donde $v \in F$ reducida y $t \in  T$. 
 	De esta manera $w \in \text{WP}(G,W)$ si y solo si $v=1, t=1$.
 	Notemos que el autómata en toda transición no hace más que reescribir la cadena de izquierda a derecha tal como hicimos en la observación \ref{obs_presentacion_vl}.
-	Esto es que cuando termina de consumir la cadena de entrada llegamos a la configuración $(\lambda, t_i, v)$ es decir que $w = vt_i$.
+	Esto es que cuando termina de consumir la cadena de entrada llegamos a la configuración $(1, t_i, v)$ es decir que $w = vt_i$.
 	Por lo tanto como aceptamos por estado final y pila vacía esto nos dice que $w \in \text{WP}(G,W)$ si y solo sí $w \in {\cal L}(M)$.
 		
 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
@@ -373,46 +454,12 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 %	Por otro lado como el único estado que acepta es el estado inicial y la única manera de llegar a cualquier estado en $R'$ es con la pila vacía luego el automáta acepta por pila vacía y estado final a la vez.
 \end{proof}
 
-\begin{obs}
-	Dado un grupo \vl \ con presentación $\langle W \mid R \rangle$ obtuvimos que el lenguaje $WP(G, W)$ no solo es aceptado por un autómata de pila no determinístico sino que es aceptado por uno determinístico especial tal como en la definición \ref{}.
-	Esto nos dice que sus propiedades algorítmicas son aun mejores. 
-	Siguiendo la referencia \cite{} tenemos que el problema de la palabra se puede resolver en $O (n^2)$ usando algoritmos estándares como...
-\end{obs}
+%\begin{obs}
+%	Dado un grupo \vl \ con presentación $\langle W \mid R \rangle$ obtuvimos que el lenguaje $WP(G, W)$ no solo es aceptado por un autómata de pila no determinístico sino que es aceptado por uno determinístico especial tal como en la definición \ref{}.
+%	Esto nos dice que sus propiedades algorítmicas son aun mejores. 
+%	Siguiendo la referencia \cite{} tenemos que el problema de la palabra se puede resolver en $O (n^2)$ usando algoritmos estándares como...
+%\end{obs}
 
-\begin{ej} Consideremos los siguientes ejemplos que nos irán guiando para entender todas las equivalencias.	
-	\begin{enumerate}[E1.]
-		\item Dado un grupo libre $F_\Sigma$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. 
-		Pensemos un \APND que tenga dos estados. Uno inicial que también va a ser final para poder aceptar la palabra vacía que corresponde al elemento 1 de nuestro grupo y otro estado para las palabras que no están en el problema de la palabra.
-		Para eso la idea es tener en la pila lo que fuimos leyendo de nuestra palabra hasta el momento visto como un elemento en el grupo. 
-		Esto es, cada vez que leemos una letra de la palabra ver de multiplicarla como un elemento en el grupo con lo que tenemos en el tope de la pila. 
-		Eventualmente cuando hayamos recorrido la palabra entera debería quedarnos una palabra en la pila que queremos que sea exactamente $1$ y esto es lo mismo que pedir que sea aceptada por pila vacía. 
-		Entonces este automáta lo podemos representar de la siguiente manera:	
-		
-		\begin{center}
-			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=4.5cm,
-				scale = 1.15,transform shape]
-				
-				\node[state,accepting,initial] (1') {$1'$};
-				\node[state] (1) [right of=1'] {$1$};
-				
-				\path (1') edge[bend left]              node {} (1)
-				(1) edge[bend left]              node {} (1');
-			\end{tikzpicture}
-		\end{center}
-		
-		
-		Donde las transiciones del estado 1' a 1 son todas las transiciones en las cuales la letra que estamos por leer no es la inversa de lo que esté al tope de la pila. Por otro lado las transiciones del estado 1 al estado 1' son todas las que lo que leemos es justamente el inverso de lo que está al tope de la pila.
-		
-		\item Para $C_2 \ast C_3$ es un autómata de 12 estados.
-	\end{enumerate}
-	
-		
-		
-	
-	
-	
-	
-\end{ej}
 
 \section{Grafos de Cayley.} \label{seccion_treewidth}
 
@@ -439,18 +486,18 @@ Un \emph{árbol} es un grafo conexo y sin ciclos.
 En particular los árboles vistos como espacios métricos resultan ser \emph{únicamente geodésicos}. 
 Esto es que dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
 
-\begin{ej}
-	Sea $\mathbb F_2 = \langle a, b \rangle$ el grupo libre en $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
-	\bigskip
-	\begin{center}
-	\begin{tikzpicture}
-	\draw l-system [l-system={cayley, axiom=[A] [+A] [-A] [++A], step=2.35cm, order=3}];
-	\end{tikzpicture}
-	\end{center}
-	
-	
-	 Notemos que este grafo resulta ser un árbol y esto es algo que vale en general para todos los grupos libres cuando miramos respecto a sus generadores canónicos.
-\end{ej}
+%\begin{ej}
+%	Sea $\mathbb F_2 = \langle a, b \rangle$ el grupo libre en $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
+%	\bigskip
+%	\begin{center}
+%	\begin{tikzpicture}
+%	\draw l-system [l-system={cayley, axiom=[A] [+A] [-A] [++A], step=2.35cm, order=3}];
+%	\end{tikzpicture}
+%	\end{center}
+%	
+%	
+%	 Notemos que este grafo resulta ser un árbol y esto es algo que vale en general para todos los grupos libres cuando miramos respecto a sus generadores canónicos.
+%\end{ej}
 
 Como todo grupo libre es tal que sus grafos de Cayley resultan ser árboles por un resultado clásico de Serre, ver \cite{}.
 Es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. 
@@ -566,15 +613,18 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 \end{prop}
 \begin{proof}
 	Probemos este resultado haciendo inducción en $l$.
+	
 	Basta verlo para el caso base porque el paso inductivo es idéntico. 
 	Sea entonces $l=1$, en este caso notemos que las dos primeras condiciones de la descomposición en un árbol se siguen cumpliendo porque no hicimos más que agrandar los bolsones. 
 	Esto es que si $X_t$ era un bolsón luego $X_t \subseteq N(X_t)$.
+	
 	Debemos ver que cumple la tercer condición.
 	Partamos de un vértice $x \in V(X)$ tal que $x \in N(X_s) \cap N(X_t)$ y veamos que si $r \in V(T)$ está en la geodésica de $t$ a $s$ entonces $x \in N(X_r)$.
 	Notemos que en este caso debe existir algún $y \in N(X_s)$ tal que $xy \in E(X)$.
 	Análogamente existe $z \in N(X_t)$ tal que $xz \in E(X)$.
 	Si no fuera así tendríamos que $x \in X_s \cap X_t$ y esta condición ya se cumpliría por ser los bolsones de una descomposición.
 	Entonces si usamos la proposición \ref{prop-camino-desc} tomando el camino $yxz$ tenemos que alguno de estos tres vértices debe estar en $X_r$.
+	
 	De esta manera $x \in N(X_r)$ tal como queríamos ver.
 \end{proof}
 \medskip
@@ -658,29 +708,16 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 	\end{enumerate}
 \end{ej}
 
-\begin{obs}\label{palabras-wp}
-Si tenemos un grupo $G$ tal que es independiente de contexto consideremos $\cal G$ gramática que genera al lenguaje del problema de la palabra, $\WP = L(\cal G)$.
-Si $A$ es una de las variables de esta gramática podemos obtener el lenguaje $L_A$ de palabras generadas a partir de esta variable, donde
-\[
-L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
-\]
-Veamos que si $v,v' \in L_A$ entonces $v =_G v'$, es decir son el mismo elemento vistos en el grupo $G$. 
-Para eso si tenemos una derivación que en algún momento llega a $S \deriva \beta A \gamma \deriva uvw$ también tenemos otra derivación que deriva en $S \deriva \beta A \gamma  \deriva uv'w$. 
-Es decir que $uvw, u'v'w' \in \WP$ por lo tanto 
-\begin{equation*}
-	uvw =_G 1 =_G uv'w \implies v =_G v'
-\end{equation*}
-tal como queríamos ver.
-\end{obs}
+
 
 
 El siguiente resultado es un teorema de Muller-Schupp demostrado en \cite{muller1985theory}.
 La demostración sigue la exposición del paper \cite{diekert_contextfree_2017}.
-\begin{teo} [Muller - Schupp 1985] \label{teo_schupp_muller_ic_desc}
+
+\begin{teo} [Muller - Schupp 1985] \cite{muller1985theory}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
 \begin{proof}
-
 La descomposición que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley. 
 Veamos que esta descomposición para un grupo independiente de contexto tiene treewidth finito. 
 Buscamos $k \in \NN$ tal que nos permita acotar $|\beta C| \le k$ para todo $\beta C \in V(T)$. 
@@ -771,13 +808,14 @@ tal como queríamos ver.
 
 
 \begin{deff}
-	Sean $X,Y$ espacios métricos. Una \blue{cuasisometría} es una función $f:X \to Y$ tal que:
+	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
+	Una \blue{cuasisometría} es una función $f:X \to Y$ tal que:
 	\begin{itemize}
-	\item[\textbf{Q1.}] Para todo par de puntos $x_1,x_2 \in X$ existe constante $A > 0$ tal que
+	\item[\textbf{Q1.}] Existe constante $A > 0$ tal que para todo par de puntos $x_1,x_2 \in X$ hace valer la siguientes desigualdades
 	\[
 	\frac{1}{A} d_X(x_1,x_2) - A \le d_Y(f(x_1),f(x_2)) \le A d_X(x_1,x_2) + A
 	\]
-	\item[\textbf{Q2.}] Existe una constante real $C \ge 0$ tal que para todo punto $y \in Y$ existe $x \in X$ tal que 
+	\item[\textbf{Q2.}] Existe una constante $C \ge 0$ tal que para todo punto $y \in Y$ debe existir $x \in X$ de manera que 
 	\[
 	d(y,f(x)) \le C
 	\]
