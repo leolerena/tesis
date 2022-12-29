@@ -12,18 +12,21 @@
 \begin{document}
 \chapter{Preliminares.}
 \section{Teoría de lenguajes.}	
-En esta sección vamos a introducir los elementos básicos de la teoría de lenguajes formales que utilizaremos en este trabajo. 
+En esta sección vamos a introducir los elementos básicos de la teoría de lenguajes formales. 
 
 Consideremos un conjunto no vacío $\Sigma$ que llamaremos el \blue{alfabeto} y $\Sigma^k$ el conjunto de sucesiones finitas de elementos $a_1 \dots a_k$ con  $a_i \in \Sigma$. Los elementos de $\Sigma$ se llaman \blue{letras} y los elementos de $\Sigma^k$ serán \blue{palabras} de longitud $k$ sobre $\Sigma$. La \blue{palabra vacía} que corresponde a $\Sigma^0$ la denotaremos por $\lambda$.
 
 
 Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$ es una palabra $u \in \Sigma^*$ tal que $w = vuz$ para algunas $v, z \in \Sigma^*$. Si $w = vu$ entonces $v$ es un prefijo de $w$ y $u$ es un subfijo de $w$.
+
+
 \begin{deff}
 	El \blue{monoide libre} sobre un alfabeto $\Sigma$ es el siguiente conjunto
 	\begin{equation*}
 	\Sigma^{*} = \bigcup_{k=0}^{\infty} \Sigma^k
 	\end{equation*}
-	con la operación $\cdot$ que es la concatenación de palabras. Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que corresponde a la copia de $\Sigma^0$ que es la única palabra sin letras. 
+	con la operación $\cdot$ que es la concatenación de palabras. 
+	Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que corresponde a la copia de $\Sigma^0$ que es la única palabra sin letras. 
 \end{deff}
 \begin{obs}
 	El monoide es libre con la siguiente propiedad: si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama.	
@@ -36,10 +39,8 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 	\end{center}
 	
 \end{obs}
-
-
 \begin{deff}
-	Un \blue{lenguaje} sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
+	Un \blue{lenguaje} $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
 \end{deff}
 
 
@@ -50,14 +51,14 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 \begin{deff}
 	Una \blue{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
 	\begin{itemize}
-		\item $V$ es un conjunto finito de \emph{variables};
+		\item $V$ es un conjunto finito denominado las \emph{variables};
 		\item $S \in V$ es el \emph{símbolo inicial};
-		\item $\Sigma$ es un conjunto finito de \emph{símbolos terminales} que lo tomamos disjunto de $V$;
+		\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
 		\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
 	\end{itemize}
 \end{deff}
 
-Dada una gramática ${\cal G} = (V, \Sigma, P, S)$ a cualquiera de sus producciones $(\gamma, \nu) \in P$, la vamos a denotar $\gamma \to \nu$. 
+Dada una gramática ${\cal G} = (V, \Sigma, P, S)$ a cualquiera de sus producciones $(\gamma, \nu) \in P$, la vamos a denotar por medio de la siguiente notación $\gamma \to \nu$. 
 
 A partir de una gramática $\cal G$ podemos definirnos una relación sobre las cadenas $(\Sigma \cup V)^*$. 
 Dados $x,y \in (\Sigma \cup V)^*$ diremos que $x$ \emph{deriva} en $y$ si existen $u,v,w,z \in (\Sigma \cup V)^*$ tales que $x = uwv$ y tenemos una producción $w \to z \in P$ de manera que $y=uzv$.
@@ -70,11 +71,14 @@ Consideremos la clausura transitiva y reflexiva de esta relación que denotaremo
  
 
 \begin{deff}
-	El \blue{lenguaje generado por la gramática} van a ser las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial $S$. Formalmente esto es
+	Dada una gramática $\cG$ consideramos el \blue{lenguaje generado por la gramática} 
 	\[
 	L({\cal G}) = \{ w \in \Sigma^* \ | \ S \overset{*}{\Rightarrow_{\cal G}} w   \}.
 	\]
 \end{deff}
+
+Este lenguaje está formado por las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial. 
+
 \medskip
 \begin{ej}\label{gramatica-regular}
 	Consideremos la siguiente gramática ${\cal G} = (V, \Sigma, P, S)$ donde $V = \{ S, A \}, \Sigma = \{ a,b \}$ y tenemos las siguientes producciones,
@@ -125,25 +129,37 @@ De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
 \begin{deff}
 	Un \blue{autómata finito no determinístico} es una tupla ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ donde:
 	\begin{itemize}
-	\item $Q$ es el conjunto de los \emph{estados}.
+	\item $Q$ es un conjunto finito que denominamos \emph{estados}.
 	\item $q_0 \in Q$ es el \emph{estado inicial}.
-	\item $\Sigma$ es el \emph{alfabeto}.
+	\item $\Sigma$ es un conjunto finito que denominamos \emph{alfabeto}.
 	\item $\delta:Q \times \Sigma \to {\cal P}(Q)$ es la \emph{función de transición}.
 	\item $F \subseteq Q$ es un subconjunto de estados que llamaremos \emph{finales}.
 	\end{itemize}
 \end{deff}
 
-A los automátas finitos los interpretamos como grafos con algunas reglas para movernos sobre ellos. 
-Para empezar $Q$ representan los vértices de nuestro grafo.
+Un par $(q,w) \in Q \times \Sigma^*$ lo llamaremos una configuración del automáta.
+Consideremos que $w = aw'$ donde $a \in \Sigma$ y $w' \in \Sigma^*$ luego si tenemos que $p \in \delta(q,a) $ entonces denotaremos esto así $(q,w) \vdash (p,w')$.
+Esto nos define una relación sobre $Q \times \Sigma^*$ tal que si tomamos la clausura transitiva y simétrica obtenemos una relación de equivalencia sobre este conjunto.
 
-\begin{ej}
-	Construyamos un automáta $\cal M$ tal que acepte al lenguaje $L = \{ a^{k}b \ : \ k \ge 0  \}$.
+
+\begin{deff}
+	El lenguaje generado por un autómata finito no determinístico $M$ es
 	
-\end{ej}
+	\[
+		L({\cal M} ) = \{  w \in \Sigma^*, q_F \in F \mid (q_1,w) \vdash^* (q_F,\lambda)     \}
+	\]
+	
+	
+\end{deff}
 
+\begin{obs}
+	Al ser un autómata finito no determinístico existen posiblemente más de una manera de consumir alguna palabra en el autómata. 
+	Es así que por la definición que dimos la palabra es aceptada por el autómata si al menos alguna de estas derivaciones la lleva a ser aceptada.
+	No importa si existen algunas que no lo hagan mientras una sí lo haga. 
+\end{obs}
 
-Como vimos en este ejemplo el lenguaje $L = \{ a^kb \ : \ k \ge 0  \}$ es aceptado por un automáta no determinístico finito y por lo que sabíamos del ejemplo \ref{gramatica-regular} es un lenguaje regular.
-Más aún vale que los lenguajes aceptados por automátas finitos no determinísticos son justamente los regulares.
+%Como vimos en este ejemplo el lenguaje $L = \{ a^kb \ : \ k \ge 0  \}$ es aceptado por un automáta no determinístico finito y por lo que sabíamos del ejemplo \ref{gramatica-regular} es un lenguaje regular.
+Vale que los lenguajes aceptados por automátas finitos no determinísticos son justamente los regulares.
 
 \begin{teo}
  Un lenguaje $L$ es regular sii es aceptado por un autómata finito no determínistico.
@@ -166,7 +182,7 @@ Más aún vale que los lenguajes aceptados por automátas finitos no determinís
 
 \subsection{Lenguajes independientes de contexto.}
 \begin{deff}
-	Decimos que una gramática $\gramatica $ es \blue{independiente de contexto} si las producciones tienen la siguiente forma:
+	Una gramática $\gramatica $ es \blue{independiente de contexto} si las producciones tienen la siguiente forma:
 	\begin{equation*}
 	A \to w
 	\end{equation*}
@@ -225,9 +241,9 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 	\]
 	 donde:
 	\begin{itemize}
-		\item $Q$ es un conjunto finito de \emph{estados};
-		\item $\Sigma$ es un conjunto finito que denotaremos el \emph{alfabeto del lenguaje};
-		\item $\Gamma$ es un conjunto finito que denotaremos el \emph{alfabeto de la pila};
+		\item $Q$ es un conjunto finito denominado los \emph{estados};
+		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
+		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
 		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times \Sigma \times \Gamma \to {\cal P}( Q  \times \Gamma^*)$;
 		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
 		\item $q_0 \in Q$ es el \emph{estado inicial};
@@ -235,52 +251,59 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 	\end{itemize}
 \end{deff}
 
+Una configuración de un autómata de pila no determinístico va a ser un triple $(q,w,\gamma) \in Q \times \Sigma^* \times Z^*$.
+Sea $w = aw'$ con $a \in \Sigma$ y $w' \in \Sigma^*$ tal que $(p,\gamma') \in \delta (q,a,\gamma)$ luego denotaremos $(q,w,\gamma) \vdash (p,w',\gamma')$ la transición de una configuración en otra.
+Consideremos la relación de equivalencia generada por la clausura transitiva y simétrica que denotaremos $\vdash^*$.
 
-\paragraph{Funcionamiento del autómata.}
+
+\begin{deff}
+	Dado $\cal M$ un autómata de pila no determinístico consideramos el lenguaje generado por estado final como
+	\begin{equation*}
+		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \lambda, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
+	\end{equation*}
+\end{deff}
+
+
+%\paragraph{Descripción instantánea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un autómata a partir de lo que estamos haciendo en cierto instante. 
+%Consideremos que estamos en el instante que nuestra subpalabra que nos queda por leer es $w$, estamos en un estado $q$ y en nuestra pila tenemos la palabra $\gamma$, entonces vamos a representar al instante por medio de esta tupla $(q,w,\gamma)$.
+%Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. 
+%Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. 
+%Podemos considerar la clausura transitiva de esta relación sobre los triples $Z \times Q \times \Sigma^*$ que denotaremos $\vdash^*$.
+
+
+%\paragraph{Funcionamiento del autómata.}
 %Un prefijo de $w$ será una subpalabra $\gamma$ tal que $w=\gamma w'$ visto con la concatenación de palabras en $\Sigma^*$.
-
-El autómata de pila finito funciona de la siguiente manera. 
-Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. 
-Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro autómata. 
-Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. 
-Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. 
-En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. 
-Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. 
-En este caso diremos que nuestro autómata es \blue{no determinístico} dado que en algunos casos existe más de una opción.
-
-En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. 
-Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro autómata entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
-
-Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. 
-En tal caso la palabra $w$ es aceptada por el autómata. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
-\medskip
-\begin{obs}
-	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra.	
-	Esta manera es equivalente porque...
-	Más en adelante nos va a resultar conceptualmente más útil para el caso que estemos viendo el problema de la palabra de un grupo mientras que para las demostraciones de esta sección usaremos esta otra definición.
-\end{obs}
-
-\paragraph{Descripción instantánea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un autómata a partir de lo que estamos haciendo en cierto instante. 
-Consideremos que estamos en el instante que nuestra subpalabra que nos queda por leer es $w$, estamos en un estado $q$ y en nuestra pila tenemos la palabra $\gamma$, entonces vamos a representar al instante por medio de esta tupla $(q,w,\gamma)$.
-Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. 
-Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. 
-Podemos considerar la clausura transitiva de esta relación sobre los triples $Z \times Q \times \Sigma^*$ que denotaremos $\vdash^*$.
+%
+%El autómata de pila finito funciona de la siguiente manera. 
+%Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. 
+%Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro autómata. 
+%Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. 
+%Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. 
+%En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. 
+%Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. 
+%En este caso diremos que nuestro autómata es \blue{no determinístico} dado que en algunos casos existe más de una opción.
+%
+%En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. 
+%Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \blue{configuración} de nuestro autómata entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
+%
+%Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. 
+%En tal caso la palabra $w$ es aceptada por el autómata. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
+%\medskip
+%\begin{obs}
+%	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra.	
+%	Esta manera es equivalente porque...
+%	Más en adelante nos va a resultar conceptualmente más útil para el caso que estemos viendo el problema de la palabra de un grupo mientras que para las demostraciones de esta sección usaremos esta otra definición.
+%\end{obs}
 
 
-\paragraph{El lenguaje aceptado por un autómata de pila.} 
-Notemos que en particular el autómata de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del autómata $\Sigma$ que son aceptadas. 
-En general diremos que un autómata acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. 
-Este lenguaje aceptado por el autómata $\cal M$ en algunas casos para hacer énfasis en el autómata lo denotaremos $L {(\cal M)}$ y siguiendo la notación formal anterior lo podemos describir de la siguiente manera,
-\begin{equation*}
-	L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
-\end{equation*}
-donde $(q_0, w, Z_0)$ es el instante inicial en el cual tenemos la palabra $w$ en el estado inicial $q_0$ con el símbolo $Z_0$ de la pila. Al finalizar deberíamos estar en un estado $q$ final y lo que nos queda en la pila $\gamma$ es totalmente irrelevante en este caso.
 
-\begin{obs}
-	Al ser un autómata de pila no determinístico existen posiblemente más de una manera de consumir alguna palabra en el autómata. 
-	Es así que por la definición que dimos la palabra es aceptada por el autómata si al menos alguna de estas derivaciones la lleva a ser aceptada.
-	No importa si existen derivaciones que no lo hagan mientras una sí lo haga. 
-\end{obs}
+%
+%\paragraph{El lenguaje aceptado por un autómata de pila.} 
+%Notemos que en particular el autómata de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del autómata $\Sigma$ que son aceptadas. 
+%En general diremos que un autómata acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. 
+%Este lenguaje aceptado por el autómata $\cal M$ en algunas casos para hacer énfasis en el autómata 
+
+
 \begin{ej}
 	Sea nuestro alfabeto $\Sigma = \{ a, b\}$ y $L$ el lenguaje de los palíndromos sobre este alfabeto. Consideremos el siguiente autómata de pila 
 	\[
@@ -396,10 +419,16 @@ Otras propiedades interesantes tienen que ver con su relación con morfismos de 
 		\item Preimágenes de morfismos de monoides.
 	\end{enumerate}
 \end{prop}
-\todo[inline]{Estaría bueno agregarlo por completitud porque no se ve en los cursos usuales y es necesario para definir los grupos IC.}
+
 \begin{proof}
-	%Escribir las dos demos. La segunda no es tan fácil ni evidente.
-	Ver \cite{sipser13}.
+	\begin{enumerate}
+		\item Consideramos $L$ lenguaje \ic sobre $\Sigma$.
+		Esto nos dice que existe una gramática $\gramatica $ tal que $L(\cG) = L$.
+		Si tenemos un morfismo de monoides $h: \Sigma \to \Delta$ queremos ver que existe una gramática $\cG'$ tal que $L(\cG') = h(L)$.
+		Para eso consideramos $\cG  = (V, \Sigma, P', S)$ donde la única diferencia es que reemplazamos en cada producción $P \in \cG$ a cada letra $a \in \Sigma$ por $h(a) \in \Delta^*$.
+		La gramática sigue siendo \ic pero nos quedaría ver que genera al lenguaje que queremos.
+		\item 
+	\end{enumerate}
 \end{proof}
 
 Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$ no es \ic es usar el siguiente lema.
@@ -416,7 +445,7 @@ Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$
 \[
 |\delta(q,a, z)| \le 1 \ \ \ \forall z \in Z, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
 \]
-En cierta manera estamos diciendo que de un instante dado solo tenemos a lo sumo una única posibilidad de movernos a otro estado. A los lenguajes aceptados por un \APD los pensamos que son aceptados por un estado final.
+En cierta manera estamos diciendo que de un instante dado solo tenemos a lo sumo una única posibilidad de movernos a otro estado. A los lenguajes aceptados por un \APD los pensamos que son aceptados por estado final.
 
 
  Por lo tanto para cada palabra tenemos un único camino en el autómata para saber si es aceptada o no a diferencia de un \APND  que podría tener varios caminos posibles para cada palabra.

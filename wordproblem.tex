@@ -274,14 +274,14 @@ Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos 
 		Por como lo definimos tiene un solo estado y el alfabeto tanto de entrada como el de la pila que usa es el conjunto de generadores $Y$.
 		La función de transición $\delta$ está definida de la siguiente manera,
 		\[
-		\delta(w, 1 , u)=\left\{
+		\delta(1, y_i, u)=\left\{
 		\begin{array}{ll}
-			(1 , 1, u )  &\ \text{si} \ w = 1  \\
-			(w',1,y_i \cdot y_ju') &\ \text{si} \ w = y_iw', u = y_jw'  \\
+			(1 , u )  &\ \text{si} \ a = 1  \\
+			(1, y_i \cdot u') &\ \text{si} \  u = y_jw'  \\
 		\end{array}
 		\right.
 		\]
-		donde al apilar hacemos la multiplicación $y_i \cdot y_j$ en el grupo libre $F$.
+		donde al apilar hacemos la multiplicación $y_i \cdot u$ en el grupo libre $F$.
 		
 		Consideremos el lenguaje aceptado por pila vacía, esto es
 		
@@ -714,7 +714,7 @@ Finalmente veamos que se trata de una descomposición. Corroboremos que cumple l
 El siguiente resultado es un teorema de Muller-Schupp demostrado en \cite{muller1985theory}.
 La demostración sigue la exposición del paper \cite{diekert_contextfree_2017}.
 
-\begin{teo} [Muller - Schupp 1985] \cite{muller1985theory}
+\begin{teo} \cite{muller1985theory}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
 \begin{proof}
