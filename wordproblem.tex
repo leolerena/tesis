@@ -198,7 +198,6 @@ Veamos ahora unos ejemplos y contrajemplos de grupos \vl s.
 
 \begin{ej}
 Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos que no lo sean.
-\todo[inline]{Agregar la construcción de la presentación de los grupos \vl.}
 \begin{enumerate}	
 	\item Cualquier extensión de un grupo libre por un grupo finito es un grupo virtualmente libre,
 	\[
@@ -250,48 +249,45 @@ Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos 
 
 
 \section{Grupos independientes de contexto.}
- 
- En esta sección definiremos una familia de grupos que veremos más en adelante que coincide con los grupos \vl.
- Como corolario de la proposición \ref{prop-cono-wp} y de saber que los lenguajes \ic \ forman un cono \ref{ic-cono} la siguiente definición no depende del conjunto de generadores.
- \medskip
-\begin{deff}
-	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
-\end{deff}
+% 
+%\begin{deff}
+%	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \blue{grupo \ic }.
+%\end{deff}
 
-
-\begin{ej} Consideremos los siguientes ejemplos.	
-	\begin{enumerate}[E1.]
-		\item 
-		Dado $F$ grupo libre de rango finito supongamos generado por el conjunto finito $X$. 
-		Sea  $Y = X \cup X^{-1}$ el conjunto de generadores simétrico de $X$. 
-		Probemos que $\text{WP}(F,Y)$ es un lenguaje independiente de contexto.
-		
-		Consideremos el siguiente autómata de pila,
-		\[
-			M = (\{ 1 \}, Y, Y, \delta, 1, \{1\}).
-		\]
-		
-		Por como lo definimos tiene un solo estado y el alfabeto tanto de entrada como el de la pila que usa es el conjunto de generadores $Y$.
-		La función de transición $\delta$ está definida de la siguiente manera,
-		\[
-		\delta(1, y_i, u)=\left\{
-		\begin{array}{ll}
-			(1 , u )  &\ \text{si} \ a = 1  \\
-			(1, y_i \cdot u') &\ \text{si} \  u = y_jw'  \\
-		\end{array}
-		\right.
-		\]
-		donde al apilar hacemos la multiplicación $y_i \cdot u$ en el grupo libre $F$.
-		
-		Consideremos el lenguaje aceptado por pila vacía, esto es
-		
-		\[
-		{\cal L }(M) = \{  y \in Y^* \mid (y,1,1)   \vdash^*  (1, 1, 1)  \}.
-		\]
-		
-		Notemos que ${\cal L }(M) = \text{WP}(F,Y)$ porque justamente en la pila apilamos lo que vamos leyendo de izquierda a derecha y desapilamos cuando leemos el inverso del generador que está en el tope de la pila.
-		Esto es que desapilamos cuando un generador aparece después de su inverso en la palabra.
-	
+%
+%\begin{ej} Consideremos los siguientes ejemplos.	
+%	\begin{enumerate}[E1.]
+%		\item 
+%		Dado $F$ grupo libre de rango finito supongamos generado por el conjunto finito $X$. 
+%		Sea  $Y = X \cup X^{-1}$ el conjunto de generadores simétrico de $X$. 
+%		Probemos que $\text{WP}(F,Y)$ es un lenguaje independiente de contexto.
+%		
+%		Consideremos el siguiente autómata de pila,
+%		\[
+%			M = (\{ 1 \}, Y, Y, \delta, 1, \{1\}).
+%		\]
+%		
+%		Por como lo definimos tiene un solo estado y el alfabeto tanto de entrada como el de la pila que usa es el conjunto de generadores $Y$.
+%		La función de transición $\delta$ está definida de la siguiente manera,
+%		\[
+%		\delta(1, y_i, u)=\left\{
+%		\begin{array}{ll}
+%			(1 , u )  &\ \text{si} \ a = 1  \\
+%			(1, y_i \cdot u') &\ \text{si} \  u = y_jw'  \\
+%		\end{array}
+%		\right.
+%		\]
+%		donde al apilar hacemos la multiplicación $y_i \cdot u$ en el grupo libre $F$.
+%		
+%		Consideremos el lenguaje aceptado por pila vacía, esto es
+%		
+%		\[
+%		{\cal L }(M) = \{  y \in Y^* \mid (y,1,1)   \vdash^*  (1, 1, 1)  \}.
+%		\]
+%		
+%		Notemos que ${\cal L }(M) = \text{WP}(F,Y)$ porque justamente en la pila apilamos lo que vamos leyendo de izquierda a derecha y desapilamos cuando leemos el inverso del generador que está en el tope de la pila.
+%		Esto es que desapilamos cuando un generador aparece después de su inverso en la palabra.
+%	
 		
 %		Dado un grupo libre $F$ veamos cómo construir un automáta $\cal M$ tal que acepta su problema de la palabra. 
 %		
@@ -316,28 +312,28 @@ Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos 
 %		
 %		Donde las transiciones del estado 1' a 1 son todas las transiciones en las cuales la letra que estamos por leer no es la inversa de lo que esté al tope de la pila. Por otro lado las transiciones del estado 1 al estado 1' son todas las que lo que leemos es justamente el inverso de lo que está al tope de la pila.
 		
-		\item 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
-		Si tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
-		Bajo esta presentación 
-		\[
-		WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
-		\]
-		Este lenguaje no es independiente de contexto.
-		Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
-		Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipotesis del lema.
-		Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
-		Si tenemos una factorización 
-		\[
-		uvwxy = a^nb^nc^n
-		\]
-		 si $|vwx| \le n$ implica que no todas las letras aparecen en $vwx$.
-		Supongamos que la letra que no aparece es $c$.
-		Por otro lado como $|vx| \le 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
-		Si tomamos $i=0$ notemos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
-		
-	\end{enumerate}
-	
-\end{ej}
+%		\item 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
+%		Si tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
+%		Bajo esta presentación 
+%		\[
+%		WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
+%		\]
+%		Este lenguaje no es independiente de contexto.
+%		Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
+%		Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipotesis del lema.
+%		Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
+%		Si tenemos una factorización 
+%		\[
+%		uvwxy = a^nb^nc^n
+%		\]
+%		 si $|vwx| \le n$ implica que no todas las letras aparecen en $vwx$.
+%		Supongamos que la letra que no aparece es $c$.
+%		Por otro lado como $|vx| \le 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
+%		Si tomamos $i=0$ notemos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
+%		
+%	\end{enumerate}
+%	
+%\end{ej}
 
 \begin{obs}\label{palabras-wp}
 	Si tenemos un grupo $G$ tal que es independiente de contexto consideremos $\cal G$ gramática que genera al lenguaje del problema de la palabra, $\WP = L(\cal G)$.

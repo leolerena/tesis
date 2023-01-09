@@ -890,14 +890,29 @@ Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) = gh^{-1}$ porque
 \begin{lema}
 	La función $\psi: \Xm \to X$ resulta ser un morfismo de grafos.
 \end{lema}
+
 \begin{proof}
-	Esta claro por como está definido que cada vértice de $\Xm$ va a parar a uno de $X$ y que cada arista va a parar a una de $X$.
-	
-	Veamos ahora que dada una arista $g G_y y$ tenemos que $\psi(\ol{g G_y y}) = \ol{\psi(g G_y y)}$.
-	
-	
-	Finalmente veamos que respeta los comienzos de aristas.
+Para ver que es un morfismo de grafos nos basta ver que manda vértices en vértices, aristas en aristas y respeta comienzo de aristas y la asignación de las aristas opuestas.
+Por como lo definimos está claro que manda vértices en vértices y aristas en aristas.
+
+Veamos que respeta el comienzo de las aristas.
+Sea una arista $gG_y y \in V(\Xm)$ luego tenemos que 
+\begin{align*}
+s(\psi(gG_y y )) &= s (\varphi(g)  y) =  \varphi(g) s(y) 	\\ 
+\psi(s(gG_y y))  &= \psi(gG_{s(y)} s(y)) = \varphi(g){s(y)} \\
+\end{align*}	
+
+Finalmente veamos que respeta la asignación de las aristas opuestas.	
+Dada una arista $g G_y y$ tenemos que ver que $\psi(\ol{g G_y y}) = \ol{\psi(g G_y y)}$.	
+Para esto recordemos que siguiendo nuestra notación $\ol{g G_y y} = gyG_{\ol y} \ol y $ por lo tanto tenemos que 
+\begin{align*}
+\psi(\ol{gG_y y }) &= \psi(gyG_{\ol y} \ol y) = \varphi(gy) G_{\ol y} \ol y =         \\ 
+&= \varphi(g)\varphi(y) G_{\ol y} \ol y = \varphi(g) g_y \ol y = \varphi(g) \iota(y) \\
+\ol{\psi(gG_y y)} &= \ol{ \varphi(g) \iota(y) } = \varphi(g) \ol{ \iota(y)} 
+\end{align*}
+Con esto terminamos de probar que $\psi$ es un morfismo de grafos.
 \end{proof}
+
 
 Dado un vértice $x \in V(X)$ podemos definir su \emph{star} como el siguiente conjunto de aristas,
 \[
