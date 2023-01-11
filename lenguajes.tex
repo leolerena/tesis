@@ -595,8 +595,18 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 	
 	El lenguaje no es aceptado por un \APD por pila vacía dado que tiene la propiedad de los prefijos. 
 	Es decir que existen palabras que están en el lenguaje tales que alguno de sus prefijos también están. 
-	Por ejemplo consideremos $a^m b^i$ y  $a^m b^j$ para $m \ge 2$ e $i < j \le m$. 
-	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que $(q_0,a^{m}b^{i},Z_0) \vdash^* (q,\lambda, \lambda)$ con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
+	Por ejemplo consideremos
+	 \[
+	 	a^m b^i, \ a^m b^j \ \
+	 	\text{para}  \
+	 	m \ge 2,  \ i < j \le m
+	 \] 
+	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que 
+	\[
+		(q_0,a^{m}b^{i},Z_0) \vdash^* (q,\lambda, \lambda)
+	\]
+	con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
+	
 	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
 	
 %[Esto es con la otra definición de automáta de pila.]
@@ -608,8 +618,8 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 
 Todo grupo $G$ lo podemos ver como un monoide. 
 En particular si tenemos un grupo $G$ tal que es \fg por algún conjunto finito $X$ entonces es \fg como monoide por el conjunto simétrico de generadores $Y = X \cup X^{-1}$.
-Sea entonces $\Sigma$ conjunto finito de generadores como monoide de $G$.
-Equivalentemente tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. 
+Sea entonces $\Sigma$ conjunto finito de generadores como monoide de $G$
+por lo tanto tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. 
 
 %El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explícitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. 
 %Notemos que para poder pensar este problema estamos fijando de antemano algún conjunto de generadores posible del grupo.
