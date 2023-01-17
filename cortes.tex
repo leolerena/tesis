@@ -11,7 +11,7 @@ Consideramos la siguiente definición.
 \begin{deff}
 	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones,
 	\begin{itemize}
-		\item $C$ y $\ol C$ son conexos e infinitos.
+		\item $C$ y $\ol C$ son conexos y no vacíos.
 		\item $|\delta C| \le \infty$.
 	\end{itemize}
 	Si $|\delta C| = k$ diremos que $C$ es un \emph{$k$-corte}.
@@ -87,7 +87,7 @@ En el trabajo \cite{} está probada la equivalencia entre estos resultados...
 \begin{lema}
 	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
 	Entonces existe $k \in \NN$ tal que:
-	Para todo $\gamma$ camino infinito simple, todo $v \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v,D) \ge n, v \in D, |\ol D \cap \gamma| = \infty$. 
+	Para todo $\gamma$ camino infinito simple, todo $v \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v,\ol D) \ge n, v \in D, |\ol D \cap \gamma| = \infty$. 
 \end{lema}
 
 \begin{proof}
@@ -99,8 +99,30 @@ En el trabajo \cite{} está probada la equivalencia entre estos resultados...
 	Como estos caminos que consideramos son simples y los bolsones $|X_t| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_t$ tal que interseca infinitas veces al camino $\gamma$.
 	Nombraremos a esta componente conexa $C_{t,\gamma}$.
 	
+	Repetimos este procedimiento por cada vértice de la componente conexa de $T \setminus t$.
+	Esto nos da un camino infinito en el árbol $t_0,t_1, \dots t_n \dots$ y una sucesión de componentes conexas correspondientes $C_{t_0,\gamma} C_{t_1,\gamma} \dots C_{t_n, \gamma} \dots$.
 	
+	Si elegimos $l \in \NN$ suficientemente grande podemos garantizar que $X_{t_l} \cap B_n(v_0) = \emptyset$.
+	Esto porque por la prop \ref{} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones y que el grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)| < \infty$.
 	
+	Ahora vamos a buscar el corte $D$, para eso vamos a necesitar un conjunto conexo con borde finito.
+	Consideremos $D$ la componente conexa de $v_0$ en $\ol C_{t_l, \gamma}$.
+	Primero veamos que $\ol D$ es conexo.
+	Para eso si tenemos un elemento $u_1 \in \ol D$ tiene que estar conectados con alguien del conexo $C_{t_l, \gamma}$.
+	Caso contrario como tenemos un camino que lo une con $v_0$, dado que el grafo es conexo, esto resultaría en que $u_1 \in D$.
+	De esta manera vimos que todo elemento de $\ol D$ está conectado con un conexo $C_{t_l, \gamma}$ evitando pasar por $D$.
+	
+	Ambos conjuntos son no vacíos porque $C_{t_l, \gamma}$ es infinito y es un subgrafo de $\ol D$.
+	Por otro lado tenemos que $v_0 \in D$.
+	
+	Finalmente veamos que es un $k-$corte.
+	Notemos que si $v \in \partial D$ luego tenemos que existe $u \in \ol D$ tal que $(u,v) \in E(\Gamma)$.
+	Por lo visto anteriormente todo camino que va de $\ol D$ a $D$ tiene que pasar necesariamente por $C_{t_l, \gamma}$. 
+	Entonces nos alcanza con tomar $u \in C_{t_l, \gamma}$.
+	En este caso notemos que $v \in _{t_l}$ caso contrario tendríamos que $v \in C_{t_l, \gamma}$ dado que esta es una de las componentes conexas de $X \setminus X_{t_l}$.
+	De esta manera vimos que $\partial D \subseteq X_{t_l}$.
+	Como el grafo es localmente finito y tiene treewidth finito concluímos finalmente que $|\delta D| \le dm = k$ tal como queríamos ver.
+		
 \end{proof}
 	
 \end{document}
