@@ -1,0 +1,106 @@
+\documentclass[tesis.tex]{subfiles}
+
+\begin{document}
+\section{Cortes de grafos y árboles de estructura.}
+Sea $\Gamma$ un grafo conexo y localmente finito.
+Consideramos la siguiente definición.
+\[
+	\delta C = \{  (x,y) | x \in C, y \in \ol C    \}
+\]
+
+\begin{deff}
+	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones,
+	\begin{itemize}
+		\item $C$ y $\ol C$ son conexos e infinitos.
+		\item $|\delta C| \le \infty$.
+	\end{itemize}
+	Si $|\delta C| = k$ diremos que $C$ es un \emph{$k$-corte}.
+\end{deff}	
+	
+\begin{lema}
+	Sea $\Gamma$ un grafo conexo y localmente finito.
+	Sea $S \subset V$ un conjunto finito y $k\ge 1$.
+	Entonces existen finitos $k$-cortes $C$ con $\beta C \cap S \neq \emptyset$.
+\end{lema}	
+
+\begin{proof}
+	Primero notemos que nos alcanza con ver los cortes $C$ que tienen una arista fija $(x,y) \in \delta C$.
+	Si vemos que estos son finitos entonces como tenemos finitos $x \in S$ y cada vértice tiene finitas aristas dado que el grafo es localmente finito entonces tenemos que la cantidad de $k$ cortes sería finita.
+	Consideremos entonces que $S = \{ x \}$ porque los otros casos se siguen de este.
+	
+	Vamos a probarlo por inducción en $k$.
+	
+	En el caso base tenemos que $\delta C = (x,y)$.
+	En este caso tenemos que solo puede haber finitos cortes (al menos tantos como aristas salen del vértice $x$).
+	
+	Ahora veamos el paso inductivo.
+	Como suponemos que es un $k$-corte con $k \ge 2$ al menos tenemos una arista sea esta $(x,y)$.
+	Notemos que si $\Gamma \setminus (x,y)$ no está conectado entonces no puede haber un corte $C'$ tal que $(x,y) \in \delta C'$ y que cumpla que $|\delta C'| \ge 2$.
+	Esto nos dice que nos queda ver el caso que $\Gamma \setminus (x,y)$ sigue siendo conexo. 
+	Al seguir siendo conexo debe existir un camino de vértices $\gamma$  en $ \Gamma \setminus (x,y) $ tal que $\gamma = x_0 x_1 \dots x_{n}$ con $x_0 = x$ y con $x_{n} = y$.
+	Todos estos $k$-cortes $C$ que estamos considerando tienen que cumplir que alguno de las aristas $(x_i,x_{i+1}) \in  \gamma \cap \delta C$.
+	Caso contrario tendríamos que para todo $x_i \in \gamma$ vale que $x_{i} \in C$ o bien $x_i \in \ol C$ contradiciendo que $(x,y) \in \delta C$.
+	Finalmente como todo $k$-corte que contiene a $(x,y)$ restringido a $\gamma$ resulta ser un $(k-1)$-corte tenemos que al ser estos finitos por la hipótesis inductiva que la cantidad de $k$-cortes es finita tal como queríamos ver.
+	
+\end{proof}
+	
+\begin{deff}
+	Dado $\Gamma$ un grafo conexo diremos que un camino simple $\alpha$ es un \emph{camino infinito }si $\alpha = v_0 \dots v_{n} \dots$.	
+	Diremos que es un \emph{camino bi-infinito }si $\alpha =  \dots v_{-n} \dots v_0 \dots v_{n} \dots $.
+\end{deff}	
+	
+
+Una primera observación es que dado un corte $C$ podemos armarnos un camino bi infinito $\alpha$ tal que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+
+No necesariamente vale la vuelta.
+Esto es que si tenemos un camino bi-infinito $\alpha$ y un corte $C$ entonces el corte cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+
+Esto nos lleva a dar la siguiente definición.
+
+\begin{deff}
+	Sea $\Gamma$ un grafo conexo y sea $\alpha$ un camino bi-infinito.
+	Definimos el conjuntos de cortes del camino como 
+	\[
+		{\cal C}(\alpha) = \{ C \subset V(\Gamma) \mid  C \ \text{es un corte y} \ |\alpha \cap C| = \infty = |\alpha \cap \ol C| \}
+	\] 
+\end{deff}
+
+\begin{lema}
+Tenemos que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manear que $\alpha \setminus \delta C$ tiene dos componentes infinitas.
+\end{lema}
+\begin{proof}
+	...
+\end{proof}	
+	
+\begin{obs}
+	En el lema anterior tenemos que tiene que haber dos componentes infinitas aunque puede haber arbitrarias componentes conexas.
+\end{obs}
+
+\begin{deff}
+	Dado un grafo $\Gamma$ y $S \subset V(\Gamma)$ diremos que $\Gamma$ tiene más de un end si $\Gamma \setminus S$ tiene más de una componente conexa.
+	Caso contrario diremos que tiene al menos un end.
+\end{deff}
+
+Esta definición de ends para grafos de Cayley resulta ser equivalente a la definición de ends para grupos.
+En el trabajo \cite{} está probada la equivalencia entre estos resultados...	
+
+\begin{lema}
+	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
+	Entonces existe $k \in \NN$ tal que:
+	Para todo $\gamma$ camino infinito simple, todo $v \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v,D) \ge n, v \in D, |\ol D \cap \gamma| = \infty$. 
+\end{lema}
+
+\begin{proof}
+	Sea $d$ una cota para el grado de los vértices del grafo $\Gamma$ y sea $k$ el treewidth del grafo.
+	Propondremos $k = dm$ como la constante que buscamos.
+	
+	Consideremos $t \in V(T)$ de manera que $v \in X_t$.
+	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t$, luego como los árboles son únicamente geodésicos y usando la prop \ref{} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_t$.
+	Como estos caminos que consideramos son simples y los bolsones $|X_t| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_t$ tal que interseca infinitas veces al camino $\gamma$.
+	Nombraremos a esta componente conexa $C_{t,\gamma}$.
+	
+	
+	
+\end{proof}
+	
+\end{document}
