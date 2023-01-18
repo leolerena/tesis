@@ -2,11 +2,15 @@
 
 \begin{document}
 \section{Cortes de grafos y árboles de estructura.}
-Sea $\Gamma$ un grafo conexo y localmente finito.
-Consideramos la siguiente definición.
-\[
+
+\begin{deff}
+	Sea $\Gamma$ un grafo conexo y localmente finito. 
+	Sea $C \subseteq V(\Gamma)$ luego definiremos la frontera de este conjunto como:	
+	\[
 	\delta C = \{  (x,y) | x \in C, y \in \ol C    \}
-\]
+	\]
+\end{deff}
+
 
 \begin{deff}
 	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones,
@@ -16,6 +20,9 @@ Consideramos la siguiente definición.
 	\end{itemize}
 	Si $|\delta C| = k$ diremos que $C$ es un \emph{$k$-corte}.
 \end{deff}	
+
+Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
+Un ejemplo claro es tomar el grafo de Cayley de $\ZZ^2$.
 	
 \begin{lema}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
@@ -45,12 +52,18 @@ Consideramos la siguiente definición.
 \end{proof}
 	
 \begin{deff}
-	Dado $\Gamma$ un grafo conexo diremos que un camino simple $\alpha$ es un \emph{camino infinito }si $\alpha = v_0 \dots v_{n} \dots$.	
-	Diremos que es un \emph{camino bi-infinito }si $\alpha =  \dots v_{-n} \dots v_0 \dots v_{n} \dots $.
+	Dado $\Gamma$ un grafo conexo diremos que un camino simple $\alpha$ es un \emph{camino infinito }si
+	\[
+		\alpha = v_0 \dots v_{n} \dots
+	\]	
+	Diremos que es un \emph{camino bi-infinito } si
+	\[
+		\alpha =  \dots v_{-n} \dots v_0 \dots v_{n} \dots 
+	\]
 \end{deff}	
 	
 
-Una primera observación es que dado un corte $C$ podemos armarnos un camino bi infinito $\alpha$ tal que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+Una primera observación es que dado un corte $C$ tal que $C$ es infinito y $\ol C$ también lo es, podemos armarnos un camino bi infinito $\alpha$ tal que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
 
 No necesariamente vale la vuelta.
 Esto es que si tenemos un camino bi-infinito $\alpha$ y un corte $C$ entonces el corte cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
@@ -66,63 +79,85 @@ Esto nos lleva a dar la siguiente definición.
 \end{deff}
 
 \begin{lema}
-Tenemos que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manear que $\alpha \setminus \delta C$ tiene dos componentes infinitas.
+Tenemos que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manera que $\alpha \setminus \delta C$ tiene dos componentes infinitas.
 \end{lema}
 \begin{proof}
 	...
 \end{proof}	
 	
-\begin{obs}
-	En el lema anterior tenemos que tiene que haber dos componentes infinitas aunque puede haber arbitrarias componentes conexas.
-\end{obs}
-
 \begin{deff}
 	Dado un grafo $\Gamma$ y $S \subset V(\Gamma)$ diremos que $\Gamma$ tiene más de un end si $\Gamma \setminus S$ tiene más de una componente conexa.
 	Caso contrario diremos que tiene al menos un end.
 \end{deff}
 
-Esta definición de ends para grafos de Cayley resulta ser equivalente a la definición de ends para grupos.
-En el trabajo \cite{} está probada la equivalencia entre estos resultados...	
+%Esta definición de ends para grafos de Cayley resulta ser equivalente a la definición de ends para grupos.
+%En el trabajo \cite{} está probada la equivalencia entre estos resultados...	
+
+\begin{deff}
+	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino bi-infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
+\end{deff}
+
+Veamos que los grafos con treewidth finito son accesibles.
+Para eso primero veamos un lema un poco más técnico.
+
 
 \begin{lema}
 	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
 	Entonces existe $k \in \NN$ tal que:
-	Para todo $\gamma$ camino infinito simple, todo $v \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v,\ol D) \ge n, v \in D, |\ol D \cap \gamma| = \infty$. 
+	Para todo $\gamma$ camino infinito simple, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap \gamma| = \infty$. 
 \end{lema}
 
 \begin{proof}
 	Sea $d$ una cota para el grado de los vértices del grafo $\Gamma$ y sea $k$ el treewidth del grafo.
 	Propondremos $k = dm$ como la constante que buscamos.
 	
-	Consideremos $t \in V(T)$ de manera que $v \in X_t$.
-	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t$, luego como los árboles son únicamente geodésicos y usando la prop \ref{} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_t$.
-	Como estos caminos que consideramos son simples y los bolsones $|X_t| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_t$ tal que interseca infinitas veces al camino $\gamma$.
-	Nombraremos a esta componente conexa $C_{t,\gamma}$.
+	Consideremos $t_0 \in V(T)$ de manera que $v_0 \in X_t$.
+	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la prop \ref{} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_{{t}_0}$.
+	Como estos caminos que consideramos son simples y los bolsones $|X_{t_0}| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_{t_0}$ tal que interseca infinitas veces al camino $\gamma$.
+	Nombraremos a esta componente conexa $C_{t_0,\gamma}$.
 	
-	Repetimos este procedimiento por cada vértice de la componente conexa de $T \setminus t$.
+	Repetimos este procedimiento por cada vértice de la componente conexa de $\ol X_{t_0}$.
 	Esto nos da un camino infinito en el árbol $t_0,t_1, \dots t_n \dots$ y una sucesión de componentes conexas correspondientes $C_{t_0,\gamma} C_{t_1,\gamma} \dots C_{t_n, \gamma} \dots$.
 	
-	Si elegimos $l \in \NN$ suficientemente grande podemos garantizar que $X_{t_l} \cap B_n(v_0) = \emptyset$.
+	Si elegimos $l \in \NN$ suficientemente grande podemos garantizar que
+	\[
+		X_{t_l} \cap B_n(v_0) = \emptyset
+	\]
 	Esto porque por la prop \ref{} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones y que el grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)| < \infty$.
 	
-	Ahora vamos a buscar el corte $D$, para eso vamos a necesitar un conjunto conexo con borde finito.
+	Ahora vamos a buscar el corte $D$. 
+	Para eso vamos a necesitar un conjunto conexo con complemento conexo y no vacío tal que su borde sea finito.
 	Consideremos $D$ la componente conexa de $v_0$ en $\ol C_{t_l, \gamma}$.
 	Primero veamos que $\ol D$ es conexo.
 	Para eso si tenemos un elemento $u_1 \in \ol D$ tiene que estar conectados con alguien del conexo $C_{t_l, \gamma}$.
+	Más aún todo camino con algún elemento de $D$ tiene que pasar por $C_{t_l, \gamma}$.
 	Caso contrario como tenemos un camino que lo une con $v_0$, dado que el grafo es conexo, esto resultaría en que $u_1 \in D$.
 	De esta manera vimos que todo elemento de $\ol D$ está conectado con un conexo $C_{t_l, \gamma}$ evitando pasar por $D$.
 	
-	Ambos conjuntos son no vacíos porque $C_{t_l, \gamma}$ es infinito y es un subgrafo de $\ol D$.
+	Ambos conjuntos son no vacíos porque $C_{t_l, \gamma}$ es infinito y está contenido en $\ol D$.
 	Por otro lado tenemos que $v_0 \in D$.
 	
 	Finalmente veamos que es un $k-$corte.
 	Notemos que si $v \in \partial D$ luego tenemos que existe $u \in \ol D$ tal que $(u,v) \in E(\Gamma)$.
 	Por lo visto anteriormente todo camino que va de $\ol D$ a $D$ tiene que pasar necesariamente por $C_{t_l, \gamma}$. 
 	Entonces nos alcanza con tomar $u \in C_{t_l, \gamma}$.
-	En este caso notemos que $v \in _{t_l}$ caso contrario tendríamos que $v \in C_{t_l, \gamma}$ dado que esta es una de las componentes conexas de $X \setminus X_{t_l}$.
+	En este caso notemos que $v \in X_{t_l}$ caso contrario tendríamos que $v \in C_{t_l, \gamma}$ dado que esta es una de las componentes conexas de $X \setminus X_{t_l}$.
 	De esta manera vimos que $\partial D \subseteq X_{t_l}$.
 	Como el grafo es localmente finito y tiene treewidth finito concluímos finalmente que $|\delta D| \le dm = k$ tal como queríamos ver.
 		
 \end{proof}
+
+
+\begin{teo}
+	Sea $\Gamma$ un grafo de treewidth finito y de grado uniformemente acotado.
+	Entonces $\Gamma$ es accesible.
+\end{teo}
+\begin{proof}
+	Tomemos $\alpha$ un camino bi-infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
+	Sea $C \in {\cal C}(\alpha)$.
+	Veamos que $C$ es un $k-$corte.
+\end{proof}
+
+
 	
 \end{document}
