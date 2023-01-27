@@ -1,5 +1,7 @@
 \documentclass[tesis.tex]{subfiles}
 
+
+
 \begin{document}
 \section{Cortes de grafos y árboles de estructura.}
 
@@ -24,7 +26,7 @@
 Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
 Un ejemplo claro es tomar el grafo de Cayley de $\ZZ^2$.
 	
-\begin{lema}
+\begin{lema}\label{lema_finitos_kcortes}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
 	Sea $S \subset V$ un conjunto finito y $k\ge 1$.
 	Entonces existen finitos $k$-cortes $C$ con $\beta C \cap S \neq \emptyset$.
@@ -101,7 +103,7 @@ Veamos que los grafos con treewidth finito son accesibles.
 Para eso primero veamos un lema un poco más técnico.
 
 
-\begin{lema}
+\begin{lema}\label{lema_corte_treewidth}
 	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
 	Entonces existe $k \in \NN$ tal que:
 	Para todo $\gamma$ camino infinito simple, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap \gamma| = \infty$. 
@@ -112,7 +114,7 @@ Para eso primero veamos un lema un poco más técnico.
 	Propondremos $k = dm$ como la constante que buscamos.
 	
 	Consideremos $t_0 \in V(T)$ de manera que $v_0 \in X_t$.
-	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la prop \ref{} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_{{t}_0}$.
+	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la proposición \ref{} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_{{t}_0}$.
 	Como estos caminos que consideramos son simples y los bolsones $|X_{t_0}| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_{t_0}$ tal que interseca infinitas veces al camino $\gamma$.
 	Nombraremos a esta componente conexa $C_{t_0,\gamma}$.
 	
@@ -123,7 +125,7 @@ Para eso primero veamos un lema un poco más técnico.
 	\[
 		X_{t_l} \cap B_n(v_0) = \emptyset
 	\]
-	Esto porque por la prop \ref{} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones y que el grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)| < \infty$.
+	Esto porque por la proposición \ref{} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones y que el grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)| < \infty$.
 	
 	Ahora vamos a buscar el corte $D$. 
 	Para eso vamos a necesitar un conjunto conexo con complemento conexo y no vacío tal que su borde sea finito.
@@ -155,9 +157,227 @@ Para eso primero veamos un lema un poco más técnico.
 \begin{proof}
 	Tomemos $\alpha$ un camino bi-infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
 	Sea $C \in {\cal C}(\alpha)$.
-	Veamos que $C$ es un $k-$corte.
+	Veamos de construirnos un $k$-corte que $D$ de manera que $D \in {\cal C}(\alpha)$.
+	
+	Fijemos $v_0  \in \partial C$ y consideremos el siguiente número natural,
+	\[
+		n = \max \{ d(v_0,w) : w \in \partial C  \}.
+	\]
+	Por el lema anterior \ref{lema_corte_treewidth} podemos ver que existe un $k$-corte $D$ de manera que $d(v_0, \ol D) \le n$ y que cumple que $|\ol D \cap \gamma| < \infty$.
+	
+	Este corte $D$ nos sirve porque por la distancia elegida tenemos entonces que $C \subseteq D$ o bien $\ol C \subseteq D$.
+	Caso contrario existiría $c_1 \in C \cap \ol D$ y $c_2 \in \ol C \cap \ol D$ tal que al ser $\ol D$ conexo podríamos armarnos un camino dentro de esta componente que una $c_1$ con $c_2$.
+	Esto contradice que $\beta C \subseteq D$ por como elegimos a $D$.	
 \end{proof}
 
 
+\subsection{Cortes mínimos.}
+En esta subsección vamos a construir un árbol a partir de ciertos cortes de un grafo de manera que este árbol nos de una descomposición.
+
+\begin{deff}
+	Dado $\alpha$ camino bi-infinito definimos el conjunto de sus cortes mínimos como
+	\[
+		\cam = \{  C \in \ca : |\delta C| \ \text{es mínimo}  \}
+	\]
 	
+	Dado un grafo $\Gamma$ definimos el conjunto de sus cortes mínimos como 
+	\[
+		{\cal C}_{\text{min}} = \bigcup \{ \cam : \alpha \ \text{es un camino bi-infinito}  \}
+	\]
+\end{deff}
+
+\begin{deff}
+	Dos cortes $C,D \in V(\Gamma)$ están anidados si vale alguna de las cuatro inclusiones $C \subseteq D, C \subseteq \ol D, \ol C \subseteq \ol D, \ol C \subseteq D$.
+	Los conjuntos $C \cap D, C \cap \ol D, \ol C \cap D, \ol C \cap \ol D$ los llamamos las esquinas.
+\end{deff}
+
+\begin{lema}
+	Dos cortes $C,D$ están anidados si y solo si alguna de las cuatro esquinas es vacía.
+\end{lema}
+\begin{proof}
+	Para la ida supongamos que $C \subseteq D$ luego tiene que valer que $\ol C \cap \ol D = \emptyset$.
+	Para la vuelta si por ejemplo $C \cap D = \emptyset$ como vale que $C = C \cap D \cup C \cap \ol D$ esto nos dice que $C \subseteq \ol D$.
+\end{proof}
+
+\begin{lema}
+	Dado $C$ corte y $k \in \NN$ tenemos que 
+	\[
+		| \{  D : C, D \ \text{no están anidados y} \ D \ \text{es un k-corte}   \} | < \infty
+	\]
+\end{lema}
+\begin{proof}
+	Por el lema anterior \ref{lema_finitos_kcortes} tenemos finitos $k$-cortes tales que intersecan a $\beta C$ dado que este es un conjunto finito.
+	
+	Esto nos dice que debemos mirar los casos que $\beta C \subseteq D$.
+	Si $C,D$ no estuvieran anidados tendríamos que $C \cap \ol D \neq \emptyset \neq \ol C \cap \ol D$.
+	Esto nos diría que podríamos tomarnos un camino entre $c_0 \in C \cap \ol D$ y $c_1 \in \ol C \cap \ol D$ tal que esté contenido en $\ol D$.
+	Esto es una contradicción porque este camino tendría que pasar por $\beta C$ y sabemos que $\beta C \subseteq D$.
+
+	En conclusión tenemos que todos los $k-$cortes no anidados tienen que intersecar a $\beta C$ y estos son finitos.			
+\end{proof}
+
+Esto nos dice que la siguiente definición es correcta.
+
+\begin{deff}
+	Dado $\Gamma$ grafo conexo y localmente finito, $C$ un corte y $k \in \NN$ constante definimos el siguiente número natural,
+	\[
+		m_k(C) = | \{  D : C, D \ \text{no están anidados y} \ D \ \text{es un k-corte}   \} |. 
+	\]
+\end{deff}
+
+Consideremos ahora que el grafo $\Gamma$ es accesible y su constante es $k$.
+En este caso notaremos para cada corte $C$ el siguiente valor
+\[
+	m(C) = m_k(C).
+\]
+
+\subsection{Cortes óptimos.}
+
+Así como definimos cortes mínimos ahora vamos a definir cortes óptimos que serán un subconjunto de ellos.
+
+\begin{deff}
+	Dado $\alpha$ camino bi-infinito sea
+	\[
+		m_\alpha = \min \{ m(C) : C \in \cam \}.
+	\]
+	De esta manera los cortes óptimos del camino $\alpha$ serán
+	\[
+		\copta = \{ C \in \cam : m(C) = m_\alpha  \}
+	\]
+	y el conjunto de los cortes óptimos análogamente será el conjunto que contenga a todos ellos
+	\[
+		\copt = \bigcup \ \{ \copta : \alpha \ \text{es un camini bi-infinito}  \}.
+	\]
+\end{deff}
+
+
+\subsection{Árbol de estructura.}
+
+Todos los grafos que vamos a considerar a partir de ahora son accesibles.
+Veamos que los caminos óptimos resultan ser un poset discreto con la inclusión en este caso.
+
+\begin{lema}\label{lema_intermedios}
+	Si $C,D \in \copt$ luego 
+	\[
+	|\{ E \in \copt : C \subseteq E \subseteq D \}| < \infty
+	\]
+\end{lema}
+\begin{proof}
+	Tomemos un camino $\gamma$ tal que salga de $c \in C$ y termine en $d \in \ol D$.
+	
+	Si $E$ es un corte luego tiene que separar a $\gamma$ caso contrario tendríamos que $d \in E \cap \ol D$.
+	Como el grafo que estamos considerando es accesible sabemos que $E \in \copt$ implica que $E$ es un $k$-corte.
+	Si ahora usamos el lema \ref{lema_finitos_kcortes} con el conjunto finito $\gamma$ esto nos dice que solo existen finitos cortes $E$ que cumplen lo pedido.
+\end{proof}
+
+Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
+
+\begin{deff}
+	Dos cortes $C \sim D \in \copt$ si y solo sí
+	\[
+		C = D \ \text{o bien} \ \ol C \subsetneq D \ \text{y} \ \forall E \in \copt : \ol C \subsetneq E \subseteq D \implies D = E
+	\]
+\end{deff}
+
+\begin{prop}
+	La relación $\sim$ es de equivalencia.
+\end{prop}
+\begin{proof}
+	Por como la definimos es clara que es reflexiva.
+	Para ver que es simétrica notemos que si $C \sim D$ y son cortes distintos entonces  
+	\[
+		\ol C \subsetneq D \implies \ol D \subsetneq C
+	\]
+	por lo tanto volviendo a tomar complemento obtenemos que
+	\[
+	\forall E \in \copt : \ol C \subsetneq E \subseteq D \implies D = E \implies \forall E \in \copt : \ol D \subsetneq E \subseteq C \implies C = E.
+	\]
+	
+	Finalmente nos queda ver que la relación resulta ser transitiva.
+	Esto es que para ciertos cortes óptimos tenemos que $C \sim D$, $D \sim E$ y queremos ver que $C \sim E$.
+	Una primera observación que podemos hacer es que $\emptyset \neq \ol D = C \cap E$.
+	Esto sale de que  
+	
+	Por la proposición \ref{lema_cortes_anidados} tenemos que $C,E$ están anidados.
+	Veamos que sucede en los cuatro posibles casos.
+	\begin{itemize}
+		\item $C \subseteq E$. 
+		Tenemos que $\ol D \subsetneq E$ con $\ol D \subsetneq F \subseteq E$ y esto implica que $F=E$.
+		Si tomamos $F = C$ entonces obtenemos lo que queríamos ver.
+		\item $E \subseteq C$ análogo al caso anterior.
+		\item $E \subseteq \ol C$ contradice que $C \cap E \neq \emptyset$.
+		\item $\ol C \subseteq E$.
+		Como $C \cap E \neq \emptyset$ esto nos dice que $\ol C \subsetneq E$ por lo tanto tenemos que si $F \in \copt$ luego	$\ol C \subsetneq F \subseteq E$ queremos ver que $F=E$.
+		Lo separamos en cuatro casos nuevamente gracias a la proposición \ref{lema_cortes_anidados} dado que $F$ debe estar anidado con $D$.
+		\begin{itemize}
+			\item $D \subseteq F$.
+			Esto nos dice que $D \subseteq E$ pero por lo visto tenemos que $\ol D \subseteq E$ y esto es una contradicción porque al ser $E$ un corte no puede ser todo el conjunto de vértices $V(\Gamma)$.
+			\item $D \subseteq \ol F$. 
+			Esto nos dice que $F \subseteq \ol D$ y por lo tanto tenemos $\ol C \subsetneq F \subseteq \ol D$ pero esto nos dice que $\ol C \subseteq \ol D$ y como $\ol D \subseteq C$ llegamos a una contradicción.
+			\item $\ol D \subseteq F$.
+			Usamos que $D \sim E$ por lo tanto concluimos que $F=E$ tal como queríamos ver.			
+			\item $\ol D \subseteq \ol F$.
+			Esto nos dice que $\ol C \subsetneq F \subseteq D \subseteq E$ por lo tanto obtenemos que $F = D$ o bien contradecimos que $C \sim D$.
+		\end{itemize}
+	\end{itemize}
+\end{proof}
+
+\begin{deff}
+	Sea $\Gamma$ un grafo conexo, accesible y localmente finito y sea $\copt$ el conjunto de sus cortes óptimos.
+	El árbol de estructura $T(\copt)$ de un grafo $\Gamma$ es el siguiente grafo.
+	\begin{align*}
+		V(T(\copt)) &= \{ [C] : C \in \copt \} \\
+		E(T(\copt)) &= \{ ([C], [\ol C]) : C \in \copt   \}
+	\end{align*}
+\end{deff}
+
+\begin{obs}
+	Por nuestra construcción el árbol de estructura no es localmente finito.
+	El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de la clase de equivalencia de $C$ y éste podría ser infinito.
+\end{obs}
+
+\begin{prop}
+	El grafo $T(\copt)$ es un árbol.
+\end{prop}
+
+\begin{proof}
+	Debemos ver que es acíclico y conexo.
+	
+	Primero veamos que no tiene ciclos.
+	Supongamos que $\gamma$	es un ciclo y aparte tomesmolo para que sea simple luego tendría la siguiente forma
+	\[
+		[C_0], [C_1], [C_2], \dots [C_{n}], [C_0]
+	\]
+	donde $\ol C_{i} \sim C_{i+1}$ para todo $i=1 \dots n$.
+	Por otro lado al ser simple nos dice que $C_{i-1} \nsim C_{i+1}$ caso contrario tendríamos que el camino tiene backtracking.
+	Esto nos da una cadena de inclusiones
+	\begin{equation}\label{eq:inclusiones}
+			C_0 \subsetneq C_1 \subsetneq \dots C_{n-1}
+	\end{equation}
+	tal que $\ol C_{n-1} \sim C_n \sim \ol C_0$.
+	Veamos que no puede haber una arista $(C_{n-1}, C_0)$.
+	Si la hubiera tendría que valer alguna de estas dos inclusiones:
+	\begin{enumerate}
+		\item $\ol C_{n-1} \subsetneq C_0$.
+		Usando \ref{eq:inclusiones}, esto nos diría que $\ol C_{n-1} \subseteq C_{n-1}$ que es una contradicción.
+		\item $\ol C_{0} \subsetneq C_{n-1}$.
+		Nuevamente usando las inclusiones \ref{eq:inclusiones} llegaríamos a que $V(\Gamma) = C_0 \cup \ol C_0 \subseteq C_{n-1} \subsetneq V(\Gamma)$ que también es una contradicción.
+	\end{enumerate}
+	Por lo tanto el grafo resulta ser acíclico.
+	
+	Veamos ahora que es conexo.
+	Sean $[C], [D] \in V(T(\copt))$, veamos de construir un camino entre ellos.
+	Por la proposición \ref{lema_cortes_anidados} tenemos que necesariamente están anidados.
+	Sin pérdida de generalidad podemos suponer que $C \subseteq D$ dado que
+	\[
+	([C], [\ol C]), ([D],[\ol D]) \in E(T(\copt))
+	\]
+	Por el lema \ref{lema_intermedios} sabemos que hay finitos cortes $E$ intermedios.
+	Tomemos entonces una sucesión creciente no refinable de cortes de manear que llegamos 
+	\[
+		C=C_0 \subsetneq C_1 \subsetneq \dots C_n = D
+	\]
+	luego por como tomamos estos cortes obtenemos que $\ol C_i \sim C_{i+1}$ por lo tanto obtenemos el siguiente camino $[C],[C_1], \dots, [C_{n-1}],[D]$ en el grafo $T(\copt)$ probando así que es conexo.	
+\end{proof}
+
 \end{document}
