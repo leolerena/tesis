@@ -1,5 +1,5 @@
 \documentclass[tesis.tex]{subfiles}
-
+\newcommand{\aut}{\text{Aut}}
 
 
 \begin{document}
@@ -379,5 +379,48 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	\]
 	luego por como tomamos estos cortes obtenemos que $\ol C_i \sim C_{i+1}$ por lo tanto obtenemos el siguiente camino $[C],[C_1], \dots, [C_{n-1}],[D]$ en el grafo $T(\copt)$ probando así que es conexo.	
 \end{proof}
+
+\subsection{Acciones sobre el árbol de estructura.}
+
+Sea $\Gamma$ un grafo accesible, conexo y localmente finito tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre este grafo.
+
+Una primera observación que podemos hacer es que $\aut(\Gamma)$ actúa sobre $\copt$.
+Para eso notemos que si $C$ es un corte luego si $\varphi \in \aut(\Gamma)$ tenemos que $\varphi(C)$ es conexo y no vacío. 
+Por otro lado al ser un morfismo del grafo $\Gamma$ obtenemos que $\ol{\varphi(C)} = \varphi(\ol C)$ por lo tanto su complemento sigue siendo conexo.
+Al ser un automorfismo tenemos que $\varphi(\beta C) = \beta (\varphi C)$ y por este motivo tenemos que $|\varphi (\beta C)| = |\beta (\varphi C)|$ y esto nos dice que manda $k$-cortes en $k$-cortes.
+Veamos que manda un corte minimal en uno minimal. 
+Para eso si $C \in \copta$ para cierto camino bi-infinito $\alpha$ luego notemos que $\varphi(\alpha)$ es otro camino bi-infinito y por ser un automorfismo obtenemos que $\varphi(C) {\cal C}_{\varphi(\alpha)}$.
+Similarmente tenemos que si $C$, $D$ no están anidados luego necesariamente $\varphi(C)$ y $\varphi(D)$ no están anidados tampoco.
+Caso contrario si $\varphi(C) \cap \varphi(D) = \emptyset$ luego tendríamos que al ser $\varphi \in \aut(\Gamma)$ que preserva las intersecciones y tiene una inversa por lo que $C \cap D = \emptyset$ y esta es la contradicción.
+Juntando todo nos dice que $\aut(\Gamma)$ actúa sobre los cortes óptimos.
+
+Esta acción no solo es sobre el conjunto $\copt$ sino que podemos ver que actúa por medio de morfismos de grafos sobre el árbol de estructura $T(\copt)$.
+Para esto notemos que si $C \sim D \in \copt$ son cortes óptimos relacionados luego tenemos que para todo $\varphi \in \aut(\Gamma)$ vale que $\varphi(C) \sim \varphi(D)$.
+Para eso notemos que si $\ol C \subsetneq E \subset D$ implica que $E = D$ luego si tenemos que
+\[
+	\ol {\varphi(C)} \subsetneq E \subset \varphi(D) \iff C \subsetneq \varphi(E) \subset D
+\]  
+donde usamos que $\varphi$ es un automorfismo y que actúa sobre los cortes óptimos.
+Esto nos dice que la acción dada por $\varphi([C]) = [\varphi (C)]$ está bien definida y por lo tanto actúa sobre los vértices.
+Para ver que actúa sobre las aristas notemos que al ser un morfismo de grafos y por actúar sobre los vértices que $[\ol \varphi(C)] = [\varphi (\ol C)]$.
+
+\begin{lema}
+	Sea $\Gamma$ un grafo accesible.
+	Si $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$ luego actúa con finitas órbitas sobre $\copt$ y sobre el árbol de estructura $T(\copt)$.
+\end{lema} 
+\begin{proof}
+	Veamos primero que actúa con finitas órbitas sobre $\copt$.
+	Para eso tenemos que existe $A \in V(\Gamma)$ dominio fundamental finito de la acción de $\aut(\Gamma)$ sobre $\Gamma$.
+	Por lo tanto todo corte se puede tomar alguno que esté en su misma órbita, llamesmolo $C$ de manera que $C \cap A \neq \emptyset$.
+	Como el grafo es accesible todo corte óptimo es un $k$-corte para un cierto $k$.
+	Por el resultado \ref{lema_finitos_kcortes} tenemos que hay finitos cortes posibles por lo tanto tenemos que hay finitas órbitas posibles para esta acción.
+	
+	Para ver que son finitas las órbitas sobre el árbol de estructura notemos que al ser $V(T\copt)$ isomorfo a un cociente de $\copt$ luego tenemos que en particular las órbitas sobre el árbol de estructura también tienen que ser finitas.
+\end{proof}
+
+Un caso particular que nos interesa es cuando el grafo $\Gamma$ es el grafo de Cayley para cierto grupo \fg $G$.
+En este caso tenemos que 
+
+Nuestro objetivo ahora es entender cómo es la acción 
 
 \end{document}
