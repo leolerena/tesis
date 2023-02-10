@@ -485,28 +485,24 @@ Veamos que estos bloques no son vacíos.
 Estos bloques aparte cumplen que son conexos.
 
 \begin{lema}\label{lema_conexion_B(C)}
-	Existe una constante $l \in \NN$ tal que para todo $C \in \copt$ y todo $S \subseteq B([C])$ tenemos que: 
+	Existe una constante $\lambda \in \NN$ tal que para todo $C \in \copt$ y todo $S \subseteq B([C])$ tenemos que: 
 	Cuando dos vértices $u,v \in B([C]) \setminus N^l(S)$ se pueden conectar por algún camino en $\Gamma \setminus N^l(S)$ entonces se pueden conectar por algún camino en $B([C]) \setminus S$. 
 \end{lema}
 
 \begin{proof}
-	Consideremos $l = \max \{ d(u,v) \ | \ D \in \copt, u,v \in N^l(D) \cap \ol D  \}$ que sabemos existe porque tenemos finitas órbitas de cortes óptimos tal como en el lema \ref{lema_nlC_cap_olC_conexo}. 
+	% Agregar dibujito.
+	Consideremos $\lambda = \max \{ d(u,v) \ | \ D \in \copt, u,v \in N^l(D) \cap \ol D  \}$ que sabemos existe porque tenemos finitas órbitas de cortes óptimos tal como en el lema \ref{lema_nlC_cap_olC_conexo}. 	
 	
-	Veamos ahora que si $v,w \in B([C]) \setminus N^l(S)$ se pueden unir por un camino $\gamma$ tal que $\gamma \subseteq B([C]) \setminus S$.
-	Para eso lo vamos a probar por inducción en la distancia. 
-	Si $d(v,w) = n$ entonces existe un camino $\beta$ de $n$ vértices que los une.
-	Supongamos que $\beta$ no está contenido en $B([C]) \setminus S$, veamos que podemos acortar al camino y conseguir así que tenemos un camino más corto que los una pero dentro de $B([C]) \setminus S$.
-	Sea $\beta = v_{0},\dots,v_n$ con $v_0 = v, v_m=w$.
-	Consideremos $v_k$ el primer vértice tal que $v_k \notin B([C])$.
-	Como tal tiene que cumplir que $v_{k} \notin N^l(D)$ para algún $D \in [C]$.
-	Esto nos dice que en particular $v_{k-1} \in N^l(D) \cap \ol D$ caso contrario como tomamos $l\ge 1$ tendríamos que $v_k \in N^l(D)$.
-	Ahora consideremos $v_j$ tal que $j \ge k$ y $v_j \in N^l(D)$.
-	Este vértice debe existir porque $v_n \in N^l(D)$.
-	Como tal por el mismo motivo que antes tiene que ser tal que $v_j \in N^l(D) \cap \ol D$ y debe ser tal que $v_j \notin N
+	Vamos a probarlo por inducción en la longitud del camino.
+	Sea $\gamma$ camino en $\Gamma \setminus N^{\lambda}(S)$ tal que une $u$ con $v$.
+	Queremos ver de acortar este camino usando que $N^{\lambda}(D) \cap \ol D \subseteq B([C])$ es conexo.
+	Si $\gamma \subseteq B([C])$ ya está entonces consideremos el primer vértice $v_m$ de $\gamma$ tal que $v_m \notin B([C])$ y esto quiere decir que para cierto $D \in [C]$ tenemos que $v_m \notin N^l(D)$.
+	Esto nos dice que $v_{m-1} \in N^l(D) \cap \ol D$ caso contrario tendríamos que $v_m \in N^l(D)$.
 	
-	Para terminar notemos que tanto $v_k,v_j \in N^l(D) \cap \ol D$ y como este es conexo por el lema \ref{lema_nlC_cap_olC_conexo} obtenemos que hay un camino que los une dentro de $B([C])$.
-	Esto nos dice que $d(v_j,v_n) \le n-1$ por lo tanto tenemos que por la hipótesis inductiva que podemos tomarnos un camino que los una dentro de $B([C])$.
-	Concatenando estos caminos obtenemos que $v,w$ están unidos por un camino $\gamma$ contenido estrictamente en $B([C])$.
+	Consideremos ahora el primer vértice $v_n$ de $\gamma$ con $n > m$ tal que $v_n \in N^l(D)$.
+	Por ser el primer vértice tenemos que en particular que $v_n \in N^l(D) \cap \ol D$.
+	Dado que $N^l(D) \cap \ol D$ es conexo tenemos un camino que une $v_{m-1}$ con $v_m$ tal que está contenido en $N^l(D) \cap \ol D$ y en particular está contenido en $B([C])$.
+	Este camino evita $S$ porque como $d(v_n,v_m) \le \lambda$ esto nos diría que $d(v_n,S) \le \lambda$ contradiciendo que el camino $\gamma$ está contenido en $\Gamma \setminus N^{\lambda}(S)$.	
 \end{proof}
 
 
@@ -554,6 +550,7 @@ Estos bloques aparte cumplen que son conexos.
 	\]	
 	
 	Por nuestra hipótesis tenemos que $g \cdot C \sim C$ luego si $D \sim C$ obtenemos que dado que la acción de $G$ está bien definida sobre $T(\copt)$ que $g\cdot D \sim g\cdot C \sim C$ tal como queríamos ver.		
+	
 \end{proof}
 
 \begin{lema}
@@ -625,6 +622,33 @@ Estos bloques aparte cumplen que son conexos.
 		E \subseteq \ol D \subsetneq C
 	\]
 	pero como justamente $D \sim C$ tenemos que $E \cap \alpha \subseteq \ol D \cap \alpha$ pero $|\alpha \cap \ol D| < \infty$ y esto es una contradicción porque suponíamos que $E \in {\cal C}_{\alpha}$.
+\end{proof}
+
+
+
+\subsection{Grafos accesibles.}
+
+\begin{lema}
+	Sea $\Gamma$ un grafo conexo, localmente finito e infinito de manera que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
+	Entonces $\Gamma$ tiene una geodésica bi-infinita.
+\end{lema}
+\begin{proof}
+	Dada $\gamma$ una geodésica de longitud impar denotaremos $m(\gamma)$ su vértice medio.	
+	El grafo es infinito entonces existen geodésicas de cualquier tamaño arbitrario.
+	En particular como la acción de $\aut(\Gamma)$ tiene un dominio fundamental finito obtenemos que tiene que haber algún vértice $v_0$ de manera que $m(\gamma) = v_0$ para infinitas geodésicas $\gamma$ de longitud arbitraria.
+	
+	En base a este vértice vamos a construir un árbol $T$ de la siguiente manera.
+	La raíz va a ser $v_0$ y los vértices van a ser $(v_{-n},\dots, v_0,\dots,v_n)$ geodésicas que tienen a $v_0$ como punto medio.
+	Las aristas entonces van a ser 
+	\[
+		((v_{-n},\dots, v_0,\dots,v_n), (v_{-n-1},\dots, v_0,\dots,v_{n+1}))
+	\]
+	siempre y cuando $(v_{-n-1},\dots, v_0,\dots,v_{n+1})$ siga siendo una geodésica con $v_0$ su punto medio.
+	Dado que el grafo $\Gamma$ es localmente finito por suposición tenemos que $T$ también lo va a ser.
+	
+	Finalmente para encontrar la geodésica bi-infinita lo que hacemos es usar el lema de König en $T$ para obtener un camino infinito en $T$, que se corresponde justamente con una geodésica bi-infinita en $\Gamma$ tal como buscábamos.
+	
+	
 \end{proof}
 
 
