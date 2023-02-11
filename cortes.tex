@@ -135,7 +135,6 @@ Para eso primero veamos un lema un poco más técnico.
 	Más aún todo camino con algún elemento de $D$ tiene que pasar por $C_{t_l, \gamma}$.
 	Caso contrario como tenemos un camino que lo une con $v_0$, dado que el grafo es conexo, esto resultaría en que $u_1 \in D$.
 	De esta manera vimos que todo elemento de $\ol D$ está conectado con un conexo $C_{t_l, \gamma}$ evitando pasar por $D$.
-	
 	Ambos conjuntos son no vacíos porque $C_{t_l, \gamma}$ es infinito y está contenido en $\ol D$.
 	Por otro lado tenemos que $v_0 \in D$.
 	
@@ -150,7 +149,7 @@ Para eso primero veamos un lema un poco más técnico.
 \end{proof}
 
 
-\begin{teo}
+\begin{teo}\label{teo_treewidth_fin_accesible}
 	Sea $\Gamma$ un grafo de treewidth finito y de grado uniformemente acotado.
 	Entonces $\Gamma$ es accesible.
 \end{teo}
@@ -250,6 +249,14 @@ Así como definimos cortes mínimos ahora vamos a definir cortes óptimos que se
 	\]
 \end{deff}
 
+El siguiente es el resultado central y más importante de los cortes óptimos.
+
+\begin{teo}\label{teo_copt_anidados}
+	Todo par de cortes óptimos $C,D \in \copt$ está anidado.
+\end{teo}
+\begin{proof}
+	\red{sorry}.
+\end{proof}
 
 \subsection{Árbol de estructura.}
 
@@ -298,7 +305,7 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	Una primera observación que podemos hacer es que $\emptyset \neq \ol D = C \cap E$.
 	Esto sale de que  
 	
-	Por la proposición \ref{lema_cortes_anidados} tenemos que $C,E$ están anidados.
+	Por el teorema \ref{teo_copt_anidados} tenemos que $C,E$ están anidados.
 	Veamos que sucede en los cuatro posibles casos.
 	\begin{itemize}
 		\item $C \subseteq E$. 
@@ -308,7 +315,7 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 		\item $E \subseteq \ol C$ contradice que $C \cap E \neq \emptyset$.
 		\item $\ol C \subseteq E$.
 		Como $C \cap E \neq \emptyset$ esto nos dice que $\ol C \subsetneq E$ por lo tanto tenemos que si $F \in \copt$ luego	$\ol C \subsetneq F \subseteq E$ queremos ver que $F=E$.
-		Lo separamos en cuatro casos nuevamente gracias a la proposición \ref{lema_cortes_anidados} dado que $F$ debe estar anidado con $D$.
+		Lo separamos en cuatro casos nuevamente gracias al teorema \ref{teo_copt_anidados} dado que $F$ debe estar anidado con $D$.
 		\begin{itemize}
 			\item $D \subseteq F$.
 			Esto nos dice que $D \subseteq E$ pero por lo visto tenemos que $\ol D \subseteq E$ y esto es una contradicción porque al ser $E$ un corte no puede ser todo el conjunto de vértices $V(\Gamma)$.
@@ -367,7 +374,7 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	
 	Veamos ahora que es conexo.
 	Sean $[C], [D] \in V(T(\copt))$, veamos de construir un camino entre ellos.
-	Por la proposición \ref{lema_cortes_anidados} tenemos que necesariamente están anidados.
+	Por el teorema \ref{teo_copt_anidados} tenemos que necesariamente están anidados.
 	Sin pérdida de generalidad podemos suponer que $C \subseteq D$ dado que
 	\[
 	([C], [\ol C]), ([D],[\ol D]) \in E(T(\copt))
@@ -579,7 +586,7 @@ Estos bloques aparte cumplen que son conexos.
 	Esto nos dice que en particular podemos suponer que $v \in \beta g \cdot C$.
 	Sea $E = g \cdot C$ luego queremos ver que $\beta E \subseteq \bigcup_{D \sim C} \beta $ que es un conjunto que sabemos que actúa con finitas órbitas.
 	
-	Por la proposición \ref{} tenemos que $E$ y $C$ están anidados.
+	Por la proposición \ref{teo_copt_anidados} tenemos que $E$ y $C$ están anidados.
 	Renombrando a $E$ de ser necesario obtenemos dos casos en particular, $\ol E \subsetneq C$ y $C \subseteq \ol E$.
 	
 	El caso que $C \subseteq \ol E$ tenemos que $ E \subseteq \ol C$ lo que nos dice que $\beta E \subseteq \beta \ol C \cup \ol C$.
@@ -606,8 +613,9 @@ Estos bloques aparte cumplen que son conexos.
 	
 	% por el lema anterior tenemos al menos un corte que lo parte
 	El conjunto $N^l(S)$ sigue siendo finito por lo tanto tenemos que $\alpha$ tiene infinitos vértices en $\Gamma \setminus N^l(S)$.
-	Por el lema \ref{lema_conexion_B(C)} tenemos que todo camino en $\Gamma \setminus N^l(S)$ se puede tomar para que esté dentro de $B([C]) \setminus S$, de esta manera tienen que existir dos componentes conexas de $\Gamma \setminus N^l(S)$ tales que tengan infinitos vértices de $\alpha$ caso contrario negaríamos que existen dos componentes conexas de $B([C]) \setminus S$ que tienen infinitos vértices.
-	Esto lo que nos dice que es ${\cal C}_{\alpha} \neq \emptyset$ porque en particular $N^l(S)$ es un corte que separa a $\alpha$.
+	Por el lema \ref{lema_conexion_B(C)} tenemos que todo camino en $\Gamma \setminus N^l(S)$ se puede tomar para que esté dentro de $B([C]) \setminus S$, de esta manera tienen que existir dos componentes conexas de $\Gamma \setminus N^l(S)$ tales que tengan infinitos vértices de $\alpha$. 
+	Caso contrario negaríamos que existen dos componentes conexas de $B([C]) \setminus S$ que tienen infinitos vértices de $\alpha$.
+	Esto nos dice que ${\cal C}_{\alpha} \neq \emptyset$ porque en particular $N^l(S)$ es un corte que separa a $\alpha$.
 	Como el conjunto de cortes es no vacío debe existir $E \in \copt \cap {\cal C}_{\alpha}$.
 	Como $E \in {\cal C}_{\alpha}$ luego tenemos que $|\alpha \cap E| = \infty = |\alpha \cap \ol E|$.
 	Nuestro objetivo es llegar a una contradicción de suponer la existencia de este corte. 	
@@ -628,7 +636,7 @@ Estos bloques aparte cumplen que son conexos.
 
 \subsection{Grafos accesibles.}
 
-\begin{lema}
+\begin{lema}\label{lema_geodesica_biinfinita}
 	Sea $\Gamma$ un grafo conexo, localmente finito e infinito de manera que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
 	Entonces $\Gamma$ tiene una geodésica bi-infinita.
 \end{lema}
@@ -648,8 +656,30 @@ Estos bloques aparte cumplen que son conexos.
 	
 	Finalmente para encontrar la geodésica bi-infinita lo que hacemos es usar el lema de König en $T$ para obtener un camino infinito en $T$, que se corresponde justamente con una geodésica bi-infinita en $\Gamma$ tal como buscábamos.
 	
-	
 \end{proof}
+
+\begin{lema}
+	Sea $\Gamma$ un grafo infinito, conexo y con treewidth finito de manera que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
+	Entonces $\Gamma$ tiene más de un end.
+\end{lema}
+\begin{proof}
+	Este grafo resulta ser accesible por el teorema \ref{teo_treewidth_fin_accesible}.
+	Consideremos $m = \max \{  d(u,v) : u,v \in \beta C \cap \ol C \}$ para todo $C \in \copt$.
+	Esto lo podemos considerar porque por el lema \ref{lema_finitas_orbitas} tenemos que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\copt$.
+	
+	Sea $\alpha = \dots v_{-n}, \dots, v_{0}, \dots, v_{n} \dots$ una geodésica bi-infinita como en el lema \ref{lema_geodesica_biinfinita}.
+	Usando \ref{lema_corte_treewidth} tenemos que debe existir un $k$-corte $C$ de manera que $d(v_{0}, \ol C) > m$ y tal que $|\alpha \cap \ol C|=\infty$.
+	Como suponemos que el grafo no tiene más de un end entonces ${\cal{C}}_{\alpha} \emptyset$, veamos que esto nos da una contradicción.
+	
+	Como $|\alpha \cap C| < \infty$ debe existir $i,j \in \NN$ de manera que $v_{-i} \in \beta C \cap \ol C$ y $v_{j} \in \beta C \cap \ol C$.
+	Dado que $\alpha$ es geodésico tenemos que
+	\[
+		d(v_{-i},v_{j}) = d(v_{-i},v_{0}) + d(v_{0}, v_{j}) = 2m
+	\]
+	y esto es una contradicción por como elegimos a $m$. 
+	Concluyendo así que $\Gamma$ tiene más de un end.
+\end{proof}
+
 
 
 \end{document}
