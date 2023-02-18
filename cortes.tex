@@ -1,12 +1,14 @@
 \documentclass[tesis.tex]{subfiles}
 \newcommand{\aut}{\text{Aut}}
+\newcommand{\Sy}{\text{Sym}} 
+ 
 
 
 \begin{document}
 \section{Cortes de grafos y árboles de estructura.}
 
 \begin{deff}
-	Sea $\Gamma$ un grafo conexo y localmente finito. 
+	Sea $\Gamma$ un grafo conexo. 
 	Sea $C \subseteq V(\Gamma)$ luego definiremos la frontera de este conjunto como:	
 	\[
 	\delta C = \{  (x,y) | x \in C, y \in \ol C    \}
@@ -80,17 +82,18 @@ Esto nos lleva a dar la siguiente definición.
 	\] 
 \end{deff}
 
-\begin{lema}
+\begin{obs}
 Tenemos que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manera que $\alpha \setminus \delta C$ tiene dos componentes infinitas.
-\end{lema}
-\begin{proof}
-	...
-\end{proof}	
+\end{obs}
 	
 \begin{deff}
 	Dado un grafo $\Gamma$ y $S \subset V(\Gamma)$ diremos que $\Gamma$ tiene más de un end si $\Gamma \setminus S$ tiene más de una componente conexa.
 	Caso contrario diremos que tiene al menos un end.
 \end{deff}
+
+\begin{obs}
+	Por la observación anterior tenemos que un grafo $\Gamma$ tiene más de un end si y solo sí existe un camino bi-infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
+\end{obs}
 
 %Esta definición de ends para grafos de Cayley resulta ser equivalente a la definición de ends para grupos.
 %En el trabajo \cite{} está probada la equivalencia entre estos resultados...	
@@ -101,7 +104,6 @@ Tenemos que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ 
 
 Veamos que los grafos con treewidth finito son accesibles.
 Para eso primero veamos un lema un poco más técnico.
-
 
 \begin{lema}\label{lema_corte_treewidth}
 	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
@@ -255,7 +257,87 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	Todo par de cortes óptimos $C,D \in \copt$ está anidado.
 \end{teo}
 \begin{proof}
-	\red{sorry}.
+	Tenemos dos caminos $\alpha$, $\beta$ tales que $C \in \copt(\alpha)$ y $D \in \copt(\beta)$.
+	Supongamos que $m_{\alpha} \ge m_{\beta}$.
+	Esta suposición nos dice que en el caso que $D \in {\cal C}_{\text{min}}(\alpha)$ luego por ser óptimo para $\beta$ resulta que $D \in \copt(\alpha)$.
+	Esto fuerza a que $m_{\alpha} = m_{\beta}$, por lo tanto tenemos que en este caso en particular podemos considerar simplemente el camino $\alpha$ y olvidarnos de $\beta$.
+	
+	La idea de la demostración es suponer que estos dos cortes no están anidados y llegar a una contradicción.
+	Para esto queremos encontrar cortes $E, E' \in \copt$ de manera que hagan valer la siguiente desigualdad:
+	\[
+		m(E) + m(E') < m(C) + m(D).
+	\]   
+	La validez de esta desigualdad nos diría que alguno de los dos cortes $C,D$ no es óptimo tal como supusimos.
+	
+	Consideremos el caso que $\alpha = \beta$.
+	Afirmamos que hay dos esquinas de $C,D$ tales que contienen infinitos vértices de $\alpha$.
+	Caso contrario si solamente alguna de las esquinas, supongamos $C \cap D$ tiene infinitos vértices entonces tendríamos que $|\alpha \cap \ol C| < \infty$ negando que $C \in {\cal C}(\alpha)$.
+	Cambiando los nombres a los cortes, sean estas esquinas $E = C \cap D$ y $E' = \ol C \cap \ol D$.
+	
+	Consideremos ahora el caso que $\alpha$ y $\beta$ son caminos distintos.
+	Afirmamos que hay una esquina $K$ tal que $|K \cap \alpha| < \infty$ y tal que $|K \cap \beta| < \infty$.
+	Caso contrario tendríamos que $D \cap \alpha = D \cap C \cap \alpha  \cup D \cap \ol C \cap \alpha$ e idénticamente para $\ol D$, obteniendo así que $D \in \copt(\alpha)$.
+	Por la primera observación esto nos diría que $\alpha = \beta$ así que este caso queda descartado.
+	Consideremos las esquinas $E,E'$ que son adyacentes a $K$.
+	Notemos que estas esquinas cumplen que $|E \cap \alpha| = \infty$ y que $|E' \cap \beta| = \infty$ caso contrario negaríamos que estos cortes separan en dos a los caminos.
+	Sin pérdida de generalidad supongamos que $E = C \cap D$ y que $E' = \ol C \cap \ol D$.
+	
+	Nuestros posibles candidatos a cortes óptimos son $E,E'$ pero en principio no sabemos si son cortes siquiera.
+	Sea $F$ componente conexa de $E$ tal que $|F \cap \alpha| = \infty$.
+	Notemos que $\ol C \cup \ol D \subseteq \ol F$ por lo tanto tenemos que $|\ol F \cap \alpha|=\infty$.
+	Más aún podemos ver que $\ol F$ es conexo.
+	Para eso consideremos $v,w \in \ol F$.
+	Si ambos vértices están en un mismo corte ya está porque es conexo por lo tanto tenemos un camino que los une y no toca a $F$.
+	Si no están en un mismo corte, como podría ser que $v \in C \cap \ol D$ y $w \in \ol C \cap D$ luego usando la conexión de $\ol D$ y de $\ol C$ podemos unir ambos con algún vértice en $\ol C \cap \ol D$ y así vemos que es conexo.
+	Con esto concluimos que $F$ es un corte que separa en dos partes a $\alpha$.
+	Hacemos algo similar para construirnos un corte $F' \subseteq E'$ que separe en dos partes a $\beta$.
+	
+	Veamos ahora que $E=F$ y que $E' = F'$.
+	Para eso consideremos los bordes. 
+	Por como elegimos a $E$ tenemos que $\delta E \subseteq \delta D \cup \delta C$ y similarmente para $E'$ concluyendo así que $\delta E \cup \delta E' \subseteq \delta D \cup \delta C$.
+	Por lo  usando tenemos la siguiente desigualdad,
+	\begin{align*}
+		|\delta E \cup \delta E'| & \le |\delta C \cup \delta D| \\
+		|\delta E| + |\delta E'| - |\delta (E \cap E')| & \le |\delta C| + |\delta D| - |\delta (C \cap D)|
+	\end{align*}
+	y usando que las intersecciones están acotadas obtenemos finalmente la ecuación,
+	\[
+		|\delta E| + |\delta E'| \le |\delta C| + |\delta D|.
+	\]
+	Por otro lado como $F$ es una componente conexa de $E$ tenemos que $\delta F \subseteq \delta E$ y similarmente para el caso de $F'$ dentro de $E'$.
+	Esto nos dice que en definitiva tenemos estas desigualdades,
+	\[
+		|\delta F| \le  |\delta E|, \ |\delta F'| \le |\delta E'| 
+	\]
+	y como $F$ es un corte en ${\cal C}(\alpha)$ y $F'$ es un corte en ${\cal C}(\beta)$ obtenemos finalmente que $|\delta F| = |\delta E|$ y que $|\delta F'| = |\delta E'|$ concluyendo así que $E=F$ y que $E'=F'$.
+	Así vimos que tanto $E$ como $E'$ son cortes mínimos.
+	Queremos ver ahora que son óptimos.
+	
+	Para esto probaremos primero que si $F$ es un corte anidado con $C$ o con $D$ entonces está anidado con $E$ o con $E'$.
+	Separamos en dos casos que son simétricos.
+	Si $F \cap C = \emptyset$ entonces $F \cap E= \emptyset$ y similarmente si $F \cap \ol C = \emptyset$ entonces $F \cap E' = \emptyset$.
+	Esto nos va a decir que todos los cortes que estén anidados con alguno de los dos cortes origianlaes va a estar anidado con alguno de los dos propuestos.
+	No tenemos garantizada la desigualdad de $m(E) + m(E') < m(C) + m(D)$ porque nos faltaría el caso que algún corte no esté anidado con $C$ y con $D$ a la vez.
+	Entonces supongamos que $F$ no está anidado con $C$ ni con $D$ y queremos ver que no lo está con $E$ ni con $E'$.
+	Tenemos cuatro casos a analizar.
+	\begin{enumerate}
+		\item $C \subseteq F$ y $D \subseteq \ol F$.
+		Este caso está descartado porque tendríamos que $E=\emptyset$ y sabemos que $E$ es infinito. 
+		\item $\ol C \subseteq F$ y $\ol D \subseteq \ol F$.
+		Similar al caso anterior tendríamos que $E' = \emptyset$ y es una contradicción.
+		\item $\ol C \subseteq F$ y $D \subseteq \ol F$.
+		Esto nos dice que $E \subseteq \ol F$ y que $E' \subseteq F$.
+		\item $ C \subseteq F$ y $D \subseteq \ol F$.
+		Esto nos dice que $E \subseteq F$ y que $E' \subseteq \ol F$.
+	\end{enumerate}
+	En definitiva llegamos a la siguiente desigualdad,
+	\[
+		m(E) + m(E') \le m(C) + m(D)
+	\]
+	pero nosotros queremos ver que es estricta para terminar de probar este teorema.
+	Para eso notemos que $C$ está anidado con $E$ puesto que $\ol C \cap E = \ol C \cap C \cap D = \emptyset$.
+	Idénticamente vemos que está anidado con $E'$.
+	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estriacta y por lo tanto llegamos a una contradicción de suponer que los cortes $C,D$ no están anidados.
 \end{proof}
 
 \subsection{Árbol de estructura.}
@@ -560,7 +642,7 @@ Estos bloques aparte cumplen que son conexos.
 	
 \end{proof}
 
-\begin{lema}
+\begin{lema}\label{lema_accion_b(C)}
 	Sea $\Gamma$ un grafo conexo, localmente finito y accesible tal que $G$ actúa sobre $\Gamma$ con finitas órbitas.
 	Entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
 \end{lema}
@@ -603,7 +685,7 @@ Estos bloques aparte cumplen que son conexos.
 \end{proof}
 
 
-\begin{lema}
+\begin{lema}\label{lema_bloques_1_end}
 	Los bloques $B([C])$ tienen a lo sumo un solo end.
 \end{lema}
 \begin{proof}
@@ -623,8 +705,8 @@ Estos bloques aparte cumplen que son conexos.
 	
 	Dado que $E,C \in \copt$ luego están anidados gracias a la proposición \ref{}.
 	Dos posibilidades están descartadas. 
-	Esto es imposible que $E \subseteq \ol C$ o bien $\ol E \subseteq \ol C$ porque en ambos casos contradeciríamos que $E \in {\cal C}_{\alpha}$.
-	Nos queda considerar los otros dos casos que son $E \subsetneq C$ o bien $\ol E \subsetneq C$, ambos casos los tratamos analogamente.
+	Es imposible que $E \subseteq \ol C$ o bien $\ol E \subseteq \ol C$ porque en ambos casos contradiríamos que $E \in {\cal C}_{\alpha}$.
+	Nos queda considerar los otros dos casos que son $E \subsetneq C$ o bien $\ol E \subsetneq C$, ambos casos los tratamos análogamente.
 	Por el lema \ref{lema_intermedios} tenemos que tiene que existir $D \in [C]$ tal que 
 	\[
 		E \subseteq \ol D \subsetneq C
@@ -658,7 +740,7 @@ Estos bloques aparte cumplen que son conexos.
 	
 \end{proof}
 
-\begin{lema}
+\begin{lema}\label{lema_tw_mas_1_end}
 	Sea $\Gamma$ un grafo infinito, conexo y con treewidth finito de manera que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
 	Entonces $\Gamma$ tiene más de un end.
 \end{lema}
@@ -680,6 +762,63 @@ Estos bloques aparte cumplen que son conexos.
 	Concluyendo así que $\Gamma$ tiene más de un end.
 \end{proof}
 
+Consideremos $\cG$ una clase de grupos tal que es cerrada por subgrupos de índice finito.
+En nuestro caso en particular nos va a interesar la clase de grupos finitos pero otras clases interesantes que cumplen esta propiedad son la de los grupos virtualmente libres.
+
+\begin{prop}\label{prop_clase_grupos_accion}
+	Sea $\Gamma$ un grafo conexo, localmente finito, accesible y tal que $\aut(\Gamma)$ actúa con finitas órbitas.
+	Consideremos que para todo vértice $v \in V(\Gamma)$ tenemos que $G_{v} \in \cG$.
+	Entonces:
+	\begin{enumerate}
+		\item $G$ actúa con estabilizadores virtualmente $\cG$ en las aristas de $T(\copt)$.
+		\item Si $B([C])$ es finito para todo $C \in \copt$ entonces $G$ actúa con estabilizadores virtualmente $\cG$ en los vértices de $T(\copt)$.
+	\end{enumerate}	
+\end{prop}
+
+\begin{proof}
+	Primero veamos que dado $U \subseteq V(\Gamma)$ finito tenemos que $G_{U}$ es virtualmente $\cG$.
+	Tenemos el morfismo $G_{U} \to \Sy(U)$ que tiene como núcleo al subgrupo $\bigcap_{u \in U} G_u$ de índice finito en $G_U$.
+	Veamos que esta intersección es un grupo que está en $\cG$.
+	
+	Si tomamos $k \in \NN$ tenemos que $G_{v}$ actúa sobre $B_{k}(v) = \{ w \in V(\Gamma) : d(w,v) \le k  \}$.
+	Dado que $\Gamma$ es localmente finito tenemos que $B_{k}(v)$ es finito y así que si $N$ es el núcleo de $G_{v} \to B_{k}(v)$ entonces tiene índice finito y por lo tanto $N$ está en $\cG$.
+	Como $N \le \bigcap_{u \in U} G_{u}$ luego tenemos así que $\bigcap_{u \in U} G_{u}$ está en $\cG$.
+
+	Probemos \textbf{1}.
+	Tenemos que si $g \in G_{(C),(\ol C)}$ luego como el grupo $G$ actúa con finitas órbitas y $\beta C$ es finito debe ser que existe $U \in V(\Gamma)$ de manera que $g \in G_{U}$.
+	Como $N \le G_{([C],[\ol C])}$ luego tenemos que $G_{([C],[\ol C])}$ es virtualmente $\cG$.
+	%Acá esto sale con la cuenta de los índices si quiero escribir más detalladamente.
+	
+	Probemos que vale \textbf{2}.
+	Por el lema \ref{lema_accion_b(C)} tenemos que si $B([C])$ es finito entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
+	Por el mismo razonamiento de antes llegamos a que
+\end{proof}
 
 
+
+\begin{teo}\label{teo_tw_accion_central}
+	Sea $\Gamma$ grafo conexo, localmente finito con treewidth finito.
+	Sea $G$ grupo que actúa en $\Gamma$ por medio de automorfismos con finitas órbitas y tal que para cada vértice $v \in V(\Gamma)$ tenemos que el estabilizador $G_{v}$ es finito.
+	Entonces $G$ actúa en $T(\copt)$ con finitas órbitas y con estabilizadores finitos.
+\end{teo}
+\begin{proof}
+	Por la proposición \ref{lema_finitas_orbitas} tenemos que $G$ actúa con finitas órbitas sobre $T(\copt)$.
+	
+	Veamos ahora que los estabilizadores son finitos.
+	Para eso queremos ver primero que $B([C])$ es finito.
+	Para esto notemos que $B([C])$ tiene treewidth finito por ser subgrafo de un grafo con treewidth finito y aparte resulta ser accesible por el teorema \ref{teo_treewidth_fin_accesible}.
+	Esto nos dice que $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
+	Ahora supongamos que $B([C])$ es infinito, en este caso por el lema \ref{lema_tw_mas_1_end} tendríamos que debería tener más de un end pero anteriormente vimos en el lema \ref{lema_bloques_1_end} que estos grafos no pueden tener más de end.
+	De esta manera descartamos que $B([C])$ es infinito y por lo tanto es finito.
+	Ahora para finalizar usamos el resultado \ref{prop_clase_grupos_accion} para la clase $\cG$ de los grupos finitos.
+\end{proof}
+
+
+\begin{coro}
+	Si $G$ es un grupo con treewidth finito entonces $G$ es el grupo fundamental de un grafo de grupos con grupos finitos en sus vértices y aristas.
+\end{coro}
+\begin{proof}
+	Usamos el resultado anterior \ref{teo_tw_accion_central} para obtener que actúa sobre un árbol con finitas órbitas y con estabilizadores finitos.
+	Por el teorema central de Bass Serre \ref{} concluímos lo que queríamos probar.
+\end{proof}
 \end{document}

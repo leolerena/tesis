@@ -617,12 +617,11 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 \subsection{El problema de la palabra.}
 
 Todo grupo $G$ lo podemos ver como un monoide. 
-En particular si tenemos un grupo $G$ tal que es \fg por algún conjunto finito $X$ entonces es \fg como monoide por el conjunto simétrico de generadores $Y = X \cup X^{-1}$.
+En particular si tenemos un grupo $G$ tal que es finitamente generado como grupo por algún conjunto finito $X$ entonces es finitamente generado como monoide por el conjunto simétrico de generadores $Y = X \cup X^{-1}$.
 Sea entonces $\Sigma$ conjunto finito de generadores como monoide de $G$
-por lo tanto tenemos un epimorfismo de monoides $\pi: \Sigma^* \twoheadrightarrow  G$. 
+por lo tanto tenemos un epimorfismo de monoides desde el monoide libre $\pi: \Sigma^* \twoheadrightarrow  G$. 
 
-%El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explícitamente el problema consiste en dada una palabra $\omega \in \Sigma^*$ en los generadores del grupo encontrar un algoritmo para decidir si esta palabra es la identidad del grupo o no. 
-%Notemos que para poder pensar este problema estamos fijando de antemano algún conjunto de generadores posible del grupo.
+El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explícitamente el problema consiste en encontrar un algoritmo que dada una palabra $\omega \in \Sigma^*$ decida si esta palabra es la identidad del grupo o no. 
 
 \begin{deff}
 El \blue{problema de la palabra de $G$ para los generadores $\Sigma$} es el siguiente lenguaje,	
@@ -630,8 +629,6 @@ El \blue{problema de la palabra de $G$ para los generadores $\Sigma$} es el sigu
 \end{deff}
 
 Dado que este lenguaje depende del conjunto de generadores elegido nos gustaría ver qué condiciones tienen que cumplir los lenguajes o los grupos para que no exista esta dependencia en los generadores.
-
-%Queremos ver sobre qué clases de lenguajes el problema de la palabra queda bien definido y no depende de los generadores elegidos.
 
 
 En el contexto del problema de la palabra nos van a interesar las familias de lenguajes que cumplen las siguientes propiedades.
