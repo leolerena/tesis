@@ -653,7 +653,12 @@ Estos bloques aparte cumplen que son conexos.
 	Ya sabemos que $G_{[C]}$ actúa sobre $B([C])$ justamente por el lema previo \ref{lema_g_actua_b(C)}.
 	Queremos ver que lo hace con finitas órbitas.
 	
-	Para eso vamos a ver que existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D \sim C$ tal que $d(v,\beta D) \le m$.
+	Para eso vamos a ver que existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D$ que cumple las siguientes dos propiedades:
+	\begin{itemize}
+		\item $D \sim C$.
+		\item $d(v,\beta D) \le m$.
+	\end{itemize}
+	
 	Como $G$ actúa con finitas órbitas sobre $\copt$ en particular lo hace sobre el subconjunto $\bigcup_{D \sim C} \beta D$.
 	Dado que el grafo resulta ser localmente finito tenemos que entonces todo $v \in B([C])$ tendría que estar en la órbita de alguno de estos finitos elementos.
 	
@@ -791,7 +796,7 @@ En nuestro caso en particular nos va a interesar la clase de grupos finitos pero
 	
 	Probemos que vale \textbf{2}.
 	Por el lema \ref{lema_accion_b(C)} tenemos que si $B([C])$ es finito entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
-	Por el mismo razonamiento de antes llegamos a que
+	Por el mismo razonamiento de antes llegamos a que los estabilizadores son virtualmente $\cG$ en los vértices de $T(\copt)$ tal como queríamos ver.
 \end{proof}
 
 

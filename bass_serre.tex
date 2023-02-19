@@ -216,46 +216,76 @@ La idea, aparte de ejemplificar en unos casos en particular, es que más en adel
 Entonces probar resultados sobre otros grafos se va a reducir a la demostraciones que tengamos de estos otros casos bases más comprendidos.
 
 \subsubsection{Segmentos y grupos amalgamados.}
-Consideremos que nuestro grafo de grupos $\cG$ está dado sobre cierto segmento $Y$ de la siguiente pinta.
+Consideremos que nuestro grafo de grupos $\cG$ está dado sobre cierto segmento $Y$ de la siguiente pinta,
+\[\begin{tikzcd}
+	{P \ \ \bullet} && {\bullet \ \ Q}
+	\arrow["y"{pos=0.6}, from=1-1, to=1-3]
+\end{tikzcd}\]
 
 Calculemos el grupo fundamental de este grafo de grupos.
 Como podemos tomar al árbol de expansión al mismo segmento entonces $\pi_1(\cG, T)$ resulta ser el grupo que tomamos libre sobre $G_P$ y $G_Q$ en el que identificamos al subgrupo $G_y$ de $G_P$ con el subgrupo isomorfo $G_{\overline y}$ de $G_Q$.
 De esta manera el grupo que conseguimos es el grupo amalgamado $G_P \ast_{G_y} G_Q$. 
 
+Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y sea $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
+Las \emph{formas normales} van a ser sucesiones $(x_0,x_1,\dots,a)$ tales que $a \in A$ y $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no hay elementos consecutivos $x_{i}, x_{i+1}$ en el mismo conjunto de representantes.
+
 A continuación veremos un resultado que nos servirá para tener una escritura única y particular de cada palabra sobre los generadores de un grupo amalgamado.
 \begin{prop}
-	Toda palabra sobre el grupo amalgamado $G_P \ast_{G_y} G_Q$ se puede escribir de la siguiente forma:
-	
+	Para todo elemento $g$ de un grupo amalgamado $G_P \ast_{G_y} G_Q$ existe una única forma normal $(x_0,x_1,\dots,a)$ tal que $g= x_0x_1\dots a$.
 \end{prop}
 \begin{proof}
-	\red{sorry}
+	Ver \cite{lyndon1977combinatorial}
 \end{proof}
  
-Esta forma para cada palabra la llamaremos la forma normal de $w$.
 \subsubsection{Bucles y grupos HNN.}
 
-Si el grafo resulta ser un loop
-\todo[inline]{Agregar grafiquito de un loop.}
+Si el grafo $Y$ resulta ser un bucle
+\[
+	\begin{tikzcd}
+		\overset{P}{\bullet} \arrow["y", loop, distance=2em, in=325, out=35]
+	\end{tikzcd}
+\]
+
 entonces no tiene árbol de expansión de manera que esto nos dice que $F(\cG) \simeq \pi_1(\cG)$.
-Notaremos por $a$ a cada elemento de $G_y$ mientras que notaremos por $\overline{a}$ a cada elemento del grupo isomorfo $G_{\ol{y}}$.
+Notaremos por $a$ a cada elemento de $G_y$ mientras que notaremos por $\overline{a}$ a la imagen por el isomorfismo de $a$ en el grupo $G_{\ol y}$.
 Sea $g$ el generador de $F_{y}$, es decir el correspondiente a la única arista de este grafo. 
 En este caso las relaciones que tenemos en nuestro grupo son las siguientes
 \[
 	g^{-1}ag = \ol{a}  \  \ \ \text{para todo} \ a \in G_y.
 \]   
-De esta manera tenemos que una presentación de nuestro grupo es la siguiente:
+De esta manera tenemos que una presentación de nuestro grupo es la siguiente
+\[
+	\pi_1(\cG) = \langle G_P, g \ | \ g^{-1}ag = \ol{a}, \ a \in G_y \rangle
+\]
+es decir el grupo fundamental de este grafo de grupos resulta ser una extensión HNN del estabilizador del vértice que denotaremos $G_P^{\ast G_y}$.
+
+Así como hicimos en los grupos amalgamados podemos considerar formas normales en estos grupos.
+Sea $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
+Una forma normal para una extensión HNN va a ser una sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ donde $x_0 \in G_P$ es algún elemento arbitrario de este grupo.
+Tenemos que $\epsilon_{i} \in \{ -1,1 \}$.
+En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$. 
 
 
 Ahora veamos un resultado análogo al que demostramos anteriormente para grupos amalgamados que nos dirá una manera de escribir las palabras en estos grupos.
+
+\begin{prop}
+	Para todo elemento $g \in G_P^{\ast G_y}$ existe una única forma normal $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ tal que $g = x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n},g^{\epsilon_n}h$.
+\end{prop}
+\begin{proof}
+	Ver \cite{lyndon1977combinatorial}
+\end{proof}
+
+Un refinamiento de esta proposición nos dice una condición necesaria para que una forma normal no represente el neutro del grupo.
+Consideremos una sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ no necesariamente en forma normal. 
+Esto es que supongamos que $x_i \in G_P$ para todo $i$.
+Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},x_i,t$ con $x_i \in A$ o bien tal que $t,x_i,t^{-1}$ con $x_i \in B$.
+Esto es que no nos aparezcan como supbalabras relaciones del grupo.
+
 \begin{teo}[Britton]
-	Toda palabra $w$ de un grupo $G$ de tipo HNN es tal que se puede escribir de la siguiente manera:
-	\[
-	...
-	\]
-	donde ...
+	Si $x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n}g^{\epsilon_n}x_{n+1} = 1$ entonces la sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ no está reducida.
 \end{teo}
 \begin{proof}
-	.
+	Ver \cite{lyndon1977combinatorial}.
 \end{proof}
 \subsection{Palabras reducidas.}
 
@@ -287,7 +317,7 @@ Nuestro objetivo es el siguiente teorema:
 En particular de este teorema obtenemos los siguientes corolarios de bastante utilidad.
 
 \begin{coro}\label{coro_pal_red_1}
-	Para todo $P \in V(Y)$ vale que $G_P \le F(\cG)$.
+	Para todo $P \in V(Y)$ vale que $G_P$ es un subgrupo de $F(\cG)$.
 \end{coro}
 \begin{proof}
 	Es el caso que $c$ es el camino constante.
