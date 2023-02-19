@@ -337,7 +337,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	pero nosotros queremos ver que es estricta para terminar de probar este teorema.
 	Para eso notemos que $C$ está anidado con $E$ puesto que $\ol C \cap E = \ol C \cap C \cap D = \emptyset$.
 	Idénticamente vemos que está anidado con $E'$.
-	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estriacta y por lo tanto llegamos a una contradicción de suponer que los cortes $C,D$ no están anidados.
+	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estricta y por lo tanto llegamos a una contradicción de suponer que los cortes $C,D$ no están anidados.
 \end{proof}
 
 \subsection{Árbol de estructura.}
@@ -654,10 +654,10 @@ Estos bloques aparte cumplen que son conexos.
 	Queremos ver que lo hace con finitas órbitas.
 	
 	Para eso vamos a ver que existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D$ que cumple las siguientes dos propiedades:
-	\begin{itemize}
+	\begin{enumerate}
 		\item $D \sim C$.
 		\item $d(v,\beta D) \le m$.
-	\end{itemize}
+	\end{enumerate}
 	
 	Como $G$ actúa con finitas órbitas sobre $\copt$ en particular lo hace sobre el subconjunto $\bigcup_{D \sim C} \beta D$.
 	Dado que el grafo resulta ser localmente finito tenemos que entonces todo $v \in B([C])$ tendría que estar en la órbita de alguno de estos finitos elementos.
@@ -826,4 +826,9 @@ En nuestro caso en particular nos va a interesar la clase de grupos finitos pero
 	Usamos el resultado anterior \ref{teo_tw_accion_central} para obtener que actúa sobre un árbol con finitas órbitas y con estabilizadores finitos.
 	Por el teorema central de Bass Serre \ref{} concluímos lo que queríamos probar.
 \end{proof}
+
+
+De este resultado nos sale gratis la construcción de un árbol tal que sea cuasisométrico al grafo que tiene treewidth finito.
+(...)
+
 \end{document}

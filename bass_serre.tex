@@ -230,7 +230,7 @@ Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y sea $T$ transversal a izq
 Las \emph{formas normales} van a ser sucesiones $(x_0,x_1,\dots,a)$ tales que $a \in A$ y $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no hay elementos consecutivos $x_{i}, x_{i+1}$ en el mismo conjunto de representantes.
 
 A continuación veremos un resultado que nos servirá para tener una escritura única y particular de cada palabra sobre los generadores de un grupo amalgamado.
-\begin{prop}
+\begin{prop}\label{prop_amalgamado_formanormal}
 	Para todo elemento $g$ de un grupo amalgamado $G_P \ast_{G_y} G_Q$ existe una única forma normal $(x_0,x_1,\dots,a)$ tal que $g= x_0x_1\dots a$.
 \end{prop}
 \begin{proof}
@@ -268,7 +268,7 @@ En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras
 
 Ahora veamos un resultado análogo al que demostramos anteriormente para grupos amalgamados que nos dirá una manera de escribir las palabras en estos grupos.
 
-\begin{prop}
+\begin{prop}\label{prop_hnn_formanormal}
 	Para todo elemento $g \in G_P^{\ast G_y}$ existe una única forma normal $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ tal que $g = x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n},g^{\epsilon_n}h$.
 \end{prop}
 \begin{proof}
@@ -281,7 +281,7 @@ Esto es que supongamos que $x_i \in G_P$ para todo $i$.
 Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},x_i,t$ con $x_i \in A$ o bien tal que $t,x_i,t^{-1}$ con $x_i \in B$.
 Esto es que no nos aparezcan como supbalabras relaciones del grupo.
 
-\begin{teo}[Britton]
+\begin{teo}[Britton]\label{teo_britton}
 	Si $x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n}g^{\epsilon_n}x_{n+1} = 1$ entonces la sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ no está reducida.
 \end{teo}
 \begin{proof}
@@ -531,7 +531,7 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 		\]
 		donde $G_{P_{-1}} \ast_{G_y} G_{P_1} \simeq \pi_1(\cG, T)$ donde $T$ es el mismo segmento $Y$ en este caso. 
 		Acá estamos usando que el grupo fundamental de un segmento es un grupo amalgamado.
-		Dado que conocemos como son las palabras reducidas en los grupos amalgamados por \ref{} entonces vemos que $(c, \mu)$ no es la identidad porque justamente 
+		Dado que conocemos como son las palabras reducidas en los grupos amalgamados por \ref{prop_amalgamado_formanormal} entonces vemos que $(c, \mu)$ no es la identidad porque justamente 
 		\[
 			\phi(|c,\mu|) = r_0 \dots r_n \neq 1
 		\]
@@ -544,7 +544,7 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 		De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ sobre $W$ por lo que $|c',\mu'| \neq 1$ y usando el lema \ref{lema_pal_red_iso} tenemos que $|c, \mu| \neq 1$.
 		
 		\item El caso que $Y$ es un bucle.
-		Dado que en este caso el grupo $F(\cG)$ resulta ser una extensión de tipo HNN por lo visto en la sección anterior podemos aplicar el lema de Britton \ref{} que justamente nos muestra que esta palabra es distinta de la identidad en el grupo $F(\cG)$.
+		Dado que en este caso el grupo $F(\cG)$ resulta ser una extensión de tipo HNN por lo visto en la sección anterior podemos aplicar el lema de Britton \ref{teo_britton} que justamente nos muestra que esta palabra es distinta de la identidad en el grupo $F(\cG)$.
 		
 		\item El caso general.
 		Lo probamos por inducción en la cantidad de vértices. 
@@ -703,7 +703,7 @@ Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ d
 	Para llegar a la contradicción veamos que esto que obtuvimos viene de una palabra reducida de manera que no podría ser la identidad.
 	Sea la palabra $(c, \mu)$ para $F(\cG)$ dada por el camino $c$ anteriormente definido y la sucesión $\mu = (1,r_1, \dots, r_n)$.
 	Solo nos queda ver que efectivamente es una palabra reducida. 
-	Para eso debemos chequear que se cumpla la condición \textbf{R2} de \ref{} ya que suponemos que tiene longitud al menos $1$.
+	Para eso debemos chequear que se cumpla la condición \textbf{R2}, de la definición de las palabras reducidas, ya que suponemos que tiene longitud al menos $1$.
 	
 	Supongamos que existe $i$ tal que $y_{i+1} = \ol{y_i}$ por lo que $g_{i+1} = g_{i}$ y $e_{i+1} = 1 - e_i$.
 	Queremos ver que para ese mismo $i$ vale que $r_i \notin G_{y_i}$.
@@ -821,7 +821,7 @@ Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del gr
 	Por como está definido $\varphi$ sabemos que $\varphi(g) = g$. 
 \end{proof}
 
-\begin{prop}
+\begin{prop}\label{prop_morf_grp_restr_sobre}
 	El morfismo de grupos restringido al subgrupo $\varphi: \pi_1(\cG, P) \to G$ es sobreyectivo.
 \end{prop}
 
@@ -965,7 +965,7 @@ Probemos ahora que nuestro morfismo de grafos $\psi$ cumple esta propiedad.
 	Primero veamos que es sobreyectivo.
 	Sabemos que $G \cdot Y = X$ si miramos a $Y$ como subgrafo de $X$.
 	Consideremos un vértice $\widetilde P \in V(X)$ que por lo visto lo podemos escribir como $\widetilde P = g P$ para cierto $g \in G$ y para cierto $P \in V(Y)$.
-	Por el resultado anterior \ref{} sabemos que el morfismo de grupos $\varphi$ resulta ser sobreyectivo.
+	Por el resultado anterior \ref{prop_morf_grp_restr_sobre} sabemos que el morfismo de grupos $\varphi$ resulta ser sobreyectivo.
 	De esta manera tenemos que dado $g \in G$ existe $h \in G$ tal que $\varphi(h) = g$. 
 	Luego alcanza con tomar como vértice a $h G_P P $ de manera que 
 	\[
@@ -984,7 +984,7 @@ Probemos ahora que nuestro morfismo de grafos $\psi$ cumple esta propiedad.
 		En este caso tenemos que $\psi(y) = \varphi(g) \iota (y)$ mientras que $\psi(y) = \varphi(g) \iota (y')$.
 		Como son elementos de órbitas distintas no pueden ser el mismo elemento y de esta manera concluimos que $\psi(y) \neq \psi(y').$
 		\item El otro caso es que $Gy = Gy'$. 
-		En este caso lo que hacemos primero es fijar algún vértice $P \in V(X)$ tal que nos permita escribir a estas aristas como palabras reducidas usando el resultado \ref{}.
+		En este caso lo que hacemos primero es fijar algún vértice $P \in V(X)$ tal que nos permita escribir a estas aristas como palabras reducidas usando el resultado \ref{teo_pal_red}.
 		De esta manera obtenemos la siguiente escritura 
 		\[
 		Q = (c_0y_1c_1y_2 \dots y_k)
@@ -1061,7 +1061,7 @@ Es el resultado central de la teoría de Bass Serre.
 		 \]
 		 pero esto nos diría que $P = Q$ dado que ambos son representantes de las órbitas de la acción de $G$ sobre el árbol $T$. 
 		 Por otro lado obtenemos que $\varphi(g h^{-1}) P  =  P$ y así $\varphi(gh^{-1}) \in G_P$. 
-		 Como $\varphi$ es un isomorfismo y en particular es inyectiva restringida al subgrupo $G_P$ por el lema \ref{} deducimos que $gh^{-1} \in G_P$.
+		 Como $\varphi$ es un isomorfismo y en particular es inyectiva restringida al subgrupo $G_P$ por la proposición \ref{prop_morf_grp_restr_sobre} deducimos que $gh^{-1} \in G_P$.
 		 Así ambos cosets son idénticos $g G_P = h G_P$ y por lo tanto vimos que los dos vértices son idénticos $gG_PP  = hG_QQ$ y de esta manera probamos que $\psi$ es inyectiva.
 \end{proof}
 

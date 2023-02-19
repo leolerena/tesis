@@ -279,10 +279,10 @@ Otra manera de definir el borde de un conjunto de vértices $C$ puede ser
 	\end{enumerate}
 \end{ej}
 
-
-
 \subsection{Cuasisometrías.}
 
+Nuestro objetivo es introducir las cuasisometrías para garantizar que la propiedad de tener treewidth finito no dependa de los generadores elegidos.
+Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017geometric}.
 
 \begin{deff}
 	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
@@ -299,17 +299,42 @@ Otra manera de definir el borde de un conjunto de vértices $C$ puede ser
 	\end{itemize}
 \end{deff}
 
-
+Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. 
+\medskip
 \begin{prop}
-	Si existe $f:X \to Y$ cuasisometría entonces también debe haber $g:Y \to X$ cuasisometría.
+	Si existe $f:X \to Y$ cuasisometría entonces también debe existir $g:Y \to X$ cuasisometría y constantes positivas $C,D \in \RR$ tal que:
+	\begin{itemize}
+		\item $d(g \circ f (x), x) < C$ para todo $x \in X$.
+		\item $d(f \circ g (y), y) < D$ para todo $y \in Y$. 
+	\end{itemize}
 \end{prop}
 \begin{proof}
-	Resultado estándar. Ver \cite{bridson2013metric}.
+	Ver \cite{loh2017geometric}.
 \end{proof}
 
 \begin{deff}
 	Dos espacios métricos que se dicen \emph{cuasisométricos} si existe una cuasisometría entre ellos.
 \end{deff}
+
+Vale el siguiente resultado.
+\begin{prop}
+	Ser cuasisométricos es una relación de equivalencia entre espacios métricos.
+\end{prop}
+\begin{proof}
+	Ver \cite{loh2017geometric}.
+\end{proof}
+
+
+Todo grafo de Cayley lo podemos pensar como un espacio métrico tal como lo definimos en la sección \ref{seccion_treewidth}.  
+Veamos que esto no depende de los generadores que hayamos elegido.
+
+\begin{prop}
+	Sea $G$ grupo \fg por $\Sigma$ y $\Delta$ conjuntos finitos entonces $\text{Cay}(G,\Sigma)$ y $\text{Cay}(G, \Delta)$ son cuasisométricos entre sí.
+\end{prop}
+
+\begin{proof}
+	Resultado estándar. Ver \cite{bridson2013metric}.
+\end{proof}
 
 
 \begin{obs}
@@ -342,35 +367,16 @@ Otra manera de definir el borde de un conjunto de vértices $C$ puede ser
 	Para ver que la imagen es cuasidensa idénticamente tomando $C+1$ nos sirve.
 	En definitiva $f$ definida de esta manera es una cuasisometría con constante $C+1$.	
 \end{obs}
+%
+%\begin{ej}
+%	Ejemplo de $\ZZ \times \ZZ$ para ver que no es cuasisométrico con un árbol o bien podría rehacer el ejemplo de la parte anterior.
+%\end{ej}
 
 
-Todo espacio métrico es cuasisométrico consigo mismo por medio de la identidad.
-La composición de cuasisometrías también sigue siendo una cuasisometría.
-Con esta proposición vemos que ser cuasisométricos es una relación de equivalencia entre los espacios métricos. 
+%Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. 
+%Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
 
-
-Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. 
-\medskip
-
-\begin{ej}
-	Ejemplo de $\ZZ \times \ZZ$ para ver que no es cuasisométrico con un árbol o bien podría rehacer el ejemplo de la parte anterior.
-\end{ej}
-
-Todo grafo de Cayley lo podemos pensar como un espacio métrico tal como lo definimos en la sección \ref{seccion_treewidth}.  
-Veamos que esto no depende de los generadores que hayamos elegido.
-
-\begin{prop}
-	Sea $G$ grupo \fg por $\Sigma$ y $\Delta$ conjuntos finitos entonces $\text{Cay}(G,\Sigma)$ y $\text{Cay}(G, \Delta)$ son cuasisométricos entre sí.
-\end{prop}
-
-\begin{proof}
-	Resultado estándar. Ver \cite{bridson2013metric}.
-\end{proof}
-
-
-
-Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. 
-Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
+Veamos ahora que el treewidth es un invariante por cuasisometría y entonces no depende de los generadores elegidos y por lo tanto es una propiedad intrínseca del grupo. 
 
 \begin{prop} \label{treewidth-inv}
 	El treewidth finito es un invariante por cuasisometría para grafos con grado acotado uniformemente.
@@ -495,45 +501,39 @@ Como caso particular tenemos los grafos de Cayley de grupos finitamente generado
 	Un grafo $X$ de grado acotado uniformemente cuasisométrico con un árbol tiene treewidth finito.
 \end{prop}
 \begin{proof}	
-	%Para la ida veamos de armarnos la cuasisometría a partir de la descomposición en árbol del grafo $X$. 
-	%Definamos entonces la cuasisometría $q: T \to X$ a partir de mandar $t \to x_t$ donde $x_t \in X_t$ es algún elemento del bolsón correspondiente a $t \in V(T)$ que sabemos que no es vacío. 
-	%Esta función es una cuasisometría con constante $C=1$ y $A = bs(T) + 1$.
-	%
-	%Hay que ver la distancia dentro de un bolsón esté controlada.
-	%Si los bolsones los tomamos conexos \ref{} entonces notemos que la mayor distancia posible es...
-	Dado que el grafo $X$ es cuasisométrico a un árbol $T$, por la observación \ref{desc-arbol-arbol} este tiene treewidth exactamente 1.
-	Por la proposición anterior \ref{treewidth-inv} como es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
+	El grafo $X$ es cuasisométrico a un árbol $T$ y todo árbol por la observación \ref{desc-arbol-arbol} tiene treewidth exactamente $1$.
+	Por la proposición anterior \ref{treewidth-inv} como tener treewidth finito es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
 \end{proof}
 
-\begin{coro}
-	Todo grupo independiente de contexto es tal que su grafo de Cayley es cuasisométrico a un árbol.
-\end{coro}
-\begin{proof}
-	Por \ref{teo_schupp_muller_ic_desc} todo grupo independiente de contexto tiene treewidth finito y usando la proposición recién demostrada concluímos que su grafo de Cayley es cuasisométrico a un árbol.
-\end{proof}
-
-
-\begin{prop}\label{cuasisometria-subgrupo-ind-finito}
-	Sea $G$ grupo \fg entonces si $H$ es un subgrupo de índice finito resulta que son cuasisométricos.
-\end{prop}
-\begin{proof}
-	Resultado estándar pero no tan elemental de demostrar. 
-	Es un corolario de Milnor Schwarz.
-	Ver \cite{loh2017geometric}.
-\end{proof}
-
-Esto nos dice que todo grupo es cuasisométrico con los subgrupos de índice finito. 
-De esta manera obtenemos el siguiente resultado,
-
-\begin{prop}
-	Todo grafo de Cayley de un grupo virtualmente libre es cuasisométrico a un árbol.
-\end{prop}
-
-\begin{proof}
-	Si $G$ es virtualmente libre entonces existe $F \le G$ grupo libre de índice finito.
-	Por la prop anterior \ref{cuasisometria-subgrupo-ind-finito} tenemos que el grafo de Cayley de $G$ es cuasisométrico con el de $H$.
-	Por el resultado \ref{} sabemos que los grafos de grupos libres son árboles y así queda demostrada la proposición.
-\end{proof}
+%\begin{coro}
+%	Todo grupo independiente de contexto es tal que su grafo de Cayley es cuasisométrico a un árbol.
+%\end{coro}
+%\begin{proof}
+%	Por \ref{teo_schupp_muller_ic_desc} todo grupo independiente de contexto tiene treewidth finito y usando la proposición recién demostrada concluímos que su grafo de Cayley es cuasisométrico a un árbol.
+%\end{proof}
+%
+%
+%\begin{prop}\label{cuasisometria-subgrupo-ind-finito}
+%	Sea $G$ grupo \fg entonces si $H$ es un subgrupo de índice finito resulta que son cuasisométricos.
+%\end{prop}
+%\begin{proof}
+%	Resultado estándar pero no tan elemental de demostrar. 
+%	Es un corolario de Milnor Schwarz.
+%	Ver \cite{loh2017geometric}.
+%\end{proof}
+%
+%Esto nos dice que todo grupo es cuasisométrico con los subgrupos de índice finito. 
+%De esta manera obtenemos el siguiente resultado,
+%
+%\begin{prop}
+%	Todo grafo de Cayley de un grupo virtualmente libre es cuasisométrico a un árbol.
+%\end{prop}
+%
+%\begin{proof}
+%	Si $G$ es virtualmente libre entonces existe $F \le G$ grupo libre de índice finito.
+%	Por la prop anterior \ref{cuasisometria-subgrupo-ind-finito} tenemos que el grafo de Cayley de $G$ es cuasisométrico con el de $H$.
+%	Por el resultado \ref{} sabemos que los grafos de grupos libres son árboles y así queda demostrada la proposición.
+%\end{proof}
 
 	
 	
