@@ -247,10 +247,9 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 		\item $Q$ es un conjunto finito denominado los \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
 		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
-		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times \Sigma \cup \{ \lambda \} \times \Gamma \to {\cal P}( Q  \times \Gamma^*)$;
+		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times \Sigma \cup \{ \lambda \} \times \Gamma \cup \{ \lambda \} \to {\cal P}( Q  \times \Gamma)$;
 		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
 		\item $q_0 \in Q$ es el \emph{estado inicial};
-		\item $Z_0 \in Z$ es el \emph{símbolo inicial} en la pila.
 	\end{itemize}
 \end{deff}
 
