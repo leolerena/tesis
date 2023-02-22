@@ -116,7 +116,7 @@ Para eso primero veamos un lema un poco más técnico.
 	Propondremos $k = dm$ como la constante que buscamos.
 	
 	Consideremos $t_0 \in V(T)$ de manera que $v_0 \in X_t$.
-	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la proposición \ref{} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_{{t}_0}$.
+	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la proposición \ref{prop-camino-desc} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_{{t}_0}$.
 	Como estos caminos que consideramos son simples y los bolsones $|X_{t_0}| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_{t_0}$ tal que interseca infinitas veces al camino $\gamma$.
 	Nombraremos a esta componente conexa $C_{t_0,\gamma}$.
 	
@@ -127,7 +127,8 @@ Para eso primero veamos un lema un poco más técnico.
 	\[
 		X_{t_l} \cap B_n(v_0) = \emptyset
 	\]
-	Esto porque por la proposición \ref{} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones y que el grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)| < \infty$.
+	Esto porque por la proposición \ref{prop_tw_finitos_bolsones} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones.
+	El grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)|$ es finita.
 	
 	Ahora vamos a buscar el corte $D$. 
 	Para eso vamos a necesitar un conjunto conexo con complemento conexo y no vacío tal que su borde sea finito.
@@ -158,7 +159,7 @@ Para eso primero veamos un lema un poco más técnico.
 \begin{proof}
 	Tomemos $\alpha$ un camino bi-infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
 	Sea $C \in {\cal C}(\alpha)$.
-	Veamos de construirnos un $k$-corte que $D$ de manera que $D \in {\cal C}(\alpha)$.
+	Veamos de construirnos un $k$-corte $D$ de manera que $D \in {\cal C}(\alpha)$.
 	
 	Fijemos $v_0  \in \partial C$ y consideremos el siguiente número natural,
 	\[
@@ -173,7 +174,6 @@ Para eso primero veamos un lema un poco más técnico.
 
 
 \subsection{Cortes mínimos.}
-En esta subsección vamos a construir un árbol a partir de ciertos cortes de un grafo de manera que este árbol nos de una descomposición.
 
 \begin{deff}
 	Dado $\alpha$ camino bi-infinito definimos el conjunto de sus cortes mínimos como
@@ -295,7 +295,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	Veamos ahora que $E=F$ y que $E' = F'$.
 	Para eso consideremos los bordes. 
 	Por como elegimos a $E$ tenemos que $\delta E \subseteq \delta D \cup \delta C$ y similarmente para $E'$ concluyendo así que $\delta E \cup \delta E' \subseteq \delta D \cup \delta C$.
-	Por lo  usando tenemos la siguiente desigualdad,
+	De esto se sigue la siguiente desigualdad,
 	\begin{align*}
 		|\delta E \cup \delta E'| & \le |\delta C \cup \delta D| \\
 		|\delta E| + |\delta E'| - |\delta (E \cap E')| & \le |\delta C| + |\delta D| - |\delta (C \cap D)|
@@ -316,7 +316,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	Para esto probaremos primero que si $F$ es un corte anidado con $C$ o con $D$ entonces está anidado con $E$ o con $E'$.
 	Separamos en dos casos que son simétricos.
 	Si $F \cap C = \emptyset$ entonces $F \cap E= \emptyset$ y similarmente si $F \cap \ol C = \emptyset$ entonces $F \cap E' = \emptyset$.
-	Esto nos va a decir que todos los cortes que estén anidados con alguno de los dos cortes origianlaes va a estar anidado con alguno de los dos propuestos.
+	Esto nos va a decir que todos los cortes que estén anidados con alguno de los dos cortes originales va a estar anidado con alguno de los dos propuestos.
 	No tenemos garantizada la desigualdad de $m(E) + m(E') < m(C) + m(D)$ porque nos faltaría el caso que algún corte no esté anidado con $C$ y con $D$ a la vez.
 	Entonces supongamos que $F$ no está anidado con $C$ ni con $D$ y queremos ver que no lo está con $E$ ni con $E'$.
 	Tenemos cuatro casos a analizar.
@@ -344,6 +344,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 
 Todos los grafos que vamos a considerar a partir de ahora son accesibles.
 Veamos que los caminos óptimos resultan ser un poset discreto con la inclusión en este caso.
+En esta subsección vamos a construir un árbol a partir de ciertos cortes de un grafo de manera que este árbol nos de una descomposición.
 
 \begin{lema}\label{lema_intermedios}
 	Si $C,D \in \copt$ luego 
@@ -824,7 +825,7 @@ En nuestro caso en particular nos va a interesar la clase de grupos finitos pero
 \end{coro}
 \begin{proof}
 	Usamos el resultado anterior \ref{teo_tw_accion_central} para obtener que actúa sobre un árbol con finitas órbitas y con estabilizadores finitos.
-	Por el teorema central de Bass Serre \ref{} concluímos lo que queríamos probar.
+	Por el teorema central de Bass Serre \ref{teo_Serre} concluímos lo que queríamos probar.
 \end{proof}
 
 

@@ -357,7 +357,7 @@ Una pregunta natural es intentar entender la relación entre la clasificación d
 La siguiente demostración generaliza la construcción del ejemplo del problema de la palabra de un grupo libre.
 
 
-\begin{teo}\cite{muller1985theory}
+\begin{teo}\cite{muller1983groups}
 	Todo grupo virtualmente libre es independiente de contexto.
 \end{teo}
 
@@ -365,34 +365,45 @@ La siguiente demostración generaliza la construcción del ejemplo del problema 
 \begin{proof}
 	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en la observación \ref{obs_presentacion_vl}.
 	Veamos de construir un autómata de pila de manera que acepte al lenguaje $\text{WP}(G,W)$.
+	Antes de definirlo consideremos algunos conjuntos finitos que nos van a servir para definir al autómata.
 	
-	Vamos a definir un autómata de pila con estados de control finitos que sabemos que es equivalente a un autómata de pila no determinístico por la observación \ref{}.
-	
-	
-	Nuestro autómata lo definimos así: 
-	\[
-	{\cal M }= (T, W , Y, \delta, 1, \{1\}, K)
-	\]
-	donde $T$ es el conjunto de los transversales que tomamos para la presentación de $G$ y van a ser los estados del autómata.
-	El alfabeto de entrada es $W$ el conjunto de generadores del grupo.
-	El alfabeto de la pila es $Y$ que es el conjunto de generadores del subgrupo libre $F$.
-	Nuestro estado inicial que también es final corresponde a $1$ que es uno de los elementos del transversal.
-	La constante que tomamos es $K = \max |u_{ij},\ z_{ijk}|$ donde $1 \le i,j,k  \le n$. 
-	
+	Si tenemos que $ t_j y_i = u_{ij} t_j $ y que $ t_it_j = z_{ijk}t_k $ luego consideremos la siguiente definición.
+	El conjunto finito $U = \{ u_{ij}, \ z_{ijk} : 1 \le i,j,k \le n \}$.
+	Consideremos $\text{Pre}(U) = \{ u' \in Y^* : u'v \in U  \}$ el conjunto de los prefijos de las palabras en $U$ que sabemos es finito también.	
+	Sea entonces el conjunto finito $Q = T \times T \cup Y \times \text{Pre}(U) $.
 		
-	Ahora podemos definir la función de transición.
-	Si tenemos que $ t_j y_i = u_{ij} t_j $ y que $ t_it_j = z_{ijk}t_k $ luego consideremos la siguiente definición,
+	Con estas definiciones ahora nuestro autómata lo definimos así: 
+	\[
+	{\cal M }= (Q, W , Y, \delta, (1,1,1), \{(1,1,1)\})
+	\]
+	El conjunto $Q$ van a ser nuestros estados.
+	El alfabeto de entrada es $W$ que es el conjunto de generadores del grupo.
+	El alfabeto de la pila es $Y$ que es el conjunto de generadores del subgrupo libre $F$.
+	Nuestro estado inicial que también es el final corresponde a $(1,1,1)$.
+		
+	Ahora podemos definir la función de transición. 
+	Sea $w_i \in W$ algún generador del grupo luego tenemos que
 	\begin{align*}
-		\delta(y_iw',t_j, v) &= (w', t_j, u_{ij} \cdot v) \\
-		\delta(t_iw',t_j, v) &= (w', t_k, z_{ijk} \cdot v) \\
-		\delta(1, t_j, v) &= (1, t_j, v) \\
+		\delta(y_iw',(t_j,1,1), v) &= (w', (t_j,y_i,1), v) \\
+		\delta(t_iw',(t_j,1,1), v) &= (w', (t_k,t_i,1), v) \\
 	\end{align*}
-	donde en la pila al apilar hacemos el producto en el grupo libre para ir reduciendo la palabra de la pila.
-	Sabemos que hacemos tantas reducciones como $|u_{ij}|$ o bien $| z_{ijk}|$ y ambos valores están acotados por la constante $K$.
-	Esto nos dice que está bien definido.
+	de manera que si estamos en $T \times \{ 1 \} \times \{ 1 \}$ podemos pasar a la segunda coordenada correspondiente a la letra de $W$ que hayamos leído.	
+	Ahora en esta instancia lo que vamos a hacer es la reducción del producto de $u_{ij} \cdot v$ o bien el de $z_{ijk} \cdot v$ respectivamente una letra a la vez.
+	Para esto tenemos
+	\begin{equation*}
+		\delta(w',(t_j,w_i,u), v) = (w', (t_j,w_i,y_iu), y_i \cdot v) .
+	\end{equation*}
+	siempre y cuando $y_iu$ sea un prefijo de la palabra de $U$ correspondiente.
+	Notemos que sigue siendo determinístico porque fijamos de antemano alguna escritura única en los generadores $Y$ para cada palabra $u \in U$.
+	En la pila hacemos la reducción en el grupo libre de multiplicar por una letra.
+	Finalmente la función de transición la definimos para que podamos volver una vez que ya reducimos toda la palabra $u \in U$.
+	Para eso tenemos 
+	\begin{equation*}
+		\delta(w',(t_j,w_i,u), v) = (w', (t_j,1,1), v).		
+	\end{equation*}
+	en el caso que $u \in U$, es decir que ya hicimos toda la reducción.
 	
-	
-	Consideremos el lenguaje aceptado por pila vacía y estado final a la vez,
+	Una vez definido este autómata consideremos ahora el lenguaje aceptado por pila vacía y estado final a la vez,
 	
 	\[
 		{\cal L }(M) = \{  w \in W^* \mid (w,1,1)   \vdash^*  (1, 1, 1)  \}
@@ -409,56 +420,7 @@ La siguiente demostración generaliza la construcción del ejemplo del problema 
 		
 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
 	
-	
-%	Fijemos entonces un subgrupo libre de índice finito $F$ que lo podemos tomar de manera que sea normal por la proposición \ref{prop_vls}. 
-%	Sea $T$ conjunto transversal a derecha de $G/F$ que sabemos que es finito. 
-%	Consideremos al conjunto  $\Delta = \Sigma \cup \Sigma^{-1} \cup T$ de generadores de nuestro grupo porque en particular sabemos que $\Sigma$ generaba .
-	
-%	Recordemos por \ref{} que para todo grupo virtualmente libre tenemos un sistema de reescritura convergente dado por 
-%	\[
-%	S = \{ ab \to w(a,b)r  \}
-%	\] 
-%	donde $w(a,b) \in F_\Sigma$ es una palabra reducida y $r \in R$ tal que $ab = w(a,b)r$. Vamos a usar este sistema para construirnos la función de transición de nuestro automáta. 
-%	
-%	Nuestro automáta lo definimos así 
-%	\[
-%	{\cal M }= (Q,\Delta, Z, \delta, q_0, F)
-%	\]
-%	donde los estados $Q$ se corresponden a $R \cup R'$ siendo $R'$ una copia de $R$. 
-%	Para el alfabeto de la pila consideramos solamente el alfabeto del subgrupo libre y otra vez agregamos otras copias de manera que nuestro alfabeto para la pila es $Z = \Sigma \cup \Sigma^{-1} \cup (\Sigma \cup \Sigma^{-1})^{'}$. 
-%	Nuestro estado inicial es $q_0 = 1' \in R'$ es decir el $1$ de la copia. Nuestro conjunto de estados finales contiene solamente al estado inicial $F=q_0$. 
-%	Notemos a su vez a $m = \max {|w(r,a)|}$ para $r \in R, a \in \Delta$ que es finito porque es el máximo de longitudes de finitas palabras. 
-%	Cuando tengamos una ecuación en término de las copias la vamos a considerar como el elemento que representa en el grupo. 
-%	La utilidad radica en poder tener un automáta más declarativo en cuanto a los nombres de los estados. 
-%	Nuestra función de transición entonces funciona de la siguiente manera si no tenemos nada en la pila
-%	
-%	\begin{align*}
-%		(r'a,w(r'a)s) \in \delta  \ \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=w(r',a)s \ \ \text{y} \ \ w(r',a) \neq 1  \\
-%		(r'a,s') \in \delta  \ \ \text{para} \ \  s \in R \ \ \text{tal que} \ r'a=s.  \\ 
-%	\end{align*}
-%	
-%Si la palabra reducida $w(r',a)$ es distinta de la identidad entonces pasamos a los estados que le corresponden a $R$ mientras que en el otro caso nos quedamos en los estados de la copia $R'$. 
-%En particular como el estado inicial es $1' \in R'$ luego siempre que tengamos la pila no vacía vamos a estar en algún estado $r \in R$. 
-%Repliquemos esta idea también para el caso que que tengamos algo en la pila,
-%	
-%	\begin{align*}
-%	(xra,ys) \in \delta \ \ \text{para} \ \  s \in R, x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s  \\ & \ \ \text{e} \ \ y \ \text{es la forma reducida de} \ \ xw(r,a)  \\
-%	(xra,s') \in \delta\ \ \text{para} \ \  s' \in R', x,y \in (\Sigma \cup \Sigma^{-1})^m & \ \  \text{tal que} \ ra=w(r,a)s'  \\ & \ \ \text{e}  \ \ xw(r,a)  \ \text{se reduce a 1}. \ \  \\ 
-%	\end{align*}
-%	En este caso la función de transición cuando tenemos algo en la pila lo que va haciendo es lo mismo que antes y solo pasa a los estados que corresponden a $R'$ cuando la palabra que nos queda la pila vacía. 
-%	
-%	De esta manera notemos que en particular es un automáta especial determinístico considerando que la transición es determinística porque el sistema de reescritura es convergente por lo que hay una única palabra reducida. 
-%	Por otro lado como el único estado que acepta es el estado inicial y la única manera de llegar a cualquier estado en $R'$ es con la pila vacía luego el automáta acepta por pila vacía y estado final a la vez.
 \end{proof}
-
-%\begin{obs}
-%	Dado un grupo \vl \ con presentación $\langle W \mid R \rangle$ obtuvimos que el lenguaje $WP(G, W)$ no solo es aceptado por un autómata de pila no determinístico sino que es aceptado por uno determinístico especial tal como en la definición \ref{}.
-%	Esto nos dice que sus propiedades algorítmicas son aun mejores. 
-%	Siguiendo la referencia \cite{} tenemos que el problema de la palabra se puede resolver en $O (n^2)$ usando algoritmos estándares como...
-%\end{obs}
-
-
-
 
 
 El siguiente resultado es un teorema de Muller-Schupp demostrado en \cite{muller1985theory}.

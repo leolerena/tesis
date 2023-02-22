@@ -40,6 +40,8 @@ Esto es que si $T$ es un árbol, entonces dados $v,w$ dos vértices existe una �
 %	 Notemos que este grafo resulta ser un árbol y esto es algo que vale en general para todos los grupos libres cuando miramos respecto a sus generadores canónicos.
 %\end{ej}
 
+\subsection{Treewidth.}
+
 Dado que el grafo de Cayley de todo grupo libre se puede tomar para que sea un árbol es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. 
 
 La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
@@ -151,6 +153,34 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 	En el caso que esto no ocurra miramos el camino de longitud $n-1$ dado por $x_1 x_2 \dots x_n = y$ y usando la hipótesis inductiva llegamos al resultado.	
 \end{proof}
 
+\begin{prop}\label{prop_tw_finitos_bolsones}
+	Sea $\Gamma$ un grafo localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
+	\[
+		| \{  t \in V(T) : \ v \in X_t  \} | < \infty.
+	\]
+\end{prop}
+\begin{proof}
+	Por la propiedad \textbf{T2} de la descomposición en un árbol tenemos que para cada arista $(u,v) \in E(\Gamma)$ existe un bolsón que denotaremos $X_{(u,v)}$ tal que $u,v \in X_{(u,v)}$.
+	Si hacemos esto para cada una de las aristas incidentes a algún vértice $v \in V(\Gamma)$ obtenemos finitos bolsones y así finitos vértices en el árbol $T$.
+	Consideremos el subárbol finito que se genera a partir de estos finitos vértices, llamesmolo $T'$.
+	Lo que hacemos es sacar a $v$ de los bolsones que correspondan a vértices que no estén en $T'$.
+	Esto es que nuestra nueva descomposición en un árbol va a ser $Y: V(T) \to {\cal P}(V(\Gamma))$ dada por 
+	
+	\[
+	Y_t = 
+	\begin{cases}
+  		X_t  \ \  \text{si} \ \  t \in T' \\
+  		X_t \setminus \{  v \} \ \  \text{si} \ \  t \in T'
+	\end{cases}
+	\]
+	haciendo esto mismo para cada uno de los vértices del grafo $\Gamma$.
+	
+	Finalmente chequeamos que sea trata de una descomposición en un árbol.
+	Las primeras dos condiciones \textbf{T1} y \textbf{T2} se siguen cumpliendo.
+	La condición \textbf{T3} es válida también porque justamente dejamos que todo $v$ esté en un bolsón $ X_t$ con $t \in T'$ un subárbol, por lo tanto toda geodésica que tomemos va a estar en este subárbol.
+	Dado que $X$ ya era una descomposición tenemos que $v \in X_s$ para todo $s$ en toda geodésica.
+	Esta descomposición sigue siendo finita porque todo bolsón a lo sumo mantiene su orden.	
+\end{proof}
 
 \begin{deff}
 	Sea $\Gamma$ un grafo y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \blue{vecinos de $C$} por medio de 

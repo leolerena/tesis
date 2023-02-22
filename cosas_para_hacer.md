@@ -1,21 +1,32 @@
 # Cosas para hacer.
 
-- [ ] Reordenar todo así como me dijo Iván. Cap1:Preliminares, Cap2: Equivalencias.
+- [ ] **Reordenar todo así como me dijo Iván. Cap1:Preliminares, Cap2: Equivalencias.**
 
-- [ ] Reescribir la subsección del árbol de Bass Serre de la manera que aparece en la siguiente subsección.
+- [ ] **Reescribir la subsección del árbol de Bass Serre de la manera que aparece en la siguiente subsección.**
 
-- [x] Agregar bien enunciados de los teoremas de grupos amalgamados y productos libres.
+- [x] **Agregar bien enunciados de los teoremas de grupos amalgamados y productos libres.**
 
-- [x] Escribir bien sección de cuasisometrías. Agregar referencias claras y dejar claro esto:
-  - [x] El treewidth es un invariante por cuasisometría.
+- [x] **Escribir bien sección de cuasisometrías. Agregar referencias claras y dejar claro esto:**
+
+  - [x] **El treewidth es un invariante por cuasisometría.**
   - [ ] La grilla no es cuasisométrica con un árbol? Ejemplito sencillo sin usar propiedades.
   - [ ] Se puede ver que es equivalente tener treewidth finito a ser cuasisométrico con un árbol.
-  
-- [ ] Reescribir demo vl $\implies$ ic para que el automáta sea como los que definí.
 
-- [ ] Limpiar todo lo que no sea claro de lenguajes... definiciones equivalentes al pedo que dí, intentar minimizar la confusión.
+- [x] **Agregar prop finitas bolsas para treewidth finito.**
 
-- [ ] Agregar detalles y bla bla a la sección de cortes de grafos.
+- [ ] **Agregar prop pi1 grafo de grupos que falta.** 
+
+- [x] **Reescribir demo vl $\implies$ ic para que el automáta sea como los que definí.**
+
+  ​						*En realidad voy a modificar la definición levemente pero no voy a  								hacer la truchada que estaba haciendo antes.*
+
+- [ ] **Limpiar todo lo que no sea claro de lenguajes... definiciones equivalentes al pedo que dí, intentar minimizar la confusión.**
+
+  - [ ] Definiciones equivalentes de automáta de pila no determinístico.
+
+  - [ ] Regular no necesariamente implica independiente de contexto? Intentar agregar un ejemplo lo más corto posible sin mencionar el pumping lema de lenguajes regulares que me parece muy al pedo.
+
+- [ ] **Agregar detalles y bla bla a la sección de cortes de grafos.**
 
 - [ ] Solucionar parte de ejemplos de vl. El ejemplo clásico no está muy lindo.
 
@@ -34,7 +45,7 @@
 
 - [ ] Agregar algún dibujo en la sección de accesibilidad. 
 
-- [ ] Chequeo sanidad que esté claro que le pedimos ser finitamente generados a estos grupos. 
+- [ ] **Chequeo sanidad que esté claro que le pedimos ser finitamente generados a estos grupos.** 
 
 - [ ] Agregar las otras referencias bibliográficas: paper Krön, Diekert, TW91, etc.
 
