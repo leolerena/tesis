@@ -822,7 +822,7 @@ Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del gr
 \end{proof}
 
 \begin{prop}\label{prop_morf_grp_restr_sobre}
-	El morfismo de grupos restringido al subgrupo $\varphi: \pi_1(\cG, P) \to G$ es sobreyectivo.
+	El morfismo de grupos $\varphi: F(\cG) \to G$ restringido al subgrupo $\pi_1(\cG, P)$ es sobreyectivo.
 \end{prop}
 
 \begin{proof}
@@ -890,15 +890,41 @@ Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del gr
 	y como $h_0y_0 \dots y_{i-1}h_{i-1} y_i h_i \in \Pi_1(\cG, P, P_i)$ terminamos de probar que $e_{i} \in \varphi(\Pi_1(\cG, P, P_i))$ tal como queríamos ver. 
 	En particular con esto probamos que $e_k \in \varphi(\cG, P)$ y esto implica que $g \in \varphi(\cG, P)$ tal como queríamos ver.
 	De esta manera la restricción de $\varphi$ al subgrupo $\pi_1(\cG, P)$ es sobreyectiva.
+\end{proof}
+
+Veamos ahora que naturalmente este morfismo se factoriza por el cociente $\pi_1(\cG, T)$, pero antes debemos ver que podemos levantar al árbol de expansión de un cociente para que sea un subgrafo del grafo del cual tomamos el cociente.
+
+\begin{prop}
+	Sea $X$ grafo conexo, $G$ grupo que actúa sin inversiones sobre $X$.
+	Llamemos $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
+	Sea $T$ árbol de expansión de $Y$.
+	Entonces podemos tomar $\iota:V(Y) \to V(X)$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
+\end{prop}
+
+\begin{proof}
+	La idea es usar el Lema de Zorn.
 	
-		
+	Sea el siguiente conjunto
+	\[
+		\Omega = \{ (T', \iota),	T' \ \text{subárbol de} \ X,  \ | \   \iota \circ \pi(T') = T' \}
+	\]
+	tal que si consideramos la inclusión para la primer coordenada y que las inclusiones coincidan entonces obtenemos un conjunto parcialmente ordenado.
+	
+	Podemos ver que $\Omega$ es no vacío porque $G$ actúa sin inversiones entonces podemos levantar una arista $Ge = (Gx,Gy) \in E(T)$ a una arista $\iota (Ge) = (x,y) \in V(X)$ tal que este subgrafo y el levantado $\iota$ va a estar en $\Omega$.
+	
+	Similarmente podemos ver que toda cadena $(T'_i)_{i \in I}$ tiene un elemento maximal justamente tomando la unión de todos los subgrafos $T' = \cup_{i \in I} T'_{i}$ y definiendo $\iota(Gv) = v$ si existe $T_{i}$ tal que $v \in T_{i}$.
+	
+	Sea $T'$ maximal podemos ver que está en biyección con $T$.
+	Caso contrario podríamos levantar una arista $Ge$ tal que $Ge=(Gv,Gw)$ con $\iota(Gv) \in T'$ pero $Gw \notin T'$ y luego elegimos $e$ tal que $s(e) = v$ y extendiendo a $\iota$ contradecimos la maximalidad de $T'$.	
 \end{proof}
 
 \begin{coro}
 	La restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por el cociente $\pi_1(\cG, T)$.
 \end{coro}
 \begin{proof}
-	\red{Hacer.}
+	Por la proposición anterior tenemos que al levantado $\iota(Y)$ lo podemos tomar para que sea un subgrafo.
+	Esto nos dice que $\iota(\ol y) = \ol {\iota (y)}$, por lo tanto notemos que $\varphi(\iota(y)) = 1$ por como definimos $\varphi(y)$ anteriormente.
+	Esto nos dice que el morfismo se factoriza por el cociente $\ol \varphi:\pi_1(\cG, T) \to G$.
 \end{proof}
 
 \subsubsection{Morfismo de grafos $\psi$.}
