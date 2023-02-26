@@ -14,15 +14,15 @@
 
 - [x] **Agregar prop finitas bolsas para treewidth finito.**
 
-- [ ] **Agregar prop pi1 grafo de grupos que falta.** 
+- [x] **Agregar prop pi1 grafo de grupos que falta.** 
 
 - [x] **Reescribir demo vl $\implies$ ic para que el automáta sea como los que definí.**
 
   ​						*En realidad voy a modificar la definición levemente pero no voy a  								hacer la truchada que estaba haciendo antes.*
 
-- [ ] **Limpiar todo lo que no sea claro de lenguajes... definiciones equivalentes al pedo que dí, intentar minimizar la confusión.**
+- [x] **Limpiar todo lo que no sea claro de lenguajes... definiciones equivalentes al pedo que dí, intentar minimizar la confusión.**
 
-  - [ ] Definiciones equivalentes de automáta de pila no determinístico.
+  - [x] Definiciones equivalentes de automáta de pila no determinístico.
 
   - [ ] Regular no necesariamente implica independiente de contexto? Intentar agregar un ejemplo lo más corto posible sin mencionar el pumping lema de lenguajes regulares que me parece muy al pedo.
 
