@@ -1,8 +1,8 @@
 # Cosas para hacer.
 
-- [ ] **Reordenar todo así como me dijo Iván. Cap1:Preliminares, Cap2: Equivalencias.**
+- [x] **Reescribir la subsección del árbol de Bass Serre de la manera que aparece en la siguiente subsección.**
 
-- [ ] **Reescribir la subsección del árbol de Bass Serre de la manera que aparece en la siguiente subsección.**
+- [ ] **Ordenar de una manera más razonable. Volar todo de los preliminares.**
 
 - [x] **Agregar bien enunciados de los teoremas de grupos amalgamados y productos libres.**
 

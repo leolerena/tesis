@@ -689,7 +689,7 @@ A su vez tenemos que $q:\Xm \to Y$ es un epimorfismo de grafos por nuestra const
 	\[
 		\tilde X = \bigcup_{g \in G} gW = \bigcup_{g=s_1 \dots s_n} \bigcup_{i=1 \dots n} s_{1}\dots s_{i} W  \cup W 
 	\]  
-	donde estamos tomando la unión de todos los elementos de $G$ como la unión de palabras indexadas por su longitud $n$ y todos los trasladados de $W$ por medio de subpalabras de $g$.
+	donde estamos tomando la unión de todos los elementos de $G$ como la unión de palabras indexadas por su longitud $n$ y todos los trasladados de $W$ por medio de prefijos de $g$.
 	Una primera observación que debemos hacer es que dado $g \in G$ luego el grafo $gW$ resulta conexo por ser el trasladado de un conexo.
 	
 	Probaremos por inducción en la longitud de $g=s_1\dots s_n$, visto sobre el conjunto de generadores $S$, que 
@@ -788,8 +788,7 @@ y las  aristas
 \]
 
 En particular como el grafo $X$ es conexo tenemos que $Y$ también lo es.
-Consideremos los siguientes representantes de clase para vértices. 
-Esto nos define un morfismo de grafos que es la proyección $\pi: X \to Y$ tal que
+Esto nos define un morfismo de grafos que es la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
 Consideremos $\iota: Y \to X$ una sección como conjuntos que la armamos con los siguientes dos pasos.
 \begin{enumerate}
 	\item Para cada vértice $P \in V(Y)$ elegimos $\iota (P) = P'$ tal que $\pi(P') = P$.
@@ -797,7 +796,7 @@ Consideremos $\iota: Y \to X$ una sección como conjuntos que la armamos con los
 	Esto lo podemos hacer para cada arista por separado.
 \end{enumerate}
 
-Por como hicimos esta construcción nos garantizamos que el comienzo de cara arista cuando la miramos en $X$ sea uno de los vértices que tomamos como representantes de vértices de $Y$ en $X$.
+Por como hicimos esta construcción nos garantizamos que el comienzo de cada arista cuando la miramos en $X$ sea uno de los vértices que tomamos como representantes de vértices de $Y$ en $X$.
 En principio no sabemos que el vértice del final de la arista de $y$ coincida con el de comienzo de $y$. 
 Lo que sabemos es que existe $g_y \in G$ tal que 
 \[
@@ -839,21 +838,29 @@ Probemos que este morfismo baja a $F(\cG)$.
 Para eso veamos que cumple las relaciones que definen a este cociente.
 \begin{enumerate}
 	\item $g_y g_{\ol y} = 1$ para todo $y \in E(Y)$ porque justamente elegimos a $g_{\ol y}$ de esta manera;
-	\item $\ol y a y = a^{\ol y}$ para todo $y \in E(Y), a \in G_y$ porque justamente vimos que $\varphi(\ol y) \varphi (a) \varphi(y) = g_y^{-1}ag_y = a^{\ol y}$.
+	\item $\ol y a y = a^{\ol y}$ para todo $y \in E(Y), a \in G_y$ porque justamente vimos que 
+	\[
+		\varphi(\ol y) \varphi (a) \varphi(y) = g_y^{-1}ag_y = a^{\ol y}
+	\]
 \end{enumerate}
 
 De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
 Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol de expansión.
 
-
+Recordemos que $G_{P}$ lo podemos ver como un subgrupo de $\pi_1(\cG,T)$.
 \begin{lema}\label{lema_morfismo_pi1_inyectivo}
-	Para todo $g \in G_P \le \pi_1(\cG, P)$ tenemos que $\varphi(g)=g$.
+	Para todo $g \in G_P$ tenemos que $\varphi(g)=g$.
 \end{lema}
 
 \begin{proof}
 	Dado $g \in G_P \le \pi_1(\cG, P)$ luego lo podemos representar en el grupo $\pi_1(\cG, P)$ por medio de la palabra reducida $g$.
 	Por como está definido $\varphi$ sabemos que $\varphi(g) = g$. 
 \end{proof}
+
+
+\begin{obs}
+	En particular si consideramos que para una arista $y \in E(X)$ tenemos que $G_y$ es subgrupo de $G_{s(y)}$ luego la restricción de $\varphi$ a $G_{y}$ también resulta ser un isomorfismo de grupos.
+\end{obs}
 
 \begin{prop}\label{prop_morf_grp_restr_sobre}
 	El morfismo de grupos $\varphi: F(\cG) \to G$ restringido al subgrupo $\pi_1(\cG, P)$ es sobreyectivo.
@@ -933,7 +940,6 @@ Veamos ahora que naturalmente este morfismo se factoriza por el cociente $\pi_1(
 
 \begin{proof}
 	La idea es usar el Lema de Zorn.
-	
 	Sea el siguiente conjunto
 	\[
 		\Omega = \{ (T', \iota)	  \ | \   T' \ \text{subárbol de} \ X, \ \iota \circ \pi(T') = T' \}
@@ -963,13 +969,13 @@ Construyamos un morfismo de grafos del árbol de Bass Serre en el grafo $X$ que 
 
 Sea la asignación $\psi: \Xm \to X$ dada por 
 \begin{align*}
-	\psi(g G_P P) = \varphi(g) P \ \ \text{para todo} \ g \in G, P \in V(Y) \\
-	\psi(g G_y y) = \varphi(g) \iota(y) \text{para todo} \ g \in G, P \in V(Y)
+	\psi(g G_P ) = \varphi(g) P \ \ \text{para todo} \ g \in G, P \in V(Y) \\
+	\psi(g G_y ) = \varphi(g) \iota(y) \text{para todo} \ g \in G, P \in V(Y)
 \end{align*}
 
 Veamos que es una función.
 Sean dos representantes $g,h$ del mismo coset de $G_P$. 
-Queremos ver que $\psi(gG_PP) = \psi(hG_P P)$.
+Queremos ver que $\psi(gG_P) = \psi(hG_P)$.
 Para esto notemos que por la definición de $\psi$  esto equivale a ver que $\varphi(g) = \varphi(h)$.
 Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) = gh^{-1}$ porque $\varphi$ restringida a $G_P$ es la identidad por el resultado \ref{lema_morfismo_pi1_inyectivo}.
 
@@ -984,17 +990,17 @@ Por como lo definimos está claro que manda vértices en vértices y aristas en 
 Veamos que respeta el comienzo de las aristas.
 Sea una arista $gG_y y \in V(\Xm)$ luego tenemos que 
 \begin{align*}
-s(\psi(gG_y y )) &= s (\varphi(g)  y) =  \varphi(g) s(y) 	\\ 
-\psi(s(gG_y y))  &= \psi(gG_{s(y)} s(y)) = \varphi(g){s(y)} \\
+s(\psi(gG_y  )) &= s (\varphi(g)  y) =  \varphi(g) s(y) 	\\ 
+\psi(s(gG_y ))  &= \psi(gG_{s(y)} ) = \varphi(g){s(y)} \\
 \end{align*}	
 
 Finalmente veamos que respeta la asignación de las aristas opuestas.	
 Dada una arista $g G_y y$ tenemos que ver que $\psi(\ol{g G_y y}) = \ol{\psi(g G_y y)}$.	
 Para esto recordemos que siguiendo nuestra notación $\ol{g G_y y} = gyG_{\ol y} \ol y $ por lo tanto tenemos que 
 \begin{align*}
-\psi(\ol{gG_y y }) &= \psi(gyG_{\ol y} \ol y) = \varphi(gy) G_{\ol y} \ol y =         \\ 
-&= \varphi(g)\varphi(y) G_{\ol y} \ol y = \varphi(g) g_y \ol y = \varphi(g) \iota(y) \\
-\ol{\psi(gG_y y)} &= \ol{ \varphi(g) \iota(y) } = \varphi(g) \ol{ \iota(y)} 
+\psi(\ol{gG_y  }) &= \psi(gyG_{\ol y}) = \varphi(gy) G_{\ol y}  =         \\ 
+&= \varphi(g)\varphi(y) G_{\ol y}  = \varphi(g) g_y \ol y = \varphi(g) \iota(y) \\
+\ol{\psi(gG_y )} &= \ol{ \varphi(g) \iota(y) } = \varphi(g) \ol{ \iota(y)} 
 \end{align*}
 Con esto terminamos de probar que $\psi$ es un morfismo de grafos.
 \end{proof}
@@ -1020,39 +1026,36 @@ Probemos ahora que nuestro morfismo de grafos $\psi$ cumple esta propiedad.
 \begin{proof}
 	Primero veamos que es sobreyectivo.
 	Sabemos que $G \cdot Y = X$ si miramos a $Y$ como subgrafo de $X$.
-	Consideremos un vértice $\widetilde P \in V(X)$ que por lo visto lo podemos escribir como $\widetilde P = g P$ para cierto $g \in G$ y para cierto $P \in V(Y)$.
+	Consideremos un vértice $gP \in V(X)$. 
 	Por el resultado anterior \ref{prop_morf_grp_restr_sobre} sabemos que el morfismo de grupos $\varphi$ resulta ser sobreyectivo.
-	De esta manera tenemos que dado $g \in G$ existe $h \in G$ tal que $\varphi(h) = g$. 
-	Luego alcanza con tomar como vértice a $h G_P P $ de manera que 
+	De esta manera tenemos que para $g$ existe $h \in G$ tal que $\varphi(h) = g$. 
+	Luego alcanza con tomar como vértice a $h G_P $ de manera que 
 	\[
-	\psi(h G_P P ) = \varphi(h) P = g P = \widetilde P
+	\psi(h G_P ) = \varphi(h) P = g P 
 	\]
 	tal como queríamos ver.
 	
 	
 	Finalmente veamos que es localmente inyectivo.
-	Sea $Q \in V(X)$ vértice. 
-	Sean $y,y' \in E(X)$ aristas tales que $s(y) = Q = s(y')$.
-	Consideraremos dos casos dependiendo si las aristas están en la misma órbita por la acción de $G$ o si no lo están.
+	Sea $gG_{P} \in V(\Xm)$ vértice. 
+	Sean $aG_{y},bG_{y' }\in E(\Xm)$ aristas tales que $s(aG_{y}) = gG_{P} = s(bG_{y' })$.
+	Consideraremos dos casos dependiendo si las aristas correspondientes en el grafo $Y$ son idénticas o no lo son.
 	
 	\begin{enumerate}
-		\item Si $Gy \neq Gy'$ entonces no están en la misma órbita.
-		En este caso tenemos que $\psi(y) = \varphi(g) \iota (y)$ mientras que $\psi(y) = \varphi(g) \iota (y')$.
-		Como son elementos de órbitas distintas no pueden ser el mismo elemento y de esta manera concluimos que $\psi(y) \neq \psi(y').$
-		\item El otro caso es que $Gy = Gy'$. 
-		En este caso lo que hacemos primero es fijar algún vértice $P \in V(X)$ tal que nos permita escribir a estas aristas como palabras reducidas usando el resultado \ref{teo_pal_red}.
-		De esta manera obtenemos la siguiente escritura 
+		\item Supongamos primero que $y \neq y'$.
+		En este caso tenemos que $\psi(aG_{y}) = \varphi(a) \iota (y)$ mientras que $\psi(bG_{y'}) = \varphi(b) \iota (y')$.
+		Como son elementos de órbitas distintas no pueden ser el mismo elemento y de esta manera concluimos que $\psi(aG_{y}) \neq \psi(bG_{y'}).$
+		
+		\item El otro caso es que $y=y'$. 
+		Veamos que por una cadena de equivalencias que la función $\psi$ es coincide en estas aristas si y solo sí son idénticas.
+		Esto nos dice que
 		\[
-		Q = (c_0y_1c_1y_2 \dots y_k)
+			\psi(aG_{y}) = \psi(bG_{y}) \iff \varphi(a) \iota(y) = \varphi(b)\iota(y)
 		\]
-		tal que las aristas van a tener la siguiente pinta 
-		\begin{align*}
-			y = (c_0y_1c_1y_2 \dots y_k c y) \\
-			y' = (c_0y_1c_1y_2 \dots y_k d y)
-		\end{align*}
-		donde $c,d$ son representantes de cosets diferentes de la arista $y$ por medio de la acción de $G$.
-		Para terminar la demostración observamos lo siguiente que $\psi(y) = \psi(y')$ si y solo si $c \iota(y) = d \iota(y)$ y esto sucede si y solo si $c = d$. 
-		Pero en este caso obtendríamos que $y = y'$ por lo tanto el morfismo de grafos $\psi$ resulta ser localmente inyectivo.
+		y esto es equivalente a $\varphi(a^{-1}b) \in G_{y}$.
+		Por el resultado anterior \ref{prop_morf_grp_restr_sobre} tenemos que $\varphi$ se restringe a un isomorfismo entre los estabilizadores.
+		De esta manera tenemos que $a^{-1}b \in G_{y}$ y así que equivalentemente $aG_{y} = bG_{y}$.
+		
 	\end{enumerate}
 \end{proof}
 
@@ -1104,13 +1107,13 @@ Es el resultado central de la teoría de Bass Serre.
 		 Si $g \in \pi_1({\cal G}, T)$ y $g \neq 1$ tal que $\varphi(g)= 1$ entonces necesariamente $g \notin G_P$ por el lema anterior \ref{lema_morfismo_pi1_inyectivo} dado que la restricción a estos subgrupos es la identidad.
 		 Esto nos dice que $g G_P P \neq G_P P$ dado que los cosets $gG_P$ y $G_P$ son distintos. Por como definimos a $\psi$ tenemos que 
 		 \[
-		 \psi (gG_P P) = \varphi(g) P  = \psi(G_P P)
+		 \psi (gG_P ) = \varphi(g) P  = \psi(G_P )
 		 \] 
 		 pero esto contradice que $\psi$ sea un isomorfismo.
 		 
 		 Finalmente probemos \textbf{c $\Rightarrow$ b}. 
 		 Para esto como $\psi$ es sobreyectivo nos alcanza con ver que es inyectivo.
-		 Sean $gG_PP, hG_QQ \in V(\Xm)$ tales que $\psi(gG_PP) = \psi(hG_QQ)$.
+		 Sean $gG_P, hG_Q \in V(\Xm)$ tales que $\psi(gG_P) = \psi(hG_Q)$.
 		 Por la definición del morfismo $\psi$ obtenemos que 
 		 \[
 		 	\varphi(g)P = \varphi(h)Q
@@ -1118,7 +1121,7 @@ Es el resultado central de la teoría de Bass Serre.
 		 pero esto nos diría que $P = Q$ dado que ambos son representantes de las órbitas de la acción de $G$ sobre el árbol $T$. 
 		 Por otro lado obtenemos que $\varphi(g h^{-1}) P  =  P$ y así $\varphi(gh^{-1}) \in G_P$. 
 		 Como $\varphi$ es un isomorfismo y en particular es inyectiva restringida al subgrupo $G_P$ por la proposición \ref{prop_morf_grp_restr_sobre} deducimos que $gh^{-1} \in G_P$.
-		 Así ambos cosets son idénticos $g G_P = h G_P$ y por lo tanto vimos que los dos vértices son idénticos $gG_PP  = hG_QQ$ y de esta manera probamos que $\psi$ es inyectiva.
+		 Por lo tanto vimos que los dos vértices son idénticos $gG_P  = hG_Q$ y de esta manera probamos que $\psi$ es inyectiva.
 \end{proof}
 
 Como corolarios obtenemos una caracterización para los grupos libres que usaremos varias veces y que es una herramienta fundamental de la teoría geométrica de grupos.
