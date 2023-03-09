@@ -17,49 +17,53 @@
 
 \begin{document}
 
-\section{Teoría de Bass Serre.}
+\section{Teoría de Bass--Serre.}
 
-La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees}.
+La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque la notación no es exactamente la misma sino que es la utilizada en los trabajos \ref{} y \ref{}.
+
 
 \subsection{Definiciones básicas.}
 
-	Un \emph{grafo dirigido} es un par de conjuntos $Y= (V(Y),E(Y))$. 
- 	Al conjunto $V(Y)$ lo llamaremos los vértices del grafo y al conjunto $E(Y)$ las aristas del grafo.
-	Para cada cada arista $y \in E(Y)$ tendremos una designación $s(y) = P \in V(Y), t(y) = Q \in V(Y)$.
-	Para cada $y \in E(Y)$ tendremos $\overline y \in E(Y)$ la arista con \emph{asignación opuesta}, esto es que $s(\ol y) = Q, t(\ol y) = P$. 
-	Una \emph{orientación} de las aristas es una función $o:E(Y) \to \{ 0 ,1 \}$ tal que si $o(y)=1$ luego $o(\ol y)= 0$.
+	Un \emph{grafo dirigido} es un par ordenado $Y= (V(Y),E(Y))$ tal que:
+	\begin{itemize}
+		\item Al conjunto $V(Y)$ lo llamaremos los vértices.
+		\item Al conjunto $E(Y)$ las aristas del grafo.
+	\end{itemize}
+	Para cada arista $y \in E(Y)$ tendremos una designación $s(y) = P \in V(Y), t(y) = Q \in V(Y)$.
+	Informalmente diremos que $s(y)$ es el comienzo de la arista $y$ mientras que $t(y)$ es el final de la arista.
+	A su vez para cada $y \in E(Y)$ tendremos $\overline y \in E(Y)$ la arista con \emph{asignación opuesta}.
+	Esta arista cumple que $s(\ol y) = Q, t(\ol y) = P$. 
 	
-	Para esta sección nos interesa que los grafos sean \emph{conexos}. 
-	Esto es que dado dos vértices $P,P' \in V(Y)$ existe una sucesión de aristas
+	Para esta sección nos va a interesar que los grafos que consideremos sean \emph{conexos}. 
+	Esto es que dado dos vértices $P,Q \in V(Y)$ exista un camino entre ellos.
+	Una camino va a ser una sucesión de aristas 
 	\[
 		(y_0, y_1, \dots y_k) \ \ \text{tal que} \ y_i \in E(Y)  \ \text{para} \ \ i = 0 \dots k
 	\]
-	de modo que $s(y_0) = P $ y $t (y_k) = P'$.
+	de modo que $s(y_{i+1}) = t(y_{i})$ y tal que $s(y_0) = P $ y $t (y_k) = Q$.
 	
 	
 	Un \emph{ciclo} es un camino de aristas $(y_0, y_1, \dots y_n)$ de manera que $s(y_0) = t(y_n)$. 
 	Un grafo es un \emph{árbol} si es conexo y no tiene ciclos.
-	Dado un grafo cualesquiera $Y$ conexo podemos construirnos un árbol $T$ tal que $V(T) = V(Y)$ y $E(T) \subseteq E(Y)$. 
-	A este grafo lo llamaremos un \emph{árbol de expansión} de $Y$.
+	Dado un grafo $Y$ conexo siempre podemos construirnos un árbol $T$ tal que $V(T) = V(Y)$ y $E(T) \subseteq E(Y)$. 
+	A este árbol lo llamaremos un \emph{árbol de expansión} de $Y$.
 	
- 	
+	 	
 	En este contexto los morfismos que nos van a interesar van a respetar las propiedades de los grafos dirigidos.
 
 \begin{deff}
 	Sean $Y, Y'$ grafos dirigidos. 
 	Una función $\phi:Y \to Y'  $ es un \emph{morfismo de grafos} si:
 	\begin{itemize}
-		\item $\phi (V(Y)) \subseteqq  (V(Y'))$;
-		\item $\phi (E(Y)) \subseteqq  (E(Y'))$;
+		\item $\phi (V(Y)) \subseteq  V(Y')$;
+		\item $\phi (E(Y)) \subseteq  E(Y')$;
 		\item Si $y \in E(Y)$ entonces $\ol{\phi(y)} = \phi(\ol y)$;
 		\item Si $y \in E(Y)$ entonces $\phi(s(y)) = s(\phi(y))$
 	\end{itemize}   
 \end{deff}
-
 Notemos que de esta definición no hace falta pedir que respete el vértice en el cual termina una arista porque justamente para toda arista $y \in E(Y)$ vale que $t(y) = s(\ol y)$.
 
 Como tenemos morfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
-
 \begin{deff}
 	Dado un grupo $G$ diremos que $G$ actúa sobre un grafo dirigido $Y$ si se cumplen las siguientes condiciones,
 	\begin{enumerate}[a.]
@@ -69,22 +73,21 @@ Como tenemos morfismos de grafos podemos definir una acción de un grupo sobre u
 	\end{enumerate}
 \end{deff}
 
-Las acciones que nos van a interesar las vamos a tomar para que \emph{no tengan inversiones} esto es que $g \cdot y \neq \ol y$ para toda arista $y \in E(Y)$ y para todo $g \in G$.
+Las acciones que nos van a interesar en este capítulo las vamos a tomar para que \emph{no tengan inversiones} esto es que $g \cdot y \neq \ol y$ para toda arista $y \in E(Y)$ y para todo $g \in G$.
 
-Ahora podemos definir los objetos centrales a la teoría de Bass Serre.
-	
+Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
 
 \begin{deff}
 	Dado un grafo dirigido $Y$.
 	Un \emph{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
 	\begin{enumerate}
 		\item Para cada vértice $P \in V(Y)$ tenemos un grupo $G_P$.
-		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y \le G_{s(y)}$.
+		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y$ es un subgrupo de $G_{s(y)}$.
 		\item Para todo $y \in E(Y)$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
 	\end{enumerate}
 \end{deff}
 
-En general para la definición de grafo de grupos no es necesario pedir para la condición \textbf{2} que haya una contención sino que alcanza con tomar un monomorfismo. 
+En general para la definición de grafo de grupos no es necesario pedir para la condición \textbf{2} que haya una contención sino que alcanza con tomar un monomorfismo del grupo de la arista en el grupo del vértice del inicio de la arista. 
 Para facilitar las construcciones más en adelante supondremos que es un subgrupo pero los argumentos se pueden readaptar en el caso de no suponerlo.
 
 
@@ -93,13 +96,17 @@ Dado un grafo $Y = (V(Y), E(Y))$ llamaremos $F_{E(Y)}$ al grupo libre  generado 
 \begin{deff}
 	Dado un grafo de grupos $\cal G$ sobre un grafo $Y = (V(Y), E(Y))$ podemos armarnos el siguiente grupo 
 	\begin{equation*}
-		F({\cal G}) = \ast_{P \in V(Y)} G_P \ast F_{E(Y)} / \langle \langle  R \rangle \rangle
+		F({\cal G}) = (\underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{E(Y)}) / \langle \langle  R \rangle \rangle
 	\end{equation*}
-	donde $R = \{  \overline y = y^{-1}, \ ya^yy^{-1} = a^{\overline y} \}$ para $y \in E(Y), a \in G_y$. 
+	donde el conjunto de relaciones por las que dividimos es 
+	\[
+		R = \{  \overline y = y^{-1}, \ ya^yy^{-1} = a^{\overline y} \} \ \ \text{para toda $y \in E(Y)$ y todo \  $a \in G_y$}
+	\]
+	 . 
 \end{deff}
 
 \begin{obs}
-	Las relaciones $R$ por las que dividimos anteriormente se pueden condensar en 
+	El conjunto de relaciones $R$ por el que dividimos anteriormente se puede reescribir de una manera condensada como 
 	\[
 	R = \{  ya^y \overline y = a^{\overline y}  \}.
 	\]
@@ -108,42 +115,52 @@ Dado un grafo $Y = (V(Y), E(Y))$ llamaremos $F_{E(Y)}$ al grupo libre  generado 
 \begin{deff} \label{def_pi1_arbol}
 	Sea un grafo de grupos $\cal G$ sobre $Y$.
 	Consideremos $T$ un árbol de expansión del grafo $Y$.
-	\footnote{Como suponemos que $Y$ es conexo existen (posiblemente varios) árboles de expansión.}
-	Nos armamos el siguiente \blue{grupo fundamental del grafo de grupos}
+	\footnote{Como suponemos que $Y$ es conexo existen (posiblemente varios) árboles de expansión. Más en adelante probaremos que esta construcción no depende del árbol de expansión elegido.}
+	Nos armamos el siguiente \emph{grupo fundamental del grafo de grupos}
 	\begin{equation*}
 		\pi_1({\cal G}, T) = F({\cal G}) / \{ y \  | \ y \in E(T)  \}.
 	\end{equation*}
 \end{deff}
 
-Esto es que para todas las aristas que aparecen en el árbol de expansión las identificamos con el $1$. 
+Esto es que para todas las aristas que aparecen en el árbol de expansión las identificamos con la identidad en el grupo. 
 Esta definición se puede ver que en el caso particular de un grafo coincide con la definición que tenemos del grupo fundamental de un espacio topológico.
+Más aún es la generalización que tenemos del grupo fundamental de un complejo simplicial cuando dividimos por algún árbol de expansión.
+
+\begin{obs}
+	Notaremos por $g_{y}$ a la imagen de $y \in F(\cG)$ en el cociente $\pi_1(\cG,T)$.
+\end{obs}
 
 \begin{ej}
 	Sea un grafo de grupos $\cal G$ sobre un grafo $Y$ tal que $G_y = \{ 1 \}$ para todo $y \in E(Y)$.
-	Consideremos una orientación $A$ para las aristas del grafo esto es que para cada par de vértices unido por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.
-	El grupo fundamental $\pi({\cal G}, T)$ está generado por los elementos $G_P, P \in V(Y)$ y los elementos $g_y \in A \setminus (T \cap A)$.
-	Esto es que nos queda el siguiente grupo
+	Consideremos una orientación $A$ para las aristas del grafo.
+	Esto es que $A$ es un subconjunto de la aristas que cumple que para cada par de vértices unido por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.
+	El grupo fundamental $\pi({\cal G}, T)$ está generado por los elementos $G_P,\  P \in V(Y)$ y los elementos $g_y \in A \setminus (T \cap A)$.
+	Por lo tanto obtenemos que el grupo fundamental de este grafo de grupos resulta ser
 	\[
-	\pi_1({\cal G}, T) = \ast_{P \in V(Y)} G_P \ast F
+	\pi_1({\cal G}, T) = \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (T \cap A)}
 	\]
-	donde $F$ es el grupo libre con base $A \setminus (T \cap A)$.
-	Esto es que nos queda $\pi_1({\cal G}, T) \simeq \pi_1(Y) \ast_{P \in V(Y)} G_P$.
+	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico es el grupo libre en sus aristas que no pertenecen a un árbol de expansión nos queda que 
+	\[
+		\pi_1({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P  \Asterisk \pi_1(Y) 
+	\]
 \end{ej}
 
 \begin{ej}
-	Si el grafo es un segmento en particular él mismo es el árbol de expansión puesto que es un árbol.
+	Si el grafo $Y$ es un segmento en particular él mismo es el árbol de expansión puesto que es un árbol.
 	De esta manera si $Y$ es el siguiente segmento de grupos,
 	\[\begin{tikzcd}
 		{G_P \ \ \bullet} && {\bullet \ \ G_Q}
 		\arrow["G_y"{pos=0.6}, from=1-1, to=1-3]
 	\end{tikzcd}\]
-	entonces
+	entonces el grupo fundamental de este grafo de grupos resulta ser el producto amalgamado
 	\[
-	\pi_1({\cal G}, Y) = G_P \ast_{G_y} G_Q.
+	\pi_1({\cal G}, Y) = G_P \underset{G_{y}}{\Asterisk} G_Q.
 	\]
+	donde acá estamos abusando levemente la notación para decir que $G_{y}$ es subgrupo de $G_{Q}$ cuando realmente es subgrupo de $G_{p}$.
+	Dado que $G_{y} \simeq G_{\ol y}$ por ser un grafo de grupos entonces podemos escribirlo de esta manera.
 \end{ej}
 
-Podemos dar otra definición de grupo fundamental pero está vez usando caminos así como lo hacemos para el grupo fundamental usual.
+Nuestro foco ahora es dar otra definición de grupo fundamental pero esta vez usando caminos así como lo hacemos para el grupo fundamental usual de un espacio topológico.
 
 \medskip
 Dados dos vértices $P,Q \in V(Y)$ denotaremos por $\Pi(P,Q)$ el conjunto de caminos de $P$ a $Q$.
@@ -165,11 +182,11 @@ donde $g_kg'_0 \in G_P$ por lo tanto su producto está bien definido y en defini
 
 
 \begin{deff}
-	\blue{El grupo fundamental de $\cG$ respecto a un punto de base $P$} se define como $\pi_1(\cG, P) = \pi(\cG,P,P)$.
+	\emph{El grupo fundamental de $\cG$ respecto a un punto de base $P$} se define como $\pi_1(\cG, P) = \pi(\cG,P,P)$.
 \end{deff}
 
-Notemos que en particular para esta construcción obtuvimos un subgrupo del grupo $F(\cal G)$ mientras que en el caso de la definición anterior \ref{def_pi1_arbol} obtuvimos un cociente.
-Podemos ver que ambas definiciones son equivalentes porque son isomorfos como grupos.
+Notemos que en particular para esta construcción obtuvimos un subgrupo del grupo $F(\cal G)$ mientras que en el caso de la definición anterior del grupo fundamental \ref{def_pi1_arbol} obtuvimos un cociente.
+Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfismo como grupos.
 
 \begin{teo}\label{teo_grp_fund_iso}
 	$\pi_1({\cal G}, P)$ es isomorfo con $\pi_1({\cal G}, T)$.
@@ -207,11 +224,12 @@ Podemos ver que ambas definiciones son equivalentes porque son isomorfos como gr
 	Esto porque $T[P,Q]$ es un camino de aristas en el árbol de expansión por lo tanto sobre $\pi_1(\cG, T)$ son la identidad.
 \end{proof}
 
+Como corolario de este resultado vimos que el grupo fundamental de un grafo no depende del árbol de expansión que tomemos porque siempre va a resultar isomorfo al grupo fundamental a partir de un vértice arbitrario del grafo.
 
 
 \subsection{Casos particulares.}
 
-En esta sección vamos entender como son los grupos fundamentales de algunos grafos de grupos cuando los grafos tienen algunas formas en particular. 
+En esta sección vamos entender como podemos escribir los elementos de los grupos fundamentales de algunos grafos de grupos más elementales.
 La idea, aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos finitos arbitrarios a grafos de estas formas.
 Entonces probar resultados sobre otros grafos se va a reducir a la demostraciones que tengamos de estos otros casos bases más comprendidos.
 
@@ -222,12 +240,11 @@ Consideremos que nuestro grafo de grupos $\cG$ está dado sobre cierto segmento 
 	\arrow["y"{pos=0.6}, from=1-1, to=1-3]
 \end{tikzcd}\]
 
-Calculemos el grupo fundamental de este grafo de grupos.
-Como podemos tomar al árbol de expansión al mismo segmento entonces $\pi_1(\cG, T)$ resulta ser el grupo que tomamos libre sobre $G_P$ y $G_Q$ en el que identificamos al subgrupo $G_y$ de $G_P$ con el subgrupo isomorfo $G_{\overline y}$ de $G_Q$.
-De esta manera el grupo que conseguimos es el grupo amalgamado $G_P \ast_{G_y} G_Q$. 
+Por lo visto en la sección anterior sabemos que su grupo fundamental el producto amalgamado $G_P \ast_{G_y} G_Q$. 
+Vamos a construir una manera de escribir a los elementos de este producto amalgamado.
 
-Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y sea $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
-Las \emph{formas normales} van a ser sucesiones $(x_0,x_1,\dots,a)$ tales que $a \in A$ y $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no hay elementos consecutivos $x_{i}, x_{i+1}$ en el mismo conjunto de representantes.
+Para eso sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
+Las \emph{formas normales} van a ser sucesiones $(x_0,x_1,\dots,a)$ tales que $a \in G_{y}$ y $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no hay elementos consecutivos $x_{i}, x_{i+1}$ en el mismo conjunto de representantes.
 
 A continuación veremos un resultado que nos servirá para tener una escritura única y particular de cada palabra sobre los generadores de un grupo amalgamado.
 \begin{prop}\label{prop_amalgamado_formanormal}
@@ -239,7 +256,7 @@ A continuación veremos un resultado que nos servirá para tener una escritura �
  
 \subsubsection{Bucles y grupos HNN.}
 
-Si el grafo $Y$ resulta ser un bucle
+Si el grafo $Y$ resulta ser un bucle tiene la siguiente pinta:
 \[
 	\begin{tikzcd}
 		\overset{P}{\bullet} \arrow["y", loop, distance=2em, in=325, out=35]
@@ -553,7 +570,7 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 	\end{enumerate}
 
 
-\subsection{Árbol de Bass Serre.}
+\subsection{Árbol de Bass--Serre.}
 %Vamos a construirnos un revestimiento para un grafo de grupos arbitrario. 
 %Como el revestimiento universal de todo grafo es un árbol obtendremos un resultado similar en este caso.
 
@@ -676,7 +693,7 @@ A su vez tenemos que $q:\Xm \to Y$ es un epimorfismo de grafos por nuestra const
 	
 	Empezamos probando que el grafo es conexo.
 	Partamos del árbol $\widetilde T$ que sabemos que está en biyección con el árbol $T$.
-	Tomemos a este levantado para que sus vértices sean $V(\widetilde T) = \cup_{P \in E(Y)} G_{P}$ y para que sus aristas sean $E(\widetilde T) =\cup_{y \in E(T)} G_{y}$.
+	Tomemos a este levantado para que sus vértices sean $V(\widetilde T) = \bigcup_{P \in E(Y)} G_{P}$ y para que sus aristas sean $E(\widetilde T) =\bigcup_{y \in E(T)} G_{y}$.
 	De esta manera como $\widetilde T$ es conexo, si a su vez le agregamos las aristas con la orientación opuesta $gG_{\ol y}$ para $y \in E(T)$ tenemos que estas aristas intersecan a $\tilde T$.
 	De esta manera conseguimos un grafo conexo $W$.
 	Dado que toda arista del tipo $G_y$ está en $W$ obtenemos que $G \cdot W = \tilde X$.
@@ -772,7 +789,7 @@ A su vez tenemos que $q:\Xm \to Y$ es un epimorfismo de grafos por nuestra const
 
 
 \begin{deff}
-	El grafo $\tilde X$ es el \blue{árbol de Bass Serre} del grafo de grupos $\cG$ sobre un grafo conexo $Y$.
+	El grafo $\tilde X$ es el \blue{árbol de Bass--Serre} del grafo de grupos $\cG$ sobre un grafo conexo $Y$.
 \end{deff}
 \subsection{Acciones de grupos sobre árboles.}
 
@@ -965,7 +982,7 @@ Veamos ahora que naturalmente este morfismo se factoriza por el cociente $\pi_1(
 
 \subsubsection{Morfismo de grafos $\psi$.}
 
-Construyamos un morfismo de grafos del árbol de Bass Serre en el grafo $X$ que vendría a ser el análogo al revestimiento.
+Construyamos un morfismo de grafos del árbol de Bass--Serre en el grafo $X$ que vendría a ser el análogo al revestimiento.
 
 Sea la asignación $\psi: \Xm \to X$ dada por 
 \begin{align*}
@@ -1086,7 +1103,7 @@ El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea
 \end{proof}
 
 El siguiente resultado nos da la estructura de un grupo que actúa sobre un grafo conexo sin inversiones de aristas. 
-Es el resultado central de la teoría de Bass Serre.
+Es el resultado central de la teoría de Bass--Serre.
 
 \begin{teo}[\cite{serre2002trees}]\label{teo_Serre}
 	Sea $G$ un grupo actuando en grafo conexo $X$ sin inversiones de aristas y sea $\cal G$ el grafo de grupos asociado sobre $Y = X / G$.
@@ -1168,7 +1185,7 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 	\end{equation*}
 \end{prop}
 \begin{proof}
-	Sea $\tilde X$ el árbol de Bass Serre para este grafo de grupos $\cG$.
+	Sea $\tilde X$ el árbol de Bass--Serre para este grafo de grupos $\cG$.
 	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
 	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.
 		
@@ -1183,7 +1200,7 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 
 	donde multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
 	
-	Finalmente para obtener la fórmula que queremos probar tenemos que usar como está construido el árbol de Bass Serre $\Xm$.
+	Finalmente para obtener la fórmula que queremos probar tenemos que usar como está construido el árbol de Bass--Serre $\Xm$.
 	\begin{equation*}
 		|V(\Xm / F)| = \sum_{P \in V(X)} |(G/G_P)/F|
 	\end{equation*}
@@ -1265,7 +1282,7 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 	F = \{  g \in \pi_1(G,P) \ | \ h(g) = 1  \}
 	\]
 	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$.
-	Esto nos dice que el grupo $F$ actúa libremente sobre el árbol de Bass Serre de nuestro grafo de grupos $\cG$.
+	Esto nos dice que el grupo $F$ actúa libremente sobre el árbol de Bass--Serre de nuestro grafo de grupos $\cG$.
 	A su vez como $F$ es un subgrupo de $\pi_1 (\cG, P)$ tenemos que actúa sin inversiones.
 	Estamos en condiciones de usar el teorema de Serre \ref{teo_Serre} y así obtenemos que este grupo debe ser libre. 
 	
