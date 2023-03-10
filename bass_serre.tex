@@ -17,17 +17,16 @@
 
 \begin{document}
 
-\section{Teoría de Bass--Serre.}
+\chapter{Teoría de Bass--Serre.}
 
-La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque la notación no es exactamente la misma sino que es la utilizada en los trabajos \ref{} y \ref{}.
+La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque la notación no es exactamente la misma sino que es similar a la utilizada en el trabajo \cite{diekert_contextfree_2017} 
 
-
-\subsection{Definiciones básicas.}
+\section{Definiciones básicas.}
 
 	Un \emph{grafo dirigido} es un par ordenado $Y= (V(Y),E(Y))$ tal que:
 	\begin{itemize}
-		\item Al conjunto $V(Y)$ lo llamaremos los vértices.
-		\item Al conjunto $E(Y)$ las aristas del grafo.
+		\item Al conjunto $V(Y)$ lo llamaremos los \emph{vértices}.
+		\item Al conjunto $E(Y)$ las \emph{aristas}.
 	\end{itemize}
 	Para cada arista $y \in E(Y)$ tendremos una designación $s(y) = P \in V(Y), t(y) = Q \in V(Y)$.
 	Informalmente diremos que $s(y)$ es el comienzo de la arista $y$ mientras que $t(y)$ es el final de la arista.
@@ -36,7 +35,7 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 	
 	Para esta sección nos va a interesar que los grafos que consideremos sean \emph{conexos}. 
 	Esto es que dado dos vértices $P,Q \in V(Y)$ exista un camino entre ellos.
-	Una camino va a ser una sucesión de aristas 
+	Un camino va a ser una sucesión de aristas 
 	\[
 		(y_0, y_1, \dots y_k) \ \ \text{tal que} \ y_i \in E(Y)  \ \text{para} \ \ i = 0 \dots k
 	\]
@@ -102,13 +101,12 @@ Dado un grafo $Y = (V(Y), E(Y))$ llamaremos $F_{E(Y)}$ al grupo libre  generado 
 	\[
 		R = \{  \overline y = y^{-1}, \ ya^yy^{-1} = a^{\overline y} \} \ \ \text{para toda $y \in E(Y)$ y todo \  $a \in G_y$}
 	\]
-	 . 
 \end{deff}
 
 \begin{obs}
 	El conjunto de relaciones $R$ por el que dividimos anteriormente se puede reescribir de una manera condensada como 
 	\[
-	R = \{  ya^y \overline y = a^{\overline y}  \}.
+	R = \{  ya^y \overline y = a^{\overline y}  \} \ \ \text{para toda $y \in E(Y)$ y todo \  $a \in G_y$}.
 	\]
 \end{obs}
 
@@ -134,7 +132,7 @@ Más aún es la generalización que tenemos del grupo fundamental de un complejo
 	Sea un grafo de grupos $\cal G$ sobre un grafo $Y$ tal que $G_y = \{ 1 \}$ para todo $y \in E(Y)$.
 	Consideremos una orientación $A$ para las aristas del grafo.
 	Esto es que $A$ es un subconjunto de la aristas que cumple que para cada par de vértices unido por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.
-	El grupo fundamental $\pi({\cal G}, T)$ está generado por los elementos $G_P,\  P \in V(Y)$ y los elementos $g_y \in A \setminus (T \cap A)$.
+	El grupo fundamental $\pi({\cal G}, T)$ está generado por los elementos $g \in G_P$ donde $P \in V(Y)$ y los elementos $g_y \in A \setminus (T \cap A)$.
 	Por lo tanto obtenemos que el grupo fundamental de este grafo de grupos resulta ser
 	\[
 	\pi_1({\cal G}, T) = \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (T \cap A)}
@@ -227,7 +225,7 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 Como corolario de este resultado vimos que el grupo fundamental de un grafo no depende del árbol de expansión que tomemos porque siempre va a resultar isomorfo al grupo fundamental a partir de un vértice arbitrario del grafo.
 
 
-\subsection{Casos particulares.}
+\section{Casos particulares.}
 
 En esta sección vamos entender como podemos escribir los elementos de los grupos fundamentales de algunos grafos de grupos más elementales.
 La idea, aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos finitos arbitrarios a grafos de estas formas.
@@ -278,8 +276,8 @@ es decir el grupo fundamental de este grafo de grupos resulta ser una extensión
 
 Así como hicimos en los grupos amalgamados podemos considerar formas normales en estos grupos.
 Sea $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
-Una forma normal para una extensión HNN va a ser una sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ donde $x_0 \in G_P$ es algún elemento arbitrario de este grupo.
-Tenemos que $\epsilon_{i} \in \{ -1,1 \}$.
+Una \emph{forma normal para una extensión HNN} va a ser una sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ donde $x_0 \in G_P$ es algún elemento arbitrario de este grupo.
+Donde $\epsilon_{i} \in \{ -1,1 \}$.
 En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$. 
 
 
@@ -299,31 +297,42 @@ Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},
 Esto es que no nos aparezcan como supbalabras relaciones del grupo.
 
 \begin{teo}[Britton]\label{teo_britton}
-	Si $x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n}g^{\epsilon_n}x_{n+1} = 1$ entonces la sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ no está reducida.
+	Si $x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n}g^{\epsilon_n}x_{n+1} = 1$ entonces la sucesión 
+	\[
+		(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
+	\]
+	 no está reducida.
 \end{teo}
 \begin{proof}
 	Ver \cite{lyndon1977combinatorial}.
 \end{proof}
-\subsection{Palabras reducidas.}
+\section{Palabras reducidas.}
 
-En esta sección vamos a caracterizar los elementos del grupo $F(\cG)$.
+Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y$.
+En esta sección vamos a caracterizar los elementos del grupo $F(\cG)$ a partir de sucesiones reducidas tal como hicimos en el caso particular de los productos amalgamados y las extensiones HNN en la última sección.
 
-Sea $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V(Y)$ y consideremos $\mu = (r_0, \dots r_n)$ una sucesión de elementos tomados de manera que $r_i \in G_{s(y_i)}$ tal como hicimos para la definición de $\pi(\cG, P)$.
-Llamaremos al par $(c, \mu)$ visto como elemento en $\ast_{P \in V(Y)}G_P \ast E(Y)$ a 
+Primero que nada vamos a definir una sucesión sobre este grupo.
+Para eso consideremos:
+\begin{itemize}
+	\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V(Y)$;
+	\item $\mu = (r_0, \dots r_n)$ una sucesión de elementos tomados de manera que $r_i \in G_{s(y_i)}$ tal como hicimos para la definición de $\pi(\cG, P)$.
+\end{itemize}
+
+De esta manera consideraremos al par $(c, \mu)$ visto como una palabra en el grupo $\underset{P \in V(Y)}{\Asterisk} G_P \Asterisk E(Y)$ como la siguiente palabra:
 \[
 (c,\mu) = r_0 y_0 r_1 y_1 \dots r_n y_n.
 \]
-Nos interesa saber bajo qué condiciones estas palabras son reducidas en el grupo $F(\cG)$.
-Notaremos $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$.
+Notaremos $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ que recordemos es un cociente del producto libre de los estabilizadores de los vértices con el libre generado por las aristas.
 
 \begin{deff}
-	Una palabra $(c, \mu)$ es \blue{reducida} si satisface las siguientes dos propiedades:
+	Una palabra $(c, \mu)$ es \emph{reducida} si satisface las siguientes dos propiedades:
 	\begin{enumerate}[R1.]
 		\item Si $n=0$ entonces $r_0 \neq 1$.
 		\item Si $n \ge 1$ entonces $r_i \notin G_{y_i}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
 	\end{enumerate}
 \end{deff}
 En particular si tomamos una palabra $(c, \mu)$ tal que el camino $c$ tiene backtracking por la propiedad \textbf{R2} tenemos que esta palabra no va a ser reducida.
+Esto se condice con la idea anterior que teníamos de las palabras reducidas porque en este caso nos va aparecer como subpalabra una de las relaciones del grupos $F(\cG)$.
 
 Queremos ver que estas condiciones nos alcanzan para probar que estas palabras vistas en $F(\cG)$ sean distintas de la identidad.
 Nuestro objetivo es el siguiente teorema:
@@ -337,27 +346,33 @@ En particular de este teorema obtenemos los siguientes corolarios de bastante ut
 	Para todo $P \in V(Y)$ vale que $G_P$ es un subgrupo de $F(\cG)$.
 \end{coro}
 \begin{proof}
-	Es el caso que $c$ es el camino constante.
+	Dado $g \in G_{P} \setminus \{ 1 \}$ notemos que resulta ser la imagen de la palabra reducida $(c, \mu) = g$ donde $c$ es el camino vacío y $\mu = (g)$.
+	Es reducida por cumplir justamente la propiedad \textbf{R1}.
 \end{proof}
 
 \begin{coro}\label{coro_pal_red_2}
-	Si $(c, \mu)$ es reducida y su longitud es al menos $1$ entonces $|c, \mu| \notin G_{P_0}$ donde $P_0$ es el origen del camino $c$.
+	Si $(c, \mu)$ es reducida y la longitud de $c$ es al menos $1$ entonces $|c, \mu| \notin G_{P_0}$ donde $P_0$ es el origen del camino $c$.
 \end{coro}
 \begin{proof}
 	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
-	Sea $c = (P_0y_1P_1\dots P_0)$.
-	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_P$ y podríamos tomarnos otra palabra reducida $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que $|c,\mu'| = 1$.
-	Sigue siendo una palabra reducida porque justamente por suposición tenemos que la longitud de $c$ es al menos $1$.
+	Sea $(c, \mu) = (r_0y_1r_1\dots r_n)$.
+	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_P$ y podríamos tomarnos otra palabra  $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que $|c,\mu'| = 1$.
+	Sigue siendo una palabra reducida porque por suposición tenemos que la longitud de $c$ es al menos $1$ y el camino $c$ sigue siendo el mismo por lo tanto no tiene backtracking.
 	Esto es una contradicción porque ninguna palabra reducida puede ser la identidad.
 \end{proof}
+
+El siguiente corolario va resultarnos el de mayor utilidad porque en general vamos a trabajar con el grupo fundamental de un grafo de grupos.
 
 \begin{coro}\label{coro_pal_red_3}
 	Sea $T$ un árbol de expansión de $Y$ luego si $(c, \mu)$ es una palabra reducida tal que $c$ es un camino cerrado entonces $|c,\mu| \neq 1$ en $\pi_1(\cG, T)$. 
 \end{coro}
 \begin{proof}
-	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ en el grupo $F(\cG)$ y como estos dos grupos son isomorfos por medio de la inclusión y la proyección al cociente, por el teorema \ref{teo_grp_fund_iso}, entonces esto termina de probar el resultado.
+	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ en el grupo $F(\cG)$.
+	A su vez por como elegimos a $(c, \mu)$ tenemos que es un elemento del grupo fundamental $\pi_1(\cG, P)$.
+	Por el teorema \ref{teo_grp_fund_iso} tenemos que este grupo es isomorfo con el grupo fundamental $\pi_1(\cG, T)$, entonces esto termina de probar el resultado.
 \end{proof}
 
+Veamos ahora de trabajar para finalmente demostrar el teorema \ref{teo_pal_red}.
 Para esto emplearemos una construcción previa que nos ayude a probarlo recursivamente a partir de grafos cada vez más chicos.
 
 Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$. 
@@ -374,7 +389,7 @@ Por inducción supongamos que vale el teorema \ref{teo_pal_red} para este grafo 
 	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=2-2]
 	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=2-2, to=1-3]
 	\arrow[from=2-1, to=1-2]
-	\arrow[from=2-1, to=2-2]
+	%\arrow[from=2-1, to=2-2]
 	\arrow[from=2-2, to=3-1]
 	\arrow[from=1-6, to=3-7]
 	\arrow[from=2-6, to=1-6]
@@ -544,7 +559,7 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 		El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
 		Para el otro caso, es decir el caso que el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente 
 		\[
-			\phi: F(\cG) \to G_{P_{-1}} \ast_{G_y} G_{P_1}
+			\phi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
 		\]
 		donde $G_{P_{-1}} \ast_{G_y} G_{P_1} \simeq \pi_1(\cG, T)$ donde $T$ es el mismo segmento $Y$ en este caso. 
 		Acá estamos usando que el grupo fundamental de un segmento es un grupo amalgamado.
@@ -570,79 +585,17 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 	\end{enumerate}
 
 
-\subsection{Árbol de Bass--Serre.}
-%Vamos a construirnos un revestimiento para un grafo de grupos arbitrario. 
-%Como el revestimiento universal de todo grafo es un árbol obtendremos un resultado similar en este caso.
-
-%Dado $\cG$ un grafo de grupos sobre un grafo $Y$ conexo tomemos un árbol $T$ de expansión de este grafo.
-%Consideremos también $A$ una orientación de las aristas del grafo $Y$ de manera que $e(y)=0$ si $y \in A$ mientras que $e(y)=1$ si $y \notin A$.
-%Dada una arista $y \in E(Y)$ denotaremos por $|y|$ a la arista $y$ o $\ol{y}$ tal que está en la orientación $A$.
-%Llamaremos $g_y$ al elemento de $F(\cG)$ correspondiente al generador $y \in E(Y)$ porque vamos a necesitar diferenciar elementos del grupo con las aristas propiamente dichas del grafo.
-%
-%Queremos construirnos un grafo $\Xm$ tal que tenga las siguientes propiedades:
-%
-%\begin{enumerate}
-%	\item Una acción de $\pi_1(\cG, T)$ en $\Xm$.
-%	\item Un morfismo de grafos sobreyectivo $p:\Xm \to Y$. 
-%	\item Unas secciones de los vértices de $Y$ en los de $\Xm$ e idénticamente secciones en las aristas.
-%\end{enumerate}
-%
-%A nuestras secciones las vamos a denotar de manera que para todo vértice $P \in Y$ tendremos un $ \widetilde P \in V(\Xm)$.
-%Mirando la acción de $\pi_1(\cG, T)$ sobre $\Xm$ nos gustaría que el estabilizador respecto a $\widetilde P$ sea el mismo que el estabilizador de $P$ en el grafo de grupos $\cG$. 
-%Para esto podemos definir directamente para que $\widetilde P \simeq \pi_1(\cG, T) / G_P$.
-%Análogamente para todas las aristas de nuestro grafo queremos que el estabilizador sea isomorfo al subgrupo $G_y$ dentro de $G_{t(y)}$.
-%Llamemos a los estabilizadores $\pi_{\widetilde P}$ y $\pi_{\widetilde y} $ respectivamente para diferenciarlos. 
-%A su vez diferenciaremos por $\widetilde P$ a la imagen de $1$ dentro de los cosets e idénticamente lo haremos para $\widetilde y$. 
-%
-%Usando estas condiciones tenemos que
-%\begin{equation*}
-%	V(\tilde X) = \coprod_{P \in V(Y)} \pi_1(\cG, T) / G_P, \ \  E(\tilde X) = \coprod_{y \in E(Y)} \pi_1(\cG, T) / G_y
-%\end{equation*}
-%
-%para obtener un grafo nos queda definir como son los trasladados de aristas por medio de $g \in \pi_1(\cG, P)$.
-%Definimos así las siguientes operaciones sobre el grafo $\tilde X$,
-%\begin{enumerate}[(a)]
-%	\item $\overline{g \tilde y} = g \tilde{\ol y}$;
-%	\item $s(g \tilde y) = g g_y^{-e(y)} \widetilde{s(y)}$
-%	\item $t(g \tilde y) = g g_y^{1-e(y)} \widetilde{t(y)}$
-%\end{enumerate}
-%
-%Debemos ver que así como están definidas resultan ser consistentes estas definiciones.
-%En el ítem \textbf{(a)} estamos definiendo como son las aristas con orientación opuesta. 
-%Por ahora tenemos definidas las aristas correspondientes a $\ol y$ de manera disjunta a las que están definidas correspondientes a $y$.
-%Para ver la validez de esta definición usamos que si $h\widetilde{\ol y} = g\widetilde{\ol y}$ entonces esto sucede si y solo sí $h\pi_{\widetilde{\ol y}} =g\pi_{\widetilde{\ol y}} $ pero justamente como $\pi_{\widetilde{\ol y}} = \pi_{y} $ por como definimos a estos grupos por lo tanto resultaban provenir de la misma arista del grafo $\tilde X$.
-%
-%Para probar que es válida la definición de \textbf{(b)} veamos que si tomamos dos representantes distintos de alguna coclase donde comienza la arista va a ser en el mismo vértice.
-%En definitiva debemos ver para $h \in G_y$ que valga la siguiente igualdad,
-%\[
-%	hg_y^{-e(y)} \widetilde{s(y)} = g_y^{-e(y)} \widetilde{s(y)}
-%\] 
-%y esto recae en ver la siguiente igualdad que es básicamente la siguiente inclusión que es parecida a la relación que tenemos en este grupo,
-%\[
-%	g_y^{e(y)}\pi_{\tilde y}g_y^{-e(y)} \subset G_{\widetilde{s(y)}}.
-%\]
-%Pensemos en los dos casos posibles dependiendo de si la arista está en la orientación elegida o no lo está,
-%\begin{itemize}
-%	\item Si $e(y) = 0$ entonces $|y| = y$ y por como lo definimos tenemos que $\pi_{\tilde y} = G_{y}$ es tal que al conjugarlo por $g_y$ nos queda un elemento de $G_{\ol y}$ y tenemos que vale la inclusión $G_{\ol y} \subset G_{s(y)}$ dado que $t(\ol y) = s(y)$ para todo $y \in E(Y)$.
-%	\item Si $e(y) = 1$ entonces tenemos la siguiente situación
-%	\[
-%		\pi_{\tilde y} \subseteq G_{\widetilde{s(y)}}	
-%	\] 
-%	y para probar esto usamos la definición de estos grupos porque $\pi_{\tilde y} = G_{\ol y}$ dado que esta arista no está en la orientación.
-%	Usando nuevamente que $s(y) = t(\ol y)$ obtenemos lo que queríamos probar.  
-%\end{itemize}
-%
-%Finalmente la definición \textbf{(c)} es válida usando lo anteriormente demostrado y reemplazando $y$ por $\ol y$.
-%
-%\medskip
+\section{Árbol de Bass--Serre.}
+En esta sección presentamos una construcción del árbol de Bass--Serre un poco más concisa que la que aparece en \cite{serre2002trees} si bien la idea es prácticamente la misma.
+En cambio en el paper \cite{diekert_contextfree_2017} construyen este árbol de una manera más sintáctica usando sistemas de reescritura.
 
 Sea $\cG$ un grafo de grupos sobre un grafo $Y$ conexo. 
 Sea $T$ un árbol maximal del grafo $Y$ luego llamemos $G = \pi_1(\cG,T)$.
 Queremos construirnos un árbol $\Xm$ tal que $G$ actúe sobre este árbol sin inversiones de aristas y de manera que $Y = \Xm / G$.
 Llamemos $q:\Xm \to Y$ a la función cociente.
 Para construir este árbol vamos a partir de la siguiente observación.
-Si $\tilde x \in \Xm$ luego por el teorema de órbitas estabilizador tenemos un isomorfismo entre $q(\tilde x) = \tilde x G$ y los cosets del estabilizador $G / G_{\tilde x}$.
-De esta manera valiendonos de esta observación definimos el conjunto de vértices de la siguiente manera,
+Si $\tilde x \in \Xm$ luego por el teorema de órbitas estabilizador tenemos un isomorfismo entre la órbita $\tilde x G$ y los cosets del estabilizador $G / G_{\tilde x}$.
+De esta manera valiéndonos de esta observación definimos el conjunto de vértices de la siguiente manera,
 \[
 V(\Xm) = \bigsqcup_{v \in V(Y)} G/G_{v}
 \]
@@ -672,9 +625,9 @@ Si tenemos que $gG_{y} = hG_{y}$ esto nos dice que $h^{-1}gG_{y} = G_{y}$.
 Para esto volvemos a usar que $h^{-1}g \in G_y$ nos dice que $h^{-1}g \in G_{s(y)}$.
 De esta manera $hG_{s(y)} = gG_{s(y)}$ tal como queríamos ver.
 
-La arista con la orientación opuesta nos queda definida de la siguiente manera,
+Gracias a las otras dos definiciones la arista con la orientación opuesta nos queda definida de la siguiente manera,
 \[
-\ol gG_{y} = gg_{y} G_{\ol y}.
+\ol{gG_{y}} = gg_{y} G_{\ol y}.
 \]
 
 Por la construcción que hicimos nos queda justamente que $\Xm / G \simeq Y$.
@@ -789,9 +742,9 @@ A su vez tenemos que $q:\Xm \to Y$ es un epimorfismo de grafos por nuestra const
 
 
 \begin{deff}
-	El grafo $\tilde X$ es el \blue{árbol de Bass--Serre} del grafo de grupos $\cG$ sobre un grafo conexo $Y$.
+	El grafo $\tilde X$ es el \emph{árbol de Bass--Serre} del grafo de grupos $\cG$ sobre un grafo conexo $Y$.
 \end{deff}
-\subsection{Acciones de grupos sobre árboles.}
+\section{Acciones de grupos sobre árboles.}
 
 Sea $G$ grupo que actúa sin inversiones de aristas sobre un grafo conexo $X = (V(X),E(X))$.
 Consideremos $Y = G / X$ el grafo que conseguimos al cocientar por esta acción.
@@ -969,6 +922,7 @@ Veamos ahora que naturalmente este morfismo se factoriza por el cociente $\pi_1(
 	
 	Sea $T'$ maximal podemos ver que está en biyección con $T$.
 	Caso contrario podríamos levantar una arista $Ge$ tal que $Ge=(Gv,Gw)$ con $\iota(Gv) \in T'$ pero $Gw \notin T'$ y luego elegimos $e$ tal que $s(e) = v$ y extendiendo a $\iota$ contradecimos la maximalidad de $T'$.	
+	
 \end{proof}
 
 \begin{coro}
@@ -1106,8 +1060,9 @@ El siguiente resultado nos da la estructura de un grupo que actúa sobre un graf
 Es el resultado central de la teoría de Bass--Serre.
 
 \begin{teo}[\cite{serre2002trees}]\label{teo_Serre}
-	Sea $G$ un grupo actuando en grafo conexo $X$ sin inversiones de aristas y sea $\cal G$ el grafo de grupos asociado sobre $Y = X / G$.
-	Consideremos $T$ un árbol de expansión de $Y$, $\psi: \Xm \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$ luego las siguientes afirmaciones son equivalentes.
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
+	Consideremos $T$ un árbol de expansión de $Y$ y los morfismos $\psi: \Xm \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$.
+	Luego las siguientes afirmaciones son equivalentes.
 	\begin{enumerate}[(a)]
 		\item el grafo $X$ es un árbol;
 		\item el morfismo $\psi: \Xm \to X$ es un isomorfismo de grafos;
@@ -1149,11 +1104,11 @@ Como corolarios obtenemos una caracterización para los grupos libres que usarem
 \begin{proof}
 	Si $G$ es libre entonces su grafo de Cayley lo podemos tomar como un árbol y usamos que actúa libremente sobre él sin invertir aristas.
 	
-	Para la vuelta usamos \ref{teo_Serre} porque es isomorfo a $\pi_1(\cG, T)$ y este grupo es libre por ser el grupo fundamental de un grafo dado que los estabilizadores son triviales por hipótesis.
+	Para la vuelta usamos \ref{teo_Serre} porque en tal caso tenemos que $G$ isomorfo a $\pi_1(\cG, T)$ y este grupo es libre por ser el grupo fundamental de un grafo dado que los estabilizadores son triviales por hipótesis.
 \end{proof}
 
 \begin{coro}\label{coro_niels_sch}
-	Dado $G$ un grupo libre todo subgrupo $H \le G$ resulta ser libre.
+	Dado $G$ un grupo libre todo subgrupo $H$ de $G$ resulta ser libre.
 \end{coro}
 \begin{proof} 
 	Usando el corolario \ref{coro_libre_sii_actua_arbol} tenemos que $G$ actúa libremente sobre un árbol sin inversiones.
@@ -1167,7 +1122,7 @@ Este resultado generaliza la fórmula de Schreier para subgrupos libres.
 Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la demostración de esta fórmula.
 
 \begin{lema}\label{lema_libre_torsion}
-	Todo grupo libre \fg no tiene torsión.
+	Todo \fg libre no tiene torsión.
 \end{lema}
 \begin{proof}
 	El grafo de Cayley de un grupo libre se puede tomar para que sea un árbol.
@@ -1176,8 +1131,8 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 
 
 \begin{prop}\cite{karrass1973finite}\label{prop_karrass_formula}
-	Sea $\cal G$ un grafo de grupos finito con grupos sobre los vértices finitos.
-	Sea $G = \pi_1 ({\cal G}, T)$ y sea $F$ un subgrupo libre de $G$ de índice finito con rango $r(F)$.
+	Sea $\cal G$ un grafo de grupos finito tal que los grupos de los vértices y aristas también son finitos.
+	Sea $G = \pi_1 ({\cal G}, T)$ y sea $F$ un subgrupo libre de $G$ de índice finito con rango finito $r(F)$.
 	Luego la siguiente fórmula vale:
 	
 	\begin{equation*}
@@ -1188,37 +1143,35 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 	Sea $\tilde X$ el árbol de Bass--Serre para este grafo de grupos $\cG$.
 	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
 	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.
-		
-	Dado que $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\widetilde X / F)$.
-	Usando esto calculemos el rango del grupo libre contando todas las aristas que no pertenezcan a un árbol de expansión $T'$ del grafo $\Xm / F$.
-	Recordemos que al ser un árbol de expansión tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
 	
+	Sea $\cal H$ el grafo de grupos sobre $\Xm/F$ construído a partir de la acción del subgrupo $F$.
+	Sea $T'$ un árbol de expansión del grafo $\Xm/F$.
+	Dado que $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\cH, T')$.
+	Usando esto calculemos el rango del grupo libre contando todas las aristas que no pertenezcan al árbol $T'$.
+	Recordemos que al ser un árbol de expansión tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
+	De esta manera dado que los estabilizadores por la acción de $F$ son triviales tenemos el siguiente isomorfismo $\pi_1(\cH, T') \simeq F_{\Sigma}$ donde $\Sigma$ es un conjunto finito que resulta tener el siguiente orden 
+	\[
+		|\Sigma| = \dfrac{|E(\Xm/F) \ \setminus \ E(T')|}{2},
+	\]
+	multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
+	Por lo tanto el rango de $F$ lo podemos calcular como el orden del conjunto $\Sigma$.
 	\begin{align*}
 		r(F) &= \frac{1}{2} (|E(\Xm / F)| - |E(T')|) \\
 		&= \frac{1}{2} |E(\Xm / F)| - |V(\Xm / F) | - 1
 	\end{align*}
-
-	donde multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
 	
 	Finalmente para obtener la fórmula que queremos probar tenemos que usar como está construido el árbol de Bass--Serre $\Xm$.
 	\begin{equation*}
 		|V(\Xm / F)| = \sum_{P \in V(X)} |(G/G_P)/F|
 	\end{equation*}
-	y acá usamos que que la cantidad de cosets de $(G/G_y)/F$ es la misma que hay en $(F / G)/G_y$
+	y acá usamos que que la cantidad de cosets de $(G/G_P)/F$ es la misma que hay en $(G/F)/G_P$
 	por lo tanto 
 	\begin{equation*}
-		|V(\Xm / F)| = \sum_{P \in V(X)} \dfrac{(G:F)}{|G_y|}
+		|V(\Xm / F)| = \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|}.
 	\end{equation*}
-	Obtenemos una expresión análoga para las aristas y así terminamos de probar la validez de la fórmula.
+	Similarmente obtenemos una expresión análoga para las aristas y así terminamos de probar la validez de la fórmula.
 \end{proof}
 
-%\begin{teo}
-%	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos \fg en los vértices.
-%	Entonces $\pi_1(\cal G)$ es \fg si y solo sí todos los grupos de los vértices lo son.
-%\end{teo}
-%
-%\begin{proof}
-%\end{proof}
 
 Finalmente podemos probar que grupo fundamental de un grafo de grupos finito con grupos finitos es virtualmente libre. 
 Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
@@ -1294,7 +1247,7 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 
 
 
-%\subsection{Productos semi directos.}
+%\section{Productos semi directos.}
 %
 %En esta sección vamos a refinar los resultados obtenidos anteriormente para ver que los grupos fundamentales de grafos finitos de grupos finitos y por lo tanto los grupos virtualmente libres se pueden meter dentro de un producto semidirecto $F Q$ donde $F$ es un grupo libre y $Q$ es un cociente finito de $G$.
 %La referencia de esta sección es el paper \cite{} que a su vez se basó en los métodos del paper de Dahmani-Guirardel.
@@ -1310,7 +1263,7 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 %	Ejemplo de $SL_2(\ZZ)$.
 %\end{ej}
 %
-%\subsection{Ends de grupos.}
+%\section{Ends de grupos.}
 %
 %\begin{deff}
 %	Ends de grupos
@@ -1330,7 +1283,7 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 %	Grupo accesible.
 %\end{deff}
 %
-%\subsection{Accesibilidad en terminos de teoría de grafos.}
+%\section{Accesibilidad en terminos de teoría de grafos.}
 %
 %\begin{deff}
 %	Def de VK95 usando grafos.

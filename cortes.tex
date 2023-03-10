@@ -2,10 +2,8 @@
 \newcommand{\aut}{\text{Aut}}
 \newcommand{\Sy}{\text{Sym}} 
  
-
-
 \begin{document}
-\section{Cortes de grafos y árboles de estructura.}
+\chapter{Cortes de grafos y árboles de estructura.}
 
 \begin{deff}
 	Sea $\Gamma$ un grafo conexo. 
@@ -173,7 +171,7 @@ Para eso primero veamos un lema un poco más técnico.
 \end{proof}
 
 
-\subsection{Cortes mínimos.}
+\section{Cortes mínimos.}
 
 \begin{deff}
 	Dado $\alpha$ camino bi-infinito definimos el conjunto de sus cortes mínimos como
@@ -232,7 +230,7 @@ En este caso notaremos para cada corte $C$ el siguiente valor
 	m(C) = m_k(C).
 \]
 
-\subsection{Cortes óptimos.}
+\section{Cortes óptimos.}
 
 Así como definimos cortes mínimos ahora vamos a definir cortes óptimos que serán un subconjunto de ellos.
 
@@ -340,7 +338,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estricta y por lo tanto llegamos a una contradicción de suponer que los cortes $C,D$ no están anidados.
 \end{proof}
 
-\subsection{Árbol de estructura.}
+\section{Árbol de estructura.}
 
 Todos los grafos que vamos a considerar a partir de ahora son accesibles.
 Veamos que los caminos óptimos resultan ser un poset discreto con la inclusión en este caso.
@@ -470,7 +468,7 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	luego por como tomamos estos cortes obtenemos que $\ol C_i \sim C_{i+1}$ por lo tanto obtenemos el siguiente camino $[C],[C_1], \dots, [C_{n-1}],[D]$ en el grafo $T(\copt)$ probando así que es conexo.	
 \end{proof}
 
-\subsection{Acciones sobre el árbol de estructura.}
+\section{Acciones sobre el árbol de estructura.}
 
 Sea $\Gamma$ un grafo accesible, conexo y localmente finito tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre este grafo.
 
@@ -709,7 +707,7 @@ Estos bloques aparte cumplen que son conexos.
 	Nuestro objetivo es llegar a una contradicción de suponer la existencia de este corte. 	
 	% contradicción.
 	
-	Dado que $E,C \in \copt$ luego están anidados gracias a la proposición \ref{}.
+	Dado que $E,C \in \copt$ luego están anidados gracias a la proposición \ref{teo_copt_anidados}.
 	Dos posibilidades están descartadas. 
 	Es imposible que $E \subseteq \ol C$ o bien $\ol E \subseteq \ol C$ porque en ambos casos contradiríamos que $E \in {\cal C}_{\alpha}$.
 	Nos queda considerar los otros dos casos que son $E \subsetneq C$ o bien $\ol E \subsetneq C$, ambos casos los tratamos análogamente.
@@ -722,7 +720,7 @@ Estos bloques aparte cumplen que son conexos.
 
 
 
-\subsection{Grafos accesibles.}
+\section{Grafos accesibles.}
 
 \begin{lema}\label{lema_geodesica_biinfinita}
 	Sea $\Gamma$ un grafo conexo, localmente finito e infinito de manera que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
