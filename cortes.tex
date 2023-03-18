@@ -5,13 +5,7 @@
 \begin{document}
 \chapter{Cortes de grafos y árboles de estructura.}
 
-\begin{deff}
-	Sea $\Gamma$ un grafo conexo. 
-	Sea $C \subseteq V(\Gamma)$ luego definiremos la frontera de este conjunto como:	
-	\[
-	\delta C = \{  (x,y) | x \in C, y \in \ol C    \}
-	\]
-\end{deff}
+En este capítulo vamos a construirnos a partir de un grafo $\Gamma$ en el cual actúa por automorfismos algún grupo $G$ una descomposición en un árbol tal que, en cierta manera, codifique los bloques invariantes por esta acción de $G$ sobre el grafo $\Gamma$.
 
 
 \begin{deff}
@@ -24,7 +18,10 @@
 \end{deff}	
 
 Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
-Un ejemplo claro es tomar el grafo de Cayley de $\ZZ^2$.
+\todo[inline]{Quizá escribir detalladamente este ejemplo.}
+Un ejemplo claro es tomar el grafo de Cayley de $\ZZ^2$ que podemos ver que todo corte $C$ es tal que alguna de las dos componentes $C$ o bien $\ol C$ es finita.
+
+La propiedad fundamental de los cortes en estos grafos es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.
 	
 \begin{lema}\label{lema_finitos_kcortes}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
@@ -85,7 +82,7 @@ Tenemos que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ 
 \end{obs}
 	
 \begin{deff}
-	Dado un grafo $\Gamma$ y $S \subset V(\Gamma)$ diremos que $\Gamma$ tiene más de un end si $\Gamma \setminus S$ tiene más de una componente conexa.
+	Dado un grafo $\Gamma$ y $S \subset V(\Gamma)$ diremos que $\Gamma$ tiene más de un end si $\Gamma \setminus S$ tiene más de una componente conexa infinita.
 	Caso contrario diremos que tiene al menos un end.
 \end{deff}
 

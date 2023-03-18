@@ -219,18 +219,16 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 \medskip
 
 \begin{deff}
-	Dado un grafo $X$, el \blue{borde} de un conjunto de vértices $C \subseteq V(X)$ se define como
+	Dado un grafo $X$ y un conjunto de vértices $C \subseteq V(X)$ definimos el \emph{borde de vértices} de $C$ como:
 	\[
-	\beta C = \{ u \in V(X) : \exists v \in V(X), \ (u,v) \in E(X), \  \ \ (u \in C \wedge v \in \overline C) \ \ \lor  (u \in \overline C \wedge v \in  C)   \}.
+	\beta C =  N(C) \cap N(\ol{ C})
 	\] 
+	por otro lado tenemos que el \emph{borde de aristas} de $C \subseteq V(X)$ se define como:	
+	\[
+	\delta C = \{  (x,y) | x \in C, y \in \ol C    \}.
+	\]
 \end{deff}
 
-\begin{obs}
-Otra manera de definir el borde de un conjunto de vértices $C$ puede ser 
-\[
-	\beta C = N(C) \cap N(\ol{ C}).
-\]
-\end{obs}
 
 \begin{ej}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
 	
@@ -243,7 +241,7 @@ Otra manera de definir el borde de un conjunto de vértices $C$ puede ser
 	\[
 	V(T) = \{  \beta C : C \subseteq V_n \ \text{componente conexa}   \} \cup \{ 1 \}
 	\]
-	esto es todas las fronteras de las componentes conexas que nos quedan cuando consideramos algún $V_n$. 
+	esto es todas las bordes de vértices de las componentes conexas que nos quedan cuando consideramos algún $V_n$. 
 	Las aristas entonces van a estar dadas por lo siguiente,
 	\[
 	E(T) = \{ (\beta C , \beta D) : C \subseteq D \subseteq V_n, \ C \subset V_{n+1}   \} \cup \{  (1, \beta C) : C \subseteq V_0  \}
