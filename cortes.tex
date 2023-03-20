@@ -3,10 +3,14 @@
 \newcommand{\Sy}{\text{Sym}} 
  
 \begin{document}
+	
 \chapter{Cortes de grafos y árboles de estructura.}
 
 En este capítulo vamos a construirnos a partir de un grafo $\Gamma$ en el cual actúa por automorfismos algún grupo $G$ una descomposición en un árbol tal que, en cierta manera, codifique los bloques invariantes por esta acción de $G$ sobre el grafo $\Gamma$.
+Nuestra construcción va a seguir la más original formulada en el trabajo \cite{}.
+Existen formulaciones distintas como las que aparecen en los trabajos \cite{} y \cite{}.
 
+En este capítulo consideraremos que $\Gamma$ es un grafo conexo y localmente finito salvo que se mencione lo contrario.
 
 \begin{deff}
 	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones,
@@ -21,8 +25,7 @@ Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo
 \todo[inline]{Quizá escribir detalladamente este ejemplo.}
 Un ejemplo claro es tomar el grafo de Cayley de $\ZZ^2$ que podemos ver que todo corte $C$ es tal que alguna de las dos componentes $C$ o bien $\ol C$ es finita.
 
-La propiedad fundamental de los cortes en estos grafos es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.
-	
+La propiedad fundamental de los cortes en estos grafos es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
 \begin{lema}\label{lema_finitos_kcortes}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
 	Sea $S \subset V$ un conjunto finito y $k\ge 1$.
@@ -51,50 +54,42 @@ La propiedad fundamental de los cortes en estos grafos es que fijada una arista 
 \end{proof}
 	
 \begin{deff}
-	Dado $\Gamma$ un grafo conexo diremos que un camino simple $\alpha$ es un \emph{camino infinito }si
+	Dado $\Gamma$ un grafo conexo diremos que un camino simple $\alpha$ es un \emph{rayo} si
 	\[
 		\alpha = v_0 \dots v_{n} \dots
 	\]	
-	Diremos que es un \emph{camino bi-infinito } si
+	Diremos que es un \emph{camino infinito} si
 	\[
 		\alpha =  \dots v_{-n} \dots v_0 \dots v_{n} \dots 
 	\]
 \end{deff}	
 	
 
-Una primera observación es que dado un corte $C$ tal que $C$ es infinito y $\ol C$ también lo es, podemos armarnos un camino bi infinito $\alpha$ tal que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+Una primera observación es que dado un corte $C$ tal que $C$ es infinito y $\ol C$ también lo es, podemos armarnos un camino infinito $\alpha$ tal que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+Fijemos dos vértices $u \in C$ y $v \in \ol C$ de manera que $(u,v) \in \delta C$.
+Por el lema de König  tenemos un rayo infinito dentro de $C$.
+Si este rayo no pasa por el vértice $u$ nos tomamos un camino simple finito que una $u$ con el origen de este rayo llamemos a este vértice $u_{0}$.
+Consideremos entonces el primer vértice del rayo que interseca a este camino, sea este $u_{1}$.
+Si consideramos la concatenación de este camino finito hasta $u_{1}$ y luego la continuación del rayo a partir de $u_{1}$ obtenemos el rayo $\alpha \cap C$.
+Para obtener la otra parte y así llegar a tener un camino infinito $\alpha$ hacemos lo mismo a partir del vértice $v \in \ol C$ y luego concatenamos estos caminos con el vértice $(u,v)$ para así llegar a un camino infinito $\alpha$. 
 
 No necesariamente vale la vuelta.
-Esto es que si tenemos un camino bi-infinito $\alpha$ y un corte $C$ entonces el corte cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+Esto es que si tenemos un camino infinito $\alpha$ y un corte $C$ entonces el corte cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
 
 Esto nos lleva a dar la siguiente definición.
 
 \begin{deff}
-	Sea $\Gamma$ un grafo conexo y sea $\alpha$ un camino bi-infinito.
+	Sea $\alpha$ un camino infinito.
 	Definimos el conjuntos de cortes del camino como 
 	\[
 		{\cal C}(\alpha) = \{ C \subset V(\Gamma) \mid  C \ \text{es un corte y} \ |\alpha \cap C| = \infty = |\alpha \cap \ol C| \}
 	\] 
 \end{deff}
 
-\begin{obs}
-Tenemos que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manera que $\alpha \setminus \delta C$ tiene dos componentes infinitas.
-\end{obs}
-	
-\begin{deff}
-	Dado un grafo $\Gamma$ y $S \subset V(\Gamma)$ diremos que $\Gamma$ tiene más de un end si $\Gamma \setminus S$ tiene más de una componente conexa infinita.
-	Caso contrario diremos que tiene al menos un end.
-\end{deff}
-
-\begin{obs}
-	Por la observación anterior tenemos que un grafo $\Gamma$ tiene más de un end si y solo sí existe un camino bi-infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
-\end{obs}
-
-%Esta definición de ends para grafos de Cayley resulta ser equivalente a la definición de ends para grupos.
-%En el trabajo \cite{} está probada la equivalencia entre estos resultados...	
+Una manera equivalente de escribir esta definición es que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manera que $\alpha \setminus \delta C$ tiene dos componentes conexas infinitas.
 
 \begin{deff}
-	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino bi-infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
+	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
 \end{deff}
 
 Veamos que los grafos con treewidth finito son accesibles.
@@ -103,7 +98,7 @@ Para eso primero veamos un lema un poco más técnico.
 \begin{lema}\label{lema_corte_treewidth}
 	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
 	Entonces existe $k \in \NN$ tal que:
-	Para todo $\gamma$ camino infinito simple, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap \gamma| = \infty$. 
+	Para todo $\gamma$ rayo simple, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap \gamma| = \infty$. 
 \end{lema}
 
 \begin{proof}
@@ -116,7 +111,7 @@ Para eso primero veamos un lema un poco más técnico.
 	Nombraremos a esta componente conexa $C_{t_0,\gamma}$.
 	
 	Repetimos este procedimiento por cada vértice de la componente conexa de $\ol X_{t_0}$.
-	Esto nos da un camino infinito en el árbol $t_0,t_1, \dots t_n \dots$ y una sucesión de componentes conexas correspondientes $C_{t_0,\gamma} C_{t_1,\gamma} \dots C_{t_n, \gamma} \dots$.
+	Esto nos da un rayo en el árbol $t_0,t_1, \dots t_n \dots$ y una sucesión de componentes conexas correspondientes $C_{t_0,\gamma} C_{t_1,\gamma} \dots C_{t_n, \gamma} \dots$.
 	
 	Si elegimos $l \in \NN$ suficientemente grande podemos garantizar que
 	\[
@@ -143,7 +138,6 @@ Para eso primero veamos un lema un poco más técnico.
 	En este caso notemos que $v \in X_{t_l}$ caso contrario tendríamos que $v \in C_{t_l, \gamma}$ dado que esta es una de las componentes conexas de $X \setminus X_{t_l}$.
 	De esta manera vimos que $\partial D \subseteq X_{t_l}$.
 	Como el grafo es localmente finito y tiene treewidth finito concluímos finalmente que $|\delta D| \le dm = k$ tal como queríamos ver.
-		
 \end{proof}
 
 
@@ -152,7 +146,7 @@ Para eso primero veamos un lema un poco más técnico.
 	Entonces $\Gamma$ es accesible.
 \end{teo}
 \begin{proof}
-	Tomemos $\alpha$ un camino bi-infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
+	Tomemos $\alpha$ un camino infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
 	Sea $C \in {\cal C}(\alpha)$.
 	Veamos de construirnos un $k$-corte $D$ de manera que $D \in {\cal C}(\alpha)$.
 	
@@ -167,18 +161,17 @@ Para eso primero veamos un lema un poco más técnico.
 	Esto contradice que $\beta C \subseteq D$ por como elegimos a $D$.	
 \end{proof}
 
-
 \section{Cortes mínimos.}
 
 \begin{deff}
-	Dado $\alpha$ camino bi-infinito definimos el conjunto de sus cortes mínimos como
+	Dado $\alpha$ camino infinito definimos el conjunto de sus cortes mínimos como
 	\[
 		\cam = \{  C \in \ca : |\delta C| \ \text{es mínimo}  \}
 	\]
 	
 	Dado un grafo $\Gamma$ definimos el conjunto de sus cortes mínimos como 
 	\[
-		{\cal C}_{\text{min}} = \bigcup \{ \cam : \alpha \ \text{es un camino bi-infinito}  \}
+		{\cal C}_{\text{min}} = \bigcup \{ \cam : \alpha \ \text{es un camino infinito}  \}
 	\]
 \end{deff}
 
@@ -232,7 +225,7 @@ En este caso notaremos para cada corte $C$ el siguiente valor
 Así como definimos cortes mínimos ahora vamos a definir cortes óptimos que serán un subconjunto de ellos.
 
 \begin{deff}
-	Dado $\alpha$ camino bi-infinito sea
+	Dado $\alpha$ camino infinito sea
 	\[
 		m_\alpha = \min \{ m(C) : C \in \cam \}.
 	\]
@@ -474,7 +467,7 @@ Para eso notemos que si $C$ es un corte luego si $\varphi \in \aut(\Gamma)$ tene
 Por otro lado al ser un morfismo del grafo $\Gamma$ obtenemos que $\ol{\varphi(C)} = \varphi(\ol C)$ por lo tanto su complemento sigue siendo conexo.
 Al ser un automorfismo tenemos que $\varphi(\beta C) = \beta (\varphi C)$ y por este motivo tenemos que $|\varphi (\beta C)| = |\beta (\varphi C)|$ y esto nos dice que manda $k$-cortes en $k$-cortes.
 Veamos que manda un corte minimal en uno minimal. 
-Para eso si $C \in {{\cal C}}_{\text{min}}(\alpha)$ para cierto camino bi-infinito $\alpha$ luego notemos que $\varphi(\alpha)$ es otro camino bi-infinito y por ser un automorfismo obtenemos que $\varphi(C) \in {\cal C}_{\varphi(\alpha)}$.
+Para eso si $C \in {{\cal C}}_{\text{min}}(\alpha)$ para cierto camino infinito $\alpha$ luego notemos que $\varphi(\alpha)$ es otro camino infinito y por ser un automorfismo obtenemos que $\varphi(C) \in {\cal C}_{\varphi(\alpha)}$.
 Similarmente tenemos que si $C$, $D$ no están anidados luego necesariamente $\varphi(C)$ y $\varphi(D)$ no están anidados tampoco.
 Caso contrario si $\varphi(C) \cap \varphi(D) = \emptyset$ luego tendríamos que al ser $\varphi \in \aut(\Gamma)$ que preserva las intersecciones y tiene una inversa por lo que $C \cap D = \emptyset$ y esta es la contradicción.
 Juntando todo nos dice que $\aut(\Gamma)$ actúa sobre los cortes óptimos.
@@ -686,11 +679,20 @@ Estos bloques aparte cumplen que son conexos.
 \end{proof}
 
 
+Diremos que dos rayos $r,r'$ tienen el mismo \emph{end} si para todo corte $C$ resulta que tenemos la siguiente equivalencia:
+\[
+|r \cap C| = \infty \iff |r' \cap C| = \infty. 
+\]
+Esto nos da una relación de equivalencia sobre los rayos y a estas clases de equivalencia las denotaremos los ends del grafo $\Gamma$.
+Por la observación anterior tenemos que un grafo $\Gamma$ tiene más de un end si y solo sí existe un camino infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
+Esto resulta equivalente a que exista un conjunto finito $S$ de vértices de manera que $\alpha$ tenga dos componentes conexas infinitas en $\Gamma \setminus S$.
+
+
 \begin{lema}\label{lema_bloques_1_end}
 	Los bloques $B([C])$ tienen a lo sumo un solo end.
 \end{lema}
 \begin{proof}
-	Si el bloque tuviera más de un end entonces debería existir $\alpha$ camino bi-infinito y $S \subseteq B([C])$ finito de manera que $\alpha$ tiene infinitos vértices en dos componentes conexas distintas de $B([C]) \setminus S$.
+	Si el bloque tuviera más de un end entonces debería existir $\alpha$ camino infinito y $S \subseteq B([C])$ finito de manera que $\alpha$ tiene infinitos vértices en dos componentes conexas distintas de $B([C]) \setminus S$.
 	Como tenemos que $\alpha \subseteq B([C]) \subseteq N^l(D)$ y por el lema \ref{lema_nlC_cap_olC_conexo} sabemos que $|N^l(D) \cap \ol D | < \infty$.
 	Esto nos dice que en particular para todo $D \in [C]$ tenemos que $|\alpha \cap \ol D| < \infty$.
 	
@@ -715,13 +717,11 @@ Estos bloques aparte cumplen que son conexos.
 	pero como justamente $D \sim C$ tenemos que $E \cap \alpha \subseteq \ol D \cap \alpha$ pero $|\alpha \cap \ol D| < \infty$ y esto es una contradicción porque suponíamos que $E \in {\cal C}_{\alpha}$.
 \end{proof}
 
-
-
 \section{Grafos accesibles.}
 
 \begin{lema}\label{lema_geodesica_biinfinita}
 	Sea $\Gamma$ un grafo conexo, localmente finito e infinito de manera que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
-	Entonces $\Gamma$ tiene una geodésica bi-infinita.
+	Entonces $\Gamma$ tiene una geodésica infinita.
 \end{lema}
 \begin{proof}
 	Dada $\gamma$ una geodésica de longitud impar denotaremos $m(\gamma)$ su vértice medio.	
@@ -737,7 +737,7 @@ Estos bloques aparte cumplen que son conexos.
 	siempre y cuando $(v_{-n-1},\dots, v_0,\dots,v_{n+1})$ siga siendo una geodésica con $v_0$ su punto medio.
 	Dado que el grafo $\Gamma$ es localmente finito por suposición tenemos que $T$ también lo va a ser.
 	
-	Finalmente para encontrar la geodésica bi-infinita lo que hacemos es usar el lema de König en $T$ para obtener un camino infinito en $T$, que se corresponde justamente con una geodésica bi-infinita en $\Gamma$ tal como buscábamos.
+	Finalmente para encontrar la geodésica infinita lo que hacemos es usar el lema de König en $T$ para obtener un rayo en $T$, que se corresponde justamente con una geodésica bi-infinita en $\Gamma$ tal como buscábamos.
 	
 \end{proof}
 
