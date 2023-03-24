@@ -204,23 +204,21 @@ Quedaría ver entonces el siguiente resultado.
 No me queda claro que la idea de antes pueda andar en este caso. 
 
 	
-		\begin{tikzpicture}[node distance=3cm,initial text=,->,>=stealth,auto]
-			\node[state,initial] (q0) {$q_0$};
-			\node[state,right of=q0] (q1) {$q_1$};
-			\node[state,above of=q1] (q2) {$q_2$};
-			\node[state,below of=q1] (q3) {$q_3$};
-			\path (q0) edge[bend left] node {$a$} (q1)
-			(q1) edge[bend left] node {$b$} (q0)
-			edge node {$a$} (q2)
-			edge node {$b$} (q3)
-			(q2) edge[loop above] node {$a,b$} (q2)
-			(q3) edge[loop below] node {$a,b$} (q3);
-		\end{tikzpicture}
 	
+\begin{tikzpicture}[
+	vertex/.style={draw,circle,fill=white,inner sep=0pt,minimum size=6mm},
+	edge/.style={->,shorten >=1pt,>=stealth',semithick}
+	]
 	
+	% Define the vertices
+	\node[vertex] (1) at (0,0) {$1$};
+	\node[vertex] (2) at (2,0) {$2$};
 	
+	% Draw the edges
+	\draw[edge] (1) to[bend left] (2);
+	\draw[edge,color=red] (1) to[bend right] (2);
 	
-	
+\end{tikzpicture}
 	
 	
 	

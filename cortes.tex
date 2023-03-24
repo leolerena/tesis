@@ -22,10 +22,28 @@ En este capítulo consideraremos que $\Gamma$ es un grafo conexo y localmente fi
 \end{deff}	
 
 Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
-\todo[inline]{Quizá escribir detalladamente este ejemplo.}
-Un ejemplo claro es tomar el grafo de Cayley de $\ZZ^2$ que podemos ver que todo corte $C$ es tal que alguna de las dos componentes $C$ o bien $\ol C$ es finita.
+Consideremos $\Gamma = \text{Cay}(\ZZ^2, \{ a, b \})$ la grilla.
+Este grafo cumple que todo corte $C$ es tal que $C$ es finito o bien $\ol C$ es finito.
+Para probar esto sea $v \in \delta C$ tal que maximice la distancia al origen de todos los vértices en el borde.
+Si consideramos una bola $B$ de radio mayor a esta distancia entonces tenemos que $C \subseteq B$ y por lo tanto obtenemos que $|C| < \infty$.
 
-La propiedad fundamental de los cortes en estos grafos es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=0.20]
+		% draw the grid
+		\draw[step=2cm,gray,very thin] (-13,-13) grid (13,13);
+		% draw the polygonal curve
+		\draw[red,thick] (-3,-5) -- (-5,5) -- (5,5) -- (5,-10) -- cycle;
+		\draw[blue,thick] (-10,-10) -- (-10,10) -- (10,10) -- (10,-10) -- cycle;
+		\node at (0,0) {\large {C}};
+		\node at (5,11) {$\large{\overline C}$};
+		\node at (-3,8) {\blue{\large{B}}};
+	\end{tikzpicture}
+	\caption{Los cortes los ilustramos tachando las aristas que pertenecen a $\delta C$.}
+	\end{figure}
+
+
+Una propiedad fundamental de los cortes en estos grafos es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
 \begin{lema}\label{lema_finitos_kcortes}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
 	Sea $S \subset V$ un conjunto finito y $k\ge 1$.
@@ -88,80 +106,6 @@ Esto nos lleva a dar la siguiente definición.
 
 Una manera equivalente de escribir esta definición es que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manera que $\alpha \setminus \delta C$ tiene dos componentes conexas infinitas.
 
-\begin{deff}
-	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
-\end{deff}
-
-Veamos que los grafos con treewidth finito son accesibles.
-Para eso primero veamos un lema un poco más técnico.
-
-\begin{lema}\label{lema_corte_treewidth}
-	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
-	Entonces existe $k \in \NN$ tal que:
-	Para todo $\gamma$ rayo simple, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap \gamma| = \infty$. 
-\end{lema}
-
-\begin{proof}
-	Sea $d$ una cota para el grado de los vértices del grafo $\Gamma$ y sea $k$ el treewidth del grafo.
-	Propondremos $k = dm$ como la constante que buscamos.
-	
-	Consideremos $t_0 \in V(T)$ de manera que $v_0 \in X_t$.
-	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la proposición \ref{prop-camino-desc} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_{{t}_0}$.
-	Como estos caminos que consideramos son simples y los bolsones $|X_{t_0}| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_{t_0}$ tal que interseca infinitas veces al camino $\gamma$.
-	Nombraremos a esta componente conexa $C_{t_0,\gamma}$.
-	
-	Repetimos este procedimiento por cada vértice de la componente conexa de $\ol X_{t_0}$.
-	Esto nos da un rayo en el árbol $t_0,t_1, \dots t_n \dots$ y una sucesión de componentes conexas correspondientes $C_{t_0,\gamma} C_{t_1,\gamma} \dots C_{t_n, \gamma} \dots$.
-	
-	Si elegimos $l \in \NN$ suficientemente grande podemos garantizar que
-	\[
-		X_{t_l} \cap B_n(v_0) = \emptyset
-	\]
-	Esto porque por la proposición \ref{prop_tw_finitos_bolsones} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones.
-	El grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)|$ es finita.
-	
-	Ahora vamos a buscar el corte $D$. 
-	Para eso vamos a necesitar un conjunto conexo con complemento conexo y no vacío tal que su borde sea finito.
-	Consideremos $D$ la componente conexa de $v_0$ en $\ol C_{t_l, \gamma}$.
-	Primero veamos que $\ol D$ es conexo.
-	Para eso si tenemos un elemento $u_1 \in \ol D$ tiene que estar conectados con alguien del conexo $C_{t_l, \gamma}$.
-	Más aún todo camino con algún elemento de $D$ tiene que pasar por $C_{t_l, \gamma}$.
-	Caso contrario como tenemos un camino que lo une con $v_0$, dado que el grafo es conexo, esto resultaría en que $u_1 \in D$.
-	De esta manera vimos que todo elemento de $\ol D$ está conectado con un conexo $C_{t_l, \gamma}$ evitando pasar por $D$.
-	Ambos conjuntos son no vacíos porque $C_{t_l, \gamma}$ es infinito y está contenido en $\ol D$.
-	Por otro lado tenemos que $v_0 \in D$.
-	
-	Finalmente veamos que es un $k-$corte.
-	Notemos que si $v \in \partial D$ luego tenemos que existe $u \in \ol D$ tal que $(u,v) \in E(\Gamma)$.
-	Por lo visto anteriormente todo camino que va de $\ol D$ a $D$ tiene que pasar necesariamente por $C_{t_l, \gamma}$. 
-	Entonces nos alcanza con tomar $u \in C_{t_l, \gamma}$.
-	En este caso notemos que $v \in X_{t_l}$ caso contrario tendríamos que $v \in C_{t_l, \gamma}$ dado que esta es una de las componentes conexas de $X \setminus X_{t_l}$.
-	De esta manera vimos que $\partial D \subseteq X_{t_l}$.
-	Como el grafo es localmente finito y tiene treewidth finito concluímos finalmente que $|\delta D| \le dm = k$ tal como queríamos ver.
-\end{proof}
-
-
-\begin{teo}\label{teo_treewidth_fin_accesible}
-	Sea $\Gamma$ un grafo de treewidth finito y de grado uniformemente acotado.
-	Entonces $\Gamma$ es accesible.
-\end{teo}
-\begin{proof}
-	Tomemos $\alpha$ un camino infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
-	Sea $C \in {\cal C}(\alpha)$.
-	Veamos de construirnos un $k$-corte $D$ de manera que $D \in {\cal C}(\alpha)$.
-	
-	Fijemos $v_0  \in \partial C$ y consideremos el siguiente número natural,
-	\[
-		n = \max \{ d(v_0,w) : w \in \partial C  \}.
-	\]
-	Por el lema anterior \ref{lema_corte_treewidth} podemos ver que existe un $k$-corte $D$ de manera que $d(v_0, \ol D) \le n$ y que cumple que $|\ol D \cap \gamma| < \infty$.
-	
-	Este corte $D$ nos sirve porque por la distancia elegida tenemos entonces que $C \subseteq D$ o bien $\ol C \subseteq D$.
-	Caso contrario existiría $c_1 \in C \cap \ol D$ y $c_2 \in \ol C \cap \ol D$ tal que al ser $\ol D$ conexo podríamos armarnos un camino dentro de esta componente que una $c_1$ con $c_2$.
-	Esto contradice que $\beta C \subseteq D$ por como elegimos a $D$.	
-\end{proof}
-
-\section{Cortes mínimos.}
 
 \begin{deff}
 	Dado $\alpha$ camino infinito definimos el conjunto de sus cortes mínimos como
@@ -329,6 +273,12 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 \end{proof}
 
 \section{Árbol de estructura.}
+
+\begin{deff}
+	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
+\end{deff}
+
+
 
 Todos los grafos que vamos a considerar a partir de ahora son accesibles.
 Veamos que los caminos óptimos resultan ser un poset discreto con la inclusión en este caso.
@@ -718,6 +668,77 @@ Esto resulta equivalente a que exista un conjunto finito $S$ de vértices de man
 \end{proof}
 
 \section{Grafos accesibles.}
+
+
+Veamos que los grafos con treewidth finito son accesibles.
+Para eso primero veamos un lema un poco más técnico.
+
+\begin{lema}\label{lema_corte_treewidth}
+	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
+	Entonces existe $k \in \NN$ tal que:
+	Para todo $\gamma$ rayo simple, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap \gamma| = \infty$. 
+\end{lema}
+
+\begin{proof}
+	Sea $d$ una cota para el grado de los vértices del grafo $\Gamma$ y sea $k$ el treewidth del grafo.
+	Propondremos $k = dm$ como la constante que buscamos.
+	
+	Consideremos $t_0 \in V(T)$ de manera que $v_0 \in X_t$.
+	Si tenemos dos vértices $u_1,u_2 \in \ol X_t$ tales que $u_1$ y $u_2$ están en bolsones $X_{t_1}, X_{t_2}$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la proposición \ref{prop-camino-desc} obtenemos que todo camino $\gamma$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $X_{{t}_0}$.
+	Como estos caminos que consideramos son simples y los bolsones $|X_{t_0}| < \infty$ obtenemos que debe haber una única componente conexa de $\ol X_{t_0}$ tal que interseca infinitas veces al camino $\gamma$.
+	Nombraremos a esta componente conexa $C_{t_0,\gamma}$.
+	
+	Repetimos este procedimiento por cada vértice de la componente conexa de $\ol X_{t_0}$.
+	Esto nos da un rayo en el árbol $t_0,t_1, \dots t_n \dots$ y una sucesión de componentes conexas correspondientes $C_{t_0,\gamma} C_{t_1,\gamma} \dots C_{t_n, \gamma} \dots$.
+	
+	Si elegimos $l \in \NN$ suficientemente grande podemos garantizar que
+	\[
+	X_{t_l} \cap B_n(v_0) = \emptyset
+	\]
+	Esto porque por la proposición \ref{prop_tw_finitos_bolsones} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones.
+	El grafo $\Gamma$ al ser localmente finito nos dice que la bola $|B_n(v_0)|$ es finita.
+	
+	Ahora vamos a buscar el corte $D$. 
+	Para eso vamos a necesitar un conjunto conexo con complemento conexo y no vacío tal que su borde sea finito.
+	Consideremos $D$ la componente conexa de $v_0$ en $\ol C_{t_l, \gamma}$.
+	Primero veamos que $\ol D$ es conexo.
+	Para eso si tenemos un elemento $u_1 \in \ol D$ tiene que estar conectados con alguien del conexo $C_{t_l, \gamma}$.
+	Más aún todo camino con algún elemento de $D$ tiene que pasar por $C_{t_l, \gamma}$.
+	Caso contrario como tenemos un camino que lo une con $v_0$, dado que el grafo es conexo, esto resultaría en que $u_1 \in D$.
+	De esta manera vimos que todo elemento de $\ol D$ está conectado con un conexo $C_{t_l, \gamma}$ evitando pasar por $D$.
+	Ambos conjuntos son no vacíos porque $C_{t_l, \gamma}$ es infinito y está contenido en $\ol D$.
+	Por otro lado tenemos que $v_0 \in D$.
+	
+	Finalmente veamos que es un $k-$corte.
+	Notemos que si $v \in \partial D$ luego tenemos que existe $u \in \ol D$ tal que $(u,v) \in E(\Gamma)$.
+	Por lo visto anteriormente todo camino que va de $\ol D$ a $D$ tiene que pasar necesariamente por $C_{t_l, \gamma}$. 
+	Entonces nos alcanza con tomar $u \in C_{t_l, \gamma}$.
+	En este caso notemos que $v \in X_{t_l}$ caso contrario tendríamos que $v \in C_{t_l, \gamma}$ dado que esta es una de las componentes conexas de $X \setminus X_{t_l}$.
+	De esta manera vimos que $\partial D \subseteq X_{t_l}$.
+	Como el grafo es localmente finito y tiene treewidth finito concluímos finalmente que $|\delta D| \le dm = k$ tal como queríamos ver.
+\end{proof}
+
+
+\begin{teo}\label{teo_treewidth_fin_accesible}
+	Sea $\Gamma$ un grafo de treewidth finito y de grado uniformemente acotado.
+	Entonces $\Gamma$ es accesible.
+\end{teo}
+\begin{proof}
+	Tomemos $\alpha$ un camino infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
+	Sea $C \in {\cal C}(\alpha)$.
+	Veamos de construirnos un $k$-corte $D$ de manera que $D \in {\cal C}(\alpha)$.
+	
+	Fijemos $v_0  \in \partial C$ y consideremos el siguiente número natural,
+	\[
+	n = \max \{ d(v_0,w) : w \in \partial C  \}.
+	\]
+	Por el lema anterior \ref{lema_corte_treewidth} podemos ver que existe un $k$-corte $D$ de manera que $d(v_0, \ol D) \le n$ y que cumple que $|\ol D \cap \gamma| < \infty$.
+	
+	Este corte $D$ nos sirve porque por la distancia elegida tenemos entonces que $C \subseteq D$ o bien $\ol C \subseteq D$.
+	Caso contrario existiría $c_1 \in C \cap \ol D$ y $c_2 \in \ol C \cap \ol D$ tal que al ser $\ol D$ conexo podríamos armarnos un camino dentro de esta componente que una $c_1$ con $c_2$.
+	Esto contradice que $\beta C \subseteq D$ por como elegimos a $D$.	
+\end{proof}
+
 
 \begin{lema}\label{lema_geodesica_biinfinita}
 	Sea $\Gamma$ un grafo conexo, localmente finito e infinito de manera que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
