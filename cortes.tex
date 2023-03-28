@@ -93,7 +93,7 @@ Por el lema de König  tenemos un rayo infinito dentro de $C$.
 Si este rayo no pasa por el vértice $u$ nos tomamos un camino simple finito que una $u$ con el origen de este rayo llamemos a este vértice $u_{0}$.
 Consideremos entonces el primer vértice del rayo que interseca a este camino, sea este $u_{1}$.
 Si consideramos la concatenación de este camino finito hasta $u_{1}$ y luego la continuación del rayo a partir de $u_{1}$ obtenemos el rayo $\alpha \cap C$.
-Para obtener la otra parte y así llegar a tener un camino infinito $\alpha$ hacemos lo mismo a partir del vértice $v \in \ol C$ y luego concatenamos estos caminos con el vértice $(u,v)$ para así llegar a un camino infinito $\alpha$. 
+Para obtener la otra parte y así llegar a tener un camino infinito $\alpha$ hacemos lo mismo a partir del vértice $v \in \ol C$ y luego concatenamos estos dos rayos con la arista $(u,v)$ para así llegar a un camino infinito $\alpha$. 
 
 No necesariamente vale la vuelta.
 Esto es que si tenemos un camino infinito $\alpha$ y un corte $C$ entonces el corte cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
@@ -118,7 +118,7 @@ Una manera equivalente de escribir esta definición es que ${\cal C}(\alpha) \ne
 	
 	Dado un grafo $\Gamma$ definimos el conjunto de sus cortes mínimos como 
 	\[
-	{\cal C}_{\text{min}} = \bigcup \{ \cam : \alpha \ \text{es un camino infinito}  \}
+	{\cal C}_{\text{min}} = \bigcup \ \{ \ \cam : \alpha \ \text{es un camino infinito}  \}
 	\]
 \end{deff}
 
@@ -373,6 +373,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 \end{proof}
 
 \section{Árbol de estructura.}
+\todo[inline]{Dibujo del árbol de estructura? Me parece haber visto que se podía hacer.}
 
 Los árboles de estructura fueron introducidos y demostradas todas sus propiedades que describimos en esta sección en los trabajos de Dunwoody \cite{dunwoody1979accessibility} y \cite{dunwoody1982cutting}.
 La teoría se profundizó enormemente en \cite{dicks1989groups} codificando la construcción en un problema de un cierto anillo booleano asociado al grafo. 
@@ -507,9 +508,12 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 
 \section{Acciones sobre el árbol de estructura.}
 
-Sea $\Gamma$ un grafo accesible, conexo y localmente finito tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre este grafo.
+En esta sección vamos a ver que los cortes óptimos no solamente están anidados entre sí sino que si $G$ actúa sobre el grafo $\Gamma$ luego actúa sobre estos cortes óptimos.
+Esta acción se traslada naturalmente a una acción sobre el árbol de estructura tal como queríamos ver.
 
-Una primera observación que podemos hacer es que $\aut(\Gamma)$ actúa sobre $\copt$.
+Como en la sección anterior sea $\Gamma$ un grafo accesible, conexo y localmente finito tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre este grafo.
+
+Probemos que $\aut(\Gamma)$ actúa sobre $\copt$.
 Para eso notemos que si $C$ es un corte luego si $\varphi \in \aut(\Gamma)$ tenemos que $\varphi(C)$ es conexo y no vacío. 
 Por otro lado al ser un morfismo del grafo $\Gamma$ obtenemos que $\ol{\varphi(C)} = \varphi(\ol C)$ por lo tanto su complemento sigue siendo conexo.
 Al ser un automorfismo tenemos que $\varphi(\beta C) = \beta (\varphi C)$ y por este motivo tenemos que $|\varphi (\beta C)| = |\beta (\varphi C)|$ y esto nos dice que manda $k$-cortes en $k$-cortes.
@@ -579,6 +583,8 @@ Ahora definimos un objeto que nos va a ayudar a entender como son estos estabili
 		B([C]) = \bigcap_{D \sim C} N^l (D)
 	\]	
 \end{deff}
+
+\todo[inline]{Agregar dibujo de los bloques.}
 
 Veamos que estos bloques no son vacíos.
 
@@ -858,4 +864,7 @@ En nuestro caso en particular nos va a interesar la clase de grupos finitos pero
 	Usamos el resultado anterior \ref{teo_tw_accion_central} para obtener que actúa sobre un árbol con finitas órbitas y con estabilizadores finitos.
 	Por el teorema central de Bass Serre \ref{teo_Serre} concluímos lo que queríamos probar.
 \end{proof}
+
+\todo[inline]{Quizá comentar que esto nos da una manera de ver que un grafo qi con un árbol tiene tw finito.}
+
 \end{document}

@@ -19,7 +19,7 @@
 
 \chapter{Teoría de Bass--Serre.}
 
-La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque la notación no es exactamente la misma sino que es similar a la utilizada en el trabajo \cite{diekert_contextfree_2017} 
+La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque la notación no es exactamente la misma sino que es similar a la utilizada en el trabajo \cite{diekert2017context} 
 
 \section{Definiciones básicas.}
 
@@ -276,7 +276,11 @@ es decir el grupo fundamental de este grafo de grupos resulta ser una extensión
 
 Así como hicimos en los grupos amalgamados podemos considerar formas normales en estos grupos.
 Sea $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
-Una \emph{forma normal para una extensión HNN} va a ser una sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ donde $x_0 \in G_P$ es algún elemento arbitrario de este grupo.
+Una \emph{forma normal para una extensión HNN} va a ser una sucesión 
+\[
+	(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
+\]
+ donde $x_0 \in G_P$ es algún elemento arbitrario de este grupo.
 Donde $\epsilon_{i} \in \{ -1,1 \}$.
 En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$. 
 
@@ -284,14 +288,22 @@ En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras
 Ahora veamos un resultado análogo al que demostramos anteriormente para grupos amalgamados que nos dirá una manera de escribir las palabras en estos grupos.
 
 \begin{prop}\label{prop_hnn_formanormal}
-	Para todo elemento $g \in G_P^{\ast G_y}$ existe una única forma normal $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ tal que $g = x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n},g^{\epsilon_n}h$.
+	Para todo elemento $g \in G_P^{\ast G_y}$ existe una única forma normal 
+	\[
+		(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
+	\]
+	 tal que $g = x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n},g^{\epsilon_n}h$.
 \end{prop}
 \begin{proof}
 	Ver \cite{lyndon1977combinatorial}
 \end{proof}
 
 Un refinamiento de esta proposición nos dice una condición necesaria para que una forma normal no represente el neutro del grupo.
-Consideremos una sucesión $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ no necesariamente en forma normal. 
+Consideremos una sucesión 
+\[
+	(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
+\]
+no necesariamente en forma normal. 
 Esto es que supongamos que $x_i \in G_P$ para todo $i$.
 Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},x_i,t$ con $x_i \in A$ o bien tal que $t,x_i,t^{-1}$ con $x_i \in B$.
 Esto es que no nos aparezcan como supbalabras relaciones del grupo.
@@ -587,7 +599,7 @@ Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
 
 \section{Árbol de Bass--Serre.}
 En esta sección presentamos una construcción del árbol de Bass--Serre un poco más concisa que la que aparece en \cite{serre2002trees} si bien la idea es prácticamente la misma.
-En cambio en el paper \cite{diekert_contextfree_2017} construyen este árbol de una manera más sintáctica usando sistemas de reescritura.
+En cambio en el paper \cite{diekert2017context} construyen este árbol de una manera más sintáctica usando sistemas de reescritura.
 
 Sea $\cG$ un grafo de grupos sobre un grafo $Y$ conexo. 
 Sea $T$ un árbol maximal del grafo $Y$ luego llamemos $G = \pi_1(\cG,T)$.

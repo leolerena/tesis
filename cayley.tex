@@ -4,13 +4,15 @@
 	
 \chapter{Grafos de Cayley.} \label{seccion_treewidth}
 
-Un grafo en esta sección va a estar definido por su conjunto de vértices $V(X)$ y por uno de aristas $E(X) \subseteq V(X) \times V(X)$.
-En particular las aristas no van a estar dirigidas y no tendremos bucles.
-Esto es que $(v,v) \notin E(X)$ para ningún $v \in V(X)$.
+Las referencias centrales de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
+
+
+Consideraremos grafos $\Gamma$ no dirigidos, infinitos, conexos y localmente finitos.
+A su vez, a diferencia del capítulo de Bass--Serre, no tendremos bucles, esto es que $(v,v) \notin E(\Gamma)$ para ningún $v \in V(\Gamma)$.
 
 \begin{deff}
 	Sea $G$ un \fg y $A$ un conjunto de generadores como grupo tal que $1 \notin A$.
-	Definimos el \blue{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $(g,h) \in E(\Gamma)$ sii $h=ga$ para ciertos $g,h \in G$ y $a \in A \cup A^{-1}$. 
+	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $(g,h) \in E(\Gamma)$ sii $h=ga$ para ciertos $g,h \in G$ y $a \in A \cup A^{-1}$. 
 \end{deff}
 
 Para una arista $(g,ga)$ llamaremos la \emph{etiqueta} al generador $a$.
@@ -18,57 +20,43 @@ Si $B = A \cup A^{-1}$ el conjunto simétrico de generadores entonces extendemos
 Este grafo por como lo definimos no tiene aristas múltiples ni tampoco tiene bucles.
 Dado que $A$ es un conjunto de generadores tenemos que el grafo de Cayley $\Gamma$ es conexo.
 
-Todo grafo lo podemos ver como un espacio métrico justamente si hacemos que todas las aristas sean isométricas a $[0,1]$. 
-Esto es que $d(g,ga) = 1$ para todo $g \in G, a \in B$. 
-Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = j-i$ para todo $i,j \in [0,n]$.
-
-
+Todo grafo lo podemos ver como un espacio métrico si consideramos como conjunto base a sus vértices. 
+Si dos vértices $v,w$ están unidos por una arista $y$ entonces tendremos que $d(v,w)=1$.
+Esto nos define un espacio métrico discreto sobre los vértices. 
+Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = |j-i|$ para todo $i,j \in [0,n]$.
 Un \emph{árbol} es un grafo conexo y sin ciclos. 
 En particular los árboles vistos como espacios métricos resultan ser \emph{únicamente geodésicos}. 
 Esto es que si $T$ es un árbol, entonces dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
 
-%\begin{ej}
-%	Sea $\mathbb F_2 = \langle a, b \rangle$ el grupo libre en $a,b$. Su grafo de Cayley para estos generadores tiene la siguiente pinta,
-%	\bigskip
-%	\begin{center}
-	%	\begin{tikzpicture}
-		%	\draw l-system [l-system={cayley, axiom=[A] [+A] [-A] [++A], step=2.35cm, order=3}];
-		%	\end{tikzpicture}
-	%	\end{center}
-%	
-%	
-%	 Notemos que este grafo resulta ser un árbol y esto es algo que vale en general para todos los grupos libres cuando miramos respecto a sus generadores canónicos.
-%\end{ej}
 
 \section{Treewidth.}
 
 Dado que el grafo de Cayley de todo grupo libre se puede tomar para que sea un árbol es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. 
 
-La primera noción que podemos tomar para modelizar esto es el de tener un treewidth finito.
+Una noción que podemos tomar de la teoría de grafos para modelizar esto es el de tener un treewidth finito.
 
 \begin{deff}\label{desc-arbol}
-	Una \blue{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa 
+	Una \emph{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa 
 	\[
-	X: V(T) \to {\cal P}(V(X))
+	X: V(T) \to {\cal P}(V(\Gamma))
 	\]
-	que denotaremos $X_t$ para cada vértice $t \in V(T)$. 
 	Le vamos a pedir que cumpla las siguientes condiciones:
 	\begin{enumerate}
-		\item[\textbf{T1.}] Para todo vértice $v \in V(X)$ debe existir $t \in V(T)$ tal que $x \in X_t$. 
-		\item[\textbf{T2.}] Para toda arista $e$ entre dos vértices $v,w \in V(X)$ debe existir $t \in V(T)$ tal que $v,w \in X_t$.
-		\item[\textbf{T3.}] Si $v \in V(X)$ es tal que $v \in X_t \cap X_s$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X_t \}$ forma un subárbol. 
+		\item[\textbf{T1.}] Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $x \in X(t)$. 
+		\item[\textbf{T2.}] Para toda arista $e$ entre dos vértices $v,w \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v,w \in X(t)$.
+		\item[\textbf{T3.}] Si $v \in V(\Gamma)$ es tal que $v \in X(t) \cap X(s)$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X(t) \}$ forma un subárbol. 
 	\end{enumerate} 
 \end{deff}
 \smallskip
 
-La idea de la descomposición es que los \emph{bolsones} $X_t \in {\cal P}(V(T))$ no tengan muchos vértices si es que queremos modelizar que el grafo se parezca a un árbol. Esto nos conduce a la siguiente definición.
+La idea de la descomposición es que los \emph{bolsones} $X(t) \in {\cal P}(V(T))$ no tengan muchos vértices si es que queremos modelizar que el grafo se parezca a un árbol. Esto nos conduce a la siguiente definición.
 
 \begin{deff}
-	El \blue{bagsize} de una descomposición en un árbol $T$ de un grafo $X$ es el siguiente valor:
+	El \emph{bagsize} de una descomposición en un árbol $T$ de un grafo $X$ es el siguiente valor:
 	\begin{equation*}
-		bs(X,T) = \{ \sup |X_t|, \ t \in V(T) : T \ \text{descomposición de} \ X  \} - 1
+		bs(X,T) = \{ \sup |X(t)|, \ t \in V(T) : T \ \text{descomposición de} \ \Gamma \} - 1
 	\end{equation*}
-	Un grafo $X$ tiene \blue{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
+	Un grafo $X$ tiene \emph{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
 \begin{ej}\label{desc-arbol-arbol}
 	En particular si el grafo $X$ es un árbol notemos que tiene treewidth exactamente igual a 1.
@@ -76,63 +64,45 @@ La idea de la descomposición es que los \emph{bolsones} $X_t \in {\cal P}(V(T))
 	Una manera de probarlo es tomar $T$ la subdivisión baricéntrica de $X$. 
 	Dada una arista $(x,y)$ consideramos el baricentro como la siguiente suma formal
 	\[
-		b(x,y)  = \frac{x+y}{2}.
+	b(x,y)  = \frac{x+y}{2}.
 	\]
 	
-
+	
 	Con estas definiciones podemos definir la subdivisión baricéntrica del árbol $X$.
 	Va a ser un árbol $T$ tal que tiene como vértices a 
 	\[
-	V(T) = \{ b(x,y) \ | \ (x,y) \in E(X) \} \cup \{  x \ | \ x \in V(X)  \}.
+	V(T) = \{ b(x,y) \ | \ (x,y) \in E(\Gamma) \} \cup \{  x \ | \ x \in V(\Gamma)  \}.
 	\]
 	Las aristas están formadas por 
 	\[
-	E(T) = \{  (x,b(x,y)) \ | \ (x,y) \in E(X) \}.
+	E(T) = \{  (x,b(x,y)) \ | \ (x,y) \in E(\Gamma) \}.
 	\]
-	Consideramos la siguiente función $X: V(T) \to {\cal P}(V(X))$  
+	Consideramos la siguiente función $X: V(T) \to {\cal P}(V(\Gamma))$  
 	\[
-		X_t = 
-		\begin{cases}
-			\{ x \} \ & \text{si} \ t = x 				\\
-			\{ (x,y)  \} \ &\text{si} \ t = b(x,y).
-		\end{cases}
+	X(t) = 
+	\begin{cases}
+		\{ x \} \ & \text{si} \ t = x 				\\
+		\{ (x,y)  \} \ &\text{si} \ t = b(x,y).
+	\end{cases}
 	\]
 	
-	Por como los definimos es evidente que $|X_t| \le 2$ para todo $t \in V(T)$.
+	Por como los definimos es evidente que $|X(t)| \le 2$ para todo $t \in V(T)$.
 	De esta manera si vemos que se trata de una descomposición en un árbol tendremos probado que $bs(X,T) = 1$ tal como queríamos ver.
 	
 	Finalmente veamos que se trata de una descomposición. Corroboremos que cumple las tres condiciones necesarias.
 	\begin{enumerate}
 		\item[\textbf{T1.}] 
-		Sea $x \in V(X)$ luego consideremos $X_x = \{ x \}$ dado que $v \in V(T)$ por construcción de la subdivisión baricéntrica.
+		Sea $x \in V(\Gamma)$ luego consideremos $X(x) = \{ x \}$ dado que $x \in V(T)$ por construcción de la subdivisión baricéntrica.
 		
 		\item[\textbf{T2.}] 
-		Dado $(x,y) \in E(X)$ consideramos $X_{b(x,y)} = \{ x,y \} $ de manera que tanto $x$ como $y$ están en un mismo bolsón.
+		Dado $(x,y) \in E(\Gamma)$ consideramos $X({b(x,y)}) = \{ x,y \} $ de manera que tanto $x$ como $y$ están en un mismo bolsón.
 		
 		\item[\textbf{T3.}] 
-		Sea $x \in V(X)$, queremos ver que $\{ t \in V(T) :  v \in X_t \}$ resulta ser un subárbol de $T$.		
-		Para empezar tenemos que $x \in X_t$ si y solo sí $t = b(x,y)$ para cierta arista $(x,y) \in E(X)$ o bien $t = x$.
-		De esta manera el subárbol que nos queda es conexo porque tenemos $(x,b(x,y))$ para toda arista $(x,y) \in E(X)$ y no tiene ciclos porque no hay más aristas entre estos vértices de la subdivisión baricéntrica del árbol $X$.
-%		Sea $x \in X_t \cap X_s$. 
-%		Por como armamos los bolsones, uno de estos dos tiene que corresponderse con una arista de $X$.
-%		Supongamos que $X_t$ tiene esa pinta entonces $X_t = \{ x,y\}$ para cierto vértice $y \in V(X)$.
-%		
-%		En el caso que $X_s = \{ x \}$ la geodésica que podemos tomar entonces es $st$ puesto que $s$ se corresponde con el vértice $x$ y sabemos que existe una arista $st \in E(T)$ porque justamente $t$ se corresponde con una arista en $X$ que contiene a $x$.
-%		
-%		En el caso que $s \in V(T)$ sea tal que el bolsón $X_s$ se corresponda con los vértices que aparecen en una arista debería ser del tipo $X_s = \{x,z\}$ para cierto $z \in V(X)$. 
-%		Si miramos la geodésica sobre $T$ entre ambos vértices no es más que el siguiente camino $tvs$ donde $v \in V(T)$ es el vértice que está tanto en el árbol original $X$ como en la subdivisión baricéntrica $T$.
-%		Esto es que $X_v = \{ x \}$.
-%		De esta manera $x$ está en todos los bolsones correspondientes a la geodésica sobre $T$ tal como queríamos ver.	
+		Sea $x \in V(\Gamma)$, queremos ver que $\{ t \in V(T) :  v \in X(t) \}$ resulta ser un subárbol de $T$.		
+		Para empezar tenemos que $x \in X(t)$ si y solo sí $t = b(x,y)$ para cierta arista $(x,y) \in E(\Gamma)$ o bien $t = x$.
+		De esta manera el subárbol que nos queda es conexo porque tenemos $(x,b(x,y))$ para toda arista $(x,y) \in E(\Gamma)$ y no tiene ciclos porque no hay más aristas entre estos vértices de la subdivisión baricéntrica del árbol $X$.
 	\end{enumerate}
 \end{ej}
-
-
-% [Creo que está bastante mal esto. Si lo tengo que usar más en adelante repensarlo bien.]
-%	\begin{obs}
-	%	Si un grafo $\Gamma$ tiene treewidth finito podemos tomarnos otra descomposición tal que siga siendo de treewidth finito pero los bolsones de la descomposición sean conexos. 
-	%	Si algún bolsón no es conexo agregamos todos los vértices del grafo que estén en la geodésica que une las componentes conexas. 
-	%	Haciendo esto la descomposición sigue siendo finita aunque el tamaño de los bolsones puede aumentar considerablemente.
-	%	\end{obs}
 
 Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una descomposición en un árbol.
 
@@ -156,7 +126,7 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 \begin{prop}\label{prop_tw_finitos_bolsones}
 	Sea $\Gamma$ un grafo localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
 	\[
-		| \{  t \in V(T) : \ v \in X_t  \} | < \infty.
+	| \{  t \in V(T) : \ v \in X(t)  \} | < \infty.
 	\]
 \end{prop}
 \begin{proof}
@@ -167,23 +137,23 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 	Esto es que nuestra nueva descomposición en un árbol va a ser $Y: V(T) \to {\cal P}(V(\Gamma))$ dada por 
 	
 	\[
-	Y_t = 
+	Y(t) = 
 	\begin{cases}
-  		X_t  \ \  \text{si} \ \  t \in T' \\
-  		X_t \setminus \{  v \} \ \  \text{si} \ \  t \in T'
+		X(t)  \ \  \text{si} \ \  t \in T' \\
+		X(t) \setminus \{  v \} \ \  \text{si} \ \  t \in T'
 	\end{cases}
 	\]
 	haciendo esto mismo para cada uno de los vértices del grafo $\Gamma$.
 	
 	Finalmente chequeamos que sea trata de una descomposición en un árbol.
 	Las primeras dos condiciones \textbf{T1} y \textbf{T2} se siguen cumpliendo.
-	La condición \textbf{T3} es válida también porque justamente dejamos que todo $v$ esté en un bolsón $ X_t$ con $t \in T'$ un subárbol, por lo tanto toda geodésica que tomemos va a estar en este subárbol.
-	Dado que $X$ ya era una descomposición tenemos que $v \in X_s$ para todo $s$ en toda geodésica.
+	La condición \textbf{T3} es válida también porque justamente dejamos que todo $v$ esté en un bolsón $ X(t)$ con $t \in T'$ un subárbol, por lo tanto toda geodésica que tomemos va a estar en este subárbol.
+	Dado que $X$ ya era una descomposición tenemos que $v \in X(s)$ para todo $s$ en toda geodésica.
 	Esta descomposición sigue siendo finita porque todo bolsón a lo sumo mantiene su orden.	
 \end{proof}
 
 \begin{deff}
-	Sea $\Gamma$ un grafo y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \blue{vecinos de $C$} por medio de 
+	Sea $\Gamma$ un grafo y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \emph{vecinos de $C$} por medio de 
 	\[
 	N(C) = \{ v \in V(\Gamma) : \exists w \in C, \ vw \in E(\Gamma) \}.
 	\]
@@ -195,41 +165,42 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 \end{obs}
 
 \begin{prop}\label{prop-vecinos-desc}
-	Si $(X_t)_{t \in V(T)}$ es una descomposición en un árbol $T$ para un grafo $\Gamma$ entonces si tomamos como bolsones a $N^l(X_t)$ también tenemos una descomposición en un árbol.
+	Si $(X(t))_{t \in V(T)}$ es una descomposición en un árbol $T$ para un grafo $\Gamma$ entonces si tomamos como bolsones a $N^l(X(t))$ también tenemos una descomposición en un árbol.
 \end{prop}
 \begin{proof}
-	Equivalentemente queremos ver que el mapa $Y: V(T) \to {\cal P}(V(X))$ dado por $Y_t = N^l(X_t)$ nos da otra descomposición en un árbol del grafo $\Gamma$.
+	Equivalentemente queremos ver que el mapa $Y: V(T) \to {\cal P}(V(\Gamma))$ dado por $Y(t) = N^l(X(t))$ nos da otra descomposición en un árbol del grafo $\Gamma$.
 	
 	Probemos este resultado haciendo inducción en $l$.
 	
 	Consideremos el caso base $l=1$.
 	En este caso, las dos primeras condiciones de la descomposición en un árbol \textbf{T1} y \textbf{T2} se siguen cumpliendo porque no hicimos más que agrandar los bolsones. 
-	Esto es que si $X_t$ era un bolsón luego $X_t \subseteq Y_t$.
+	Esto es que si $X(t)$ era un bolsón luego $X(t) \subseteq Y(t)$.
 	
 	Debemos ver que cumple \textbf{T3}.
-	Partamos de un vértice $x \in V(X)$ tal que $x \in Y_s \cap Y_t$ y veamos que si $r \in V(T)$ está en la geodésica de $t$ a $s$ entonces $x \in Y_r$.
-	Notemos que en este caso debe existir algún $y \in Y_s$ tal que $(x,y) \in E(X)$.
-	Análogamente existe $z \in Y_t$ tal que $(x,z) \in E(X)$.
-	Si no fuera así tendríamos que $x \in X_s \cap X_t$ y esta condición ya se cumpliría por ser los bolsones de una descomposición.
+	Partamos de un vértice $x \in V(\Gamma)$ tal que $x \in Y(s) \cap Y(t)$ y veamos que si $r \in V(T)$ está en la geodésica de $t$ a $s$ entonces $x \in Y(r)$.
+	Notemos que en este caso debe existir algún $y \in Y_s$ tal que $(x,y) \in E(\Gamma)$.
+	Análogamente existe $z \in Y(t)$ tal que $(x,z) \in E(\Gamma)$.
+	Si no fuera así tendríamos que $x \in X(s) \cap X(t)$ y esta condición ya se cumpliría por ser los bolsones de una descomposición.
 	Entonces si usamos la proposición \ref{prop-camino-desc} tomando el camino $yxz$ tenemos que alguno de estos tres vértices debe estar en $X_r$.
-	De esta manera $x \in Y_r$ tal como queríamos ver.
+	De esta manera $x \in Y(r)$ tal como queríamos ver.
 	
-	El paso inductivo se sigue directamente del caso base porque si sabemos que $N^{l-1}(X_t)$ forma una descomposición de un árbol usamos el caso base para ver que los vecinos de esta descomposición lo siguen siendo y con esto terminamos de probarlo porque $N^l(X_t) = N (N^{l-1})(X_t)$.
+	El paso inductivo se sigue directamente del caso base porque si sabemos que $N^{l-1}(X(t))$ forma una descomposición de un árbol usamos el caso base para ver que los vecinos de esta descomposición lo siguen siendo y con esto terminamos de probarlo porque $N^l(X(t)) = N (N^{l-1})(X(t))$.
 \end{proof}
 \medskip
 
 \begin{deff}
-	Dado un grafo $X$ y un conjunto de vértices $C \subseteq V(X)$ definimos el \emph{borde de vértices} de $C$ como:
+	Dado un grafo $X$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como:
 	\[
 	\beta C =  N(C) \cap N(\ol{ C})
 	\] 
-	por otro lado tenemos que el \emph{borde de aristas} de $C \subseteq V(X)$ se define como:	
+	por otro lado tenemos que el \emph{borde de aristas} de $C \subseteq V(\Gamma)$ se define como:	
 	\[
 	\delta C = \{  (x,y) | x \in C, y \in \ol C    \}.
 	\]
 \end{deff}
 
-
+\todo[inline]{Escribir con la notación más estándar que aparece en el paper de Krön y factorizar la construcción.}
+\todo[inline]{Agregar dibujo ilustrativo.}
 \begin{ej}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
 	
 	Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
@@ -314,7 +285,7 @@ Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017
 
 \begin{deff}
 	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
-	Una \blue{cuasisometría} es una función $f:X \to Y$ tal que:
+	Una \emph{cuasisometría} es una función $f:X \to Y$ tal que:
 	\begin{itemize}
 		\item[\textbf{Q1.}] Existe constante $A > 0$ tal que para todo par de puntos $x_1,x_2 \in X$ hace valer la siguientes desigualdades
 		\[
@@ -365,102 +336,42 @@ Veamos que esto no depende de los generadores que hayamos elegido.
 \end{proof}
 
 
-\begin{obs}
-	Si nos restringimos a que los espacios métricos sean grafos podemos redefinir una cuasisometría para que sea una función de los vértices de un grafo a los del otro.
-	Esto es si tenemos dos grafos $\Gamma_1$ y $\Gamma_2$ entonces son cuasisométricos como espacios métricos si y solo si existe $f:V(\Gamma_1) \to V(\Gamma_2)$ tal que 
-	\begin{itemize}
-		\item Para todo $v,w \in V(\Gamma_1)$ existe constante $A > 0$ tal que 
-		\[
-		\frac{1}{A} d_X(v,w) - A \le d_Y(f(v),f(w)) \le A d_X(v,w) + A
-		\]
-		\item Existe una constante real $C \ge 0$ tal que para todo vértice $y \in V(\Gamma_2)$ existe $v \in V(\Gamma_1)$ tal que 
-		\[
-		d(y,f(v)) \le C
-		\]
-	\end{itemize}
-	
-	Para esto si tenemos una cuasisometría $g$ como espacios métrices definamos una sobre los vértices $f$ de la siguiente manera.
-	Por cada vértice $v \in V(\Gamma_1)$ consideremos $g(v) \in \Gamma_2$. 
-	Si $g(v) \in V(\Gamma_2)$ tomamos $f(v)=g(v)$.
-	El otro caso es que $g(v)$ cae en el medio de alguna arista $xy \in E(\Gamma_2)$. 
-	Supongamos que $d(g(v),x) \le \frac{1}{2}$ porque la distancia máxima con alguno de los vértices debe ser no más de $\frac{1}{2}$ porque justamente las aristas son isométricas con el intervalo $[0,1]$. 
-	En este caso definamos $f(v) = x$.
-	Notemos ahora que la distancia entre dos vértices por medio de $f$ a lo sumo aumenta. 
-	Tenemos que 
-	\[
-	d(f(v),f(w) \le d (g(v),g(w)) + 1
-	\]
-	para $v,w \in V(\Gamma_1)$ porque a lo sumo las imágenes por $g$ están a distancia $\frac{1}{2}$ de alguno de los vértices.
-	De esta manera notemos que si tomamos la constante $C+1$ nos sirve.
-	Para ver que la imagen es cuasidensa idénticamente tomando $C+1$ nos sirve.
-	En definitiva $f$ definida de esta manera es una cuasisometría con constante $C+1$.	
-\end{obs}
-%
-%\begin{ej}
-%	Ejemplo de $\ZZ \times \ZZ$ para ver que no es cuasisométrico con un árbol o bien podría rehacer el ejemplo de la parte anterior.
-%\end{ej}
-
-
-%Así otra manera de pensar que un grafo de un grupo virtualmente libre es casi un árbol es pedirle que sea cuasisométrico con un árbol. 
-%Veamos que estas categorización es equivalente a pedirle que el treewidth sea finito que era la otra caracterización que habíamos obtenido anteriormente.
+%\begin{obs}
+%	Si nos restringimos a que los espacios métricos sean grafos podemos redefinir una cuasisometría para que sea una función de los vértices de un grafo a los del otro.
+%	Esto es si tenemos dos grafos $\Gamma_1$ y $\Gamma_2$ entonces son cuasisométricos como espacios métricos si y solo si existe $f:V(\Gamma_1) \to V(\Gamma_2)$ tal que 
+%	\begin{itemize}
+%		\item Para todo $v,w \in V(\Gamma_1)$ existe constante $A > 0$ tal que 
+%		\[
+%		\frac{1}{A} d_X(v,w) - A \le d_Y(f(v),f(w)) \le A d_X(v,w) + A
+%		\]
+%		\item Existe una constante real $C \ge 0$ tal que para todo vértice $y \in V(\Gamma_2)$ existe $v \in V(\Gamma_1)$ tal que 
+%		\[
+%		d(y,f(v)) \le C
+%		\]
+%	\end{itemize}
+%	
+%	Para esto si tenemos una cuasisometría $g$ como espacios métrices definamos una sobre los vértices $f$ de la siguiente manera.
+%	Por cada vértice $v \in V(\Gamma_1)$ consideremos $g(v) \in \Gamma_2$. 
+%	Si $g(v) \in V(\Gamma_2)$ tomamos $f(v)=g(v)$.
+%	El otro caso es que $g(v)$ cae en el medio de alguna arista $xy \in E(\Gamma_2)$. 
+%	Supongamos que $d(g(v),x) \le \frac{1}{2}$ porque la distancia máxima con alguno de los vértices debe ser no más de $\frac{1}{2}$ porque justamente las aristas son isométricas con el intervalo $[0,1]$. 
+%	En este caso definamos $f(v) = x$.
+%	Notemos ahora que la distancia entre dos vértices por medio de $f$ a lo sumo aumenta. 
+%	Tenemos que 
+%	\[
+%	d(f(v),f(w) \le d (g(v),g(w)) + 1
+%	\]
+%	para $v,w \in V(\Gamma_1)$ porque a lo sumo las imágenes por $g$ están a distancia $\frac{1}{2}$ de alguno de los vértices.
+%	De esta manera notemos que si tomamos la constante $C+1$ nos sirve.
+%	Para ver que la imagen es cuasidensa idénticamente tomando $C+1$ nos sirve.
+%	En definitiva $f$ definida de esta manera es una cuasisometría con constante $C+1$.	
+%\end{obs}
 
 Veamos ahora que el treewidth es un invariante por cuasisometría y entonces no depende de los generadores elegidos y por lo tanto es una propiedad intrínseca del grupo. 
 
 \begin{prop} \label{treewidth-inv}
 	El treewidth finito es un invariante por cuasisometría para grafos con grado acotado uniformemente.
 \end{prop}
-%\begin{proof}[Intento de demo distinta. No salió]
-%Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_1$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_2$ también tiene treewidth finito.
-%Dada la cuasisometría $f$ consideremos $C \ge A + B$.
-%
-%Partamos de una descomposición en un árbol $T$ para $\Gamma_1$.
-%La idea es usar la cuasisometría para empujar esta descomposición a una (con bolsones posiblemente más grandes) en $\Gamma_2$.
-%Por cada bolsón $X_t \subset V(\Gamma_1)$ vamos a considerar un bolsón en el otro grafo,
-%\[
-%Y_t = B(f(X_t),Ck) \cap V(\Gamma_2).
-%\] 
-%Esto es todos los vértices de $\Gamma_2$ que estén a distancia igual o menor que $Ck$ de la imagen del bolsón $X_t$ por medio de $f$. 
-%Donde $k$ es la constante del treewidth del grafo $\Gamma_1$ y $C$ la constante de la cuasisometría anteriormente definida.
-%
-%Como ya sabemos que $T$ el grafo subyacente de la descomposición es un árbol basta ver que cumple las tres propiedades que debe cumplir toda descomposición \ref{desc-arbol}.
-%
-%\begin{enumerate}
-%	\item Queremos ver que dado $v \in V(\Gamma_2)$ existe $t \in V(T)$ tal que $v \in Y_t$.
-%	Por ser un embedding cuasisométrico debe existir $y \in \Gamma_1$ (no necesariamente algún vértice) tal que $d(f(y),v) \le C$. 
-%	Tomemos $x \in V(\Gamma_1)$ de manera que $d(x,y) < 1$. 
-%	Usando desigualdad triangular notemos que 
-%	\[
-%	d(f(x),v) \le d(f(x),f(y)) + d(v,f(y)) \le 2C
-%	\]
-%	donde $d(f(x),f(y)) \le C$ porque $f$ es una cuasisometría.
-%	Mientras que la otra cota vale porque justamente así tomamos a $f(y)$. 
-%	Como $k \le 2$ tenemos que $2C \le Ck$ y así vemos que $v \in Y_t$ tal como queríamos ver.
-%	\item Dado una arista $vw \in E(\Gamma_2)$ veamos que $v, w \in Y_t$ para algún mismo bolsón $Y_t$.
-%	Por la cuenta anterior sabemos que todo $v \in V(\Gamma_2)$ es tal que existe algún $x \in V(\Gamma_1)$ de manera que $d(f(x),v) \le C + 1$.
-%	Si tomamos este mismo $x$ notemos que como $d(v,w) = 1$ entonces $d(w,x) \le C+2$. 
-%	Esto nos dice que $v,w \in Y_t$ donde $Y_t$ es la bolsa correspondiente a $f(x)$. 
-%	\item Sea $v \in Y_t \cap Y_s$ queremos ver que $v \in Y_r$ para todo $r$ en la geodésica que une $t$ con $s$ en el árbol $T$.
-%	Alcanza con tomarnos $Y_t$ tal que exista $x \in V(\Gamma_1)$ con $x \in X_t$ de manera que $d(f(x),v) \le 2C$.	
-%	Esto lo podemos hacer porque $f$ es una cuasisometría. 
-%	Fijemos uno de los bolsones y veamos que para toda geodésicas que parten del vértice del árbol $t$ y terminan en $s$ son tales que todos los vértices $r \in V(T)$ que aparecen cumplen que $v \in Y_r$. 
-%	Si no pudiéramos hacer esto tendríamos que nuestro grafo $T$ tiene un ciclo pero esto es absurdo puesto que es un árbol.
-%	Supongamos que $sr$ es una arista de $T$ y $rt$ es otra arista.
-%%	Los casos de una geodésica en general se reducen a este usando inducción en la longitud del camino.
-%%	Sabemos que existe $z \in X_r \cap X_t$ por la proposición \ref{}. 
-%%	De esta manera como $|X_t| \le k$ tenemos que $d(x,z) \le k$. 
-%%	Usando que $f$ es una cuasisometría tenemos que $d(f(x),f(z) \le Ck$.
-%%	
-%%	Entonces veamos de acotar $d(f(z),v)$ y así concluir que $x \in Y_r$ tal como queríamos ver.
-%%	Usando la desigualdad triangular,
-%%	\[
-%%	d(f(z),v) \le d(f(z),f()) + d(v,f(x)) \le Ck + C + 2
-%%	\]
-%%	y esto termina la demostración porque inductivamente lo podemos ver para cualquier $r$ en la geodésica.
-%
-%\red{Ahora creo que esto no es cierto. La tercera condición se rompa incluso en un ejemplo finito.}
-%\end{enumerate}
-%
-%\end{proof}
 
 \begin{proof}
 	Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_2$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_1$ también tiene esta propiedad.
@@ -473,38 +384,38 @@ Veamos ahora que el treewidth es un invariante por cuasisometría y entonces no 
 	
 	Veamos de armarnos la descomposición en un árbol $T$ para $\Gamma_1$.	
 	Tomaremos como árbol para descomposición al mismo $T$ que usamos para $\Gamma_2$.
-	Sean $X_t$ los bolsones de esta descomposición. 
-	Recordemos que por \ref{prop-vecinos-desc} si tomamos $N^l(X_t)$ los vecinos del bolsón $X_t$ que están a distancia no mayor a $l$ seguimos teniendo una descomposición.  
-	Consideraremos los bolsones $Y_t = f^{-1}(N^l(X_t))$ de vértices en $\Gamma_1$. 
+	Sean $X(t)$ los bolsones de esta descomposición. 
+	Recordemos que por \ref{prop-vecinos-desc} si tomamos $N^l(X(t))$ los vecinos del bolsón $X(t)$ que están a distancia no mayor a $l$ seguimos teniendo una descomposición.  
+	Consideraremos los bolsones $Y(t) = f^{-1}(N^l(X(t)))$ de vértices en $\Gamma_1$. 
 	
 	Debemos ver que cumplen las tres propiedades.
 	
 	\begin{enumerate}
-		\item[\textbf{T1.}] La primera se cumple puesto que los bolsones $X_t$ cubren $V(\Gamma_2)$. 
-		De esta manera $\cup_{t \in T} N^l(X_t) = V(\Gamma_2)$ y por lo tanto tomando preimagen tenemos que
+		\item[\textbf{T1.}] La primera se cumple puesto que los bolsones $X(t)$ cubren $V(\Gamma_2)$. 
+		De esta manera $\bigcup_{t \in T} N^l(X(t)) = V(\Gamma_2)$ y por lo tanto tomando preimagen tenemos que
 		\[
-		\bigcup_{t \in V(T)} f^{-1} (N^l (X_t)) = \bigcup_{t \in V(T)} Y_t = f^{-1} (V(\Gamma_2)) = V(\Gamma_1)
+		\bigcup_{t \in V(T)} f^{-1} (N^l (X(t))) = \bigcup_{t \in V(T)} Y(t) = f^{-1} (V(\Gamma_2)) = V(\Gamma_1)
 		\] 
 		donde usamos que la preimagen de la unión es la unión de las preimágenes.
 		\item[\textbf{T2.}] La segunda condición usamos que si hay una arista $xy \in E(\Gamma_2)$ luego debe ser que $d(f(x),f(y)) \le l$ por como tomamos a $l$.
-		De esta manera como $f(x) \in X_t$ para algún $t \in V(T)$, notemos que $f(y) \in N^l(X_t)$ también. 
-		Tomando preimagen tenemos que $x,y \in f^{-1}(N^l(X_t))$ y esto es que justamente $x,y \in Y_t$ para un mismo $t \in V(T)$ tal como queríamos ver.		
-		\item[\textbf{T3.}] Para la tercera condición si $x \in Y_t \cap Y_s$ queremos ver que $x \in Y_r$ para todo $r \in V(T)$ que aparezca en la geodésica de $s$ a $t$.
+		De esta manera como $f(x) \in X(t)$ para algún $t \in V(T)$, notemos que $f(y) \in N^l(X(t))$ también. 
+		Tomando preimagen tenemos que $x,y \in f^{-1}(N^l(X(t)))$ y esto es que justamente $x,y \in Y(t)$ para un mismo $t \in V(T)$ tal como queríamos ver.		
+		\item[\textbf{T3.}] Para la tercera condición si $x \in Y(t) \cap Y(s)$ queremos ver que $x \in Y(r)$ para todo $r \in V(T)$ que aparezca en la geodésica de $s$ a $t$.
 		Como la preimagen de una intersección es lo mismo que la intersección de las preimágenes entonces 
 		\[
-		x \in f^{-1}(N^l(X_t)) \cap f^{-1}(N^l(X_s)) = f^{-1}(N^l(X_t) \cap N^l (X_s)
+		x \in f^{-1}(N^l(X(t))) \cap f^{-1}(N^l(X(s))) = f^{-1}(N^l(X(t)) \cap N^l (X(s))
 		\]
-		de esta manera debe existir $v \in V(\Gamma_2)$ tal que $v \in N^l(X_s) \cap N^l(X_t)$.
+		de esta manera debe existir $v \in V(\Gamma_2)$ tal que $v \in N^l(X(s)) \cap N^l(X(t))$.
 		Ahora usamos que esta es una descomposición sobre $\Gamma_2$ para notar que $v \in N^l(X_r)$.
-		Tomando preimagen tenemos que $x \in Y_r$ tal como queríamos ver.
+		Tomando preimagen tenemos que $x \in Y(r)$ tal como queríamos ver.
 	\end{enumerate}
 	
 	Finalmente debemos ver que el tamaño de los bolsones está acotado uniformemente.
-	Esto es que exista $k \in \NN$ tal que $|Y_t| \le k$ para todo $t \in V(T)$.
-	Como $\Gamma_2$ tiene treewidth finito tenemos que $|X_t| \le M$ uniformemente para todo $y \in V(T)$ para cierta $M$. 
+	Esto es que exista $k \in \NN$ tal que $|Y(t)| \le k$ para todo $t \in V(T)$.
+	Como $\Gamma_2$ tiene treewidth finito tenemos que $|X(t)| \le M$ uniformemente para todo $y \in V(T)$ para cierta $M$. 
 	Como el grado de los grafos está acotado uniformemente por alguna constante $d$ tenemos que 
 	\[
-	|N^l(X_t)| \le d^l |X_t| \le d^l M.
+	|N^l(X(t))| \le d^l |X(t)| \le d^l M.
 	\]
 	Finalmente notemos que al ser $f$ una cuasisometría tenemos que $|f^{-1}(v)| \le k$ para todo $v \in V(\Gamma_2)$.
 	Esto lo podemos ver porque si $f(x) = v = f(y)$ entonces
@@ -514,7 +425,7 @@ Veamos ahora que el treewidth es un invariante por cuasisometría y entonces no 
 	y esta cota es uniforme para todo $v \in \Gamma_2$. 
 	Así vemos que,
 	\[
-	|Y_t| = |f^{-1}(N^l(X_t))| \le C^2 d^l M < \infty
+	|Y(t)| = |f^{-1}(N^l(X(t)))| \le C^2 d^l M < \infty
 	\]
 	y tomamos $k$ suficientemente grande para que haga valer esto.
 	Concluímos así que la descomposición que nos armamos para $\Gamma_1$ tiene treewidth finito.
@@ -533,36 +444,117 @@ Como caso particular tenemos los grafos de Cayley de grupos finitamente generado
 	Por la proposición anterior \ref{treewidth-inv} como tener treewidth finito es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
 \end{proof}
 
-%\begin{coro}
-%	Todo grupo independiente de contexto es tal que su grafo de Cayley es cuasisométrico a un árbol.
-%\end{coro}
-%\begin{proof}
-%	Por \ref{teo_schupp_muller_ic_desc} todo grupo independiente de contexto tiene treewidth finito y usando la proposición recién demostrada concluímos que su grafo de Cayley es cuasisométrico a un árbol.
-%\end{proof}
-%
-%
-%\begin{prop}\label{cuasisometria-subgrupo-ind-finito}
-%	Sea $G$ grupo \fg entonces si $H$ es un subgrupo de índice finito resulta que son cuasisométricos.
-%\end{prop}
-%\begin{proof}
-%	Resultado estándar pero no tan elemental de demostrar. 
-%	Es un corolario de Milnor Schwarz.
-%	Ver \cite{loh2017geometric}.
-%\end{proof}
-%
-%Esto nos dice que todo grupo es cuasisométrico con los subgrupos de índice finito. 
-%De esta manera obtenemos el siguiente resultado,
-%
-%\begin{prop}
-%	Todo grafo de Cayley de un grupo virtualmente libre es cuasisométrico a un árbol.
-%\end{prop}
-%
-%\begin{proof}
-%	Si $G$ es virtualmente libre entonces existe $F \le G$ grupo libre de índice finito.
-%	Por la prop anterior \ref{cuasisometria-subgrupo-ind-finito} tenemos que el grafo de Cayley de $G$ es cuasisométrico con el de $H$.
-%	Por el resultado \ref{} sabemos que los grafos de grupos libres son árboles y así queda demostrada la proposición.
-%\end{proof}
+\section{Grupos \ic tienen treewidth finito.}
 
+En esta sección probaremos un resultado que fue originalmente probado por Muller--Schupp en \cite{muller1985theory}.
+En ese trabajo usan una definición equivalente al treewidth que es que su grafo de Cayley sea $k$-triangulable que resulta ser un poco más técnica.
+La demostración que presentamos sigue la exposición del trabajo \cite{diekert2017context}.
+Primero una observación sobre el lenguaje del problema de la palabra de un grupo independiente de contexto.
+
+\begin{obs}\label{palabras-wp}
+	Si tenemos un grupo $G$ tal que es independiente de contexto consideremos $\cal G$ gramática que genera al lenguaje del problema de la palabra, $\WP = L(\cal G)$.
+	Si $A$ es una de las variables de esta gramática podemos obtener el lenguaje $L_A$ de palabras generadas a partir de esta variable, donde
+	\[
+	L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
+	\]
+	Veamos que si $v,v' \in L_A$ entonces $v =_G v'$, es decir son el mismo elemento vistos en el grupo $G$. 
+	Para eso si tenemos una derivación que en algún momento llega a $S \deriva \beta A \gamma \deriva uvw$ también tenemos otra derivación que deriva en $S \deriva \beta A \gamma  \deriva uv'w$. 
+	Es decir que $uvw, u'v'w' \in \WP$ por lo tanto 
+	\begin{equation*}
+		uvw =_G 1 =_G uv'w \implies v =_G v'
+	\end{equation*}
+	tal como queríamos ver.
+\end{obs}
+
+
+
+
+El siguiente r
+
+\begin{teo} \cite{muller1985theory}
+	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
+\end{teo}
+\begin{proof}
+	La descomposición que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley. 
+	Veamos que esta descomposición para un grupo independiente de contexto tiene treewidth finito. 
+	Buscamos $k \in \NN$ tal que nos permita acotar $|\beta C| \le k$ para todo $\beta C \in V(T)$. 
+	Alcanza con ver que los diámetros de los bolsones $\beta C$ están acotados uniformemente, esto es que exista $M \in \NN$ tal que 
+	\[
+	\text{diam}(\beta C) =  \sup_{g,h \in \beta C} d(g,h) \le M
+	\] 
+	para todo $\beta C$ de la descomposición de árboles.
+	Si esto sucede, al ser el grupo finitamente generado por $\Sigma$ entonces $|\beta C| \le |\Sigma|^{M} < \infty$.
+	
+	
+	Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $\cal G$ independiente de contexto que lo genera. 
+	Consideremos que está en la forma normal de Chomsky.
+	
+	Para cada variable $A$ de nuestra gramática podemos considerar el siguiente lenguaje
+	\[
+	L_A = \{ w \in \Sigma^* : A \deriva w  \}.
+	\]
+	Para este lenguaje introduzcamos un número natural $k_A \in \NN$ definido por $k_A = \min_{w \in L_A} |w|$. 
+	Como tenemos finitas variables en nuestra gramática $\cal G$ podemos considerar $k = \max_{A \in V} k_A$. 
+	Veamos que $\text{diam}(\beta C) \le 3k$ para todo $\beta C \in V(T)$.
+	
+	Sean $g,h \in \beta C$ para cierta $C$ componente conexa de $V_n$, acotemos $d(g,h)$. 
+	Para eso consideremos una geodésica $\alpha$ que una $1$ con $g$ y análogamente otra $\gamma$ que una $1$ con $h$. 
+	Como $C \cup \beta C$ es conexo podemos tomar un arco $\tau$ que una $g$ con  $h$ dentro de $C \cup \beta C$. 
+	De esta manera tenemos un triángulo tal que si leemos las letras que están en la etiqueta del arco empezando desde $1$ y moviéndonos por $\alpha$ leemos la etiqueta $u$. 
+	Cuando nos movemos por $\tau$ leemos la etiqueta $v$. Consideremos que esta etiqueta $v$ es tal que $|v|>1$ caso contrario ya tenemos la cota probada. Finalmente leemos la etiqueta $w$ cuando regresamos al $1$ por medio de $\gamma$.
+	Como $uvw$ está en un ciclo en el grafo de Cayley entonces $uvw \in  \WP$ y por lo tanto tenemos alguna derivación $S \deriva uvw$.
+	
+	Ya que tenemos esta derivación $S \deriva uvw$ miremos la primer variable que deriva a $v$ como subpalabra. 
+	Esto es que para la subpalabra $v$ sabemos que existe alguna variable $A$ tal que $A \deriva v'v''$ donde $v$ es a su vez una subpalabra de $v'v''$. 
+	Tomamos la última variable que aparece en la derivación.
+	%Esto es que para la subpalabra $v$ sabemos que debe existir alguna variable $A$ tal que $A \deriva u''vw''$ para $u''$ algún posfijo de $u$ y $w''$ algún prefijo de $w$ y aparece último en esta derivación. 
+	Ésta debe existir porque en particular $S$ cumple lo pedido de ser una variable que deriva a una palabra que contiene a $v$ como subpalabra.
+	
+	Como está en la forma normal de Chomsky sabemos que al ser $|v| \ge 2$ entonces tenemos que la derivación tiene la siguiente pinta
+	\begin{equation*}
+		S \deriva u'Aw' \Rightarrow_{\cal G} u'BC w' \deriva u'v'v''w'
+	\end{equation*}
+	donde $B,C$ son otras variables. En particular notemos que $A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
+	
+	
+	Si miramos la geodésica $\alpha$ sabemos que cuando leímos $u'$ habremos llegado a un vértice del grafo $x$, y al estar sobre la geodésica misma tenemos la siguiente igualdad,
+	%y que si tomamos el camino que leemos la palabra de menor longitud tenemos que habremos llegado al vértice $y$ que corresponde al haber leído $u'v'$.
+	\begin{equation*}
+		d(x,g) = d(1,g) - d(1,x).
+	\end{equation*}
+	Análogamente cuando miramos la geodésica $\gamma$ en la instancia que ya leímos $w'$ saliendo desde $h$ llegamos a cierto vértice $z$ y por la misma razón que en el caso anterior obtenemos
+	\begin{equation*}
+		d(z,h) = d(1,h) - d(1,z).
+	\end{equation*}
+	Por otro lado si consideramos el vértice $y$ al que llegamos después de leer $u'v'$ que sabemos que está en el arco $\tau$ dado que $v$ es subpalabra de $v'v''$.
+	Usando que $y \in \tau \subseteq C \cup \beta C$ tenemos que $d(1,y) \le n+1 = d(1,g)$ por ser $C$ una componente conexa de $V_n$, entonces vale la siguiente desigualdad
+	\begin{equation*}
+		d(x,g) = d(1,g) - d(1,x) \le d(1,y) - d(1,x) = d(x,y)
+	\end{equation*}
+	y análogamente tenemos que $d(z,h) \le d(z,y)$.
+	
+	
+	Por la observación \ref{palabras-wp} notemos que si reemplazamos $v'$ por la palabra de menor tamaño del lenguaje $L_B$ seguimos teniendo un ciclo pero de longitud idéntica o más chica. 
+	La palabra $v'$ la leemos justamente cuando vamos del vértice $x$ al vértice $y$, así la distancia  $d(x,y)$ está acotada por la mayor de todas las palabras que puedan derivarse de $B$. 
+	Idénticamente hacemos esto para las variables $A$ y $C$.
+	Por como definimos a $k$ tenemos las siguientes cotas $d(x,y), d(y,z), d(x,z) \le k$.
+	%agregar dibujito, creo que es la manera más clara de explicar esto
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[scale=0.5]{treewidth.png}
+		\caption*{}
+	\end{figure}
+	
+	
+	
+	Ahora estamos listos para ver que $d(g,h) \le 3k$. Usamos la desigualdad triangular tres veces,
+	\begin{align*}
+		d(g,h) & \le d(g,x) + d(x,z) + d(h,z) \\
+		& \le d(x,y) + d(x,z) + d(y,z) \le 3k
+	\end{align*}
+	tal como queríamos ver.
+\end{proof}
 	
 	
 \end{document}
