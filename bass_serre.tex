@@ -23,121 +23,104 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 
 \section{Definiciones básicas.}
 
-	Un \emph{grafo dirigido} es un par ordenado $Y= (V(Y),E(Y))$ tal que:
-	\begin{itemize}
-		\item Al conjunto $V(Y)$ lo llamaremos los \emph{vértices}.
-		\item Al conjunto $E(Y)$ las \emph{aristas}.
-	\end{itemize}
-	Para cada arista $y \in E(Y)$ tendremos una designación $s(y) = P \in V(Y), t(y) = Q \in V(Y)$.
-	Informalmente diremos que $s(y)$ es el comienzo de la arista $y$ mientras que $t(y)$ es el final de la arista.
-	A su vez para cada $y \in E(Y)$ tendremos $\overline y \in E(Y)$ la arista con \emph{asignación opuesta}.
-	Esta arista cumple que $s(\ol y) = Q, t(\ol y) = P$. 
+
+\begin{deff}
+	Un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ tal que al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas}.
+	Para cada arista $y \in E$ tendremos unas asignaciones $s(y) = P \in V, t(y) = Q \in V$.
+	A su vez para cada $y \in E$ existe una única arista $\overline y \in E$ que cumple que $s(\ol y) = Q, t(\ol y) = P$. 
+\end{deff}
+	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas. 
+	Dos vértices $P, Q \in V$ están unidos por una arista $y$ si $s(y)=P, t(y) = Q$ o bien $s(y)=Q, t(y)= P$. 
+	\begin{deff}
+		Sea $Y$ un grafo dirigido.
+		Una \emph{orientación} de las aristas de $Y$ es un subconjunto $A \subset E$ que cumple que para cada par de vértices unido por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.	
+	\end{deff}
 	
-	Para esta sección nos va a interesar que los grafos que consideremos sean \emph{conexos}. 
-	Esto es que dado dos vértices $P,Q \in V(Y)$ exista un camino entre ellos.
-	Un camino va a ser una sucesión de aristas 
-	\[
-		(y_0, y_1, \dots y_k) \ \ \text{tal que} \ y_i \in E(Y)  \ \text{para} \ \ i = 0 \dots k
-	\]
-	de modo que $s(y_{i+1}) = t(y_{i})$ y tal que $s(y_0) = P $ y $t (y_k) = Q$.
-	
-	
-	Un \emph{ciclo} es un camino de aristas $(y_0, y_1, \dots y_n)$ de manera que $s(y_0) = t(y_n)$. 
+
+\begin{deff}
+	Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino} entre $P$ y $Q$ es una sucesión finita de aristas $y_0, \dots, y_k$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i-1})$.
+\end{deff}	
+
+	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
+	Un \emph{ciclo} es un camino de aristas $y_0, y_1, \dots, y_k$ de manera que $s(y_0) = t(y_k)$.	 
 	Un grafo es un \emph{árbol} si es conexo y no tiene ciclos.
-	Dado un grafo $Y$ conexo siempre podemos construirnos un árbol $T$ tal que $V(T) = V(Y)$ y $E(T) \subseteq E(Y)$. 
-	A este árbol lo llamaremos un \emph{árbol de expansión} de $Y$.
-	
-	 	
-	En este contexto los morfismos que nos van a interesar van a respetar las propiedades de los grafos dirigidos.
+
+	Dado un grafo $Y$ conexo diremos que $T$ es un \emph{árbol generador} de $Y$ si $V(T) = V(Y)$ y $E(T) \subseteq E(Y)$.
+	\begin{prop}
+		Dado un grafo conexo $Y$ existe un árbol generador $T$ de $Y$.
+	\end{prop}
+	\begin{proof}
+		Ver \cite{}.
+	\end{proof}
 
 \begin{deff}
 	Sean $Y, Y'$ grafos dirigidos. 
-	Una función $\phi:Y \to Y'  $ es un \emph{morfismo de grafos} si:
+	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
 	\begin{itemize}
-		\item $\phi (V(Y)) \subseteq  V(Y')$;
-		\item $\phi (E(Y)) \subseteq  E(Y')$;
-		\item Si $y \in E(Y)$ entonces $\ol{\phi(y)} = \phi(\ol y)$;
-		\item Si $y \in E(Y)$ entonces $\phi(s(y)) = s(\phi(y))$
+		\item Para todo $y \in E(Y)$ vale que $\ol{\phi(y)} = \phi(\ol y)$;
+		\item Para todo $y \in E(Y)$ vale que $\phi(s(y)) = s(\phi(y))$;
+		\item Para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$.
 	\end{itemize}   
 \end{deff}
-Notemos que de esta definición no hace falta pedir que respete el vértice en el cual termina una arista porque justamente para toda arista $y \in E(Y)$ vale que $t(y) = s(\ol y)$.
 
-Como tenemos morfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
+Un \emph{automorfismo} de grafos dirigidos va a ser un morfismo que tenga una inversa.
+Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$.
+
+Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
 \begin{deff}
-	Dado un grupo $G$ diremos que $G$ actúa sobre un grafo dirigido $Y$ si se cumplen las siguientes condiciones,
-	\begin{enumerate}[a.]
-		\item Para cada $g \in G$ tenemos un morfismo de grafos $g \cdot : Y \to Y$;
-		\item $1 \cdot x = x$ para todo $x \in Y$;
-		\item $(gh) \cdot x = g \cdot (h \cdot x)$ para todo $x \in Y$ y todos $g,h \in G$.
-	\end{enumerate}
+	Sea $G$ un grupo y sea $Y$ un grafo dirigido luego $G$ actúa sobre $Y$ si existe un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
+	Diremos que una acción \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $\psi(g)(y) \neq \ol y$.
 \end{deff}
 
-Las acciones que nos van a interesar en este capítulo las vamos a tomar para que \emph{no tengan inversiones} esto es que $g \cdot y \neq \ol y$ para toda arista $y \in E(Y)$ y para todo $g \in G$.
-
+Utilizaremos la notación estándar $g \cdot y$ para refererinos a $\psi(g)(y)$.
 Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
 
 \begin{deff}
 	Dado un grafo dirigido $Y$.
 	Un \emph{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
 	\begin{enumerate}
-		\item Para cada vértice $P \in V(Y)$ tenemos un grupo $G_P$.
-		\item  Para cada arista $y \in E(Y)$ tenemos un grupo $G_y$ tal que $G_y$ es un subgrupo de $G_{s(y)}$.
-		\item Para todo $y \in E(Y)$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
+		\item Para cada vértice $P \in V$ tenemos un grupo $G_P$.
+		\item  Para cada arista $y \in E$ tenemos un subgrupo $G_y$ de $G_{s(y)}$.
+		\item Para todo $y \in E$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
 	\end{enumerate}
 \end{deff}
 
-En general para la definición de grafo de grupos no es necesario pedir para la condición \textbf{2} que haya una contención sino que alcanza con tomar un monomorfismo del grupo de la arista en el grupo del vértice del inicio de la arista. 
-Para facilitar las construcciones más en adelante supondremos que es un subgrupo pero los argumentos se pueden readaptar en el caso de no suponerlo.
-
-
-Dado un grafo $Y = (V(Y), E(Y))$ llamaremos $F_{E(Y)}$ al grupo libre  generado por las aristas del grafo.
+Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por las aristas del grafo.
 
 \begin{deff}
-	Dado un grafo de grupos $\cal G$ sobre un grafo $Y = (V(Y), E(Y))$ podemos armarnos el siguiente grupo 
+	Dado un grafo de grupos $\cal G$ sobre un grafo $Y = (V, E)$ consideremos el siguiente grupo: 
 	\begin{equation*}
-		F({\cal G}) = (\underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{E(Y)}) / \langle \langle  R \rangle \rangle
+		F({\cal G}) = (\underset{P \in V}{\Asterisk} G_P \Asterisk F_{E}) / \langle \langle  R \rangle \rangle
 	\end{equation*}
 	donde el conjunto de relaciones por las que dividimos es 
 	\[
-		R = \{  \overline y = y^{-1}, \ ya^yy^{-1} = a^{\overline y} \} \ \ \text{para toda $y \in E(Y)$ y todo \  $a \in G_y$}
+		R = \{  \ol y a^y y = a^{\overline y}   \ \text{para toda $y \in E$ y todo \  $a \in G_y$} \}
 	\]
 \end{deff}
 
-\begin{obs}
-	El conjunto de relaciones $R$ por el que dividimos anteriormente se puede reescribir de una manera condensada como 
-	\[
-	R = \{  ya^y \overline y = a^{\overline y}  \} \ \ \text{para toda $y \in E(Y)$ y todo \  $a \in G_y$}.
-	\]
-\end{obs}
 
 \begin{deff} \label{def_pi1_arbol}
 	Sea un grafo de grupos $\cal G$ sobre $Y$.
 	Consideremos $T$ un árbol de expansión del grafo $Y$.
-	\footnote{Como suponemos que $Y$ es conexo existen (posiblemente varios) árboles de expansión. Más en adelante probaremos que esta construcción no depende del árbol de expansión elegido.}
-	Nos armamos el siguiente \emph{grupo fundamental del grafo de grupos}
+	El \emph{grupo fundamental del grafo de grupos} es
 	\begin{equation*}
 		\pi_1({\cal G}, T) = F({\cal G}) / \{ y \  | \ y \in E(T)  \}.
 	\end{equation*}
 \end{deff}
 
-Esto es que para todas las aristas que aparecen en el árbol de expansión las identificamos con la identidad en el grupo. 
-Esta definición se puede ver que en el caso particular de un grafo coincide con la definición que tenemos del grupo fundamental de un espacio topológico.
-Más aún es la generalización que tenemos del grupo fundamental de un complejo simplicial cuando dividimos por algún árbol de expansión.
-
 \begin{obs}
-	Notaremos por $g_{y}$ a la imagen de $y \in F(\cG)$ en el cociente $\pi_1(\cG,T)$.
+	Para cada arista $y \in E(Y)$ notaremos por $g_{y}$ a la imagen de $y \in F_E$ en el cociente $\pi_1(\cG,T)$.
 \end{obs}
 
 \begin{ej}
 	Sea un grafo de grupos $\cal G$ sobre un grafo $Y$ tal que $G_y = \{ 1 \}$ para todo $y \in E(Y)$.
 	Consideremos una orientación $A$ para las aristas del grafo.
-	Esto es que $A$ es un subconjunto de la aristas que cumple que para cada par de vértices unido por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.
 	El grupo fundamental $\pi({\cal G}, T)$ está generado por los elementos $g \in G_P$ donde $P \in V(Y)$ y los elementos $g_y \in A \setminus (T \cap A)$.
 	Por lo tanto obtenemos que el grupo fundamental de este grafo de grupos resulta ser
 	\[
 	\pi_1({\cal G}, T) = \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (T \cap A)}
 	\]
-	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico es el grupo libre en sus aristas que no pertenecen a un árbol de expansión nos queda que 
+	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico es isomorfo al grupo libre en el conjunto de sus aristas que no pertenecen a un árbol de expansión nos queda que 
 	\[
 		\pi_1({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P  \Asterisk \pi_1(Y) 
 	\]
@@ -158,52 +141,73 @@ Más aún es la generalización que tenemos del grupo fundamental de un complejo
 	Dado que $G_{y} \simeq G_{\ol y}$ por ser un grafo de grupos entonces podemos escribirlo de esta manera.
 \end{ej}
 
-Nuestro foco ahora es dar otra definición de grupo fundamental pero esta vez usando caminos así como lo hacemos para el grupo fundamental usual de un espacio topológico.
+Nuestro foco ahora es dar una definición equivalente de grupo fundamental pero esta vez usando caminos así como lo hacemos para el grupo fundamental usual de un espacio topológico.
 
 \medskip
 Dados dos vértices $P,Q \in V(Y)$ denotaremos por $\Pi(P,Q)$ el conjunto de caminos de $P$ a $Q$.
 De esta manera nos queda definido
 \[
-\Pi(P,Q) = \{  y_1 \dots y_k \ | \ s(y_1)=P, \ t(y_k) = Q, \ t(y_i) = s(y_{i+1})  \ \text{para} \ 1 \le i \le k \}
+\Pi(P,Q) = \{  y_1, \dots, y_k \ | \ s(y_1)=P, \ t(y_k) = Q, \ t(y_i) = s(y_{i+1})  \ \text{para} \ 1 \le i \le k \}
 \]
-tal que estos son subconjuntos en $F(\cG)$ si miramos a las aristas como elementos del grupo.
-En particular podemos tomar $g_0y_1g_1 \dots g_{k-1}y_kg_k \in F(\cG)$ tales que
-\[
-g_i \in G_{s(y_i)}, \ \ g_k \in G_Q,
-\]
-A estos subconjuntos los denotaremos $\pi(\cG, P, Q)$. 
-En particular para todo $P \in V(Y)$ tenemos que $\pi(\cG,P,P)$ es un subgrupo de $F(\cG)$ esto porque si hacemos el producto entre dos elementos de este subconjunto tenemos que
-\begin{equation*}
-	(g_0y_1g_1 \dots g_{k-1}y_kg_k ) \circ ( g'_0y'_1g'_1 \dots g'_{k-1}y'_kg'_k) =  g_0y_1g_1 \dots g_{k-1}y_k(g_kg'_0)y'_1g'_1 \dots g'_{k-1}y'_kg'_k
-\end{equation*}
-donde $g_kg'_0 \in G_P$ por lo tanto su producto está bien definido y en definitiva nos queda otro elemento de $\pi(\cG, P, P)$ tal como queríamos ver.
+Todo camino $y_1, \dots, y_k \in \Pi(P,Q)$ lo podemos pensar como la palabra $y_1 \dots y_k$ en el grupo libre $F_E$ y similarmente podemos mirar la clase de $y_1\dots y_k$ en el cociente $F(\cG)$.  
+
+\begin{deff}
+	Dado $\cG$ grafo de grupos sobre $Y$ grafo conexo y $P,Q \in V$ dos vértices de $Y$ definimos el siguiente subconjunto de $F(\cG)$,
+	\begin{equation*}
+		\pi(\cG, P, Q) = \{  g_0y_1g_1 \dots g_{k-1}y_kg_k : y_1,\dots, y_k \in \Pi(P,Q), \ \ 
+		 \forall i, \ 1 \le i < k, g_i \in G_{s(y_{i+1})}, \ \ g_k \in G_Q \}	
+	\end{equation*}
+\end{deff}
+ 
+\begin{prop}
+	Para todo $P \in V$ tenemos que $\pi(\cG,P,P)$ es un subgrupo de $F(\cG)$.
+\end{prop}
+\begin{proof}
+	Debemos ver que tiene a la identidad del grupo, que es cerrado por el producto y que todo elemento tiene un inverso.
+
+	Si consideramos el camino vacío y $g_0 = 1$ luego obtenemos que $1 \in \pi(\cG, P , P)$.
+	Para ver que es cerrado por el producto notemos que 
+	\begin{equation*}
+		(g_0y_1g_1 \dots g_{k-1}y_kg_k ) \circ ( g'_0y'_1g'_1 \dots g'_{k-1}y'_kg'_k) =  g_0y_1g_1 \dots g_{k-1}y_k(g_kg'_0)y'_1g'_1 \dots g'_{k-1}y'_kg'_k
+	\end{equation*}
+	donde $g_kg'_0 \in G_P$ por lo tanto su producto está bien definido y en definitiva nos queda otro elemento de $\pi(\cG, P, P)$ tal como queríamos ver.
+	Finalmente vemos que es cerrado por inversos porque si tomamos el elemento $g_0y_1\dots y_{k} g_k$ su inverso resulta ser ${g_k}^{-1} \ol{y_k} \dots \ol{y_1}{g_0}^{-1} \in \pi(\cG,P,P)$.
+\end{proof}
+
+
+
+
 
 
 \begin{deff}
-	\emph{El grupo fundamental de $\cG$ respecto a un punto de base $P$} se define como $\pi_1(\cG, P) = \pi(\cG,P,P)$.
+	\emph{El grupo fundamental de $\cG$ respecto a un punto base $P$} se define como $\pi_1(\cG, P) = \pi(\cG,P,P)$.
 \end{deff}
 
 Notemos que en particular para esta construcción obtuvimos un subgrupo del grupo $F(\cal G)$ mientras que en el caso de la definición anterior del grupo fundamental \ref{def_pi1_arbol} obtuvimos un cociente.
 Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfismo como grupos.
 
 \begin{teo}\label{teo_grp_fund_iso}
-	$\pi_1({\cal G}, P)$ es isomorfo con $\pi_1({\cal G}, T)$.
+	$\pi_1({\cal G}, P)$ es isomorfo a $\pi_1({\cal G}, T)$.
 \end{teo}
 \begin{proof}
 	Veamos que la composición de la inclusión $\iota: \pi_1( \cG ,P)  \to F(\cG)$ con la proyección $\pi: F(\cG) \to \pi_1(\cG, T)$ es un isomorfismo.
 	
 	Dados $P,Q \in V(Y)$ consideremos la geodésica $\alpha$ que los une sobre $T$.
-	Si leemos la sucesión de aristas que recorre esta geodésica tenemos una palabra en $T(P,Q) \in F_{E(Y)}$ de manera que nos define un elemento en el grupo $F(\cG)$.
+	Si leemos la sucesión de aristas que recorre esta geodésica tenemos una palabra en $T[P,Q] \in F_{E(Y)}$ de manera que nos define un elemento en el grupo $F(\cG)$.
 	Ahora definamos el siguiente morfismo (que depende del árbol de expansión que tomamos):
 	
 	\begin{align*}
-		\tau: & F(\cG) \to \pi_1(\cG,P)  \\
+		\tau: & \underset{P \in V}{\Asterisk} G_P \Asterisk F_{E} \to \pi_1(\cG,P)  \\
 		& \tau(y) = T[P,s(y)]yT[t(y),P] \ \ \text{para } \ y\in E(Y) \\
 		& \tau(g) = T[P,Q] g T(Q,P) \ \  \text{para} \ Q \in V(Y), \ g \in G_Q
 	\end{align*}
 	
-	Lo definimos sobre los generadores del producto libre y por como lo tomamos siempre nos devuelve un elemento de $\pi(\cG, P)$.
-	Para ver que está bien definido debemos ver que cumple la relación $\tau(\overline y a^y y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$.
+	Lo definimos sobre los generadores del producto libre.
+	Notemos que $T[P,s(y)]yT(t(y, P)) \in \pi_1(\cG, P)$ porque $T[P,s(y)]yT[t(y),P]$ es un camino en $\Pi(P,P)$. 
+	Similarmente vemos que $\tau(g) \in \pi_1(\cG,P)$.
+
+	Veamos que esto nos define un morfismo sobre $F(\cG)$.
+	Debemos ver que cumple la relación $\tau(\overline y a^y y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$.
 	Esto vale porque justamente 
 	\begin{align*}
 		\tau(\overline y a^y y) & = T[P,s(\overline y)]\ol yT[t(\ol y),P] T[P,s(y)] a^y T[t(y),P] T[P,s(\overline y)]yT[t( y),P] \\
