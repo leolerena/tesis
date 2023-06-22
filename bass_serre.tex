@@ -26,53 +26,74 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 
 \begin{deff}
 	Un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ tal que al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas}.
-	Para cada arista $y \in E$ tendremos unas asignaciones $s(y) = P \in V, t(y) = Q \in V$.
-	A su vez para cada $y \in E$ existe una única arista $\overline y \in E$ que cumple que $s(\ol y) = Q, t(\ol y) = P$. 
+	Para cada arista $y \in E$ tendremos unas asignaciones $s(y) = P \in V, t(y) = Q \in V$ que determinan a la arista.
+	A su vez para cada $y \in E$ existe una única arista $\overline y \in E$ que cumple que $s(\ol y) = Q$ y que $t(\ol y) = P$. 
 \end{deff}
 	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas. 
 	Dos vértices $P, Q \in V$ están unidos por una arista $y$ si $s(y)=P, t(y) = Q$ o bien $s(y)=Q, t(y)= P$. 
 	\begin{deff}
 		Sea $Y$ un grafo dirigido.
-		Una \emph{orientación} de las aristas de $Y$ es un subconjunto $A \subset E$ que cumple que para cada par de vértices unido por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.	
+		Una \emph{orientación} de las aristas de $Y$ es un subconjunto $A \subset E$ que cumple que para cada par de vértices unidos por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.	
 	\end{deff}
 	
 
 \begin{deff}
 	Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino} entre $P$ y $Q$ es una sucesión finita de aristas $y_0, \dots, y_k$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i-1})$.
+	Un camino $y_0, \dots y_n$ tiene \emph{backtracking} si existen $ 0 \le i,j \le n$ tales que $y_i = \ol{y_{j}}$.
 \end{deff}	
 
+\begin{deff}
+	Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $y_0, \dots y_n$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $z_0, \dots, z_m$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $m \ge n$.
+	Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $y_0, \dots, y_k$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
+\end{deff}
+	En particular notemos que toda geodésica carece de backtracking.
+	
+\begin{deff}
 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
-	Un \emph{ciclo} es un camino de aristas $y_0, y_1, \dots, y_k$ de manera que $s(y_0) = t(y_k)$.	 
+	Un \emph{ciclo} en un grafo dirigido es un camino $y_0, y_1, \dots, y_k$ que no tiene backtracking, donde todas las aristas son distintas y que cumple que $s(y_0) = t(y_k)$. 	 
 	Un grafo es un \emph{árbol} si es conexo y no tiene ciclos.
-
+\end{deff}
+	
+\begin{lema}
+	Todo árbol $T$ es únicamente geodésico.
+\end{lema}
+\begin{proof}
+	Ver \cite{diestel2005graph}
+\end{proof}
+\begin{deff}
 	Dado un grafo $Y$ conexo diremos que $T$ es un \emph{árbol generador} de $Y$ si $V(T) = V(Y)$ y $E(T) \subseteq E(Y)$.
-	\begin{prop}
-		Dado un grafo conexo $Y$ existe un árbol generador $T$ de $Y$.
-	\end{prop}
-	\begin{proof}
-		Ver \cite{}.
-	\end{proof}
+\end{deff}
+
+\begin{prop}
+	Dado un grafo conexo $Y$ existe un árbol generador $T$ de $Y$.
+\end{prop}
+\begin{proof}
+	Ver \cite{diestel2005graph}.
+\end{proof}
+
+%Dado un grafo dirigido $Y$ va a ser conveniente considerar que es la unión disjunta $Y = V \sqcup E$ en algunas circunstancias en vez de un par ordenado.
+%En particular para definir
 
 \begin{deff}
 	Sean $Y, Y'$ grafos dirigidos. 
 	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
 	\begin{itemize}
-		\item Para todo $y \in E(Y)$ vale que $\ol{\phi(y)} = \phi(\ol y)$;
-		\item Para todo $y \in E(Y)$ vale que $\phi(s(y)) = s(\phi(y))$;
+		\item Para toda $y \in E(Y)$ vale que $\ol{\phi(y)} = \phi(\ol y)$;
+		\item Para toda $y \in E(Y)$ vale que $\phi(s(y)) = s(\phi(y))$;
 		\item Para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$.
 	\end{itemize}   
 \end{deff}
 
-Un \emph{automorfismo} de grafos dirigidos va a ser un morfismo que tenga una inversa.
+Un \emph{automorfismo} de grafos dirigidos es un morfismo que tiene una inversa.
 Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$.
 
 Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
 \begin{deff}
-	Sea $G$ un grupo y sea $Y$ un grafo dirigido luego $G$ actúa sobre $Y$ si existe un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
+	Sea $G$ un grupo y sea $Y$ un grafo dirigido luego \emph{$G$ actúa sobre $Y$} si existe un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
 	Diremos que una acción \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $\psi(g)(y) \neq \ol y$.
 \end{deff}
 
-Utilizaremos la notación estándar $g \cdot y$ para refererinos a $\psi(g)(y)$.
+Utilizaremos la notación estándar $g \cdot y$ para referirnos a $\psi(g)(y)$.
 Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
 
 \begin{deff}
@@ -109,7 +130,7 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por las aristas d
 \end{deff}
 
 \begin{obs}
-	Para cada arista $y \in E(Y)$ notaremos por $g_{y}$ a la imagen de $y \in F_E$ en el cociente $\pi_1(\cG,T)$.
+	Para cada arista $y \in E(Y)$ notaremos por $g_{y}$ a la imagen de $y \in F(\cG)$ en el cociente $\pi_1(\cG,T)$.
 \end{obs}
 
 \begin{ej}
@@ -144,7 +165,7 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por las aristas d
 Nuestro foco ahora es dar una definición equivalente de grupo fundamental pero esta vez usando caminos así como lo hacemos para el grupo fundamental usual de un espacio topológico.
 
 \medskip
-Dados dos vértices $P,Q \in V(Y)$ denotaremos por $\Pi(P,Q)$ el conjunto de caminos de $P$ a $Q$.
+Dados dos vértices $P,Q \in V$ denotaremos por $\Pi(P,Q)$ el conjunto de caminos de $P$ a $Q$.
 De esta manera nos queda definido
 \[
 \Pi(P,Q) = \{  y_1, \dots, y_k \ | \ s(y_1)=P, \ t(y_k) = Q, \ t(y_i) = s(y_{i+1})  \ \text{para} \ 1 \le i \le k \}
@@ -187,43 +208,61 @@ Notemos que en particular para esta construcción obtuvimos un subgrupo del grup
 Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfismo como grupos.
 
 \begin{teo}\label{teo_grp_fund_iso}
-	$\pi_1({\cal G}, P)$ es isomorfo a $\pi_1({\cal G}, T)$.
+	Sea $\cG$ un grafo de grupos sobre un grafo conexo finito $Y = (V,E)$, sea $P \in V$ un vértice y sea $T$ un árbol generador de $Y$ entonces $\pi_1({\cal G}, P)$ es isomorfo a $\pi_1({\cal G}, T)$.
 \end{teo}
 \begin{proof}
-	Veamos que la composición de la inclusión $\iota: \pi_1( \cG ,P)  \to F(\cG)$ con la proyección $\pi: F(\cG) \to \pi_1(\cG, T)$ es un isomorfismo.
+	Dados $P,Q \in V$ consideremos la geodésica $\alpha$ que los une sobre $T$.
+	Si leemos la sucesión de aristas que recorre esta geodésica tenemos una palabra $T[P,Q] \in F_{E}$. 
+	Tomamos la convención que $T[P,P] = 1$.
+	Como $\alpha$ no tiene backtracking podemos considerar a $T[P,Q]$ como un elemento en el grupo $F(\cG)$.
+	Observemos que $T[P,Q] = T[Q,P]^{-1}$ porque el árbol es únicamente geodésico.
 	
-	Dados $P,Q \in V(Y)$ consideremos la geodésica $\alpha$ que los une sobre $T$.
-	Si leemos la sucesión de aristas que recorre esta geodésica tenemos una palabra en $T[P,Q] \in F_{E(Y)}$ de manera que nos define un elemento en el grupo $F(\cG)$.
-	Ahora definamos el siguiente morfismo (que depende del árbol de expansión que tomamos):
+	Ahora definamos el siguiente morfismo (que depende del árbol de expansión que tomamos) sobre los generadores del producto libre:
 	
 	\begin{align*}
 		\tau: & \underset{P \in V}{\Asterisk} G_P \Asterisk F_{E} \to \pi_1(\cG,P)  \\
-		& \tau(y) = T[P,s(y)]yT[t(y),P] \ \ \text{para } \ y\in E(Y) \\
-		& \tau(g) = T[P,Q] g T(Q,P) \ \  \text{para} \ Q \in V(Y), \ g \in G_Q
+		 \tau(y) &= T[P,s(y)]yT[t(y),P] \ \ \text{para } \ y\in E(Y) \\
+		\tau(g) &= T[P,Q] g T[Q,P] \ \  \text{para} \ Q \in V(Y), \ g \in G_Q
 	\end{align*}
+	Notemos que por como definimos a este morfismo tenemos que $\tau(y) \in \pi_1(\cG,P)$ y que similarmente $\tau(g) \in \pi_1(\cG,P)$.
 	
-	Lo definimos sobre los generadores del producto libre.
-	Notemos que $T[P,s(y)]yT(t(y, P)) \in \pi_1(\cG, P)$ porque $T[P,s(y)]yT[t(y),P]$ es un camino en $\Pi(P,P)$. 
-	Similarmente vemos que $\tau(g) \in \pi_1(\cG,P)$.
 
-	Veamos que esto nos define un morfismo sobre $F(\cG)$.
-	Debemos ver que cumple la relación $\tau(\overline y a^y y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$.
+	Veamos que a partir de $\tau$ nos podemos definir un morfismo sobre $F(\cG)$.
+	Debemos ver que cumple la relación $\tau(\overline y a^y y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$ y todo $a \in G_y$.
 	Esto vale porque justamente 
 	\begin{align*}
 		\tau(\overline y a^y y) & = T[P,s(\overline y)]\ol yT[t(\ol y),P] T[P,s(y)] a^y T[t(y),P] T[P,s(\overline y)]yT[t( y),P] \\
 		& = T[P,s(\overline y)]  \ol y a^y y T[t( y),P] \\
 		& = \tau (a^{\ol y}).
 	\end{align*}
-	Es un epimorfismo porque en particular todo elemento de $\pi_1(\cG, P)$ es un camino que termina y comienza en $P$ intercalado con elementos de los estabilizadores de los vértices que aparecen en el camino.
-	De esta manera como $\tau(y)=1$ para todo $y \in E(T)$, notemos que pasa al cociente y existe $\ol \tau: \pi_{1}(\cG, T) \to \pi_1 (\cG, P)$ epimorfismo.
+	donde usamos que $\ol y a^y y = a^{\ol y}$ en $\pi_1(\cG,P)$.
+	Sea $\tau: F(\cG) \to \pi_1(\cG, P)$ este morfismo que definimos.
+	Por como está definido $\tau$ tenemos que si lo restringimos al subgrupo  $\pi_1(\cG,P)$ resulta ser la identidad y en particular tenemos que $\tau$ es un epimorfismo.
 	
-	Para terminar la demostración probemos que componiendo con $\nu$ nos queda la identidad.
-	Si hacemos $\nu \circ \ol \tau$ notemos que 
-	\begin{equation*}
-		\nu \circ \ol \tau (a^y) = a^y, \ \ \nu \circ \ol \tau (y) = y, 
-	\end{equation*}
-	para $y \in E(Y) \setminus E(T)$ porque justamente estamos dividiendo por estas aristas. 
-	Esto porque $T[P,Q]$ es un camino de aristas en el árbol de expansión por lo tanto sobre $\pi_1(\cG, T)$ son la identidad.
+	Veamos que $\tau$ baja al cociente $\pi_1(\cG, T)$ y luego que este es el isomorfismo que buscamos para terminar de probar el teorema.
+	Sea $y \in E(T)$ luego $\tau(y) = T[P,s(y)]yT[t(y), P]$ donde $T[t(y), P] = \ol y T[s(y), P]$ y de esta manera $\tau(y) = 1$ para todo $y \in E(T)$.
+	Por esta razón $\tau$ pasa al cociente y existe $\ol \tau: \pi_{1}(\cG, T) \to \pi_1 (\cG, P)$ epimorfismo tal que hace conmutar el siguiente diagrama,
+	
+	\begin{center}
+		\begin{tikzcd}
+			F(\cal{G}) \arrow[rr, "\tau"] \arrow[dd, "\pi"']             &  & {\pi_1({\cal G}, P)} \\
+			&  &                      \\
+			{\pi_1({\cal G}, T)} \arrow[rruu, "\overline \tau"', dashed] &  &                     
+		\end{tikzcd}
+	\end{center}
+	
+	Para terminar la demostración probemos que $\ol \tau$ es un monomorfismo.
+	Para eso consideramos $\nu = \pi \circ \iota$ donde $\iota: \pi_1(\cG,P) \to F(\cG)$ es la inclusión como subgrupo y probemos que $\nu \circ \ol \tau$ nos queda la identidad.
+	Si hacemos $\nu \circ \ol \tau$ notemos que si $g \in G_Q$ con $Q \in V$ luego
+	\begin{align*}
+		\nu \circ \ol \tau (\pi (g)) & = \nu (T[P,Q]gT[Q,P]) \\
+					&= \pi(T[P,Q]gT[Q,P]) \\
+					&= \pi(T[P,Q]) \pi (g) \pi (T[Q,P]) \\
+					&= \pi(g).
+	\end{align*}
+	Donde usamos que $T[P,Q]$ es un camino de aristas en el árbol de expansión por lo tanto $\pi(T[P,Q]) = 1$. 
+	Similarmente podemos ver que para toda $y \in E$ tenemos que $\nu \circ \ol \tau (\pi(y)) = \pi(y)$.
+	De esta manera vimos que $\ol \tau : \pi_{1}(\cG,T) \to \pi_{1}(\cG,P)$ es un isomorfismo de grupos.
 \end{proof}
 
 Como corolario de este resultado vimos que el grupo fundamental de un grafo no depende del árbol de expansión que tomemos porque siempre va a resultar isomorfo al grupo fundamental a partir de un vértice arbitrario del grafo.
