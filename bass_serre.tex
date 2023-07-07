@@ -117,7 +117,7 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por las aristas d
 	\end{equation*}
 	donde el conjunto de relaciones por las que dividimos es 
 	\[
-		R = \{  \ol y a^y y = a^{\overline y}   \ \text{para toda $y \in E$ y todo \  $a \in G_y$} \}
+		R = \{  \ol y a y = a^{\overline y}   \ \text{para toda $y \in E$ y todo \  $a \in G_y$} \}
 	\]
 \end{deff}
 
@@ -300,7 +300,7 @@ Y = 	\begin{tikzcd}
 	\end{tikzcd}
 \]
 Este grafo no tiene árbol de expansión por lo que $F(\cG) \simeq \pi_1(\cG)$.
-Si notamos por $a$ a cada elemento de $G_y$ notaremos por $\overline{a}$ a la imagen de $a$ por el isomorfismo en el grupo $G_{\ol y}$.
+Si $a$ es algún elemento de $G_y$ entonces notaremos por $\overline{a}$ a la imagen de $a$ por el isomorfismo con el grupo $G_{\ol y}$.
 Sea $g$ el generador de $F_{E}$ correspondiente a la arista $y$. 
 En este caso las relaciones que tenemos en nuestro grupo son las siguientes
 \[
@@ -356,9 +356,9 @@ Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},
 
 \subsection{ Caso general.}
 Sea $\cG$ un grafo de grupos sobre un grafo conexo y finito $Y$.
-En esta sección vamos a caracterizar los elementos del grupo $\pi_1(\cG, P)$ a partir de sucesiones reducidas tal como hicimos en el caso particular de los productos amalgamados y las extensiones HNN.
+En esta sección vamos a caracterizar los elementos del grupo $\pi_1(\cG, T)$ a partir de sucesiones reducidas tal como hicimos en el caso particular de los productos amalgamados y las extensiones HNN.
 
-Primero que nada vamos a definir las sucesiones que nos van a interesar.
+Definimos las sucesiones que vamos a usar:
 \begin{itemize}
 	\item $c=y_1, \dots, y_n \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V$;
 	\item $\mu = r_0, \dots r_n$ una sucesión tomados de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
@@ -389,7 +389,7 @@ Nuestro objetivo es el siguiente teorema.
 	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego toda palabra $(c, \mu)$ reducida es tal que $|c,\mu| \neq 1$.
 \end{teo}
 
-En particular de este resultado se desprenden dos corolarios importantes para entender la estructura de los grupos fundamentales de grafos de grupos finitos.
+En particular de este resultado se desprenden corolarios importantes para entender la estructura de los grupos fundamentales de grafos de grupos finitos.
 
 \begin{coro}\label{coro_pal_red_1}
 	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego para todo $P \in V$ vale que $G_P$ es un subgrupo de $F(\cG)$.
@@ -407,7 +407,7 @@ En particular de este resultado se desprenden dos corolarios importantes para en
 \begin{proof}
 	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
 	Sea $(c, \mu) = r_0y_1r_1\dots r_n$.
-	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_P$. 
+	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_{s(y_0)}$. 
 	Consideremos entonces otra palabra $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que por como la tomamos $|c,\mu'| = 1$.
 	Es una palabra reducida porque por suposición tenemos que $c$ no es el camino vacío y aparte $\mu'$ es idéntica a $\mu$ salvo en la primera posición que no afecta la condición \textbf{R2}.
 	Esto contradice \ref{teo_pal_red} por lo tanto $|c, \mu| \notin G_{s(y_0)}$.
@@ -426,33 +426,35 @@ Sea $\pi: F(\cG) \to \pi_1(\cG,T)$ la proyección.
 	Por el teorema \ref{teo_grp_fund_iso} tenemos que este grupo es isomorfo con el grupo fundamental $\pi_1(\cG, T)$ por medio de la proyección $\pi$ entonces esto termina de probar el resultado.
 \end{proof}
 
-Veamos ahora de trabajar para finalmente demostrar el teorema \ref{teo_pal_red}.
+Vamos a demostrar el teorema \ref{teo_pal_red}.
 Para esto emplearemos una construcción previa que nos ayude a probarlo recursivamente a partir de grafos cada vez más chicos.
 
-Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$. 
-Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
-El grupo de este grafo de grupos lo denotaremos $F(\cG | Y')$.
-Por inducción supongamos que vale el teorema \ref{teo_pal_red} para este grafo $Y'$.
+
+Sea $Y$ un grafo conexo y finito y sea $Y'$ un subgrafo conexo.
+Consideremos el grafo $W = Y/Y'$.
 
 \[\begin{tikzcd}
 	& \color{rgb,255:red,214;green,153;blue,92}\bullet &  \color{rgb,255:red,214;green,153;blue,92} \bullet &&&  \color{rgb,255:red,214;green,153;blue,92} \bullet \\
 	\bullet & \color{rgb,255:red,214;green,153;blue,92} \bullet &&&& \bullet \\
 	\bullet &&&&&& \bullet \\
-	& Y &&&& Y/Y' \\ 	
+	& Y &&&& W = Y/Y' \\ 	
 	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=1-3]
 	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=2-2]
 	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=2-2, to=1-3]
 	\arrow[from=2-1, to=1-2]
+	\arrow[bend left=60, from=1-2, to=1-3]
 	%\arrow[from=2-1, to=2-2]
 	\arrow[from=2-2, to=3-1]
 	\arrow[from=1-6, to=3-7]
 	\arrow[from=2-6, to=1-6]
+	\arrow[loop, from=1-6, to=1-6]
 \end{tikzcd}\]
-El subgrafo $Y'$ conexo lo distinguimos con este \textcolor{rgb,255:red,214;green,153;blue,92}{color}.
+Donde en este ejemplo distinguimos al subgrafo $Y'$ conexo con este \textcolor{rgb,255:red,214;green,153;blue,92}{color}.
 
-Sea $W = Y / Y'$  el grafo que obtenemos de contraer $Y'$ a un vértice que llamaremos $[Y']$. 
-Como $Y'$ es conexo también lo es $W$.
-Definamos un grafo de grupos sobre $W$.
+Sea $W = Y / Y'$  el grafo que obtenemos de contraer $Y'$ a un vértice.
+A este vértice lo llamaremos $[Y']$. 
+Como el subgrafo $Y'$ es conexo también lo es $W$.
+Formalmente el grafo $W$ está dado por los siguientes conjuntos de aristas y vértices.
 
 \begin{enumerate}
 	\item Los vértices son $V(W)= V(Y) \setminus V(Y') \cup \{ [Y'] \}$.
@@ -460,7 +462,9 @@ Definamos un grafo de grupos sobre $W$.
 \end{enumerate}
 
 Si las aristas no empiezan ni terminaban en $Y'$ dentro del grafo $Y$ al contraer el subgrafo siguen idénticas. 
-En el otro caso las definimos para que terminen (o empiecen) en $[Y']$. Sea $y \in E(W)$ entonces,
+En el otro caso las definimos para que terminen (o empiecen) en $[Y']$. 
+Sea $y \in E(W)$ entonces:
+
 \begin{equation*}
 	s(y) = 
 	\begin{cases}
@@ -472,13 +476,17 @@ y análogamente,
 \begin{equation*}
 	t(y) = 
 	\begin{cases}
-		t(y),  & \text{si} \ s(y) \notin V(Y') \\ 
+		t(y),  & \text{si} \ t(y) \notin V(Y') \\ 
 		[Y']. & \text{caso contrario}
 	\end{cases}
 \end{equation*}
 
 
-Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W$ de la siguiente manera,
+Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$ finito y conexo. 
+Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
+El grupo de este grafo de grupos restringido al subgrafo $Y'$ lo denotaremos $F(\cG | Y')$.
+Por inducción supongamos que vale el teorema \ref{teo_pal_red} para este subgrafo $Y'$.
+Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W$ bajo esta suposición de la siguiente manera.
 \begin{itemize}
 	\item Si $P \in V(Y) \setminus V(Y')$, tomamos $H_P = G_P$;
 	\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$.
@@ -504,33 +512,41 @@ y para toda arista $ y \in E(Y)$ definimos,
 	\end{cases}
 \end{equation*}
 
-De manera que así como está definida cumple las relaciones porque $F(\cH)$ también las cumple y así vemos que pasa al cociente y así obtenemos que $\beta$ está bien definida.
+De manera que así como está definida cumple las relaciones de $F(\cG)$ porque en particular el grupo $F(\cH)$ también las cumple.
+Obtenemos así que $\beta$ está bien definida.
 
 \begin{lema}
 	El morfismo de grupos $\beta:F(\cG) \to F(\cH)$ es un isomorfismo. 
 \end{lema}
 \begin{proof}
 	Podemos construirnos un morfismo $\alpha:F(\cH) \to F(\cG)$ tal que sea su inversa.
-	La construcción es análoga.
+	La construcción es análoga a la construcción que hicimos para $\beta$ definiendola sobre sus generadores.
 	
 	Para todo $g \in H_P$ con $P \in V(W) \setminus [Y'] $ definimos,
 	\begin{equation*}
-		\alpha(g) = [g] \in G_P \ \ 
+		\alpha(g) = [g]  \ \ 
 	\end{equation*}
 	y para toda arista $ y \in E(W)$ tal que no empiece ni termine en $[Y']$ definimos,
 	\begin{equation*}
-		\alpha(y) = y  \ \ \ 
+		\alpha(y) = [y]  \ \ \ 
 	\end{equation*}
-	
-	Finalmente sobre $F(\cG | Y')$ definimos de manera análoga mandando todo elemento $g \in G_P$ para para $P \in V(Y')$ a sí mismo en $F(\cG)$ e idénticamente para todas las aristas.
-	Es claro que es un morfismo de grupos que a su vez es la inversa de $\beta$ anteriormente definida.
+	En el caso de $F(\cG | Y')$ usamos que este grupo está generado por $y \in E(Y')$ y por $g \in G_{P}$ tales que $P \in Y'$.
+	Sobre $F(\cG | Y')$ definimos 
+	\begin{equation*}
+		\alpha([g]) = [g]  \ \ 
+	\end{equation*}
+	para $g \in G_P$ si $P \in V(Y')$ e idénticamente para todas las aristas definimos
+	\begin{equation*}
+		\alpha([y]) = [y]  \ \ 
+	\end{equation*}
+	Es claro que es un morfismo de grupos que nos define un morfismo $\alpha:F(\cH) \to F(\cG)$ tal que es la inversa de $\beta$ anteriormente definida.
 \end{proof}
 
-La moraleja de este lema es que podemos tomar el grupo $F(\cG | Y')$ para un subgrafo $Y'$ conexo y después tomar el grupo $F(\cH)$ para el grafo resultante y es exactamente lo mismo que tomar $F(\cG)$ en el comienzo.
+La moraleja de este lema es que podemos tomar el grupo $F(\cG | Y')$ para un subgrafo $Y'$ conexo y después tomar el grupo $F(\cH)$ para el grafo resultante $Y / Y'$ y es exactamente lo mismo que tomar $F(\cG)$ en el comienzo con la ventaja que el grafo es más chico ahora.
 
 Para cada palabra $(c, \mu)$ del grafo de grupos $F(\cG)$ le vamos a asociar una palabra $(c', \mu')$ de $\cH$ tal que $\beta (|c,\mu|) = |c',\mu'|$.
 La idea es reemplazar las partes de la palabra que involucren a $Y'$ con las respectivas en $F(\cG | Y')$.
-Dados $ 1 \le i \le j \le n$ llamemos $c_{ij}$ al camino $(P_iy_i \dots y_{j-1}P_j)$ y $\mu_{ij}$ a los elementos $(r_i, \dots, r_j)$.
+Dados $ 1 \le i \le j \le n$ llamemos $c_{ij}$ al camino $y_i \dots y_{j}$ y $\mu_{ij}$ a los elementos $(r_i, \dots, r_j)$.
 Si $c_{ij}$ está contenida en $Y'$ denotaremos por $r_{ij}$ al elemento correspondiente visto en $F(\cG | Y')$.
 De esta manera lo que haremos es pensar en todos los subintervalos $[i_a,j_a]$ tales que el camino $c$ está dentro del subgrafo $Y'$.
 Así tenemos subdividido al intervalo $[1,n]$ de la siguiente manera,
