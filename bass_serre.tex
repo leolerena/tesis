@@ -39,10 +39,12 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 
 \begin{deff}
 	Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino} entre $P$ y $Q$ es una sucesión finita de aristas $y_0, \dots, y_k$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i-1})$.
+	La \emph{longitud} del camino $c$ es la cantidad de aristas que lo componen.
 	Un camino $y_0, \dots y_n$ tiene \emph{backtracking} si existen $ 0 \le i,j \le n$ tales que $y_i = \ol{y_{j}}$.
 \end{deff}	
 
-	En el caso particular que $P = Q$ permitimos tomar el camino vacío $c = ()$. 
+	En el caso particular que $P = Q$ permitimos tomar el camino constante $c = ()$. 
+	Este camino tiene longitud $0$.
 
 \begin{deff}
 	Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $y_0, \dots y_n$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $z_0, \dots, z_m$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $m \ge n$.
@@ -396,20 +398,20 @@ En particular de este resultado se desprenden corolarios importantes para entend
 \end{coro}
 \begin{proof}
 	Para todo $P \in V$ tenemos que $G_P$ es un subgrupo de $\ast_{P \in V} G_P \ast F_E$.
-	Sea  $g \in G_{P} \setminus \{ 1 \}$ entonces $(c, \mu) = g$ donde $c = ()$ es el camino vacío y $\mu = (g)$.
+	Sea  $g \in G_{P} \setminus \{ 1 \}$ entonces $(c, \mu) = g$ donde $c = ()$ es el camino constante en $P$ y $\mu = (g)$.
 	Es una palabra reducida por cumplir la propiedad \textbf{R1}.
 	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ por lo que  la proyección a $F(\cG)$ nos da un isomorfismo restringida a $G_P$ y así a $G_P$ lo podemos considerar un subgrupo de $F(\cG)$.
 \end{proof}
 
 \begin{coro}\label{coro_pal_red_2}
-	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, sea $c = y_0 \dots y_n$ un camino no vacío y $(c, \mu)$ una palabra reducida entonces $|c, \mu| \notin G_{s(y_0)}$.
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, sea $c = y_0 \dots y_n$ un camino no constante y $(c, \mu)$ una palabra reducida entonces $|c, \mu| \notin G_{s(y_0)}$.
 \end{coro}
 \begin{proof}
 	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
 	Sea $(c, \mu) = r_0y_1r_1\dots r_n$.
 	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_{s(y_0)}$. 
 	Consideremos entonces otra palabra $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que por como la tomamos $|c,\mu'| = 1$.
-	Es una palabra reducida porque por suposición tenemos que $c$ no es el camino vacío y aparte $\mu'$ es idéntica a $\mu$ salvo en la primera posición que no afecta la condición \textbf{R2}.
+	Es una palabra reducida porque por suposición tenemos que $c$ no es el camino constante y aparte $\mu'$ es idéntica a $\mu$ salvo en la primera posición que no afecta la condición \textbf{R2}.
 	Esto contradice \ref{teo_pal_red} por lo tanto $|c, \mu| \notin G_{s(y_0)}$.
 \end{proof}
 
@@ -557,8 +559,8 @@ Donde en particular si miramos la palabra $c_{j_{a-1}i_a}$ notemos que es un cam
 
 Definimos la palabra $(c', \mu')$ sobre los generadores de $F(\cH)$ como:
 \begin{itemize}
-	\item $c' = (c_{j_1i_2} \dots, c_{j_{a-1}i_a},c_{j_{a}i_{a+1}} \dots, c_{j_{m-1}i_{m}})$
-	\item $\mu' = (\mu_{1i_1}, r_{i_1j_2}, \dots, r_{i_mj_m}, \mu_{j_m n}   )$
+	\item $c' = c_{j_1i_2} \dots, c_{j_{a-1}i_a},c_{j_{a}i_{a+1}} \dots, c_{j_{m-1}i_{m}}$
+	\item $\mu' = \mu_{1i_1}, r_{i_1j_2}, \dots, r_{i_mj_m}, \mu_{j_m n}   $
 \end{itemize}
 donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la identidad si $i_1=1$ o bien si $j_m = n$.
 
@@ -573,24 +575,31 @@ Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida q
 	Si $(c, \mu)$ es una palabra reducida para $F(\cG)$ entonces $(c', \mu')$ es reducida para $F(\cH)$.
 \end{prop}
 \begin{proof}
-	Si la longitud de $c'$ es exactamente $0$ entonces es un camino constante en algún vértice $P' \in V(W)$. 
-	En tal caso $\mu = (r_0)$ donde $r_0 \neq 1$.
-	Si $P \in V(W) \setminus [Y']$ entonces como $H_P = G_P$ obtenemos que $r_0 \neq 1$ visto en $H_P$.
-	En el otro caso usamos inducción pues nos queda que $r_0 \in F(\cG | Y')$ y por lo tanto es reducida usando el teorema \ref{teo_pal_red}.
+	Dividimos en dos casos dependiendo la longitud de $c'$.
 	
-	Supongamos ahora que la longitud de $c'$ es al menos $1$.
-	Sea $c' = (P'_1w_1 \dots w_{n-1}P'_n)$ queremos ver que si $w_{k+1} = \ol{w_k}$ entonces $r_i \notin H_{y_k}$.	
-	Sea $P' = t(w_k)$ entonces si $P' \neq [Y']$ esto vale porque justamente $(c, \mu)$ es reducida.
-	Distinguimos dos casos si $P' = [Y']$:
+	Si la longitud de $c'$ es  $0$ entonces es un camino constante en algún vértice $P' \in V(W)$. 
+	En tal caso $\mu = (r_0)$.
+	Si $P \in V(W) \setminus [Y']$ entonces por como construimos al grafo de grupos $\cal H$ tenemos que $H_P = G_P$ y al ser $(c, \mu)$ una palabra reducida para $\cG$ obtenemos que $r_0 \neq 1$ visto en $H_P$.
+	En el caso que $P' = [Y']$ nos queda que $r_0 \in F(\cG | Y')$ y por lo tanto es reducida usando el teorema \ref{teo_pal_red} inductivamente en el grafo $Y'$.
+	
+	Supongamos ahora que la longitud de $c'$ es al menos $1$, entonces si queremos ver que  $(c',\mu')$ es reducida debemos garantizar que cumpla \textbf{R2}.
+	Sean $c' = w_1 \dots w_{n}$ y $\mu' = r'_0, \dots, r'_n$ queremos ver que si existe $1 \le k \le n$ tal que  $w_{k+1} = \ol{w_k}$ entonces $r_k \notin H_{w_k}$.	
+	El caso particular que $t(w_k) \neq [Y']$ tenemos que $(c', \mu')$ es reducida porque justamente $(c, \mu)$ lo es y por lo tanto cumple \textbf{R2}.
+	Vamos a distinguir dos casos si $t(w_k) = [Y']$:
 	\begin{enumerate}[i)]
-		\item En el primer caso $(w_{k},r'_k,w_{k+1})$ es tal que $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierto $y_i$ que aparece en $c$. 
-		Viéndolo en $F(\cG)$ tenemos que $r_k \notin G_{t(y_i)}$ porque la palabra $(c, \mu)$ es reducida por suposición.
-		Como $G_{t(y_i)}$ es un subgrupo de $H_{[Y']} = F(\cG | Y')$ aplicando el corolario \ref{coro_pal_red_1} entonces la imagen de $r'_k$ no está en $H_{[Y']}$.
+		\item En el primer caso tenemos que  $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierta $y_i$ que aparece en $c$, esto es que $s(y_i) \in V(Y) \setminus V(Y')$.
+		Queremos ver que $r'_k \notin H_{\ol{w_k}}$.
+		En este caso $H_{\ol{w_k}}$ es un subgrupo de $H_{[Y]}$ aunque resulta ser isomorfo a $G_{\ol{y_i}}$.
+		Por ser $(c, \mu)$ reducida tenemos que $r'_k \notin G_{\ol{y_i}}$.
+		Por el corolario \ref{coro_pal_red_1} tenemos que $G_{\ol{y_i}}$ es un subgrupo de $H_{[Y']} = F(\cG | Y')$ entonces $r'_k \notin H_{[Y']}$.
 		
-		\item En el otro caso tenemos que se corresponde a un camino dentro de $Y'$.
-		Si $(w_{k},r'_k,w_{k+1})$ tiene la forma $(y_{i_a},r_{i_aj_a},y_{j_{a+1}})$ donde $r_{i_aj_a} = |c_{i_aj_a} \mu_{i_aj_a} | \in F(\cG | Y')$. 
-		Dado que la longitud del camino $c_{i_aj_a}$ es al menos $1$ aplicando el resultado \ref{coro_pal_red_2} al grafo de grupos $\cG$ restringido al subgrafo $Y'$ vemos que $r_{i_aj_a} \notin G_Q$ si $Q =t(y_{i_a})$.
-		Esto nos dice que en el grupo $F(\cH)$ tenemos que $r_{i_aj_a} \notin H_{t(w_k)} = F(\cG | Y')$.
+		\item En el otro caso tenemos que se corresponde a un camino no constante dentro de $Y'$.
+		Siguiendo la notación introducida anteriormente tenemos que para cierto $a$ vale que $w_k = y_{i_a}, r'_k = r_{i_aj_a}$ y que $w_{k+1} = y_{j_{a+1}}$ donde bajo nuestras suposiciones tenemos que $w_{k+1} = \ol{w_{k}}$ por lo tanto $ y_{j_{a+1}} = \ol{y_{i_a}}$.
+		
+		Nuevamente queremos ver que se cumple \textbf{R2}. 
+		Esto es que $r'_k \notin H_{\ol{w_k}}$.		
+		Dado que el camino $c_{i_aj_a}$ no es constante, podemos aplicar el resultado \ref{coro_pal_red_2} al grafo de grupos $\cG$ restringido al subgrafo $Y'$ y obtenemos así que $r_{i_aj_a} \notin G_{t(y_{i_a})}$.
+		Esto nos dice que en el grupo $F(\cH)$ tenemos que $r'_{k} = r_{i_aj_a} \notin H_{\ol{w_k}}$ dado que $H_{\ol{w_k}}$ es un subgrupo de $G_{t(y_{i_a})}$ si lo miramos dentro de $F(\cG, Y')$. 
 	\end{enumerate}	
 \end{proof}
 
@@ -601,16 +610,20 @@ Como último resultado previo veamos un lema que nos dice qué pasa cuando contr
 \end{lema} 
 \begin{proof}
 	Debemos ver que $W$ es un grafo conexo y sin ciclos.
+	Para cada vértice $P' \in V(W)$ consideremos $P$ su levantado en $Y$ tal que para el caso particular de $[Y']$ consideramos algún vértice $P \in V(Y')$ arbitrario.
+	En el caso de las aristas cada arista $w \in E(W)$ se corresponde con una única arista $y \in E(Y)$.
 	
-	Para ver que es \textit{conexo} tomemos dos vértices $w_1,w_2 \in V(W)$ y veamos de construir un camino entre ellos.
-	Si ambos vértices se pueden unir por un camino $c$ en $Y$ tal que no interseca a $W$ podemos tomar ese mismo camino.
-	Sino tomemos $c$ algún camino que los una y notamos que $c'$ tal como lo construimos anteriormente es un camino que los une en $W$.
+	Para ver que es conexo tomemos dos vértices $P'_1,P'_2 \in V(W)$ y veamos de construir un camino entre ellos.
+	Consideramos $P_{1}, P_{2} \in V(Y)$ sus levantados.
+	Como el grafo $Y$ es conexo existe un camino $c$ que los une.
+	De manera idéntica a cómo hicimos anteriormente podemos armarnos un camino $c'$ tal que los una sobre $W$.
 	
-	Para ver que \textit{no tiene ciclos} supongamos que $\sigma$ es un ciclo de este grafo.
-	Así como en el caso anterior este ciclo necesariamente tiene que ser sobre el vértice contraído $[Y']$ caso contrario conseguiríamos un ciclo en el grafo $Y$ pero esto no es posible dado que es un árbol.
-	Si miramos por medio del morfismo $\alpha$ definido en la proposición \ref{} obtenemos un camino $c$ en $Y$ tal que debe empezar y terminar en $Y'$. 
-	Como por hipótesis $Y'$ es conexo existe un camino $c$ tal que conecta estos dos vértices. 
-	Esto es una contradicción porque habríamos conseguido un ciclo sobre el grafo $Y$. 
+	Para ver que \textit{no tiene ciclos} supongamos que $c'$ es un ciclo de $W$.
+	Este ciclo tiene que pasar por $[Y']$ caso contrario tomando levantados de aristas y vértices conseguiríamos un ciclo en $Y$.
+	Si levantamos este ciclo nos queda un camino $c$ en $Y$ tal que comienza y termina en $Y'$ y aparte cumple que ninguna de las aristas está en $E(Y')$.
+	Por hipótesis tenemos que $Y'$ es conexo por lo tanto debe existir un camino $d$ con aristas contenidas en $Y'$ tal que une los extremos de $c$. 
+	Concantenando $c$ con $d$ obtenemos un ciclo de $Y$ pero esto contradice que $Y$ es un árbol.
+	
 \end{proof}
 
 
