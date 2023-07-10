@@ -378,8 +378,8 @@ Notaremos $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ esto es que
 \begin{deff}
 	Una palabra $(c, \mu)$ es \emph{reducida} si satisface:
 	\begin{enumerate}[R1.]
-		\item Si $c=()$ entonces $r_0 \neq 1$.
-		\item Si $c \neq ()$ entonces $r_i \notin G_{\ol y_{i}}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
+		\item Si la longitud de $c$ es $0$ entonces $r_0 \neq 1$.
+		\item Si la longitud de $c$ es positiva entonces $r_i \notin G_{\ol y_{i}}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
 	\end{enumerate}
 \end{deff}
 En particular si tomamos una palabra $(c, \mu)$ tal que el camino $c$ no tiene backtracking inmediato esto es que existe $y_i$ tal que $\ol {y_{i+1}} = y_{i}$ entonces por la propiedad \textbf{R2} tenemos que esta palabra va a ser reducida.
@@ -578,16 +578,18 @@ Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida q
 	Dividimos en dos casos dependiendo la longitud de $c'$.
 	
 	Si la longitud de $c'$ es  $0$ entonces es un camino constante en algún vértice $P' \in V(W)$. 
-	En tal caso $\mu = (r_0)$.
-	Si $P \in V(W) \setminus [Y']$ entonces por como construimos al grafo de grupos $\cal H$ tenemos que $H_P = G_P$ y al ser $(c, \mu)$ una palabra reducida para $\cG$ obtenemos que $r_0 \neq 1$ visto en $H_P$.
+	En tal caso $\mu' = r'_0$.
+	Si $P' \in V(W) \setminus [Y']$ entonces por como construimos al grafo de grupos $\cal H$ tenemos que $H_P = G_P$ y al ser $(c, \mu)$ una palabra reducida para $\cG$ obtenemos que $r_0 \neq 1$ visto en $H_P$.
 	En el caso que $P' = [Y']$ nos queda que $r_0 \in F(\cG | Y')$ y por lo tanto es reducida usando el teorema \ref{teo_pal_red} inductivamente en el grafo $Y'$.
 	
 	Supongamos ahora que la longitud de $c'$ es al menos $1$, entonces si queremos ver que  $(c',\mu')$ es reducida debemos garantizar que cumpla \textbf{R2}.
-	Sean $c' = w_1 \dots w_{n}$ y $\mu' = r'_0, \dots, r'_n$ queremos ver que si existe $1 \le k \le n$ tal que  $w_{k+1} = \ol{w_k}$ entonces $r_k \notin H_{w_k}$.	
+	Sean $c' = w_1 \dots w_{n}$, $\mu' = r'_0, \dots, r'_n$ y sean $c = y_{1} \dots y_{k}$ , $\mu = r_{0} \dots r_{k}$.
+	Queremos ver que si existe $1 \le k \le n$ tal que  $w_{k+1} = \ol{w_k}$ entonces $r'_k \notin H_{w_k}$.		
 	El caso particular que $t(w_k) \neq [Y']$ tenemos que $(c', \mu')$ es reducida porque justamente $(c, \mu)$ lo es y por lo tanto cumple \textbf{R2}.
 	Vamos a distinguir dos casos si $t(w_k) = [Y']$:
 	\begin{enumerate}[i)]
-		\item En el primer caso tenemos que  $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierta $y_i$ que aparece en $c$, esto es que $s(y_i) \in V(Y) \setminus V(Y')$.
+		\item En el primer caso tenemos que  $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierta $y_i$ que aparece en $c$.
+		Esto nos dice que $s(w_k) \in V(W) \setminus [Y']$ y por lo tanto por como definimos a $(c', \mu')$ tenemos que $r'_k = r_i$ bajo esta hipótesis.
 		Queremos ver que $r'_k \notin H_{\ol{w_k}}$.
 		En este caso $H_{\ol{w_k}}$ es un subgrupo de $H_{[Y]}$ aunque resulta ser isomorfo a $G_{\ol{y_i}}$.
 		Por ser $(c, \mu)$ reducida tenemos que $r'_k \notin G_{\ol{y_i}}$.
@@ -630,39 +632,46 @@ Como último resultado previo veamos un lema que nos dice qué pasa cuando contr
 Finalmente estamos en condiciones de probar el resultado central de esta sección. 
 
 \paragraph{Demostración del teorema \ref{teo_pal_red}.}
-Vamos a demostrar este resultado viéndolo para distintos casos de grafos.
+Separamos en casos dependiendo cómo es el grafo $Y$.
 	\begin{enumerate}
 		\item El caso que $Y$ es un segmento.
-		\[\begin{tikzcd}
+		\[Y =  \begin{tikzcd}
 			{P_{-1} \ \ \bullet} && {\bullet \ \ P_1}
 			\arrow["y"{pos=0.6}, from=1-1, to=1-3]
 		\end{tikzcd}\]
 		El elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
-		Donde $e_{i} = -e_{i+1}$ para todo $i=1 \dots n$ y los elementos cumplen que $r_0 \in G_{P_{-e_i}}$ y $r_i \in G_{P_{e_i}} \setminus G_{y^{e_i}}$ dado que $(c, \mu)$ es una palabra reducida.
+		Donde $e_{i} = -e_{i+1}$ para todo $i=1 \dots n$ y los elementos cumplen que $r_0 \in G_{P_{-e_1}}$ y $r_i \in G_{P_{e_i}} \setminus G_{y^{e_i}}$ dado que $(c, \mu)$ es una palabra reducida.
 		El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
-		Para el otro caso, es decir el caso que el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente 
+		
+		Para el otro caso en el cual  el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente $\pi_1(\cG,T)$ donde $T$ es el mismo segmento $Y$ en este caso.
+		Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
+		
 		\[
 			\phi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
 		\]
-		donde $G_{P_{-1}} \ast_{G_y} G_{P_1} \simeq \pi_1(\cG, T)$ donde $T$ es el mismo segmento $Y$ en este caso. 
-		Acá estamos usando que el grupo fundamental de un segmento es un grupo amalgamado.
-		Dado que conocemos como son las palabras reducidas en los grupos amalgamados por \ref{prop_amalgamado_formanormal} entonces vemos que $(c, \mu)$ no es la identidad porque justamente 
-		\[
-			\phi(|c,\mu|) = r_0 \dots r_n \neq 1
-		\]
-		por lo tanto como $\phi(|c,\mu|) \neq 1 $ esto implica que $|c,\mu| \neq 1$ tal como queríamos ver.
+		
+		Bajo nuestra definición de las palabras reducidas para grupos amalgamados tenemos que $\phi(|c, \mu|)$ es una palabra reducida para $G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}$ entonces por \ref{prop_amalgamado_formanormal} concluimos que $|c, \mu|$ no es la identidad porque justamente $\phi(|c,\mu|) \neq 1$.
+
 		
 		\item El caso que $Y$ es un árbol. 
-		Lo probamos usando inducción en la cantidad de vértices del grafo.
+		Lo probamos usando inducción en la cantidad de aristas del grafo.
 		Tomemos un segmento $Y'$ dentro del árbol donde ya sabemos que el resultado vale por el caso anterior.
-		Por el lema recientemente probado \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que tiene menos vértices que $Y$. 
+		Por el lema \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que tiene menos vértices que $Y$. 
 		De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ sobre $W$ por lo que $|c',\mu'| \neq 1$ y usando el lema \ref{lema_pal_red_iso} tenemos que $|c, \mu| \neq 1$.
 		
 		\item El caso que $Y$ es un bucle.
-		Dado que en este caso el grupo $F(\cG)$ resulta ser una extensión de tipo HNN por lo visto en la sección anterior podemos aplicar el lema de Britton \ref{teo_britton} que justamente nos muestra que esta palabra es distinta de la identidad en el grupo $F(\cG)$.
+		\[
+		Y = 	\begin{tikzcd}
+			\overset{P}{\bullet} \arrow["y", loop, distance=2.5em, in=355, out=50]
+		\end{tikzcd}
+		\]
 		
-		\item El caso general.
-		Lo probamos por inducción en la cantidad de vértices. 
+		En este caso el grupo $F(\cG)$ resulta ser isomorfo a la extensión HNN $G_P^{\ast G_y}$.
+		Por ser $(c, \mu)$ una palabra reducida vemos que esta condición en este caso coincide con la definición inicial de una palabra reducida para una extensión HNN.		
+		Bajo estas condiciones podemos aplicar el lema de Britton \ref{teo_britton} que nos garantiza que $|c, \mu| \neq 1$ en el grupo $F(\cG)$ tal como queríamos ver.
+		
+		\item El caso general que $Y$ es un grafo finito conexo.
+		Lo probamos por inducción en la cantidad de aristas. 
 		Para eso tomamos $Y'$ un segmento o bien un loop dentro de $Y$ y luego aplicamos el resultado a $Y/Y'$.
 		Por inducción en este caso vale el resultado y luego volviendo a usar el lema \ref{lema_pal_red_iso} terminamos de probarlo para un grafo $Y$ conexo y finito arbitrario.
 	\end{enumerate}
