@@ -1,5 +1,6 @@
 %!TeX root = bass_serre.tex
 \documentclass[tesis.tex]{subfiles}
+\def\acts{\curvearrowright}
 
 %\newcommand{\ol}{\overline{}}
 %\newcommand{\ic}{independiente de contexto }
@@ -28,12 +29,13 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 	Un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ tal que al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas}.
 	Para cada arista $y \in E$ tendremos unas asignaciones $s(y) = P \in V, t(y) = Q \in V$.
 	A su vez para cada $y \in E$ existe una única arista $\overline y \in E \setminus \{ y \}$ que cumple que $\ol {\ol y} = y$ y que $s(\ol y) = Q$ y que $t(\ol y) = P$. 
+	Decimos que $Y$ es \emph{finito} si $|V| < \infty$ y $|E| < \infty$.
 \end{deff}
 	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas. 
 	Dos vértices $P, Q \in V$ están unidos por una arista $y$ si $s(y)=P, t(y) = Q$ o bien $s(y)=Q, t(y)= P$. 
 	\begin{deff}
 		Sea $Y$ un grafo dirigido.
-		Una \emph{orientación} de las aristas de $Y$ es un subconjunto $A \subset E$ que cumple que para cada par de vértices unidos por una arista $y$ tenemos que $y \in A \iff \overline y \notin A$.	
+		Una \emph{orientación} de las aristas de $Y$ es un subconjunto $A \subset E$ que cumple que para cada arista $y$ tenemos que $y \in A \iff \overline y \notin A$.	
 	\end{deff}
 	
 
@@ -327,7 +329,7 @@ En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras
 Ahora veamos un resultado análogo al que demostramos anteriormente para grupos amalgamados que nos dirá una manera de escribir las palabras en estos grupos.
 
 \begin{prop}\label{prop_hnn_formanormal}
-	Para todo elemento $g \in G_P^{\ast G_y}$ existe una única forma normal 
+	Para todo $g \in G_P^{\ast G_y}$ existe una única forma normal 
 	\[
 		(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
 	\]
@@ -345,11 +347,8 @@ Consideremos una sucesión
 tal que no sea necesariamente una forma normal. 
 Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},x_i,t$ con $x_i \in S$ o bien tal que $t,x_i,t^{-1}$ con $x_i \in T$.
 \begin{teo}[Britton]\label{teo_britton}
-	Si $x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n}g^{\epsilon_n}x_{n+1} = 1$ entonces la sucesión 
-	\[
-		(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
-	\]
-	 no está reducida.
+	Sea $G_P^{\ast G_y}$ una extensión HNN y sea $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ una sucesión en este grupo.
+	Si $x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n}g^{\epsilon_n}x_{n+1} = 1$ entonces la sucesión no está reducida.
 \end{teo}
 \begin{proof}
 	Ver \cite{lyndon1977combinatorial}.
@@ -591,8 +590,8 @@ Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida q
 		\item En el primer caso tenemos que  $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierta $y_i$ que aparece en $c$.
 		Esto nos dice que $s(w_k) \in V(W) \setminus [Y']$ y por lo tanto por como definimos a $(c', \mu')$ tenemos que $r'_k = r_i$ bajo esta hipótesis.
 		Queremos ver que $r'_k \notin H_{\ol{w_k}}$.
-		En este caso $H_{\ol{w_k}}$ es un subgrupo de $H_{[Y]}$ aunque resulta ser isomorfo a $G_{\ol{y_i}}$.
-		Por ser $(c, \mu)$ reducida tenemos que $r'_k \notin G_{\ol{y_i}}$.
+		El grupo $H_{\ol{w_k}}$ es isomorfo a $G_{\ol{y_i}}$ aunque la diferencia es que el primero es un subgrupo de $H_{[Y]}$ mientras que el segundo es un subgrupo de $G_{t(y_i)}$.
+		Por ser $(c, \mu)$ reducida tenemos que $r_i \notin G_{\ol{y_i}}$.
 		Por el corolario \ref{coro_pal_red_1} tenemos que $G_{\ol{y_i}}$ es un subgrupo de $H_{[Y']} = F(\cG | Y')$ entonces $r'_k \notin H_{[Y']}$.
 		
 		\item En el otro caso tenemos que se corresponde a un camino no constante dentro de $Y'$.
@@ -666,8 +665,8 @@ Separamos en casos dependiendo cómo es el grafo $Y$.
 		\end{tikzcd}
 		\]
 		
-		En este caso el grupo $F(\cG)$ resulta ser isomorfo a la extensión HNN $G_P^{\ast G_y}$.
-		Por ser $(c, \mu)$ una palabra reducida vemos que esta condición en este caso coincide con la definición inicial de una palabra reducida para una extensión HNN.		
+		En este caso el grupo $F(\cG)$ resulta ser isomorfo a $G_P^{\ast G_y}$.
+		Por ser $(c, \mu)$ una palabra reducida para $F(\cG)$ vemos que esta condición en este caso coincide con la definición inicial de una palabra reducida para una extensión HNN.		
 		Bajo estas condiciones podemos aplicar el lema de Britton \ref{teo_britton} que nos garantiza que $|c, \mu| \neq 1$ en el grupo $F(\cG)$ tal como queríamos ver.
 		
 		\item El caso general que $Y$ es un grafo finito conexo.
@@ -681,12 +680,11 @@ Separamos en casos dependiendo cómo es el grafo $Y$.
 En esta sección presentamos una construcción del árbol de Bass--Serre un poco más concisa que la que aparece en \cite{serre2002trees} si bien la idea es prácticamente la misma.
 En cambio en el paper \cite{diekert2017context} construyen este árbol de una manera más sintáctica usando sistemas de reescritura.
 
-Sea $\cG$ un grafo de grupos sobre un grafo $Y$ conexo. 
-Sea $T$ un árbol maximal del grafo $Y$ luego llamemos $G = \pi_1(\cG,T)$.
+Sea $\cG$ un grafo de grupos sobre un grafo $Y = (V,E)$ conexo tal que para todo $P \in V$ tenemos que $G_{P}$ es un grupo finito. 
+Sea $T$ un árbol generador del grafo $Y$ luego llamemos $G = \pi_1(\cG,T)$.
 Queremos construirnos un árbol $\Xm$ tal que $G$ actúe sobre este árbol sin inversiones de aristas y de manera que $Y = \Xm / G$.
-Llamemos $q:\Xm \to Y$ a la función cociente.
 Para construir este árbol vamos a partir de la siguiente observación.
-Si $\tilde x \in \Xm$ luego por el teorema de órbitas estabilizador tenemos un isomorfismo entre la órbita $\tilde x G$ y los cosets del estabilizador $G / G_{\tilde x}$.
+Si $\tilde x \in \Xm$ luego por el teorema de órbitas estabilizador tenemos una biyección entre la órbita $G \tilde x $ y los cosets del estabilizador $G / G_{\tilde x}$.
 De esta manera valiéndonos de esta observación definimos el conjunto de vértices de la siguiente manera,
 \[
 V(\Xm) = \bigsqcup_{v \in V(Y)} G/G_{v}
@@ -708,24 +706,30 @@ s(gG_{y}) = gG_{s(y)}.
 Probemos primero que estas definiciones no dependen de la elección del representante del coset.
 
 Arrancamos con la definición del inicio de una arista.
-Si tenemos que $hG_{y} = gG_{y}$ luego $hg_{y}G_{t(y)} = gg_{y}G_{t(y)}$ si y solo sí $g^{-1}_y h^{-1}g g_{y} G_{t(y)} = G(t(y))$.
-Usando una de las relaciones del grupo tenemos que $g_{y}^{-1} G_{y} g_{y} \subseteq G_{\ol y}$ y como $h^{-1}g \in G_{y}$ luego obtenemos que $g^{-1}_y h^{-1}g g_{y} \in G_{\ol y}$.
-Por nuestra nuestra construcción el estabilizador de una arista es subgrupo del estabilizador del vértice del cuál sale, de esta manera $g^{-1}_y h^{-1}g g_{y}  \in G_{s(\ol y)} = G_{t(y)}$ tal como queríamos ver.
+Si tenemos que $gG_{y} = hG_{y}$ esto nos dice que $h^{-1}gG_{y} = G_{y}$.
+Como $G_{y}$ es un subgrupo de $G_{s(y)}$ entonces si $h^{-1}g \in G_y$ esto nos dice que $h^{-1}g \in G_{s(y)}$.
+De esta manera $hG_{s(y)} = gG_{s(y)}$ tal como queríamos ver y por lo tanto el origen de una arista no depende de la elección del representante.
+
 
 Ahora vamos a ver la definición del fin de una arista.
-Si tenemos que $gG_{y} = hG_{y}$ esto nos dice que $h^{-1}gG_{y} = G_{y}$.
-Para esto volvemos a usar que $h^{-1}g \in G_y$ nos dice que $h^{-1}g \in G_{s(y)}$.
-De esta manera $hG_{s(y)} = gG_{s(y)}$ tal como queríamos ver.
+Si tenemos que $hG_{y} = gG_{y}$ luego queremos ver que $hg_{y}G_{t(y)} = gg_{y}G_{t(y)}$y esto ocurre si y solo sí $g^{-1}_y h^{-1}g g_{y} G_{t(y)} = G_{t(y)}$.
+Usando una de las relaciones del grupo tenemos que $g_{y}^{-1} G_{y} g_{y} \subseteq G_{\ol y}$ y como $h^{-1}g \in G_{y}$ luego obtenemos que $g^{-1}_y h^{-1}g g_{y} \in G_{\ol y}$.
+Por como definimos a los grafos de grupos tenemos que $G_{\ol y}$ es un subgrupo $G_{s(\ol y)}$ y como $s(\ol y) = t(y)$ terminamos de probar que $g^{-1}_y h^{-1}g g_{y} \in G_{t(y)}$ tal como queríamos ver.
 
-Gracias a las otras dos definiciones la arista con la orientación opuesta nos queda definida de la siguiente manera,
+
+Usando estas dos definiciones tenemos que para cada arista $gG_{y}$ la arista inversa tiene que ser:
 \[
 \ol{gG_{y}} = gg_{y} G_{\ol y}.
 \]
+tal que $s(gg_{y}G_{\ol y}) = gg_{y}G_{t(y)}$ y $t(gg_{y}G_{\ol y}) = gg_{y}g_{\ol y}G_{s(y)}$ y como $g_{y}g_{\ol y} = 1$ obtenemos así que $t(gg_{y}G_{\ol y}) = gG_{s(y)}$.
+A su vez por una cuenta similar vemos que $\ol{\ol{gG_{y}}} = gG_{y}$.
+De esta manera tenemos que $\Xm$ es un grafo dirigido.
 
-Por la construcción que hicimos nos queda justamente que $\Xm / G \simeq Y$.
-A su vez tenemos que $q:\Xm \to Y$ es un epimorfismo de grafos por nuestra construcción.
+Por como construimos a $\Xm$ nos aseguramos que $G$ actúa en $\Xm$ y que $\Xm / G \simeq Y$.
+Sea $q:\Xm \to Y$ definida por $q(gG_{P}) = P$ para todo $P \in V$ y $q(gG_{y}) = y$ para toda $y \in E$.
+Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 
-\begin{obs}
+\begin{obs}\label{obs_levantado_arbol}
 	Para todo $y \in E(T)$ tenemos que $g_y=1$. 
 	Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ dado por mandar $P \mapsto  G_P$ para todo $P \in V(Y)$ y para las aristas mandar $y \mapsto  G_y$. 
 \end{obs}
@@ -736,105 +740,130 @@ A su vez tenemos que $q:\Xm \to Y$ es un epimorfismo de grafos por nuestra const
 \begin{proof}
 	Debemos ver dos cosas: que es conexo y que no tiene ciclos.
 	
-	Empezamos probando que el grafo es conexo.
-	Partamos del árbol $\widetilde T$ que sabemos que está en biyección con el árbol $T$.
-	Tomemos a este levantado para que sus vértices sean $V(\widetilde T) = \bigcup_{P \in E(Y)} G_{P}$ y para que sus aristas sean $E(\widetilde T) =\bigcup_{y \in E(T)} G_{y}$.
-	De esta manera como $\widetilde T$ es conexo, si a su vez le agregamos las aristas con la orientación opuesta $gG_{\ol y}$ para $y \in E(T)$ tenemos que estas aristas intersecan a $\tilde T$.
-	De esta manera conseguimos un grafo conexo $W$.
-	Dado que toda arista del tipo $G_y$ está en $W$ obtenemos que $G \cdot W = \tilde X$.
-	
-	El grupo $G$ está finitamente generado por el siguiente conjunto
+	Empezamos probando que $\Xm$ es conexo.
+	Consideremos $T$ el árbol generador de $Y$ elegido anteriormente para la construcción de $\Xm$. 
+	Por la observación \ref{obs_levantado_arbol} tenemos que existe $\widetilde T$ un subárbol de $\Xm$ tal que es isomorfo a $T$ por medio de $q:\Xm \to Y$.
+	A este árbol podemos agregarle las aristas $G_{y}$ para todo $y \in E \setminus E(T)$, notando que estas aristas cumplen que $s(G_{y}) = G_{s(y)} \in V(\widetilde T)$.
+	Llamemos a este subgrafo $W$.
+	Es un grafo conexo porque el árbol $\widetilde T$ lo era y las aristas que agregamos  intersecan a $\widetilde T$.	
+	Dado que toda arista del tipo $G_y \in E(\Xm)$ está en $W$ obtenemos que $G \cdot W = \tilde X$.
+	Es decir que el subgrafo conexo $W$ es un dominio fundamental de la acción de $G$ sobre $\Xm$.
+	Esto quiere decir que podemos escribir a $\Xm$ de la siguiente manera:
 	\[
-		S = \bigcup_{P \in V(Y)} G_{P} \cup \{ g_y \ : \ y \in E(Y) \}.   
-	\] 
-	Como es un conjunto de generadores nos permite escribir de la siguiente manera a $\Xm$, 
-	\[
-		\tilde X = \bigcup_{g \in G} gW = \bigcup_{g=s_1 \dots s_n} \bigcup_{i=1 \dots n} s_{1}\dots s_{i} W  \cup W 
-	\]  
-	donde estamos tomando la unión de todos los elementos de $G$ como la unión de palabras indexadas por su longitud $n$ y todos los trasladados de $W$ por medio de prefijos de $g$.
-	Una primera observación que debemos hacer es que dado $g \in G$ luego el grafo $gW$ resulta conexo por ser el trasladado de un conexo.
-	
-	Probaremos por inducción en la longitud de $g=s_1\dots s_n$, visto sobre el conjunto de generadores $S$, que 
-	\[
-		s_1\dots s_n W \cap s_1 \dots s_{n-1}W \neq \emptyset	
-	\] 
-	por lo tanto la unión 
-	\[
-	W_g = W \cup s_1W \cup \dots \cup s_1\dots s_{n}W
+		\tilde X = \bigcup_{g \in G} gW.
 	\]
-	sería conexa y de esta manera veríamos que $\tilde X$ es conexo tomando la unión sobre todas las palabras del grupo dado que todos los $W_g$ son conexos y todos ellos intersecan a $W$ que también es  conexo.
+	donde $gW$ es conexo para todo $g \in G$ dado que $W$ lo es.
+	Si $S$ es un conjunto finito de generadores de $G$ entonces para todo $g \in G$ lo podemos escribir como $g = s_{i_1} \dots s_{i_n}$ para $s_{i_j} \in S$.
+	Si fijamos $g \in G$ definimos el siguiente conjunto,
+	\[
+		W_{g} = W \cup \bigcup_{j=1}^{n} s_{i_{j}}\dots s_{i_{n}}W.
+	\]
+	Entonces al grafo $\Xm$ lo podemos reescribir de la siguiente manera:
+	\[
+		\Xm =  \bigcup_{g \in G} W_{g}.
+	\]
+		
 	
-	Para el caso base debemos ver dos casos dependiendo como sea el generador que estemos tomando.
+	Fijamos un conjunto finito de generadores, 
+	\[
+		S = \bigcup_{P \in V(Y)} G_{P} \cup \{ g_y \ : \ y \in E \setminus E(T) \}.   
+	\] 
+	
+	Con este conjunto de generadores vamos a probar que para todo $g \in G$ resulta que $W_{g}$ es conexo.
+	Si probamos esto como $\Xm$ es unión de $W_{g}$ y la intersección de $W_{g}$ con $W_{h}$ es no trivial para todo $g, h \in G$ luego tendremos que $\Xm$ es conexo tal como queríamos ver.
+		
+	
+	Entonces nos alcanza con probar que $W_{g}$ es conexo.
+	Para esto lo vamos a probar por inducción en la longitud de $g$ visto como palabra en los generadores $S$.
+	
+	Para el caso base tenemos que $g = s$ para $s \in S$.
+	Queremos ver que $W \cup sW$ es conexo.
+	Debemos ver dos casos dependiendo como sea el generador que estemos tomando.
 	\begin{enumerate}
-		\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego tenemos que $g_yG_y = \ol G_y \in V(W)$.
+		\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego tenemos que $g_yG_y \in g_{y}W$.
+		Queremos ver que $g_{y}G_{y} \in W$.
+		Para eso notemos que por nuestra definición	$g_yG_y  = \ol G_y \in E(W)$.
 		De esta manera $g_yW \cap W \neq \emptyset$ y por lo tanto la unión es conexa.		
 		
-		\item Si $g \in G_P$ para algún $P \in V(Y)$ entonces $g G_P = G_P \in V(W)$ por lo tanto $gW \cap W \neq \emptyset$. 
+		\item Si $s \in G_P$ para algún $P \in V$ entonces $s G_P = G_P \in V(sW)$ por lo tanto $sW \cap W \neq \emptyset$ y así la unión es conexa.
 	\end{enumerate} 
-	Ahora para el paso inductivo sigamos con la suposición de que es válido para palabras de longitud no mayor a $n-1$. 
-	Queremos verlo para $s_1\dots s_n$ y esto lo podemos hacer notando que 
+
+	Ahora para el paso inductivo sigamos con la suposición de que $W_{g}$ es conexo para todo $g$ tal que puede ser escrito como una palabra de $n-1$ letras en $S$. 
+	Queremos verlo para $g = s_1\dots s_n$ y esto lo podemos hacer notando que 
 	\[
 	s_1(s_2 \dots s_n) W \cap s_2 \dots s_{n} W \neq \emptyset 
 	\]
-	donde usamos la hipótesis inductiva sobre $s_2 \dots s_n W$ que es una palabra de longitud $n-1$ y que al trasladar por $s_1$ lo que está en la intersección está en la intersección de los trasladados.
-	Vimos así que el grafo $\tilde X$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares dado que todos los $W_g$ intersecan a $W$ para todo $g \in G$.
+	Por la misma cuenta que hicimos para el caso base.
+	De esta manera si llamamos $g' = s_{1} \dots s_{n-1}$
+	\[
+		W_{g} = W_{g'} \cup s_{1}\dots s_{n}W
+	\]
+	luego por lo visto es una unión de conexos (acá usamos la hipótesis inductiva que nos garantiza que $W_{g'}$ es conexo) con intersección no vacía, por lo tanto $W_{g}$ es conexo.
+	
+	Vimos así que el grafo $\tilde X$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
 	
 	Veamos ahora que no tiene ciclos.
 	Probaremos la proposición equivalente: para todo $n \in \NN$ no existe camino cerrado de longitud $n$ sin backtracking.
 	Sea $\tilde c$ un camino sobre $\tilde X$ con estas propiedades. 
 	Queremos llegar a un absurdo.
-	Sean las aristas de este camino $\tilde c = (h_1G_{y_1}, h_2 G_{y_2}, \dots, h_n G_{y_n})$.
-	Si miramos la proyección de los vértices tenemos una sucesión de vértices $(P_0, \dots, P_n)$ donde $P_n = P_0$ dado que el camino $\ol c$ es cerrado por lo tanto su proyección también lo es.
+	Sea este camino $\tilde c = h_1G_{y_1}, h_2 G_{y_2}, \dots, h_n G_{y_n}$.
+	Si miramos la proyección de los vértices tenemos una sucesión de vértices $P_0, \dots, P_n$ donde $P_n = P_0$ dado que el camino $\tilde c$ es cerrado por lo tanto su proyección también lo es.
 	Introduzcamos la siguiente notación: sea $g_i = g_{y_i}$.
 	Al ser $\tilde c$ un camino cerrado valen las siguientes igualdades,
 	\begin{align*}
 		t(h_n{G_y}_n) &= h_ng_nG_{P_0} = h_1G_{P_0} = s(h_1G_{ y_1}) \\ 
 		\vdots \ \ \  &= \ \ \ \ \    \vdots\ \ \ \ \ \ \ \ \ \ \ \ \ \    \vdots \\
-		t(h_{n_1}G_{y_{n-1}}) &= h_{n-1}g_{n}G_{P_n} = h_{n}g_n = s(h_nG_{P_n} )  
+		t(h_{n-1}G_{y_{n-1}}) &= h_{n-1}g_{n-1}G_{P_{n-1}} = h_{n}G_{P_{n-1}} = s(h_nG_{P_{n-1}} )  
 	\end{align*}
-	de manera que considerando $r_i \in G_{P_i}$ tal que $h_ig_ir_i = h_{i+1}$ 	podemos reescribir las igualdades anteriormente obtenidas de la siguiente manera,
+	de manera que existe $r_i \in G_{P_i}$ tal que $h_ig_ir_i = h_{i+1}$ para todo $1 \le i \le n$. 	
+	Podemos reescribir las igualdades anteriormente obtenidas de la siguiente manera,
 	\begin{align*}
 		h_1 &= h_{n}g_{n}r_{n} \\
 		h_2 &= h_1g_1r_1 \\
 		\vdots & \ \ \ \vdots \\
-		h_n &= h_{n_1}g_{n-1}r_{n-1} 
+		h_n &= h_{n-1}g_{n-1}r_{n-1} 
 	\end{align*}
 	Más aún usando cada ecuación para reescribirla en la anterior obtenemos que multiplicando todo de forma telescópica nos termina quedando lo siguiente,
 	\begin{equation*}
 		g_1r_1\dots g_nr_n = 1.
 	\end{equation*} 
 	
-	Para llegar a la contradicción veamos que esto que obtuvimos viene de una palabra reducida de manera que no podría ser la identidad.
-	Sea la palabra $(c, \mu)$ para $F(\cG)$ dada por el camino $c$ anteriormente definido y la sucesión $\mu = (1,r_1, \dots, r_n)$.
-	Solo nos queda ver que efectivamente es una palabra reducida. 
-	Para eso debemos chequear que se cumpla la condición \textbf{R2}, de la definición de las palabras reducidas, ya que suponemos que tiene longitud al menos $1$.
 	
-	Supongamos que existe $i$ tal que $y_{i+1} = \ol{y_i}$ por lo que $g_{i+1} = g_{i}$ y $e_{i+1} = 1 - e_i$.
-	Queremos ver que para ese mismo $i$ vale que $r_i \notin G_{y_i}$ dado que en los otros casos automáticamente tenemos que no vale.
+	Sea la palabra $(c, \mu)$ para $F(\cG)$ dada por el camino $c= q(\tilde c)$ y la sucesión $\mu = 1,r_1, \dots, r_n$.
+	Sea $\pi:F(\cG) \to \pi_1(\cG,T)$ la proyección al cociente.
+	Anteriormente vimos que $\pi(|c, \mu|) = g_1r_1\dots g_nr_n = 1$.
+	Veamos que $(c, \mu)$ es una palabra reducida.
+	Si probamos esto, entonces $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que $c$ es un camino cerrado no trivial y es una palabra reducida por lo tanto $\pi(|c, \mu|) \neq 1$ y así llegaríamos a una contradicción.
+
+	Para eso debemos chequear que se cumpla la condición \textbf{R2} de la definición de las palabras reducidas, ya que suponemos que $\tilde c$ tiene longitud al menos $1$.
+	
+	Supongamos que existe $i$ tal que $y_{i+1} = \ol{y_i}$ por lo que $g_{i+1} = g_{i}$.
+	Queremos ver que para ese mismo $i$ vale que $r_i \notin G_{\ol{y_{i}}}$.
 	Para eso miramos la ecuación que teníamos 
 	\[
 		h_ig_ir_i = h_{i+1}
 	\]
-	de manera que si desarmamos las definiciones y pasamos de lado obtenemos la siguiente igualdad
+	de manera que si despejamos a $r_{i}$ obtenemos que
 	\[
 		r_i =   g_i^{-1}(h_i^{-1} h_{i+1} )
 	\]
-	esto es lo mismo que ver que 
+	Supongamos que $r_{i} \in G_{\ol y_{i}}$, en tal caso tendríamos que 
 	\[
-		h_ig_i G_{y_i} \neq  h_{i+1}G_{y_i}.
-	\]
-	Si esto valiera por como definimos las aristas opuestas del grafo $\tilde X$ y por como tomamos a $y_i$ tenemos que 
+		h_ig_i G_{\ol{y_i}} = h_{i+1}G_{\ol{y_i}}.
+	\] 
+	Esto nos dice que vale la siguiente igualdad 
 	\[
 	h_{i+1}G_{\ol y_{i}} = \ol{h_{i}G_{y_i}}
 	\]
-	pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking.
+	pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking. 
+	Por lo tanto $r_{i} \notin G_{\ol{y_{i}}}$ y así vemos que $(c, \mu)$ era reducida tal como queríamos ver.
 	
-	Para concluir notemos que la palabra $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que es camino cerrado no trivial y es una palabra reducida por lo tanto $|c, \mu| \neq 1$ visto en $\pi_1(\cG, T)$ y esto contradice lo anteriormente obtenido.
 \end{proof}
 
 
 \begin{deff}
-	El grafo $\tilde X$ es el \emph{árbol de Bass--Serre} del grafo de grupos $\cG$ sobre un grafo conexo $Y$.
+	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y=(V,E)$ tal que para todo $P \in V$ vale que $G_{P}$ es un grupo finito.	
+	El grafo $\tilde X$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
 \end{deff}
 \section{Acciones de grupos sobre árboles.}
 
