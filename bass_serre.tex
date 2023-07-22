@@ -867,8 +867,8 @@ Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 \end{deff}
 \section{Acciones de grupos sobre árboles.}
 
-Sea $G$ grupo que actúa sin inversiones de aristas sobre un grafo conexo $X = (V(X),E(X))$.
-Consideremos $Y = G / X$ el grafo que conseguimos al cocientar por esta acción.
+Sea $X$ un grafo conexo finito y sea $G$ un grupo finitamente generado que actúa sobre $X$.
+Llamemos $Y = G / X$ y sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
 Este grafo está dado por los siguientes vértices,
 \[
 	V(Y) = \{ G P :  P \in V(X)    \}
@@ -879,7 +879,6 @@ y las  aristas
 \]
 
 En particular como el grafo $X$ es conexo tenemos que $Y$ también lo es.
-Esto nos define un morfismo de grafos que es la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
 Consideremos $\iota: Y \to X$ una sección como conjuntos que la armamos con los siguientes dos pasos.
 \begin{enumerate}
 	\item Para cada vértice $P \in V(Y)$ elegimos $\iota (P) = P'$ tal que $\pi(P') = P$.
@@ -899,29 +898,34 @@ Para las aristas con la orientación opuesta tendremos algún $g_{\ol y} \in G$ 
 \[
 	g_{\ol y} \ol{\iota(\ol y)} = \iota(y).
 \]
-Como la acción de $G$ sobre $X$ es por morfismos de grafos tenemos que $\ol {g y} = g \ol y$ y así queda claro que podemos elegir a $g_{\ol y} = g_{y}^{-1}$.
+Como la acción de $G$ sobre $X$ es por morfismos de grafos tenemos que $\ol {g y} = g \ol y$ y por lo tanto podemos elegir $g_{\ol y} = g_{y}^{-1}$.
 El caso particular que $\ol{\iota (y)} = \iota (\ol y)$ definiremos que $g_y = 1 = g_{\ol y}$.
 
-De esta manera nos podemos construir $\cG$ un grafo de grupos sobre el grafo $Y$.
+Vamos a construir $\cG$ un grafo de grupos sobre el grafo $Y$.
 Consideremos para $P \in V(Y), y \in E(Y)$ los siguientes grupos,
 \[
 	G_P = G_{\iota (P)}, \ G_y = G_{\iota(y)}
 \]
 donde estamos mirando los estabilizadores de la acción de $G$ sobre $X$.
-La primera observación es que la elección de $\iota$ no afecta los grupos que tomamos para los vértices y aristas porque de cambiar la elección de $\iota$ nos quedarían grupos conjugados porque los vértices o aristas correspondientes están en la misma órbita de la acción de $G$.
-Por otro lado notemos que por esta definición tenemos que $G_y \simeq G_{\ol y}$.
+Por como elegimos a la sección tenemos que $G_{\iota(y)} \subset G_{s(\iota y)}$. 
+Si hubiéramos tomado otra sección que no sea $\iota$ los grupos que nos quedarían serían conjugados a los que obtuvimos tomando a $\iota$ como nuestra sección.
+
+Queremos ver que $G_{y} \simeq G_{\ol y}$ para garantizar que $\cG$ sea un grafo de grupos.
 Consideremos el siguiente morfismo de grupos;
 \begin{align*}
 	\phi: G_{\ol y} &\to G_{y} \\
 	a &\mapsto g_{y}^{-1}ag_{y}
 \end{align*}
-que está bien definido porque justamente $g_y \iota(y) = \ol{\iota(\ol y)}$ dado que $g_y \ol{\iota(y)} = \iota (\ol y)$ por como lo elegimos a $g_y$ y porque $\ol{gw} = g \ol w$ para toda $w \in E(X)$.
-Ahora usamos que si $a \in G_{\iota{\ol y}}$ luego $a \in G_{\ol{\iota(\ol y)}}$ por lo tanto $a \ol{\iota(\ol y)} = \ol{\iota(\ol y)} $.
+Veamos que está bien definido. 
+Para eso veamos que $g_{y}^{-1}ag_{y} \iota(y) = \iota(y)$.
+Como $g_y \iota(y) = \ol{\iota(\ol y)}$ dado que $g_y \ol{\iota(y)} = \iota (\ol y)$ por como lo elegimos a $g_y$ y porque $\ol{gw} = g \ol w$ para toda $w \in E(X)$.
+Ahora usamos que si $a \in G_{\iota({\ol y})}$ luego $a \in G_{\ol{\iota(\ol y)}}$ por lo tanto $a \ol{\iota(\ol y)} = \ol{\iota(\ol y)} $.
 Finalmente como $ g_{y}^{-1} \ol {\iota (\ol y) } = \iota (y)$ tal como queríamos ver.
+Este morfismo tiene un inverso $\phi^{-1}: G_{y} \to G_{\ol y}$ definido por $\phi^{-1}(b) = g_{y}bg_{y}^{-1}$ por lo tanto $\phi$ es un isomorfismo tal como queríamos ver.
 
-Definimos el siguiente morfismo del producto libre de los estabilizadores de los vértices y el grupo libre en las aristas del grafo en el grupo $G$.
+Definimos el siguiente morfismo del producto libre de los estabilizadores de los vértices y el grupo libre en las aristas del grafo al grupo $G$.
 \begin{align*}
-	\varphi: \ast_{P \in V(Y)} G_P \ast F_{E(Y)} &\to G	\\
+	\varphi: \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{E(Y)} &\to G	\\
 	g \mapsto g \\
 	y \mapsto g_y \\
 \end{align*}
@@ -937,21 +941,8 @@ Para eso veamos que cumple las relaciones que definen a este cociente.
 
 De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
 Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol de expansión.
-
-Recordemos que $G_{P}$ lo podemos ver como un subgrupo de $\pi_1(\cG,T)$.
-\begin{lema}\label{lema_morfismo_pi1_inyectivo}
-	Para todo $g \in G_P$ tenemos que $\varphi(g)=g$.
-\end{lema}
-
-\begin{proof}
-	Dado $g \in G_P \le \pi_1(\cG, P)$ luego lo podemos representar en el grupo $\pi_1(\cG, P)$ por medio de la palabra reducida $g$.
-	Por como está definido $\varphi$ sabemos que $\varphi(g) = g$. 
-\end{proof}
-
-
-\begin{obs}
-	En particular si consideramos que para una arista $y \in E(X)$ tenemos que $G_y$ es subgrupo de $G_{s(y)}$ luego la restricción de $\varphi$ a $G_{y}$ también resulta ser un isomorfismo de grupos.
-\end{obs}
+Por el corolario \ref{coro_pal_red_1} tenemos que $G_{P}$ es un subgrupo de $F(\cG)$ por lo tanto por nuestra definición tenemos que $\varphi(g) = g$ para todo $g \in G_{P}$.
+En particular si consideramos que $G_y$ para toda arista $y \in E(X)$ es subgrupo de $G_{s(y)}$ luego $\varphi(a) = a$ para todo $a \in G_{y}$.
 
 \begin{prop}\label{prop_morf_grp_restr_sobre}
 	El morfismo de grupos $\varphi: F(\cG) \to G$ restringido al subgrupo $\pi_1(\cG, P)$ es sobreyectivo.
@@ -972,10 +963,13 @@ Recordemos que $G_{P}$ lo podemos ver como un subgrupo de $\pi_1(\cG,T)$.
 
 
 	de manera que $P_i \in V(\iota (Y))$ y en particular $P_0 = P, P_k = P$ siguiendo nuestra notación anterior y así $s(\iota (y_i)) = P_{i-1}$ por como tomamos las levantadas de las aristas.
-	Los elementos $e_i \in G_{s(\iota (y_i))}$ son tales que $e_i t(\iota (y_{i+1})) = P_{i+1}$ y donde en particular tenemos que $e_k P = g P$.
+	Los elementos $e_i$ son tales que $e_i t(\iota (y_{i+1})) = e_{i+1}P_{i+1}$ y donde en particular tenemos que $e_k P = g P$.
+	
+	
+	\todo[inline]{Terminar de revisar esta demo. Arreglar notación. Sacar referencias al lema que no existe. Reordenar para que sea más prolijo.}
 	
 	Una primera observación que podemos hacer es que $g e_k^{-1} \in G_P$ dado que  $e_k P = g P$.
-	Por el resultado anterior \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi(h) = h $ para todo $h \in G_P$.
+	Por las observaciones anteriores tenemos que $\varphi(h) = h $ para todo $h \in G_P$.
 	Esto nos dice que al ser $\varphi$ un morfismo de grupos luego 
 	\[
 	(ge_k^{-1}) e_k = g
