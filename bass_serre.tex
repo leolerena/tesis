@@ -2,6 +2,7 @@
 \documentclass[tesis.tex]{subfiles}
 \def\acts{\curvearrowright}
 
+
 %\newcommand{\ol}{\overline{}}
 %\newcommand{\ic}{independiente de contexto }
 %\newcommand{\APND}{automáta de pila no determinístico }
@@ -26,39 +27,46 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 
 
 \begin{deff}
-	Un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ tal que al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas}.
-	Para cada arista $y \in E$ tendremos unas asignaciones $s(y) = P \in V, t(y) = Q \in V$.
-	A su vez para cada $y \in E$ existe una única arista $\overline y \in E \setminus \{ y \}$ que cumple que $\ol {\ol y} = y$ y que $s(\ol y) = Q$ y que $t(\ol y) = P$. 
-	Decimos que $Y$ es \emph{finito} si $|V| < \infty$ y $|E| < \infty$.
-\end{deff}
-	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas. 
-	Dos vértices $P, Q \in V$ están unidos por una arista $y$ si $s(y)=P, t(y) = Q$ o bien $s(y)=Q, t(y)= P$. 
-	\begin{deff}
-		Sea $Y$ un grafo dirigido.
-		Una \emph{orientación} de las aristas de $Y$ es un subconjunto $A \subset E$ que cumple que para cada arista $y$ tenemos que $y \in A \iff \overline y \notin A$.	
-	\end{deff}
+	Un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ junto con unas funciones
+	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, $t(\ol y) = s(y)$ y que $\ol{\ol y} = y$.
 	
+	Al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
+	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
+	
+	A continuación varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
+	\begin{itemize}
 
-\begin{deff}
-	Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino} entre $P$ y $Q$ es una sucesión finita de aristas $y_0, \dots, y_k$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i-1})$.
-	La \emph{longitud} del camino $c$ es la cantidad de aristas que lo componen.
-	Un camino $y_0, \dots y_n$ tiene \emph{backtracking} si existen $ 0 \le i,j \le n$ tales que $y_i = \ol{y_{j}}$.
+		\item Dado un grafo dirigido $Y=(V,E)$ con funciones $s,t, \ol{(.)}$ diremos que $Y'=(V',E')$ con funciones $s',t',\ol{()}'$ es un \emph{subgrafo} de $Y$ si $V' \subseteq V$, $E' \subseteq E$ y si $s'=\left. s \right|_{E'}, t' = \left. s \right|_{E'}$ y $\ol{(.)}' = \left. \ol{(.)} \right|_{E'}$ .
+		
+		\item Decimos que $Y$ es \emph{finito} si $|V| < \infty$ y $|E| < \infty$.	
+		
+		\item Dado un grafo dirigido $Y$ una \emph{orientación} de sus aristas es un subconjunto $A \subset E$ que cumple que para cada arista $y \in E$ tenemos que $y \in A \iff \overline y \notin A$.	
+		
+		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
+		Un camino es \emph{cerrado} si $P = Q$.
+		La \emph{longitud} del camino $l(c) = k$ es la cantidad de aristas que lo componen.
+		
+		\item Dado un grafo dirigido $Y$ y un vértice $P \in V$ notaremos $()$ al \emph{camino constante} en $P$. 
+		En particular los caminos constantes son los únicos caminos que cumplen que tienen longitud igual a $0$.
+
+		\item Un camino $c= (y_0, \dots y_n)$ tiene \emph{backtracking} si existe $ 0 < i \le n$ tal que $y_i = \ol{y_{i-1}}$.		
+		
+		\item Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $c = (y_0, \dots y_n)$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $d = (z_0, \dots, z_m)$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $l(d) \ge l(c)$.
+		Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $(y_0, \dots, y_k)$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
+		
+		\item 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
+		
+		
+		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todas los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
+		
+				
+		\item Un grafo es un \emph{árbol} si es conexo y no tiene ciclos.
+		
+		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subgrafo de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
+	\end{itemize}
 \end{deff}	
 
-	En el caso particular que $P = Q$ permitimos tomar el camino constante $c = ()$. 
-	Este camino tiene longitud $0$.
-
-\begin{deff}
-	Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $y_0, \dots y_n$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $z_0, \dots, z_m$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $m \ge n$.
-	Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $y_0, \dots, y_k$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
-\end{deff}
-	En particular notemos que toda geodésica carece de backtracking.
-	
-\begin{deff}
-	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
-	Un \emph{ciclo} en un grafo dirigido es un camino $y_0, y_1, \dots, y_k$ que no tiene backtracking, donde todas las aristas son distintas y que cumple que $s(y_0) = t(y_k)$. 	 
-	Un grafo es un \emph{árbol} si es conexo y no tiene ciclos.
-\end{deff}
+A continuación citamos resultados estándares de teoría de grafos que utilizaremos en esta sección.
 	
 \begin{lema}
 	Todo árbol $T$ es únicamente geodésico.
@@ -66,9 +74,6 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 \begin{proof}
 	Ver \cite{diestel2005graph}
 \end{proof}
-\begin{deff}
-	Dado un grafo $Y$ conexo diremos que $T$ es un \emph{árbol generador} de $Y$ si $V(T) = V(Y)$ y $E(T) \subseteq E(Y)$.
-\end{deff}
 
 \begin{prop}
 	Dado un grafo conexo $Y$ existe un árbol generador $T$ de $Y$.
