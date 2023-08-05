@@ -89,22 +89,31 @@ A continuación citamos resultados estándares de teoría de grafos que utilizar
 	Sean $Y, Y'$ grafos dirigidos. 
 	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
 	\begin{itemize}
-		\item Para toda $y \in E(Y)$ vale que $\ol{\phi(y)} = \phi(\ol y)$;
-		\item Para toda $y \in E(Y)$ vale que $\phi(s(y)) = s(\phi(y))$;
-		\item Para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$.
+		\item Para toda $y \in E(Y)$ vale que $\ol{\phi_{E}(y)} = \phi_{E}(\ol y)$;
+		\item Para toda $y \in E(Y)$ vale que $\phi_{V}(s(y)) = s(\phi_{E}(y))$;
 	\end{itemize}   
+	En particular de esta definición que dimos se desprende que para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$ usando que $s(\ol y) = t(y)$.
 \end{deff}
 
-Un \emph{automorfismo} de grafos dirigidos es un morfismo que tiene una inversa.
-Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$.
+
+Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera para toda arista $y \in E(X)$ y para todo vértice $P \in V(X)$:
+\begin{align*}
+	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \\
+	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)). 
+\end{align*}
+En el caso especial de los morfismos de grafos $\phi: Y \to Y$ consideramos la identidad $I: Y \to Y$ como el morfismo que manda toda arista a sí misma y todo vértice a sí mismo.
+Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I , \phi^{-1} \circ \phi = I$.
+Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$ donde la identidad $I$ es el elemento neutro.
 
 Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
 \begin{deff}
-	Sea $G$ un grupo y sea $Y$ un grafo dirigido luego \emph{$G$ actúa sobre $Y$} si existe un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
-	Diremos que una acción \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $\psi(g)(y) \neq \ol y$.
+	Sea $G$ un grupo y sea $Y$ un grafo dirigido una \emph{acción} de $G$ sobre $Y$ es un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
+	Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $\psi(g)(y) \neq \ol y$.
 \end{deff}
 
-Utilizaremos la notación estándar $g \cdot y$ para referirnos a $\psi(g)(y)$.
+Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
+
+
 Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
 
 \begin{deff}
@@ -117,7 +126,7 @@ Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
 	\end{enumerate}
 \end{deff}
 
-Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por las aristas del grafo.
+Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por los elementos del conjunto de aristas del grafo.
 
 \begin{deff}
 	Dado un grafo de grupos $\cal G$ sobre un grafo $Y = (V, E)$ consideremos el siguiente grupo: 
@@ -146,13 +155,19 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por las aristas d
 
 \begin{ej}
 	Sea un grafo de grupos $\cal G$ sobre un grafo $Y$ tal que $G_y = \{ 1 \}$ para todo $y \in E(Y)$.
+	En este caso en particular tenemos que 	$F(\cG) \simeq (\underset{P \in V}{\Asterisk} G_P \Asterisk F_{E}) / \langle \langle  R \rangle \rangle$
+	donde $R = \{ \ol{y}y = 1 \ \text{para toda} \ y \in E \}$.
 	Consideremos una orientación $A$ para las aristas del grafo.
-	El grupo fundamental $\pi({\cal G}, T)$ está generado por los elementos $g \in G_P$ donde $P \in V(Y)$ y los elementos $g_y \in A \setminus (T \cap A)$.
-	Por lo tanto obtenemos que el grupo fundamental de este grafo de grupos resulta ser
+	Dado que las relaciones $R$ involucran exclusivamente a los generadores de $F_{E}$ podemos ver que $F(\cG) \simeq \underset{P \in V}{\Asterisk} G_P \Asterisk {F_{E \cap A}}$ donde usamos que $F_{E}/\langle \langle  R \rangle \rangle \simeq F_{E \cap A}$.
+	
+	Vamos a calcular el grupo fundamental de este grafo de grupos.
+	Por definición este resulta ser $F(\cG) / \{  y : y \in E(T) \}$.
+	Por el mismo razonamiento que usamos para calcular el grupo $F(\cG)$ obtenemos el siguiente isomorfismo
 	\[
-	\pi_1({\cal G}, T) = \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (T \cap A)}
+		\pi({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (T \cap A)}
 	\]
-	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico es isomorfo al grupo libre en el conjunto de sus aristas que no pertenecen a un árbol de expansión nos queda que 
+	
+	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico $\pi_1(Y)$ es isomorfo al grupo libre generado por las aristas que no pertenecen a un árbol generador nos queda que 
 	\[
 		\pi_1({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P  \Asterisk \pi_1(Y) 
 	\]
@@ -179,14 +194,14 @@ Nuestro foco ahora es dar una definición equivalente de grupo fundamental pero 
 Dados dos vértices $P,Q \in V$ denotaremos por $\Pi(P,Q)$ el conjunto de caminos de $P$ a $Q$.
 De esta manera nos queda definido
 \[
-\Pi(P,Q) = \{  y_1, \dots, y_k \ | \ s(y_1)=P, \ t(y_k) = Q, \ t(y_i) = s(y_{i+1})  \ \text{para} \ 1 \le i \le k \}
+\Pi(P,Q) = \{  (y_1, \dots, y_k) \ | \ y_{i} \in E, \ s(y_1)=P, \ t(y_k) = Q, \ t(y_i) = s(y_{i+1})  \ \text{para} \ 1 \le i \le k \}
 \]
-Todo camino $y_1, \dots, y_k \in \Pi(P,Q)$ lo podemos pensar como la palabra $y_1 \dots y_k$ en el grupo libre $F_E$ y similarmente podemos mirar la clase de $y_1\dots y_k$ en el cociente $F(\cG)$.  
+Todo camino $(y_1, \dots, y_k) \in \Pi(P,Q)$ lo podemos pensar como la palabra $y_1 \dots y_k$ en el grupo libre $F_E$ y similarmente podemos mirar la clase de $y_1\dots y_k$ en el cociente $F(\cG)$.  
 
 \begin{deff}
 	Dado $\cG$ grafo de grupos sobre $Y$ grafo conexo y $P,Q \in V$ dos vértices de $Y$ definimos el siguiente subconjunto de $F(\cG)$,
 	\begin{equation*}
-		\pi(\cG, P, Q) = \{  g_0y_1g_1 \dots g_{k-1}y_kg_k : y_1,\dots, y_k \in \Pi(P,Q), \ \ 
+		\pi(\cG, P, Q) = \{  g_0y_1g_1 \dots g_{k-1}y_kg_k : (y_1,\dots, y_k) \in \Pi(P,Q), \ \ 
 		 \forall i, \ 1 \le i < k, g_i \in G_{s(y_{i+1})}, \ \ g_k \in G_Q \}	
 	\end{equation*}
 \end{deff}
@@ -197,7 +212,7 @@ Todo camino $y_1, \dots, y_k \in \Pi(P,Q)$ lo podemos pensar como la palabra $y_
 \begin{proof}
 	Debemos ver que tiene a la identidad del grupo, que es cerrado por el producto y que todo elemento tiene un inverso.
 
-	Si consideramos el camino vacío y $g_0 = 1$ luego obtenemos que $1 \in \pi(\cG, P , P)$.
+	Si consideramos el constante en $P$ y $g_0 = 1$ luego obtenemos que $1 \in \pi(\cG, P , P)$.
 	Para ver que es cerrado por el producto notemos que 
 	\begin{equation*}
 		(g_0y_1g_1 \dots g_{k-1}y_kg_k ) \circ ( g'_0y'_1g'_1 \dots g'_{k-1}y'_kg'_k) =  g_0y_1g_1 \dots g_{k-1}y_k(g_kg'_0)y'_1g'_1 \dots g'_{k-1}y'_kg'_k
@@ -219,8 +234,7 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 \begin{proof}
 	Dados $P,Q \in V$ consideremos la geodésica $\alpha$ que los une sobre $T$.
 	Si leemos la sucesión de aristas que recorre esta geodésica tenemos una palabra $T[P,Q] \in F_{E}$. 
-	Tomamos la convención que $T[P,P] = 1$.
-	Como $\alpha$ no tiene backtracking podemos considerar a $T[P,Q]$ como un elemento en el grupo $F(\cG)$.
+	Consideramos a $T[P,Q]$ como un elemento en el grupo $F(\cG)$.
 	Observemos que $T[P,Q] = T[Q,P]^{-1}$ porque el árbol es únicamente geodésico.
 	
 	Ahora definamos el siguiente morfismo (que depende del árbol de expansión que tomamos) sobre los generadores del producto libre:
@@ -234,14 +248,14 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 	
 
 	Veamos que a partir de $\tau$ nos podemos definir un morfismo sobre $F(\cG)$.
-	Debemos ver que cumple la relación $\tau(\overline y a^y y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$ y todo $a \in G_y$.
+	Debemos ver que cumple la relación $\tau(\overline y a y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$ y todo $a \in G_y$.
 	Esto vale porque justamente 
 	\begin{align*}
-		\tau(\overline y a^y y) & = T[P,s(\overline y)]\ol yT[t(\ol y),P] T[P,s(y)] a^y T[t(y),P] T[P,s(\overline y)]yT[t( y),P] \\
-		& = T[P,s(\overline y)]  \ol y a^y y T[t( y),P] \\
+		\tau(\overline y a y) & = T[P,s(\overline y)]\ol yT[t(\ol y),P] T[P,s(y)] a T[t(y),P] T[P,s(\overline y)]yT[t( y),P] \\
+		& = T[P,s(\overline y)]  \ol y a y T[t( y),P] \\
 		& = \tau (a^{\ol y}).
 	\end{align*}
-	donde usamos que $\ol y a^y y = a^{\ol y}$ en $\pi_1(\cG,P)$.
+	donde usamos que $\ol y a y = a^{\ol y}$ en $\pi_1(\cG,P)$.
 	Sea $\tau: F(\cG) \to \pi_1(\cG, P)$ este morfismo que definimos.
 	Por como está definido $\tau$ tenemos que si lo restringimos al subgrupo  $\pi_1(\cG,P)$ resulta ser la identidad y en particular tenemos que $\tau$ es un epimorfismo.
 	
@@ -271,7 +285,14 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 	De esta manera vimos que $\ol \tau : \pi_{1}(\cG,T) \to \pi_{1}(\cG,P)$ es un isomorfismo de grupos.
 \end{proof}
 
-Como corolario de este resultado vimos que el grupo fundamental de un grafo no depende del árbol de expansión que tomemos porque siempre va a resultar isomorfo al grupo fundamental a partir de un vértice arbitrario del grafo.
+\begin{coro}
+	Sea $\cG$ grafo de grupos sobre un grafo conexo y finito $Y$.
+	Sean $T, T'$ árboles generadores de $Y$ luego tenemos que $\pi_1(\cG,T) \simeq \pi_1(\cG,T')$.
+\end{coro}
+\begin{proof}
+	Sea $P \in V$ caso contrario es trivial.
+	Fijado este vértice tenemos que por el resultado anterior \ref{teo_grp_fund_iso} que $\pi_1(\cG,P) \simeq \pi_1(\cG,T)$ para cualquier $T$ árbol generador por lo tanto obtenemos que $\pi_1(\cG, T) \simeq \pi_1(\cG,T')$ volviendo a usar este resultado para $T'$.
+\end{proof}
 
 \section{Palabras reducidas.}
 
