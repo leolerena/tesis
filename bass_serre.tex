@@ -60,9 +60,10 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todas los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
 		
 				
-		\item Un grafo es un \emph{árbol} si es conexo y no tiene ciclos.
+		\item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
+		Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
 		
-		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subgrafo de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
+		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
 	\end{itemize}
 \end{deff}	
 
@@ -891,6 +892,8 @@ Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y=(V,E)$ tal que para todo $P \in V$ vale que $G_{P}$ es un grupo finito.	
 	El grafo $\tilde X$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
 \end{deff}
+\todo[inline]{En realidad alcanza con pedir que los grupos de los vértices sean \fg pero escribí la construcción usando que eran finitos. Se podría cambiar.}
+	
 \section{Acciones de grupos sobre árboles.}
 
 Sea $X$ un grafo conexo finito y sea $G$ un grupo finitamente generado que actúa sobre $X$.
@@ -967,10 +970,20 @@ Para eso veamos que cumple las relaciones que definen a este cociente.
 
 De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
 Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol de expansión.
-Por el corolario \ref{coro_pal_red_1} tenemos que $G_{P}$ es un subgrupo de $F(\cG)$ por lo tanto por nuestra definición tenemos que $\varphi(g) = g$ para todo $g \in G_{P}$.
-En particular si consideramos que $G_y$ para toda arista $y \in E(X)$ es subgrupo de $G_{s(y)}$ luego $\varphi(a) = a$ para todo $a \in G_{y}$.
+
+\begin{lema}\label{lema_morfismo_pi1_inyectivo}
+	Dados $\cG$ y $G$ tales como en las construcciones de esta sección.
+	El morfismo $\varphi:F(\cG) \to G$ es tal que $\varphi(g) = g$ para todo $g \in G_{P}$.
+\end{lema}
+
+\begin{proof}
+	Por el corolario \ref{coro_pal_red_1} tenemos que $G_{P}$ es un subgrupo de $F(\cG)$ por lo tanto por nuestra definición tenemos que $\varphi(g) = g$ para todo $g \in G_{P}$.
+\end{proof}
+
+En particular si consideramos que para toda arista $y \in E(X)$ el grupo $G_y$ es subgrupo de $G_{s(y)}$ luego $\varphi(a) = a$ para todo $a \in G_{y}$.
 
 \begin{prop}\label{prop_morf_grp_restr_sobre}
+	Dados $\cG$ y $G$ tales como en las construcciones de esta sección.
 	El morfismo de grupos $\varphi: F(\cG) \to G$ restringido al subgrupo $\pi_1(\cG, P)$ es sobreyectivo.
 \end{prop}
 
@@ -978,50 +991,49 @@ En particular si consideramos que $G_y$ para toda arista $y \in E(X)$ es subgrup
 	Dado $g \in G$ queremos ver que $g \in \varphi(\pi_1(\cG, P))$.
 	Sea $P \in \iota(V(Y))$ un vértice.
 	Consideremos $gP \in V(X)$, como el grafo es conexo tenemos un camino que une a $P$ con $gP$. 
-	Sea este camino 
-	
+	Sea este camino $(e_{0}\iota(y_{1}), \dots, e_{k-1}\iota(y_{k}))$ donde $e_{i} \in G$ para todo $0 \le i \le k-1$ y $(y_{1}, \dots, y_{k})$ es un camino en el grafo $Y$.
+	Si miramos los vértices que aparecen en este camino tenemos:	
 	\begin{center}
 		\begin{tikzcd}
 			e_0P_0 \arrow[r, "e_0 \iota(y_1)", bend left] & e_1 P_1 \arrow[r, "e_1\iota (y_2)", bend left] & \dots \arrow[r, bend left] & e_{k-1}P_{k-1} \arrow[r, "e_{k-1} \iota(y_k)", bend left] & e_kP_k
 		\end{tikzcd}
 	\end{center}
-	
 
 
-	de manera que $P_i \in V(\iota (Y))$ y en particular $P_0 = P, P_k = P$ siguiendo nuestra notación anterior y así $s(\iota (y_i)) = P_{i-1}$ por como tomamos las levantadas de las aristas.
-	Los elementos $e_i$ son tales que $e_i t(\iota (y_{i+1})) = e_{i+1}P_{i+1}$ y donde en particular tenemos que $e_k P = g P$.
+	de manera que $P_i \in V(\iota (Y))$.
+	En particular $P_0 = P$ y  $P_k = P$ y así $s(\iota (y_i)) = P_{i-1}$ por como tomamos las levantadas de las aristas.
+	Los elementos $e_i$ son tales que $e_i t(\iota (y_{i+1})) = e_{i+1}P_{i+1}$.	
 	
-	
-	\todo[inline]{Terminar de revisar esta demo. Arreglar notación. Sacar referencias al lema que no existe. Reordenar para que sea más prolijo.}
 	
 	Una primera observación que podemos hacer es que $g e_k^{-1} \in G_P$ dado que  $e_k P = g P$.
-	Por las observaciones anteriores tenemos que $\varphi(h) = h $ para todo $h \in G_P$.
-	Esto nos dice que al ser $\varphi$ un morfismo de grupos luego 
+	Por el lema \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi(h) = h $ para todo $h \in G_P$ por lo tanto $\varphi(ge_{k}^{-1}) = ge_{k}^{-1}$.
+	Esto nos dice que si escribimos a $g$ de la siguiente manera,
 	\[
-	(ge_k^{-1}) e_k = g
+	g = (ge_k^{-1}) e_k
 	\]
-	entonces como $ge_k^{-1} \in G_P \le \pi_1(\cG, P)$ luego si vemos que $e_k \in \varphi(\pi_1(\cG, P))$ probaríamos que $g \in \varphi (\pi_1(\cG,P))$ tal como queríamos ver.
+	entonces como $ge_k^{-1} \in G_P$ tenemos que usando el resultado \ref{coro_pal_red_1} que vale lo siguiente: $ge_k^{-1} \in \pi_1(\cG,P)$.
+	Como $ \varphi(ge_{k}^{-1}) = ge_{k}^{-1}$ obtenemos que  $ge_{k}^{-1} \le \varphi(\pi_1(\cG, P))$.  
+	Si vemos que $e_k \in \varphi(\pi_1(\cG, P))$ probaríamos que $g \in \varphi (\pi_1(\cG,P))$ tal como queríamos ver.
 		
-	Para ver esto lo probaremos por inducción en el camino que tomamos anteriormente.
-	Veamos que $e_i \in \varphi(\Pi_1(\cG, P, P_i))$ para todo $i = 0 \dots n$.
+	Probaremos por inducción en el camino que tomamos anteriormente que $e_i \in \varphi(\Pi_1(\cG, P, P_i))$ para todo $i = 0 \dots n$.
 	
-	El caso base consiste en ver que $e_0 \in \varphi(\Pi_1(\cG, P))$.
-	Esto es cierto porque justamente tenemos que $e_0 \in G_P$ y por el lema anterior \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi$ es la identidad cuando la restringimos a $G_P$.
+	El caso base consiste en ver que $e_0 \in \varphi(\pi_1(\cG, P))$.
+	Esto es cierto porque justamente tenemos que $e_0 \in G_P$ dado que $e_{0}P = P$ y por el lema anterior \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi$ es la identidad cuando la restringimos a $G_P$.
 	
-	Para el paso inductivo supongamos que $e_{i-1} \in \varphi(\cG, P, P_{i-1})$ y queremos ver que $e_i \in \varphi(\cG, P, P_{i})$.
+	Para el paso inductivo supongamos que $e_{i-1} \in \varphi(\pi_1(\cG, P, P_{i-1}))$ y queremos ver que $e_i \in \varphi(\pi_1(\cG, P, P_{i}))$.
 	Antes de probar esto veamos de reescribir a $e_i$ en términos de $e_{i-1}$.
 	Observemos que por como tomamos el camino tenemos que
 	\[
 		e_{i-1} t(\iota (y_i)) = e_i P_i 
 	\]
-	y de esta manera obtenemos que $t(\iota (y_i)) = e_{i-1}^{-1} e_i P_i$ y como donde termina una arista es donde empieza la arista con orientación opuesta tenemos que $s(\ol{\iota(y_i)}) = e_{i-1}^{-1} e_i P_i$. 
+	y así $t(\iota (y_i)) = e_{i-1}^{-1} e_i P_i$ y como $t(\iota (y_i)) = s(\ol{\iota(y_i)})$ luego obtenemos que $s(\ol{\iota(y_i)}) = e_{i-1}^{-1} e_i P_i$.
 	Por como definimos al elemento del grupo $g_{y_i} \in G$ tenemos que $g_{y_i} \iota (\ol y_i) = \ol{\iota (y_i)}$ por lo tanto obtenemos que 
 	\[
-		s(g_{y_i} \iota (\ol{y_i})) = g_{y_i} P_i
+		s(g_{y_i} \iota (\ol{y_i})) = g_{y_i} P_i = e_{i-1}^{-1} e_i P_i = s(\ol{\iota (y_i)})
 	\]
-	de esta manera obtenemos que $g_{y_i} P_i = e_{i-1}^{-1} e_i P_i$ y por lo tanto llegamos a la siguiente escritura para $e_i$,
+	de esta manera llegamos a la siguiente escritura para $e_i$,
 	\begin{equation*}
-		e_{i-1}g_{y_i} h_i  = e_i 
+		e_i  = e_{i-1}g_{y_i} h_i 
 	\end{equation*}
 	donde $h_i \in G_{P_i}$. 
 	
@@ -1030,7 +1042,7 @@ En particular si consideramos que $G_y$ para toda arista $y \in E(X)$ es subgrup
 		h_0y_0 \dots y_{i-1}h_{i-1} \in \Pi_1(\cG, P, P_i)
 	\]
 	de manera que $e_{i-1} =  \varphi(h_0y_0 \dots y_{i-1}h_{i-1})$. 
-	Recordemos que $\varphi(y_i) = g_{y_i}$ por la definición de nuestro morfismo $\varphi$ y por otro lado tenemos que $\varphi(h_i) = h_i$ porque $\varphi$ fija a los grupos $G_{P_i}$ por definición también.
+	Recordemos que $\varphi(y_i) = g_{y_i}$ por la definición de nuestro morfismo $\varphi$ y por otro lado tenemos que $\varphi(h_i) = h_i$ porque $\varphi$ fija a los grupos $G_{P_i}$ por \ref{lema_morfismo_pi1_inyectivo}.
 	Con esto concluímos la siguiente igualdad,
 	\[
 		e_i = \varphi(h_0y_0 \dots y_{i-1}h_{i-1} y_i h_i)
@@ -1040,39 +1052,57 @@ En particular si consideramos que $G_y$ para toda arista $y \in E(X)$ es subgrup
 	De esta manera la restricción de $\varphi$ al subgrupo $\pi_1(\cG, P)$ es sobreyectiva.
 \end{proof}
 
-Veamos ahora que naturalmente este morfismo se factoriza por el cociente $\pi_1(\cG, T)$, pero antes debemos ver que podemos levantar al árbol de expansión de un cociente para que sea un subgrafo del grafo del cual tomamos el cociente.
+Ahora vamos a probar que este morfismo $\varphi$ se factoriza por el cociente $\pi_1(\cG, T)$.
+Antes debemos ver un lema de levantado de árboles en cocientes de acciones por grupos sin inversiones.
 
-\begin{prop}
+\begin{prop}\label{prop_levantado_accion_arbol}
 	Sea $X$ grafo conexo, $G$ grupo que actúa sin inversiones sobre $X$.
 	Llamemos $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
-	Sea $T$ árbol de expansión de $Y$.
-	Entonces podemos tomar $\iota:V(Y) \to V(X)$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
+	Sea $T$ árbol generador de $Y$.
+	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$ y $\pi \circ \iota (T) = T$.
 \end{prop}
 
 \begin{proof}
-	La idea es usar el Lema de Zorn.
+	Vamos a usar el Lema de Zorn.
 	Sea el siguiente conjunto
 	\[
-		\Omega = \{ (T', \iota)	  \ | \   T' \ \text{subárbol de} \ X, \ \iota \circ \pi(T') = T' \}
+		\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota (S) \ \text{subárbol de} \ X  \}
 	\]
-	tal que si consideramos la inclusión para la primer coordenada y que las inclusiones coincidan entonces obtenemos un conjunto parcialmente ordenado.
+	tal que si consideramos el siguiente orden
+	\[
+		(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S'))
+	\]
+	donde miramos la inclusión como grafos en ambas coordenadas.
 	
-	Podemos ver que $\Omega$ es no vacío porque $G$ actúa sin inversiones entonces podemos levantar una arista $Ge = (Gx,Gy) \in E(T)$ a una arista $\iota (Ge) = (x,y) \in V(X)$ tal que este subgrafo y el levantado $\iota$ va a estar en $\Omega$.
+	Veamos que $\Omega$ es no vacío.
+	Si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$.
+	Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$
+	y definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y}\ol{y}$ que está bien definida porque la acción de $G$ es sin inversiones de aristas.
+	De esta manera vemos que $\iota(S)$ es un segmento de $X$ por lo tanto $(S, \iota) \in \Omega$.
 	
-	Similarmente podemos ver que toda cadena $(T'_i)_{i \in I}$ tiene un elemento maximal justamente tomando la unión de todos los subgrafos $T' = \cup_{i \in I} T'_{i}$ y definiendo $\iota(Gv) = v$ si existe $T_{i}$ tal que $v \in T_{i}$.
 	
-	Sea $T'$ maximal podemos ver que está en biyección con $T$.
-	Caso contrario podríamos levantar una arista $Ge$ tal que $Ge=(Gv,Gw)$ con $\iota(Gv) \in T'$ pero $Gw \notin T'$ y luego elegimos $e$ tal que $s(e) = v$ y extendiendo a $\iota$ contradecimos la maximalidad de $T'$.	
+	Probamos ahora que toda cadena $(S_i)_{i \in I} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
+	Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
+	\begin{equation}
+		S = \bigcup_{i \in I} S_{i}
+	\end{equation}
+	y así tenemos que $(S, \iota ) \in \Omega$ con $\iota(y) = g \cdot y$ si existe $S_{i}$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
 	
+	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
+	Veamos que $\pi \circ j(M) = T$.
+	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
+	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
+	Concluimos así que $M = T$ tal como queríamos ver.	
 \end{proof}
 
 \begin{coro}
-	La restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por el cociente $\pi_1(\cG, T)$.
+	Dados $\cG$ y $G$ tales como en las construcciones de esta sección.
+	La restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por $\pi_1(\cG, T)$.
 \end{coro}
 \begin{proof}
-	Por la proposición anterior tenemos que al levantado $\iota(Y)$ lo podemos tomar para que sea un subgrafo.
-	Esto nos dice que $\iota(\ol y) = \ol {\iota (y)}$, por lo tanto notemos que $\varphi(\iota(y)) = 1$ por como definimos $\varphi(y)$ anteriormente.
-	Esto nos dice que el morfismo se factoriza por el cociente $\ol \varphi:\pi_1(\cG, T) \to G$.
+	Por la proposición anterior \ref{prop_levantado_accion_arbol} tenemos que al levantado $\iota(Y)$ lo podemos tomar para que sea un subgrafo.
+	Esto nos dice que $\iota(\ol y) = \ol {\iota (y)}$, por lo tanto $g_{y}=1$ y esto nos dice que $\varphi(\iota(y)) = 1$ por la definición de $\varphi(y)$.
+	Esto nos dice que el morfismo se factoriza $\ol \varphi:\pi_1(\cG, T) \to G$ dado que para todo $y \in E(Y)$ y en especial para todo $y \in E(T)$ vale que $\varphi(y)=1$.
 \end{proof}
 
 \subsubsection{Morfismo de grafos $\psi$.}
@@ -1082,7 +1112,7 @@ Construyamos un morfismo de grafos del árbol de Bass--Serre en el grafo $X$ que
 Sea la asignación $\psi: \Xm \to X$ dada por 
 \begin{align*}
 	\psi(g G_P ) = \varphi(g) P \ \ \text{para todo} \ g \in G, P \in V(Y) \\
-	\psi(g G_y ) = \varphi(g) \iota(y) \text{para todo} \ g \in G, P \in V(Y)
+	\psi(g G_y ) = \varphi(g) \iota(y) \ \text{para todo} \ g \in G, P \in V(Y)
 \end{align*}
 
 Veamos que es una función.
