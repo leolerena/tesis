@@ -31,6 +31,7 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, $t(\ol y) = s(y)$ y que $\ol{\ol y} = y$.
 	
 	Al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
+	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
 	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
 	
 	A continuación varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
@@ -68,6 +69,17 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 \end{deff}	
 
 A continuación citamos resultados estándares de teoría de grafos que utilizaremos en esta sección.
+
+\begin{lema}\label{lema_union_arboles}
+	Dada una sucesión de árboles $\{T_{i}\}_{i\in \NN}$ tales que para todo $i \in \NN$ vale que $T_{i} \subseteq T_{i+1}$ entonces 
+	\[
+		T = \bigcup_{i=1}^{\infty} T_{i}
+	\]
+	es un árbol.
+\end{lema}
+\begin{proof}
+	Ver \cite{diestel2005graph}.
+\end{proof}
 	
 \begin{lema}
 	Todo árbol $T$ es únicamente geodésico.
@@ -83,8 +95,8 @@ A continuación citamos resultados estándares de teoría de grafos que utilizar
 	Ver \cite{diestel2005graph}.
 \end{proof}
 
-%Dado un grafo dirigido $Y$ va a ser conveniente considerar que es la unión disjunta $Y = V \sqcup E$ en algunas circunstancias en vez de un par ordenado.
-%En particular para definir
+
+
 
 \begin{deff}
 	Sean $Y, Y'$ grafos dirigidos. 
@@ -97,13 +109,13 @@ A continuación citamos resultados estándares de teoría de grafos que utilizar
 \end{deff}
 
 
-Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera para toda arista $y \in E(X)$ y para todo vértice $P \in V(X)$:
+Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera  y para todo vértice $P \in V(X)$:
 \begin{align*}
-	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \\
-	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)). 
+	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \  \ \text{para toda arista} \ y \in E(X) \\
+	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)) \  \ \text{para todo vértice} \ P \in V(X). 
 \end{align*}
 En el caso especial de los morfismos de grafos $\phi: Y \to Y$ consideramos la identidad $I: Y \to Y$ como el morfismo que manda toda arista a sí misma y todo vértice a sí mismo.
-Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I , \phi^{-1} \circ \phi = I$.
+Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I$ y $\phi^{-1} \circ \phi = I$.
 Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$ donde la identidad $I$ es el elemento neutro.
 
 Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
@@ -1056,7 +1068,7 @@ Ahora vamos a probar que este morfismo $\varphi$ se factoriza por el cociente $\
 Antes debemos ver un lema de levantado de árboles en cocientes de acciones por grupos sin inversiones.
 
 \begin{prop}\label{prop_levantado_accion_arbol}
-	Sea $X$ grafo conexo, $G$ grupo que actúa sin inversiones sobre $X$.
+	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
 	Llamemos $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
 	Sea $T$ árbol generador de $Y$.
 	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$ y $\pi \circ \iota (T) = T$.
@@ -1066,30 +1078,38 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 	Vamos a usar el Lema de Zorn.
 	Sea el siguiente conjunto
 	\[
-		\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota (S) \ \text{subárbol de} \ X  \}
+		\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota \ \text{es sección de} \ \pi, \ \iota (S) \ \text{subárbol de} \ X  \}
 	\]
 	tal que si consideramos el siguiente orden
 	\[
-		(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S'))
+		(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S') \land \left. j \right|_{S} = \iota)
 	\]
 	donde miramos la inclusión como grafos en ambas coordenadas.
 	
+	Observemos que si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ y para toda $y \in E(Y)$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$. 
+	Esto nos dice que es posible definir secciones a la proyección $\pi:X \to Y$.
+	
 	Veamos que $\Omega$ es no vacío.
-	Si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$.
-	Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$
-	y definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y}\ol{y}$ que está bien definida porque la acción de $G$ es sin inversiones de aristas.
-	De esta manera vemos que $\iota(S)$ es un segmento de $X$ por lo tanto $(S, \iota) \in \Omega$.
+	Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
+	Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
+	De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
 	
 	
-	Probamos ahora que toda cadena $(S_i)_{i \in I} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
+	Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
 	Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
-	\begin{equation}
-		S = \bigcup_{i \in I} S_{i}
-	\end{equation}
-	y así tenemos que $(S, \iota ) \in \Omega$ con $\iota(y) = g \cdot y$ si existe $S_{i}$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
+	\begin{equation*}
+		S = \bigcup_{i \in \NN} S_{i}.
+	\end{equation*}
+	Similarmente tomamos la unión de todas las secciones,
+	\[
+		\iota = \bigcup_{i = 0}^{k} \iota_i
+	\]
+	donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
+	Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por el resultado \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
+	Tomamos como supremo para esta cadena a $(S, \iota) \in \Omega$.
 	
 	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
-	Veamos que $\pi \circ j(M) = T$.
+	Veamos que $(\pi \circ j)(M) = T$.
 	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
 	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
 	Concluimos así que $M = T$ tal como queríamos ver.	
@@ -1097,15 +1117,18 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 
 \begin{coro}
 	Dados $\cG$ y $G$ tales como en las construcciones de esta sección.
-	La restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por $\pi_1(\cG, T)$.
+	Sea $T$ un árbol generador de $Y$.
+	Entonces la restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por $\pi_1(\cG, T)$.
 \end{coro}
 \begin{proof}
-	Por la proposición anterior \ref{prop_levantado_accion_arbol} tenemos que al levantado $\iota(Y)$ lo podemos tomar para que sea un subgrafo.
-	Esto nos dice que $\iota(\ol y) = \ol {\iota (y)}$, por lo tanto $g_{y}=1$ y esto nos dice que $\varphi(\iota(y)) = 1$ por la definición de $\varphi(y)$.
-	Esto nos dice que el morfismo se factoriza $\ol \varphi:\pi_1(\cG, T) \to G$ dado que para todo $y \in E(Y)$ y en especial para todo $y \in E(T)$ vale que $\varphi(y)=1$.
+	Por la proposición anterior \ref{prop_levantado_accion_arbol} tenemos que al levantado $\iota(T) \subseteq X$ lo podemos tomar para que sea un subárbol.
+	Al ser un subgrafo tenemos que $\iota(\ol y) = \ol {\iota (y)}$ y equivalentemente que $g_{y}=1$ y esto nos dice que $\varphi(\iota(y)) = 1$.
+	Como $\pi_1(\cG,T) = F(\cG) / \langle \langle R \rangle \rangle$ donde $R = \{ y \in E(T) \}$ luego tenemos que $\varphi$ define un morfismo $\ol \varphi: \pi_1(\cG, T) \to G$ tal como queríamos ver.
 \end{proof}
 
 \subsubsection{Morfismo de grafos $\psi$.}
+
+\todo[inline]{Seguir repasando desde acá.}
 
 Construyamos un morfismo de grafos del árbol de Bass--Serre en el grafo $X$ que vendría a ser el análogo al revestimiento.
 
@@ -1225,6 +1248,7 @@ El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea
 	Como estamos en un árbol no puede haber ciclos, de esta manera tiene que ser que $\psi(y_k) = \ol{\psi (y_{k+1})}$ para ciertas aristas $y_k, y_{k+1} \in E(\Gamma)$.
 	Como $\psi$ es un morfismo de grafos cumple que $\ol {\psi(y_k)} = \psi(\ol y_k)$ y así de esta manera obtenemos que $\psi(y_k) =  \psi(\ol{y_{k+1})}$.
 	Como el morfismo es localmente inyectivo y ambas aristas parten del mismo vértice tenemos que $y_{k+1} = \ol{y_k}$. Esto es una contradicción porque asumimos que el camino que tomamos es reducido.    
+	
 \end{proof}
 
 El siguiente resultado nos da la estructura de un grupo que actúa sobre un grafo conexo sin inversiones de aristas. 
