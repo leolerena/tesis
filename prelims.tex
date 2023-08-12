@@ -6,6 +6,7 @@
 En este capítulo introducimos resultados estándares de teoría de lenguajes y grupos que usaremos a través de esta tesis.
 
 \section{Grupos virtualmente libres.}
+\todo[inline]{Agregar resultados y notación que usamos para grupos libres.}
 \begin{deff}
 	Un grupo $G$ finitamente generado es \emph{virtualmente libre} si existe un subgrupo libre $F$ tal que su índice en $G$ es finito.
 \end{deff}
@@ -94,6 +95,7 @@ Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del sub
 	\]
 	Repitiendo inductivamente este procedimiento llegamos a que $h =h_{i_1}h_{k_{1}i_{2}} \dots t_{k_r}$.
 	Este $t_{k_r}$ tiene que ser $1$ porque justamente $h \in H$, por lo tanto tenemos $B$ es un conjunto finito de generadores de $H$.
+	
 \end{proof}
 
 
@@ -253,7 +255,7 @@ Similarmente denotaremos $|w|_{i}$ a la cantidad ocurrencias de $a_{i}$ en $w$.
 	Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que corresponde a la copia de $\Sigma^0$ que es la única palabra sin letras. 
 \end{deff}
 \begin{obs}
-	El monoide es libre con la siguiente propiedad: si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama.	
+	El monoide es libre con la siguiente propiedad universal: si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama.	
 	
 	\begin{center}
 		\begin{tikzcd}

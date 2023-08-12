@@ -43,7 +43,13 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 		
 		\item Dado un grafo dirigido $Y$ una \emph{orientación} de sus aristas es un subconjunto $A \subset E$ que cumple que para cada arista $y \in E$ tenemos que $y \in A \iff \overline y \notin A$.	
 		
+		\item Dado un vértice $P \in V(Y)$ podemos definir su \emph{star} como el siguiente conjunto de aristas,
+		\[
+		st(P) = \{  y \in E(Y) : s(y) = P  \}
+		\]
+		
 		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
+		Por cada camino $c = (y_0, \dots, y_k)$ podemos tomarnos una sucesión de vértices $(s(y_{0}), \dots, s(y_{n}))$, que observamos que no determinan al camino.
 		Un camino es \emph{cerrado} si $P = Q$.
 		La \emph{longitud} del camino $l(c) = k$ es la cantidad de aristas que lo componen.
 		
@@ -65,6 +71,8 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 		Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
 		
 		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
+		
+		
 	\end{itemize}
 \end{deff}	
 
@@ -984,7 +992,7 @@ De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
 Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol de expansión.
 
 \begin{lema}\label{lema_morfismo_pi1_inyectivo}
-	Dados $\cG$ y $G$ tales como en las construcciones de esta sección.
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
 	El morfismo $\varphi:F(\cG) \to G$ es tal que $\varphi(g) = g$ para todo $g \in G_{P}$.
 \end{lema}
 
@@ -995,7 +1003,7 @@ Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del gr
 En particular si consideramos que para toda arista $y \in E(X)$ el grupo $G_y$ es subgrupo de $G_{s(y)}$ luego $\varphi(a) = a$ para todo $a \in G_{y}$.
 
 \begin{prop}\label{prop_morf_grp_restr_sobre}
-	Dados $\cG$ y $G$ tales como en las construcciones de esta sección.
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
 	El morfismo de grupos $\varphi: F(\cG) \to G$ restringido al subgrupo $\pi_1(\cG, P)$ es sobreyectivo.
 \end{prop}
 
@@ -1069,9 +1077,9 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 
 \begin{prop}\label{prop_levantado_accion_arbol}
 	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
-	Llamemos $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
+	Sea $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
 	Sea $T$ árbol generador de $Y$.
-	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$ y $\pi \circ \iota (T) = T$.
+	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección a $\pi$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
 \end{prop}
 
 \begin{proof}
@@ -1116,7 +1124,7 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 \end{proof}
 
 \begin{coro}
-	Dados $\cG$ y $G$ tales como en las construcciones de esta sección.
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
 	Sea $T$ un árbol generador de $Y$.
 	Entonces la restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por $\pi_1(\cG, T)$.
 \end{coro}
@@ -1128,21 +1136,29 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 
 \subsubsection{Morfismo de grafos $\psi$.}
 
-\todo[inline]{Seguir repasando desde acá.}
+En esta subsección mantenemos los nombres que elegimos en la anterior sección: $X$ es un grafo en el cual actúa un grupo $G$, $Y = X/G$ es el cociente por esta acción y $\cG$ es un grafo de grupos sobre $Y$ construido tal como lo hicimos anteriormente.
 
-Construyamos un morfismo de grafos del árbol de Bass--Serre en el grafo $X$ que vendría a ser el análogo al revestimiento.
+Sea $\Xm$ el árbol de Serre del grafo de grupos $\cG$.
+Nuestro objetivo es dar un epimorfismo de grafos $\psi:\Xm \to X$ que en nuestro contexto de la teoría de Bass--Serre va a ser equivalente a decir que $\Xm$ junto con este morfismo es un revestimiento de $X$.
 
-Sea la asignación $\psi: \Xm \to X$ dada por 
+
+Definimos entonces $\psi: \Xm \to X$ dada por: 
 \begin{align*}
-	\psi(g G_P ) = \varphi(g) P \ \ \text{para todo} \ g \in G, P \in V(Y) \\
-	\psi(g G_y ) = \varphi(g) \iota(y) \ \text{para todo} \ g \in G, P \in V(Y)
+	\psi(g G_P ) = \varphi(g) \cdot P \ \ \text{para todo} \ g \in G, P \in V(Y) \\
+	\psi(g G_y ) = \varphi(g) \cdot \iota(y) \ \text{para todo} \ g \in G, y \in V(Y)
 \end{align*}
 
-Veamos que es una función.
-Sean dos representantes $g,h$ del mismo coset de $G_P$. 
-Queremos ver que $\psi(gG_P) = \psi(hG_P)$.
-Para esto notemos que por la definición de $\psi$  esto equivale a ver que $\varphi(g) = \varphi(h)$.
-Dado que $gh^{-1} \in G_P$ luego tenemos que $\varphi(gh^{-1}) = gh^{-1}$ porque $\varphi$ restringida a $G_P$ es la identidad por el resultado \ref{lema_morfismo_pi1_inyectivo}.
+Veamos que la definición de $\psi$ no depende del representante y por lo tanto que está bien definida.
+Sean dos representantes del mismo coset, $gG_{P} = hG_{P}$, queremos ver que $\varphi(g) \cdot P = \varphi(h) \cdot P$.
+Dado que $h^{-1}g \in G_P$ luego tenemos que $\varphi(h^{-1}g) = h^{-1}g$ porque $\varphi$ restringida a $G_P$ es la identidad por el resultado \ref{lema_morfismo_pi1_inyectivo}.
+Esto nos dice que 
+\begin{align*}
+		\varphi(h) \varphi(h^{-1}g) &= \varphi(g) \\
+		\varphi(h) (h^{-1}g) & = \varphi(g) \\
+		\implies \varphi(h) \cdot P &= \varphi(g) \cdot P.
+\end{align*}
+por lo tanto $\psi$ está bien definida para todo coset de vértices.
+Similarmente por un razonamiento idéntico podemos ver que $\psi$ está bien definida para todo coset de aristas y así vemos que $\psi$ es una función bien definida.
 
 \begin{lema}
 	La función $\psi: \Xm \to X$ resulta ser un morfismo de grafos.
@@ -1153,101 +1169,116 @@ Para ver que es un morfismo de grafos nos basta ver que manda vértices en vért
 Por como lo definimos está claro que manda vértices en vértices y aristas en aristas.
 
 Veamos que respeta el comienzo de las aristas.
-Sea una arista $gG_y y \in V(\Xm)$ luego tenemos que 
+Sea una arista $gG_y \in V(\Xm)$ luego tenemos que:
 \begin{align*}
-s(\psi(gG_y  )) &= s (\varphi(g)  y) =  \varphi(g) s(y) 	\\ 
-\psi(s(gG_y ))  &= \psi(gG_{s(y)} ) = \varphi(g){s(y)} \\
+s(\psi(gG_y  )) &= s (\varphi(g) \cdot \iota(y)) =  \varphi(g) \cdot  s(\iota(y)) 	\\ 
+\psi(s(gG_y ))  &= \psi(gG_{s(y)} ) = \varphi(g) \cdot {s(\iota(y))} \\
 \end{align*}	
 
 Finalmente veamos que respeta la asignación de las aristas opuestas.	
-Dada una arista $g G_y y$ tenemos que ver que $\psi(\ol{g G_y y}) = \ol{\psi(g G_y y)}$.	
-Para esto recordemos que siguiendo nuestra notación $\ol{g G_y y} = gyG_{\ol y} \ol y $ por lo tanto tenemos que 
-\begin{align*}
-\psi(\ol{gG_y  }) &= \psi(gyG_{\ol y}) = \varphi(gy) G_{\ol y}  =         \\ 
-&= \varphi(g)\varphi(y) G_{\ol y}  = \varphi(g) g_y \ol y = \varphi(g) \iota(y) \\
-\ol{\psi(gG_y )} &= \ol{ \varphi(g) \iota(y) } = \varphi(g) \ol{ \iota(y)} 
-\end{align*}
+Dada una arista $g G_y \in E(\Xm)$ tenemos que ver que $\psi(\ol{g G_y }) = \ol{\psi(g G_y )}$.	
+Primero usamos que $\ol{g G_y } = (gy)G_{\ol y}$ por lo tanto tenemos que 
+
+\[
+	\psi(\ol{gG_y  }) = \psi(gyG_{\ol y}) = \varphi(gy) \cdot \iota(\ol y)  = \varphi(g)\varphi(y) \cdot \iota(\ol y) = \varphi(g)\varphi(y) \cdot \iota(\ol y)      	
+\]
+por nuestra definición de $\varphi$ tenemos que $\varphi(y) = g_{y}$, así obtenemos
+\[
+	\psi(\ol{gG_y  }) =  \varphi(g) g_y \cdot \iota(\ol y). 
+\]
+Por otro lado tenemos que como $\ol{\iota(y)} = g_{y}\iota(y)$ entonces
+\[
+	\ol{\psi(gG_y )} = \ol{ \varphi(g) \cdot  y } = \varphi(g) \cdot  \ol{\iota( y)} = \varphi(g)g_{y} \cdot \iota(\ol y) 
+\]
+Probando así que $ \ol{g G_y } = (gy)G_{\ol y} $.
 Con esto terminamos de probar que $\psi$ es un morfismo de grafos.
+
 \end{proof}
 
 
-Dado un vértice $x \in V(X)$ podemos definir su \emph{star} como el siguiente conjunto de aristas,
-\[
-	st(x) = \{  y \in E(Y) : s(y) = x  \}
-\]
-
-Como queremos que nuestro morfismo $\psi$ represente un morfismo de revestimientos le vamos a pedir que localmente tenga buenas propiedades. 
-En particular vamos a pedirle que mande un star de un vértice inyectivamente en dentro del star del otro vértice.
-
 \begin{deff}
-	Un morfismo de grafos $\psi:\Gamma \to \Gamma'$ se dice \emph{localmente inyectivo} si para todo vértice $P \in V(\Gamma)$ resulta que $\psi: st(P) \to E(\Gamma')$ es inyectiva. 
+	Un morfismo de grafos $\psi:X \to Y$ se dice \emph{localmente inyectivo} si para todo vértice $P \in V(X)$ resulta que la restricción $\psi: st(P) \to E(Y)$ es inyectiva. 
 \end{deff}
 
-Probemos ahora que nuestro morfismo de grafos $\psi$ cumple esta propiedad.
+Así como el revestimiento de un grafo es un epimorfismo de grafos localmente inyectivo vamos a probar que en el contexto de la teoría de Bass--Serre el morfismo $\psi$ también tiene estas propiedades.
 
-\begin{prop}
-	El morfismo $\psi: \Xm \to X$ es sobreyectivo y localmente inyectivo.
+\begin{prop}\label{prop_psi_sobre}
+	El morfismo $\psi: \Xm \to X$ es sobreyectivo.
 \end{prop}
 \begin{proof}
-	Primero veamos que es sobreyectivo.
-	Sabemos que $G \cdot Y = X$ si miramos a $Y$ como subgrafo de $X$.
-	Consideremos un vértice $gP \in V(X)$. 
-	Por el resultado anterior \ref{prop_morf_grp_restr_sobre} sabemos que el morfismo de grupos $\varphi$ resulta ser sobreyectivo.
-	De esta manera tenemos que para $g$ existe $h \in G$ tal que $\varphi(h) = g$. 
-	Luego alcanza con tomar como vértice a $h G_P $ de manera que 
+	Sea $g \cdot P \in V(X)$ vértice arbitrario, queremos ver que existe $g' G_{Q} \in V(\Xm)$ de manera que $\psi(g' G_{Q}) = g \cdot P$.
+	
+	Por el resultado \ref{prop_morf_grp_restr_sobre} el morfismo de grupos $\varphi$ resulta ser sobreyectivo.
+	De esta manera tenemos que existe $h \in \pi_1(\cG,P)$ tal que $\varphi(h) = g$. 
+	Luego alcanza con tomar como vértice a $h G_P \in V(\Xm) $ de manera que 
 	\[
-	\psi(h G_P ) = \varphi(h) P = g P 
+	\psi(h G_P ) = \varphi(h) \cdot P = g \cdot P 
 	\]
 	tal como queríamos ver.
+	Una cuenta idéntica prueba que toda arista $g \cdot \iota(y) \in E(X)$ está en la imagen de $\psi$. 
+\end{proof}
+
+
+\begin{prop}\label{prop_psi_loc_iny}
+	El morfismo $\psi:\Xm \to X$ es localmente inyectivo.
+\end{prop}
 	
-	
-	Finalmente veamos que es localmente inyectivo.
-	Sea $gG_{P} \in V(\Xm)$ vértice. 
-	Sean $aG_{y},bG_{y' }\in E(\Xm)$ aristas tales que $s(aG_{y}) = gG_{P} = s(bG_{y' })$.
+\begin{proof}
+	Sea $gG_{P} \in V(\Xm)$ vértice y sean $aG_{y},bG_{y' }\in E(\Xm)$ aristas distintas tales que $s(aG_{y}) = gG_{P} = s(bG_{y'})$.
+	Queremos probar que $\psi(aG_{y}) \neq \psi(bG_{y'})$.
 	Consideraremos dos casos dependiendo si las aristas correspondientes en el grafo $Y$ son idénticas o no lo son.
 	
 	\begin{enumerate}
 		\item Supongamos primero que $y \neq y'$.
-		En este caso tenemos que $\psi(aG_{y}) = \varphi(a) \iota (y)$ mientras que $\psi(bG_{y'}) = \varphi(b) \iota (y')$.
+		En este caso tenemos que $\psi(aG_{y}) = \varphi(a) \cdot \iota (y)$ mientras que $\psi(bG_{y'}) = \varphi(b) \cdot \iota (y')$.
 		Como son elementos de órbitas distintas no pueden ser el mismo elemento y de esta manera concluimos que $\psi(aG_{y}) \neq \psi(bG_{y'}).$
 		
 		\item El otro caso es que $y=y'$. 
-		Veamos que por una cadena de equivalencias que la función $\psi$ es coincide en estas aristas si y solo sí son idénticas.
+		Veamos que por una cadena de equivalencias que la función $\psi$ coincide en estas aristas si y solo sí son idénticas.
 		Esto nos dice que
 		\[
-			\psi(aG_{y}) = \psi(bG_{y}) \iff \varphi(a) \iota(y) = \varphi(b)\iota(y)
+		\psi(aG_{y}) = \psi(bG_{y}) \iff \varphi(a) \cdot  \iota(y) = \varphi(b)\cdot \iota(y)
 		\]
 		y esto es equivalente a $\varphi(a^{-1}b) \in G_{y}$.
-		Por el resultado anterior \ref{prop_morf_grp_restr_sobre} tenemos que $\varphi$ se restringe a un isomorfismo entre los estabilizadores.
-		De esta manera tenemos que $a^{-1}b \in G_{y}$ y así que equivalentemente $aG_{y} = bG_{y}$.
+		Por el resultado \ref{prop_morf_grp_restr_sobre} tenemos que $\varphi$ es la identidad restringida a $G_{y}$.
+		De esta manera tenemos que
+		\[
+			\varphi(a) \cdot  \iota(y) = \varphi(b)\cdot \iota(y) \iff  a^{-1}b \in G_{y} \iff aG_{y} = bG_{y}
+		\]
+		y así terminamos de probar que $\psi$ es localmente inyectivo.
 		
 	\end{enumerate}
-\end{proof}
+\end{proof}	
+	
+
 
 El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea un isomorfismo de grafos pidiéndole a $X$ ser un árbol.
 
 \begin{prop}\label{prop_loc_iny}
-	Sea $T$ un árbol y sea $\Gamma$ un grafo conexo entonces todo morfismo de grafos $\psi:\Gamma \to T$ localmente inyectivo es un monomorfismo de grafos.    
+	Sea $T$ un árbol y sea $Y$ un grafo conexo entonces todo morfismo de grafos $\psi:Y \to T$ localmente inyectivo es un monomorfismo de grafos.    
 \end{prop}
 \begin{proof}
-	Como el grafo $\Gamma$ es conexo debe existir un camino de vértices $P=P_0 \dots P_k=Q$.
-	Consideremos que este camino está reducido.
-	Probemos por inducción en la longitud del camino que para puntos $P,Q \in V(X)$ a distancia menor que $n$ no vale que $\psi(P) = \psi(Q)$.
+	Notemos que el grafo $Y$ es conexo por hipótesis entonces para todo par de vértices existe un camino que los une.
+	Vamos a probar la siguiente afirmación equivalente usando inducción. 
+	Para todo todo $n \in \NN$ y para todo par de vértices distintos $P,Q \in V(Y)$  tales que existe una geodésica $\alpha$ que une $P$ con $Q$ y que cumple que $l(\alpha) = n$ entonces  $\psi(P) \neq \psi(Q)$.	
+		
 	
-	El caso base es que la longitud del camino sea exactamente $1$.
-	En este caso tenemos que $\psi(P) = \psi(Q)$ donde $y \in E(Y)$ tal que $s(y)= P, t(y) = Q$.
-	Al ser $\psi$ un morfismo de grafos tenemos que 
+	El caso base es que la longitud de la geodésica sea exactamente $1$.
+	En este caso nuestra geodésica es el camino $\alpha = (y)$ donde denotamos $s(y)= P$ y $t(y) = Q$.
+	Supongamos que $\psi(P) = \psi(Q)$. 
+	Al ser $\psi$ un morfismo de grafos tenemos que $\psi(y) \in E(T)$ y cumple que: 
 	\begin{equation*}
-		s(\psi(y)) = \psi(P) = \psi (Q) = t(\psi(y))
+		s(\psi(y)) = \psi(P) = \psi(Q) = t(\psi(y))
 	\end{equation*}
-	por lo tanto si $\psi(y)$ fuera una arista sería un bucle.
-	Los grafos los tomamos para que no tengan bucles.
+	por lo tanto $\psi(y)$ es un bucle y esto contradice que $T$ es un árbol por lo tanto $\psi(P) \neq \psi(Q)$ tal como queríamos ver.
 	
-	El paso inductivo partimos de un camino de aristas $(y_1, \dots, y_n)$ reducido.
-	Consideremos la imagen del camino por medio del morfismo.
-	Como estamos en un árbol no puede haber ciclos, de esta manera tiene que ser que $\psi(y_k) = \ol{\psi (y_{k+1})}$ para ciertas aristas $y_k, y_{k+1} \in E(\Gamma)$.
-	Como $\psi$ es un morfismo de grafos cumple que $\ol {\psi(y_k)} = \psi(\ol y_k)$ y así de esta manera obtenemos que $\psi(y_k) =  \psi(\ol{y_{k+1})}$.
-	Como el morfismo es localmente inyectivo y ambas aristas parten del mismo vértice tenemos que $y_{k+1} = \ol{y_k}$. Esto es una contradicción porque asumimos que el camino que tomamos es reducido.    
+	
+	El paso inductivo tenemos que existe una geodésica $\alpha= (y_1, \dots, y_n)$ entre $P$ y $Q$ de manera que $l(\alpha) = n$ y suponemos que $\psi(P) = \psi(Q)$.
+	Tenemos que $\psi(\alpha)$ es un camino en $T$ tal que comienza y termina en un mismo vértice.
+	Como estamos en un árbol no puede haber ciclos, de esta manera tiene que ser que $\psi(y_k) = \ol{\psi (y_{k+1})}$ para cierto $1 \le k \le n$.
+	Como $\psi$ es un morfismo de grafos cumple que $\ol {\psi(y)} = \psi(\ol y)$ para todo $y \in E(Y)$ y así de esta manera obtenemos que $\psi(y_k) =  \psi(\ol{y_{k+1})}$.
+	Consideremos las aristas $\psi(\ol y_{k})$ y $\psi(y_{k+1})$ tales que comienzan en el mismo vértice, entonces como el morfismo $\psi$ es localmente inyectivo vale que $y_{k+1} = \ol{y_k}$. 
+	Esto es una contradicción porque asumimos que $\alpha$ es una geodésica y como tal no puede tener backtracking.    
 	
 \end{proof}
 
@@ -1256,7 +1287,7 @@ Es el resultado central de la teoría de Bass--Serre.
 
 \begin{teo}[\cite{serre2002trees}]\label{teo_Serre}
 	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
-	Consideremos $T$ un árbol de expansión de $Y$ y los morfismos $\psi: \Xm \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$.
+	Consideremos $T$ un árbol generador de $Y$ y los morfismos $\psi: \Xm \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$.
 	Luego las siguientes afirmaciones son equivalentes.
 	\begin{enumerate}[(a)]
 		\item el grafo $X$ es un árbol;
@@ -1266,36 +1297,41 @@ Es el resultado central de la teoría de Bass--Serre.
 \end{teo}
 
 \begin{proof}	
-		 La implicación \textbf{a $\Rightarrow$ b} la hacemos usando la proposición \ref{prop_loc_iny} dado que $\psi$ es localmente inyectivo.
+		 La implicación \textbf{a $\Rightarrow$ b} la hacemos usando la proposición \ref{prop_loc_iny} dado que $\psi$ es localmente inyectivo por la proposición \ref{prop_psi_loc_iny}.
 		 Para ver \textbf{b $\Rightarrow$ a} usamos que $\Xm$ es un árbol por lo tanto $X$ al ser isomorfo también es un árbol.
 		 
 		 Probemos \textbf{b $\Rightarrow$ c}. 
-		 Para eso notemos que al ser $\varphi$ sobreyectivo nos alcanza con ver que es inyectivo.
-		 Si $g \in \pi_1({\cal G}, T)$ y $g \neq 1$ tal que $\varphi(g)= 1$ entonces necesariamente $g \notin G_P$ por el lema anterior \ref{lema_morfismo_pi1_inyectivo} dado que la restricción a estos subgrupos es la identidad.
-		 Esto nos dice que $g G_P P \neq G_P P$ dado que los cosets $gG_P$ y $G_P$ son distintos. Por como definimos a $\psi$ tenemos que 
+		 Para eso notemos que al ser $\varphi$ sobreyectivo por la proposición \ref{prop_morf_grp_restr_sobre} nos alcanza con ver que es inyectivo.
+		 Si $g \in \pi_1({\cal G}, T)$ y $g \neq 1$ tal que $\varphi(g)= 1$ entonces necesariamente $g \notin G_P$ por el lema \ref{lema_morfismo_pi1_inyectivo} dado que la restricción a estos subgrupos es la identidad.
+		 Esto nos dice que $g G_P \neq G_P $.
+		 Por como definimos a $\psi$ tenemos que 
 		 \[
-		 \psi (gG_P ) = \varphi(g) P  = \psi(G_P )
+		 \psi (gG_P ) = \varphi(g) \cdot P  = P = \psi(G_P )
 		 \] 
 		 pero esto contradice que $\psi$ sea un isomorfismo.
 		 
+		 
 		 Finalmente probemos \textbf{c $\Rightarrow$ b}. 
-		 Para esto como $\psi$ es sobreyectivo nos alcanza con ver que es inyectivo.
+		 Para esto como $\psi$ es sobreyectivo por \ref{prop_psi_sobre} nos alcanza con ver que es inyectivo.
 		 Sean $gG_P, hG_Q \in V(\Xm)$ tales que $\psi(gG_P) = \psi(hG_Q)$.
 		 Por la definición del morfismo $\psi$ obtenemos que 
 		 \[
-		 	\varphi(g)P = \varphi(h)Q
+		 \varphi(g)\cdot P = \varphi(h)\cdot Q
 		 \]
-		 pero esto nos diría que $P = Q$ dado que ambos son representantes de las órbitas de la acción de $G$ sobre el árbol $T$. 
-		 Por otro lado obtenemos que $\varphi(g h^{-1}) P  =  P$ y así $\varphi(gh^{-1}) \in G_P$. 
-		 Como $\varphi$ es un isomorfismo y en particular es inyectiva restringida al subgrupo $G_P$ por la proposición \ref{prop_morf_grp_restr_sobre} deducimos que $gh^{-1} \in G_P$.
-		 Por lo tanto vimos que los dos vértices son idénticos $gG_P  = hG_Q$ y de esta manera probamos que $\psi$ es inyectiva.
+		 pero esto nos diría que $P = Q$ caso contrario estarían en órbitas distintas. 
+		 Por otro lado obtenemos que $\varphi(g h^{-1}) \cdot P  =  P$ y así $\varphi(gh^{-1}) \in G_P$. 
+		 Usando que $\varphi$ es un isomorfismo y la proposición \ref{prop_morf_grp_restr_sobre} deducimos que $\varphi^{-1} (\varphi gh^{-1}) = gh^{-1} \in G_P$.
+		 Por lo tanto $gG_P  = hG_Q$ y de esta manera probamos que $\psi$ es inyectiva.
 \end{proof}
 
-Como corolarios obtenemos una caracterización para los grupos libres que usaremos varias veces y que es una herramienta fundamental de la teoría geométrica de grupos.
+De este teorema se desprende una caracterización importante que es que dado un grupo $G$ si encontramos un árbol $X$ donde actúe sin inversiones obtenemos que este grupo es el grupo fundamental del grafo de grupos que armamos sobre el grafo $X/G$.
+Como corolario directo obtenemos una caracterización para los grupos libres.
+\todo[inline]{Agregar más historia acá. Quizás que es un resultado originalmente de Schreier.}
 
 \begin{coro}\label{coro_libre_sii_actua_arbol}
 	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
 \end{coro}
+\todo[inline]{Acá uso la def del grafo de Cayley, debería estar en el capítulo uno.}
 \begin{proof}
 	Si $G$ es libre entonces su grafo de Cayley lo podemos tomar como un árbol y usamos que actúa libremente sobre él sin invertir aristas.
 	
