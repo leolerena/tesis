@@ -1331,19 +1331,24 @@ Como corolario directo obtenemos una caracterización para los grupos libres.
 \begin{coro}\label{coro_libre_sii_actua_arbol}
 	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
 \end{coro}
-\todo[inline]{Acá uso la def del grafo de Cayley, debería estar en el capítulo uno.}
+
 \begin{proof}
-	Si $G$ es libre entonces su grafo de Cayley lo podemos tomar como un árbol y usamos que actúa libremente sobre él sin invertir aristas.
+	Si $G$ es libre  y generado por un conjunto finito $S$ entonces $Cay(G,S)$ es un árbol por el resultado \ref{}.
+	Por la proposición \ref{} tenemos que $G$ actúa libremente sobre su grafo de Cayley y sin invertir aristas.
 	
-	Para la vuelta usamos \ref{teo_Serre} porque en tal caso tenemos que $G$ isomorfo a $\pi_1(\cG, T)$ y este grupo es libre por ser el grupo fundamental de un grafo dado que los estabilizadores son triviales por hipótesis.
+	Si $G$ actúa libremente sobre un árbol sin inversiones entonces usando \ref{teo_Serre} obtenemos que $G$ es isomorfo a $\pi_1(\cG, T)$.
+	Este grupo es libre por ser el grupo fundamental de un grafo en el cual los grupos correspondientes a las aristas y a los vértices son triviales dado que la acción de $G$ es libre.
+	
 \end{proof}
 
 \begin{coro}\label{coro_niels_sch}
 	Dado $G$ un grupo libre todo subgrupo $H$ de $G$ resulta ser libre.
 \end{coro}
 \begin{proof} 
-	Usando el corolario \ref{coro_libre_sii_actua_arbol} tenemos que $G$ actúa libremente sobre un árbol sin inversiones.
-	En particular H actúa sin inversiones y libremente sobre el mismo árbol que actúa $G$ y esto nos dice que es libre.
+	Veamos que $H$ actúa libremente y sin inversiones de aristas sobre un árbol por lo tanto por el corolario \ref{coro_libre_sii_actua_arbol} tendríamos que $H$ es libre.
+	Como $G$ es libre entonces por este mismo corolario tenemos que $G$ actúa libremente sobre un árbol sin inversiones de aristas.
+	En particular si restringimos esta acción de $G$ a una del subgrupo $H$ obtenemos que $H$ actúa sobre este mismo árbol libremente y sin inversiones de aristas. 
+	
 \end{proof}
 
 Otra consecuencia de este teorema de Serre es un resultado obtenido por Karass, Pietrowski y Solitar que nos da una cota de qué tan grande puede ser un subgrupo libre dentro de un grupo fundamental de un grafo finito de grupos finitos.
@@ -1360,7 +1365,7 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 	Si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
 \end{proof}
 
-
+\todo[inline]{Agregar definición de rango de un grupo libre.}
 \begin{prop}\cite{karrass1973finite}\label{prop_karrass_formula}
 	Sea $\cal G$ un grafo de grupos finito tal que los grupos de los vértices y aristas también son finitos.
 	Sea $G = \pi_1 ({\cal G}, T)$ y sea $F$ un subgrupo libre de $G$ de índice finito con rango finito $r(F)$.
@@ -1372,35 +1377,47 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 \end{prop}
 \begin{proof}
 	Sea $\tilde X$ el árbol de Bass--Serre para este grafo de grupos $\cG$.
-	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
-	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.
+	Por la construcción del árbol de Bass--Serre tenemos que $G$ actúa sobre $\Xm$ sin inversiones de aristas entonces en particular $F$ que es un subgrupo de $G$ también actúa sobre $\Xm$ sin inversiones de aristas.
+	Sea $\cal H$ el grafo de grupos sobre $\Xm/F$ construido a partir de la restricción de la acción de $G$ al subgrupo $F$.
+	Sea $T'$ un árbol generador del grafo $\Xm/F$ entonces como $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\cH, T')$.
 	
-	Sea $\cal H$ el grafo de grupos sobre $\Xm/F$ construído a partir de la acción del subgrupo $F$.
-	Sea $T'$ un árbol de expansión del grafo $\Xm/F$.
-	Dado que $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\cH, T')$.
-	Usando esto calculemos el rango del grupo libre contando todas las aristas que no pertenezcan al árbol $T'$.
-	Recordemos que al ser un árbol de expansión tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
+	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
+	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.	
+	Queremos calcular el rango $r(F)$ contando todas las aristas que no pertenezcan al árbol $T'$.
+	Al ser $T'$ un árbol generador tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
 	De esta manera dado que los estabilizadores por la acción de $F$ son triviales tenemos el siguiente isomorfismo $\pi_1(\cH, T') \simeq F_{\Sigma}$ donde $\Sigma$ es un conjunto finito que resulta tener el siguiente orden 
 	\[
 		|\Sigma| = \dfrac{|E(\Xm/F) \ \setminus \ E(T')|}{2},
 	\]
 	multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
-	Por lo tanto el rango de $F$ lo podemos calcular como el orden del conjunto $\Sigma$.
+	Por lo tanto como dos grupos libres isomorfos tienen el mismo rango
+	entonces $r(F) = | \Sigma |$ y por lo tanto:
+	
 	\begin{align*}
 		r(F) &= \frac{1}{2} (|E(\Xm / F)| - |E(T')|) \\
-		&= \frac{1}{2} |E(\Xm / F)| - |V(\Xm / F) | - 1
+		&= \frac{1}{2} (|E(\Xm / F)|) - (|V(\Xm / F) | - 1)
 	\end{align*}
 	
-	Finalmente para obtener la fórmula que queremos probar tenemos que usar como está construido el árbol de Bass--Serre $\Xm$.
+	Finalmente para obtener la fórmula que queremos probar tenemos que usar la construcción del árbol de Bass--Serre $\Xm$.
 	\begin{equation*}
-		|V(\Xm / F)| = \sum_{P \in V(X)} |(G/G_P)/F|
+		|V(\Xm / F)| = \sum_{P \in V(X)} |F  \ \backslash (G/G_P)|
 	\end{equation*}
-	y acá usamos que que la cantidad de cosets de $(G/G_P)/F$ es la misma que hay en $(G/F)/G_P$
-	por lo tanto 
+	donde usamos que $F$ actúa sobre los cosets $G/G_{P}$ por multiplicación a izquierda.
+	El conjunto de cosets $F \ (\backslash G /G_P)$ está en biyección con el conjunto de cosets $(F \ \backslash G) /G_P$ donde este segundo es finito porque por hipótesis $F$ tienen índice finito en $G$.
+	De esta manera obtenemos que: 
 	\begin{equation*}
 		|V(\Xm / F)| = \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|}.
 	\end{equation*}
-	Similarmente obtenemos una expresión análoga para las aristas y así terminamos de probar la validez de la fórmula.
+	Por el mismo razonamiento obtenemos la siguiente expresión,
+	\[
+		|E(F \backslash \Xm)| =  \sum_{y \in E(X))} \dfrac{(G:F)}{|G_y|}.
+	\]
+	Y así obtenemos finalmente que
+	\begin{align*}
+		r(F) =& \sum_{y \in E(X))} \dfrac{(G:F)}{2|G_y|} + \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|} + 1 \\
+		\dfrac{r(F) - 1}{(G:F)} =& \sum_{y \in E(X))} \dfrac{1}{2|G_y|} + \sum_{P \in V(X)} \dfrac{1}{|G_P|}.
+	\end{align*}
+	Tal como queríamos probar.
 \end{proof}
 
 
