@@ -1365,102 +1365,129 @@ Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la
 	Si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
 \end{proof}
 
-\todo[inline]{Agregar definición de rango de un grupo libre.}
-\begin{prop}\cite{karrass1973finite}\label{prop_karrass_formula}
-	Sea $\cal G$ un grafo de grupos finito tal que los grupos de los vértices y aristas también son finitos.
-	Sea $G = \pi_1 ({\cal G}, T)$ y sea $F$ un subgrupo libre de $G$ de índice finito con rango finito $r(F)$.
-	Luego la siguiente fórmula vale:
-	
-	\begin{equation*}
-		\frac{r(F) - 1}{(G:F)} = \sum_{y \in E(Y)} \frac{1}{2 \cdot |G_y|} - \sum_{P \in V(Y)} \frac{1}{|G_P|}.
-	\end{equation*}
-\end{prop}
+%\todo[inline]{Agregar definición de rango de un grupo libre.}
+%\begin{prop}\cite{karrass1973finite}\label{prop_karrass_formula}
+%	Sea $\cal G$ un grafo de grupos finito tal que los grupos de los vértices y aristas también son finitos.
+%	Sea $G = \pi_1 ({\cal G}, T)$ y sea $F$ un subgrupo libre de $G$ de índice finito con rango $r(F)$.
+%	Luego la siguiente fórmula vale:
+%	
+%	\begin{equation*}
+%		\frac{r(F) - 1}{(G:F)} = \sum_{y \in E(Y)} \frac{1}{2 \cdot |G_y|} - \sum_{P \in V(Y)} \frac{1}{|G_P|}.
+%	\end{equation*}
+%\end{prop}
+%\begin{proof}
+%	Sea $\tilde X$ el árbol de Bass--Serre para este grafo de grupos $\cG$.
+%	Por la construcción del árbol de Bass--Serre tenemos que $G$ actúa sobre $\Xm$ sin inversiones de aristas entonces en particular $F$ que es un subgrupo de $G$ también actúa sobre $\Xm$ sin inversiones de aristas.
+%	Sea $\cal H$ el grafo de grupos sobre $\Xm/F$ construido a partir de la restricción de la acción de $G$ al subgrupo $F$.
+%	Sea $T'$ un árbol generador del grafo $\Xm/F$ entonces como $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\cH, T')$.
+%	
+%	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
+%	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.	
+%	Queremos calcular el rango $r(F)$ contando todas las aristas que no pertenezcan al árbol $T'$.
+%	Al ser $T'$ un árbol generador tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
+%	De esta manera dado que los estabilizadores por la acción de $F$ son triviales tenemos el siguiente isomorfismo $\pi_1(\cH, T') \simeq F_{\Sigma}$ donde $\Sigma$ es un conjunto finito que resulta tener el siguiente orden 
+%	\[
+%		|\Sigma| = \dfrac{|E(\Xm/F) \ \setminus \ E(T')|}{2},
+%	\]
+%	multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
+%	Por lo tanto como dos grupos libres isomorfos tienen el mismo rango
+%	entonces $r(F) = | \Sigma |$ y por lo tanto:
+%	
+%	\begin{align*}
+%		r(F) &= \frac{1}{2} (|E(\Xm / F)| - |E(T')|) \\
+%		&= \frac{1}{2} (|E(\Xm / F)|) - (|V(\Xm / F) | - 1)
+%	\end{align*}
+%	
+%	Finalmente para obtener la fórmula que queremos probar tenemos que usar la construcción del árbol de Bass--Serre $\Xm$.
+%	\begin{equation*}
+%		|V(\Xm / F)| = \sum_{P \in V(X)} |F  \ \backslash (G/G_P)|
+%	\end{equation*}
+%	donde usamos que $F$ actúa sobre los cosets $G/G_{P}$ por multiplicación a izquierda.
+%	El conjunto de cosets $F \ (\backslash G /G_P)$ está en biyección con el conjunto de cosets $(F \ \backslash G) /G_P$ donde este segundo es finito porque por hipótesis $F$ tienen índice finito en $G$.
+%	De esta manera obtenemos que: 
+%	\begin{equation*}
+%		|V(\Xm / F)| = \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|}.
+%	\end{equation*}
+%	Por el mismo razonamiento obtenemos la siguiente expresión,
+%	\[
+%		|E(F \backslash \Xm)| =  \sum_{y \in E(X))} \dfrac{(G:F)}{|G_y|}.
+%	\]
+%	Y así obtenemos finalmente que
+%	\begin{align*}
+%		r(F) =& \sum_{y \in E(X))} \dfrac{(G:F)}{2|G_y|} + \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|} + 1 \\
+%		\dfrac{r(F) - 1}{(G:F)} =& \sum_{y \in E(X))} \dfrac{1}{2|G_y|} + \sum_{P \in V(X)} \dfrac{1}{|G_P|}.
+%	\end{align*}
+%	Tal como queríamos probar.
+%\end{proof}
+
+
+Estamos en condiciones de probar el resultado central del capítulo, que es que todo grupo fundamental de un grafo de grupos finito es un grupo virtualmente libre.
+Primero debemos ver unos lemas de acciones de grupos finitos.
+
+\begin{lema}\label{lema_accion_orden}
+	Sea $G$ un grupo finito y $X$ conjunto finito tal que $|G| \mid |X|$ luego existe $\alpha: G \to S(X)$ acción libre de $G$ en $X$.
+\end{lema}
+
 \begin{proof}
-	Sea $\tilde X$ el árbol de Bass--Serre para este grafo de grupos $\cG$.
-	Por la construcción del árbol de Bass--Serre tenemos que $G$ actúa sobre $\Xm$ sin inversiones de aristas entonces en particular $F$ que es un subgrupo de $G$ también actúa sobre $\Xm$ sin inversiones de aristas.
-	Sea $\cal H$ el grafo de grupos sobre $\Xm/F$ construido a partir de la restricción de la acción de $G$ al subgrupo $F$.
-	Sea $T'$ un árbol generador del grafo $\Xm/F$ entonces como $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\cH, T')$.
-	
-	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
-	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.	
-	Queremos calcular el rango $r(F)$ contando todas las aristas que no pertenezcan al árbol $T'$.
-	Al ser $T'$ un árbol generador tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
-	De esta manera dado que los estabilizadores por la acción de $F$ son triviales tenemos el siguiente isomorfismo $\pi_1(\cH, T') \simeq F_{\Sigma}$ donde $\Sigma$ es un conjunto finito que resulta tener el siguiente orden 
+	Sea $|G|=k$ y sea $|X|=mk$ luego como queremos que la acción de $G$ sea libre designamos nuestros candidatos a órbitas $X_{i}$ $i=1, \dots k$ donde $X_{i} \subseteq {\cal P}(X)$, $|X_{i}|=m$ y $X_{i} \cap X_{j} = \emptyset$ para todo $i \neq j$.
+	Les asignamos índices a todos los elementos de $X_{i}$ para todo $ 1 \le i \le k$ y los denotamos $x_{i}^j$ para el $j$-ésimo elemento de $X_{i}$ donde $1 \le j \le m$.
+	Similarmente como $G$ es finito luego $G = \{ g_{1}, \dots g_{k} \}$.
+	Luego definimos $\alpha:G \to S(X)$ de la siguiente manera si $g_{l} g_{i} = g_{h}$
 	\[
-		|\Sigma| = \dfrac{|E(\Xm/F) \ \setminus \ E(T')|}{2},
-	\]
-	multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
-	Por lo tanto como dos grupos libres isomorfos tienen el mismo rango
-	entonces $r(F) = | \Sigma |$ y por lo tanto:
-	
-	\begin{align*}
-		r(F) &= \frac{1}{2} (|E(\Xm / F)| - |E(T')|) \\
-		&= \frac{1}{2} (|E(\Xm / F)|) - (|V(\Xm / F) | - 1)
-	\end{align*}
-	
-	Finalmente para obtener la fórmula que queremos probar tenemos que usar la construcción del árbol de Bass--Serre $\Xm$.
-	\begin{equation*}
-		|V(\Xm / F)| = \sum_{P \in V(X)} |F  \ \backslash (G/G_P)|
-	\end{equation*}
-	donde usamos que $F$ actúa sobre los cosets $G/G_{P}$ por multiplicación a izquierda.
-	El conjunto de cosets $F \ (\backslash G /G_P)$ está en biyección con el conjunto de cosets $(F \ \backslash G) /G_P$ donde este segundo es finito porque por hipótesis $F$ tienen índice finito en $G$.
-	De esta manera obtenemos que: 
-	\begin{equation*}
-		|V(\Xm / F)| = \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|}.
-	\end{equation*}
-	Por el mismo razonamiento obtenemos la siguiente expresión,
-	\[
-		|E(F \backslash \Xm)| =  \sum_{y \in E(X))} \dfrac{(G:F)}{|G_y|}.
-	\]
-	Y así obtenemos finalmente que
-	\begin{align*}
-		r(F) =& \sum_{y \in E(X))} \dfrac{(G:F)}{2|G_y|} + \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|} + 1 \\
-		\dfrac{r(F) - 1}{(G:F)} =& \sum_{y \in E(X))} \dfrac{1}{2|G_y|} + \sum_{P \in V(X)} \dfrac{1}{|G_P|}.
-	\end{align*}
-	Tal como queríamos probar.
+		\alpha(g_{l})(x_{i}^j) = x_{h}^j.
+	\] 
+	Chequeamos que es una acción y a su vez $\alpha(g)(x_{i}^j) = x_{i}^j$ si y solamente si $g g_{i} = g_{i}$ lo que implica que $g = 1$ y así vemos que la acción $\alpha$ resulta ser libre tal como buscábamos.
 \end{proof}
 
 
-Finalmente podemos probar que grupo fundamental de un grafo de grupos finito con grupos finitos es virtualmente libre. 
-Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
+
 
 \begin{lema}\label{lema_acciones_finitas}
-	Sea $G$ un grupo que actúa libremente sobre un conjunto finito $X$ de dos maneras distintas $\alpha, \beta : G \to S(X)$. 
+	Sea $G$ un grupo finito y $X$ un conjunto finito tal que $\alpha, \beta : G \to S(X)$ son dos acciones libres de $G$ sobre $X$. 
 	Entonces debe existir $\varphi \in S(X)$ tal que para todo $g \in G$ valga que 
 	\[
 	\alpha (g) = \varphi^{-1} \circ \beta(g) \circ \varphi.
 	\]
 \end{lema}
 \begin{proof}
-	Tomamos representantes para cada acción $R,S \subseteq X$ tales que
+	Denotaremos a la órbita de un elemento $x \in X$ por medio de la acción $\alpha:G \to S(X)$ de la siguiente manera:
 	\[
-		\bigsqcup_{r \in R} \alpha(G) (r) = \bigsqcup_{s \in S} \beta(G) (s)
+		\alpha(G)(x) = \bigcup_{g \in G} \alpha(g) (x).
 	\]
-	donde la unión es disjunta como órbitas de esta acción. 
-	Como ambas acciones son libres resulta que $\alpha(G)(r)$ y $\beta(G)(s)$ tienen cardinal exactamente $|G|$ usando que $X$ también es finito.
-	De esta manera vemos que $|R| = |X| / |G| = |S|$ por lo tanto existe una biyección $\varphi$ entre ambos conjuntos que la extendemos a todo $X$ de la siguiente manera,
+	
+	Sean ahora $R \subseteq X$ conjunto de representantes para la acción $\alpha$ y $S \subseteq X$ para la acción $\beta$, entonces tenemos que
+	\[
+		X = \bigsqcup_{r \in R} \alpha(G) (r) = \bigsqcup_{s \in S} \beta(G) (s)
+	\]
+	donde la unión es disjunta porque son órbitas. 
+	Como ambas acciones son libres resulta que $\alpha(G)(r)$ y $\beta(G)(s)$ tienen cardinal exactamente $|G|$.
+	Como $X$ es finito si usamos el teorema de órbitas y estabilizadores vemos que $|R| = |X| / |G| = |S|$ por lo tanto existe una biyección $\varphi: R \to S$ entre ambos conjuntos.
+	Si $\varphi(r) = s$ entonces la extendemos a todo $X$ de la siguiente manera,
 	\[
 		\varphi (\alpha(g) r) = \beta(g)  s
 	\]
-	siempre y cuando $\varphi(r) = s$. 
 	Esta biyección cumple todo lo que queríamos.
+	
 \end{proof}
 
 
+
+
 \begin{teo}\cite{karrass1973finite}
-	Sea $\cal G$ un grafo de grupos sobre un grafo finito $Y$ con grupos finitos en los vértices.
-	Entonces $\pi_1(\cal G)$ es un \fg virtualmente libre.
+	Sea $\cal G$ un grafo de grupos sobre un grafo $Y$ finito y conexo tal que para todo $P \in V$ vale que $|G_{P}| < \infty$.
+	Entonces $\pi_1({\cal G}, P)$ es un grupo virtualmente libre.
 \end{teo}
 \begin{proof}
-	Dado que el grafo $Y$ es finito y para todo $P \in V(Y)$ los grupos $G_P$ también son finitos podemos tomarnos $X$ un conjunto finito de manera que
+	Dado que el grafo $Y$ es finito y para todo $P \in V$ los grupos $G_P$ también son finitos entonces podemos tomarnos $X$ un conjunto finito de manera que
 	\[
-		|X| = \prod_{P \in V(X)} |G_P|.
+		|X| = \prod_{P \in V} |G_P|.
 	\] 
 	
-	Para cada $P \in V(Y)$ podemos armarnos una acción libre de $G_P$ en $X$. 
-	Esto nos da un monomorfismo $G_P \to S(X)$.
-	A su vez por cada grupo $G_y$ con $y \in E(Y)$ obtenemos dos acciones libres sobre $X$ dependiendo con qué inclusión lo estamos mirando.
-	Por el lema \ref{lema_acciones_finitas} podemos elegirnos para cada $y \in E(Y)$ alguna $\varphi_y \in S(X)$ tal que haga conmutar al siguiente diagrama
+	Para cada $P \in V$ podemos construir una acción libre de $G_P$ en $X$ usando el lema \ref{lema_accion_orden}.
+	Al ser acciones libres obtenemos monomorfismos $\tau: G_P \to S(X)$ para cada $P \in V$.
+	Para cada arista $y \in E$ obtenemos una acción libre de $G_{y}$ sobre $X$ restringiendo la acción que conseguimos para $G_{s(y)}$.
+	Por otro lado $G_{y}$ es isomorfo como grupo a $G_{\ol y}$ y este es un subgrupo de $G_{t(y)}$ por lo tanto obtenemos otra acción libre de $G_{y}$ sobre $X$ si identificamos a $G_{y}$ con $G_{\ol y}$ y después restringimos la acción que conseguimos para $G_{t(y)}$.
+	Como tenemos dos acciones libres de $G_{y}$ sobre un conjunto finito podemos usar el lema \ref{lema_acciones_finitas} de manera que existe $\phi_y: S(X) \to S(X)$ tal que hace conmutar al siguiente diagrama
 	\[\begin{tikzcd}
 		& {G_{s(y)}} && {S(X)} \\
 		{G_y} \\
@@ -1469,28 +1496,32 @@ Antes de probar esto necesitamos un lema sobre acciones en conjuntos finitos.
 		\arrow["\tau", from=3-2, to=3-4]
 		\arrow[hook, from=2-1, to=1-2]
 		\arrow[hook', from=2-1, to=3-2]
-		\arrow["\varphi_y", from=1-4, to=3-4]
+		\arrow["\phi_y", from=1-4, to=3-4]
 	\end{tikzcd}\]
-	Para la arista con orientación opuesta tomamos $\varphi_{\ol y} = \varphi_y^{-1}$.
-	De esta manera tenemos un morfismo de grupos definido sobre el grupo libre $\ast_{P \in V(Y)} G_P \ast E(Y)$.
-	Por como tomamos a $\varphi_y$ y como hace conmutar al diagrama tenemos que 
-	\[
-	\varphi_{\ol y} \circ \sigma \circ \varphi_y = \tau.
-	\]	
-	Usando la definición del grupo $F(\cG)$ tenemos un morfismo de grupos $h: F(\cG) \to S(X)$ tal que la restricción a $G_P$ es inyectiva para todo $P \in V(Y)$.
-	Si fijamos $P \in V(Y)$ y consideramos el subgrupo normal de $\pi_1(\cG, P)$ 
+	y está definida como $\phi_{y}(\psi) = \varphi_{y}^{-1} \circ \psi \circ \varphi_{y}$ donde $\varphi_{y} \in S(X)$ que existe por el lema.
+	Para la arista con orientación opuesta tenemos un diagrama casi idéntico y notamos que si definimos $\phi_{\ol y}(\psi) = \varphi_{y} \circ \psi \circ \varphi_{y}^{-1}$ luego ese diagrama conmuta.
+	
+	Definimos un morfismo de grupos $h: \underset{P \in V}{\Asterisk \ G_{P}} \Asterisk F_{E} \to S(X)$ de la siguiente manera,
+	\begin{align*}
+		 h(g) = \tau(g) & \ \ \  \ \ \  \text{si} \ g \in G_{P}, \ \tau:G_{P} \to S(X) \ \text{acción libre} \\
+		h(y) = \varphi_{y} & \ \ \ \ \ \ \text{si} \ y \in F_{E}
+	\end{align*}
+	
+	Por como tomamos a $\varphi_{\ol y}$ tenemos que $h$ respeta las relaciones de $F(\cG)$ y así tenemos un morfismo $h:F(\cG) \to S(X)$.
+	Si fijamos $P \in V$, como $\pi_1(\cG,P)$ es un subgrupo de $F(\cG)$ podemos restringir $h$ y así considerar el subgrupo normal de $\pi_1(\cG, P)$ 
 	\[
 	F = \{  g \in \pi_1(G,P) \ | \ h(g) = 1  \}
 	\]
-	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$.
-	Esto nos dice que el grupo $F$ actúa libremente sobre el árbol de Bass--Serre de nuestro grafo de grupos $\cG$.
-	A su vez como $F$ es un subgrupo de $\pi_1 (\cG, P)$ tenemos que actúa sin inversiones.
-	Estamos en condiciones de usar el teorema de Serre \ref{teo_Serre} y así obtenemos que este grupo debe ser libre. 
+	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$ porque la restricción de $h$ a $G_Q$ es inyectiva para todo $Q \in V$.
 	
-	Tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$ y queremos ver que tiene índice finito.
+	Recordemos que dado $T$ árbol generador de $Y$ tenemos que $\pi_1(\cG, T)$ actúa sin inversiones de aristas sobre $\Xm$ el árbol de Bass--Serre de $\cG$.
+	Por el teorema \ref{teo_grp_fund_iso} tenemos que podemos identificar $\pi_1(\cG,P)$ con $\pi_1(\cG,T)$ y de esta manera como $F \le \pi_1(\cG,P)$ luego tenemos que $F$ actúa sobre $\Xm$.
+	Como los estabilizadores de la acción sobre $\Xm$ son los grupos $G_{P}$ para todo $P \in V$,	esto nos dice que el grupo $F$ actúa libremente sobre el árbol de Bass--Serre de nuestro grafo de grupos $\cG$.
+	Estamos en condiciones de usar el teorema de Serre \ref{teo_Serre} dado $F$ actúa libremente sobre el árbol $\Xm$ por lo tanto $F$ debe ser un grupo libre. 
+	
+	Tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$, que es un grupo finitamente generado, y queremos ver que $F$ tiene índice finito para probar que $\pi_1(\cG,P)$ es virtualmente libre.
 	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$ y como $S(X) \simeq \pi_1(\cG, P) / F$, por la propiedad universal del cociente, entonces $(\pi_1(\cG, P) : F) < \infty$ tal como queríamos ver.
 	
-	Finalmente notemos que por \ref{prop_karrass_formula} el grupo $F$ es un \fg tal como queríamos ver.
 \end{proof}
 
 

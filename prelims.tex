@@ -3,18 +3,64 @@
 
 \chapter{Preliminares.}
 
-En este capítulo introducimos resultados estándares de teoría de lenguajes y grupos que usaremos a través de esta tesis.
 
-\section{Grupos virtualmente libres.}
-\todo[inline]{Agregar resultados y notación que usamos para grupos libres.}
+En este capítulo introduciremos notación y varios resultados estándares que utilizaremos a lo largo de la tesis.
+
+En la primer sección \ref{secc_grupos_vl} introduciremos los grupos virtualmente libres y probaremos algunos resultados estándares de teoría de grupos sobre grupos finitamente generados. 
+La observación \ref{obs_presentacion_vl} será de gran utilidad en los siguientes capítulos para tener una buena presentación para el problema de la palabra para los grupos virtualmente libres.
+
+En la segunda sección \ref{secc_tlen} introduciremos ágilmente resultados estándares de la teoría de lenguajes junto con algunos ejemplos para ilustrar todas estas definiciones.
+En particular nos interesará especialmente para este trabajo la definición de los lenguajes \ic que introduciremos en la subsección \ref{subs_ic}. 
+
+Finalmente en \ref{} introducimos la notación que usaremos para los grafos no dirigidos, introduciremos los grafos de Cayley y probaremos un resultado \ref{} sobre los grafos de Cayley de los grupos libres que nos servirá más en adelante para guiarnos en la caracterización de los grafos de Cayley de los grupos virtualmente libres.
+
+\section{Grupos virtualmente libres.}\label{secc_grupos_vl}
+
+
+
 \begin{deff}
-	Un grupo $G$ finitamente generado es \emph{virtualmente libre} si existe un subgrupo libre $F$ tal que su índice en $G$ es finito.
+	Dado $H$ subgrupo de $G$ podemos definir la \emph{acción por multiplicación a izquierda} sobre $G$ como $\alpha: H \to S(G)$ definida por $\alpha(h)(g) = hg$.
+	En este caso el cociente por esta acción lo vamos a denotar $H \backslash G $.
+	
+	Análogamente podemos definir una \emph{acción por multiplicación a derecha} $\beta:H \to S(G)$ definida como $\beta(h)(g) = gh$.
+	Al cociente de esta acción lo vamos a denotar $G/H$.
 \end{deff}
 
-Veamos algunas propiedades elementales que cumplen todos los grupos \vl. 
-Antes probemos algunos lemas sobre grupos.
+A los elementos de $G/H$ los llamaremos \emph{cosets a izquierda} y los denotaremos $gH$ mientras que a los de $H \backslash G$ los llamaremos \emph{cosets a derecha} y los denotaremos $Hg$.
+
 \begin{deff}
-	Sea $G$ un grupo y $H$ un subgrupo entonces el normalizador de $H$ en $G$ es el siguiente subgrupo
+	Dado $G$ grupo y $H$ subgrupo el \emph{índice} de $H$ en $G$ es el número de cosets a izquierda de $H$ en $G$ y lo denotaremos $[G:H]$.
+	
+\end{deff}
+
+Por la definición de cosets que dimos tenemos que $[G:H] = |G/H|$.
+Equivalentemente tenemos que podemos definir al índice como $[G:H] = |H \backslash G|$, ver \cite{}.
+
+\begin{deff}
+	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función inyectiva $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
+	dado $H$ grupo y $f:A \to H$ función entonces existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota (a) = f(a)$ para todo $a \in A$.
+	Equivalentemente el siguiente diagrama conmuta,
+	\begin{center}
+		\begin{tikzcd}
+			F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
+			&  &   \\
+			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
+		\end{tikzcd}
+	\end{center}
+	
+\end{deff}
+
+Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
+En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
+Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $S$ tal que $|A| = k$.
+
+\begin{deff}
+	Un grupo $G$ es \emph{finitamente generado} si existe un conjunto finito $A$ junto con un epimorfismo de grupos $\pi: F_{A} \twoheadrightarrow G$.
+\end{deff}
+
+
+\begin{deff}
+	Sea $G$ un grupo y $H$ un subgrupo entonces el \emph{normalizador} de $H$ en $G$ es el siguiente subgrupo
 	\begin{equation*}
 		N_G(H) = \{ g\in G : gHg^{-1} = H  \}
 	\end{equation*}
@@ -23,7 +69,7 @@ Antes probemos algunos lemas sobre grupos.
 Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
 
 \begin{lema}\label{lema_normalizador_conjugados}
-	Si $G$ es un grupo \fg y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
+	Si $G$ es un grupo finitamente generado y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
 \end{lema}
 \begin{proof}
 	Para ver que tiene índice finito notemos que $H \le N_G(H)$ por lo tanto tenemos que 
@@ -31,20 +77,23 @@ Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del sub
 	[G:N_G(H)] \le [G:H] < \infty.
 	\]
 	
-	Para probar la otra afirmación definimos la siguiente función hacia los cosets a derecha del normalizador desde el conjunto $S$,
+	Para probar la otra afirmación definimos la siguiente función hacia los cosets a izquierda del normalizador desde el conjunto $S$,
 	\begin{align*}
-		S  &\to  G/N_G(H) \\
-		sHs^{-1} &\mapsto N_G(H)s
+		S  &\to  G/N_G(H)  \\
+		sHs^{-1} &\mapsto sN_G(H)
 	\end{align*}
-	Veamos que es biyectiva.
+	Veamos que es biyectiva viendo que es inyectiva ya que $G/N_{G}(H)$ es un conjunto finito.
 	
-	Si $N_G(H)s = N_G(H)t$ entonces tenemos que esto sucede si y solo sí $st^{-1} \in N_G(H)$.
+	Si $sN_G(H) = tN_G(H)$ entonces tenemos que esto sucede si y solo sí $t^{-1}s \in N_G(H)$.
 	Esto nos dice que por la definición del normalizador,
 	\[
-	st^{-1} H ts^{-1} = H \iff s^{-1}Hs = t^{-1}Ht
+	t^{-1}s H s^{-1}t = H \iff sHs^{-1} = tHt^{-1}
 	\]
-	y de esta manera obtenemos que la función está bien definida y es biyectiva.
+	y de esta manera obtenemos que la función está bien definida y es inyectiva y por lo tanto biyectiva.
+	
 \end{proof}
+
+\todo[inline]{Seguir desde acá.}
 
 \begin{lema}\label{lema_indice_interseccion}
 	Sea $G$ un grupo \fg \  y sean $K,H$ subgrupos de índice finito entonces $K \cap H$ es un subgrupo de índice finito.
@@ -98,9 +147,13 @@ Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del sub
 	
 \end{proof}
 
-
+\begin{deff}
+	Un grupo $G$ finitamente generado es \emph{virtualmente libre} si existe un subgrupo libre $F$ tal que $(G:F) < \infty$.
+\end{deff}
 Con esto podemos probar estos resultados elementales de grupos \vl.
 
+
+\todo[inline]{Sacar enumerate de la demostración.}
 \begin{prop}\label{prop_vls}
 	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
 	\begin{enumerate}
@@ -236,7 +289,7 @@ Veamos ahora unos ejemplos y contrajemplos de grupos \vl s.
 		
 	\end{enumerate}
 \end{ej}
-\section{Teoría de lenguajes.}	
+\section{Teoría de lenguajes.}\label{secc_tlen}	
 
 Consideremos un conjunto no vacío $\Sigma$ que llamaremos en el contexto de los lenguajes un \emph{alfabeto}. 
 Dado $k \in \NN$ denotaremos $\Sigma^k$ el conjunto de sucesiones finitas de elementos de $\Sigma$ de $k$ letras.
@@ -411,7 +464,7 @@ Vale que los lenguajes aceptados por automátas finitos no determinísticos son 
 
 
 
-\subsection{Lenguajes independientes de contexto.}
+\subsection{Lenguajes independientes de contexto.} \label{subs_ic}
 \begin{deff}
 	Una gramática $\gramatica $ es \emph{independiente de contexto} si las producciones tienen la siguiente forma:
 	\begin{equation*}
@@ -625,8 +678,8 @@ El siguiente resultado nos dice que en el caso que nuestro autómata sea no dete
 
 
 
-
-
+\section{Grafos no dirigidos.}
+\todo[inline]{Agregar lo básico de grafos de Cayley y probar grafo de Cayley de libre es árbol}
 
 
 
