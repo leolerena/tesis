@@ -6,309 +6,45 @@
 
 En este capítulo introduciremos notación y varios resultados estándares que utilizaremos a lo largo de la tesis.
 
-En la primer sección \ref{secc_grupos_vl} introduciremos los grupos virtualmente libres y probaremos algunos resultados estándares de teoría de grupos sobre grupos finitamente generados. 
-La observación \ref{obs_presentacion_vl} será de gran utilidad en los siguientes capítulos para tener una buena presentación para el problema de la palabra para los grupos virtualmente libres.
-
-En la segunda sección \ref{secc_tlen} introduciremos ágilmente resultados estándares de la teoría de lenguajes junto con algunos ejemplos para ilustrar todas estas definiciones.
+En la primera sección \ref{secc_tlen} introduciremos ágilmente resultados estándares de la teoría de lenguajes junto con algunos ejemplos para ilustrar todas estas definiciones.
 En particular nos interesará especialmente para este trabajo la definición de los lenguajes \ic que introduciremos en la subsección \ref{subs_ic}. 
+
+
+En la segunda sección \ref{secc_teo_grp} introduciremos notación y probaremos algunos resultados  sobre grupos finitamente generados. 
+
 
 Finalmente en \ref{} introducimos la notación que usaremos para los grafos no dirigidos, introduciremos los grafos de Cayley y probaremos un resultado \ref{} sobre los grafos de Cayley de los grupos libres que nos servirá más en adelante para guiarnos en la caracterización de los grafos de Cayley de los grupos virtualmente libres.
 
-\section{Grupos virtualmente libres.}\label{secc_grupos_vl}
 
-
-
-\begin{deff}
-	Dado $H$ subgrupo de $G$ podemos definir la \emph{acción por multiplicación a izquierda} sobre $G$ como $\alpha: H \to S(G)$ definida por $\alpha(h)(g) = hg$.
-	En este caso el cociente por esta acción lo vamos a denotar $H \backslash G $.
-	
-	Análogamente podemos definir una \emph{acción por multiplicación a derecha} $\beta:H \to S(G)$ definida como $\beta(h)(g) = gh$.
-	Al cociente de esta acción lo vamos a denotar $G/H$.
-\end{deff}
-
-A los elementos de $G/H$ los llamaremos \emph{cosets a izquierda} y los denotaremos $gH$ mientras que a los de $H \backslash G$ los llamaremos \emph{cosets a derecha} y los denotaremos $Hg$.
-
-\begin{deff}
-	Dado $G$ grupo y $H$ subgrupo el \emph{índice} de $H$ en $G$ es el número de cosets a izquierda de $H$ en $G$ y lo denotaremos $[G:H]$.
-	
-\end{deff}
-
-Por la definición de cosets que dimos tenemos que $[G:H] = |G/H|$.
-Equivalentemente tenemos que podemos definir al índice como $[G:H] = |H \backslash G|$, ver \cite{}.
-
-\begin{deff}
-	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función inyectiva $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
-	dado $H$ grupo y $f:A \to H$ función entonces existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota (a) = f(a)$ para todo $a \in A$.
-	Equivalentemente el siguiente diagrama conmuta,
-	\begin{center}
-		\begin{tikzcd}
-			F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
-			&  &   \\
-			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
-		\end{tikzcd}
-	\end{center}
-	
-\end{deff}
-
-Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
-En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
-Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $S$ tal que $|A| = k$.
-
-\begin{deff}
-	Un grupo $G$ es \emph{finitamente generado} si existe un conjunto finito $A$ junto con un epimorfismo de grupos $\pi: F_{A} \twoheadrightarrow G$.
-\end{deff}
-
-
-\begin{deff}
-	Sea $G$ un grupo y $H$ un subgrupo entonces el \emph{normalizador} de $H$ en $G$ es el siguiente subgrupo
-	\begin{equation*}
-		N_G(H) = \{ g\in G : gHg^{-1} = H  \}
-	\end{equation*}
-\end{deff}
-
-Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
-
-\begin{lema}\label{lema_normalizador_conjugados}
-	Si $G$ es un grupo finitamente generado y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
-\end{lema}
-\begin{proof}
-	Para ver que tiene índice finito notemos que $H \le N_G(H)$ por lo tanto tenemos que 
-	\[
-	[G:N_G(H)] \le [G:H] < \infty.
-	\]
-	
-	Para probar la otra afirmación definimos la siguiente función hacia los cosets a izquierda del normalizador desde el conjunto $S$,
-	\begin{align*}
-		S  &\to  G/N_G(H)  \\
-		sHs^{-1} &\mapsto sN_G(H)
-	\end{align*}
-	Veamos que es biyectiva viendo que es inyectiva ya que $G/N_{G}(H)$ es un conjunto finito.
-	
-	Si $sN_G(H) = tN_G(H)$ entonces tenemos que esto sucede si y solo sí $t^{-1}s \in N_G(H)$.
-	Esto nos dice que por la definición del normalizador,
-	\[
-	t^{-1}s H s^{-1}t = H \iff sHs^{-1} = tHt^{-1}
-	\]
-	y de esta manera obtenemos que la función está bien definida y es inyectiva y por lo tanto biyectiva.
-	
-\end{proof}
-
-\todo[inline]{Seguir desde acá.}
-
-\begin{lema}\label{lema_indice_interseccion}
-	Sea $G$ un grupo \fg \  y sean $K,H$ subgrupos de índice finito entonces $K \cap H$ es un subgrupo de índice finito.
-\end{lema}
-\begin{proof}
-	Primero notemos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos,
-	\[
-	KH / K \simeq K / K \cap H
-	\]
-	y en particular como $|KH / K| \le |G / K| < \infty$ por hipótesis obtenemos así que $|K / K \cap H| < \infty$.
-	
-	Finalmente por una propiedad de índices de subgrupos obtenemos lo siguiente
-	\[
-	[G:K\cap H] = [G:K][K: K \cap H]
-	\]
-	y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
-\end{proof}
-
-\begin{lema}\label{lema_subg_fg}
-	Sea $G$ un \fg y sea $H$ subgrupo de índice finito entonces $H$ es un \fg.
-\end{lema}
-\begin{proof}
-	Sea $A = \{g_1, \dots, g_n\}$ conjunto finito de generadores de $G$.
-	Sea $T =\{t_1, \dots, t_m\}$ conjunto transversal a derecha de $H$, esto es que $Ht_1, \dots, Ht_k$ son todos los cosets a derecha de $H$ sobre $G$.
-	Supongamos que $t_1=1$ dado que es el representante del coset $H$.
-	
-	Dado $g_j$ generador de $G$ debe existir $h_{ij} \in H$ tal que $h_{ij}t_{k} = t_ig_j$ para cierto $t_k$.
-	También debe existir $h_i \in H$ de manera que $ h_i t_{k} = g_i$ para cierto $t_k$.
-	Veamos que el conjunto finito 
-	\[
-	B = \{ h_{ ij}  \}_{1 \le i,j \le n } \cup \{ h_i \}_{1 \le i \le n}
-	\]
-	genera a $H$.
-	
-	Dado $h \in H$ tenemos que 
-	\[
-	h = g_{i_1}\dots g_{i_r}
-	\]
-	donde usamos el conjunto finito de generadores de $G$.
-	
-	Por lo visto anteriormente podemos escribir  $g_{i_1} = h_{i_1}t_{k_1}$ y entonces nos queda la siguiente escritura de $h$,
-	\[
-	h = h_{i_1}t_{k_1} g_{i_2}\dots g_{i_r}
-	\]
-	entonces usando que $h_{k_{1}i_{2}}t_{k_2} = t_{k_1}g_{i_2} $ llegamos a la siguiente escritura de $h$,
-	\[
-	h = h_{i_1}h_{k_{1}i_{2}}t_{k_2}\dots g_{i_r}.
-	\]
-	Repitiendo inductivamente este procedimiento llegamos a que $h =h_{i_1}h_{k_{1}i_{2}} \dots t_{k_r}$.
-	Este $t_{k_r}$ tiene que ser $1$ porque justamente $h \in H$, por lo tanto tenemos $B$ es un conjunto finito de generadores de $H$.
-	
-\end{proof}
-
-\begin{deff}
-	Un grupo $G$ finitamente generado es \emph{virtualmente libre} si existe un subgrupo libre $F$ tal que $(G:F) < \infty$.
-\end{deff}
-Con esto podemos probar estos resultados elementales de grupos \vl.
-
-
-\todo[inline]{Sacar enumerate de la demostración.}
-\begin{prop}\label{prop_vls}
-	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
-	\begin{enumerate}
-		\item Si $F$ es un subgrupo libre de índice finito entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal, libre y de índice finito.
-		\item Si $H$ es un subgrupo de $G$ de índice finito entonces $H$ también resulta ser \vl.
-	\end{enumerate}
-\end{prop}
-
-\begin{proof}
-	\begin{enumerate}
-		\item Si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por el lema \ref{lema_normalizador_conjugados}.
-		Por lo tanto podemos considerar el siguiente subgrupo normal
-		\[
-		F' = \bigcap_{g \in G} gFg^{-1}
-		\]
-		donde la cantidad de grupos que estamos intersecando es finita y es normal por construcción.
-		Veamos que $F'$ nos sirve. 
-		Para ver que tiene índice finito nos alcanza con usar el lema \ref{lema_indice_interseccion} e inducción para que valga para una intersección finita arbitraria.
-		Como tiene índice finito usando \ref{lema_subg_fg} sabemos entonces que es un \fg.
-		Finalmente notemos que es libre por el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
-		
-		\item Por el lema \ref{lema_subg_fg} obtenemos directamente que $H$ es \fg.
-		Si $F$ es un libre de índice finito en $G$ podemos tomar $H \cap F$ que es libre por ser subgrupo de un libre de acuerdo al resultado \ref{coro_niels_sch}.
-		El índice resulta ser finito puesto que 
-		\[
-		[H:F\cap H] \le [G:F] < \infty.
-		\]
-	\end{enumerate}
-\end{proof}
-
-\begin{obs}\label{obs_presentacion_vl}
-	Dado $G$ \vl \ vamos a construirnos una presentación en particular.
-	
-	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
-	\begin{center}
-		\begin{tikzcd}
-			1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & G/F \arrow[r] & 1
-		\end{tikzcd}
-	\end{center}
-	
-	Consideremos que $F$ es libre generado por $Y = \{ y_1, \dots, y_n \}$.
-	Por otro lado sea $G/F = \{ b_i : 1 \le i \le m \}$ todos los elementos de este conjunto finito.
-	Elegimos un transversal a derecha $T = \{ t_1, \dots, t_m \}$ de manera que $\pi(t_i)= b_i$ y $t_1 = 1$.
-	
-	Dado que es un transversal tenemos que se deben cumplir las siguientes dos relaciones para $y_j \in Y$ y $t_i,t_j,t_k \in T$. 
-	\begin{enumerate}
-		\item $t_iy_jt_i^{-1} = u_{ij}$ donde $u_{ij} \in F$ usando que $F$ es normal.
-		\item Si tenemos que $b_ib_j = b_k$ entonces $t_it_j = z_{ij}t_k$ donde $z_{ij} \in F$ usando que $(Ht_i)(Ht_j) = Ht_k$.
-	\end{enumerate}
-	
-	Afirmamos que la siguiente es una presentación finita de $G$.
-	\[
-	\langle W \mid R \rangle =  \langle y_1, \dots, y_n, t_1, \dots, t_m \mid t_iy_jt_i^{-1} = u_{ij},  t_it_j = z_{ij}t_k \rangle.
-	\]
-	Sea el grupo que genera este presentación $H$ y sea $F'$ el grupo libre sobre sus generadores.
-	
-	Notemos que $W =Y \cup T$ genera a $G$ porque justamente $F$ es libre y generado por $Y$ y $T$ es un conjunto transversal finito porque $F$ tiene índice finito en $G$.
-	Esto nos dice que tenemos un epimorfismo de grupos de $F'$ en el grupo $G$.
-	
-	Toda relación de $G'$ la cumple el grupo $G$ por la elección que tomamos, de esta manera tenemos un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama,
-	
-	\begin{center}
-		\begin{tikzcd}
-			F' \arrow[dd] \arrow[rr, "\varphi"]          &  & G \\
-			&  &   \\
-			H \arrow[rruu, "\overline \varphi"', dashed] &  &  
-		\end{tikzcd}
-	\end{center}
-	
-	El grupo  $G$ es tal que a toda palabra $w$ en sus generadores la podemos llevar a que sea de la pinta
-	\[
-	w = yt
-	\]
-	donde $y \in F$ reducida y $t \in T$ es alguno de los transversales. 
-	Para llegar a esto hacemos el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg}.
-	
-	De esta manera una palabra es trivial si y solamente si $y=1$ y $t=1$. 
-	Esto nos dice que $\ol \varphi(w) = 1$ si y solamente si $w=1$. 
-	Concluimos así que $\ol \varphi$ es un isomorfismo de grupos tal como queríamos ver y por lo tanto  $\langle W \mid R \rangle$ resultó ser una presentación de $G$.
-	
-\end{obs}
-\medskip
-
-Veamos ahora unos ejemplos y contrajemplos de grupos \vl s.
-
-\begin{ej}
-	Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos que no lo sean.
-
-	\begin{enumerate}	
-		\item 
-		\todo[inline]{Escribir bien esta flia de ejemplo que son las extensiones.}
-		Cualquier extensión de un grupo libre por un grupo finito es un grupo virtualmente libre,
-		\[
-		1 \to F \to G \to K \to 1
-		\]
-		donde $K$ es un grupo finito y $F$ es un grupo \fg libre.
-		En particular esto nos da los casos más elementales de productos directos y semidirectos, esto es $G= F \times K$ o bien  $G = F \ltimes K$.
-		En este capítulo veremos que todo grupo \vl \ podemos considerarlo como un subgrupo de una extensión de este tipo.
-		
-		\item El ejemplo más sencillo de un grupo que no es \vl \ es $\ZZ \times \ZZ$.
-		La primera observación es que al ser abeliano si tiene un subgrupo libre necesariamente tiene que ser isomorfo a $\ZZ$.
-		
-		Nos alcanza con ver que no es virtualmente $\ZZ$.
-		Sea $F$ un subgrupo que es isomorfo a $\ZZ$.
-		Sea $(n,m) \in \ZZ \times \ZZ$ el generador de $F$.
-		Probaremos que $\ZZ \times \ZZ / F$ tiene orden infinito.
-		Para eso consideraremos $(p,q) \in \ZZ \times \ZZ$	tal que $p,q$ son primos distintos y ambos coprimos con $m,n$.
-		Veamos que $[(p,q)] \in \ZZ \times \ZZ / F$ tiene orden infinito.
-		Si no lo fuera deberían existir $\alpha, \beta \in \ZZ$ de manera que 
-		\begin{align*}
-			\alpha (p,q) = \beta(n,m) 
-		\end{align*}
-		
-		como todos son coprimos entre sí esto nos dice que $p \mid \beta$ y similarmente que $q \mid \beta$, por lo que tenemos que $q \mid \alpha$ y $p \mid \alpha$.
-		Esto nos dice que se pueden escribir de esta manera
-		\begin{align*}
-			\alpha = p^{r_1} q^{s_1} \gamma_1 \\
-			\beta = p^{r_2} q^{s_2} \gamma_2
-		\end{align*}
-		con $r_i, s_i \ge 1$ para $i=1,2$.
-		
-		Finalmente como 
-		\[ 
-		\alpha p = \beta n
-		\]
-		tenemos que $r_1+ 1 = r_2$ pero por otro lado como
-		\[
-		\alpha q  = \beta m
-		\]
-		acá tenemos que al ser $m$ coprimo con $p$ luego la multiplicidad de $p$ en la descomposición en primos de lo que está a la izquierda es $r_2 - 1 $ mientras que lo que está a la derecha es $r_2$.
-		
-		Esto es una contradicción que vino de suponer que $[(p,q)] \in \ZZ \times \ZZ / F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
-		
-	\end{enumerate}
-\end{ej}
 \section{Teoría de lenguajes.}\label{secc_tlen}	
 
-Consideremos un conjunto no vacío $\Sigma$ que llamaremos en el contexto de los lenguajes un \emph{alfabeto}. 
-Dado $k \in \NN$ denotaremos $\Sigma^k$ el conjunto de sucesiones finitas de elementos de $\Sigma$ de $k$ letras.
+
+Consideremos un conjunto no vacío $\Sigma$ luego dado $k \in \NN$ denotaremos $\Sigma^k$ al conjunto de palabras en $\Sigma$ de exactamente $k$ elementos.
 Hacemos énfasis especial en el caso que $k=0$ denotando $\Sigma^0 = \lambda$ a la \emph{palabra vacía}.
-Dada una palabra $w= a_1 \dots a_k$ con  $a_i \in \Sigma$ diremos que su longitud es $k$ y lo denotaremos $|w| = k$. 
-Similarmente denotaremos $|w|_{i}$ a la cantidad ocurrencias de $a_{i}$ en $w$.
+Dada una palabra $w= a_1 \dots a_k \in \Sigma^k$ diremos que su longitud es $k$ y lo denotaremos $|w| = k$. 
+Similarmente si $ \Sigma = \{ a_{i} \}_{i \in I} $ denotaremos $|w|_{i}$ a la cantidad ocurrencias de $a_{i}$ en $w$.
 
 
 
 \begin{deff}
-	El \emph{monoide libre} sobre un alfabeto $\Sigma$ es el siguiente conjunto
+	Dado $\Sigma$ conjunto consideramos
 	\begin{equation*}
 		\Sigma^{*} = \bigcup_{k=0}^{\infty} \Sigma^k
 	\end{equation*}
-	con la operación $\cdot$ que es la concatenación de palabras. 
-	Es decir dadas $w_1 \in \Sigma^{k}, w_2 \in \Sigma^{l}$ luego $w_1 \cdot w_2 \in \Sigma^{k+l} \subset \Sigma^*$. El elemento neutro es la palabra vacía que corresponde a la copia de $\Sigma^0$ que es la única palabra sin letras. 
+	y una operación binaria
+	\[
+		\cdot: \Sigma^{*} \times \Sigma^{*} \to \Sigma^{*}
+	\]
+	que llamaremos la \emph{concatenación de palabras} y que definimos de la siguiente manera: 
+	dadas $w_1=a_{1}^1 \dots a_{k}^1 \in \Sigma^{*}, w_2 = a_{1}^{2} \dots a_{l}^{2} \in \Sigma^{*}$ luego $w_1 \cdot w_2 = a_{1}^1 \dots a_{k}^1 a_{1}^{2} \dots a_{l}^{2} $.
+	Esta operación es asociativa y tiene como elemento neutro a $\lambda$.
+	De esta manera obtenemos que $(\Sigma^{*}, \cdot)$ es un monoide que llamaremos el \emph{monoide libre} sobre $\Sigma$.
 \end{deff}
+
+Este monoide también puede ser caracterizado salvo isomorfismo por una propiedad universal.
+
 \begin{obs}
-	El monoide es libre con la siguiente propiedad universal: si tenemos una función del alfabeto $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama.	
+	El monoide es libre con la siguiente propiedad universal: si tenemos una función de conjuntos $f: \Sigma \to M$ donde $M$ es algún monoide entonces existe un único morfismo de monoides $\overline f: \Sigma^{*} \to M$ que hace conmutar al siguiente diagrama.	
 	
 	\begin{center}
 		\begin{tikzcd}
@@ -319,7 +55,9 @@ Similarmente denotaremos $|w|_{i}$ a la cantidad ocurrencias de $a_{i}$ en $w$.
 	
 \end{obs}
 
-Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$ es una palabra $u \in \Sigma^*$ tal que $w = vuz$ para algunas $v, z \in \Sigma^*$. Si $w = vu$ entonces $v$ es un prefijo de $w$ y $u$ es un subfijo de $w$.
+Una \emph{palabra} sobre $\Sigma$ es un $w \in \Sigma^*$.
+Si $w $ es una palabra sobre el alfabeto $\Sigma$ luego una \emph{subpalabra} $u$ de $w$ es una palabra $u \in \Sigma^*$ tal que $w = vuz$ para algunas $v, z \in \Sigma^*$. 
+Si $w = vu$ entonces $v$ es un \emph{prefijo} de $w$ y $u$ es un \emph{subfijo} de $w$.
 
 
 \begin{deff}
@@ -343,8 +81,8 @@ Si $w$ es una palabra sobre el alfabeto $\Sigma$ luego una subpalabra $u$ de $w$
 
 Dada una gramática ${\cal G} = (V, \Sigma, P, S)$ a cualquiera de sus producciones $(\gamma, \nu) \in P$, la vamos a denotar por medio de la siguiente notación $\gamma \to \nu$. 
 
-A partir de una gramática $\cal G$ podemos definirnos una relación sobre las cadenas $(\Sigma \cup V)^*$. 
-Dados $x,y \in (\Sigma \cup V)^*$ diremos que $x$ \emph{deriva} en $y$ si existen $u,v,w,z \in (\Sigma \cup V)^*$ tales que $x = uwv$ y tenemos una producción $w \to z \in P$ de manera que $y=uzv$.
+A partir de una gramática $\cGg$ vamos a definir una relación sobre $(\Sigma \cup V)^*$. 
+Dados $x,y \in (\Sigma \cup V)^*$ diremos que $x$ \emph{deriva} en $y$ si existen $u,v,w,z \in (\Sigma \cup V)^*$ tales que $x = uwv$ e $y=uzv$ y tenemos una producción $w \to z \in P$.
 La notación que usaremos es $x \Rightarrow_{\cal G} y$. 
 Consideremos la clausura transitiva y reflexiva de esta relación que denotaremos por $\deriva$.
 
@@ -354,13 +92,15 @@ Consideremos la clausura transitiva y reflexiva de esta relación que denotaremo
 
 
 \begin{deff}
-	Dada una gramática $\cG$ consideramos el \emph{lenguaje generado por la gramática} 
+	Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
 	\[
 	L({\cal G}) = \{ w \in \Sigma^* \ | \ S \overset{*}{\Rightarrow_{\cal G}} w   \}.
 	\]
 \end{deff}
 
-Este lenguaje está formado por las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial. 
+Este lenguaje está formado por las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial.
+De esta manera una gramática la podemos pensar como un conjunto de reglas que nos permite generar un lenguaje. 
+ 
 
 \medskip
 \begin{ej}\label{gramatica-regular}
@@ -421,28 +161,34 @@ De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
 	\end{itemize}
 \end{deff}
 
-Un par $(q,w) \in Q \times \Sigma^*$ lo llamaremos una configuración del automáta.
-Consideremos que $w = aw'$ donde $a \in \Sigma$ y $w' \in \Sigma^*$ luego si tenemos que $p \in \delta(q,a) $ entonces denotaremos esto así $(q,w) \vdash (p,w')$.
-Esto nos define una relación sobre $Q \times \Sigma^*$ tal que si tomamos la clausura transitiva y simétrica obtenemos una relación de equivalencia sobre este conjunto.
+Un par $(q,w) \in Q \times \Sigma^*$ lo llamaremos una \emph{configuración} del autómata.
+Consideremos que $w = aw'$ donde $a \in \Sigma$ y $w' \in \Sigma^*$ luego si tenemos que $p \in \delta(q,a) $ entonces denotaremos esto así $(q,w) \vdash (p,w')$ y diremos que .
+Esto nos define una relación sobre $Q \times \Sigma^*$ tal que su clausura transitiva y reflexiva 
+la denotaremos $\vdash^*$.
 
 
 \begin{deff}
-	El lenguaje generado por un autómata finito no determinístico $M$ es
+	Dado un autómata finito no determinístico $\cal M$ el \emph{lenguaje generado} por $M$ es el siguiente
 	
 	\[
-	L({\cal M} ) = \{  w \in \Sigma^*, q_F \in F \mid (q_1,w) \vdash^* (q_F,\lambda)     \}
+	L({\cal M} ) = \{  w \in \Sigma^*, q_F \in F \mid (q_0,w) \vdash^* (q_F,\lambda)     \}.
 	\]
-	
-	
 \end{deff}
+\medskip
+
+Así como las gramáticas generan lenguajes pensamos que los autómatas aceptan lenguajes.
+Más en particular dado ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ autómata finito no determinístico y $w \in \Sigma^*$ palabra diremos que $\cal M$ \emph{acepta} a $w$ si $w \in L(\cal M)$.
+Una manera de \emph{consumir} la palabra $w$ es una sucesión $(q_0,w) \vdash (q_{i_{1}}, w_{i_{1}}) \vdash^{*} (q_{i_{n}}, \lambda)$.
+
+\medskip
 
 \begin{obs}
-	Al ser un autómata finito no determinístico existen posiblemente más de una manera de consumir alguna palabra en el autómata. 
-	Es así que por la definición que dimos la palabra es aceptada por el autómata si al menos alguna de estas derivaciones la lleva a ser aceptada.
-	No importa si existen algunas que no lo hagan mientras una sí lo haga. 
+	Decimos que estos autómatas son no determinísticos porque dada una configuración del autómata tenemos más de un estado al cual podemos acceder por medio de la función de transición.
+	Esto nos dice que existen posiblemente más de una manera de consumir alguna palabra en el autómata. 
+	Es así que por la definición que dimos la palabra es aceptada por el autómata si al menos alguna de estas maneras de consumirla la lleva a ser aceptada.
+	Es importante notar que no importa si existen algunas que no lo hagan mientras que exista una que sí lo haga. 
 \end{obs}
 
-%Como vimos en este ejemplo el lenguaje $L = \{ a^kb \ : \ k \ge 0  \}$ es aceptado por un automáta no determinístico finito y por lo que sabíamos del ejemplo \ref{gramatica-regular} es un lenguaje regular.
 Vale que los lenguajes aceptados por automátas finitos no determinísticos son justamente los regulares.
 
 \begin{teo}
@@ -450,18 +196,8 @@ Vale que los lenguajes aceptados por automátas finitos no determinísticos son 
 \end{teo}
 
 \begin{proof}
-	Demostración estándar. Ver \cite{hopcraft-ullman}.
+	Ver \cite{hopcraft-ullman}.
 \end{proof}
-
-
-
-
-%definición automáta finito
-%definición de lenguaje regular por medio del automáta, las otras defs no son necesarias
-% comentar que los regulares son cerrados para grupos? quizá pueda servir para después
-
-
-
 
 
 \subsection{Lenguajes independientes de contexto.} \label{subs_ic}
@@ -487,37 +223,35 @@ Vale que los lenguajes aceptados por automátas finitos no determinísticos son 
 	\]
 	tal que este es el lenguaje de los palíndromos. 
 	Construyamos una gramática independiente de contexto para este lenguaje.
-	Sea $w$ una palabra en $L$ luego sabemos que si su longitud es mayor que uno entonces debe ser que $w = a u a$ o $w = b u b$ para cierta palabra $u \in L$ dado que $u$ necesariamente tiene que ser un palíndromo porque $w$ lo es. 
-	Esto sucede para todas las palabras del lenguaje exceptuando las palabras de longitud uno que son justamente las letras del alfabeto. 
+	Sea $w$ una palabra en $L$ luego sabemos que si $|w| > 1$ entonces debe ser que $w = a u a$ o $w = b u b$ para cierta palabra $u \in L$ que cumple que es un palíndromo porque $w$ lo es. 
+	Esto sucede para todas las palabras del lenguaje exceptuando las palabras $w$ tales que $|w|=1$ que en nuestro caso en particular resultan ser dos palabras $w=a$ o bien $w = b$. 
 	De esta manera podemos considerar la siguiente gramática ${\cal G}  =  (\{S\}, \Sigma, P, S )$ donde las producciones $P$ están dadas por:
 	\begin{equation*}
 		S  \to \lambda \\ \mid a \\ S  \mid  b \\ \mid aSa \\ \mid bSb. \\
 	\end{equation*}
 
-	Para ver que esta gramática genera al lenguaje $L$ notemos que si tomamos una palabra en el lenguaje $w \in L$ luego si no es una letra al ser palíndromo sobre el alfabeto $\Sigma$ necesariamente debe comenzar con $a$ o con $b$ y de esta manera tenemos que la primer derivación es $S \to aSa$ o $S \to bSb$. 
+	Para ver que esta gramática genera al $L$ notemos que si tomamos una palabra en el $w \in L$ tal que $|w| > 1$ entonces necesariamente debe comenzar con $a$ o con $b$ y de esta manera tenemos que la primer producción es $S \to aSa$ o $S \to bSb$. 
 	Dado que la subpalabra $w = aua$ que se obtiene de $w$ sin considerar la primera y última letra es un palíndromo (e incluso podría ser la palabra vacía) luego podemos repetir este proceso para llegar a $S \deriva w$ después de finitos pasos. 
 	Por otro lado toda palabra generada por esta gramática es un palíndromo porque todas las reglas son tales que agregan una letra al principio y la misma al final o simplemente agregan letras que también son palíndromos.
 \end{ej}
 
-Toda gramática independiente de contexto la podemos tomar para que sea de una forma en particular.
+Las gramáticas pueden ser modificadas de manera que sigan generando el mismo lenguaje, en el caso de las gramáticas independiente de contexto las podemos llevar a una forma normal.
 
 \begin{deff}
-	Una gramática $\gramatica$ independiente de contexto está en su \emph{forma normal de Chomsky} si las producciones son de este tipo:
-	\begin{enumerate}
-		\item[\textbf{CH1.}] $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.
-		\item[\textbf{CH2.}] $A \to a$ donde $A \in V, a \in \Sigma$.
-		\item[\textbf{CH3.}] $S \to \lambda$ 
+	Una gramática $\gramatica$ independiente de contexto está en \emph{forma normal de Chomsky} si las producciones son de este tipo:
+	\begin{enumerate}[i)]
+		\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.
+		\item $A \to a$ donde $A \in V, a \in \Sigma$.
+		\item $S \to \lambda$ 
 	\end{enumerate}
 \end{deff}
 
-
-
 \begin{prop}
-	Para toda gramática $\cal G$ independiente de contexto puede tomar otra $\cal G'$ tal que esté en forma normal de Chomsky y $\lengderivado = L(\cal G')$,
+	Dada una gramática $\cal G$ independiente de contexto podemos tomarnos otra gramática $\cal G'$ tal que esté en forma normal de Chomsky y $\lengderivado = L(\cal G')$,
 \end{prop}
 
 \begin{proof}
-	Demostración estándar. Ver \cite{hopcraft-ullman}.
+	Ver \cite{hopcraft-ullman}.
 \end{proof}
 
 \subsection{Autómatas de pila.}
@@ -527,14 +261,15 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 	\[
 	{\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)
 	\]
-	donde:
+	donde 
 	\begin{itemize}
 		\item $Q$ es un conjunto finito denominado los \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
 		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
-		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times \Sigma \cup \{ \lambda \} \times \Gamma \cup \{ \lambda \} \to {\cal P}( Q  \times \Gamma)$;
-		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
+		\item $\delta$ es la \emph{función de transición} \todo[]{estados trampa o bien función parcial.} donde $\delta: Q  \times \Sigma \cup \{ \lambda \} \times \Gamma \cup \{ \lambda \} \to {\cal P}( Q  \times \Gamma)$;
 		\item $q_0 \in Q$ es el \emph{estado inicial};
+		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
+		\item $Z_{0}$ es el \emph{símbolo inicial} de la pila y lo tomamos para que $Z_{0} \notin \Gamma$.
 	\end{itemize}
 \end{deff}
 
@@ -543,59 +278,20 @@ Toda gramática independiente de contexto la podemos tomar para que sea de una f
 \end{obs}
 
 
-Una configuración de un autómata de pila no determinístico va a ser un triple $(q,w,\gamma) \in Q \times \Sigma^* \times Z^*$.
+Una \emph{configuración} de un autómata de pila no determinístico va a ser un triple $(q,w,\gamma) \in Q \times \Sigma^* \times \Gamma^*$.
 Sea $w = aw'$ con $a \in \Sigma$ y $w' \in \Sigma^*$ tal que $(p,\gamma') \in \delta (q,a,\gamma)$ luego denotaremos $(q,w,\gamma) \vdash_{\cal M} (p,w',\gamma')$ la transición de una configuración en otra en el \APND $\cal M$.
-Esta operación nos define una relación sobre $Q \times \Sigma^* \times Z^*$.
-Consideremos la relación de equivalencia generada por la clausura transitiva y simétrica de esta operación.
-Así como en el caso de los autómatas finitos la denotaremos $\vdash^*_{\cal M}$.
+Esta operación nos define una relación sobre $Q \times \Sigma^* \times \Gamma^*$.
+Consideremos la relación generada por la clausura transitiva y reflexiva de esta operación.
+Así como en el caso anterior de los autómatas finitos la denotaremos $\vdash^*_{\cal M}$.
 
 
 \begin{deff}
-	Dado $\cal M$ un autómata de pila no determinístico consideramos el lenguaje generado por estado final como
+	Dado $\cal M$ un autómata de pila no determinístico consideramos el \emph{lenguaje generado por estado final} como
 	\begin{equation*}
 		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \lambda, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
 	\end{equation*}
 \end{deff}
 
-
-%\paragraph{Descripción instantánea del autómata.} Veamos ahora como describir formalmente el funcionamiento de un autómata a partir de lo que estamos haciendo en cierto instante. 
-%Consideremos que estamos en el instante que nuestra subpalabra que nos queda por leer es $w$, estamos en un estado $q$ y en nuestra pila tenemos la palabra $\gamma$, entonces vamos a representar al instante por medio de esta tupla $(q,w,\gamma)$.
-%Si ahora tenemos la posibilidad de movernos a otro estado $p$ tal que $(p,w',\alpha\beta) \in \delta (q,aw',x\beta)$ donde $aw' = w$ con $a$ alguna letra posiblemente vacía y similarmente $x \beta = \gamma$ con $x \in \Gamma^*$ una letra de $\Gamma$ posiblemente vacía. 
-%Este movimiento lo denotamos como $(q,aw',x\beta) \vdash (p,w',\alpha \beta)$. 
-%Podemos considerar la clausura transitiva de esta relación sobre los triples $Z \times Q \times \Sigma^*$ que denotaremos $\vdash^*$.
-
-
-%\paragraph{Funcionamiento del autómata.}
-%Un prefijo de $w$ será una subpalabra $\gamma$ tal que $w=\gamma w'$ visto con la concatenación de palabras en $\Sigma^*$.
-%
-%El autómata de pila finito funciona de la siguiente manera. 
-%Dada una palabra $w \in \Sigma$ queremos saber si es aceptada por el autómata de pila o no. Para eso vamos a ir leyendo esta palabra de izquierda a derecha. 
-%Al comenzar a leer esta palabra estamos en el estado $q_0$ que distinguimos como el estado inicial de nuestro autómata. 
-%Nos fijamos en la función de transición que es una función parcial cuánto nos da evaluada  $\delta(\lambda,q_0,\gamma)$ para algún $\gamma$ prefijo de $w$ y donde estamos mirando a $\lambda \in Z^*$ el elemento neutro de este monoide. 
-%Esto se corresponde a la idea de que al comenzar nuestra pila está vacía. 
-%En tal caso nuestra función de transición nos da un resultado que es un par $(z,q)$ donde $z \in Z^{*}$ es lo que nos va a quedar en la pila y $q$ es el nuevo estado al cual nos movimos. 
-%Notemos que nuestra función de transición no tiene porqué tener un $(z,q)$ tal que podamos movernos o podría ser bien que tenga más de uno. 
-%En este caso diremos que nuestro autómata es \emph{no determinístico} dado que en algunos casos existe más de una opción.
-%
-%En general estamos en la siguiente situación en el proceso de aceptar la palabra $w$. 
-%Tenemos algún $z \in Z$ en el tope de la pila que al ser una pila lo leeremos de derecha a izquierda, estamos en algún estado $q \in Q$ y nos quedará una subpalabra $\gamma$ de $w$ para leer. Una \emph{configuración} de nuestro autómata entonces es una manera de describir en que situación de aceptar o no aceptar una palabra y la denotamos $(z,q,\gamma)$. 
-%
-%Cuando hayamos visto toda la palabra o no tengamos manera de movernos de estado nos fijamos si el estado $p$ en el que estamos es final, es decir si $p \in F$. 
-%En tal caso la palabra $w$ es aceptada por el autómata. Formalmente estaremos en alguna configuración $zq$ para $z \in Z^*$ y $q \in Q$ y no nos queda nada de la palabra $w$ porque ya la consumimos toda.
-%\medskip
-%\begin{obs}
-%	Así como definimos el \APND para que al tener la pila vacía se detenga podríamos haberlo hecho de una manera distinta por ejemplo dejando que la pila sea vacía y así poder transicionar de una configuración a otra.	
-%	Esta manera es equivalente porque...
-%	Más en adelante nos va a resultar conceptualmente más útil para el caso que estemos viendo el problema de la palabra de un grupo mientras que para las demostraciones de esta sección usaremos esta otra definición.
-%\end{obs}
-
-
-
-%
-%\paragraph{El lenguaje aceptado por un autómata de pila.} 
-%Notemos que en particular el autómata de pila nos da un lenguaje que está formado por las palabras $w$ en el alfabeto de la entrada del autómata $\Sigma$ que son aceptadas. 
-%En general diremos que un autómata acepta un lenguaje $L$ si su lenguaje aceptado es exactamente $L$. 
-%Este lenguaje aceptado por el autómata $\cal M$ en algunas casos para hacer énfasis en el autómata 
 
 
 \begin{ej}
@@ -619,18 +315,25 @@ Así como en el caso de los autómatas finitos la denotaremos $\vdash^*_{\cal M}
 			\path (q_0) edge [loop above] node {}    (   );
 		\end{tikzpicture}
 	\end{center}
+	Donde dibujamos una flecha siempre y cuando la función de transición nos permita ir del estado del cual sale la flecha al estado al que llega.
+	A los estados finales los distinguimos dibujandoles el borde dos veces.
 	
-	La idea es que en el primer estado vamos apilando la palabra y en la segunda vamos desapilando la palabra anteriormente apilada. 
-	Nuestra función de transición $\delta$ va a ser la siguiente,
-	\begin{itemize}
-		\item $\delta(q_0,a,Z) = (q_0,aZ)$ 
-		\item $\delta(q_0,b,Z) = (q_0,ba)$ 
-		\item $\delta(q_1,a,a) = (q_0,\lambda)$.
-		\item $\delta(q_1,b,b) = (q_0,\lambda)$.
-		\item $\delta (q_0, \lambda, Z) = (q_1,Z)$
-		\item $\delta (q_0, X, Z) = (q_1, Z)$ 
-	\end{itemize}
-	donde $Z$ es decir cualquier elemento del alfabeto de la pila y $X$ cualquier elemento de nuestro alfabeto de entrada. 
+	La idea intuitiva del funcionamiento de este autómata es la siguiente: en el primer estado vamos apilando la palabra de entrada y en el segundo estado vamos desapilando la palabra anteriormente apilada. 
+	
+	Sea $Z$ cualquier elemento del alfabeto de la pila y $X$ cualquier elemento de nuestro alfabeto de entrada e $Y = \{a,b, \lambda\}$
+	entonces dada una configuración $(q_{i}, Y, Z)$ nuestra función de transición $\delta$ va a ser la siguiente,
+	\[
+		\delta(q_{i}, Y, Z)  = 
+		\begin{cases}
+			(q_0,aZ)  		& \text{si} \ i=0, Y = a \\
+			(q_0,bZ) 		&  \text{si} \ i=0, Y = b    \\
+			(q_0,\lambda) 	&  \text{si} \ i=1, Y = a, Z = a 	\\
+			(q_0,\lambda) 	&  \text{si} \ i=1, Y = b, Z = b \\
+			(q_1,Z)			& \text{si} \ i=0, Y = \lambda \\
+			(q_1, Z)		& \text{si} \ i=0 \\
+		\end{cases}
+	\]
+	\todo[]{Justificar formalmente con doble inclusión. }
 	El autómata en el primer estado apila lo que sea que estemos leyendo sin importar lo que esté en el tope de pila. 
 	En el segundo estado desapila cada vez que lo que estemos leyendo coincida con el tope de pila. 
 	Finalmente para ir del estado inicial al final tenemos en cuenta dos casos. 
@@ -638,12 +341,12 @@ Así como en el caso de los autómatas finitos la denotaremos $\vdash^*_{\cal M}
 	Estos casos se corresponden a que el palíndromo tenga longitud par o tenga longitud impar.	
 \end{ej}
 
-Este ejemplo nos da un indicio que los lenguajes aceptados por autómatas de pila también podrían ser \ic y esto efectivamente es cierto.
+Así como probamos en la subsección anterior la equivalencia de los lenguajes regulares con los lenguajes aceptados por autómatas finitos no determinísticos tenemos una equivalencia en el marco de los lenguajes independientes de contexto.
 
 \medskip
 
 \begin{teo}\label{teo_ic_apnd}
-	Un lenguaje $L$ es independiente de contexto sii es aceptado por un autómata de pila no determinístico.
+	Un lenguaje $L$ es independiente de contexto si y solo si es aceptado por un autómata de pila no determinístico.
 \end{teo}
 
 \begin{proof}
@@ -654,7 +357,7 @@ Este ejemplo nos da un indicio que los lenguajes aceptados por autómatas de pil
 
 
 Hasta ahora definimos los autómatas de pila no determinísticos que aceptan por estado final. Otra definición posible de lenguaje aceptado podría ser que acepten por pila vacía. 
-Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(q, \lambda, \lambda)$ donde $\lambda$ es la palabra vacía de ambos alfabetos respectivamente. Formalmente dado un autómata de pila $\cal M$  notaremos al lenguaje aceptado por pila vacía de la siguiente manera,
+Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(q, \lambda, \lambda)$ donde $\lambda$ es la palabra vacía de ambos alfabetos respectivamente. Formalmente dado un autómata de pila $\cal M$  notaremos al \emph{lenguaje aceptado por pila vacía} de la siguiente manera,
 \begin{equation*}
 	N({\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \lambda, \lambda), \ q \in Q, u \in \Sigma^*    \}
 \end{equation*}
@@ -674,6 +377,302 @@ El siguiente resultado nos dice que en el caso que nuestro autómata sea no dete
 	%Demo bastante fácil si se hacen los dibujitos. Quizá ni haga falta escribirla.
 	Ver \cite{hopcraft-ullman}.
 \end{proof}
+
+
+
+
+\section{Teoría de grupos.}\label{secc_teo_grp}
+
+
+
+\begin{deff}
+	Dado $H$ subgrupo de $G$ podemos definir la \emph{acción por multiplicación a izquierda} sobre $G$ como $\alpha: H \to S(G)$ definida por $\alpha(h)(g) = hg$.
+	En este caso el cociente por esta acción lo vamos a denotar $H \backslash G $.
+	
+	Análogamente podemos definir una \emph{acción por multiplicación a derecha} $\beta:H \to S(G)$ definida como $\beta(h)(g) = gh$.
+	Al cociente de esta acción lo vamos a denotar $G/H$.
+\end{deff}
+
+A los elementos de $G/H$ los llamaremos \emph{cosets a izquierda} y los denotaremos $gH$ mientras que a los de $H \backslash G$ los llamaremos \emph{cosets a derecha} y los denotaremos $Hg$.
+
+\begin{deff}
+	Dado $G$ grupo y $H$ subgrupo el \emph{índice} de $H$ en $G$ es el número de cosets a izquierda de $H$ en $G$ y lo denotaremos $[G:H]$.
+\end{deff}
+
+
+\begin{lema}\label{lema_ind_prod_inter}
+	Si $G$ es un grupo, $H$ un subgrupo de $G$ y $K$ un subgrupo de $H$ entonces
+	\[
+	[G:K] = [G:H][H:K].
+	\]
+\end{lema}
+
+Por la definición de cosets que dimos tenemos que $[G:H] = |G/H|$.
+Equivalentemente tenemos que podemos definir al índice como $[G:H] = |H \backslash G|$, ver \cite{}.
+
+\begin{deff}
+	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función inyectiva $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
+	dado $H$ grupo y $f:A \to H$ función entonces existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota (a) = f(a)$ para todo $a \in A$.
+	Equivalentemente el siguiente diagrama conmuta,
+	\begin{center}
+		\begin{tikzcd}
+			F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
+			&  &   \\
+			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
+		\end{tikzcd}
+	\end{center}
+	
+\end{deff}
+
+Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
+En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
+Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $S$ tal que $|A| = k$.
+
+\begin{deff}
+	Un grupo $G$ es \emph{finitamente generado} si existe un conjunto finito $A$ junto con un epimorfismo de grupos $\pi: F_{A} \twoheadrightarrow G$.
+	En este caso al conjunto $A$ lo llamaremos los \emph{generadores} de $G$.
+\end{deff}
+
+
+\begin{deff}
+	Sea $G$ un grupo y $H$ un subgrupo entonces el \emph{normalizador} de $H$ en $G$ es el siguiente subgrupo
+	\begin{equation*}
+		N_G(H) = \{ g\in G : gHg^{-1} = H  \}
+	\end{equation*}
+\end{deff}
+
+Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
+
+\begin{lema}\label{lema_normalizador_conjugados}
+	Si $G$ es un grupo finitamente generado y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
+\end{lema}
+\begin{proof}
+	Para ver que tiene índice finito notemos que $H \le N_G(H)$ por lo tanto tenemos que 
+	\[
+	[G:N_G(H)] \le [G:H] < \infty.
+	\]
+	
+	Para probar la otra afirmación definimos la siguiente función hacia los cosets a izquierda del normalizador desde el conjunto $S$,
+	\begin{align*}
+		S  &\to  G/N_G(H)  \\
+		sHs^{-1} &\mapsto sN_G(H)
+	\end{align*}
+	Veamos que es biyectiva viendo que es inyectiva ya que $G/N_{G}(H)$ es un conjunto finito.
+	
+	Si $sN_G(H) = tN_G(H)$ entonces tenemos que esto sucede si y solo sí $t^{-1}s \in N_G(H)$.
+	Esto nos dice que por la definición del normalizador,
+	\[
+	t^{-1}s H s^{-1}t = H \iff sHs^{-1} = tHt^{-1}
+	\]
+	y de esta manera obtenemos que la función está bien definida y es inyectiva y por lo tanto biyectiva.
+	
+\end{proof}
+
+
+\begin{lema}
+	Sea $G$ un grupo y sean $K,H$ subgrupos de índice finito entonces $K \cap H$ es un subgrupo de índice finito.
+\end{lema}
+\begin{proof}
+	Primero notemos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
+	Como  $|KH / H| \le |G / H| < \infty$ dado que $H$ tiene índice finito obtenemos así que $|K / K \cap H| < \infty$.
+	
+	Por \ref{lema_ind_prod_inter} obtenemos lo siguiente
+	\[
+	[G:K\cap H] = [G:K][K: K \cap H]
+	\]
+	y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
+\end{proof}
+
+A partir del resultado anterior con una inducción directa podemos probar el siguiente resultado.
+		\todo[]{Juntar este lema con el anterior.}
+\begin{lema}\label{lema_indice_interseccion}
+
+	Sea $G$ grupo y $K_1, \dots, K_n$ subgrupos tales que $K_{i}$ tiene índice finito para todo $ 1 \le i \le n $ entonces $\bigcap_{i=1}^{n} K_{i}$ es un subgrupo de índice finito.
+
+\end{lema}
+
+\begin{lema}\label{lema_subg_fg}
+	Sea $G$ un \fg y sea $H$ subgrupo de índice finito entonces $H$ es un \fg.
+\end{lema}
+\begin{proof}
+	Sea $A = \{g_1, \dots, g_n\}$ conjunto finito de generadores de $G$.
+	Sea $T =\{t_1, \dots, t_m\}$ conjunto transversal a derecha de $H$ tal que $t_1=1$.
+	
+	Dado $g_j$ generador de $G$ debe existir $h_{ij} \in H$ tal que $h_{ij}t_{k} = t_ig_j$ para cierto $t_k$.
+	También debe existir $h_i \in H$ de manera que $ h_i t_{k} = g_i$ para cierto $t_k$.
+	Veamos que el conjunto finito 
+	\[
+	B = \{ \ h_{ ij}  \mid {1 \le i,j \le n } \} \cup \{ \ h_i \mid {1 \le i \le n} \}
+	\]
+	genera a $H$.
+	
+	Dado $h \in H$ veamos que se puede escribir como una palabra en $B$. 
+	Tenemos que 
+	\[
+	h = g_{i_1}\dots g_{i_r}
+	\]
+	donde usamos el conjunto finito de generadores de $G$.
+	
+	Por lo visto anteriormente podemos escribir  $g_{i_1} = h_{i_1}t_{k_1}$ para cierto y entonces nos queda la siguiente escritura de $h$,
+	\[
+	h = h_{i_1}t_{k_1} g_{i_2}\dots g_{i_r}
+	\]
+	entonces usando que $h_{k_{1}i_{2}}t_{k_2} = t_{k_1}g_{i_2} $ llegamos a la siguiente escritura de $h$,
+	\[
+	h = h_{i_1}h_{k_{1}i_{2}}t_{k_2}\dots g_{i_r}.
+	\]
+	Repitiendo inductivamente este procedimiento llegamos a que $h =h_{i_1}h_{k_{1}i_{2}} \dots t_{k_r}$.
+	Necesariamente $t_{k_r} = 1$ porque $T$ es un conjunto de transversales de $H$ y $h \in H$.
+	Concluimos que $B$ es un conjunto finito de generadores de $H$.
+	
+\end{proof}
+\todo[inline]{Pasar todo al cap de grupos ic.}
+\begin{deff}
+	Un grupo finitamente generado $G$ es \emph{virtualmente libre} si tiene un subgrupo libre $F$ tal que $(G:F) < \infty$.
+\end{deff}
+
+\begin{lema}\label{lema_int_normal}
+	Sea $G$ grupo, sea $H$ subgrupo de $G$ luego el subgrupo $K = \bigcap_{g \in G} gHg^{-1}$ es un subgrupo normal de $G$.
+\end{lema}
+
+
+\begin{prop}\label{prop_vls}
+	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
+	\begin{enumerate}
+		\item Si $F$ es un subgrupo libre de índice finito entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal, libre y de índice finito.
+		\item Si $H$ es un subgrupo de $G$ de índice finito entonces $H$ también resulta ser \vl.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	Vamos a probar \textbf{1}.
+	Si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por el lema \ref{lema_normalizador_conjugados}.
+	Por el lema \ref{lema_int_normal} tenemos que el siguiente subgrupo de $G$ es normal
+	\[
+	F' = \bigcap_{g \in G} gFg^{-1}
+	\]
+	donde la cantidad de grupos que estamos intersecando es finita.
+	Veamos que este subgrupo $F'$ nos sirve. 
+	
+	
+	Como $F$ tiene índice finito y todos sus conjugados al ser isomorfos a $F$ también tienen índice finito entonces $F'$ tiene índice finito por el lema \ref{lema_indice_interseccion}.
+	Como $G$ es finitamente generado por ser virtualmente libre entonces usando \ref{lema_subg_fg} obtenemos que $F'$ es finitamente generado.
+	Finalmente notemos que es libre por el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
+	
+	Probemos \textbf{2}. 
+	Por el lema \ref{lema_subg_fg} obtenemos directamente que $H$ es un grupo finitamente generado.
+	Si $F$ es un libre de índice finito en $G$ podemos tomar $H \cap F$ que es libre por ser subgrupo de un libre de acuerdo al resultado \ref{coro_niels_sch}.
+	El índice resulta ser finito puesto que 
+	\[
+	[H:F\cap H] \le [G:F] < \infty.
+	\]
+\end{proof}
+
+\begin{obs}\label{obs_presentacion_vl}
+	Dado $G$ \vl \ vamos a construirnos una presentación en particular.
+	
+	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
+	\begin{center}
+		\begin{tikzcd}
+			1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & G/F \arrow[r] & 1
+		\end{tikzcd}
+	\end{center}
+	
+	Consideremos que $F$ es libre generado por $Y = \{ y_1, \dots, y_n \}$.
+	Por otro lado sea $G/F = \{ b_i : 1 \le i \le m \}$ todos los elementos de este conjunto finito.
+	Elegimos un transversal a derecha $T = \{ t_1, \dots, t_m \}$ de manera que $\pi(t_i)= b_i$ y $t_1 = 1$.
+	
+	Dado que es un transversal tenemos que se deben cumplir las siguientes dos relaciones para $y_j \in Y$ y $t_i,t_j,t_k \in T$. 
+	\begin{enumerate}
+		\item $t_iy_jt_i^{-1} = u_{ij}$ donde $u_{ij} \in F$ usando que $F$ es normal.
+		\item Si tenemos que $b_ib_j = b_k$ entonces $t_it_j = z_{ij}t_k$ donde $z_{ij} \in F$ usando que $(Ht_i)(Ht_j) = Ht_k$.
+	\end{enumerate}
+	
+	Afirmamos que la siguiente es una presentación finita de $G$.
+	\[
+	\langle W \mid R \rangle =  \langle y_1, \dots, y_n, t_1, \dots, t_m \mid t_iy_jt_i^{-1} = u_{ij},  t_it_j = z_{ij}t_k \rangle.
+	\]
+	Sea el grupo que genera este presentación $H$ y sea $F'$ el grupo libre sobre sus generadores.
+	
+	Notemos que $W =Y \cup T$ genera a $G$ porque justamente $F$ es libre y generado por $Y$ y $T$ es un conjunto transversal finito porque $F$ tiene índice finito en $G$.
+	Esto nos dice que tenemos un epimorfismo de grupos de $F'$ en el grupo $G$.
+	
+	Toda relación de $G'$ la cumple el grupo $G$ por la elección que tomamos, de esta manera tenemos un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama,
+	
+	\begin{center}
+		\begin{tikzcd}
+			F' \arrow[dd] \arrow[rr, "\varphi"]          &  & G \\
+			&  &   \\
+			H \arrow[rruu, "\overline \varphi"', dashed] &  &  
+		\end{tikzcd}
+	\end{center}
+	
+	El grupo  $G$ es tal que a toda palabra $w$ en sus generadores la podemos llevar a que sea de la pinta
+	\[
+	w = yt
+	\]
+	donde $y \in F$ reducida y $t \in T$ es alguno de los transversales. 
+	Para llegar a esto hacemos el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg}.
+	
+	De esta manera una palabra es trivial si y solamente si $y=1$ y $t=1$. 
+	Esto nos dice que $\ol \varphi(w) = 1$ si y solamente si $w=1$. 
+	Concluimos así que $\ol \varphi$ es un isomorfismo de grupos tal como queríamos ver y por lo tanto  $\langle W \mid R \rangle$ resultó ser una presentación de $G$.
+	
+\end{obs}
+\medskip
+
+Veamos ahora unos ejemplos y contrajemplos de grupos \vl s.
+
+\begin{ej}
+	Veamos algunos ejemplos elementales de grupos que son de esta familia y algunos que no lo sean.
+	
+	\begin{enumerate}	
+		\item 
+		Cualquier extensión de un grupo libre por un grupo finito es un grupo virtualmente libre,
+		\[
+		1 \to F \to G \to K \to 1
+		\]
+		donde $K$ es un grupo finito y $F$ es un grupo libre finitamente generado.
+		En particular esta familia de ejemplos incluye los productos directos $G= F \times K$ y semidirectos $G = F \rtimes K$.
+		
+		
+		\item Uno de los ejemplos más elementales de un grupo que no es \vl \ es $\ZZ \times \ZZ$.
+		La primera observación es que al ser abeliano si tiene un subgrupo libre necesariamente tiene que ser isomorfo a $\ZZ$ porque este es el único grupo libre abeliano.
+		
+		Nos alcanza con ver que no es virtualmente $\ZZ$.
+		Vamos a probarlo por reducción al absurdo. 
+		Sea entonces $F$ un subgrupo que es isomorfo a $\ZZ$.
+		Sea $(n,m) \in \ZZ \times \ZZ$ el generador de $F$.
+		Probaremos que $\ZZ \times \ZZ / F$ tiene orden infinito.
+		Para eso consideraremos $(p,q) \in \ZZ \times \ZZ$	tal que $p,q$ son primos distintos y ambos coprimos con $m$ y con $n$.
+		Veamos que $[(p,q)] \in \ZZ \times \ZZ / F$ tiene orden infinito.
+		Si no lo fuera deberían existir $\alpha, \beta \in \ZZ$ de manera que 
+		\begin{align*}
+			\alpha (p,q) = \beta(n,m) 
+		\end{align*}
+		
+		como todos son coprimos entre sí esto nos dice que $p \mid \beta$ y similarmente que $q \mid \beta$, por lo que tenemos que $q \mid \alpha$ y $p \mid \alpha$.
+		Esto nos dice que se pueden escribir de esta manera
+		\begin{align*}
+			\alpha = p^{r_1} q^{s_1} \gamma_1 \\
+			\beta = p^{r_2} q^{s_2} \gamma_2
+		\end{align*}
+		con $r_i, s_i \ge 1$ para $i=1,2$.
+		
+		Finalmente como 
+		\[ 
+		\alpha p = \beta n
+		\]
+		tenemos que $r_1+ 1 = r_2$ pero por otro lado como
+		\[
+		\alpha q  = \beta m
+		\]
+		acá tenemos que al ser $m$ coprimo con $p$ luego la multiplicidad de $p$ en la descomposición en primos de lo que está a la izquierda es $r_2 - 1 $ mientras que lo que está a la derecha es $r_2$.
+		
+		Esto es una contradicción que vino de suponer que $[(p,q)] \in \ZZ \times \ZZ / F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
+		
+	\end{enumerate}
+\end{ej}
 
 
 
