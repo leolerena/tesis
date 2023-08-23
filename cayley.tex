@@ -7,26 +7,7 @@
 Las referencias centrales de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
 
 
-Consideraremos grafos $\Gamma$ no dirigidos, infinitos, conexos y localmente finitos.
-A su vez, a diferencia del capítulo de Bass--Serre, no tendremos bucles, esto es que $(v,v) \notin E(\Gamma)$ para ningún $v \in V(\Gamma)$.
 
-\begin{deff}
-	Sea $G$ un \fg y $A$ un conjunto de generadores como grupo tal que $1 \notin A$.
-	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $(g,h) \in E(\Gamma)$ sii $h=ga$ para ciertos $g,h \in G$ y $a \in A \cup A^{-1}$. 
-\end{deff}
-
-Para una arista $(g,ga)$ llamaremos la \emph{etiqueta} al generador $a$.
-Si $B = A \cup A^{-1}$ el conjunto simétrico de generadores entonces extendemos esta definición a caminos sobre el grafo para obtener una palabra en el monoide $B^*$.
-Este grafo por como lo definimos no tiene aristas múltiples ni tampoco tiene bucles.
-Dado que $A$ es un conjunto de generadores tenemos que el grafo de Cayley $\Gamma$ es conexo.
-
-Todo grafo lo podemos ver como un espacio métrico si consideramos como conjunto base a sus vértices. 
-Si dos vértices $v,w$ están unidos por una arista $y$ entonces tendremos que $d(v,w)=1$.
-Esto nos define un espacio métrico discreto sobre los vértices. 
-Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = |j-i|$ para todo $i,j \in [0,n]$.
-Un \emph{árbol} es un grafo conexo y sin ciclos. 
-En particular los árboles vistos como espacios métricos resultan ser \emph{únicamente geodésicos}. 
-Esto es que si $T$ es un árbol, entonces dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
 
 
 \section{Treewidth.}
@@ -200,7 +181,11 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 \end{deff}
 
 \todo[inline]{Escribir con la notación más estándar que aparece en el paper de Krön y factorizar la construcción.}
-\todo[inline]{Agregar dibujo ilustrativo.}
+
+\begin{center}
+	\missingfigure[figwidth=6cm]{Dibujo ilustrativo.}
+\end{center}
+
 \begin{ej}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
 	
 	Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
@@ -452,6 +437,7 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 Primero una observación sobre el lenguaje del problema de la palabra de un grupo independiente de contexto.
 
 \begin{obs}\label{palabras-wp}
+	\todo[]{Tiene que ser un lema.}
 	Si tenemos un grupo $G$ tal que es independiente de contexto consideremos $\cal G$ gramática que genera al lenguaje del problema de la palabra, $\WP = L(\cal G)$.
 	Si $A$ es una de las variables de esta gramática podemos obtener el lenguaje $L_A$ de palabras generadas a partir de esta variable, donde
 	\[
@@ -468,8 +454,8 @@ Primero una observación sobre el lenguaje del problema de la palabra de un grup
 
 
 
-
-El siguiente r
+\todo[]{Completar con historia del resultado.}
+El siguiente resultado(...)
 
 \begin{teo} \cite{muller1985theory}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
@@ -478,7 +464,9 @@ El siguiente r
 	La descomposición que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley. 
 	Veamos que esta descomposición para un grupo independiente de contexto tiene treewidth finito. 
 	Buscamos $k \in \NN$ tal que nos permita acotar $|\beta C| \le k$ para todo $\beta C \in V(T)$. 
-	Alcanza con ver que los diámetros de los bolsones $\beta C$ están acotados uniformemente, esto es que exista $M \in \NN$ tal que 
+	Alcanza con ver que los diámetros de los bolsones $\beta C$ están acotados uniformemente, 
+	\todo[]{Factorizar esto en lemita.}
+	 esto es que exista $M \in \NN$ tal que 
 	\[
 	\text{diam}(\beta C) =  \sup_{g,h \in \beta C} d(g,h) \le M
 	\] 

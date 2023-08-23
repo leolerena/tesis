@@ -60,17 +60,19 @@ La referencia de estos resultados estándares es \cite{hopcraft-ullman}.
 \end{proof}
 
 Otras propiedades interesantes tienen que ver con su relación con morfismos de monoides. 
-
+\todo[]{Escribir más formalmente esta parte.}
 \begin{prop}\label{morfismos-monoides-ic}
 	Los lenguajes \ic son cerrados por:
 	\begin{enumerate}
 		\item Imágenes de morfismos de monoides.
 		\item Preimágenes de morfismos de monoides.
 	\end{enumerate}
+	
 \end{prop}
 
 \begin{proof}
-	\begin{enumerate}
+	\todo[]{Sacar el enumerate.}
+	\begin{enumerate} 
 		\item Consideramos $L$ lenguaje \ic sobre $\Sigma$.
 		Esto nos dice que existe una gramática $\gramatica $ tal que $L(\cG) = L$.
 		Si tenemos un morfismo de monoides $h: \Sigma^* \to \Delta^*$ queremos ver que existe una gramática $\cG'$ tal que $L(\cG') = h(L)$.
@@ -140,6 +142,7 @@ Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$
 
 \section{Autómatas de pila determinísticos.} 
 Si en la definición anterior del autómata pedimos que la función de transición de una configuración dada tenga a lo sumo un valor entonces nuestro autómata lo vamos a llamar determinístico. 
+\todo[]{Agregarlo como una definición más.}
 Formalmente esto es que 
 \[
 |\delta(q,a, z)| \le 1 \ \ \ \forall z \in Z, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
@@ -241,6 +244,7 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 
 Todo grupo $G$ lo podemos ver como un monoide. 
 En particular si tenemos un grupo $G$ tal que es finitamente generado como grupo por algún conjunto finito $X$ entonces es finitamente generado como monoide por el conjunto simétrico de generadores $Y = X \cup X^{-1}$.
+\todo[]{Def de monoide fg? Reescribir.}
 Sea entonces $\Sigma$ conjunto finito de generadores como monoide de $G$
 o lo que resulta equivalente, tenemos un epimorfismo de monoides desde el monoide libre $\pi: \Sigma^* \twoheadrightarrow  G$. 
 
@@ -307,11 +311,11 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 
 Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
 
-\section{Grupos independientes de contexto.}
+\section{Grupos independiente de contexto.}
 
 
 \begin{ej}\label{ic-cono}
-	Los lenguajes independientes de contexto forman un cono.
+	Los lenguajes independiente de contexto forman un cono.
 	Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \ref{morfismos-monoides-ic}.
 \end{ej}
 
@@ -448,10 +452,10 @@ La siguiente demostración generaliza la construcción del ejemplo del problema 
 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
 	
 \end{proof}
-\todo[inline]{Agregar citas y precisión a este párrafo.}
-
-Un comentario interesante es que el automáta que construímos para aceptar el problema de la palabra del grupo \vl resulta ser un automáta de pila determinístico especial.
-En particular esto nos dice que existen algoritmos más óptimos para el problema de la palabra.
+\begin{center}
+	\missingfigure[figwidth=6cm]{Ejemplo de un grupo que sepa hacer?}
+\end{center}
+\todo[]{Agregar citas y uno o dos párrafos precisos sobre la complejidad computacional del problema.}
 
 
 

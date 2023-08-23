@@ -677,12 +677,76 @@ Veamos ahora unos ejemplos y contrajemplos de grupos \vl s.
 
 
 
-\section{Grafos no dirigidos.}
+\section{Grafos no dirigidos.}\label{secc_graf_nd}
+
+Sea $V$ un conjunto entonces introducimos la siguiente notación:
+\[
+	[V]^k = \{ \{ v_1, v_2, \dots, v_{k} \} \mid v_{i} \in V, \ 1 \le i \le k \}
+\]
+
+\begin{deff}
+	Un \emph{grafo no dirigido} $\Gamma$ va a ser un par $(V,E)$ de conjuntos disjuntos que satisfacen que
+	$E \subseteq [V]^2$.
+	Los elementos de $V$ serán denominados \emph{vértices} mientras que los elementos de $E$ serán denominados \emph{aristas}.
+	El conjunto de vértices de un grafo $\Gamma$ se escribe $V(\Gamma)$ y el de aristas se escribe $E(\Gamma)$.
+	
+\end{deff}
+
+
+Diremos que $\Gamma$ es un \emph{grafo infinito} si $|V| = \infty$ caso contrario diremos que es un grafo finito.
+
+Un vértice $v \in V$ diremos que es \emph{incidente} con una arista $e \in E$ si $v \in e$.
+Definimos el conjunto $E(v) = \{  e \in E : v \ \text{es incidente en } \ e \}$.
+Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
+
+\todo[]{Hablar de caminos en grafos.}
+
+\begin{deff}
+	Un grafo $\Gamma$ es \emph{localmente finito} si para todo $v \in V$ vale que
+	\[
+		| E(v) | < \infty
+	\]
+	Un grafo $\Gamma$ tiene \emph{el grado acotado uniformemente} si existe $k \in \NN$ tal que para todo $v \in V$ vale que 
+	\[
+		|E(v)| \le k.
+	\]
+\end{deff}
+\begin{obs}
+	Todo grafo $\Gamma$ de grado acotado uniformemente es localmente finito.
+\end{obs}
+
+
+
+
+
+\begin{deff}
+	Sea $G$ un \fg y $A$ un conjunto de generadores como grupo tal que $1 \notin A$.
+	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $\{g,h\} \in E(\Gamma)$ si y solo sí $h=ga$ para ciertos $g,h \in G$ y $a \in A \cup A^{-1}$. 
+	
+	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta} de $e$ al generador $a \in A \cup A^{-1}$.
+\end{deff}
+
+
+Si $B = A \cup A^{-1}$ el conjunto simétrico de generadores entonces extendemos esta definición a caminos sobre el grafo para obtener una palabra en el monoide $B^*$.
+Este grafo por como lo definimos no tiene aristas múltiples ni tampoco tiene bucles.
+Dado que $A$ es un conjunto de generadores tenemos que el grafo de Cayley $\Gamma$ es conexo.
+
+\begin{obs}
+	Sea $G$ grupo finitamente generado por $A$. 
+	Sea $\Gamma = Cay(G,A)$ luego $\Gamma$ tiene grado acotado uniformemente por $|A|$.
+\end{obs}
+
+
+Todo grafo lo podemos ver como un espacio métrico si consideramos como conjunto base a sus vértices. 
+Si dos vértices $v,w$ están unidos por una arista $y$ entonces tendremos que $d(v,w)=1$.
+Esto nos define un espacio métrico discreto sobre los vértices. 
+Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = |j-i|$ para todo $i,j \in [0,n]$.
+Un \emph{árbol} es un grafo conexo y sin ciclos. 
+En particular los árboles vistos como espacios métricos resultan ser \emph{únicamente geodésicos}. 
+Esto es que si $T$ es un árbol, entonces dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
+
+
 \todo[inline]{Agregar lo básico de grafos de Cayley y probar grafo de Cayley de libre es árbol}
-
-
-
-
 
 
 

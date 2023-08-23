@@ -408,8 +408,8 @@ En esta sección vamos a caracterizar los elementos del grupo $\pi_1(\cG, T)$ a 
 
 Definimos las sucesiones que vamos a usar:
 \begin{itemize}
-	\item $c=y_1, \dots, y_n \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V$;
-	\item $\mu = r_0, \dots r_n$ una sucesión tomados de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
+	\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V$;
+	\item $\mu = (r_0, \dots r_n)$ una sucesión tomados de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
 \end{itemize}
 
 De esta manera denotaremos por el par $(c, \mu)$ a la palabra en el grupo $\underset{P \in V}{\Asterisk} G_P \Asterisk F_E$:
@@ -428,7 +428,7 @@ Notaremos $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ esto es que
 		\item Si la longitud de $c$ es positiva entonces $r_i \notin G_{\ol y_{i}}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
 	\end{enumerate}
 \end{deff}
-En particular si tomamos una palabra $(c, \mu)$ tal que el camino $c$ no tiene backtracking inmediato esto es que existe $y_i$ tal que $\ol {y_{i+1}} = y_{i}$ entonces por la propiedad \textbf{R2} tenemos que esta palabra va a ser reducida.
+En particular si tomamos una palabra $(c, \mu)$ tal que el camino $c$ no tiene backtracking: esto es que no existe $y_i$ tal que $\ol {y_{i+1}} = y_{i}$ entonces por la propiedad \textbf{R2} tenemos que esta palabra va a ser reducida.
 
 Queremos ver que esta definición de una palabra reducida nos alcanza para probar que estas palabras vistas en $F(\cG)$ son distintas de la identidad.
 Nuestro objetivo es el siguiente teorema.
@@ -477,7 +477,7 @@ Sea $\pi: F(\cG) \to \pi_1(\cG,T)$ la proyección.
 Vamos a demostrar el teorema \ref{teo_pal_red}.
 Para esto emplearemos una construcción previa que nos ayude a probarlo recursivamente a partir de grafos cada vez más chicos.
 
-
+\todo{Pasar esto al principio.}
 Sea $Y$ un grafo conexo y finito y sea $Y'$ un subgrafo conexo.
 Consideremos el grafo $W = Y/Y'$.
 
@@ -610,7 +610,9 @@ Definimos la palabra $(c', \mu')$ sobre los generadores de $F(\cH)$ como:
 \end{itemize}
 donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la identidad si $i_1=1$ o bien si $j_m = n$.
 
-
+\begin{center}
+	\missingfigure[figwidth=6cm]{Dibujo para entender esta situación.}
+\end{center}
 
 
 Por como las construimos nos queda que $\beta(|c,\mu|) = |c',\mu'|$ tal como queríamos ver.
@@ -907,12 +909,15 @@ Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 	
 \end{proof}
 
-
+\todo[]{En realidad alcanza con pedir que los grupos de los vértices sean \fg pero escribí la construcción usando que eran finitos. Se podría cambiar.}
 \begin{deff}
 	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y=(V,E)$ tal que para todo $P \in V$ vale que $G_{P}$ es un grupo finito.	
 	El grafo $\tilde X$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
 \end{deff}
-\todo[inline]{En realidad alcanza con pedir que los grupos de los vértices sean \fg pero escribí la construcción usando que eran finitos. Se podría cambiar.}
+
+\begin{center}
+	\missingfigure[figwidth=6cm]{Dib del árbol de BS}
+\end{center}
 	
 \section{Acciones de grupos sobre árboles.}
 
@@ -1083,6 +1088,7 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 \end{prop}
 
 \begin{proof}
+	\todo{No me gusta como está escrita esta demo}
 	Vamos a usar el Lema de Zorn.
 	Sea el siguiente conjunto
 	\[
@@ -1326,7 +1332,7 @@ Es el resultado central de la teoría de Bass--Serre.
 
 De este teorema se desprende una caracterización importante que es que dado un grupo $G$ si encontramos un árbol $X$ donde actúe sin inversiones obtenemos que este grupo es el grupo fundamental del grafo de grupos que armamos sobre el grafo $X/G$.
 Como corolario directo obtenemos una caracterización para los grupos libres.
-\todo[inline]{Agregar más historia acá. Quizás que es un resultado originalmente de Schreier.}
+\todo[]{Agregar más historia acá. Quizás que es un resultado originalmente de Schreier.}
 
 \begin{coro}\label{coro_libre_sii_actua_arbol}
 	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
