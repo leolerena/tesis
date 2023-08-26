@@ -18,6 +18,7 @@ Una noción que podemos tomar de la teoría de grafos para modelizar esto es el 
 
 \begin{deff}\label{desc-arbol}
 	Una \emph{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa 
+	\todo{en realidad es un par (T,f)}
 	\[
 	X: V(T) \to {\cal P}(V(\Gamma))
 	\]
@@ -41,7 +42,7 @@ La idea de la descomposición es que los \emph{bolsones} $X(t) \in {\cal P}(V(T)
 \end{deff}
 \begin{ej}\label{desc-arbol-arbol}
 	En particular si el grafo $X$ es un árbol notemos que tiene treewidth exactamente igual a 1.
-	
+	\todo{definir la subdivisión baricéntrica}
 	Una manera de probarlo es tomar $T$ la subdivisión baricéntrica de $X$. 
 	Dada una arista $(x,y)$ consideramos el baricentro como la siguiente suma formal
 	\[

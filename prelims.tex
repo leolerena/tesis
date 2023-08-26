@@ -13,7 +13,7 @@ En particular nos interesará especialmente para este trabajo la definición de 
 En la segunda sección \ref{secc_teo_grp} introduciremos notación y probaremos algunos resultados  sobre grupos finitamente generados. 
 
 
-Finalmente en \ref{} introducimos la notación que usaremos para los grafos no dirigidos, introduciremos los grafos de Cayley y probaremos un resultado \ref{} sobre los grafos de Cayley de los grupos libres que nos servirá más en adelante para guiarnos en la caracterización de los grafos de Cayley de los grupos virtualmente libres.
+Finalmente en \ref{secc_graf_nd} introducimos la notación que usaremos para los grafos no dirigidos, daremos una definición de los grafos de Cayley de un grupo y probaremos un resultado \ref{lema_cayley_libre_arbol} sobre los grafos de Cayley de los grupos libres que nos servirá más en adelante para guiarnos en la caracterización de los grafos de Cayley de los grupos virtualmente libres.
 
 
 \section{Teoría de lenguajes.}\label{secc_tlen}	
@@ -111,7 +111,7 @@ De esta manera una gramática la podemos pensar como un conjunto de reglas que n
 	\end{align*}
 	donde usamos $\mid$ para separar distintas producciones que tienen el mismo lado izquierdo.
 	
-	Veamos como podemos derivar la palabra $a^2b$ usando las producciones de esta gramática. 
+	Veamos como podemos derivar la palabra $a^2b \in \Sigma^*$ usando las producciones de esta gramática. 
 	Esto es que $S \deriva a^2b$.
 	Tomamos la siguiente sucesión:
 	\begin{align*}
@@ -151,7 +151,7 @@ De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
 
 
 \begin{deff}
-	Un \emph{autómata finito no determinístico} es una tupla ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ donde:
+	Un \emph{autómata finito no determinístico} es una tupla ${\cal M} = (Q,q_0,\Sigma,\delta,F)$ donde:
 	\begin{itemize}
 		\item $Q$ es un conjunto finito que denominamos \emph{estados}.
 		\item $q_0 \in Q$ es el \emph{estado inicial}.
@@ -266,7 +266,7 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 		\item $Q$ es un conjunto finito denominado los \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
 		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
-		\item $\delta$ es la \emph{función de transición} \todo[]{estados trampa o bien función parcial.} donde $\delta: Q  \times \Sigma \cup \{ \lambda \} \times \Gamma \cup \{ \lambda \} \to {\cal P}( Q  \times \Gamma)$;
+		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times \Sigma \cup \{ \lambda \} \times \Gamma \cup \{ \lambda \} \to {\cal P}( Q  \times \Gamma)$;
 		\item $q_0 \in Q$ es el \emph{estado inicial};
 		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
 		\item $Z_{0}$ es el \emph{símbolo inicial} de la pila y lo tomamos para que $Z_{0} \notin \Gamma$.
@@ -274,9 +274,17 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 \end{deff}
 
 \begin{obs}
-	Bajo esta definición de un \APND notemos que no hay transición posible si en el tope de la pila está el símbolo inicial de la pila. 
+	Bajo esta definición de un \APND notemos que no hay transición posible si en el tope de la pila está el símbolo inicial de la pila. \todo{mover esta obs más abajo}
 \end{obs}
 
+
+\begin{obs}
+	En general en vez de dar una función de transición $\delta$ daremos una función parcial.
+	Esto es que si $\delta(q,a,z)$ no está definido entonces implicitamente quiere decir que existe un estado $q_{t}$ denominado \emph{estado trampa} tal que $\delta(q,a,z) = (q_{t}, z)$.
+	A su vez este estado cumple que...
+	\todo{Escribir bien esta observación.}
+	
+\end{obs}
 
 Una \emph{configuración} de un autómata de pila no determinístico va a ser un triple $(q,w,\gamma) \in Q \times \Sigma^* \times \Gamma^*$.
 Sea $w = aw'$ con $a \in \Sigma$ y $w' \in \Sigma^*$ tal que $(p,\gamma') \in \delta (q,a,\gamma)$ luego denotaremos $(q,w,\gamma) \vdash_{\cal M} (p,w',\gamma')$ la transición de una configuración en otra en el \APND $\cal M$.
@@ -327,8 +335,8 @@ Así como en el caso anterior de los autómatas finitos la denotaremos $\vdash^*
 		\begin{cases}
 			(q_0,aZ)  		& \text{si} \ i=0, Y = a \\
 			(q_0,bZ) 		&  \text{si} \ i=0, Y = b    \\
-			(q_0,\lambda) 	&  \text{si} \ i=1, Y = a, Z = a 	\\
-			(q_0,\lambda) 	&  \text{si} \ i=1, Y = b, Z = b \\
+			(q_1,\lambda) 	&  \text{si} \ i=1, Y = a, Z = a 	\\
+			(q_1,\lambda) 	&  \text{si} \ i=1, Y = b, Z = b \\
 			(q_1,Z)			& \text{si} \ i=0, Y = \lambda \\
 			(q_1, Z)		& \text{si} \ i=0 \\
 		\end{cases}
@@ -424,9 +432,31 @@ Equivalentemente tenemos que podemos definir al índice como $[G:H] = |H \backsl
 	
 \end{deff}
 
-Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
+\begin{obs}
+	Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
 En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
-Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $S$ tal que $|A| = k$.
+Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $A$ tal que $|A| = k$.
+\end{obs}
+
+Todo grupo en particular es un monoide.
+En el caso que $F_{A}$ es un grupo libre si miramos el conjunto simétrico de generadores $B = A \cup A^{-1}$ donde $A^{-1} = \{ a^{-1} : a \in A \}$ luego tenemos que el grupo libre $F_{A}$ es un cociente del monoide libre $B^*$.
+Esto es porque $F_{A} \simeq B^{*} / \{ aa^{-1} : a \in A \}$.
+Sea $\pi: B^{*} \to F_{A}$ este epimorfismo de monoides.
+Dada una palabra $w \in B^{*}$ notaremos $w \underset{G}{=} g$ si $\pi(w) = g$.
+	
+
+	
+
+\begin{deff}
+	Dado un grupo libre $F_{A}$ luego si consideramos el conjunto $B = A \cup A^{-1}$. 
+	Una \emph{palabra reducida} es una palabra $w = a_{0} \dots a_{n} \in B^{*}$ tal que no existe ningún $0 \le i < n$ de manera que $a_{i+1}=a_{i}^{-1}$.
+\end{deff}
+
+
+\begin{obs}\label{obs_libres_pal_red}
+	Dado un grupo $F_{A}$ libre entonces una palabra reducida y no vacía $w \in B^*$  es tal que $w \underset{G}{\neq} 1$.
+\end{obs}
+
 
 \begin{deff}
 	Un grupo $G$ es \emph{finitamente generado} si existe un conjunto finito $A$ junto con un epimorfismo de grupos $\pi: F_{A} \twoheadrightarrow G$.
@@ -689,17 +719,16 @@ Sea $V$ un conjunto entonces introducimos la siguiente notación:
 	$E \subseteq [V]^2$.
 	Los elementos de $V$ serán denominados \emph{vértices} mientras que los elementos de $E$ serán denominados \emph{aristas}.
 	El conjunto de vértices de un grafo $\Gamma$ se escribe $V(\Gamma)$ y el de aristas se escribe $E(\Gamma)$.
-	
 \end{deff}
 
 
 Diremos que $\Gamma$ es un \emph{grafo infinito} si $|V| = \infty$ caso contrario diremos que es un grafo finito.
 
 Un vértice $v \in V$ diremos que es \emph{incidente} con una arista $e \in E$ si $v \in e$.
+Si la arista $e \in E$ es incidente con $v \in V$ y con $w \in V$ luego escribiremos $e = vw$ mientras diremos que los vértices $v,w$ son \emph{adyacentes} en este caso.
 Definimos el conjunto $E(v) = \{  e \in E : v \ \text{es incidente en } \ e \}$.
 Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 
-\todo[]{Hablar de caminos en grafos.}
 
 \begin{deff}
 	Un grafo $\Gamma$ es \emph{localmente finito} si para todo $v \in V$ vale que
@@ -712,32 +741,118 @@ Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 	\]
 \end{deff}
 \begin{obs}
-	Todo grafo $\Gamma$ de grado acotado uniformemente es localmente finito.
+	Todo grafo $\Gamma$ tal que tiene grado acotado uniformemente es un grafo localmente finito.
 \end{obs}
 
-
-
+Un \emph{camino} $c$ en un grafo no dirigido es una sucesión de vértices $c=(v_{0}, \dots, v_{n})$ de manera tal que $v_{i}$ es adyacente con $v_{i+1}$ para todo $1 \le i < n$.
+Un grafo es \emph{conexo} si para todo par de vértices $(v,w) \in V \times V$ existe un camino $c = (v_{0}, \dots, v_{n})$ tal que $v_{0} = v$ y $w=v_{n}$.
+Diremos que el camino $c$ \emph{une los vértices} $v$ y $w$.
+Un \emph{ciclo} es un camino $c = (v_{0}, \dots, v_{n}, v_{0})$ en el cual el primer vértice y el último son idénticos y todas las aristas $\{ v_{i}, v_{i+1} \}$ que aparecen en el camino son distintas.
+Un grafo conexo y sin ciclos es un \emph{árbol}.
 
 
 \begin{deff}
-	Sea $G$ un \fg y $A$ un conjunto de generadores como grupo tal que $1 \notin A$.
-	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $\{g,h\} \in E(\Gamma)$ si y solo sí $h=ga$ para ciertos $g,h \in G$ y $a \in A \cup A^{-1}$. 
-	
-	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta} de $e$ al generador $a \in A \cup A^{-1}$.
+	Dados grafos no dirigidos $\Gamma, \Gamma'$ un \emph{morfismo de grafos no dirigidos} es una función $\varphi:V(\Gamma) \to V(\Gamma')$ tal que para toda arista $\{ v,w \} \in E(\Gamma)$ vale que $\{  \varphi(v), \varphi(w) \} \in E(\Gamma')$.
+	Un \emph{automorfismo} va a ser un morfismo de grafos biyectivo $\varphi:V(\Gamma) \to V(\Gamma)$.
+	Equivalentemente $\varphi: V(\Gamma) \to V(\Gamma)$ es un automorfismo si
+	$\{ v,w \} \in E(\Gamma) \iff \{ \varphi(v), \varphi(w) \} \in E(\Gamma)$. 
+\end{deff}
+
+Dado un grafo $\Gamma$ sus automorfismos forman un grupo con la composición.
+Esto es que si $\text{Aut}(\Gamma) = \{ \varphi: \Gamma \to \Gamma  \mid \varphi \ \text{es un automorfismo} \  \}$ luego $(\text{Aut}(\Gamma), \circ)$ es un grupo.
+
+Una vez que tenemos definido el grupo de automorfismos de un grafo podemos hablar de acciones de grupos.
+
+\begin{deff}
+	Una \emph{acción} de un grupo $G$ sobre un grafo no dirigido $\Gamma$ es un morfismo $\psi:G \to \text{Aut}(\Gamma)$.
+	En el caso que exista una acción diremos que $G$ actúa sobre $\Gamma$.
 \end{deff}
 
 
-Si $B = A \cup A^{-1}$ el conjunto simétrico de generadores entonces extendemos esta definición a caminos sobre el grafo para obtener una palabra en el monoide $B^*$.
-Este grafo por como lo definimos no tiene aristas múltiples ni tampoco tiene bucles.
-Dado que $A$ es un conjunto de generadores tenemos que el grafo de Cayley $\Gamma$ es conexo.
 
-\begin{obs}
-	Sea $G$ grupo finitamente generado por $A$. 
-	Sea $\Gamma = Cay(G,A)$ luego $\Gamma$ tiene grado acotado uniformemente por $|A|$.
+
+Definimos ahora el tipo de grafos que nos van a interesar mayoritariamente en este trabajo.
+Estos grafos nos van a unir la teoría de grupos con la teoría de grafos no dirigidos.
+
+Primero una definición útil en este contexto.
+Si $G$ es un grupo finitamente generado por $A$ tomaremos $B = A \cup A^{-1}$ otro conjunto finito de generadores que llamaremos el \emph{simétrico} de $A$.
+Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de generadores de $G$ no como grupo sino como monoide.
+
+\begin{deff}
+	Sea $G$ un grupo y $A$ un conjunto de generadores simétrico tal que $1 \notin A$.
+	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $\{g,h\} \in E(\Gamma)$ si y solo sí $h=ga$ para ciertos $g,h \in G$ y $a \in B$. 
+	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta} de $e$ al generador $a \in A$.
+\end{deff}
+
+En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos de Cayley tal que es una acción libre.
+
+
+\begin{lema}
+	Sea $G$ grupo finitamente generado por $A$ y $\Gamma = \text{Cay}(G,A)$ su grafo de Cayley entonces $G$ actúa libremente sobre $\Gamma$.
+\end{lema}
+
+\begin{proof}
+	Vamos a definir una acción de $G$ sobre $\Gamma$ y probar que es libre.
+	
+	Una acción de $G$ en $\Gamma$ es un morfismo de grupos $\psi: G \to \text{Aut}(\Gamma)$.
+	Dado $g \in G$ definimos $\psi(g)$ como $\psi(g)(h) = gh$ donde usamos que los vértices del grafo de Cayley son los elementos del grupo por lo tanto podemos multiplicarlos en el grupo $G$ y mirar el vértice correspondiente.
+	Por como lo definimos es claro que $\psi(g)$ es un morfismo de grafos. 
+	Para ver que es un automorfismo basta con tomar $\psi(g^{-1})$ tal que es la inversa de $\psi(g)$.
+	Por la definición también es claro que $\psi$ es un morfismo de grupos.
+	
+	Probemos ahora que la acción que conseguimos es libre.
+	Para eso si $h \in V(\Gamma)$ notemos que si $\psi(g)(h) = h$ luego esto nos dice que $gh = h$ lo que implica que $g = 1$ por lo tanto la acción es libre.
+	
+\end{proof}
+
+Veamos ahora que características necesariamente tiene que cumplir un grafo no dirigido para ser un grafo de Cayley.
+
+\begin{lema}\label{lema_cayley_conexo_grado}
+	Si $G$ es un grupo finitamente generado por un conjunto simétrico $A$ luego $\Gamma = \text{Cay}(G,A)$ es un grafo conexo y de grado acotado uniformemente.
+\end{lema}
+\begin{proof}
+	Para ver que es conexo,	probaremos que para todo $g \in V(\Gamma)$ existe un camino $c$ tal que une $1 \in V(\Gamma)$ con $g$.
+	Para eso usamos que $A$ es un conjunto de generadores por lo tanto $g = a_{1} \dots a_{k}$ para $a_{i} \in A$ para todo $1 \le i \le k$.
+	Esto nos dice que el camino $c = (1, a_{1}, a_{1}a_{2}, \dots, a_{1} \dots a_{k})$ une $1$ con $g$ y así vemos que el grafo $\Gamma$ es conexo. 
+	
+	Para ver que tiene grado acotado uniformemente consideramos algún vértice $g \in V(\Gamma)$ luego $E(g) = \{  h \in V(\Gamma) : \{g,h\} \in E \}$ tal que por como definimos al grafo de Cayley tenemos que $|E(g)| \le |A| < \infty$ usando que $A$ es un conjunto finito.
+\end{proof}
+
+\begin{obs}\label{obs_grafo_Cayley_palabras}
+	
+En el caso de los grafos de Cayley vamos a identificar los caminos con palabras en los generadores del grupo.
+Más específicamente si $G$ es un grupo finitamente generado por $A$ conjunto simétrico de generadores y $\Gamma = \text{Cay}(G,A)$ el grafo de Cayley entonces dado un camino $c = (g_{0}, \dots, g_{n})$ sobre $\Gamma$ vamos a considerar la siguiente palabra $c \in A^{*}$ en el monoide libre sobre los generadores de $G$, definida como:
+si $g_{i}g_{i+1} \in E(\Gamma)$ tiene etiqueta $a_{i}$ luego $c = a_{0}\dots a_{n}$ es la palabra asociada al camino $c$.
+Bajo esta interpretación de caminos como palabras notemos que si $c$ es un camino tal que empieza y termina en el mismo vértice luego su palabra asociada resulta ser $c \in A^*$ tal que $c \underset{G}{=} 1$.
+En el caso particular de un ciclo tenemos que la palabra asociada está reducida.
 \end{obs}
+
+Ahora vamos a ver que en el caso particular que el grupo sea libre entonces su grafo de Cayley para ciertos generadores se puede tomar para que sea un árbol.
+
+\begin{lema}\label{lema_cayley_libre_arbol}
+	Si $G = F_{A}$ para un conjunto finito $A$ luego si $B$ es el simétrico de $A$ tenemos que $\Gamma = \text{Cay}(G,B)$ es un árbol.
+\end{lema}
+
+\begin{proof}
+	Todo grafo de Cayley es conexo por \ref{lema_cayley_conexo_grado}.
+	Debemos ver que no tiene ciclos.
+	Para eso si $c$ es un ciclo en $\Gamma$ entonces por la observación \ref{obs_grafo_Cayley_palabras} obtenemos una palabra $c$ en $B^*$ tal que es {reducida} y tal que $c \underset{G}{=} 1$.
+	Por \ref{obs_libres_pal_red} si una palabra reducida es la identidad del grupo entonces esta palabra es la palabra vacía.
+	Concluimos así que no hay ciclos en el grafo de Cayley de este grupo libre.
+	
+\end{proof}
+
+
+
+
+
+
+
+
 
 
 Todo grafo lo podemos ver como un espacio métrico si consideramos como conjunto base a sus vértices. 
+\todo{pasarlo a la parte de qi}
 Si dos vértices $v,w$ están unidos por una arista $y$ entonces tendremos que $d(v,w)=1$.
 Esto nos define un espacio métrico discreto sobre los vértices. 
 Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = |j-i|$ para todo $i,j \in [0,n]$.
@@ -746,7 +861,6 @@ En particular los árboles vistos como espacios métricos resultan ser \emph{ún
 Esto es que si $T$ es un árbol, entonces dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
 
 
-\todo[inline]{Agregar lo básico de grafos de Cayley y probar grafo de Cayley de libre es árbol}
 
 
 
