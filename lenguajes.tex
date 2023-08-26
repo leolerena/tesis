@@ -191,7 +191,7 @@ Veamos que esta contención es estricta. Para eso volvamos a considerar el ejemp
 	
 \end{ej}
 
-\section{Autómatas de pila determinísticos especiales.} 
+\subsection{Autómatas de pila determinísticos especiales.} 
 Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. A estos los llamaremos \textit{autómatas de pila determinístico especiales}.  
 Estos autómatas son los que nos surgen de la construcción del autómata del problema de la palabra  para grupos virtualmente libres. 
 
@@ -381,6 +381,102 @@ Esto nos dice que la siguiente definición no depende de los generadores que tom
 		Si tomamos $i=0$ notemos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
 	\end{enumerate}
 \end{ej}
+
+\section{Grupos virtualmente libres.}
+
+
+\begin{lema}\label{lema_int_normal}
+	Sea $G$ grupo, sea $H$ subgrupo de $G$ luego el subgrupo $K = \bigcap_{g \in G} gHg^{-1}$ es un subgrupo normal de $G$.
+\end{lema}
+
+
+\begin{prop}\label{prop_vls}
+	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
+	\begin{enumerate}
+		\item Si $F$ es un subgrupo libre de índice finito entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal, libre y de índice finito.
+		\item Si $H$ es un subgrupo de $G$ de índice finito entonces $H$ también resulta ser \vl.
+	\end{enumerate}
+\end{prop}
+
+\begin{proof}
+	Vamos a probar \textbf{1}.
+	Si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por el lema \ref{lema_normalizador_conjugados}.
+	Por el lema \ref{lema_int_normal} tenemos que el siguiente subgrupo de $G$ es normal
+	\[
+	F' = \bigcap_{g \in G} gFg^{-1}
+	\]
+	donde la cantidad de grupos que estamos intersecando es finita.
+	Veamos que este subgrupo $F'$ nos sirve. 
+	
+	
+	Como $F$ tiene índice finito y todos sus conjugados al ser isomorfos a $F$ también tienen índice finito entonces $F'$ tiene índice finito por el lema \ref{lema_indice_interseccion}.
+	Como $G$ es finitamente generado por ser virtualmente libre entonces usando \ref{lema_subg_fg} obtenemos que $F'$ es finitamente generado.
+	Finalmente notemos que es libre por el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
+	
+	Probemos \textbf{2}. 
+	Por el lema \ref{lema_subg_fg} obtenemos directamente que $H$ es un grupo finitamente generado.
+	Si $F$ es un libre de índice finito en $G$ podemos tomar $H \cap F$ que es libre por ser subgrupo de un libre de acuerdo al resultado \ref{coro_niels_sch}.
+	El índice resulta ser finito puesto que 
+	\[
+	[H:F\cap H] \le [G:F] < \infty.
+	\]
+\end{proof}
+
+\begin{obs}\label{obs_presentacion_vl}
+	Dado $G$ \vl \ vamos a construirnos una presentación en particular.
+	
+	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
+	\begin{center}
+		\begin{tikzcd}
+			1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & G/F \arrow[r] & 1
+		\end{tikzcd}
+	\end{center}
+	
+	Consideremos que $F$ es libre generado por $Y = \{ y_1, \dots, y_n \}$.
+	Por otro lado sea $G/F = \{ b_i : 1 \le i \le m \}$ todos los elementos de este conjunto finito.
+	Elegimos un transversal a derecha $T = \{ t_1, \dots, t_m \}$ de manera que $\pi(t_i)= b_i$ y $t_1 = 1$.
+	
+	Dado que es un transversal tenemos que se deben cumplir las siguientes dos relaciones para $y_j \in Y$ y $t_i,t_j,t_k \in T$. 
+	\begin{enumerate}
+		\item $t_iy_jt_i^{-1} = u_{ij}$ donde $u_{ij} \in F$ usando que $F$ es normal.
+		\item Si tenemos que $b_ib_j = b_k$ entonces $t_it_j = z_{ij}t_k$ donde $z_{ij} \in F$ usando que $(Ht_i)(Ht_j) = Ht_k$.
+	\end{enumerate}
+	
+	Afirmamos que la siguiente es una presentación finita de $G$.
+	\[
+	\langle W \mid R \rangle =  \langle y_1, \dots, y_n, t_1, \dots, t_m \mid t_iy_jt_i^{-1} = u_{ij},  t_it_j = z_{ij}t_k \rangle.
+	\]
+	Sea el grupo que genera este presentación $H$ y sea $F'$ el grupo libre sobre sus generadores.
+	
+	Notemos que $W =Y \cup T$ genera a $G$ porque justamente $F$ es libre y generado por $Y$ y $T$ es un conjunto transversal finito porque $F$ tiene índice finito en $G$.
+	Esto nos dice que tenemos un epimorfismo de grupos de $F'$ en el grupo $G$.
+	
+	Toda relación de $G'$ la cumple el grupo $G$ por la elección que tomamos, de esta manera tenemos un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama,
+	
+	\begin{center}
+		\begin{tikzcd}
+			F' \arrow[dd] \arrow[rr, "\varphi"]          &  & G \\
+			&  &   \\
+			H \arrow[rruu, "\overline \varphi"', dashed] &  &  
+		\end{tikzcd}
+	\end{center}
+	
+	El grupo  $G$ es tal que a toda palabra $w$ en sus generadores la podemos llevar a que sea de la pinta
+	\[
+	w = yt
+	\]
+	donde $y \in F$ reducida y $t \in T$ es alguno de los transversales. 
+	Para llegar a esto hacemos el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg}.
+	
+	De esta manera una palabra es trivial si y solamente si $y=1$ y $t=1$. 
+	Esto nos dice que $\ol \varphi(w) = 1$ si y solamente si $w=1$. 
+	Concluimos así que $\ol \varphi$ es un isomorfismo de grupos tal como queríamos ver y por lo tanto  $\langle W \mid R \rangle$ resultó ser una presentación de $G$.
+	
+\end{obs}
+\medskip
+
+
+
 
 \section{Teorema de Muller--Schupp.}
 

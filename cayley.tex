@@ -181,7 +181,6 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 	\]
 \end{deff}
 
-\todo[inline]{Escribir con la notación más estándar que aparece en el paper de Krön y factorizar la construcción.}
 
 \begin{center}
 	\missingfigure[figwidth=6cm]{Dibujo ilustrativo.}
@@ -191,6 +190,8 @@ Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una d
 	
 	Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
 	Consideremos el grafo $\Gamma = \text{Cay}(G,A)$ para cierto conjunto de generadores $A$ finito.
+	\todo[]{Escribir con la notación más estándar que aparece en el paper de Krön y factorizar la construcción.}
+	
 	
 	
 	Sea $V_n = \Gamma \setminus B_n(1) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
@@ -308,6 +309,21 @@ Vale el siguiente resultado.
 \begin{proof}
 	Ver \cite{loh2017geometric}.
 \end{proof}
+
+\todo{Que quede claro como definimos a los grafos como espacios métricos.}
+
+
+Todo grafo lo podemos ver como un espacio métrico si consideramos como conjunto base a sus vértices. 
+
+Si dos vértices $v,w$ están unidos por una arista $y$ entonces tendremos que $d(v,w)=1$.
+Esto nos define un espacio métrico discreto sobre los vértices. 
+Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = |j-i|$ para todo $i,j \in [0,n]$.
+Un \emph{árbol} es un grafo conexo y sin ciclos. 
+En particular los árboles vistos como espacios métricos resultan ser \emph{únicamente geodésicos}. 
+Esto es que si $T$ es un árbol, entonces dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
+
+
+
 
 
 Todo grafo de Cayley lo podemos pensar como un espacio métrico tal como lo definimos en la sección \ref{seccion_treewidth}.  
