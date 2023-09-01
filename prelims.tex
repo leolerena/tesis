@@ -256,10 +256,10 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 
 \subsection{Autómatas de pila.}
 
-\begin{deff}
+\begin{deff}\label{deff_apnd}
 	Un \emph{autómata de pila finito no determinístico} es una tupla 
 	\[
-	{\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)
+	{\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, Z_0)
 	\]
 	donde 
 	\begin{itemize}
@@ -272,15 +272,6 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 		\item $Z_{0} \in \Gamma$ es el \emph{símbolo inicial} de la pila
 	\end{itemize}
 \end{deff}
-
-
-
-
-\begin{obs}
-	En muchos casos resulta más cómodo en vez de dar una función de transición $\delta$ dar una función parcial.
-	Esto es que si $\delta(q,a,z)$ no está definido entonces implícitamente quiere decir que existe un estado $q_{t} \in Q$ denominado \emph{estado trampa} tal que $\delta(q,a,z) = (q_{t}, z)$.
-	A su vez este estado cumple que $\delta(q_{t},a,z) = (q_{t},z)$ para toda $a \in \Sigma \cup \{ \lambda \}$ y todo $Z \in \Gamma \cup \{ \lambda \}$.
-\end{obs}
 
 Una \emph{configuración} de un autómata de pila no determinístico va a ser un triple $(q,w,\gamma) \in Q \times \Sigma^* \times \Gamma^*$.
 Dada una configuración de un autómata de pila no determinístico $(q,w, Z\gamma)$ diremos que $Z \in \Gamma$ es el \emph{tope de la pila}.
@@ -313,7 +304,7 @@ Así como en el caso anterior de los autómatas finitos consideremos la relació
 
 
 
-\begin{ej}
+\begin{ej}\label{ej_ic_palindromos}
 	Sea nuestro alfabeto $\Sigma = \{ a, b\}$ y $L$ el lenguaje de los palíndromos sobre este alfabeto tal como lo definimos en el ejemplo \ref{leng_ej_gram_palindromos}.
 	Consideremos el siguiente autómata de pila 
 	\[
@@ -718,19 +709,19 @@ Definimos ahora el tipo de grafos que nos van a interesar mayoritariamente en es
 Estos grafos nos van a unir la teoría de grupos con la teoría de grafos no dirigidos.
 
 Primero una definición útil en este contexto.
-Si $G$ es un grupo finitamente generado por $A$ tomaremos $B = A \cup A^{-1}$ otro conjunto finito de generadores que llamaremos el \emph{simétrico} de $A$.
-Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de generadores de $G$ no como grupo sino como monoide.
+
 
 \begin{deff}
-	Sea $G$ un grupo y $A$ un conjunto de generadores simétrico tal que $1 \notin A$.
+	Sea $G$ un grupo y $A$ un conjunto de generadores tal que $1 \notin A$.
 	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $\{g,h\} \in E(\Gamma)$ si y solo sí $h=ga$ para ciertos $g,h \in G$ y $a \in B$. 
 	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta} de $e$ al generador $a \in A$.
 \end{deff}
 
+
 En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos de Cayley tal que es una acción libre.
 
 
-\begin{lema}
+\begin{lema}\label{lema_grp_acc_libre_cayley}
 	Sea $G$ grupo finitamente generado por $A$ y $\Gamma = \text{Cay}(G,A)$ su grafo de Cayley entonces $G$ actúa libremente sobre $\Gamma$.
 \end{lema}
 
@@ -760,6 +751,9 @@ Veamos ahora que características necesariamente tiene que cumplir un grafo no d
 	
 	Para ver que tiene grado acotado uniformemente consideramos algún vértice $g \in V(\Gamma)$ luego $E(g) = \{  h \in V(\Gamma) : \{g,h\} \in E \}$ tal que por como definimos al grafo de Cayley tenemos que $|E(g)| \le |A| < \infty$ usando que $A$ es un conjunto finito.
 \end{proof}
+
+Si $G$ es un grupo finitamente generado por $A$ tomaremos $B = A \cup A^{-1}$ otro conjunto finito de generadores que llamaremos el \emph{simétrico} de $A$.
+Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de generadores de $G$ no como grupo sino como monoide.
 
 \begin{obs}\label{obs_grafo_Cayley_palabras}
 	

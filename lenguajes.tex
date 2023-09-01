@@ -17,12 +17,22 @@ Este capítulo sigue las ideas de los trabajos \cite{muller1983groups} y \cite{m
 
 \section{Propiedades de los lenguajes independientes de contexto.}
 
-En esta sección vamos a considerar a los lenguajes \ic como una clase. 
-Probaremos algunas propiedades que tienen los lenguajes independientes de contexto vistos como clase.
-La referencia de estos resultados estándares es \cite{hopcraft-ullman}.
+En esta sección vamos a probar algunas propiedades que tienen los lenguajes independientes de contexto vistos como una clase de lenguajes.
+La referencia de estos resultados es \cite{hopcraft-ullman}.
+
+La clase de lenguajes independientes de contexto va a ser la siguiente:
+\[
+	\text{IC} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es independiente de contexto} \}.
+\]
+de manera similar podemos definir la clase de lenguajes regulares como
+\[
+	\text{REG} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es regular}  \}.
+\]
+
+La primera propiedad que vamos a ver de los lenguajes independiente de contexto es que son cerrados con respecto a la intersección con lenguajes regulares.
 
 \begin{prop}\label{intersecciones-reg-ic}
-	Los lenguajes \ic son cerrados por intersecciones con lenguajes regulares.
+	Sea $L \in \text{IC}$ y sea $R \in \text{REG}$ tales que existe $\Sigma$ de manera que $L,R \subseteq \Sigma^{*}$ entonces $L \cap R \in \text{IC}$.	
 \end{prop}
 
 \begin{proof}
@@ -59,21 +69,20 @@ La referencia de estos resultados estándares es \cite{hopcraft-ullman}.
 	Concluimos así que el lenguaje $L \cap R$ resulta ser \ic tal como queríamos ver.		
 \end{proof}
 
-Otras propiedades interesantes tienen que ver con su relación con morfismos de monoides. 
-\todo[]{Escribir más formalmente esta parte.}
+Otras propiedades que nos van a interesar tienen que ver con la relación que tienen con los morfismos de monoides.
+Precisamente probaremos que los lenguajes \ic como clase son cerrados por imágenes de morfismos de monoides y por preimágenes de morfismos de monoides.
+ 
+
 \begin{prop}\label{morfismos-monoides-ic}
-	Los lenguajes \ic son cerrados por:
-	\begin{enumerate}
-		\item Imágenes de morfismos de monoides.
-		\item Preimágenes de morfismos de monoides.
-	\end{enumerate}
-	
+
+		Sea $L \in \text{IC}$, $\Sigma$ tal que $L \subseteq \Sigma^{*}$ y $h:\Sigma^{*} \to \Delta^*$ un morfismo de monoides 
+		 entonces $h(L) \in \text{IC}$.
+		 
 \end{prop}
 
 \begin{proof}
-	\todo[]{Sacar el enumerate.}
-	\begin{enumerate} 
-		\item Consideramos $L$ lenguaje \ic sobre $\Sigma$.
+
+		Consideramos $L$ lenguaje \ic sobre $\Sigma$.
 		Esto nos dice que existe una gramática $\gramatica $ tal que $L(\cG) = L$.
 		Si tenemos un morfismo de monoides $h: \Sigma^* \to \Delta^*$ queremos ver que existe una gramática $\cG'$ tal que $L(\cG') = h(L)$.
 		Para eso consideramos $\cG  = (V, \Sigma, P', S)$ donde la única diferencia es que reemplazamos en cada producción $P \in \cG$ a cada letra $a \in \Sigma$ por $h(a) \in \Delta^*$.
@@ -83,51 +92,59 @@ Otras propiedades interesantes tienen que ver con su relación con morfismos de 
 		Si tomamos una palabra $w \in L$ luego tenemos que $h(w) \in h(L)$ por lo tanto tiene que haber una sucesión de producciones $S  \implies^* w  $ en la gramática $\cG$.
 		Si tomamos esta derivación y cambiamos cada producción $A \to \alpha \in P$ por la correspondiente $A \to \beta \in P'$, donde $\beta = h(\alpha)$, en la gramática $\cG'$ ahora obtenemos la palabra $h(w)$.
 		Volviendo para atrás obtenemos que $L(\cG') = h(L)$ tal como queríamos ver.
-		
-		\item Sea $L$ un lenguaje \ic sobre el alfabeto $\Sigma$ tal que es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)$.
-		Consideremos un morfismo de monoides $h: \Delta^* \to \Sigma^*$. 
-		Queremos ver que el lenguaje $h^{-1}(L) \subset \Delta^*$ resulta ser \ic. 
-		Primero introduzcamos la constante $ n = \max_{a \in \Delta} |h(a)|$.
-		
-		Ahora consideremos el siguiente \APND 
-		\[
-			{\cal M' } = (Q', \Delta, Z, \delta, q_0', F', Z_0)
-		\]
-		donde $Q' = Q \times \Sigma^{\le n}$, donde $\Sigma^{\le n} = \{ w \in \Sigma^* : |w| \le n  \}$.
-		Los estados finales $F' = F \times \{ \lambda \}$.
-		El estado inicial es $q_0' = (q_0, \lambda)$.
-		Finalmente nuestra función de transición resulta ser 
-		\[
-		\delta'((q,v), a ,z) = 
-		\begin{cases}
+
+\end{proof}
+
+
+\begin{prop}
+	Sea $L \in \text{IC}$, $\Sigma$ tal que $L \subseteq \Sigma^{*}$ y $h:\Delta^{*} \to \Sigma^*$ un morfismo de monoides 
+	entonces $h^{-1}(L) \in \text{IC}$.
+\end{prop}
+
+\begin{proof}
+	Sea $L$ un lenguaje \ic sobre el alfabeto $\Sigma$ tal que es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)$.
+	Consideremos un morfismo de monoides $h: \Delta^* \to \Sigma^*$. 
+	Queremos ver que el lenguaje $h^{-1}(L) \subset \Delta^*$ resulta ser \ic. 
+	Primero introduzcamos la constante $ n = \max_{a \in \Delta} |h(a)|$.
+	
+	Ahora consideremos el siguiente \APND 
+	\[
+	{\cal M' } = (Q', \Delta, Z, \delta, q_0', F', Z_0)
+	\]
+	donde $Q' = Q \times \Sigma^{\le n}$, donde $\Sigma^{\le n} = \{ w \in \Sigma^* : |w| \le n  \}$.
+	Los estados finales $F' = F \times \{ \lambda \}$.
+	El estado inicial es $q_0' = (q_0, \lambda)$.
+	Finalmente nuestra función de transición resulta ser 
+	\[
+	\delta'((q,v), a ,z) = 
+	\begin{cases}
 		\{(q,h(a), z )\}  \ &\text{si} \ v=\lambda, z \in Z \\
 		\{(p,u),z' \} \ &\text{si} \ (p,z') \in \delta(q,y,z), v=yu \\  
 		\emptyset \ &\text{caso contrario}.
-		\end{cases}
-		\]
-		
-		Probemos primero la siguiente afirmación.
-		Para cada $w \in \Delta^*$ tenemos la siguiente equivalencia,
-		\[
-			(q_0',w,z) \vdash^*_{\cal M'} ((q,\lambda), \sigma) \iff (q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma).
-		\]
-		
-		Para probar esta equivalencia lo hacemos por inducción en la longitud de $|w|$.
-		Para el caso base tenemos que $w = a \in \Delta$.
-		En este caso tenemos que $(q_0', a, z) \vdash ((q,h(a)), z)$.
-		Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \vdash (q, \sigma)  \iff ((q_0,h(a)), \lambda ,z) \vdash ((q,\lambda), \sigma)$.
-		
-		El caso general tenemos una palabra $w$ tal que $|w|=n$.
-		Sabemos que la afirmación vale para cualquier palabra de longitud menor a $n$.
-		En particular si $w=ua$ con $|u|=n-1$ y $a \in \Delta$, tenemos que por la hipótesis inductiva que 
-		\[
-		(q_0',u,z) \vdash^*_{\cal M'} ((q,\lambda), \sigma) \iff (q_0,h(u), z) \vdash^*_{\cal M} (q, \sigma)
-		\]
-		entonces de nuevo por el mismo razonamiento que hicimos para el caso base tenemos probada la afirmación.
-		
-		Para concluir la demostración notemos que por nuestra afirmación una palabra $w \in L(\cal M')$ si y solo si $h(w) \in L$. 
-		Esto nos dice que el lenguaje aceptado por estado final de $\cal M'$ resulta ser $L' = \{ w \in \Delta^* : h(w) \in L \} = h^{-1}(L)$.
-	\end{enumerate}
+	\end{cases}
+	\]
+	
+	Probemos primero la siguiente afirmación.
+	Para cada $w \in \Delta^*$ tenemos la siguiente equivalencia,
+	\[
+	(q_0',w,z) \vdash^*_{\cal M'} ((q,\lambda), \sigma) \iff (q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma).
+	\]
+	
+	Para probar esta equivalencia lo hacemos por inducción en la longitud de $|w|$.
+	Para el caso base tenemos que $w = a \in \Delta$.
+	En este caso tenemos que $(q_0', a, z) \vdash ((q,h(a)), z)$.
+	Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \vdash (q, \sigma)  \iff ((q_0,h(a)), \lambda ,z) \vdash ((q,\lambda), \sigma)$.
+	
+	El caso general tenemos una palabra $w$ tal que $|w|=n$.
+	Sabemos que la afirmación vale para cualquier palabra de longitud menor a $n$.
+	En particular si $w=ua$ con $|u|=n-1$ y $a \in \Delta$, tenemos que por la hipótesis inductiva que 
+	\[
+	(q_0',u,z) \vdash^*_{\cal M'} ((q,\lambda), \sigma) \iff (q_0,h(u), z) \vdash^*_{\cal M} (q, \sigma)
+	\]
+	entonces de nuevo por el mismo razonamiento que hicimos para el caso base tenemos probada la afirmación.
+	
+	Para concluir la demostración notemos que por nuestra afirmación una palabra $w \in L(\cal M')$ si y solo si $h(w) \in L$. 
+	Esto nos dice que el lenguaje aceptado por estado final de $\cal M'$ resulta ser $L' = \{ w \in \Delta^* : h(w) \in L \} = h^{-1}(L)$.
 \end{proof}
 
 Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$ no es \ic es usar el siguiente lema.
@@ -141,65 +158,108 @@ Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$
 \end{proof}
 
 \section{Autómatas de pila determinísticos.} 
-Si en la definición anterior del autómata pedimos que la función de transición de una configuración dada tenga a lo sumo un valor entonces nuestro autómata lo vamos a llamar determinístico. 
-\todo[]{Agregarlo como una definición más.}
-Formalmente esto es que 
-\[
-|\delta(q,a, z)| \le 1 \ \ \ \forall z \in Z, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
-\]
-En cierta manera estamos diciendo que de un instante dado solo tenemos a lo sumo una única posibilidad de movernos a otro estado. 
-A los lenguajes aceptados por un \APD los pensamos que son aceptados por estado final.
+\begin{deff}
+	Un \emph{autómata de pila determinístico} es un automáta de pila 
+	\[
+	{\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, Z_0)
+	\]
+	definido idénticamente a un \APND \ref{deff_apnd} con la salvedad que 
+	\[
+	|\delta(q,a, z)| \le 1 \ \ \ \forall z \in \Gamma, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
+	\]
+\end{deff}
 
-
-Por lo tanto para cada palabra tenemos un único camino en el autómata para saber si es aceptada o no a diferencia de un \APND  que podría tener varios caminos posibles para cada palabra.
 \begin{obs}
-	Todo \APD en particular es no determinístico y por lo tanto la clase de lenguajes aceptados por los primeros están contenidos en la clase de los segundos.
+	Todo \APD en particular es un autómata de pila no determinístico. 
 \end{obs}
 
-Veamos que esta contención es estricta. Para eso volvamos a considerar el ejemplo del lenguaje de los palíndromos.
+Esto nos dice que todas las definiciones que dimos para \APND siguen siendo válidas en este contexto.
+Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una palabra $w \in \Sigma$ existe una única manera de consumir a la palabra $w$.
+Notaremos $L(\cal M)$ al lenguaje aceptado por estado final y notaremos por $N(\cal M)$ al lenguaje aceptado por pila vacía entonces tenemos el siguiente resultado, que marca una diferencia con el caso de los lenguajes aceptados por autómatas de pila no determinísticos.
+
+\begin{teo}
+	Existen lenguajes $L, L' \in \text{IC}$ tales que:
+	\begin{itemize}
+		\item Existe $\cal M$ \APD de manera que $L = L(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L = N(\cal N)$.
+		\item Existe $\cal M$ \APD de manera que $L' = N(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L' = L(\cal N)$.
+	\end{itemize} 
+\end{teo}
+\begin{proof}
+	\cite{sipser13}.
+\end{proof}
+
+Ahora probemos que no todo lenguaje aceptado por estado final por un \APND puede ser aceptado por estado final por un autómata de pila determinístico.
+El mismo ejemplo del lenguaje de los palíndromos \ref{ej_ic_palindromos} nos sirve como contraejemplo.
 \begin{ej}
 	El lenguaje 
 	\[
 	L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}
 	\]
 	 no es aceptado por un \APD pero sí por uno no determinístico. 
-	Supongamos que $M$ es un \APD que lo acepta. 
-	\todo{No me gusta como está escrito. Formalizarlo mejor...}
+	Supongamos que ${\cal {M}} = (Q, \{ a, b \}, \Gamma, \delta, q_0, F, Z_0)$ es un \APD que lo acepta. 
+
 	
-	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que al consumirla la pila no puede quedar vacía dado que $ww^r \in L$ y en tal caso no aceptaría a esta palabra. 
-	Esto es que la pila nunca está vacía sea cual sea la configuración que lleguemos. 
-	Para cada palabra arbitraria $w$ existe otra $x_w$ tal que al procesar $wx_w$ lo que nos queda en la pila es de tamaño mínimo con respecto a todas las palabras $wx$. 
-	Sea entonces lo que tiene en la pila la palabra $\alpha_w$ que sabemos es de longitud mínima. Si consideramos palabras del estilo $wx_wz$ sabemos que la longitud de lo que quede en la pila no puede disminuir. 
-	Ahora consideremos dos palabras del estilo 
-	
+	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que
 	\[
-	r=wx_w, \ s=uy_u
+		(q_{0},w,Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)
 	\]
-	 tales que sus pilas son de longitud mínima al terminar de recorrer las palabras y que resultan tener el mismo tope de pila y terminar en el mismo estado. 
-	Podemos asegurar la existencia de estas palabras debido a que tenemos finitos estados y combinaciones de tope de pilas dado que el autómata de pila es finito pero tenemos infinitas palabras que cumplen esta propiedad. 
-	Ahora basta con elegir $z$ de modo que $tz$ sea palíndromo pero que $sz$ no lo sea. 
+	donde $\gamma \in \Gamma^*$ es tal que $\gamma \neq \lambda$.
+	Caso contrario tendríamos que $ww^r \notin L(\cal M)$ ya que la pila estaría vacía y no podríamos pasar de configuración.
+
+	Fijamos una palabra arbitraria $w \in \{ a,b \}^*$ y consideramos $x_{w} \in \{ a, b\}^*$ de manera que si
+	$(q_{0}, wx_{w}, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma_{w})$ entonces $|\gamma_{w}|$ es minimal.
 	
-	Veamos que podemos elegir a $z$ para que una de las concatenaciones $tz,sz$ sea palíndromo y la otra no. Partamos en distintos casos. 
+
+	Si consideramos palabras del estilo $wx_wz \in \{a,b\}^*$ sabemos que la longitud de lo que quede en la pila no puede disminuir, esto es que si $(q_{0}, wx_{w}z, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)$ entonces $|\gamma| \ge |\gamma_{w}|$.
 	
-	Si $|t|=|s|$ basta con tomar $z=s^r$. 
-	Si $|t|\neq |s|$ y supongamos que $s$ tiene longitud menor y no es prefijo de $t$ entonces de nuevo podemos tomar el palíndromo $ss^r$ tal que $ts^r$ no es un palíndromo.
-	 
-	Finalmente queda el caso que una es un prefijo de la otra, supongamos $t=su$. 
-	Si elegimos $x=a,b$ tal que $ux$ no sea un palíndromo luego la palabra $ss^r$ es un palíndromo pero $suxs^r$ no lo es.
+	Nuestro \APD $\cal M$ tiene finitos estados y un alfabeto de pila finito por lo tanto existen finitos pares de estados y topes de pilas a los que puede llegar este \APD después de consumir una palabra.
+	Esto nos dice que deben existir al menos dos palabras distintas $w, u \in \{ a, b\}^*$ tales que:
+	\begin{align*}
+		(q_{0}, wx_{w}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{w}) \\
+		(q_{0}, ux_{u}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{u})
+	\end{align*}
+	que cumplan que caen en el mismo estado y tienen el mismo tope de pila, esto que existe $z \in \Gamma$ tal que $\gamma_{u} = z \gamma$ y $\gamma_{w} = z \gamma'$ para $\gamma, \gamma' \in \Gamma^{*}$.
 	
-	Esto muestra que si bien $sz \notin L$ y $tz \in L$ el \APD no va a poder diferenciarlas por lo tanto no es posible que este lenguaje sea aceptado por un \APD tal como queríamos ver.
+	
+	Vamos a elegir $v \in \{ a,b\}^*$ de manera que si $s = wx_{w}$ y $t = ux_{u}$ entonces $sv \in L \iff tv \notin L$ y viceversa.
+	
+	Procedemos separando en casos dependiendo de las longitudes de $s$ y de $t$.
+	\begin{itemize}
+		\item Si $|t|=|s|$ basta con tomar $v=s^r$. 
+		Entonces $tv \in L({\cal M})$ pero $tv \notin L$.
+		
+		\item Si $|t|\neq |s|$ supongamos que $|s| < |t|$ y que $s$ no es prefijo de $t$ entonces  podemos tomar $v = s^r$ de manera que $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.
+		
+		\item Si $|t|\neq |s|$ y una es prefijo de la otra. 
+		Sin pérdida de generalidad supongamos que $t=sy$ donde $y \in \{a,b\}^*$ tal que $|y| \ge 1$ y que $y = ay'$ con $y' \in \{a,b\}^*$ entonces $yb \notin L$.  
+		De esta manera tenemos que si $v=bs^R$ entonces $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.		
+	\end{itemize}
+	
+	Con esto probamos que no puede existir ningún autómata $\cal M$ tal que $L = L(\cal M)$ porque si $L \subseteq L(\cal M)$ entonces existen $w \in L(\cal M)$ tales que $w \notin L$.
+	Por el ejemplo \label{ej_ic_palindromos} tenemos que $L$ es aceptado por un \APND y así vimos que no todo lenguaje que es aceptado por un \APND es aceptado por un autómata de pila determinístico.
 	
 \end{ej}
 
 \subsection{Autómatas de pila determinísticos especiales.} 
-Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. A estos los llamaremos \textit{autómatas de pila determinístico especiales}.  
-Estos autómatas son los que nos surgen de la construcción del autómata del problema de la palabra  para grupos virtualmente libres. 
+Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. 
+
+\begin{deff}
+	Sea ${\cal {M}} = (Q,\Sigma, \Gamma, \delta, q_0, F, Z_0)$ un autómata de pila determinístico. 
+	Diremos que $\cal M$ es un \emph{autómata de pila determinístico especial} si $w \in L({\cal M}) \iff w \in N(\cal M)$.
+\end{deff}
+
+La familia de lenguajes aceptados por los autómatas de pila determinísticos especiales es estrictamente menor a la familia de los que son aceptados por autómatas de pila determinísticos.
+Veamos un contraejemplo.
 
 \begin{ej}
 	Sea el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$ este no es un lenguaje independiente de contexto determinístico especial pero sí es determinístico. 
 	
-	Construyamos un \APD que acepte a $L$. Sea $$M = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,Z_0\}, Z_0, q_2) $$ el siguiente \APD que representamos así:
-	
+	Construyamos un \APD que acepte a $L$. 
+	Sea $$M = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,Z_0\}, Z_0, q_2) $$ un \APD 
+	tal que si donde $Z \in \{a,b,Z_0\}$ es cualquier letra del alfabeto de la pila.
+	Escribimos $b, a | \gamma$ para decir que $b$ es la letra de la palabra que estamos consumiendo que nos toca leer, $a$ es el tope de la pila y $\gamma$ es la palabra que reemplaza al tope de la pila, esto es que si estamos en un estado $q$ luego $\delta(q,b,a) = (p,\gamma)$ para $p$ otro estado.
+	\todo{Terminar de escribir bien este ejemplo.}
+	Entonces podemos representar graficamente al \APD de la siguiente manera:	
 	\begin{center}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
 		scale = 1,transform shape]
@@ -208,7 +268,7 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 		\node[state] (q_1) [right of=q_0] {$q_1$};
 		\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
 		
-		\path (q_0) edge    [bend right]          node {$b, a | \lambda$} (q_1)
+		\path (q_0) edge    [bend right]          node {$b, a | \lambda$ \ } (q_1)
 		(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
 		(q_1) edge      [bend right]      node {$\lambda, a | Z$}   (q_2)
 		(q_1) edge    [loop above]           node {$b, a | \lambda$} (q_1);
@@ -218,7 +278,9 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 	
 	
 	
-	donde $Z$ es cualquier letra del alfabeto de la pila. El autómata en el estado inicial $q_0$ apila a todas las $a$ y cambia al estado $q_1$ cuando lee por primera vez una $b$ y en ese caso desapila la a que está en el tope de la pila. En el estado $q_1$ sigue desapilando cada vez que ve una $b$. Finalmente va al estado $q_2$ cuando en la pila sigue quedando $a$ y ya leímos toda la palabra y en tal caso la acepta porque significa que vimos como máximo tantas $b$ como $a$ y este es el lenguaje que buscábamos generar.
+	
+	El autómata en el estado inicial $q_0$ apila a todas las $a$ y cambia al estado $q_1$ cuando lee por primera vez una $b$ y en ese caso desapila la a que está en el tope de la pila. 
+	En el estado $q_1$ sigue desapilando cada vez que ve una $b$. Finalmente va al estado $q_2$ cuando en la pila sigue quedando $a$ y ya leímos toda la palabra y en tal caso la acepta porque significa que vimos como máximo tantas $b$ como $a$ y este es el lenguaje que buscábamos generar.
 	
 	El lenguaje no es aceptado por un \APD por pila vacía dado que tiene la propiedad de los prefijos. 
 	Es decir que existen palabras que están en el lenguaje tales que alguno de sus prefijos también están. 
@@ -245,7 +307,7 @@ Estos autómatas son los que nos surgen de la construcción del autómata del pr
 
 Todo grupo $G$ lo podemos ver como un monoide. 
 En particular si tenemos un grupo $G$ tal que es finitamente generado como grupo por algún conjunto finito $X$ entonces es finitamente generado como monoide por el conjunto simétrico de generadores $Y = X \cup X^{-1}$.
-\todo[]{Def de monoide fg? Reescribir.}
+\todo{Def de monoide fg? Reescribir.}
 Sea entonces $\Sigma$ conjunto finito de generadores como monoide de $G$
 o lo que resulta equivalente, tenemos un epimorfismo de monoides desde el monoide libre $\pi: \Sigma^* \twoheadrightarrow  G$. 
 

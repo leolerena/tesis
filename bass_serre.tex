@@ -1,4 +1,4 @@
-%!TeX root = bass_serre.tex
+
 \documentclass[tesis.tex]{subfiles}
 \def\acts{\curvearrowright}
 
@@ -403,9 +403,65 @@ Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},
 
 
 \subsection{ Caso general.}
-Sea $\cG$ un grafo de grupos sobre un grafo conexo y finito $Y$.
-En esta sección vamos a caracterizar los elementos del grupo $\pi_1(\cG, T)$ a partir de sucesiones reducidas tal como hicimos en el caso particular de los productos amalgamados y las extensiones HNN.
+Primero vamos a dar una definición estándar que es la del cociente de un grafo no dirigido que va a ser la herramienta principal para probar el resultado central de esta sección.
 
+\begin{deff}
+	Sea $Y$ un grafo conexo y finito y sea $Y'$ un subgrafo conexo de $Y$ entonces
+	el grafo dirigido $W = Y/Y'$ \emph{cociente de $Y$ por $Y'$} es el grafo dado por los siguientes conjuntos de aristas y vértices:
+	
+	\begin{enumerate}
+		\item Los vértices son $V(W)= V(Y) \setminus V(Y') \cup \{ [Y'] \}$.
+		\item Las aristas son $E(W) = E(Y) \setminus E(Y')$.
+	\end{enumerate}
+	Donde el vértice correspondiente a $Y'$ lo denotamos $[Y']$. 
+	Sea $y \in E(W)$ entonces:
+	\begin{equation*}
+		s(y) = 
+		\begin{cases}
+			s(y),  & \text{si} \ s(y) \notin V(Y') \\ 
+			[Y'], & \text{caso contrario}
+		\end{cases}
+	\end{equation*}
+	y análogamente,
+	\begin{equation*}
+		t(y) = 
+		\begin{cases}
+			t(y),  & \text{si} \ t(y) \notin V(Y') \\ 
+			[Y']. & \text{caso contrario}
+		\end{cases}
+	\end{equation*}
+	Si las aristas no empiezan ni terminaban en $Y'$ dentro del grafo $Y$ al contraer el subgrafo siguen idénticas. 
+	En el otro caso las definimos para que terminen (o empiecen) en $[Y']$. 
+	
+\end{deff}
+
+Una observación directa de esta definición es que si los grafos $Y$ e $Y'$ son conexos entonces el grafo $W$ también resulta serlo.
+
+\begin{ej}
+	
+Un ejemplo particular de cómo es el grafo cociente:
+
+\[\begin{tikzcd}
+	& \color{rgb,255:red,214;green,153;blue,92}\bullet &  \color{rgb,255:red,214;green,153;blue,92} \bullet &&&  \color{rgb,255:red,214;green,153;blue,92} \bullet \\
+	\bullet & \color{rgb,255:red,214;green,153;blue,92} \bullet &&&& \bullet \\
+	\bullet &&&&&& \bullet \\
+	& Y &&&& W = Y/Y' \\ 	
+	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=1-3]
+	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=2-2]
+	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=2-2, to=1-3]
+	\arrow[from=2-1, to=1-2]
+	\arrow[bend left=60, from=1-2, to=1-3]
+	%\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=3-1]
+	\arrow[from=1-6, to=3-7]
+	\arrow[from=2-6, to=1-6]
+	\arrow[loop, from=1-6, to=1-6]
+\end{tikzcd}\]
+Donde en este ejemplo distinguimos al subgrafo $Y'$ conexo con este \textcolor{rgb,255:red,214;green,153;blue,92}{color}.
+\end{ej}
+
+En el contexto de esta sección vamos a pensar que $\cG$ es un grafo de grupos sobre un grafo conexo y finito $Y$.
+Si $T$ es un árbol generador de $Y$ entonces vamos a caracterizar los elementos del grupo $\pi_1(\cG, T)$ a partir de sucesiones reducidas, tal como hicimos en el caso particular de los productos amalgamados y las extensiones HNN.
 Definimos las sucesiones que vamos a usar:
 \begin{itemize}
 	\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V$;
@@ -477,57 +533,7 @@ Sea $\pi: F(\cG) \to \pi_1(\cG,T)$ la proyección.
 Vamos a demostrar el teorema \ref{teo_pal_red}.
 Para esto emplearemos una construcción previa que nos ayude a probarlo recursivamente a partir de grafos cada vez más chicos.
 
-\todo{Pasar esto al principio.}
-Sea $Y$ un grafo conexo y finito y sea $Y'$ un subgrafo conexo.
-Consideremos el grafo $W = Y/Y'$.
 
-\[\begin{tikzcd}
-	& \color{rgb,255:red,214;green,153;blue,92}\bullet &  \color{rgb,255:red,214;green,153;blue,92} \bullet &&&  \color{rgb,255:red,214;green,153;blue,92} \bullet \\
-	\bullet & \color{rgb,255:red,214;green,153;blue,92} \bullet &&&& \bullet \\
-	\bullet &&&&&& \bullet \\
-	& Y &&&& W = Y/Y' \\ 	
-	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=1-3]
-	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=2-2]
-	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=2-2, to=1-3]
-	\arrow[from=2-1, to=1-2]
-	\arrow[bend left=60, from=1-2, to=1-3]
-	%\arrow[from=2-1, to=2-2]
-	\arrow[from=2-2, to=3-1]
-	\arrow[from=1-6, to=3-7]
-	\arrow[from=2-6, to=1-6]
-	\arrow[loop, from=1-6, to=1-6]
-\end{tikzcd}\]
-Donde en este ejemplo distinguimos al subgrafo $Y'$ conexo con este \textcolor{rgb,255:red,214;green,153;blue,92}{color}.
-
-Sea $W = Y / Y'$  el grafo que obtenemos de contraer $Y'$ a un vértice.
-A este vértice lo llamaremos $[Y']$. 
-Como el subgrafo $Y'$ es conexo también lo es $W$.
-Formalmente el grafo $W$ está dado por los siguientes conjuntos de aristas y vértices.
-
-\begin{enumerate}
-	\item Los vértices son $V(W)= V(Y) \setminus V(Y') \cup \{ [Y'] \}$.
-	\item Las aristas son $E(W) = E(Y) \setminus E(Y')$.
-\end{enumerate}
-
-Si las aristas no empiezan ni terminaban en $Y'$ dentro del grafo $Y$ al contraer el subgrafo siguen idénticas. 
-En el otro caso las definimos para que terminen (o empiecen) en $[Y']$. 
-Sea $y \in E(W)$ entonces:
-
-\begin{equation*}
-	s(y) = 
-	\begin{cases}
-	s(y),  & \text{si} \ s(y) \notin V(Y') \\ 
-	[Y'], & \text{caso contrario}
-	\end{cases}
-\end{equation*}
-y análogamente,
-\begin{equation*}
-	t(y) = 
-	\begin{cases}
-		t(y),  & \text{si} \ t(y) \notin V(Y') \\ 
-		[Y']. & \text{caso contrario}
-	\end{cases}
-\end{equation*}
 
 
 Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$ finito y conexo. 
@@ -1332,23 +1338,43 @@ Es el resultado central de la teoría de Bass--Serre.
 
 De este teorema se desprende una caracterización importante que es que dado un grupo $G$ si encontramos un árbol $X$ donde actúe sin inversiones obtenemos que este grupo es el grupo fundamental del grafo de grupos que armamos sobre el grafo $X/G$.
 Como corolario directo obtenemos una caracterización para los grupos libres.
-\todo[]{Agregar más historia acá. Quizás que es un resultado originalmente de Schreier.}
+
+
+Primero debemos ver una definición equivalente de un grafo de Cayley. 
+En la sección \ref{secc_graf_nd} los definimos como grafos no dirigidos pero se puede dar una definición como grafo dirigido.
+
+\begin{deff}
+	Dado $G$ un grupo finitamente generado por $A$ tal que $1 \notin A$ sea $\Gamma = Cay(G,A)$ el grafo de Cayley no dirigido.
+	Definimos \emph{el grafo de Cayley dirigido} $X = \text{Cay}(G,A)$ como $V(X) = G$ y $E(X) = E(\Gamma) \times \{ -1,1 \} $.
+	De manera que si $(e,i) \in E(X)$ entonces $e=\{ g,h \}$ de manera que $g = ha$ para $a\in A$ entonces:
+	\begin{itemize}
+		\item $s(e,1) = g$ mientras que $s(e,-1)= h$.
+		\item $t(e,i) = h $ mientras que $t(e,-1)= g$.
+		\item $\ol {(e,1)} = (e,-1)$ y $\ol{(e,-1)} = (e,1)$.
+	\end{itemize}
+\end{deff}
+
+En particular bajo esta definición obtenemos que el grafo de Cayley sigue siendo conexo y que $G$ sigue actuando de manera libremente sobre $X$ y más aún como $G$ actúa libremente sobre $\Gamma$ tenemos que la acción de $G$ en $X$ es sin inversiones de aristas.
+Más aún si $G$ es un grupo libre entonces podemos tomar su grafo de Cayley dirigido para que sea un árbol.
 
 \begin{coro}\label{coro_libre_sii_actua_arbol}
 	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
 \end{coro}
 
 \begin{proof}
-	Si $G$ es libre  y generado por un conjunto finito $S$ entonces $Cay(G,S)$ es un árbol por el resultado \ref{}.
-	Por la proposición \ref{} tenemos que $G$ actúa libremente sobre su grafo de Cayley y sin invertir aristas.
+	Si $G$ es libre  y generado por un conjunto finito $A$ entonces $Cay(G,A)$ es un árbol y $G$ actúa libremente sobre su grafo de Cayley y sin invertir aristas.
 	
 	Si $G$ actúa libremente sobre un árbol sin inversiones entonces usando \ref{teo_Serre} obtenemos que $G$ es isomorfo a $\pi_1(\cG, T)$.
 	Este grupo es libre por ser el grupo fundamental de un grafo en el cual los grupos correspondientes a las aristas y a los vértices son triviales dado que la acción de $G$ es libre.
 	
 \end{proof}
 
-\begin{coro}\label{coro_niels_sch}
-	Dado $G$ un grupo libre todo subgrupo $H$ de $G$ resulta ser libre.
+El siguiente resultado conocido como teorema de Nielsen--Schreier fue originalmente probado por Nielsen en 1932.
+Esa demostración utilizaba la acción de $H$ sobre el grafo de Cayley de $G$ y es de carácter combinatórico. 
+La demostración que damos es una demostración alternativa que fue pensada por Serre en \cite{serre2002trees}.
+
+\begin{coro}[Nielsen--Schreier]\label{coro_niels_sch}
+	Sea $G$ un grupo libre entonces todo subgrupo $H$ de $G$ resulta ser libre.
 \end{coro}
 \begin{proof} 
 	Veamos que $H$ actúa libremente y sin inversiones de aristas sobre un árbol por lo tanto por el corolario \ref{coro_libre_sii_actua_arbol} tendríamos que $H$ es libre.
@@ -1357,19 +1383,19 @@ Como corolario directo obtenemos una caracterización para los grupos libres.
 	
 \end{proof}
 
-Otra consecuencia de este teorema de Serre es un resultado obtenido por Karass, Pietrowski y Solitar que nos da una cota de qué tan grande puede ser un subgrupo libre dentro de un grupo fundamental de un grafo finito de grupos finitos.
-Este resultado generaliza la fórmula de Schreier para subgrupos libres.
-
-
-Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la demostración de esta fórmula.
-
-\begin{lema}\label{lema_libre_torsion}
-	Todo \fg libre no tiene torsión.
-\end{lema}
-\begin{proof}
-	El grafo de Cayley de un grupo libre se puede tomar para que sea un árbol.
-	Si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
-\end{proof}
+%Otra consecuencia de este teorema de Serre es un resultado obtenido por Karass, Pietrowski y Solitar que nos da una cota de qué tan grande puede ser un subgrupo libre dentro de un grupo fundamental de un grafo finito de grupos finitos.
+%Este resultado generaliza la fórmula de Schreier para subgrupos libres.
+%
+%
+%Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la demostración de esta fórmula.
+%
+%\begin{lema}\label{lema_libre_torsion}
+%	Todo \fg libre no tiene torsión.
+%\end{lema}
+%\begin{proof}
+%	El grafo de Cayley de un grupo libre se puede tomar para que sea un árbol.
+%	Si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
+%\end{proof}
 
 %\todo[inline]{Agregar definición de rango de un grupo libre.}
 %\begin{prop}\cite{karrass1973finite}\label{prop_karrass_formula}
@@ -1438,7 +1464,7 @@ Primero debemos ver unos lemas de acciones de grupos finitos.
 	Sea $|G|=k$ y sea $|X|=mk$ luego como queremos que la acción de $G$ sea libre designamos nuestros candidatos a órbitas $X_{i}$ $i=1, \dots k$ donde $X_{i} \subseteq {\cal P}(X)$, $|X_{i}|=m$ y $X_{i} \cap X_{j} = \emptyset$ para todo $i \neq j$.
 	Les asignamos índices a todos los elementos de $X_{i}$ para todo $ 1 \le i \le k$ y los denotamos $x_{i}^j$ para el $j$-ésimo elemento de $X_{i}$ donde $1 \le j \le m$.
 	Similarmente como $G$ es finito luego $G = \{ g_{1}, \dots g_{k} \}$.
-	Luego definimos $\alpha:G \to S(X)$ de la siguiente manera si $g_{l} g_{i} = g_{h}$
+	Luego definimos $\alpha:G \to S(X)$ de la siguiente manera si $g_{l} g_{i} = g_{h}$ entonces
 	\[
 		\alpha(g_{l})(x_{i}^j) = x_{h}^j.
 	\] 
