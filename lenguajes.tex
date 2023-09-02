@@ -13,18 +13,112 @@
 \chapter{Grupos independientes de contexto.}
 Este capítulo sigue las ideas de los trabajos \cite{muller1983groups} y \cite{muller1985theory} completando muchos detalles que son omitidos por estos.
 
+\section{El problema de la palabra.}
 
+
+Sea $G$ un grupo finitamente generado por $A$ entonces si tomamos $B = A \cup A^{-1}$ el conjunto simétrico de generadores resulta que $G$ es finitamente generado como monoide por $B$, en otras palabras, existe un epimorfismo de monoides $\pi:B^* \to G$.
+El problema de la palabra consiste en dadas $w,w' \in B^*$ determinar si $\pi(w) {=} \pi(w')$.
+Equivalentemente esto es ver si $\pi(w'w^{-1}) = 1$.
+Definimos entonces el siguiente lenguaje.
+
+\begin{deff}
+	Dado $G$ un grupo finitamente generado 
+	y $\Sigma$ conjunto finito con un epimorfismo de monoides $\pi:\Sigma^* \to G$ entonces
+	el \emph{problema de la palabra de $G$ para los generadores $\Sigma$} es el siguiente lenguaje	
+	\[ 
+	\text{WP} (G, \Sigma) = \{ w \in \Sigma^* \ | \ \pi(w)= 1 \}
+	\]
+\end{deff}
+
+\begin{obs}
+	En esta definición que damos del problema de la palabra no estamos considerando conjuntos simétricos de generadores sino que estamos considerando conjuntos de generadores como monoides arbitrarios.
+	Esto es que $\Sigma$ no necesariamente cumple que $\Sigma = A \cup A^{-1}$ para $A$ conjunto finito de generadores de $G$ como grupo.
+\end{obs}
+
+
+Dado que este lenguaje depende del conjunto de generadores elegido nos gustaría ver qué condiciones tienen que cumplir los lenguajes o bien qué condiciones deberán cumplir los grupos para que no exista esta dependencia en los generadores.
+En este contexto nos van a interesar las familias de lenguajes que cumplen las siguientes propiedades.
+\medskip
+\begin{deff}
+	Una familia de lenguajes $\CC$ es un \emph{cono} si para todo $L \in \CC$ tal que $L \subseteq \Sigma^*$ resulta que:
+	\begin{itemize}
+		\item[\textbf{C1.}] Es cerrado por imágenes de morfismos de monoides. 
+		Si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
+		\item[\textbf{C2.}] Es cerrado por preimagenes de morfismos de monoides. 
+		Si existe $\phi:\Delta^* \to \Sigma^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
+		\item[\textbf{C3.}] Es cerrado por intersecciones con lenguajes regulares. 
+		Si $R \subseteq \Sigma^*$ es un lenguaje regular entonces $L \cap R \in \CC$.
+	\end{itemize}
+\end{deff} 
+
+
+Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para el estudio del problema de la palabra.
+\medskip
+\begin{prop}\label{prop-cono-wp}
+	Sea $WP(G, \Sigma)$ el lenguaje del problema de la palabra de cierto grupo $G$ para algunos generadores $\Sigma$ y $\CC$ cono de lenguajes. 
+	Si $WP(G, \Sigma) \in \CC$ luego valen las siguientes afirmaciones:
+	\begin{itemize}
+		\item[\textbf{W1.}] $WP(G, \Delta) \in \CC$ para cualquier conjunto de generadores $\Delta$.
+		\item[\textbf{W2.}] $WP(H) \in \CC$ para todo subgrupo $H$ \fg de $G$.
+	\end{itemize} 
+\end{prop}
+\begin{proof}
+	Vamos a probar \textbf{W1}.
+	Como $\Delta$ y $\Sigma$ son dos conjuntos finitos de generadores de $G$ entonces tenemos dos epimorfismos de monoides:
+	$\delta: \Delta^* \to G$ y $\pi:\Sigma^* \to G$.
+	Si $\Delta = \{ b_{1}, \dots, b_{n} \}$ entonces definimos $\Delta' = \{ b'_{1}, \dots, b'_{n}   \} \subseteq \Sigma^*$ de manera que $b'_{i} \in \pi^{-1}(\delta(b_{i}))$ para todo $1 \le i \le n$.
+	Tenemos una función biyectiva $f:\Delta \to \Delta'$ definida como $f(b_{i}) = b'_{i}$ para todo $1 \le i \le n$.
+	Por la propiedad universal de los monoides libres tenemos que existe $\ol f: \Delta^* \to \Sigma^*$ morfismo tal que hace conmutar al siguiente diagrama
+	\begin{center}
+		\begin{tikzcd}
+			\Delta^* \arrow[r, "\ol{f}",dashed ]  & \Sigma^* \\
+			\Delta \arrow[ru, "f",  swap]  \arrow[u,"\iota",swap]  &  
+		\end{tikzcd}
+	\end{center}
+	
+	Por la construcción que hicimos del morfismo $\ol f$ tenemos que el siguiente diagrama también conmuta:
+	\begin{center}
+		\begin{tikzcd}
+			\Delta^* \arrow[r, "\delta"] \arrow[d,"\ol{f}",swap] & G \\
+			\Sigma^* \arrow[ru, "\pi",swap]    &  
+		\end{tikzcd}
+	\end{center}
+	
+	Notemos que como el diagrama conmuta tenemos que 
+	\[
+	\ol{f}^{-1}(\pi^{-1}(1)) = \delta^{-1}(1)
+	\]
+	lo que implica que por la definición del lenguaje del problema de la palabra que
+	\[
+	\ol{f}^{-1}(WP(G,\Sigma)) = WP(G, \Delta).
+	\]
+	Como $WP(G, \Sigma) \in \CC$ resulta que $\ol{f}^{-1}(WP(G,\Sigma))$ por lo tanto $WP(G, \Delta) \in \CC$ tal como queríamos ver.
+	
+	Veamos ahora que vale \textbf{W2}. 
+	Sea $\Sigma$ conjunto de generadores de $H$.
+	Podemos extender este conjunto a otro conjunto finito $\Sigma'$ tal que $\Sigma'$ genera a $G$ y $\Sigma \subseteq \Sigma'$. 
+	De esta manera la siguiente igualdad es inmediata
+	\[
+	WP(H, \Sigma) = WP(G, \Sigma') \cap \Sigma^*
+	\]
+	y dado que $WP(G, \Sigma') \in \CC$ es un cono entonces $WP(H, \Sigma) \in \CC$.
+	
+\end{proof}
+
+La moraleja de este resultado es que si $\CC$ es un cono entonces están bien definidos los grupos $G$ tales $WP(G) \in \CC$, es decir que no depende qué generadores tomemos del grupo. 
+ 
 
 \section{Propiedades de los lenguajes independientes de contexto.}
 
 En esta sección vamos a probar algunas propiedades que tienen los lenguajes independientes de contexto vistos como una clase de lenguajes.
 La referencia de estos resultados es \cite{hopcraft-ullman}.
 
-La clase de lenguajes independientes de contexto va a ser la siguiente:
+
+La familia de lenguajes independientes de contexto va a ser la siguiente:
 \[
 	\text{IC} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es independiente de contexto} \}.
 \]
-de manera similar podemos definir la clase de lenguajes regulares como
+de manera similar podemos definir la familai de lenguajes regulares como
 \[
 	\text{REG} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es regular}  \}.
 \]
@@ -81,7 +175,6 @@ Precisamente probaremos que los lenguajes \ic como clase son cerrados por imáge
 \end{prop}
 
 \begin{proof}
-
 		Consideramos $L$ lenguaje \ic sobre $\Sigma$.
 		Esto nos dice que existe una gramática $\gramatica $ tal que $L(\cG) = L$.
 		Si tenemos un morfismo de monoides $h: \Sigma^* \to \Delta^*$ queremos ver que existe una gramática $\cG'$ tal que $L(\cG') = h(L)$.
@@ -157,241 +250,20 @@ Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$
 	Resultado estándar. Ver \cite{hopcraft-ullman}.
 \end{proof}
 
-\section{Autómatas de pila determinísticos.} 
-\begin{deff}
-	Un \emph{autómata de pila determinístico} es un automáta de pila 
-	\[
-	{\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, Z_0)
-	\]
-	definido idénticamente a un \APND \ref{deff_apnd} con la salvedad que 
-	\[
-	|\delta(q,a, z)| \le 1 \ \ \ \forall z \in \Gamma, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
-	\]
-\end{deff}
-
-\begin{obs}
-	Todo \APD en particular es un autómata de pila no determinístico. 
-\end{obs}
-
-Esto nos dice que todas las definiciones que dimos para \APND siguen siendo válidas en este contexto.
-Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una palabra $w \in \Sigma$ existe una única manera de consumir a la palabra $w$.
-Notaremos $L(\cal M)$ al lenguaje aceptado por estado final y notaremos por $N(\cal M)$ al lenguaje aceptado por pila vacía entonces tenemos el siguiente resultado, que marca una diferencia con el caso de los lenguajes aceptados por autómatas de pila no determinísticos.
-
-\begin{teo}
-	Existen lenguajes $L, L' \in \text{IC}$ tales que:
-	\begin{itemize}
-		\item Existe $\cal M$ \APD de manera que $L = L(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L = N(\cal N)$.
-		\item Existe $\cal M$ \APD de manera que $L' = N(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L' = L(\cal N)$.
-	\end{itemize} 
-\end{teo}
-\begin{proof}
-	\cite{sipser13}.
-\end{proof}
-
-Ahora probemos que no todo lenguaje aceptado por estado final por un \APND puede ser aceptado por estado final por un autómata de pila determinístico.
-El mismo ejemplo del lenguaje de los palíndromos \ref{ej_ic_palindromos} nos sirve como contraejemplo.
-\begin{ej}
-	El lenguaje 
-	\[
-	L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}
-	\]
-	 no es aceptado por un \APD pero sí por uno no determinístico. 
-	Supongamos que ${\cal {M}} = (Q, \{ a, b \}, \Gamma, \delta, q_0, F, Z_0)$ es un \APD que lo acepta. 
-
-	
-	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que
-	\[
-		(q_{0},w,Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)
-	\]
-	donde $\gamma \in \Gamma^*$ es tal que $\gamma \neq \lambda$.
-	Caso contrario tendríamos que $ww^r \notin L(\cal M)$ ya que la pila estaría vacía y no podríamos pasar de configuración.
-
-	Fijamos una palabra arbitraria $w \in \{ a,b \}^*$ y consideramos $x_{w} \in \{ a, b\}^*$ de manera que si
-	$(q_{0}, wx_{w}, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma_{w})$ entonces $|\gamma_{w}|$ es minimal.
-	
-
-	Si consideramos palabras del estilo $wx_wz \in \{a,b\}^*$ sabemos que la longitud de lo que quede en la pila no puede disminuir, esto es que si $(q_{0}, wx_{w}z, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)$ entonces $|\gamma| \ge |\gamma_{w}|$.
-	
-	Nuestro \APD $\cal M$ tiene finitos estados y un alfabeto de pila finito por lo tanto existen finitos pares de estados y topes de pilas a los que puede llegar este \APD después de consumir una palabra.
-	Esto nos dice que deben existir al menos dos palabras distintas $w, u \in \{ a, b\}^*$ tales que:
-	\begin{align*}
-		(q_{0}, wx_{w}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{w}) \\
-		(q_{0}, ux_{u}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{u})
-	\end{align*}
-	que cumplan que caen en el mismo estado y tienen el mismo tope de pila, esto que existe $z \in \Gamma$ tal que $\gamma_{u} = z \gamma$ y $\gamma_{w} = z \gamma'$ para $\gamma, \gamma' \in \Gamma^{*}$.
-	
-	
-	Vamos a elegir $v \in \{ a,b\}^*$ de manera que si $s = wx_{w}$ y $t = ux_{u}$ entonces $sv \in L \iff tv \notin L$ y viceversa.
-	
-	Procedemos separando en casos dependiendo de las longitudes de $s$ y de $t$.
-	\begin{itemize}
-		\item Si $|t|=|s|$ basta con tomar $v=s^r$. 
-		Entonces $tv \in L({\cal M})$ pero $tv \notin L$.
-		
-		\item Si $|t|\neq |s|$ supongamos que $|s| < |t|$ y que $s$ no es prefijo de $t$ entonces  podemos tomar $v = s^r$ de manera que $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.
-		
-		\item Si $|t|\neq |s|$ y una es prefijo de la otra. 
-		Sin pérdida de generalidad supongamos que $t=sy$ donde $y \in \{a,b\}^*$ tal que $|y| \ge 1$ y que $y = ay'$ con $y' \in \{a,b\}^*$ entonces $yb \notin L$.  
-		De esta manera tenemos que si $v=bs^R$ entonces $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.		
-	\end{itemize}
-	
-	Con esto probamos que no puede existir ningún autómata $\cal M$ tal que $L = L(\cal M)$ porque si $L \subseteq L(\cal M)$ entonces existen $w \in L(\cal M)$ tales que $w \notin L$.
-	Por el ejemplo \label{ej_ic_palindromos} tenemos que $L$ es aceptado por un \APND y así vimos que no todo lenguaje que es aceptado por un \APND es aceptado por un autómata de pila determinístico.
-	
-\end{ej}
-
-\subsection{Autómatas de pila determinísticos especiales.} 
-Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. 
-
-\begin{deff}
-	Sea ${\cal {M}} = (Q,\Sigma, \Gamma, \delta, q_0, F, Z_0)$ un autómata de pila determinístico. 
-	Diremos que $\cal M$ es un \emph{autómata de pila determinístico especial} si $w \in L({\cal M}) \iff w \in N(\cal M)$.
-\end{deff}
-
-La familia de lenguajes aceptados por los autómatas de pila determinísticos especiales es estrictamente menor a la familia de los que son aceptados por autómatas de pila determinísticos.
-Veamos un contraejemplo.
-
-\begin{ej}
-	Sea el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$ este no es un lenguaje independiente de contexto determinístico especial pero sí es determinístico. 
-	
-	Construyamos un \APD que acepte a $L$. 
-	Sea $$M = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,Z_0\}, Z_0, q_2) $$ un \APD 
-	tal que si donde $Z \in \{a,b,Z_0\}$ es cualquier letra del alfabeto de la pila.
-	Escribimos $b, a | \gamma$ para decir que $b$ es la letra de la palabra que estamos consumiendo que nos toca leer, $a$ es el tope de la pila y $\gamma$ es la palabra que reemplaza al tope de la pila, esto es que si estamos en un estado $q$ luego $\delta(q,b,a) = (p,\gamma)$ para $p$ otro estado.
-	\todo{Terminar de escribir bien este ejemplo.}
-	Entonces podemos representar graficamente al \APD de la siguiente manera:	
-	\begin{center}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
-		scale = 1,transform shape]
-		
-		\node[state,initial] (q_0) {$q_0$};
-		\node[state] (q_1) [right of=q_0] {$q_1$};
-		\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
-		
-		\path (q_0) edge    [bend right]          node {$b, a | \lambda$ \ } (q_1)
-		(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
-		(q_1) edge      [bend right]      node {$\lambda, a | Z$}   (q_2)
-		(q_1) edge    [loop above]           node {$b, a | \lambda$} (q_1);
-		
-		\end{tikzpicture}
-	\end{center}
-	
-	
-	
-	
-	El autómata en el estado inicial $q_0$ apila a todas las $a$ y cambia al estado $q_1$ cuando lee por primera vez una $b$ y en ese caso desapila la a que está en el tope de la pila. 
-	En el estado $q_1$ sigue desapilando cada vez que ve una $b$. Finalmente va al estado $q_2$ cuando en la pila sigue quedando $a$ y ya leímos toda la palabra y en tal caso la acepta porque significa que vimos como máximo tantas $b$ como $a$ y este es el lenguaje que buscábamos generar.
-	
-	El lenguaje no es aceptado por un \APD por pila vacía dado que tiene la propiedad de los prefijos. 
-	Es decir que existen palabras que están en el lenguaje tales que alguno de sus prefijos también están. 
-	Por ejemplo consideremos
-	 \[
-	 	a^m b^i, \ a^m b^j \ \
-	 	\text{para}  \
-	 	m \ge 2,  \ i < j \le m
-	 \] 
-	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que 
-	\[
-		(q_0,a^{m}b^{i},Z_0) \vdash^* (q,\lambda, \lambda)
-	\]
-	con $q$ un estado final pero como tiene la pila vacía no podemos continuar aceptando a la palabra $a^mb^j$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
-	
-	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
-	
-%[Esto es con la otra definición de automáta de pila.]
-%			Por el principio del palomar podemos ver que este lenguaje no es aceptado por \APD por pila vacía y estado final a la vez. Si así lo fuera supongamos que existe un automáta que lo acepta $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$. Debido a que tiene finitos estados podemos elegirnos $m$ suficientemente grande tal que existan palabras $a^mb^j, a^mb^i$ con $1 \le i < j < m$ y elegidas de manera que terminen en el mismo estado final $p$. Notemos que $(q_0,a^mb^ib^{m-j+1},Z_0) \vdash^* (q,\lambda, Z)$ donde $q$ es un estado final dado que $m-j+1+i \le m$. Por otro lado debe ser que $(q_0, a^mb^jb^{m-j+1}) \vdash^* (q,\lambda, Z) $ pero notemos que $a^mb^{m-1} \notin L$. Por lo tanto llegamos a una contradicción y de esta manera vemos que $L$ no es aceptado por un \APD especial tal como queríamos ver.
-\end{ej}
-
-
-\section{El problema de la palabra.}
-
-Todo grupo $G$ lo podemos ver como un monoide. 
-En particular si tenemos un grupo $G$ tal que es finitamente generado como grupo por algún conjunto finito $X$ entonces es finitamente generado como monoide por el conjunto simétrico de generadores $Y = X \cup X^{-1}$.
-\todo{Def de monoide fg? Reescribir.}
-Sea entonces $\Sigma$ conjunto finito de generadores como monoide de $G$
-o lo que resulta equivalente, tenemos un epimorfismo de monoides desde el monoide libre $\pi: \Sigma^* \twoheadrightarrow  G$. 
-
-El problema de la palabra es uno de los problemas de teoría de grupos más centrales al área. Explícitamente el problema consiste en encontrar un algoritmo que dada una palabra $\omega \in \Sigma^*$ decida si esta palabra es la identidad del grupo o no. 
-
-\begin{deff}
-El \emph{problema de la palabra de $G$ para los generadores $\Sigma$} es el siguiente lenguaje,	
-\[ \text{WP} (G, \Sigma) = \{ \omega \in \Sigma^* \ | \ \omega \underset{G}= 1 \}\]
-\end{deff}
-
-Dado que este lenguaje depende del conjunto de generadores elegido nos gustaría ver qué condiciones tienen que cumplir los lenguajes o los grupos para que no exista esta dependencia en los generadores.
-
-
-En el contexto del problema de la palabra nos van a interesar las familias de lenguajes que cumplen las siguientes propiedades.
-\medskip
-\begin{deff}
-	Una familia de lenguajes $\CC$ es un \emph{cono} si para todo $L \in \CC$ resulta que:
-	\begin{itemize}
-		\item[\textbf{C1.}] Es cerrado por imágenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
-		\item[\textbf{C2.}] Es cerrado por preimagenes de morfismos de monoides. Sea $L \subset \Sigma^*$ luego si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
-		\item[\textbf{C3.}] Es cerrado por intersecciones con lenguajes regulares. Si $R$ es un lenguaje regular sobre $\Sigma^*$ entonces $L \cap R \in \CC$ también resulta serlo.
-	\end{itemize}
-\end{deff} 
-
-
-Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para el estudio del problema de la palabra.
-\medskip
-\begin{prop}\label{prop-cono-wp}
-	Sea $WP(G, \Sigma)$ el lenguaje del problema de la palabra de cierto grupo $G$ para algunos generadores $\Sigma$ y $\CC$ cono de lenguajes. 
-	Si $WP(G, \Sigma) \in \CC$ luego valen las siguientes afirmaciones:
-	\begin{itemize}
-		\item[\textbf{W1.}] $WP(G, \Delta) \in \CC$ para cualquier conjunto de generadores $\Delta$.
-		\item[\textbf{W2.}] $WP(H) \in \CC$ para todo subgrupo $H$ \fg de $G$.
-	\end{itemize} 
-\end{prop}
-\begin{proof}
-		Para ver \textbf{W1} formamos el siguiente diagrama conmutativo,
-		\begin{center}
-			\begin{tikzcd}
-				\Delta^* \arrow[r, "\delta"] \arrow[d,"f",swap] & G \\
-				\Sigma^* \arrow[ru, "\pi",swap]    &  
-			\end{tikzcd}
-		\end{center}
-		donde $f$ es algún morfismo de monoides y donde usamos la propiedad universal de los monoides libres.
-		Notemos que $WP(G, \Delta) = \delta^{-1}(1)$ y como el diagrama conmuta tenemos que 
-		\[
-		f^{-1}(\delta^{-1}(1)) = f^{-1}(WP(G,\Sigma)) = WP(G, \Delta).
-		\]
-		Dado que esto es un cono obtenemos lo que queríamos ver puesto que es cerrado por preimágenes de morfismos de monoides.
-		
-		
-		
-		Veamos ahora que vale \textbf{W2}. 
-		Sea $\Sigma'$ conjunto de generadores de $H$.
-		Siempre podemos extenderlo a $\Sigma$ tal que $\Sigma$ genere a $G$. 
-		De esta manera 
-		\[
-		WP(H, \Sigma') = WP(H, \Sigma) \cap \Sigma'^*
-		\]
-		y de vuelta como es un cono la intersección con lenguajes regulares nos da un lenguaje en el cono. 
-
-\end{proof}
-
-
-Esto nos dice que es interesante estudiar el problema de la palabra justamente sobre conos.
-
 \section{Grupos independiente de contexto.}
 
-
-\begin{ej}\label{ic-cono}
-	Los lenguajes independiente de contexto forman un cono.
-	Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \ref{morfismos-monoides-ic}.
-\end{ej}
-
+La flia de lenguajes $\text{IC}$ es un cono.
+Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \ref{morfismos-monoides-ic}.
 Esto nos dice que la siguiente definición no depende de los generadores que tomemos.
 
 \begin{deff}
-	Si $G$ es un grupo \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo \ic }.
+	Si $G$ es un \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo \ic }.
 \end{deff}
 
 
 \begin{ej} Consideremos los siguientes ejemplos.	
 	\begin{enumerate}[E1.]
-		\item 
+		\item \todo{Seguir desde acá. Reescribir el primer ejemplo de manera que quede consistente en notación y esté más claro.}
 		Dado $F$ grupo libre de rango finito supongamos generado por el conjunto finito $X$. 
 		Sea  $Y = X \cup X^{-1}$ el conjunto de generadores simétrico de $X$. 
 		Probemos que $\text{WP}(F,Y)$ es un lenguaje independiente de contexto.
@@ -444,7 +316,165 @@ Esto nos dice que la siguiente definición no depende de los generadores que tom
 	\end{enumerate}
 \end{ej}
 
-\section{Grupos virtualmente libres.}
+
+\section{Autómatas de pila determinísticos.} 
+\begin{deff}
+	Un \emph{autómata de pila determinístico} es un automáta de pila 
+	\[
+	{\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, Z_0)
+	\]
+	definido idénticamente a un \APND \ref{deff_apnd} con la salvedad que 
+	\[
+	|\delta(q,a, z)| \le 1 \ \ \ \forall z \in \Gamma, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
+	\]
+\end{deff}
+
+\begin{obs}
+	Todo \APD en particular es un autómata de pila no determinístico. 
+\end{obs}
+
+Esto nos dice que todas las definiciones que dimos para \APND siguen siendo válidas en este contexto.
+Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una palabra $w \in \Sigma$ existe una única manera de consumir a la palabra $w$.
+Notaremos $L(\cal M)$ al lenguaje aceptado por estado final y notaremos por $N(\cal M)$ al lenguaje aceptado por pila vacía entonces tenemos el siguiente resultado, que marca una diferencia con el caso de los lenguajes aceptados por autómatas de pila no determinísticos.
+
+\begin{teo}
+	Existen lenguajes $L, L' \in \text{IC}$ tales que:
+	\begin{itemize}
+		\item Existe $\cal M$ \APD de manera que $L = L(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L = N(\cal N)$.
+		\item Existe $\cal M$ \APD de manera que $L' = N(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L' = L(\cal N)$.
+	\end{itemize} 
+\end{teo}
+\begin{proof}
+	\cite{sipser13}.
+\end{proof}
+
+Ahora probemos que no todo lenguaje aceptado por estado final por un \APND puede ser aceptado por estado final por un autómata de pila determinístico.
+El mismo ejemplo del lenguaje de los palíndromos \ref{ej_ic_palindromos} nos sirve como contraejemplo.
+\begin{ej}
+	El lenguaje 
+	\[
+	L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}
+	\]
+	no es aceptado por un \APD pero sí por uno no determinístico. 
+	Supongamos que ${\cal {M}} = (Q, \{ a, b \}, \Gamma, \delta, q_0, F, Z_0)$ es un \APD que lo acepta. 
+	
+	
+	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que
+	\[
+	(q_{0},w,Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)
+	\]
+	donde $\gamma \in \Gamma^*$ es tal que $\gamma \neq \lambda$.
+	Caso contrario tendríamos que $ww^r \notin L(\cal M)$ ya que la pila estaría vacía y no podríamos pasar de configuración.
+	
+	Fijamos una palabra arbitraria $w \in \{ a,b \}^*$ y consideramos $x_{w} \in \{ a, b\}^*$ de manera que si
+	$(q_{0}, wx_{w}, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma_{w})$ entonces $|\gamma_{w}|$ es minimal.
+	
+	
+	Si consideramos palabras del estilo $wx_wz \in \{a,b\}^*$ sabemos que la longitud de lo que quede en la pila no puede disminuir, esto es que si $(q_{0}, wx_{w}z, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)$ entonces $|\gamma| \ge |\gamma_{w}|$.
+	
+	Nuestro \APD $\cal M$ tiene finitos estados y un alfabeto de pila finito por lo tanto existen finitos pares de estados y topes de pilas a los que puede llegar este \APD después de consumir una palabra.
+	Esto nos dice que deben existir al menos dos palabras distintas $w, u \in \{ a, b\}^*$ tales que:
+	\begin{align*}
+		(q_{0}, wx_{w}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{w}) \\
+		(q_{0}, ux_{u}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{u})
+	\end{align*}
+	que cumplan que caen en el mismo estado y tienen el mismo tope de pila, esto que existe $z \in \Gamma$ tal que $\gamma_{u} = z \gamma$ y $\gamma_{w} = z \gamma'$ para $\gamma, \gamma' \in \Gamma^{*}$.
+	
+	
+	Vamos a elegir $v \in \{ a,b\}^*$ de manera que si $s = wx_{w}$ y $t = ux_{u}$ entonces $sv \in L \iff tv \notin L$ y viceversa.
+	
+	Procedemos separando en casos dependiendo de las longitudes de $s$ y de $t$.
+	\begin{itemize}
+		\item Si $|t|=|s|$ basta con tomar $v=s^r$. 
+		Entonces $tv \in L({\cal M})$ pero $tv \notin L$.
+		
+		\item Si $|t|\neq |s|$ supongamos que $|s| < |t|$ y que $s$ no es prefijo de $t$ entonces  podemos tomar $v = s^r$ de manera que $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.
+		
+		\item Si $|t|\neq |s|$ y una es prefijo de la otra. 
+		Sin pérdida de generalidad supongamos que $t=sy$ donde $y \in \{a,b\}^*$ tal que $|y| \ge 1$ y que $y = ay'$ con $y' \in \{a,b\}^*$ entonces $yb \notin L$.  
+		De esta manera tenemos que si $v=bs^r$ entonces $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.		
+	\end{itemize}
+	
+	Con esto probamos que no puede existir ningún autómata $\cal M$ tal que $L = L(\cal M)$ porque si $L \subseteq L(\cal M)$ entonces existen $w \in L(\cal M)$ tales que $w \notin L$.
+	Por el ejemplo \label{ej_ic_palindromos} tenemos que $L$ es aceptado por un \APND y así vimos que no todo lenguaje que es aceptado por un \APND es aceptado por un autómata de pila determinístico.
+	
+\end{ej}
+
+\subsection{Autómatas de pila determinísticos especiales.} 
+Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. 
+
+\begin{deff}
+	Sea ${\cal {M}} = (Q,\Sigma, \Gamma, \delta, q_0, F, Z_0)$ un autómata de pila determinístico. 
+	Diremos que $\cal M$ es un \emph{autómata de pila determinístico especial} si $w \in L({\cal M}) \iff w \in N(\cal M)$.
+\end{deff}
+
+La familia de lenguajes aceptados por los autómatas de pila determinísticos especiales es estrictamente menor a la familia de los que son aceptados por autómatas de pila determinísticos.
+Veamos un contraejemplo.
+
+\begin{ej}
+	Sea el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$ este no es un lenguaje independiente de contexto determinístico especial pero sí es determinístico. 
+	
+	Construyamos un \APD que acepte a $L$. 
+	Sea 
+	\[
+	{\cal M} = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,Z_0\}, Z_0, q_2) 
+	\]
+	un \APD 
+	Introducimos la siguiente notación estándar para representar la función de transición en un gráfico.
+	Si tenemos una flecha de un estado $q \in Q$ a otro estado $p \in Q$ tal que tiene como etiqueta $b, a | \gamma$
+	entonces esto quiere decir que $\delta(q,b,a) = (p,\gamma)$.
+	
+	Entonces podemos representar gráficamente al \APD de la siguiente manera, donde usamos que $Z \in \{a,b,Z_0\}$ es cualquier letra del alfabeto de la pila,	
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+			scale = 1,transform shape]
+			
+			\node[state,initial] (q_0) {$q_0$};
+			\node[state] (q_1) [right of=q_0] {$q_1$};
+			\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
+			
+			\path (q_0) edge    [bend right]          node {$b, a | \lambda$ \ } (q_1)
+			(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
+			(q_1) edge      [bend right]      node {$\lambda, Z | Z$}   (q_2)
+			(q_1) edge    [loop above]           node {$b, a | \lambda$} (q_1);
+			
+		\end{tikzpicture}
+	\end{center}
+	Podemos ver de manera directa que $L = L(\cal M)$.
+	Para esto notemos que si $w \in L(\cal M)$ entonces
+	\[
+	(q_{0},w,Z_{0}) \overset{*}{\vdash} (q_{0},bw',a^mZ_{0})
+	\]
+	donde $a^mbw' = w$ y $m \ge 1$.
+	Entonces para pasar al estado $q_{1}$ necesitamos leer una $b$ por lo que
+	\[
+	(q_{0},bw',a^mZ_{0}) \vdash (q_{1},w',a^{m-1}Z_{0}) \overset{*}{\vdash} (q_{2},\lambda, a^{m-1-n}Z_{0})
+	\]
+	donde $0 \le n \le m-1$.
+	Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
+	Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
+	
+	El lenguaje $L$ no es aceptado por un \APD por pila vacía y así no va a poder ser aceptado por un autómata de pila especial dado que tiene la \emph{propiedad de los prefijos}. 
+	Es decir que existen palabras $w \in L$ tales que existe $u \in L$ y $w = uv$ donde $v \in \{ a, b\}^*$.
+	Por ejemplo consideremos:
+	\[
+	u = a^m b^i, \ w = a^m b^j \ \
+	\text{para}  \
+	m \ge 2,  \ i < j \le m
+	\] 
+	entonces $u,w \in L$.
+	Supongamos que $u,w \in N(\cal M)$ queremos llegar a una contradicción.
+	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que 
+	\[
+	(q_0,u,Z_0) \vdash^* (q,\lambda, \lambda)
+	\]
+	con $q \in F$ pero como tiene la pila vacía no podemos continuar aceptando a la palabra $w$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
+	
+	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
+\end{ej}
+
+
+\section{Teorema de Muller--Schupp.}
 
 
 \begin{lema}\label{lema_int_normal}
@@ -540,7 +570,7 @@ Esto nos dice que la siguiente definición no depende de los generadores que tom
 
 
 
-\section{Teorema de Muller--Schupp.}
+
 
 
 Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. 
