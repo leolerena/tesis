@@ -13,96 +13,125 @@ Las referencias centrales de este capítulo son \cite{diekert2017context}, \cite
 \section{Treewidth.}
 
 Dado que el grafo de Cayley de todo grupo libre se puede tomar para que sea un árbol es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. 
-
-Una noción que podemos tomar de la teoría de grafos para modelizar esto es el de tener un treewidth finito.
+Vamos a dar una primera definición que nos permite formalizar esta idea de que un grafo se parezca a un árbol.
+Esta definición es la del treewidth, noción originalmente introducida por .... en \ref{}.
 
 \begin{deff}\label{desc-arbol}
-	Una \emph{descomposición en un árbol} de un grafo $X$ es un árbol $T$ y un mapa 
-	\todo{en realidad es un par (T,f)}
+	Una \emph{descomposición en un árbol} de un grafo $\Gamma$ es un par $(T,f)$ donde
+	$T$ es un árbol y $f$ un mapa 
 	\[
-	X: V(T) \to {\cal P}(V(\Gamma))
+	f: V(T) \to 2^{V(\Gamma)}
 	\]
-	Le vamos a pedir que cumpla las siguientes condiciones:
+	Que cumple las siguientes condiciones:
 	\begin{enumerate}
-		\item[\textbf{T1.}] Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $x \in X(t)$. 
-		\item[\textbf{T2.}] Para toda arista $e$ entre dos vértices $v,w \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v,w \in X(t)$.
-		\item[\textbf{T3.}] Si $v \in V(\Gamma)$ es tal que $v \in X(t) \cap X(s)$ luego $v \in X_r$ para todo $r$ en la geodésica que va desde $s$ a $t$ dentro de $T$. En otras palabras esto es que $\{ t \in V(T) :  v \in X(t) \}$ forma un subárbol. 
+		\item[\textbf{T1.}] Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. 
+		\item[\textbf{T2.}] Para toda arista $\{v,w\} \in E(\Gamma)$ 
+		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
+		\item[\textbf{T3.}] Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$ dentro de $T$.  
 	\end{enumerate} 
 \end{deff}
-\smallskip
+Notemos que la tercer condición \textbf{T3} se puede reescribir de la siguiente manera:
+dado $v \in V(\Gamma)$ entonces el conjunto $\{ t \in V(T) :  v \in f(t) \}$ forma un subárbol de $T$.
+Dado $t \in V(T)$ diremos que $f(t) \in 2^{V(\Gamma)}$ es un \emph{bolsón}.
 
-La idea de la descomposición es que los \emph{bolsones} $X(t) \in {\cal P}(V(T))$ no tengan muchos vértices si es que queremos modelizar que el grafo se parezca a un árbol. Esto nos conduce a la siguiente definición.
+\begin{center}
+	\missingfigure[figwidth=6cm]{Mostrar como son los bolsones.}
+\end{center}
+
+\smallskip
+Si queremos que una descomposición en un árbol de un grafo nos modelice la idea que el grafo se parece a un árbol entonces nos va a interesar que los \emph{bolsones} $f(t) \in 2^{V(\Gamma)}$ no tengan muchos vértices 
+Esto nos conduce a la siguiente definición.
 
 \begin{deff}
-	El \emph{bagsize} de una descomposición en un árbol $T$ de un grafo $X$ es el siguiente valor:
+	Dado un grafo $\Gamma$ y $(T,f)$ una descomposición en un árbol de $\Gamma$ el \emph{bagsize} de esta descomposición es el siguiente valor:
 	\begin{equation*}
-		bs(X,T) = \{ \sup |X(t)|, \ t \in V(T) : T \ \text{descomposición de} \ \Gamma \} - 1
+		bs(X,T,f) = \sup_{t \in V(T)} |f(t)| - 1
 	\end{equation*}
 	Un grafo $X$ tiene \emph{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
+
+Probemos con esta definición que sucede lo que es razonable que suceda.
+Esto es que dado $T$ un árbol vale que $T$ tiene treewidth finito y más aún el bagsize de $T$ se puede tomar para que sea exactamente $1$.
+
+\begin{deff}
+	Dado $\Gamma$ un grafo no dirigido llamaremos a $\Gamma'$ \emph{la subdivisión baricéntrica de $\Gamma$ }al grafo no dirigido dado por
+	$V(X') = V(X) \cup E(X)$ y $E(X') = \{ \{ v, \{v,w \} \} \mid \ \text{si} \ \{ v,w \} \in E(\Gamma) \}$.
+\end{deff}
+
+Gráficamente lo representamos de la siguiente manera:
+\begin{center}
+	\missingfigure[figwidth=6cm]
+	{Dibujo de subdivisión baricéntrica}
+\end{center}
+
+\begin{obs}\label{obs_sub_bari_arbol}
+	Si $T$ es un árbol entonces la subdivisión baricéntrica de $T$ también es un árbol.
+\end{obs}
+
 \begin{ej}\label{desc-arbol-arbol}
-	En particular si el grafo $X$ es un árbol notemos que tiene treewidth exactamente igual a 1.
-	\todo{definir la subdivisión baricéntrica}
-	Una manera de probarlo es tomar $T$ la subdivisión baricéntrica de $X$. 
-	Dada una arista $(x,y)$ consideramos el baricentro como la siguiente suma formal
-	\[
-	b(x,y)  = \frac{x+y}{2}.
-	\]
+	Sea $T$ un árbol probemos que $T$ tiene treewidth exactamente igual a $1$.
 	
-	
-	Con estas definiciones podemos definir la subdivisión baricéntrica del árbol $X$.
-	Va a ser un árbol $T$ tal que tiene como vértices a 
+	Para eso consideremos el siguiente par $(T',f)$ donde $T'$ es la subdivisión baricéntrica de $T$ y por lo tanto es un árbol por \ref{obs_sub_bari_arbol} y donde $f$ está definida como
 	\[
-	V(T) = \{ b(x,y) \ | \ (x,y) \in E(\Gamma) \} \cup \{  x \ | \ x \in V(\Gamma)  \}.
-	\]
-	Las aristas están formadas por 
-	\[
-	E(T) = \{  (x,b(x,y)) \ | \ (x,y) \in E(\Gamma) \}.
-	\]
-	Consideramos la siguiente función $X: V(T) \to {\cal P}(V(\Gamma))$  
-	\[
-	X(t) = 
+	f(t) = 
 	\begin{cases}
-		\{ x \} \ & \text{si} \ t = x 				\\
-		\{ (x,y)  \} \ &\text{si} \ t = b(x,y).
+		\{ v \} \ & \text{si} \ t = v \in V(T) 				\\
+		\{ v,w  \} \ &\text{si} \ t = \{ v,w\} \in E(T).
 	\end{cases}
 	\]
 	
-	Por como los definimos es evidente que $|X(t)| \le 2$ para todo $t \in V(T)$.
-	De esta manera si vemos que se trata de una descomposición en un árbol tendremos probado que $bs(X,T) = 1$ tal como queríamos ver.
 	
-	Finalmente veamos que se trata de una descomposición. Corroboremos que cumple las tres condiciones necesarias.
+	Por como definimos a $f$ es evidente que $|f(t)| \le 2$ para todo $t \in V(T)$.
+	De esta manera si vemos que $(T',f)$ se trata de una descomposición en un árbol para $T$ tendremos probado que $bs(T,T',f) = 1$ tal como queríamos ver.
+	
+	Finalmente lo único que nos queda por probar es que se trata de una descomposición en un árbol.
+	Esto es que cumple las tres condiciones necesarias.
 	\begin{enumerate}
 		\item[\textbf{T1.}] 
-		Sea $x \in V(\Gamma)$ luego consideremos $X(x) = \{ x \}$ dado que $x \in V(T)$ por construcción de la subdivisión baricéntrica.
+		Sea $t \in V(T)$ luego consideremos $f(t) = \{ t \}$ dado que $t \in V(T')$ por construcción de la subdivisión baricéntrica.
 		
 		\item[\textbf{T2.}] 
-		Dado $(x,y) \in E(\Gamma)$ consideramos $X({b(x,y)}) = \{ x,y \} $ de manera que tanto $x$ como $y$ están en un mismo bolsón.
+		Dada una arista $\{t,s\} \in E(T)$ consideramos $f(\{ t,s \}) = \{ t,s \} $ de manera que tanto $t$ como $s$ están en un mismo bolsón.
 		
 		\item[\textbf{T3.}] 
-		Sea $x \in V(\Gamma)$, queremos ver que $\{ t \in V(T) :  v \in X(t) \}$ resulta ser un subárbol de $T$.		
-		Para empezar tenemos que $x \in X(t)$ si y solo sí $t = b(x,y)$ para cierta arista $(x,y) \in E(\Gamma)$ o bien $t = x$.
-		De esta manera el subárbol que nos queda es conexo porque tenemos $(x,b(x,y))$ para toda arista $(x,y) \in E(\Gamma)$ y no tiene ciclos porque no hay más aristas entre estos vértices de la subdivisión baricéntrica del árbol $X$.
+		Sea $t \in V(T)$, queremos ver que $\{ t' \in V(T') :  t \in f(t') \}$ resulta ser un subárbol de $T'$.		
+		Para empezar tenemos que $t \in f(t')$ si y solo sí sucede alguno de dos casos:
+		$t' = t$ o bien ocurre que $t' = \{ t,s \}$ para cierta arista $\{t,s\} \in E(T)$.
+		En particular notemos que todos estos vértices de $T'$ están conectados y en particular son un subgrafo dado que $ \{t, \{t,s\}\} \in E(T')$ para $t \in V(T)$ y $\{t,s\} \in E(T)$. 
 	\end{enumerate}
+	
+	
 \end{ej}
 
-Veamos ahora una propiedad que tienen los caminos en los grafos que tienen una descomposición en un árbol.
-
+Probaremos algunas proposiciones útiles de las descomposiciones en árboles de grafos.
+Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposición.
+Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica que las une. 
+Denotemosla $[t,s]$.
+\todo{Mencionar 1- árboles uni geod 2- concatenacion de caminos} 
 \begin{prop}\label{prop-camino-desc}
-	Sea $\Gamma$ grafo tal que tiene una descomposición en un árbol $T$.
-	Sean $X,Y,Z$ bolsones tales que el vértice correspondiente a $Z$ en el árbol $T$ está en la geodésica que va de $X$ a $Y$. 
-	Sean $x \in X, y \in Y$ tales que $x = x_0 \dots x_n=y$ es algún camino en $\Gamma$ conectándolos.
-	Entonces debe existir algún $ 0 \le i \le n$ tal que $x_i \in Z$. 
+	Sea $\Gamma$ grafo no dirigido.
+	Sea $(T,f)$ una descomposición en un árbol de $\Gamma$.
+	Sean $t_{1},t_{2},t_{3} \in V(T)$ tales que la única geodésica que une a $[t_1,t_2]$ pasa por $t_{3}$.
+	Sean $v,w \in V(\Gamma)$ de manera que $v \in f(t_{1})$ y tal que $w \in f(t_{2})$.
+	Si $\gamma = v_0 \dots v_n$ es algún camino en $\Gamma$ conectándolos de manera que $v_{0}=v$ y $v_{n} = w$	
+	entonces debe existir algún $ 0 \le i \le n$ de manera que $v_i \in f(t_{3})$. 
 \end{prop}
 
 \begin{proof}	
-	Vamos a demostrarlo haciendo inducción en la longitud $n$ del camino. 
-	El caso base es que $n = 0$ por lo tanto $x=y$. 
-	En este caso por ser una descomposición en un árbol tenemos que usando la tercer propiedad que $x \in Z$ también.
+	Vamos a demostrarlo haciendo inducción en la longitud $|\gamma|$.
+	 
+	El caso base es que $|\gamma| = 0$ por lo tanto $v=w$. 
+	En este caso por ser $(T,f)$ una descomposición en un árbol tenemos que usando \textbf{T3} vale que $\{  t \in V(T) \mid v \in f(t) \}$ es un subárbol, por lo que $v \in f(t_{3})$.
 	
-	Para el paso inductivo tomemos $X'$ bolsón que contiene tanto a $x$ como a $x_1$ que sabemos existe por ser una de las propiedades de las descomposiciones en árboles.
-	Si este bolsón $X'$ es $Z$ ya está porque nos alcanza con tomar $i=1$ de manera que $x_1 \in Z$.
-	En el caso que esto no ocurra miramos el camino de longitud $n-1$ dado por $x_1 x_2 \dots x_n = y$ y usando la hipótesis inductiva llegamos al resultado.	
+	Para el paso inductivo supongamos que vale para caminos de longitud $n-1$.
+	Sea $t' \in V(T)$ de manera que $v_{0}, v_{1} \in f(t')$ que existe por la propiedad \textbf{T2}.
+	Notemos que $t_{3}$ está en la geodésica $[t',t_{2}]$ dado que 
+	$[t_{1}, t_{2}] = [t_{1}, t']*[t',t_{2}]$
+	luego $t_{3}$ no está en la geodésica $[t_{1},t']$ porque no es ninguno de los dos vértices que aparece lo que obliga a que $t_{3}$ esté en la geodésica $[t',t_{2}]$.
+	
+	
+	Entonces si $t' = t_{3}$ ya está porque nos alcanza con tomar $i=1$ de manera que $v_1 \in f(t_{3})$.
+	En el caso que esto no ocurra miramos el camino de longitud $n-1$ dado por $(v_1 v_2 \dots v_n)$ y usando la hipótesis inductiva llegamos al resultado.	
 \end{proof}
 
 \begin{prop}\label{prop_tw_finitos_bolsones}

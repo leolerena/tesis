@@ -20,7 +20,7 @@ Finalmente en \ref{secc_graf_nd} introducimos la notación que usaremos para los
 
 
 Consideremos un conjunto no vacío $\Sigma$ luego dado $k \in \NN$ denotaremos $\Sigma^k$ al conjunto de palabras en $\Sigma$ de exactamente $k$ elementos.
-Hacemos énfasis especial en el caso que $k=0$ denotando $\Sigma^0 = \lambda$ a la \emph{palabra vacía}.
+Hacemos énfasis especial en el caso que $k=0$ denotando $\Sigma^0 = \epsilon$ a la \emph{palabra vacía}.
 Dada una palabra $w= a_1 \dots a_k \in \Sigma^k$ diremos que su longitud es $k$ y lo denotaremos $|w| = k$. 
 Similarmente si $ \Sigma = \{ a_{i} \}_{i \in I} $ denotaremos $|w|_{i}$ a la cantidad ocurrencias de $a_{i}$ en $w$.
 
@@ -37,7 +37,7 @@ Similarmente si $ \Sigma = \{ a_{i} \}_{i \in I} $ denotaremos $|w|_{i}$ a la ca
 	\]
 	que llamaremos la \emph{concatenación de palabras} y que definimos de la siguiente manera: 
 	dadas $w_1=a_{1}^1 \dots a_{k}^1 \in \Sigma^{*}, w_2 = a_{1}^{2} \dots a_{l}^{2} \in \Sigma^{*}$ luego $w_1 \cdot w_2 = a_{1}^1 \dots a_{k}^1 a_{1}^{2} \dots a_{l}^{2} $.
-	Esta operación es asociativa y tiene como elemento neutro a $\lambda$.
+	Esta operación es asociativa y tiene como elemento neutro a $\epsilon$.
 	De esta manera obtenemos que $(\Sigma^{*}, \cdot)$ es un monoide que llamaremos el \emph{monoide libre} sobre $\Sigma$.
 \end{deff}
 
@@ -63,6 +63,18 @@ Si $w = vu$ entonces $v$ es un \emph{prefijo} de $w$ y $u$ es un \emph{subfijo} 
 \begin{deff}
 	Un \emph{lenguaje} $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
 \end{deff}
+
+\begin{deff}
+	Sea $\Sigma$ conjunto finito.
+	Dados lenguajes $L_{1}, L_{2} \subseteq \Sigma^*$ definimos el \emph{cociente a derecha de $L_{1}$ por $L_{2}$} como el siguiente lenguajes
+	\[
+	L_{1}/L_{2} = \{ w \in \Sigma^* \mid \exists x \in L_{2}: wx \in L_{1}    \}
+	\]
+	Análogamente definimos el cociente a izquierda $L_{2} \backslash L_{1}$.
+\end{deff}
+Destacamos el caso particular que $L_{1} = \{w\}$ un lenguaje formado con una única palabra y que $L_{2} = \Sigma^*$.
+En este caso tenemos que $L_{1}/\Sigma^* = \{  x \in \Sigma^*  \mid x \ \text{es prefijo de} \ w  \}$.
+Usaremos para este caso especial la notación $ \text{Pre}(w) = \{w\}/\Sigma^*$.
 
 
 
@@ -107,7 +119,7 @@ De esta manera una gramática la podemos pensar como un conjunto de reglas que n
 	Consideremos la siguiente gramática ${\cal G} = (V, \Sigma, P, S)$ donde $V = \{ S, A \}, \Sigma = \{ a,b \}$ y tenemos las siguientes producciones,
 	\begin{align*}
 		S & \to Ab \\
-		A & \to aA \mid \lambda 
+		A & \to aA \mid \epsilon 
 	\end{align*}
 	donde usamos $\mid$ para separar distintas producciones que tienen el mismo lado izquierdo.
 	
@@ -138,11 +150,11 @@ Es posible clasificar los lenguajes a partir de las características de las gram
 \begin{deff}
 	Decimos que una gramática $\gramatica$ es \emph{regular} si las producciones son del estilo
 	\begin{enumerate}
-		\item $A \to \lambda$
+		\item $A \to \epsilon$
 		\item $A \to a$
 		\item $A \to a B$
 	\end{enumerate}
-	donde $A, B \in V$, $a \in \Sigma$ y $\lambda$ es la palabra vacía. 
+	donde $A, B \in V$, $a \in \Sigma$ y $\epsilon$ es la palabra vacía. 
 	Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \emph{lenguaje regular}. 
 \end{deff}
 
@@ -171,14 +183,14 @@ la denotaremos $\vdash^*$.
 	Dado un autómata finito no determinístico $\cal M$ el \emph{lenguaje generado} por $M$ es el siguiente
 	
 	\[
-	L({\cal M} ) = \{  w \in \Sigma^*, q_F \in F \mid (q_0,w) \vdash^* (q_F,\lambda)     \}.
+	L({\cal M} ) = \{  w \in \Sigma^*, q_F \in F \mid (q_0,w) \vdash^* (q_F,\epsilon)     \}.
 	\]
 \end{deff}
 \medskip
 
 Así como las gramáticas generan lenguajes pensamos que los autómatas aceptan lenguajes.
 Más en particular dado ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ autómata finito no determinístico y $w \in \Sigma^*$ palabra diremos que $\cal M$ \emph{acepta} a $w$ si $w \in L(\cal M)$.
-Una manera de \emph{consumir} la palabra $w$ es una sucesión $(q_0,w) \vdash (q_{i_{1}}, w_{i_{1}}) \vdash^{*} (q_{i_{n}}, \lambda)$.
+Una manera de \emph{consumir} la palabra $w$ es una sucesión $(q_0,w) \vdash (q_{i_{1}}, w_{i_{1}}) \vdash^{*} (q_{i_{n}}, \epsilon)$.
 
 \medskip
 
@@ -227,7 +239,7 @@ Vale que los lenguajes aceptados por automátas finitos no determinísticos son 
 	Esto sucede para todas las palabras del lenguaje exceptuando las palabras $w$ tales que $|w|=1$ que en nuestro caso en particular resultan ser dos palabras $w=a$ o bien $w = b$. 
 	De esta manera podemos considerar la siguiente gramática ${\cal G}  =  (\{S\}, \Sigma, P, S )$ donde las producciones $P$ están dadas por:
 	\begin{equation*}
-		S  \to \lambda \\ \mid a \\ S  \mid  b \\ \mid aSa \\ \mid bSb. \\
+		S  \to \epsilon \\ \mid a \\ S  \mid  b \\ \mid aSa \\ \mid bSb. \\
 	\end{equation*}
 
 	Para ver que esta gramática genera al $L$ notemos que si tomamos una palabra en el $w \in L$ tal que $|w| > 1$ entonces necesariamente debe comenzar con $a$ o con $b$ y de esta manera tenemos que la primer producción es $S \to aSa$ o $S \to bSb$. 
@@ -242,7 +254,7 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 	\begin{enumerate}[i)]
 		\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.
 		\item $A \to a$ donde $A \in V, a \in \Sigma$.
-		\item $S \to \lambda$ 
+		\item $S \to \epsilon$ 
 	\end{enumerate}
 \end{deff}
 
@@ -266,7 +278,7 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 		\item $Q$ es un conjunto finito denominado los \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
 		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
-		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times \Sigma \cup \{ \lambda \} \times \Gamma \to {\cal P}( Q  \times \Gamma^*)$;
+		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times \Sigma \cup \{ \epsilon \} \times \Gamma \to {\cal P}( Q  \times \Gamma^*)$;
 		\item $q_0 \in Q$ es el \emph{estado inicial};
 		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
 		\item $Z_{0} \in \Gamma$ es el \emph{símbolo inicial} de la pila
@@ -276,18 +288,18 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 Una \emph{configuración} de un autómata de pila no determinístico va a ser un triple $(q,w,\gamma) \in Q \times \Sigma^* \times \Gamma^*$.
 Dada una configuración de un autómata de pila no determinístico $(q,w, Z\gamma)$ diremos que $Z \in \Gamma$ es el \emph{tope de la pila}.
 Intuitivamente es lo último que apilamos en nuestra pila.
-La función de transición es tal que dada $(q,a,Z) \in Q  \times \Sigma \cup \{ \lambda \} \times \Gamma $ nos devuelve un par $(p,\gamma)$ de manera que $\gamma \in \Gamma^{*}$ es la palabra que reemplaza al tope de la pila.
+La función de transición es tal que dada $(q,a,Z) \in Q  \times \Sigma \cup \{ \epsilon \} \times \Gamma $ nos devuelve un par $(p,\gamma)$ de manera que $\gamma \in \Gamma^{*}$ es la palabra que reemplaza al tope de la pila.
 Vamos a tener las siguientes tres maneras de modificar el tope de la pila a través de la función de transición que lo haremos con la siguiente notación:
 
 \begin{enumerate}
-	\item Si $\delta(q,a,Z) = (p,\lambda)$ luego eliminamos el tope de la pila.
+	\item Si $\delta(q,a,Z) = (p,\epsilon)$ luego eliminamos el tope de la pila.
 	\item Si $\delta(q,a,Z) =  (p,Z)$ luego dejamos el mismo tope de pila.
 	\item Si $\delta(q,a,Z) = (p, XZ)$ luego cambiamos el tope de pila por $X$ y dejamos a $Z$ apilada.
 \end{enumerate}
 
 
 Esto nos define una relación sobre el conjunto de todas las transiciones de un autómata de pila no determinístico.
-Sea $(q,w,\gamma)$ una configuración entonces sean $w = aw'$ con $a \in \Sigma \cup \{ \lambda \}$ y $w' \in \Sigma^*$  y sean $\gamma = Z\gamma'$ con $Z \in \Gamma$ y $\gamma' \in \Gamma^{*}$.
+Sea $(q,w,\gamma)$ una configuración entonces sean $w = aw'$ con $a \in \Sigma \cup \{ \epsilon \}$ y $w' \in \Sigma^*$  y sean $\gamma = Z\gamma'$ con $Z \in \Gamma$ y $\gamma' \in \Gamma^{*}$.
 Si $(p,\theta) \in \delta (q,a,Z)$  luego denotaremos $(q,w,\gamma) \vdash_{\cal M} (p,w',\theta\gamma')$ la transición de una configuración en otra en el \APND $\cal M$,
 donde $\theta \gamma'$ es la concatenación en el monoide libre $\Gamma^{*}$. 
 
@@ -298,7 +310,7 @@ Así como en el caso anterior de los autómatas finitos consideremos la relació
 \begin{deff}
 	Dado $\cal M$ un autómata de pila no determinístico consideramos el \emph{lenguaje generado por estado final} como
 	\begin{equation*}
-		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \lambda, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
+		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
 	\end{equation*}
 \end{deff}
 
@@ -330,16 +342,16 @@ Así como en el caso anterior de los autómatas finitos consideremos la relació
 	
 	La idea intuitiva del funcionamiento de este autómata es la siguiente: en el primer estado vamos apilando la palabra de entrada y en el segundo estado vamos desapilando la palabra anteriormente apilada. 
 	
-	Sea $Z$ cualquier elemento del alfabeto de la pila y $X$ cualquier elemento de nuestro alfabeto de entrada e $Y = \{a,b, \lambda\}$
+	Sea $Z$ cualquier elemento del alfabeto de la pila y $X$ cualquier elemento de nuestro alfabeto de entrada e $Y = \{a,b, \epsilon\}$
 	entonces dada una configuración $(q_{i}, Y, Z)$ nuestra función de transición $\delta$ va a ser la siguiente,
 	\[
 		\delta(q_{i}, Y, Z)  = 
 		\begin{cases}
 			(q_0,aZ)  		& \text{si} \ i=0, Y = a \\
 			(q_0,bZ) 		&  \text{si} \ i=0, Y = b    \\
-			(q_1,\lambda) 	&  \text{si} \ i=1, Y = a, Z = a 	\\
-			(q_1,\lambda) 	&  \text{si} \ i=1, Y = b, Z = b \\
-			(q_1,Z)			& \text{si} \ i=0, Y = \lambda \\
+			(q_1,\epsilon) 	&  \text{si} \ i=1, Y = a, Z = a 	\\
+			(q_1,\epsilon) 	&  \text{si} \ i=1, Y = b, Z = b \\
+			(q_1,Z)			& \text{si} \ i=0, Y = \epsilon \\
 			(q_1, Z)		& \text{si} \ i=0 \\
 		\end{cases}
 	\]
@@ -357,15 +369,15 @@ Así como en el caso anterior de los autómatas finitos consideremos la relació
 	Si es par tenemos que $(q_{0},u^r,u^rZ_{0}) \vdash (q_{1},u^r,u^rZ_{0})$.
 	Finalmente tenemos que 
 	\[
-		(q_{1},u^r,u^rZ_{0}) \overset{*}{\vdash} (q_{1},\lambda,Z_{0}).
+		(q_{1},u^r,u^rZ_{0}) \overset{*}{\vdash} (q_{1},\epsilon,Z_{0}).
 	\] 
 	mientras que si es impar tenemos que 
 	\[
-		(q_{0}, w, Z_{0}) \overset{*}{\vdash} (q_{0},au^r,u^rZ_{0}) \vdash (q_{1},u^r,u^rZ_{0})\overset{*}{\vdash} (q_{1},\lambda,Z_{0}).
+		(q_{0}, w, Z_{0}) \overset{*}{\vdash} (q_{0},au^r,u^rZ_{0}) \vdash (q_{1},u^r,u^rZ_{0})\overset{*}{\vdash} (q_{1},\epsilon,Z_{0}).
 	\] 	
 	
 	Probemos la otra contención.
-	Para eso sea $w \in L(\cal M)$ luego tenemos que $(q_{0},w,Z_{0}) \overset{*}{\vdash} (q_{1},\lambda,Z_{0})$ por definición de lenguaje aceptado por un autómata de pila no determinístico.
+	Para eso sea $w \in L(\cal M)$ luego tenemos que $(q_{0},w,Z_{0}) \overset{*}{\vdash} (q_{1},\epsilon,Z_{0})$ por definición de lenguaje aceptado por un autómata de pila no determinístico.
 	Para esto notemos que tiene que existir alguna $u \in \Sigma^*$ y alguna $v \in \Sigma^{*}$ tal que $(q_{0}, w, Z_{0}) \overset{*}{\vdash} (q_{1},v,u^rZ_{0})$.
 	Una vez que llegamos al estado $q_{1}$ la única manera de aceptar una palabra es que podamos consumir $v$ y esto ocurre si y solamente sí $v = u^r$.
 	De esta manera obtenemos que $w$ tiene que ser un palíndromo, por lo tanto $w \in L$.
@@ -389,9 +401,9 @@ Así como probamos en la subsección anterior la equivalencia de los lenguajes r
 
 
 Hasta ahora definimos los autómatas de pila no determinísticos que aceptan por estado final. Otra definición posible de lenguaje aceptado podría ser que acepten por pila vacía. 
-Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(q, \lambda, \lambda)$ donde $\lambda$ es la palabra vacía de ambos alfabetos respectivamente. Formalmente dado un autómata de pila $\cal M$  notaremos al \emph{lenguaje aceptado por pila vacía} de la siguiente manera,
+Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una configuración $(q, \epsilon, \epsilon)$ donde $\epsilon$ es la palabra vacía de ambos alfabetos respectivamente. Formalmente dado un autómata de pila $\cal M$  notaremos al \emph{lenguaje aceptado por pila vacía} de la siguiente manera,
 \begin{equation*}
-	N({\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \lambda, \lambda), \ q \in Q, u \in \Sigma^*    \}
+	N({\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \epsilon, \epsilon), \ q \in Q, u \in \Sigma^*    \}
 \end{equation*}
 donde arrancamos en el estado inicial y llegamos a algún estado $q$ cualesquiera sin importar que sea final o no.
 La pila está vacía así como lo que nos queda por leer de la palabra. 
@@ -410,7 +422,161 @@ El siguiente resultado nos dice que en el caso que nuestro autómata sea no dete
 	Ver \cite{hopcraft-ullman}.
 \end{proof}
 
+\subsection{Autómatas de pila determinísticos.} 
+\begin{deff}
+	Un \emph{autómata de pila determinístico} es un automáta de pila 
+	\[
+	{\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, Z_0)
+	\]
+	definido idénticamente a un \APND \ref{deff_apnd} con la salvedad que 
+	\[
+	|\delta(q,a, z)| \le 1 \ \ \ \forall z \in \Gamma, \ p \in Q, \ a \in \Sigma \cup \{ \epsilon \}.
+	\]
+\end{deff}
 
+\begin{obs}
+	Todo \APD en particular es un autómata de pila no determinístico. 
+\end{obs}
+
+Esto nos dice que todas las definiciones que dimos para \APND siguen siendo válidas en este contexto.
+Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una palabra $w \in \Sigma$ existe una única manera de consumir a la palabra $w$.
+Notaremos $L(\cal M)$ al lenguaje aceptado por estado final y notaremos por $N(\cal M)$ al lenguaje aceptado por pila vacía entonces tenemos el siguiente resultado, que marca una diferencia con el caso de los lenguajes aceptados por autómatas de pila no determinísticos.
+
+\begin{teo}
+	Existen lenguajes $L, L' \in \text{IC}$ tales que:
+	\begin{itemize}
+		\item Existe $\cal M$ \APD de manera que $L = L(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L = N(\cal N)$.
+		\item Existe $\cal M$ \APD de manera que $L' = N(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L' = L(\cal N)$.
+	\end{itemize} 
+\end{teo}
+\begin{proof}
+	\cite{sipser13}.
+\end{proof}
+
+Ahora probemos que no todo lenguaje aceptado por estado final por un \APND puede ser aceptado por estado final por un autómata de pila determinístico.
+El mismo ejemplo del lenguaje de los palíndromos \ref{ej_ic_palindromos} nos sirve como contraejemplo.
+\begin{ej}
+	El lenguaje 
+	\[
+	L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}
+	\]
+	no es aceptado por un \APD pero sí por uno no determinístico. 
+	Supongamos que ${\cal {M}} = (Q, \{ a, b \}, \Gamma, \delta, q_0, F, Z_0)$ es un \APD que lo acepta. 
+	
+	
+	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que
+	\[
+	(q_{0},w,Z_{0}) \overset{*}{\vdash} (q, \epsilon, \gamma)
+	\]
+	donde $\gamma \in \Gamma^*$ es tal que $\gamma \neq \epsilon$.
+	Caso contrario tendríamos que $ww^r \notin L(\cal M)$ ya que la pila estaría vacía y no podríamos pasar de configuración.
+	
+	Fijamos una palabra arbitraria $w \in \{ a,b \}^*$ y consideramos $x_{w} \in \{ a, b\}^*$ de manera que si
+	$(q_{0}, wx_{w}, Z_{0}) \overset{*}{\vdash} (q, \epsilon, \gamma_{w})$ entonces $|\gamma_{w}|$ es minimal.
+	
+	
+	Si consideramos palabras del estilo $wx_wz \in \{a,b\}^*$ sabemos que la longitud de lo que quede en la pila no puede disminuir, esto es que si $(q_{0}, wx_{w}z, Z_{0}) \overset{*}{\vdash} (q, \epsilon, \gamma)$ entonces $|\gamma| \ge |\gamma_{w}|$.
+	
+	Nuestro \APD $\cal M$ tiene finitos estados y un alfabeto de pila finito por lo tanto existen finitos pares de estados y topes de pilas a los que puede llegar este \APD después de consumir una palabra.
+	Esto nos dice que deben existir al menos dos palabras distintas $w, u \in \{ a, b\}^*$ tales que:
+	\begin{align*}
+		(q_{0}, wx_{w}, Z_{0}) & \overset{*}{\vdash} (q, \epsilon, \gamma_{w}) \\
+		(q_{0}, ux_{u}, Z_{0}) & \overset{*}{\vdash} (q, \epsilon, \gamma_{u})
+	\end{align*}
+	que cumplan que caen en el mismo estado y tienen el mismo tope de pila, esto que existe $z \in \Gamma$ tal que $\gamma_{u} = z \gamma$ y $\gamma_{w} = z \gamma'$ para $\gamma, \gamma' \in \Gamma^{*}$.
+	
+	
+	Vamos a elegir $v \in \{ a,b\}^*$ de manera que si $s = wx_{w}$ y $t = ux_{u}$ entonces $sv \in L \iff tv \notin L$ y viceversa.
+	
+	Procedemos separando en casos dependiendo de las longitudes de $s$ y de $t$.
+	\begin{itemize}
+		\item Si $|t|=|s|$ basta con tomar $v=s^r$. 
+		Entonces $tv \in L({\cal M})$ pero $tv \notin L$.
+		
+		\item Si $|t|\neq |s|$ supongamos que $|s| < |t|$ y que $s$ no es prefijo de $t$ entonces  podemos tomar $v = s^r$ de manera que $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.
+		
+		\item Si $|t|\neq |s|$ y una es prefijo de la otra. 
+		Sin pérdida de generalidad supongamos que $t=sy$ donde $y \in \{a,b\}^*$ tal que $|y| \ge 1$ y que $y = ay'$ con $y' \in \{a,b\}^*$ entonces $yb \notin L$.  
+		De esta manera tenemos que si $v=bs^r$ entonces $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.		
+	\end{itemize}
+	
+	Con esto probamos que no puede existir ningún autómata $\cal M$ tal que $L = L(\cal M)$ porque si $L \subseteq L(\cal M)$ entonces existen $w \in L(\cal M)$ tales que $w \notin L$.
+	Por el ejemplo \label{ej_ic_palindromos} tenemos que $L$ es aceptado por un \APND y así vimos que no todo lenguaje que es aceptado por un \APND es aceptado por un autómata de pila determinístico.
+	
+\end{ej}
+
+\subsection{Autómatas de pila determinísticos especiales.} 
+Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. 
+
+\begin{deff}
+	Sea ${\cal {M}} = (Q,\Sigma, \Gamma, \delta, q_0, F, Z_0)$ un autómata de pila determinístico. 
+	Diremos que $\cal M$ es un \emph{autómata de pila determinístico especial} si $w \in L({\cal M}) \iff w \in N(\cal M)$.
+\end{deff}
+
+La familia de lenguajes aceptados por los autómatas de pila determinísticos especiales es estrictamente menor a la familia de los que son aceptados por autómatas de pila determinísticos.
+Veamos un contraejemplo.
+
+\begin{ej}
+	Sea el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$ este no es un lenguaje independiente de contexto determinístico especial pero sí es determinístico. 
+	
+	Construyamos un \APD que acepte a $L$. 
+	Sea 
+	\[
+	{\cal M} = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,Z_0\}, Z_0, q_2) 
+	\]
+	un \APD 
+	Introducimos la siguiente notación estándar para representar la función de transición en un gráfico.
+	Si tenemos una flecha de un estado $q \in Q$ a otro estado $p \in Q$ tal que tiene como etiqueta $b, a | \gamma$
+	entonces esto quiere decir que $\delta(q,b,a) = (p,\gamma)$.
+	
+	Entonces podemos representar gráficamente al \APD de la siguiente manera, donde usamos que $Z \in \{a,b,Z_0\}$ es cualquier letra del alfabeto de la pila,	
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+			scale = 1,transform shape]
+			
+			\node[state,initial] (q_0) {$q_0$};
+			\node[state] (q_1) [right of=q_0] {$q_1$};
+			\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
+			
+			\path (q_0) edge    [bend right]          node {$b, a | \epsilon$ \ } (q_1)
+			(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
+			(q_1) edge      [bend right]      node {$\epsilon, Z | Z$}   (q_2)
+			(q_1) edge    [loop above]           node {$b, a | \epsilon$} (q_1);
+			
+		\end{tikzpicture}
+	\end{center}
+	Podemos ver de manera directa que $L = L(\cal M)$.
+	Para esto notemos que si $w \in L(\cal M)$ entonces
+	\[
+	(q_{0},w,Z_{0}) \overset{*}{\vdash} (q_{0},bw',a^mZ_{0})
+	\]
+	donde $a^mbw' = w$ y $m \ge 1$.
+	Entonces para pasar al estado $q_{1}$ necesitamos leer una $b$ por lo que
+	\[
+	(q_{0},bw',a^mZ_{0}) \vdash (q_{1},w',a^{m-1}Z_{0}) \overset{*}{\vdash} (q_{2},\epsilon, a^{m-1-n}Z_{0})
+	\]
+	donde $0 \le n \le m-1$.
+	Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
+	Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
+	
+	El lenguaje $L$ no es aceptado por un \APD por pila vacía y así no va a poder ser aceptado por un autómata de pila especial dado que tiene la \emph{propiedad de los prefijos}. 
+	Es decir que existen palabras $w \in L$ tales que existe $u \in L$ y $w = uv$ donde $v \in \{ a, b\}^*$.
+	Por ejemplo consideremos:
+	\[
+	u = a^m b^i, \ w = a^m b^j \ \
+	\text{para}  \
+	m \ge 2,  \ i < j \le m
+	\] 
+	entonces $u,w \in L$.
+	Supongamos que $u,w \in N(\cal M)$ queremos llegar a una contradicción.
+	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que 
+	\[
+	(q_0,u,Z_0) \vdash^* (q,\epsilon, \epsilon)
+	\]
+	con $q \in F$ pero como tiene la pila vacía no podemos continuar aceptando a la palabra $w$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
+	
+	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
+\end{ej}
 
 
 \section{Teoría de grupos.}\label{secc_teo_grp}
@@ -679,6 +845,7 @@ Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 \end{obs}
 
 Un \emph{camino} $c$ en un grafo no dirigido es una sucesión de vértices $c=(v_{0}, \dots, v_{n})$ de manera tal que $v_{i}$ es adyacente con $v_{i+1}$ para todo $1 \le i < n$.
+Dado un camino $c = (v_{0}, \dots, v_{n})$ denotaremos por su \emph{longitud} al número entero positivo $|c|= n$.
 Un grafo es \emph{conexo} si para todo par de vértices $(v,w) \in V \times V$ existe un camino $c = (v_{0}, \dots, v_{n})$ tal que $v_{0} = v$ y $w=v_{n}$.
 Diremos que el camino $c$ \emph{une los vértices} $v$ y $w$.
 Un \emph{ciclo} es un camino $c = (v_{0}, \dots, v_{n}, v_{0})$ en el cual el primer vértice y el último son idénticos y todas las aristas $\{ v_{i}, v_{i+1} \}$ que aparecen en el camino son distintas.

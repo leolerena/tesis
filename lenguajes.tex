@@ -92,7 +92,7 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	\[
 	\ol{f}^{-1}(WP(G,\Sigma)) = WP(G, \Delta).
 	\]
-	Como $WP(G, \Sigma) \in \CC$ resulta que $\ol{f}^{-1}(WP(G,\Sigma))$ por lo tanto $WP(G, \Delta) \in \CC$ tal como queríamos ver.
+	Como $WP(G, \Sigma) \in \CC$ resulta que $\ol{f}^{-1}(WP(G,\Sigma)) \in \CC$ por lo tanto $WP(G, \Delta) \in \CC$ tal como queríamos ver.
 	
 	Veamos ahora que vale \textbf{W2}. 
 	Sea $\Sigma$ conjunto de generadores de $H$.
@@ -143,7 +143,7 @@ La primera propiedad que vamos a ver de los lenguajes independiente de contexto 
 	Queremos ver que $L({\cal N}) = L \cap R $.	
 	Probemos primero la siguiente afirmación.
 	\[
-	((q_0,q_0'), w, Z_0) \vdash^*_{\cal N}  ((q_i,q_j), \lambda, z) \ \iff (q_0, w, Z_0) \vdash^*_{\cal M}  (q_i, \lambda, z) \ \text{y} \ (q_0', w) \vdash^*_{\cal M'} (q_j, \lambda)  	
+	((q_0,q_0'), w, Z_0) \vdash^*_{\cal N}  ((q_i,q_j), \epsilon, z) \ \iff (q_0, w, Z_0) \vdash^*_{\cal M}  (q_i, \epsilon, z) \ \text{y} \ (q_0', w) \vdash^*_{\cal M'} (q_j, \epsilon)  	
 	\]
 	Para ver esto veremos las dos implicaciones a la vez haciendo inducción en la longitud de la palabra $w$.
 	
@@ -151,14 +151,14 @@ La primera propiedad que vamos a ver de los lenguajes independiente de contexto 
 	Este caso tenemos la igualdad porque justamente la función de transición del \APND $\cal N$ es $\delta \times \delta'$.
 	
 	Para el paso inductivo consideremos que $|w|=n$ de manera que $w=ua$ con $|u|=n-1$ y $a \in \Sigma$.
-	Luego tenemos que $((q_0,q_0'), u, Z_0) \vdash^*_{\cal N}  ((q_k,q_l), \lambda, z') \ \iff (q_0, u, Z_0) \vdash^*_{\cal M}  (q_k, \lambda, z') \ \text{y} \ (q_0', u) \vdash^*_{\cal M'} (q_l, \lambda)$.
+	Luego tenemos que $((q_0,q_0'), u, Z_0) \vdash^*_{\cal N}  ((q_k,q_l), \epsilon, z') \ \iff (q_0, u, Z_0) \vdash^*_{\cal M}  (q_k, \epsilon, z') \ \text{y} \ (q_0', u) \vdash^*_{\cal M'} (q_l, \epsilon)$.
 	Nuevamente usamos nuestra definición de la función de transición $\delta \times \delta'$ para concluir que
 	\[ 
-	((q_i,q_j),\lambda, z) \in \delta \times \delta'((q_k,q_l), a, z') \iff  (q_i, a, z') \in \delta(q_k, a, z') \ \text{y} \ (q_j, a) \in \delta(q_l, a).
+	((q_i,q_j),\epsilon, z) \in \delta \times \delta'((q_k,q_l), a, z') \iff  (q_i, a, z') \in \delta(q_k, a, z') \ \text{y} \ (q_j, a) \in \delta(q_l, a).
 	\]	
 	Con esto terminamos de probar la afirmación.
 	
-	Finalmente para ver que $L({\cal N})  =  L \cap R$ usamos que por nuestra afirmación si $w \in L \cap R$ entonces es aceptado por lo dos autómatas $\cal M$ y por $\cal M'$, esto es que $(q_0, w, Z_0) \vdash^* (q_F, \lambda, z)$ y que $(q_0', w) \vdash^* (q_F', \lambda)$ y equivalentemente $((q_0,q_0'),w,Z_0) \vdash^* ((q_F, q_F'),\lambda, z)$. 
+	Finalmente para ver que $L({\cal N})  =  L \cap R$ usamos que por nuestra afirmación si $w \in L \cap R$ entonces es aceptado por lo dos autómatas $\cal M$ y por $\cal M'$, esto es que $(q_0, w, Z_0) \vdash^* (q_F, \epsilon, z)$ y que $(q_0', w) \vdash^* (q_F', \epsilon)$ y equivalentemente $((q_0,q_0'),w,Z_0) \vdash^* ((q_F, q_F'),\epsilon, z)$. 
 	Dado que los estados finales del autómata $\cal N$ resultan ser $F \times F'$ obtenemos que $w \in L({\cal N}) \iff w \in L \cap R$.
 	Concluimos así que el lenguaje $L \cap R$ resulta ser \ic tal como queríamos ver.		
 \end{proof}
@@ -205,13 +205,13 @@ Precisamente probaremos que los lenguajes \ic como clase son cerrados por imáge
 	{\cal M' } = (Q', \Delta, Z, \delta, q_0', F', Z_0)
 	\]
 	donde $Q' = Q \times \Sigma^{\le n}$, donde $\Sigma^{\le n} = \{ w \in \Sigma^* : |w| \le n  \}$.
-	Los estados finales $F' = F \times \{ \lambda \}$.
-	El estado inicial es $q_0' = (q_0, \lambda)$.
+	Los estados finales $F' = F \times \{ \epsilon \}$.
+	El estado inicial es $q_0' = (q_0, \epsilon)$.
 	Finalmente nuestra función de transición resulta ser 
 	\[
 	\delta'((q,v), a ,z) = 
 	\begin{cases}
-		\{(q,h(a), z )\}  \ &\text{si} \ v=\lambda, z \in Z \\
+		\{(q,h(a), z )\}  \ &\text{si} \ v=\epsilon, z \in Z \\
 		\{(p,u),z' \} \ &\text{si} \ (p,z') \in \delta(q,y,z), v=yu \\  
 		\emptyset \ &\text{caso contrario}.
 	\end{cases}
@@ -220,19 +220,19 @@ Precisamente probaremos que los lenguajes \ic como clase son cerrados por imáge
 	Probemos primero la siguiente afirmación.
 	Para cada $w \in \Delta^*$ tenemos la siguiente equivalencia,
 	\[
-	(q_0',w,z) \vdash^*_{\cal M'} ((q,\lambda), \sigma) \iff (q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma).
+	(q_0',w,z) \vdash^*_{\cal M'} ((q,\epsilon), \sigma) \iff (q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma).
 	\]
 	
 	Para probar esta equivalencia lo hacemos por inducción en la longitud de $|w|$.
 	Para el caso base tenemos que $w = a \in \Delta$.
 	En este caso tenemos que $(q_0', a, z) \vdash ((q,h(a)), z)$.
-	Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \vdash (q, \sigma)  \iff ((q_0,h(a)), \lambda ,z) \vdash ((q,\lambda), \sigma)$.
+	Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \vdash (q, \sigma)  \iff ((q_0,h(a)), \epsilon ,z) \vdash ((q,\epsilon), \sigma)$.
 	
 	El caso general tenemos una palabra $w$ tal que $|w|=n$.
 	Sabemos que la afirmación vale para cualquier palabra de longitud menor a $n$.
 	En particular si $w=ua$ con $|u|=n-1$ y $a \in \Delta$, tenemos que por la hipótesis inductiva que 
 	\[
-	(q_0',u,z) \vdash^*_{\cal M'} ((q,\lambda), \sigma) \iff (q_0,h(u), z) \vdash^*_{\cal M} (q, \sigma)
+	(q_0',u,z) \vdash^*_{\cal M'} ((q,\epsilon), \sigma) \iff (q_0,h(u), z) \vdash^*_{\cal M} (q, \sigma)
 	\]
 	entonces de nuevo por el mismo razonamiento que hicimos para el caso base tenemos probada la afirmación.
 	
@@ -257,43 +257,57 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 Esto nos dice que la siguiente definición no depende de los generadores que tomemos.
 
 \begin{deff}
-	Si $G$ es un \fg tal que para ciertos generadores $\Sigma$ resulta que $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo \ic }.
+	Si $G$ es un \fg tal que es generado por un conjunto finito $\Sigma$ y el lenguaje $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo \ic }.
 \end{deff}
 
 
 \begin{ej} Consideremos los siguientes ejemplos.	
 	\begin{enumerate}[E1.]
-		\item \todo{Seguir desde acá. Reescribir el primer ejemplo de manera que quede consistente en notación y esté más claro.}
-		Dado $F$ grupo libre de rango finito supongamos generado por el conjunto finito $X$. 
-		Sea  $Y = X \cup X^{-1}$ el conjunto de generadores simétrico de $X$. 
-		Probemos que $\text{WP}(F,Y)$ es un lenguaje independiente de contexto.
+		\item 
+		Dado $F$ grupo libre generado por un conjunto finito $A$ tal que $1 \notin A$. 
+		Sea  $B = A \cup A^{-1}$ el conjunto de generadores simétrico de $A$. 
+		Probemos que $\text{WP}(F,B)$ es un lenguaje independiente de contexto.
 		
 		Consideremos el siguiente autómata de pila,
 		\[
-		M = (\{ 1 \}, Y, Y, \delta, 1, \{1\}).
+		M = (\{ q_{0},q_{1} \}, B, B \cup \{ 1, \$ \}, \delta, \$, \{q_{1}\}).
 		\]
 		
-		Por como lo definimos tiene un solo estado y el alfabeto tanto de entrada como el de la pila que usa es el conjunto de generadores $Y$.
-		La función de transición $\delta$ está definida de la siguiente manera,
+		Por como lo definimos tiene dos estados y uno solo es final.
+		El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1 , \$ \}$ donde $\$$ es el símbolo inicial de la pila.
+		Representamos al autómata de la siguiente manera donde $b_{i} \in B$ genérico y $b \in B \cup \{1\}$ entonces si $b_{i} \cdot b$ es el producto en $F$ de ambos generadores
+		
+		\begin{center}
+			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=6.5cm,
+				scale = 1,transform shape]
+				
+				\node[state,initial] (q_0) {$q_0$};
+				\node[state,accepting] (q_1) [right of=q_0] {$q_1$};
+				
+				\path 
+				(q_1) edge    [bend right,swap]          node {$b_{i}, b \mid b_{i} \cdot b $ \ } (q_0)
+				(q_0) edge    [bend right, swap]          node {$\epsilon, 1 \mid \epsilon $ \ } (q_1)
+				(q_0) edge    [loop above]          node {$b_{i}, b \mid  b_{i} \cdot b$ \ }  (q_0)
+				(q_1) edge    [loop above]          node {$\epsilon, \$ \mid \epsilon   $ \ }  (q_1);;
+				
+			\end{tikzpicture}
+		\end{center}
+		
+				
+		Consideremos el lenguaje aceptado por estado final, esto es:
 		\[
-		\delta(1, y_i, u)=\left\{
-		\begin{array}{ll}
-		(1 , u )  &\ \text{si} \ a = 1  \\
-		(1, y_i \cdot u') &\ \text{si} \  u = y_jw'  \\
-		\end{array}
-		\right.
+		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)  \}.
 		\]
-		donde al apilar hacemos la multiplicación $y_i \cdot u$ en el grupo libre $F$.
+		donde en particular notemos que $w \in L(\cal M)$ si y solo sí $w \in N(\cal M)$. 
+		Esto nos dice que si $(q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)$ entonces $y = \epsilon$.
+		En particular $\cal M$ es un autómata especial determinístico.
 		
-		Consideremos el lenguaje aceptado por pila vacía, esto es
-		
+		Notemos que $L({\cal M}) = WP(F,B)$ porque si $w \in L(\cal M)$ entonces
 		\[
-		{\cal L }(M) = \{  y \in Y^* \mid (y,1,1)   \vdash^*  (1, 1, 1)  \}.
+			(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1) \vdash (q_{1},\epsilon, \epsilon)
 		\]
-		
-		Notemos que ${\cal L }(M) = \text{WP}(F,Y)$ porque justamente en la pila apilamos lo que vamos leyendo de izquierda a derecha y desapilamos cuando leemos el inverso del generador que está en el tope de la pila.
-		Esto es que desapilamos cuando un generador aparece después de su inverso en la palabra.
-
+		donde en en el estado $q_{0}$ apilamos a $w$ y hacemos el producto en el grupo libre en la pila.
+		De esta manera $w \in L({\cal M}) \iff w \in WP(F,B)$.
 		
 		\item 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
 		Si tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
@@ -317,175 +331,28 @@ Esto nos dice que la siguiente definición no depende de los generadores que tom
 \end{ej}
 
 
-\section{Autómatas de pila determinísticos.} 
-\begin{deff}
-	Un \emph{autómata de pila determinístico} es un automáta de pila 
-	\[
-	{\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, Z_0)
-	\]
-	definido idénticamente a un \APND \ref{deff_apnd} con la salvedad que 
-	\[
-	|\delta(q,a, z)| \le 1 \ \ \ \forall z \in \Gamma, \ p \in Q, \ a \in \Sigma \cup \{ \lambda \}.
-	\]
-\end{deff}
 
-\begin{obs}
-	Todo \APD en particular es un autómata de pila no determinístico. 
-\end{obs}
-
-Esto nos dice que todas las definiciones que dimos para \APND siguen siendo válidas en este contexto.
-Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una palabra $w \in \Sigma$ existe una única manera de consumir a la palabra $w$.
-Notaremos $L(\cal M)$ al lenguaje aceptado por estado final y notaremos por $N(\cal M)$ al lenguaje aceptado por pila vacía entonces tenemos el siguiente resultado, que marca una diferencia con el caso de los lenguajes aceptados por autómatas de pila no determinísticos.
-
-\begin{teo}
-	Existen lenguajes $L, L' \in \text{IC}$ tales que:
-	\begin{itemize}
-		\item Existe $\cal M$ \APD de manera que $L = L(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L = N(\cal N)$.
-		\item Existe $\cal M$ \APD de manera que $L' = N(\cal M)$ pero no existe ningún $\cal N$ \APD tal que $L' = L(\cal N)$.
-	\end{itemize} 
-\end{teo}
-\begin{proof}
-	\cite{sipser13}.
-\end{proof}
-
-Ahora probemos que no todo lenguaje aceptado por estado final por un \APND puede ser aceptado por estado final por un autómata de pila determinístico.
-El mismo ejemplo del lenguaje de los palíndromos \ref{ej_ic_palindromos} nos sirve como contraejemplo.
-\begin{ej}
-	El lenguaje 
-	\[
-	L = \{ w \in \{ a,b \}^*  \ : \ w = w^r \}
-	\]
-	no es aceptado por un \APD pero sí por uno no determinístico. 
-	Supongamos que ${\cal {M}} = (Q, \{ a, b \}, \Gamma, \delta, q_0, F, Z_0)$ es un \APD que lo acepta. 
-	
-	
-	Notemos que para cualquier palabra $w \in \{ a,b \}^*$ debe ser que
-	\[
-	(q_{0},w,Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)
-	\]
-	donde $\gamma \in \Gamma^*$ es tal que $\gamma \neq \lambda$.
-	Caso contrario tendríamos que $ww^r \notin L(\cal M)$ ya que la pila estaría vacía y no podríamos pasar de configuración.
-	
-	Fijamos una palabra arbitraria $w \in \{ a,b \}^*$ y consideramos $x_{w} \in \{ a, b\}^*$ de manera que si
-	$(q_{0}, wx_{w}, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma_{w})$ entonces $|\gamma_{w}|$ es minimal.
-	
-	
-	Si consideramos palabras del estilo $wx_wz \in \{a,b\}^*$ sabemos que la longitud de lo que quede en la pila no puede disminuir, esto es que si $(q_{0}, wx_{w}z, Z_{0}) \overset{*}{\vdash} (q, \lambda, \gamma)$ entonces $|\gamma| \ge |\gamma_{w}|$.
-	
-	Nuestro \APD $\cal M$ tiene finitos estados y un alfabeto de pila finito por lo tanto existen finitos pares de estados y topes de pilas a los que puede llegar este \APD después de consumir una palabra.
-	Esto nos dice que deben existir al menos dos palabras distintas $w, u \in \{ a, b\}^*$ tales que:
-	\begin{align*}
-		(q_{0}, wx_{w}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{w}) \\
-		(q_{0}, ux_{u}, Z_{0}) & \overset{*}{\vdash} (q, \lambda, \gamma_{u})
-	\end{align*}
-	que cumplan que caen en el mismo estado y tienen el mismo tope de pila, esto que existe $z \in \Gamma$ tal que $\gamma_{u} = z \gamma$ y $\gamma_{w} = z \gamma'$ para $\gamma, \gamma' \in \Gamma^{*}$.
-	
-	
-	Vamos a elegir $v \in \{ a,b\}^*$ de manera que si $s = wx_{w}$ y $t = ux_{u}$ entonces $sv \in L \iff tv \notin L$ y viceversa.
-	
-	Procedemos separando en casos dependiendo de las longitudes de $s$ y de $t$.
-	\begin{itemize}
-		\item Si $|t|=|s|$ basta con tomar $v=s^r$. 
-		Entonces $tv \in L({\cal M})$ pero $tv \notin L$.
-		
-		\item Si $|t|\neq |s|$ supongamos que $|s| < |t|$ y que $s$ no es prefijo de $t$ entonces  podemos tomar $v = s^r$ de manera que $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.
-		
-		\item Si $|t|\neq |s|$ y una es prefijo de la otra. 
-		Sin pérdida de generalidad supongamos que $t=sy$ donde $y \in \{a,b\}^*$ tal que $|y| \ge 1$ y que $y = ay'$ con $y' \in \{a,b\}^*$ entonces $yb \notin L$.  
-		De esta manera tenemos que si $v=bs^r$ entonces $sv \in L$ mientras que $tv \in L(\cal M)$ pero $tv \notin L$.		
-	\end{itemize}
-	
-	Con esto probamos que no puede existir ningún autómata $\cal M$ tal que $L = L(\cal M)$ porque si $L \subseteq L(\cal M)$ entonces existen $w \in L(\cal M)$ tales que $w \notin L$.
-	Por el ejemplo \label{ej_ic_palindromos} tenemos que $L$ es aceptado por un \APND y así vimos que no todo lenguaje que es aceptado por un \APND es aceptado por un autómata de pila determinístico.
-	
-\end{ej}
-
-\subsection{Autómatas de pila determinísticos especiales.} 
-Consideremos ahora un \APD tal que acepta tanto por estado final como por pila vacía. 
-
-\begin{deff}
-	Sea ${\cal {M}} = (Q,\Sigma, \Gamma, \delta, q_0, F, Z_0)$ un autómata de pila determinístico. 
-	Diremos que $\cal M$ es un \emph{autómata de pila determinístico especial} si $w \in L({\cal M}) \iff w \in N(\cal M)$.
-\end{deff}
-
-La familia de lenguajes aceptados por los autómatas de pila determinísticos especiales es estrictamente menor a la familia de los que son aceptados por autómatas de pila determinísticos.
-Veamos un contraejemplo.
-
-\begin{ej}
-	Sea el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$ este no es un lenguaje independiente de contexto determinístico especial pero sí es determinístico. 
-	
-	Construyamos un \APD que acepte a $L$. 
-	Sea 
-	\[
-	{\cal M} = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,Z_0\}, Z_0, q_2) 
-	\]
-	un \APD 
-	Introducimos la siguiente notación estándar para representar la función de transición en un gráfico.
-	Si tenemos una flecha de un estado $q \in Q$ a otro estado $p \in Q$ tal que tiene como etiqueta $b, a | \gamma$
-	entonces esto quiere decir que $\delta(q,b,a) = (p,\gamma)$.
-	
-	Entonces podemos representar gráficamente al \APD de la siguiente manera, donde usamos que $Z \in \{a,b,Z_0\}$ es cualquier letra del alfabeto de la pila,	
-	\begin{center}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
-			scale = 1,transform shape]
-			
-			\node[state,initial] (q_0) {$q_0$};
-			\node[state] (q_1) [right of=q_0] {$q_1$};
-			\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
-			
-			\path (q_0) edge    [bend right]          node {$b, a | \lambda$ \ } (q_1)
-			(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
-			(q_1) edge      [bend right]      node {$\lambda, Z | Z$}   (q_2)
-			(q_1) edge    [loop above]           node {$b, a | \lambda$} (q_1);
-			
-		\end{tikzpicture}
-	\end{center}
-	Podemos ver de manera directa que $L = L(\cal M)$.
-	Para esto notemos que si $w \in L(\cal M)$ entonces
-	\[
-	(q_{0},w,Z_{0}) \overset{*}{\vdash} (q_{0},bw',a^mZ_{0})
-	\]
-	donde $a^mbw' = w$ y $m \ge 1$.
-	Entonces para pasar al estado $q_{1}$ necesitamos leer una $b$ por lo que
-	\[
-	(q_{0},bw',a^mZ_{0}) \vdash (q_{1},w',a^{m-1}Z_{0}) \overset{*}{\vdash} (q_{2},\lambda, a^{m-1-n}Z_{0})
-	\]
-	donde $0 \le n \le m-1$.
-	Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
-	Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
-	
-	El lenguaje $L$ no es aceptado por un \APD por pila vacía y así no va a poder ser aceptado por un autómata de pila especial dado que tiene la \emph{propiedad de los prefijos}. 
-	Es decir que existen palabras $w \in L$ tales que existe $u \in L$ y $w = uv$ donde $v \in \{ a, b\}^*$.
-	Por ejemplo consideremos:
-	\[
-	u = a^m b^i, \ w = a^m b^j \ \
-	\text{para}  \
-	m \ge 2,  \ i < j \le m
-	\] 
-	entonces $u,w \in L$.
-	Supongamos que $u,w \in N(\cal M)$ queremos llegar a una contradicción.
-	Esto es porque si $M = (Q, \Sigma, Z, Z_0, \delta, q_0 , F)$ fuera un \APD que acepta por pila vacía a este lenguaje tendríamos que 
-	\[
-	(q_0,u,Z_0) \vdash^* (q,\lambda, \lambda)
-	\]
-	con $q \in F$ pero como tiene la pila vacía no podemos continuar aceptando a la palabra $w$ ya que por la definición que empleamos el autómata necesita leer algún elemento de la pila. 
-	
-	De esta manera vemos que este lenguaje no puede ser aceptado por pila vacía y estado final por un \APD concluyendo que los lenguajes determinísticos especiales forman un subfamilia propia de los independientes de contexto determinísticos.
-\end{ej}
 
 
 \section{Teorema de Muller--Schupp.}
+
+Nuestro objetivo es probar que todo grupo \vl resulta ser \ic pero para esto debemos primero probar algunos resultados sobre grupos virtualmente libres.
+
 
 
 \begin{lema}\label{lema_int_normal}
 	Sea $G$ grupo, sea $H$ subgrupo de $G$ luego el subgrupo $K = \bigcap_{g \in G} gHg^{-1}$ es un subgrupo normal de $G$.
 \end{lema}
+\begin{proof}
+	Ver \cite{}.
+\end{proof}
 
+Los siguientes resultados nos dicen que la clase de grupos virtualmente libres resulta ser cerrada por subgrupos de índice finito y que a su vez los subgrupos libres pueden ser tomados para que sean normales.
 
 \begin{prop}\label{prop_vls}
 	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
 	\begin{enumerate}
-		\item Si $F$ es un subgrupo libre de índice finito entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal, libre y de índice finito.
+		\item Si $F$ es un subgrupo libre de índice finito de $G$ entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal, libre y de índice finito.
 		\item Si $H$ es un subgrupo de $G$ de índice finito entonces $H$ también resulta ser \vl.
 	\end{enumerate}
 \end{prop}
@@ -514,67 +381,68 @@ Veamos un contraejemplo.
 	\]
 \end{proof}
 
+
 \begin{obs}\label{obs_presentacion_vl}
 	Dado $G$ \vl \ vamos a construirnos una presentación en particular.
-	
-	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
+	\todo{Debería ser consistente con la notación para las acciones por izq o der.}
+	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal por \ref{prop_vls} y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
 	\begin{center}
 		\begin{tikzcd}
 			1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & G/F \arrow[r] & 1
 		\end{tikzcd}
 	\end{center}
+	donde $\iota: F \to G$ es la inclusión como subgrupo y $\pi: G \to G/F$ es la proyección.
+
 	
-	Consideremos que $F$ es libre generado por $Y = \{ y_1, \dots, y_n \}$.
-	Por otro lado sea $G/F = \{ b_i : 1 \le i \le m \}$ todos los elementos de este conjunto finito.
-	Elegimos un transversal a derecha $T = \{ t_1, \dots, t_m \}$ de manera que $\pi(t_i)= b_i$ y $t_1 = 1$.
+	Consideremos que $F$ es libre generado por $A = \{ a_i : 1 \le i \le n \}$ bajo la suposición que $1 \notin A$.
+	Por otro lado el cociente $G/F$ resulta ser finito entonces $G/F = \{ q_i : 1 \le i \le m \}$.
+	Elegimos un transversal a derecha $T = \{ t_1, \dots, t_m \}$ de manera que $\pi(t_i)= q_i$ y fijamos para que $t_1 = 1$.
 	
-	Dado que es un transversal tenemos que se deben cumplir las siguientes dos relaciones para $y_j \in Y$ y $t_i,t_j,t_k \in T$. 
+	Dado que es un transversal tenemos que se deben cumplir las siguientes dos relaciones para todo $a_l \in A$ y $t_i,t_j,t_k \in T$. 
 	\begin{enumerate}
-		\item $t_iy_jt_i^{-1} = u_{ij}$ donde $u_{ij} \in F$ usando que $F$ es normal.
-		\item Si tenemos que $b_ib_j = b_k$ entonces $t_it_j = z_{ij}t_k$ donde $z_{ij} \in F$ usando que $(Ht_i)(Ht_j) = Ht_k$.
+		\item $t_ia_{l}t_i^{-1} = u_{il}$ donde $u_{il} \in F$ usando que $F$ es normal.
+		\item Si tenemos que $q_iq_j = q_k$ entonces tenemos la siguiente igualdad 
+		$(Ft_{i}) (Ft_{j}) = Ft_{k}$
+		de donde se desprende que debe existir $z_{ij} \in F$ tal que 
+		 $t_it_j = z_{ij}t_k$.
 	\end{enumerate}
-	
-	Afirmamos que la siguiente es una presentación finita de $G$.
+	Sean
 	\[
-	\langle W \mid R \rangle =  \langle y_1, \dots, y_n, t_1, \dots, t_m \mid t_iy_jt_i^{-1} = u_{ij},  t_it_j = z_{ij}t_k \rangle.
+		W = A \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}
 	\]
-	Sea el grupo que genera este presentación $H$ y sea $F'$ el grupo libre sobre sus generadores.
+	Vamos a probar que $G \equiv \langle W \mid R \rangle$ 
+	Denotemos a este grupo presentado como $H = \langle W \mid R \rangle$ y sea $F_{W}$ el grupo libre sobre sus generadores.
 	
-	Notemos que $W =Y \cup T$ genera a $G$ porque justamente $F$ es libre y generado por $Y$ y $T$ es un conjunto transversal finito porque $F$ tiene índice finito en $G$.
-	Esto nos dice que tenemos un epimorfismo de grupos de $F'$ en el grupo $G$.
+	Notemos que $W$ genera a $G$ porque
+	dado $g \in G$ luego existe $a \in F$ y $t \in T$ de manera que $g = at$.
+	Como $F$ es libre generado por $A \subseteq W$ y $T \subseteq W$ entonces $g$ está generado por $W$. 
+	Esto nos dice que tenemos un epimorfismo de grupos $\varphi: F_{W} \to G$.
 	
-	Toda relación de $G'$ la cumple el grupo $G$ por la elección que tomamos, de esta manera tenemos un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama,
-	
+	Por como elegimos las relaciones $r \in R$ de $H$ tenemos que el grupo $G$ las cumple.
+	De esta manera por la propiedad universal del cociente tenemos un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama	
 	\begin{center}
 		\begin{tikzcd}
-			F' \arrow[dd] \arrow[rr, "\varphi"]          &  & G \\
+			F_{W} \arrow[dd] \arrow[rr, "\varphi"]          &  & G \\
 			&  &   \\
 			H \arrow[rruu, "\overline \varphi"', dashed] &  &  
 		\end{tikzcd}
 	\end{center}
 	
-	El grupo  $G$ es tal que a toda palabra $w$ en sus generadores la podemos llevar a que sea de la pinta
+	Vimos que $\ol \varphi$ es un epimorfismo, veamos ahora que es un monomorfismo.
+	Sea $w \in H$ luego queremos ver que $\ol \varphi(w) = 1 \iff w = 1$.
+	Por el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg} tenemos que podemos llevar a $w$ (vista como una palabra en $F_{W}$) a que sea de la siguiente pinta
 	\[
-	w = yt
+		w = yt
 	\]
-	donde $y \in F$ reducida y $t \in T$ es alguno de los transversales. 
-	Para llegar a esto hacemos el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg}.
-	
-	De esta manera una palabra es trivial si y solamente si $y=1$ y $t=1$. 
+	donde $y \in F$ reducida y $t \in T$.
+	Por lo tanto $\ol \varphi (w) = \ol \varphi(yt) = yt$.
+	Entonces $yt=1$ si y solamente si $y=1$ y $t=1$. 
 	Esto nos dice que $\ol \varphi(w) = 1$ si y solamente si $w=1$. 
 	Concluimos así que $\ol \varphi$ es un isomorfismo de grupos tal como queríamos ver y por lo tanto  $\langle W \mid R \rangle$ resultó ser una presentación de $G$.
-	
 \end{obs}
 \medskip
 
-
-
-
-
-
-
-Una pregunta natural es intentar entender la relación entre la clasificación del lenguaje del problema de la palabra de un grupo dado y las distintas familias de grupos que le corresponden. 
-La siguiente demostración generaliza la construcción del ejemplo del problema de la palabra de un grupo libre.
+Ya estamos en condiciones de probar uno de los resultados centrales de este trabajo.
 
 
 \begin{teo}\cite{muller1983groups}
@@ -583,64 +451,121 @@ La siguiente demostración generaliza la construcción del ejemplo del problema 
 
 
 \begin{proof}
-	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en la observación \ref{obs_presentacion_vl}.
-	Veamos de construir un autómata de pila de manera que acepte al lenguaje $\text{WP}(G,W)$.
-	Antes de definirlo consideremos algunos conjuntos finitos que nos van a servir para definir al autómata.
+	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{obs_presentacion_vl} respetando la misma notación que introducimos en esta observación.
+	Para probar que es \ic vamos a construir un autómata de pila $\cal M$ de manera que  $L ( {\cal M})= \text{WP}(G,W)$.
+	Antes de definirlo vamos a definir algunos conjuntos finitos que nos van a servir para esta construcción.
 	
-	Si tenemos que $ t_j y_i = u_{ij} t_j $ y que $ t_it_j = z_{ijk}t_k $ luego consideremos la siguiente definición.
-	El conjunto finito $U = \{ u_{ij}, \ z_{ijk} : 1 \le i,j,k \le n \}$.
-	Consideremos $\text{Pre}(U) = \{ u' \in Y^* : u'v \in U  \}$ el conjunto de los prefijos de las palabras en $U$ que sabemos es finito también.	
-	Sea entonces el conjunto finito $Q = T \times T \cup Y \times \text{Pre}(U) $.
-	
-	Con estas definiciones ahora nuestro autómata lo definimos así: 
+	Por nuestra definición del conjunto de relaciones $R$ teníamos que para todo $t_{i}, t_{j}, t_{k} \in T, a_{j} \in A$ existían $u_{ij}, z_{ijk} \in F$ de manera que 
+	$t_j a_i = u_{ij} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
+	Sea entonces el conjunto finito 
 	\[
-	{\cal M }= (Q, W , Y, \delta, (1,1,1), \{(1,1,1)\})
+		U =  \{u_{ij} : 1 \le i,j \le n\}  \cup  \{z_{ijk} : 1 \le i,j,k \le n\} 
 	\]
-	El conjunto $Q$ van a ser nuestros estados.
+	donde tomamos la escritura de todas las palabras en $U$ para que sean reducidas.
+	Sea $B = A \cup A^{-1}$ el conjunto simétrico de generadores de $A$.
+	Consideremos 
+	\[
+		U/B^* = \{ u' \in B^* : \exists v \in B^*, \  u'v \in U  \}
+	\]
+	el conjunto de los prefijos de las palabras en $U$  tal que es un conjunto finito también.
+	Sea entonces $Q = T \times (T \cup A) \times U/B^* $.
+	
+	Con estas definiciones ya podemos definir al autómata
+	\[
+	{\cal M }= (Q, W , B \cup \{ 1 \}, \delta, (1,1,1), 1 ,\{(1,1,1)\})
+	\]
 	El alfabeto de entrada es $W$ que es el conjunto de generadores del grupo.
-	El alfabeto de la pila es $Y$ que es el conjunto de generadores del subgrupo libre $F$.
+	El alfabeto de la pila es $B \cup 1$ que es el conjunto simétrico de generadores del subgrupo libre $F$.
 	Nuestro estado inicial que también es el final corresponde a $(1,1,1)$.
 	
 	Ahora podemos definir la función de transición. 
 	Sea $w_i \in W$ algún generador del grupo luego tenemos que
-	\begin{align*}
-		\delta(y_iw',(t_j,1,1), v) &= (w', (t_j,y_i,1), v) \\
-		\delta(t_iw',(t_j,1,1), v) &= (w', (t_k,t_i,1), v) \\
-	\end{align*}
+	\[
+	\delta(w_i,(t_j,1,1), s) =
+		\begin{cases}
+		 ((t_j,a_i,1), s) \quad \text{si} \ w_{i}=a_{i} \\
+		 ((t_k,t_i,1), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
+	\end{cases}\]
 	de manera que si estamos en $T \times \{ 1 \} \times \{ 1 \}$ podemos pasar a la segunda coordenada correspondiente a la letra de $W$ que hayamos leído.	
-	Ahora en esta instancia lo que vamos a hacer es la reducción del producto de $u_{ij} \cdot v$ o bien el de $z_{ijk} \cdot v$ respectivamente una letra a la vez.
-	Para esto tenemos
+	Ahora en esta instancia lo que vamos a hacer es la reducción del producto de $u_{ij} \cdot v$ en el caso del estado $(t_j,a_i,1)$ o bien el de $z_{ijk} \cdot v$ en el caso del estado $(t_k,t_i,1)$.
+	Esta reducción la hacemos una letra a la vez.
+	Sea entonces $v \in U$ la palabra correspondiente al estado $(t_{j},w_{i},1)$.
+	En este caso obtenemos:
 	\begin{equation*}
-		\delta(w',(t_j,w_i,u), v) = (w', (t_j,w_i,y_iu), y_i \cdot v) .
+		\delta(\epsilon,(t_j,w_i,u), s) = ((t_j,w_i,u a_i), v \cdot a_i ) \quad \ \text{si} \ ua_{i} \in \text{Pre}(v).
 	\end{equation*}
-	siempre y cuando $y_iu$ sea un prefijo de la palabra de $U$ correspondiente.
-	Notemos que sigue siendo determinístico porque fijamos de antemano alguna escritura única en los generadores $Y$ para cada palabra $u \in U$.
-	En la pila hacemos la reducción en el grupo libre de multiplicar por una letra.
-	Finalmente la función de transición la definimos para que podamos volver una vez que ya reducimos toda la palabra $u \in U$.
+	siempre y cuando $ua_i$ sea un prefijo de la palabra de $U$ correspondiente.
+	La notación $v \cdot a_{i}$ representa el producto de $v \in F$ con $a_{i}$ un generador en $F$.
+	Notemos que para cada configuración del tipo $(w,(t_{j}, w_{i}, u),s)$ existe una única transición posible dado que fijamos de antemano alguna escritura única en los generadores $A$ para cada palabra $u \in U$.
+	Finalmente la función de transición la definimos para que podamos volver una vez que ya reducimos toda la palabra $v \in U$.
 	Para eso tenemos 
 	\begin{equation*}
-		\delta(w',(t_j,w_i,u), v) = (w', (t_j,1,1), v).		
+		\delta(\epsilon,(t_j,w_i,v), s) = ((t_j,1,1), s) \quad \ \text{si} \ v \in U.		
 	\end{equation*}
-	en el caso que $u \in U$, es decir que ya hicimos toda la reducción.
-	
-	Una vez definido este autómata consideremos ahora el lenguaje aceptado por pila vacía y estado final a la vez,
-	
+	en el caso que $v \in U$, es decir que ya hicimos toda la reducción.
+	Finalmente definimos 
 	\[
-	{\cal L }(M) = \{  w \in W^* \mid (w,1,1)   \vdash^*  (1, 1, 1)  \}
+		\delta (\epsilon, (1,1,1), 1) = ((1,1,1), \epsilon)
+	\]
+	para poder terminar de vaciar la pila y así poder aceptar por pila vacía también.
+	
+	Con esto tenemos definida la función de transición y así al autómata $\cal M$. 
+	Notemos que por como lo definimos resulta ser un autómata de pila determinístico.
+		
+	Una vez definido este autómata consideremos ahora el lenguaje aceptado por pila vacía y estado final a la vez:
+	\[
+	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), \epsilon)  \}
 	\]
 	Debemos ver que el autómata acepta justamente al lenguaje que queremos. 
 	Esto es que $ {\cal L }(M) = \text{WP}(G,W) $ 
 	
+	Sea $w \in W^*$ entonces veamos que el autómata $\cal M$ hace las operaciones que describimos en la observación \ref{obs_presentacion_vl} para reescribir a $w = st$ donde $s \in F$ reducida y $t \in T$.
+	Para esto veamos primero dos observaciones del funcionamiento de este autómata.
 	
-	Dada una palabra $w \in W^*$ por como es esta presentación sabemos que se puede escribir como $w = vt$ donde $v \in F$ reducida y $t \in  T$. 
-	De esta manera $w \in \text{WP}(G,W)$ si y solo si $v=1, t=1$.
-	Notemos que el autómata en toda transición no hace más que reescribir la cadena de izquierda a derecha tal como hicimos en la observación \ref{obs_presentacion_vl}.
-	Esto es que cuando termina de consumir la cadena de entrada llegamos a la configuración $(1, t_i, v)$ es decir que $w = vt_i$.
-	Por lo tanto como aceptamos por estado final y pila vacía esto nos dice que $w \in \text{WP}(G,W)$ si y solo sí $w \in {\cal L}(M)$.
+	\begin{enumerate}[i)]
+		\item Primero notemos que si $w = a_{i}w'$ donde $a_{i} \in B$ entonces tenemos la siguiente derivación:
+		\[
+		(a_{i}w', ( 1,1,1), 1 ) \vdash (w', (1,a_{i},1),1) \vdash (w',(1,a_{i},a_{i}),a_{i}) \vdash (w', (1,1,1), a_{i})
+		\]
+		donde usamos que $u_{1i} = a_{i}$
+		y similarmente en el caso que $w = t_{i}w'$ donde $t_{i} \in T$ tenemos la siguiente derivación:
+		\[
+		(t_{i}w', (1,1,1), 1) \vdash (w', (t_{i},t_{i},1),1) \vdash (w',(t_{1},t_{i},1),1) \vdash (w', (t_{i},1,1), 1)
+		\]
+		donde usamos que $z_{1i1} = 1$.
+		
+		\item Por otro lado observemos que dada una configuración del tipo $(w, ( t_{k}, w_{i}, u), s)$ con $w_{i} \neq 1$ entonces separamos en dos casos.
+		Si $w_{i} = t_{j}$ sea $v = z_{ijk}$ y si $w_{i} = a_{l}$ sea $v = u_{il}$ entonces tenemos que si $u \in \text{Pre}(v)$ de manera que $uv' = v$ entonces
+		\[
+		(w, ( t_{k}, w_{i}, u), s) \overset{*}{\vdash} (w, ( t_{k}, 1, 1), s \cdot v').
+		\]
+	\end{enumerate}
+	
+	
+	
+	
+	
+	
+	En particular de estas dos observaciones obtenemos que toda palabra $w \in W^*$ satisface que 
+	\[
+		(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t, 1,1), s)
+	\]
+	donde $s \in F$ es el elemento del grupo libre que se consigue luego de hacer todas las operaciones que describimos en la observación \ref{obs_presentacion_vl}. 
+	En particular del autómata obtenemos que si miramos la primera coordenada de nuestro estado tenemos que $w = st$.
+	
+	De esta manera $w \in L({\cal M}) \iff w = 1 $ y así obtenemos que $WP(G,W) = L(\cal M)$ tal como queríamos ver.
+	
+	
+%	Dada una palabra $w \in W^*$ por como es esta presentación sabemos que se puede escribir como $w = vt$ donde $v \in F$ reducida y $t \in  T$. 
+%	De esta manera $w \in \text{WP}(G,W)$ si y solo si $v=1, t=1$.
+%	Notemos que el autómata en toda transición no hace más que reescribir la cadena de izquierda a derecha tal como hicimos en la observación \ref{obs_presentacion_vl}.
+%	Esto es que cuando termina de consumir la cadena de entrada llegamos a la configuración $(1, t_i, v)$ es decir que $w = vt_i$.
+%	Por lo tanto como aceptamos por estado final y pila vacía esto nos dice que $w \in \text{WP}(G,W)$ si y solo sí $w \in {\cal L}(M)$.
 	
 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
 	
 \end{proof}
+
 \begin{center}
 	\missingfigure[figwidth=6cm]{Ejemplo de un grupo que sepa hacer?}
 \end{center}
