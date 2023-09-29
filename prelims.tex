@@ -947,49 +947,22 @@ Ahora vamos a ver que en el caso particular que el grupo sea libre entonces su g
 \end{proof}
 
 
+Todo grafo lo podemos ver como un espacio métrico discreto si consideramos como conjunto base a sus vértices. 
+Dado $\Gamma$ un grafo no dirigido conexo el espacio métrico asociado es 
+$ (V(\Gamma), d )$ con $d$ la distancia definida como 
+\[
+	d(v,w) = \inf \{ \  |\gamma|  \mid \gamma \subseteq \Gamma \land \gamma \ \text{es un camino y} \ 
+	\gamma=(v,\dots, w)  \}
+\] 
+a los caminos $\gamma$ tales que realizan la distancia las llamaremos \emph{geodésicas}.
 
+Utilizaremos en varias ocasiones las siguientes dos observaciones:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{enumerate}[1-]
+	\item Si $\alpha = (v_{0}, \dots, v_{n})$ es una geodésica entonces para todo $0 \le i,j \le n$ vale que  $d(v_{i}, v_{j}) = |j-i|$.
+	\item Si $T$ es un árbol entonces es \emph{únicamente geodésico}.
+	Esto es que para todo par de vértices $t,s \in V(T)$ existe una única geodésica $\alpha$ que comienza en $s$ y termina en $t$.
+\end{enumerate}
 
 
 

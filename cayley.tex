@@ -6,7 +6,14 @@
 
 Las referencias centrales de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
 
+En la primer sección \ref{} introducimos las descomposiciones en árboles para grafos no dirigidos y así la definición de treewidth.
+La construcción del ejemplo \ref{} es de vital para probar el teorema de Muller--Schupp.
 
+En la segundo sección \ref{} introducimos brevemente las ideas centrales detrás de las cuasisometrías (en nuestro caso restringidas al contexto de grafos pero bien podría ser para cualquier espacio métrico en general).
+La idea es poder usar estas herramientas para probar que todo grafo de Cayley de un grupo \fg tiene treewidth finito, es decir que no depende de los generadores.
+
+Finalmente en la sección \ref{} probamos uno de los resultados centrales que nos dice que todo grupo independiente de contexto tiene treewidth finito.
+Este es el teorema central del trabajo \cite{} aunque en nuestro caso lo reescribimos para en vez de trabajar con triangulaciones de grafos usemos el treewidth.
 
 
 
@@ -343,9 +350,9 @@ Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017
 	\end{itemize}
 \end{deff}
 
-Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser bastante similares al menos desde cierta distancia. 
+Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser globalmente similares y las diferencias que tienen localmente están uniformemente acotadas. 
 \medskip
-\begin{prop}
+\begin{prop}\label{prop_qi_simetrica}
 	Si existe $f:X \to Y$ cuasisometría entonces también debe existir $g:Y \to X$ cuasisometría y constantes positivas $C,D \in \RR$ tal que:
 	\begin{itemize}
 		\item $d(g \circ f (x), x) < C$ para todo $x \in X$.
@@ -360,7 +367,7 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 	Dos espacios métricos que se dicen \emph{cuasisométricos} si existe una cuasisometría entre ellos.
 \end{deff}
 
-Vale el siguiente resultado.
+Vale el siguiente resultado que se desprende de la proposición \ref{prop_qi_simetrica}.
 \begin{prop}
 	Ser cuasisométricos es una relación de equivalencia entre espacios métricos.
 \end{prop}
@@ -368,128 +375,127 @@ Vale el siguiente resultado.
 	Ver \cite{loh2017geometric}.
 \end{proof}
 
-\todo{Que quede claro como definimos a los grafos como espacios métricos.}
+En nuestro caso en particular los espacios métricos que nos van a interesar son los grafos no dirigidos.
+Más aún nos vamos a interesar en los grafos de Cayley de grupos finitamente generados.
 
-
-Todo grafo lo podemos ver como un espacio métrico si consideramos como conjunto base a sus vértices. 
-
-Si dos vértices $v,w$ están unidos por una arista $y$ entonces tendremos que $d(v,w)=1$.
-Esto nos define un espacio métrico discreto sobre los vértices. 
-Un camino $\alpha = g_0 \dots g_n$ es una \emph{geodésica} si $d(g_i,g_j) = |j-i|$ para todo $i,j \in [0,n]$.
-Un \emph{árbol} es un grafo conexo y sin ciclos. 
-En particular los árboles vistos como espacios métricos resultan ser \emph{únicamente geodésicos}. 
-Esto es que si $T$ es un árbol, entonces dados $v,w$ dos vértices existe una única geodésica $\gamma:[0,1] \to T$ tal que $\gamma(0)=v$ y $\gamma(1)=w$.
-
-
-
-
-
-Todo grafo de Cayley lo podemos pensar como un espacio métrico tal como lo definimos en la sección \ref{seccion_treewidth}.  
-Veamos que esto no depende de los generadores que hayamos elegido.
-
+El siguiente resultado que enunciamos sin demostración nos garantiza que todos los grafos de Cayley para un grupo finitamente generado son cuasisométricos entre sí.
 \begin{prop}
-	Sea $G$ grupo \fg por $\Sigma$ y $\Delta$ conjuntos finitos entonces $\text{Cay}(G,\Sigma)$ y $\text{Cay}(G, \Delta)$ son cuasisométricos entre sí.
+	Sea $G$ grupo finitamente generado por $\Sigma$ y por $\Delta$, ambos conjuntos finitos entonces $\text{Cay}(G,\Sigma)$ y $\text{Cay}(G, \Delta)$ son cuasisométricos entre sí.
 \end{prop}
 
 \begin{proof}
-	Resultado estándar. Ver \cite{bridson2013metric}.
+	Resultado estándar. 
+	Ver \cite{bridson2013metric}.
 \end{proof}
 
+Este resultado deja de ser cierto en el contexto que tomamos un conjunto de generadores que no es finito.
 
-%\begin{obs}
-%	Si nos restringimos a que los espacios métricos sean grafos podemos redefinir una cuasisometría para que sea una función de los vértices de un grafo a los del otro.
-%	Esto es si tenemos dos grafos $\Gamma_1$ y $\Gamma_2$ entonces son cuasisométricos como espacios métricos si y solo si existe $f:V(\Gamma_1) \to V(\Gamma_2)$ tal que 
-%	\begin{itemize}
-%		\item Para todo $v,w \in V(\Gamma_1)$ existe constante $A > 0$ tal que 
-%		\[
-%		\frac{1}{A} d_X(v,w) - A \le d_Y(f(v),f(w)) \le A d_X(v,w) + A
-%		\]
-%		\item Existe una constante real $C \ge 0$ tal que para todo vértice $y \in V(\Gamma_2)$ existe $v \in V(\Gamma_1)$ tal que 
-%		\[
-%		d(y,f(v)) \le C
-%		\]
-%	\end{itemize}
-%	
-%	Para esto si tenemos una cuasisometría $g$ como espacios métrices definamos una sobre los vértices $f$ de la siguiente manera.
-%	Por cada vértice $v \in V(\Gamma_1)$ consideremos $g(v) \in \Gamma_2$. 
-%	Si $g(v) \in V(\Gamma_2)$ tomamos $f(v)=g(v)$.
-%	El otro caso es que $g(v)$ cae en el medio de alguna arista $xy \in E(\Gamma_2)$. 
-%	Supongamos que $d(g(v),x) \le \frac{1}{2}$ porque la distancia máxima con alguno de los vértices debe ser no más de $\frac{1}{2}$ porque justamente las aristas son isométricas con el intervalo $[0,1]$. 
-%	En este caso definamos $f(v) = x$.
-%	Notemos ahora que la distancia entre dos vértices por medio de $f$ a lo sumo aumenta. 
-%	Tenemos que 
-%	\[
-%	d(f(v),f(w) \le d (g(v),g(w)) + 1
-%	\]
-%	para $v,w \in V(\Gamma_1)$ porque a lo sumo las imágenes por $g$ están a distancia $\frac{1}{2}$ de alguno de los vértices.
-%	De esta manera notemos que si tomamos la constante $C+1$ nos sirve.
-%	Para ver que la imagen es cuasidensa idénticamente tomando $C+1$ nos sirve.
-%	En definitiva $f$ definida de esta manera es una cuasisometría con constante $C+1$.	
-%\end{obs}
-
-Veamos ahora que el treewidth es un invariante por cuasisometría y entonces no depende de los generadores elegidos y por lo tanto es una propiedad intrínseca del grupo. 
+Para probar que alguna propiedad que depende de los grafos de Cayley es invariante por generadores nos alcanza con ver que esta propiedad es invariante por cuasisometrías.
+En nuestro caso en particular veamos que el treewidth es un invariante por cuasisometría y entonces no depende de los generadores elegidos y por lo tanto es una propiedad intrínseca del grupo. 
 
 \begin{prop} \label{treewidth-inv}
-	El treewidth finito es un invariante por cuasisometría para grafos con grado acotado uniformemente.
+	Sean $(\Gamma_{1},d_{1}), (\Gamma_{2}, d_{2})$ grafos no dirigidos vistos como espacios métricos tales que $\Gamma_{1}$ tiene treewidth finito.
+	Sea $\phi:(\Gamma_{1},d_{1})\to (\Gamma_{2},d_{2})$ una cuasisometría.
+	Entonces $\Gamma_{2}$ tiene treewidth finito.
 \end{prop}
 
 \begin{proof}
-	Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_2$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_1$ también tiene esta propiedad.
-	Consideremos $l$ tal que $d(f(v),f(w)) \le l$ para vértices $v,w \in V(\Gamma_1)$ que estén conectados por una arista.
-	Esto lo podemos tomar porque al ser una cuasisometría 
+	Sea la cuasisometría $\phi$ tal que existe una constante $A > 0$ de manera que para todo par $v_{1}, v_{2} \in \Gamma_{1}$ tenemos que
 	\[
-	d(f(v),f(w)) \le C d(v,w) + C  \le 2C
+	\frac{1}{A} d_X(v_1,v_2) - A \le d_Y(\phi(v_1),\phi(v_2)) \le A d_X(v_1,v_2) + A
 	\]
-	entonces basta con tomar $l \ge C+1$.
+	y existe una constante $C \ge 0$ tal que para todo $w \in \Gamma_{2}$ debe existir $v \in \Gamma_{1}$ de manera que
+	\[
+	d(w,\phi(v)) \le C.
+	\]
 	
-	Veamos de armarnos la descomposición en un árbol $T$ para $\Gamma_1$.	
-	Tomaremos como árbol para descomposición al mismo $T$ que usamos para $\Gamma_2$.
-	Sean $X(t)$ los bolsones de esta descomposición. 
-	Recordemos que por \ref{prop-vecinos-desc} si tomamos $N^l(X(t))$ los vecinos del bolsón $X(t)$ que están a distancia no mayor a $l$ seguimos teniendo una descomposición.  
-	Consideraremos los bolsones $Y(t) = f^{-1}(N^l(X(t)))$ de vértices en $\Gamma_1$. 
+	Sea $(T,f)$ una descomposición en un árbol para $\Gamma_{1}$ tal que tiene bagsize finito.
+	Si consideramos a $g: V(T) \ni t \mapsto N^{A(2C+1)}(f(t)) \in 2^{V(\Gamma_{1})}$ luego $(T,g)$ es una descomposición en un árbol para $\Gamma_{1}$ por el lema \ref{prop-vecinos-desc}.
+	Consideremos entonces la siguiente función 
+	\[
+		h: V(T) \ni t \mapsto N^{C+1}(\phi(g(t))) \in 2^{V(\Gamma_{2})}
+	\]
+	afirmamos que $(T,h)$ es una descomposición en un árbol para $\Gamma_{2}$ tal que tiene bagsize finito.
 	
-	Debemos ver que cumplen las tres propiedades.
 	
-	\begin{enumerate}
-		\item[\textbf{T1.}] La primera se cumple puesto que los bolsones $X(t)$ cubren $V(\Gamma_2)$. 
-		De esta manera $\bigcup_{t \in T} N^l(X(t)) = V(\Gamma_2)$ y por lo tanto tomando preimagen tenemos que
+	Para ver esto debemos ver que cumple las tres condiciones que definen a una descomposición en un árbol.
+	\begin{enumerate}[T1.]
+		\item Sea $w \in V(\Gamma_{2})$ luego por la definición de cuasisometría existe $v \in V(\Gamma_{1})$ tal que $d(w, \phi(v)) \le C$.
+		En particular tenemos que si $w \in g(t)$ para $t \in V(T)$ luego  $w \in N^l(\phi(g(t))) = h(t)$ tal como queríamos ver.
+		
+		\item Sea $\{w,w'\} \in E(\Gamma_{2})$ luego si $v \in V(\Gamma_{1})$ es tal que $d(\phi(v),w) \le C$ entonces $d(\phi(v),w') \le C+1$.
+		Esto nos dice que si $v \in g(t)$ luego $w,w' \in h(t)$ tal como queríamos ver.
+		
+		\item Veamos que el conjunto 
 		\[
-		\bigcup_{t \in V(T)} f^{-1} (N^l (X(t))) = \bigcup_{t \in V(T)} Y(t) = f^{-1} (V(\Gamma_2)) = V(\Gamma_1)
-		\] 
-		donde usamos que la preimagen de la unión es la unión de las preimágenes.
-		\item[\textbf{T2.}] La segunda condición usamos que si hay una arista $xy \in E(\Gamma_2)$ luego debe ser que $d(f(x),f(y)) \le l$ por como tomamos a $l$.
-		De esta manera como $f(x) \in X(t)$ para algún $t \in V(T)$, notemos que $f(y) \in N^l(X(t))$ también. 
-		Tomando preimagen tenemos que $x,y \in f^{-1}(N^l(X(t)))$ y esto es que justamente $x,y \in Y(t)$ para un mismo $t \in V(T)$ tal como queríamos ver.		
-		\item[\textbf{T3.}] Para la tercera condición si $x \in Y(t) \cap Y(s)$ queremos ver que $x \in Y(r)$ para todo $r \in V(T)$ que aparezca en la geodésica de $s$ a $t$.
-		Como la preimagen de una intersección es lo mismo que la intersección de las preimágenes entonces 
-		\[
-		x \in f^{-1}(N^l(X(t))) \cap f^{-1}(N^l(X(s))) = f^{-1}(N^l(X(t)) \cap N^l (X(s))
+			T_{w} = \{ t \in V(T) \mid w \in h(t)   \}
 		\]
-		de esta manera debe existir $v \in V(\Gamma_2)$ tal que $v \in N^l(X(s)) \cap N^l(X(t))$.
-		Ahora usamos que esta es una descomposición sobre $\Gamma_2$ para notar que $v \in N^l(X_r)$.
-		Tomando preimagen tenemos que $x \in Y(r)$ tal como queríamos ver.
+		es un subárbol de $T$.
+		Para esto vamos a ver que si $w \in h(t)$ y $w \in h(s)$ entonces existe $r \in V(T)$ tal que 
 	\end{enumerate}
 	
-	Finalmente debemos ver que el tamaño de los bolsones está acotado uniformemente.
-	Esto es que exista $k \in \NN$ tal que $|Y(t)| \le k$ para todo $t \in V(T)$.
-	Como $\Gamma_2$ tiene treewidth finito tenemos que $|X(t)| \le M$ uniformemente para todo $y \in V(T)$ para cierta $M$. 
-	Como el grado de los grafos está acotado uniformemente por alguna constante $d$ tenemos que 
-	\[
-	|N^l(X(t))| \le d^l |X(t)| \le d^l M.
-	\]
-	Finalmente notemos que al ser $f$ una cuasisometría tenemos que $|f^{-1}(v)| \le k$ para todo $v \in V(\Gamma_2)$.
-	Esto lo podemos ver porque si $f(x) = v = f(y)$ entonces
-	\[
-	\frac{1}{C}d(x,y) - C \le d( f(x), f(y) ) = 0 \implies d(x,y) \le C^2 < \infty
-	\]
-	y esta cota es uniforme para todo $v \in \Gamma_2$. 
-	Así vemos que,
-	\[
-	|Y(t)| = |f^{-1}(N^l(X(t)))| \le C^2 d^l M < \infty
-	\]
-	y tomamos $k$ suficientemente grande para que haga valer esto.
-	Concluímos así que la descomposición que nos armamos para $\Gamma_1$ tiene treewidth finito.
 \end{proof}
+
+
+
+
+%\begin{proof}
+%	Si tenemos una cuasisometría $f:\Gamma_1 \to \Gamma_2$ tal que $\Gamma_2$ tiene treewidth finito $k \in \NN$, nos gustaría ver que $\Gamma_1$ también tiene esta propiedad.
+%	Consideremos $l$ tal que $d(f(v),f(w)) \le l$ para vértices $v,w \in V(\Gamma_1)$ que estén conectados por una arista.
+%	Esto lo podemos tomar porque al ser una cuasisometría 
+%	\[
+%	d(f(v),f(w)) \le C d(v,w) + C  \le 2C
+%	\]
+%	entonces basta con tomar $l \ge C+1$.
+%	
+%	Veamos de armarnos la descomposición en un árbol $T$ para $\Gamma_1$.	
+%	Tomaremos como árbol para descomposición al mismo $T$ que usamos para $\Gamma_2$.
+%	Sean $X(t)$ los bolsones de esta descomposición. 
+%	Recordemos que por \ref{prop-vecinos-desc} si tomamos $N^l(X(t))$ los vecinos del bolsón $X(t)$ que están a distancia no mayor a $l$ seguimos teniendo una descomposición.  
+%	Consideraremos los bolsones $Y(t) = f^{-1}(N^l(X(t)))$ de vértices en $\Gamma_1$. 
+%	
+%	Debemos ver que cumplen las tres propiedades.
+%	
+%	\begin{enumerate}
+%		\item[\textbf{T1.}] La primera se cumple puesto que los bolsones $X(t)$ cubren $V(\Gamma_2)$. 
+%		De esta manera $\bigcup_{t \in T} N^l(X(t)) = V(\Gamma_2)$ y por lo tanto tomando preimagen tenemos que
+%		\[
+%		\bigcup_{t \in V(T)} f^{-1} (N^l (X(t))) = \bigcup_{t \in V(T)} Y(t) = f^{-1} (V(\Gamma_2)) = V(\Gamma_1)
+%		\] 
+%		donde usamos que la preimagen de la unión es la unión de las preimágenes.
+%		\item[\textbf{T2.}] La segunda condición usamos que si hay una arista $xy \in E(\Gamma_2)$ luego debe ser que $d(f(x),f(y)) \le l$ por como tomamos a $l$.
+%		De esta manera como $f(x) \in X(t)$ para algún $t \in V(T)$, notemos que $f(y) \in N^l(X(t))$ también. 
+%		Tomando preimagen tenemos que $x,y \in f^{-1}(N^l(X(t)))$ y esto es que justamente $x,y \in Y(t)$ para un mismo $t \in V(T)$ tal como queríamos ver.		
+%		\item[\textbf{T3.}] Para la tercera condición si $x \in Y(t) \cap Y(s)$ queremos ver que $x \in Y(r)$ para todo $r \in V(T)$ que aparezca en la geodésica de $s$ a $t$.
+%		Como la preimagen de una intersección es lo mismo que la intersección de las preimágenes entonces 
+%		\[
+%		x \in f^{-1}(N^l(X(t))) \cap f^{-1}(N^l(X(s))) = f^{-1}(N^l(X(t)) \cap N^l (X(s))
+%		\]
+%		de esta manera debe existir $v \in V(\Gamma_2)$ tal que $v \in N^l(X(s)) \cap N^l(X(t))$.
+%		Ahora usamos que esta es una descomposición sobre $\Gamma_2$ para notar que $v \in N^l(X_r)$.
+%		Tomando preimagen tenemos que $x \in Y(r)$ tal como queríamos ver.
+%	\end{enumerate}
+%	
+%	Finalmente debemos ver que el tamaño de los bolsones está acotado uniformemente.
+%	Esto es que exista $k \in \NN$ tal que $|Y(t)| \le k$ para todo $t \in V(T)$.
+%	Como $\Gamma_2$ tiene treewidth finito tenemos que $|X(t)| \le M$ uniformemente para todo $y \in V(T)$ para cierta $M$. 
+%	Como el grado de los grafos está acotado uniformemente por alguna constante $d$ tenemos que 
+%	\[
+%	|N^l(X(t))| \le d^l |X(t)| \le d^l M.
+%	\]
+%	Finalmente notemos que al ser $f$ una cuasisometría tenemos que $|f^{-1}(v)| \le k$ para todo $v \in V(\Gamma_2)$.
+%	Esto lo podemos ver porque si $f(x) = v = f(y)$ entonces
+%	\[
+%	\frac{1}{C}d(x,y) - C \le d( f(x), f(y) ) = 0 \implies d(x,y) \le C^2 < \infty
+%	\]
+%	y esta cota es uniforme para todo $v \in \Gamma_2$. 
+%	Así vemos que,
+%	\[
+%	|Y(t)| = |f^{-1}(N^l(X(t)))| \le C^2 d^l M < \infty
+%	\]
+%	y tomamos $k$ suficientemente grande para que haga valer esto.
+%	Concluímos así que la descomposición que nos armamos para $\Gamma_1$ tiene treewidth finito.
+%\end{proof}
 
 A partir de este resultado podemos ver que la otra manera que teníamos de pensar a los grafos que se parecen a árboles resulta ser más débil. 
 El siguiente resultado lo demostramos en el caso general de un grafo tal que los grados de sus vértices están acotados uniformemente. 
