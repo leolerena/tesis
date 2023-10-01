@@ -6,18 +6,19 @@
 
 Las referencias centrales de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
 
-En la primer sección \ref{} introducimos las descomposiciones en árboles para grafos no dirigidos y así la definición de treewidth.
-La construcción del ejemplo \ref{} es de vital para probar el teorema de Muller--Schupp.
-
-En la segundo sección \ref{} introducimos brevemente las ideas centrales detrás de las cuasisometrías (en nuestro caso restringidas al contexto de grafos pero bien podría ser para cualquier espacio métrico en general).
-La idea es poder usar estas herramientas para probar que todo grafo de Cayley de un grupo \fg tiene treewidth finito, es decir que no depende de los generadores.
-
-Finalmente en la sección \ref{} probamos uno de los resultados centrales que nos dice que todo grupo independiente de contexto tiene treewidth finito.
-Este es el teorema central del trabajo \cite{} aunque en nuestro caso lo reescribimos para en vez de trabajar con triangulaciones de grafos usemos el treewidth.
+En la primer sección \ref{secc_tw} introducimos las descomposiciones en árboles para grafos no dirigidos y así una de las definiciones equivalentes a ser virtualmente libre: el treewidth finito.
+En particular nos interesa el ejemplo \ref{} de la descomposición en un árbol para el grafo de Cayley de un grupo finitamente generado.
 
 
+En la segundo sección \ref{secc_qi} introducimos brevemente las ideas centrales detrás de las cuasisometrías (en nuestro caso restringidas al contexto de grafos).
+La idea es poder usar estas herramientas para probar que la definición de treewidth no depende de los generadores.
 
-\section{Treewidth.}
+Finalmente en la sección \ref{secc_MuSch} probamos uno de los resultados centrales que establece que todo grupo independiente de contexto tiene treewidth finito.
+Este es el teorema central del trabajo \cite{muller1983groups}.
+
+
+
+\section{Treewidth.}\label{secc_tw}
 
 Dado que el grafo de Cayley de todo grupo libre se puede tomar para que sea un árbol es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. 
 Vamos a dar una primera definición que nos permite formalizar esta idea de que un grafo se parezca a un árbol.
@@ -330,7 +331,7 @@ Denotemosla $[t,s]$.
 	\end{enumerate}
 \end{ej}
 
-\section{Cuasisometrías.}
+\section{Cuasisometrías.}\label{secc_qi}
 
 Nuestro objetivo es introducir las cuasisometrías para garantizar que la propiedad de tener treewidth finito no dependa de los generadores elegidos.
 Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017geometric}.
@@ -431,7 +432,18 @@ En nuestro caso en particular veamos que el treewidth es un invariante por cuasi
 			T_{w} = \{ t \in V(T) \mid w \in h(t)   \}
 		\]
 		es un subárbol de $T$.
-		Para esto vamos a ver que si $w \in h(t)$ y $w \in h(s)$ entonces existe $r \in V(T)$ tal que 
+		Para esto vamos a ver que si $w \in h(t)$ y $w \in h(s)$ entonces para todo $r \in V(T)$ tal que $r \in [t,s]$ tenemos que $w \in h(r)$.
+		
+		Como $w \in h(t)$ entonces existe $v \in g(t)$ de manera que $d(\phi(v),w) \le C$ y similarmente existe $v' \in g(s)$ de manera que $d(\phi(v'),w) \le C$.
+		Esto nos dice que 
+		$ d(\phi(v), \phi(v')) \le 2C$
+		y así usando que $\phi$ es una cuasisometría tenemos la siguiente cota
+		\[
+			d(v,v') \le A(2C)+A
+		\]
+		por lo que $v,v' \in g(t) \cap g(s)$.
+		Entonces como $(T,g)$ es una descomposición en un árbol para $\Gamma_{1}$ tenemos que para todo $r \in [t,s]$ vale que $v,v' \in g(r)$.
+		Esto implica que $w \in h(r)$ tal como queríamos ver.
 	\end{enumerate}
 	
 \end{proof}
@@ -510,7 +522,7 @@ Como caso particular tenemos los grafos de Cayley de grupos finitamente generado
 	Por la proposición anterior \ref{treewidth-inv} como tener treewidth finito es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
 \end{proof}
 
-\section{Grupos \ic tienen treewidth finito.}
+\section{Grupos \ic tienen treewidth finito.}\label{secc_MuSch}
 
 En esta sección probaremos un resultado que fue originalmente probado por Muller--Schupp en \cite{muller1985theory}.
 En ese trabajo usan una definición equivalente al treewidth que es que su grafo de Cayley sea $k$-triangulable que resulta ser un poco más técnica.
@@ -538,7 +550,7 @@ Primero una observación sobre el lenguaje del problema de la palabra de un grup
 \todo[]{Completar con historia del resultado.}
 El siguiente resultado(...)
 
-\begin{teo} \cite{muller1985theory}
+\begin{teo} \label{teo_Mul-Sch}\cite{muller1985theory}
 	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
 \end{teo}
 \begin{proof}
