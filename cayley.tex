@@ -7,7 +7,7 @@
 Las referencias centrales de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
 
 En la primer sección \ref{secc_tw} introducimos las descomposiciones en árboles para grafos no dirigidos y así una de las definiciones equivalentes a ser virtualmente libre: el treewidth finito.
-En particular nos interesa el ejemplo \ref{} de la descomposición en un árbol para el grafo de Cayley de un grupo finitamente generado.
+El ejemplo \ref{desc-grafo-cayley} de la descomposición en un árbol para el grafo de Cayley de un grupo finitamente generado va a ser crucial en la demostración del teorema central de este capítulo.
 
 
 En la segundo sección \ref{secc_qi} introducimos brevemente las ideas centrales detrás de las cuasisometrías (en nuestro caso restringidas al contexto de grafos).
@@ -20,9 +20,9 @@ Este es el teorema central del trabajo \cite{muller1983groups}.
 
 \section{Treewidth.}\label{secc_tw}
 
-Dado que el grafo de Cayley de todo grupo libre se puede tomar para que sea un árbol es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parezca a un árbol. 
+Dado que el grafo de Cayley de todo grupo libre se puede tomar para que sea un árbol (ver \ref{lema_cayley_libre_arbol}) es razonable pensar que todo grupo virtualmente libre es tal que su grafo de Cayley se parece a un árbol. 
 Vamos a dar una primera definición que nos permite formalizar esta idea de que un grafo se parezca a un árbol.
-Esta definición es la del treewidth, noción originalmente introducida por .... en \ref{}.
+
 
 \begin{deff}\label{desc-arbol}
 	Una \emph{descomposición en un árbol} de un grafo $\Gamma$ es un par $(T,f)$ donde
@@ -39,7 +39,7 @@ Esta definición es la del treewidth, noción originalmente introducida por ....
 	\end{enumerate} 
 \end{deff}
 Notemos que la tercer condición \textbf{T3} se puede reescribir de la siguiente manera:
-dado $v \in V(\Gamma)$ entonces el conjunto $\{ t \in V(T) :  v \in f(t) \}$ forma un subárbol de $T$.
+dado $v \in V(\Gamma)$ entonces el conjunto $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ forma un subárbol de $T$.
 
 Dado $t \in V(T)$ llamaremos a $f(t) \in 2^{V(\Gamma)}$ un \emph{bolsón}.
 
@@ -352,9 +352,11 @@ Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017
 \end{deff}
 
 Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser globalmente similares y las diferencias que tienen localmente están uniformemente acotadas. 
+
 \medskip
 \begin{prop}\label{prop_qi_simetrica}
-	Si existe $f:X \to Y$ cuasisometría entonces también debe existir $g:Y \to X$ cuasisometría y constantes positivas $C,D \in \RR$ tal que:
+	Si existe $f:X \to Y$ cuasisometría entonces existe $g:Y \to X$ cuasisometría 
+	y constantes positivas $C,D \in \RR$ tales que:
 	\begin{itemize}
 		\item $d(g \circ f (x), x) < C$ para todo $x \in X$.
 		\item $d(f \circ g (y), y) < D$ para todo $y \in Y$. 
@@ -364,11 +366,14 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 	Ver \cite{loh2017geometric}.
 \end{proof}
 
+
 \begin{deff}
-	Dos espacios métricos que se dicen \emph{cuasisométricos} si existe una cuasisometría entre ellos.
+	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos de manera que existe $\phi:X \to Y$ cuasisometría diremos que son espacios métricos \emph{cuasisométricos} y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasisometría entre espacios métricos.
 \end{deff}
 
-Vale el siguiente resultado que se desprende de la proposición \ref{prop_qi_simetrica}.
+La proposición \ref{prop_qi_simetrica} nos dice que la relación de cuasisometría entre espacios métricos es simétrica. 
+Vale más aún que esta relación es una relación de equivalencia sobre los espacios métricos.
+
 \begin{prop}
 	Ser cuasisométricos es una relación de equivalencia entre espacios métricos.
 \end{prop}
@@ -385,14 +390,15 @@ El siguiente resultado que enunciamos sin demostración nos garantiza que todos 
 \end{prop}
 
 \begin{proof}
-	Resultado estándar. 
 	Ver \cite{bridson2013metric}.
 \end{proof}
 
 Este resultado deja de ser cierto en el contexto que tomamos un conjunto de generadores que no es finito.
 
-Para probar que alguna propiedad que depende de los grafos de Cayley es invariante por generadores nos alcanza con ver que esta propiedad es invariante por cuasisometrías.
-En nuestro caso en particular veamos que el treewidth es un invariante por cuasisometría y entonces no depende de los generadores elegidos y por lo tanto es una propiedad intrínseca del grupo. 
+
+Si el grafo de Cayley de un grupo para cierto conjunto de generadores tiene una propiedad $P$ y queremos ver que esta propiedad $P$ es intrínseca al grupo, es decir que no depende del conjunto de generadores que tomemos, nos alcanza con probar que esta propiedad $P$ se preserva por cuasisometrías.
+En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de tener treewidth finito.
+
 
 \begin{prop} \label{treewidth-inv}
 	Sean $(\Gamma_{1},d_{1}), (\Gamma_{2}, d_{2})$ grafos no dirigidos vistos como espacios métricos tales que $\Gamma_{1}$ tiene treewidth finito.
@@ -509,33 +515,44 @@ En nuestro caso en particular veamos que el treewidth es un invariante por cuasi
 %	Concluímos así que la descomposición que nos armamos para $\Gamma_1$ tiene treewidth finito.
 %\end{proof}
 
+De esta manera podemos definir el treewidth finito como un invariante para grupos.
+
+\begin{deff}
+	Un grupo $G$ finitamente generado tiene treewidth finito si para algún conjunto generadores $A$ vale que $Cay(G,A)$ tiene treewidth finito.
+\end{deff}
+
 A partir de este resultado podemos ver que la otra manera que teníamos de pensar a los grafos que se parecen a árboles resulta ser más débil. 
 El siguiente resultado lo demostramos en el caso general de un grafo tal que los grados de sus vértices están acotados uniformemente. 
 Como caso particular tenemos los grafos de Cayley de grupos finitamente generados.
 
-
-\begin{prop} 
-	Un grafo $X$ de grado acotado uniformemente cuasisométrico con un árbol tiene treewidth finito.
-\end{prop}
-\begin{proof}	
-	El grafo $X$ es cuasisométrico a un árbol $T$ y todo árbol por la observación \ref{desc-arbol-arbol} tiene treewidth exactamente $1$.
-	Por la proposición anterior \ref{treewidth-inv} como tener treewidth finito es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
-\end{proof}
+%
+%\begin{prop} 
+%	Un grafo $X$ de grado acotado uniformemente cuasisométrico con un árbol tiene treewidth finito.
+%\end{prop}
+%\begin{proof}	
+%	El grafo $X$ es cuasisométrico a un árbol $T$ y todo árbol por la observación \ref{desc-arbol-arbol} tiene treewidth exactamente $1$.
+%	Por la proposición anterior \ref{treewidth-inv} como tener treewidth finito es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
+%\end{proof}
 
 \section{Grupos \ic tienen treewidth finito.}\label{secc_MuSch}
 
 En esta sección probaremos un resultado que fue originalmente probado por Muller--Schupp en \cite{muller1985theory}.
-En ese trabajo usan una definición equivalente al treewidth que es que su grafo de Cayley sea $k$-triangulable que resulta ser un poco más técnica.
+En ese trabajo usan una definición que resultó ser equivalente al treewidth que es la de ser $k$-triangulable.
 La demostración que presentamos sigue la exposición del trabajo \cite{diekert2017context}.
-Primero una observación sobre el lenguaje del problema de la palabra de un grupo independiente de contexto.
+Primero un lema sobre el lenguaje del problema de la palabra de un grupo independiente de contexto.
 
-\begin{obs}\label{palabras-wp}
-	\todo[]{Tiene que ser un lema.}
-	Si tenemos un grupo $G$ tal que es independiente de contexto consideremos $\cal G$ gramática que genera al lenguaje del problema de la palabra, $\WP = L(\cal G)$.
-	Si $A$ es una de las variables de esta gramática podemos obtener el lenguaje $L_A$ de palabras generadas a partir de esta variable, donde
-	\[
+
+Dado un grupo \ic con gramática $\gramatica$ de manera que $L(\cG) = WP(G,\Sigma)$.
+Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
+\[
 	L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
-	\]
+\]
+entonces vale el siguiente resultado.
+\begin{lema}\label{palabras-wp}
+	Dadas palabras $v,v' \in L_{A}$ entonces $v \overset{G}{=} v'$.
+\end{lema}
+
+\begin{proof}
 	Veamos que si $v,v' \in L_A$ entonces $v =_G v'$, es decir son el mismo elemento vistos en el grupo $G$. 
 	Para eso si tenemos una derivación que en algún momento llega a $S \deriva \beta A \gamma \deriva uvw$ también tenemos otra derivación que deriva en $S \deriva \beta A \gamma  \deriva uv'w$. 
 	Es decir que $uvw, u'v'w' \in \WP$ por lo tanto 
@@ -543,23 +560,20 @@ Primero una observación sobre el lenguaje del problema de la palabra de un grup
 		uvw =_G 1 =_G uv'w \implies v =_G v'
 	\end{equation*}
 	tal como queríamos ver.
-\end{obs}
+\end{proof}
 
 
-
-\todo[]{Completar con historia del resultado.}
-El siguiente resultado(...)
 
 \begin{teo} \label{teo_Mul-Sch}\cite{muller1985theory}
-	Todo grupo independiente de contexto es tal que su grafo de Cayley tiene treewidth finito.
+	Todo grupo independiente de contexto $G$ tiene treewidth finito.
 \end{teo}
 \begin{proof}
-	La descomposición que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley. 
+	La descomposición que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley.
+	Sea $\Sigma$ un conjunto finito de generadores de $G$, 
 	Veamos que esta descomposición para un grupo independiente de contexto tiene treewidth finito. 
 	Buscamos $k \in \NN$ tal que nos permita acotar $|\beta C| \le k$ para todo $\beta C \in V(T)$. 
 	Alcanza con ver que los diámetros de los bolsones $\beta C$ están acotados uniformemente, 
-	\todo[]{Factorizar esto en lemita.}
-	 esto es que exista $M \in \NN$ tal que 
+	esto es que exista $M \in \NN$ tal que 
 	\[
 	\text{diam}(\beta C) =  \sup_{g,h \in \beta C} d(g,h) \le M
 	\] 
@@ -567,39 +581,40 @@ El siguiente resultado(...)
 	Si esto sucede, al ser el grupo finitamente generado por $\Sigma$ entonces $|\beta C| \le |\Sigma|^{M} < \infty$.
 	
 	
-	Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $\cal G$ independiente de contexto que lo genera. 
+	Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $ \gramatica$ independiente de contexto que lo genera. 
 	Consideremos que está en la forma normal de Chomsky.
 	
 	Para cada variable $A$ de nuestra gramática podemos considerar el siguiente lenguaje
 	\[
 	L_A = \{ w \in \Sigma^* : A \deriva w  \}.
 	\]
-	Para este lenguaje introduzcamos un número natural $k_A \in \NN$ definido por $k_A = \min_{w \in L_A} |w|$. 
+	Para este lenguaje introduzcamos un número natural $k_A \in \NN$ definido por $k_A = {\min}_{w \in L_A} |w|$. 
 	Como tenemos finitas variables en nuestra gramática $\cal G$ podemos considerar $k = \max_{A \in V} k_A$. 
 	Veamos que $\text{diam}(\beta C) \le 3k$ para todo $\beta C \in V(T)$.
 	
 	Sean $g,h \in \beta C$ para cierta $C$ componente conexa de $V_n$, acotemos $d(g,h)$. 
 	Para eso consideremos una geodésica $\alpha$ que una $1$ con $g$ y análogamente otra $\gamma$ que una $1$ con $h$. 
-	Como $C \cup \beta C$ es conexo podemos tomar un arco $\tau$ que una $g$ con  $h$ dentro de $C \cup \beta C$. 
+	Como $C \cup \beta C$ es conexo podemos tomar un arco $\tau$ que una $g$ con  $h$ dentro de $C$ exceptuando sus extremos. 
+	Sin pérdida de generalidad supongamos que $|\tau| \ge 2$ caso contrario tendríamos que $g$ y $h$ son adyacentes y no tendríamos nada que probar.
 	De esta manera tenemos un triángulo tal que si leemos las letras que están en la etiqueta del arco empezando desde $1$ y moviéndonos por $\alpha$ leemos la etiqueta $u$. 
-	Cuando nos movemos por $\tau$ leemos la etiqueta $v$. Consideremos que esta etiqueta $v$ es tal que $|v|>1$ caso contrario ya tenemos la cota probada. Finalmente leemos la etiqueta $w$ cuando regresamos al $1$ por medio de $\gamma$.
+	Cuando nos movemos por $\tau$ leemos la etiqueta $v$ que por lo que supusimos es tal que $|v| \ge 2$. 
+	Finalmente leemos la etiqueta $w$ cuando regresamos a $1$ por medio de $\gamma$.
 	Como $uvw$ está en un ciclo en el grafo de Cayley entonces $uvw \in  \WP$ y por lo tanto tenemos alguna derivación $S \deriva uvw$.
 	
-	Ya que tenemos esta derivación $S \deriva uvw$ miremos la primer variable que deriva a $v$ como subpalabra. 
-	Esto es que para la subpalabra $v$ sabemos que existe alguna variable $A$ tal que $A \deriva v'v''$ donde $v$ es a su vez una subpalabra de $v'v''$. 
-	Tomamos la última variable que aparece en la derivación.
-	%Esto es que para la subpalabra $v$ sabemos que debe existir alguna variable $A$ tal que $A \deriva u''vw''$ para $u''$ algún posfijo de $u$ y $w''$ algún prefijo de $w$ y aparece último en esta derivación. 
-	Ésta debe existir porque en particular $S$ cumple lo pedido de ser una variable que deriva a una palabra que contiene a $v$ como subpalabra.
+	Ya que tenemos esta derivación $S \deriva uvw$ miremos la última variable que deriva a $v$ como subpalabra. 
+	Esto es que para la subpalabra $v$ sabemos que existe alguna variable $A$ y palabras posiblemente vacías $v',v''$ tal que $A \deriva v'v''$ donde $v$ es una subpalabra de $v'v''$. 
+	Tomamos la última variable que aparece en la derivación antes de que aparezca $v$ como subpalabra en la derivación.
+	Ésta variable debe existir porque en particular $S$ cumple que deriva a una palabra que contiene a $v$ como subpalabra.
 	
-	Como está en la forma normal de Chomsky sabemos que al ser $|v| \ge 2$ entonces tenemos que la derivación tiene la siguiente pinta
+	Como está en la forma normal de Chomsky sabemos que al suponer que $|v| \ge 2$ entonces tenemos que la derivación tiene la siguiente pinta
 	\begin{equation*}
 		S \deriva u'Aw' \Rightarrow_{\cal G} u'BC w' \deriva u'v'v''w'
 	\end{equation*}
-	donde $B,C$ son otras variables. En particular notemos que $A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
+	donde $B,C$ son otras variables. 
+	En particular notemos que $A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
 	
 	
 	Si miramos la geodésica $\alpha$ sabemos que cuando leímos $u'$ habremos llegado a un vértice del grafo $x$, y al estar sobre la geodésica misma tenemos la siguiente igualdad,
-	%y que si tomamos el camino que leemos la palabra de menor longitud tenemos que habremos llegado al vértice $y$ que corresponde al haber leído $u'v'$.
 	\begin{equation*}
 		d(x,g) = d(1,g) - d(1,x).
 	\end{equation*}
@@ -607,8 +622,10 @@ El siguiente resultado(...)
 	\begin{equation*}
 		d(z,h) = d(1,h) - d(1,z).
 	\end{equation*}
-	Por otro lado si consideramos el vértice $y$ al que llegamos después de leer $u'v'$ que sabemos que está en el arco $\tau$ dado que $v$ es subpalabra de $v'v''$.
-	Usando que $y \in \tau \subseteq C \cup \beta C$ tenemos que $d(1,y) \le n+1 = d(1,g)$ por ser $C$ una componente conexa de $V_n$, entonces vale la siguiente desigualdad
+
+	Consideremos el vértice $y$ al que llegamos después de leer $u'v'$.
+	Este vértice está en el arco $\tau$ dado que $v$ es subpalabra de $v'v''$.
+	Usando que $y \in \tau \subseteq C $ tenemos que $d(1,y) \ge n+1 = d(1,g)$ por ser $C$ una componente conexa de $V_n$, entonces vale la siguiente desigualdad
 	\begin{equation*}
 		d(x,g) = d(1,g) - d(1,x) \le d(1,y) - d(1,x) = d(x,y)
 	\end{equation*}
@@ -616,7 +633,7 @@ El siguiente resultado(...)
 	
 	
 	Por la observación \ref{palabras-wp} notemos que si reemplazamos $v'$ por la palabra de menor tamaño del lenguaje $L_B$ seguimos teniendo un ciclo pero de longitud idéntica o más chica. 
-	La palabra $v'$ la leemos justamente cuando vamos del vértice $x$ al vértice $y$, así la distancia  $d(x,y)$ está acotada por la mayor de todas las palabras que puedan derivarse de $B$. 
+	La palabra $v'$ la leemos justamente cuando vamos del vértice $x$ al vértice $y$, así la distancia  $d(x,y)$ está acotada por la palabras que puede derivarse de $B$ de menor longitud. 
 	Idénticamente hacemos esto para las variables $A$ y $C$.
 	Por como definimos a $k$ tenemos las siguientes cotas $d(x,y), d(y,z), d(x,z) \le k$.
 	%agregar dibujito, creo que es la manera más clara de explicar esto
@@ -627,9 +644,10 @@ El siguiente resultado(...)
 		\caption*{}
 	\end{figure}
 	
+	\todo{Cambiar las variables... Están en el orden equivocado.}
 	
-	
-	Ahora estamos listos para ver que $d(g,h) \le 3k$. Usamos la desigualdad triangular tres veces,
+	Terminamos de probar que $d(g,h) \le 3k$. 
+	Usamos la desigualdad triangular tres veces,
 	\begin{align*}
 		d(g,h) & \le d(g,x) + d(x,z) + d(h,z) \\
 		& \le d(x,y) + d(x,z) + d(y,z) \le 3k
