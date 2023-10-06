@@ -13,11 +13,11 @@ El árbol que vamos a construir es el árbol de estructura del grafo.
 Vamos a ver en qué caso se puede construir y cómo se construye a partir de cortes del grafo. 
 La notación y el orden presentado sigue el del trabajo \cite{diekert2013context}, completando algunos detalles que ahí se omiten.
 
-De ahora en más consideraremos que $\Gamma$ es un grafo conexo y localmente finito salvo que se mencione lo contrario.
-En todo momento vamos a pensar que el grafo $\Gamma$ es el grafo de Cayley de un grupo finitamente generado pero como estos resultados son válidos para grafos más generales enunciaremos los resultados de esta manera.
+De ahora en más consideraremos que $\Gamma$ es un grafo conexo, infinito y localmente finito salvo que se mencione lo contrario.
+En particular estos grafos incluyen a los grafos de Cayley de grupos finitamente generados.
 
 \begin{deff}
-	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones,
+	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones:
 	\begin{itemize}
 		\item $C$ y $\ol C$ son conexos y no vacíos.
 		\item $|\delta C| \le \infty$.
@@ -25,28 +25,31 @@ En todo momento vamos a pensar que el grafo $\Gamma$ es el grafo de Cayley de un
 	Si $|\delta C| = k$ diremos que $C$ es un \emph{$k$-corte}.
 \end{deff}	
 
-Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
-Consideremos $\Gamma = \text{Cay}(\ZZ^2, \{ a, b \})$ la grilla.
-Este grafo cumple que todo corte $C$ es tal que $C$ es finito o bien $\ol C$ es finito.
-Para probar esto sea $v \in \delta C$ tal que maximice la distancia al origen de todos los vértices en el borde.
-Si consideramos una bola $B$ de radio mayor a esta distancia entonces tenemos que $C \subseteq B$ o bien $\ol C \subseteq B$ dado que en caso contrario como el complemento de una bola es conexo tendríamos que habría algún $v' \in \Gamma \setminus B$ tal que $v' \in \beta C$ contradiciendo la elección de $B$.
-Por lo tanto obtenemos que $|C| < \infty$ o bien que $|\ol C| < \infty$.
 
-	\begin{figure}[H]
-		\centering
-		\begin{tikzpicture}[scale=0.20]
-		% draw the grid
-		\draw[step=2cm,gray,very thin] (-13,-13) grid (13,13);
-		% draw the polygonal curve
-		\draw[red,thick] (-3,-5) -- (-5,5) -- (5,5) -- (5,-10) -- cycle;
-		\draw[blue,thick] (-10,-10) -- (-10,10) -- (10,10) -- (10,-10) -- cycle;
-		\node at (0,0) {\large {C}};
-		\node at (5,11) {$\large{\overline C}$};
-		\node at (-3,8) {\blue{\large{B}}};
-	\end{tikzpicture}
-	\caption{Los cortes los ilustramos tachando las aristas que pertenecen a $\delta C$.}
-	\end{figure}
-\todo[]{Este dibujito no podría ser más feo... No es tan claro. Rehacer.}
+La siguiente observación elemental va a ser fundamental a los argumentos de este capítulo.
+
+\begin{obs}\label{obs_camino_corte}
+	Si $\Gamma$ es un grafo conexo, $C$ un corte de $\Gamma$, $x \in C$ e $y \in \ol C$ y 
+	$\alpha$ un camino que una $x$ con $y$ 
+	entonces tenemos que debe existir $v \in \delta C$ tal que $v$ pertenece al camino $\alpha$.
+\end{obs} 
+
+
+En particular nos van a interesar los cortes para separar caminos en grafos y en cierta manera poder distinguirlos.
+Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
+
+\begin{ej}
+	Consideremos $\ZZ \times \ZZ = \langle a,b \mid aba^{-1}b^{-1} \rangle$ y 
+	$\Gamma = \text{Cay}(\ZZ^2, \{ a, b \})$ su grafo de Cayley.
+	
+	Este grafo cumple que todo conjunto $C \subseteq V(\Gamma)$ es tal que $C$ es finito o bien $\ol C$ es finito.
+	Para probar esto sea $v \in \delta C$ tal que
+	maximice $\underset{w \in \delta C}{\max} \ d(1,w)$.
+	Si consideramos una bola $B$ de radio mayor a esta distancia entonces tenemos que $C \subseteq B$ o bien $\ol C \subseteq B$ dado que en caso contrario como $\ol B$ es conexo entonces usando la observación \ref{obs_camino_corte} tendríamos que habría algún $v' \in \ol B$ tal que $v' \in \beta C$ contradiciendo la elección del radio de $B$.
+	
+	Como $|B| < \infty$ obtenemos que $|C| < \infty$ o bien que $|\ol C| < \infty$.
+\end{ej}
+
 Una propiedad fundamental de los cortes en estos grafos es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
 \begin{lema}\label{lema_finitos_kcortes}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
@@ -55,7 +58,7 @@ Una propiedad fundamental de los cortes en estos grafos es que fijada una arista
 \end{lema}	
 
 \begin{proof}
-	Primero notemos que nos alcanza con ver los cortes $C$ que tienen una arista fija $(x,y) \in \delta C$.
+	Primero notemos que nos alcanza con ver los cortes $C$ que tienen una arista fija $\{x,y\} \in \delta C$.
 	Si vemos que estos son finitos entonces como tenemos finitos $x \in S$ y cada vértice tiene finitas aristas dado que el grafo es localmente finito entonces tenemos que la cantidad de $k$ cortes sería finita.
 	Consideremos entonces que $S = \{ x \}$ porque los otros casos se siguen de este.
 	

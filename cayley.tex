@@ -548,12 +548,13 @@ Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
 	L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
 \]
 entonces vale el siguiente resultado.
+
 \begin{lema}\label{palabras-wp}
 	Dadas palabras $v,v' \in L_{A}$ entonces $v \overset{G}{=} v'$.
 \end{lema}
 
 \begin{proof}
-	Veamos que si $v,v' \in L_A$ entonces $v =_G v'$, es decir son el mismo elemento vistos en el grupo $G$. 
+	Veamos que si $v,v' \in L_A$ entonces $v \overset{G}{=} v'$, es decir son el mismo elemento vistos en el grupo $G$. 
 	Para eso si tenemos una derivación que en algún momento llega a $S \deriva \beta A \gamma \deriva uvw$ también tenemos otra derivación que deriva en $S \deriva \beta A \gamma  \deriva uv'w$. 
 	Es decir que $uvw, u'v'w' \in \WP$ por lo tanto 
 	\begin{equation*}
@@ -561,7 +562,6 @@ entonces vale el siguiente resultado.
 	\end{equation*}
 	tal como queríamos ver.
 \end{proof}
-
 
 
 \begin{teo} \label{teo_Mul-Sch}\cite{muller1985theory}
@@ -582,7 +582,7 @@ entonces vale el siguiente resultado.
 	
 	
 	Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $ \gramatica$ independiente de contexto que lo genera. 
-	Consideremos que está en la forma normal de Chomsky.
+	Por la proposición \ref{prop_fn_Chomsky} consideremos que la gramática está en forma normal de Chomsky.
 	
 	Para cada variable $A$ de nuestra gramática podemos considerar el siguiente lenguaje
 	\[
@@ -632,7 +632,7 @@ entonces vale el siguiente resultado.
 	y análogamente tenemos que $d(z,h) \le d(z,y)$.
 	
 	
-	Por la observación \ref{palabras-wp} notemos que si reemplazamos $v'$ por la palabra de menor tamaño del lenguaje $L_B$ seguimos teniendo un ciclo pero de longitud idéntica o más chica. 
+	Por el lema \ref{palabras-wp} notemos que si reemplazamos $v'$ por la palabra de menor tamaño del lenguaje $L_B$ seguimos teniendo un ciclo pero de longitud idéntica o más chica. 
 	La palabra $v'$ la leemos justamente cuando vamos del vértice $x$ al vértice $y$, así la distancia  $d(x,y)$ está acotada por la palabras que puede derivarse de $B$ de menor longitud. 
 	Idénticamente hacemos esto para las variables $A$ y $C$.
 	Por como definimos a $k$ tenemos las siguientes cotas $d(x,y), d(y,z), d(x,z) \le k$.
