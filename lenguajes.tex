@@ -13,7 +13,15 @@
 \chapter{Grupos independientes de contexto.}
 Este capítulo sigue las ideas de los trabajos \cite{muller1983groups} y \cite{muller1985theory} completando muchos detalles que son omitidos por estos.
 
-\section{El problema de la palabra.}
+En la primera sección \ref{secc_wp} daremos formalmente la definición del problema de la palabra como un lenguaje y una condición necesaria para que esta definición no dependa de los generadores elegidos para el grupo: esto es que el lenguaje sea un cono.
+
+En la sección \ref{secc_grp_ic} probaremos que los lenguajes independientes de contexto cumplen las condiciones necesarias para ser un cono y por lo tanto podemos hablar de grupos independientes de contexto.
+
+En la sección \ref{secc_teo_MS} probaremos algunos resultados que nos garanticen tener una buena presentación para un grupo virtualmente libre.
+Finalmente probaremos el resultado central de este capítulo que es el teorema de Muller--Schupp \ref{teo_Muller_Schupp} por el cual todo grupo virtualmente libre resulta ser un grupo independiente de contexto.
+
+
+\section{El problema de la palabra.}\label{secc_wp}
 
 
 Sea $G$ un grupo finitamente generado por $A$ entonces si tomamos $B = A \cup A^{-1}$ el conjunto simétrico de generadores resulta que $G$ es finitamente generado como monoide por $B$, en otras palabras, existe un epimorfismo de monoides $\pi:B^* \to G$.
@@ -106,13 +114,6 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 \end{proof}
 
 La moraleja de este resultado es que si $\CC$ es un cono entonces están bien definidos los grupos $G$ tales $WP(G) \in \CC$, es decir que no depende qué generadores tomemos del grupo. 
- 
-
-\section{Propiedades de los lenguajes independientes de contexto.}
-
-En esta sección vamos a probar algunas propiedades que tienen los lenguajes independientes de contexto vistos como una clase de lenguajes.
-La referencia de estos resultados es \cite{hopcraft-ullman}.
-
 
 La familia de lenguajes independientes de contexto va a ser la siguiente:
 \[
@@ -250,7 +251,11 @@ Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$
 	Resultado estándar. Ver \cite{hopcraft-ullman}.
 \end{proof}
 
-\section{Grupos independiente de contexto.}
+
+
+
+
+\section{Propiedades de los lenguajes independiente de contexto.}\label{secc_grp_ic}
 
 La flia de lenguajes $\text{IC}$ es un cono.
 Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \ref{morfismos-monoides-ic}.
@@ -334,11 +339,113 @@ Esto nos dice que la siguiente definición no depende de los generadores que tom
 
 
 
-\section{Teorema de Muller--Schupp.}
+\section{Teorema de Muller--Schupp.}\label{secc_teo_MS}
 
 Nuestro objetivo es probar que todo grupo \vl resulta ser \ic pero para esto debemos primero probar algunos resultados sobre grupos virtualmente libres.
 
+Primero vamos a ver que todo grupo virtualmente libre puede tomarse de manera que el subgrupo libre sea normal.
+Para eso nuestra estrategia es probar que la intersección de los conjugados del subgrupo libre tiene índice finito y también es un grupo libre. 
+La parte más laboriosa de esta demostración es la de probar que todo subgrupo de un grupo libre es libre.
+Este resultado sale como un corolario directo del teorema central de Bass--Serre que probamos en el capítulo \ref{cap_BS}.
+\begin{deff}
+	Sea $G$ un grupo y $H$ un subgrupo entonces el \emph{normalizador} de $H$ en $G$ es el siguiente subgrupo
+	\begin{equation*}
+		N_G(H) = \{ g\in G : gHg^{-1} = H  \}
+	\end{equation*}
+\end{deff}
 
+Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
+
+El siguiente lema nos va decir que los grupos de índice finito tienen finitos conjugados.
+
+\begin{lema}\label{lema_normalizador_conjugados}
+	Si $G$ es un grupo finitamente generado y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
+\end{lema}
+\begin{proof}
+	Para ver que tiene índice finito notemos que $H \le N_G(H)$ por lo tanto tenemos que 
+	\[
+	[G:N_G(H)] \le [G:H] < \infty.
+	\]
+	
+	Para probar la otra afirmación definimos la siguiente función hacia los cosets a izquierda del normalizador desde el conjunto $S$,
+	\begin{align*}
+		S  &\to  G/N_G(H)  \\
+		sHs^{-1} &\mapsto sN_G(H)
+	\end{align*}
+	Veamos que es biyectiva viendo que es inyectiva ya que $G/N_{G}(H)$ es un conjunto finito.
+	
+	Si $sN_G(H) = tN_G(H)$ entonces tenemos que esto sucede si y solo sí $t^{-1}s \in N_G(H)$.
+	Esto nos dice que por la definición del normalizador,
+	\[
+	t^{-1}s H s^{-1}t = H \iff sHs^{-1} = tHt^{-1}
+	\]
+	y de esta manera obtenemos que la función está bien definida y es inyectiva y por lo tanto biyectiva.
+	
+\end{proof}
+
+Este lema nos permite intersecar finitos grupos de índice finito para conseguirnos otro subgrupo de índice finito. 
+
+
+\begin{lema}\label{lema_indice_interseccion}
+	Sea $G$ grupo y $K_1, \dots, K_n$ subgrupos tales que $K_{i}$ tiene índice finito para todo $ 1 \le i \le n $ entonces $\bigcap_{i=1}^{n} K_{i}$ es un subgrupo de índice finito.
+\end{lema}
+\begin{proof}
+	Lo probaremos por inducción en la cantidad de subgrupos de índice finito que estamos intersecando.
+	En el caso base tenemos dos subgrupos $H,K$ de índice finito.
+	Primero notemos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
+	Como  $|KH / H| \le |G / H| < \infty$ dado que $H$ tiene índice finito obtenemos así que $|K / K \cap H| < \infty$.
+	
+	Por una propiedad de los índices obtenemos lo siguiente
+	\[
+	[G:K\cap H] = [G:K][K: K \cap H]
+	\]
+	y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
+	
+	Para la demostración del paso inductivo debemos ver que si tenemos $n$ subgrupos de índice finito $K_{1}, \dots, K_{n}$ entonces $\bigcap_{i=1}^{n} K_{i}$ también tiene índice finito.
+	La demostración se reduce a la del caso base si tomamos $H = \bigcap_{i=1}^{n-1} K_{i}$ (que por hipótesis inductiva tiene índice finito) y $K = K_{n}$.
+\end{proof}
+
+Este lema nos garantiza que tomar subgrupos de índice finito preserva la propiedad de ser finitamente generado.
+
+\begin{lema}\label{lema_subg_fg}
+	Sea $G$ un \fg y sea $H$ subgrupo de índice finito entonces $H$ es un \fg.
+\end{lema}
+\begin{proof}
+	Sea $A = \{g_1, \dots, g_n\}$ conjunto finito de generadores de $G$.
+	Sea $T =\{t_1, \dots, t_m\}$ conjunto transversal a derecha de $H$ tal que $t_1=1$.
+	
+	Dado $g_j$ generador de $G$ debe existir $h_{ij} \in H$ tal que $h_{ij}t_{k} = t_ig_j$ para cierto $t_k$.
+	También debe existir $h_i \in H$ de manera que $ h_i t_{k} = g_i$ para cierto $t_k$.
+	Veamos que el conjunto finito 
+	\[
+	B = \{ \ h_{ ij}  \mid {1 \le i,j \le n } \} \cup \{ \ h_i \mid {1 \le i \le n} \}
+	\]
+	genera a $H$.
+	
+	Dado $h \in H$ veamos que se puede escribir como una palabra en $B$. 
+	Tenemos que 
+	\[
+	h = g_{i_1}\dots g_{i_r}
+	\]
+	donde usamos el conjunto finito de generadores de $G$.
+	
+	Por lo visto anteriormente podemos escribir  $g_{i_1} = h_{i_1}t_{k_1}$ para cierto y entonces nos queda la siguiente escritura de $h$,
+	\[
+	h = h_{i_1}t_{k_1} g_{i_2}\dots g_{i_r}
+	\]
+	entonces usando que $h_{k_{1}i_{2}}t_{k_2} = t_{k_1}g_{i_2} $ llegamos a la siguiente escritura de $h$,
+	\[
+	h = h_{i_1}h_{k_{1}i_{2}}t_{k_2}\dots g_{i_r}.
+	\]
+	Repitiendo inductivamente este procedimiento llegamos a que $h =h_{i_1}h_{k_{1}i_{2}} \dots t_{k_r}$.
+	Necesariamente $t_{k_r} = 1$ porque $T$ es un conjunto de transversales de $H$ y $h \in H$.
+	Concluimos que $B$ es un conjunto finito de generadores de $H$.
+	
+\end{proof}
+
+
+El siguiente lema omitimos la demostración que resulta ser estándar en la literatura.
+La intersección de los conjugados de un subgrupo resultan ser un subgrupo normal.
 
 \begin{lema}\label{lema_int_normal}
 	Sea $G$ grupo, sea $H$ subgrupo de $G$ luego el subgrupo $K = \bigcap_{g \in G} gHg^{-1}$ es un subgrupo normal de $G$.
@@ -347,7 +454,7 @@ Nuestro objetivo es probar que todo grupo \vl resulta ser \ic pero para esto deb
 	Ver \cite{}.
 \end{proof}
 
-Los siguientes resultados nos dicen que la clase de grupos virtualmente libres resulta ser cerrada por subgrupos de índice finito y que a su vez los subgrupos libres pueden ser tomados para que sean normales.
+Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser cerrada por subgrupos de índice finito y que a su vez los subgrupos libres pueden ser tomados para que sean normales.
 
 \begin{prop}\label{prop_vls}
 	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
@@ -362,9 +469,8 @@ Los siguientes resultados nos dicen que la clase de grupos virtualmente libres r
 	Si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por el lema \ref{lema_normalizador_conjugados}.
 	Por el lema \ref{lema_int_normal} tenemos que el siguiente subgrupo de $G$ es normal
 	\[
-	F' = \bigcap_{g \in G} gFg^{-1}
+	F' = \bigcap_{g \in G} gFg^{-1}.
 	\]
-	donde la cantidad de grupos que estamos intersecando es finita.
 	Veamos que este subgrupo $F'$ nos sirve. 
 	
 	
@@ -384,7 +490,6 @@ Los siguientes resultados nos dicen que la clase de grupos virtualmente libres r
 
 \begin{obs}\label{obs_presentacion_vl}
 	Dado $G$ \vl \ vamos a construirnos una presentación en particular.
-	\todo{Debería ser consistente con la notación para las acciones por izq o der.}
 	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal por \ref{prop_vls} y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
 	\begin{center}
 		\begin{tikzcd}
@@ -445,14 +550,15 @@ Los siguientes resultados nos dicen que la clase de grupos virtualmente libres r
 Ya estamos en condiciones de probar uno de los resultados centrales de este trabajo.
 
 
-\begin{teo}\cite{muller1983groups}
+
+\begin{teo}\label{teo_Muller_Schupp}\cite{muller1983groups}
 	Todo grupo virtualmente libre es independiente de contexto.
 \end{teo}
 
 
 \begin{proof}
 	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{obs_presentacion_vl} respetando la misma notación que introducimos en esta observación.
-	Para probar que es \ic vamos a construir un autómata de pila $\cal M$ de manera que  $L ( {\cal M})= \text{WP}(G,W)$.
+	Para probar que es \ic vamos a construir un autómata de pila $\cal M$ de manera que  $ {\cal L(M)}= \text{WP}(G,W)$.
 	Antes de definirlo vamos a definir algunos conjuntos finitos que nos van a servir para esta construcción.
 	
 	Por nuestra definición del conjunto de relaciones $R$ teníamos que para todo $t_{i}, t_{j}, t_{k} \in T, a_{j} \in A$ existían $u_{ij}, z_{ijk} \in F$ de manera que 
@@ -553,7 +659,7 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 	donde $s \in F$ es el elemento del grupo libre que se consigue luego de hacer todas las operaciones que describimos en la observación \ref{obs_presentacion_vl}. 
 	En particular del autómata obtenemos que si miramos la primera coordenada de nuestro estado tenemos que $w = st$.
 	
-	De esta manera $w \in L({\cal M}) \iff w = 1 $ y así obtenemos que $WP(G,W) = L(\cal M)$ tal como queríamos ver.
+	De esta manera $w \in {\cal L(M)} \iff w = 1 $ y así obtenemos que $WP(G,W) = \cal L(M)$ tal como queríamos ver.
 	
 	
 %	Dada una palabra $w \in W^*$ por como es esta presentación sabemos que se puede escribir como $w = vt$ donde $v \in F$ reducida y $t \in  T$. 

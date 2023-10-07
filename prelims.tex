@@ -581,32 +581,8 @@ Veamos un contraejemplo.
 
 \section{Teoría de grupos.}\label{secc_teo_grp}
 
+Enunciamos y damos definiciones estándares de la teoría de grupos que usaremos en este trabajo.
 
-
-\begin{deff}
-	Dado $H$ subgrupo de $G$ podemos definir la \emph{acción por multiplicación a izquierda} sobre $G$ como $\alpha: H \to S(G)$ definida por $\alpha(h)(g) = hg$.
-	En este caso el cociente por esta acción lo vamos a denotar $H \backslash G $.
-	
-	Análogamente podemos definir una \emph{acción por multiplicación a derecha} $\beta:H \to S(G)$ definida como $\beta(h)(g) = gh$.
-	Al cociente de esta acción lo vamos a denotar $G/H$.
-\end{deff}
-
-A los elementos de $G/H$ los llamaremos \emph{cosets a izquierda} y los denotaremos $gH$ mientras que a los de $H \backslash G$ los llamaremos \emph{cosets a derecha} y los denotaremos $Hg$.
-
-\begin{deff}
-	Dado $G$ grupo y $H$ subgrupo el \emph{índice} de $H$ en $G$ es el número de cosets a izquierda de $H$ en $G$ y lo denotaremos $[G:H]$.
-\end{deff}
-
-
-\begin{lema}\label{lema_ind_prod_inter}
-	Si $G$ es un grupo, $H$ un subgrupo de $G$ y $K$ un subgrupo de $H$ entonces
-	\[
-	[G:K] = [G:H][H:K].
-	\]
-\end{lema}
-
-Por la definición de cosets que dimos tenemos que $[G:H] = |G/H|$.
-Equivalentemente tenemos que podemos definir al índice como $[G:H] = |H \backslash G|$, ver \cite{}.
 
 \begin{deff}
 	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función inyectiva $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
@@ -624,18 +600,16 @@ Equivalentemente tenemos que podemos definir al índice como $[G:H] = |H \backsl
 
 \begin{obs}
 	Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
-En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
-Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $A$ tal que $|A| = k$.
+	En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
+	Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $A$ tal que $|A| = k$.
 \end{obs}
 
 Todo grupo en particular es un monoide.
-En el caso que $F_{A}$ es un grupo libre si miramos el conjunto simétrico de generadores $B = A \cup A^{-1}$ donde $A^{-1} = \{ a^{-1} : a \in A \}$ luego tenemos que el grupo libre $F_{A}$ es un cociente del monoide libre $B^*$.
+En el caso que $F_{A}$ es un grupo libre si miramos el \emph{conjunto simétrico de generadores} $B = A \cup A^{-1}$ donde $A^{-1} = \{ a^{-1} : a \in A \}$ luego tenemos que el grupo libre $F_{A}$ es un cociente del monoide libre $B^*$.
 Esto es porque $F_{A} \simeq B^{*} / \{ aa^{-1} : a \in A \}$.
-Sea $\pi: B^{*} \to F_{A}$ este epimorfismo de monoides.
-Dada una palabra $w \in B^{*}$ notaremos $w \underset{G}{=} g$ si $\pi(w) = g$.
-	
+Sea $\pi: B^{*} \to F_{A}$ el epimorfismo de monoides al cociente.
+Dada una palabra $w \in B^{*}$ notaremos $w \overset{F_{A}}{=} g$ si $\pi(w) = g$.
 
-	
 
 \begin{deff}
 	Dado un grupo libre $F_{A}$ luego si consideramos el conjunto $B = A \cup A^{-1}$. 
@@ -644,8 +618,10 @@ Dada una palabra $w \in B^{*}$ notaremos $w \underset{G}{=} g$ si $\pi(w) = g$.
 
 
 \begin{obs}\label{obs_libres_pal_red}
-	Dado un grupo $F_{A}$ libre entonces una palabra reducida y no vacía $w \in B^*$  es tal que $w \underset{G}{\neq} 1$.
+	Dado un grupo $F_{A}$ libre entonces una palabra reducida y no vacía $w \in B^*$  es tal que $w \overset{F_{A}}{\neq} 1$.
 \end{obs}
+
+Una vez definidos los grupos libres podemos hablar de grupos infinitos finitamente generados que van a ser la familia de grupos que mayoritariamente trataremos en este trabajo.
 
 
 \begin{deff}
@@ -653,104 +629,42 @@ Dada una palabra $w \in B^{*}$ notaremos $w \underset{G}{=} g$ si $\pi(w) = g$.
 	En este caso al conjunto $A$ lo llamaremos los \emph{generadores} de $G$.
 \end{deff}
 
+Por lo visto anteriormente tenemos que si $G$ es finitamente generado por $A$ luego, si $B = A \cup A^{-1}$, 
+tenemos un epimorfismo de monoides $\pi:B^* \twoheadrightarrow G$.
+Similarmente si $w \in B^*$ es tal que $\pi(w) = g$ entonces lo denotaremos $w \overset{G}{=} g$.
 
-\begin{deff}
-	Sea $G$ un grupo y $H$ un subgrupo entonces el \emph{normalizador} de $H$ en $G$ es el siguiente subgrupo
-	\begin{equation*}
-		N_G(H) = \{ g\in G : gHg^{-1} = H  \}
-	\end{equation*}
-\end{deff}
-
-Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
-
-\begin{lema}\label{lema_normalizador_conjugados}
-	Si $G$ es un grupo finitamente generado y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
-\end{lema}
-\begin{proof}
-	Para ver que tiene índice finito notemos que $H \le N_G(H)$ por lo tanto tenemos que 
-	\[
-	[G:N_G(H)] \le [G:H] < \infty.
-	\]
-	
-	Para probar la otra afirmación definimos la siguiente función hacia los cosets a izquierda del normalizador desde el conjunto $S$,
-	\begin{align*}
-		S  &\to  G/N_G(H)  \\
-		sHs^{-1} &\mapsto sN_G(H)
-	\end{align*}
-	Veamos que es biyectiva viendo que es inyectiva ya que $G/N_{G}(H)$ es un conjunto finito.
-	
-	Si $sN_G(H) = tN_G(H)$ entonces tenemos que esto sucede si y solo sí $t^{-1}s \in N_G(H)$.
-	Esto nos dice que por la definición del normalizador,
-	\[
-	t^{-1}s H s^{-1}t = H \iff sHs^{-1} = tHt^{-1}
-	\]
-	y de esta manera obtenemos que la función está bien definida y es inyectiva y por lo tanto biyectiva.
-	
-\end{proof}
+\medskip
 
 
-\begin{lema}\label{lema_indice_interseccion}
-	Sea $G$ grupo y $K_1, \dots, K_n$ subgrupos tales que $K_{i}$ tiene índice finito para todo $ 1 \le i \le n $ entonces $\bigcap_{i=1}^{n} K_{i}$ es un subgrupo de índice finito.
-\end{lema}
-\begin{proof}
-	Lo probaremos por inducción en la cantidad de subgrupos de índice finito que estamos intersecando.
-	En el caso base tenemos dos subgrupos $H,K$ de índice finito.
-	Primero notemos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
-	Como  $|KH / H| \le |G / H| < \infty$ dado que $H$ tiene índice finito obtenemos así que $|K / K \cap H| < \infty$.
+
+Dado $X$ conjunto una \emph{acción} de $G$ en $X$ es un morfismo de grupos $\alpha: G \to S(X)$.
+En este trabajo introduciremos varias acciones de grupos sobre distintos objetos: grafos no dirigidos, grafos dirigidos y cortes óptimos de grafos. 
+Estas definiciones aparecen en cada contexto en específico pero siempre cumplen que una acción de $G$ en algún objeto $S$ se corresponde con un morfismo de grupos $\rho:G \to \text{Aut}(S)$ para la noción correspondiente de automorfismos para el objeto $S$.
+
 	
-	Por \ref{lema_ind_prod_inter} obtenemos lo siguiente
-	\[
-	[G:K\cap H] = [G:K][K: K \cap H]
-	\]
-	y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
-	
-	Para la demostración del paso inductivo debemos ver que si tenemos $n$ subgrupos de índice finito $K_{1}, \dots, K_{n}$ entonces $\bigcap_{i=1}^{n} K_{i}$ también tiene índice finito.
-	La demostración se reduce a la del caso base si tomamos $H = \bigcap_{i=1}^{n-1} K_{i}$ (que por hipótesis inductiva tiene índice finito) y $K = K_{n}$.
-\end{proof}
+Dado $H$ subgrupo de $G$ podemos definir la \emph{acción por multiplicación a izquierda} sobre $G$ como $\alpha: H \to S(G)$ definida por $\alpha(h)(g) = hg$.
+En este caso el cociente por esta acción lo vamos a denotar $H \backslash G $.
+Análogamente podemos definir una \emph{acción por multiplicación a derecha} $\beta:H \to S(G)$ definida como $\beta(h)(g) = gh$.
+Al cociente de esta acción lo vamos a denotar $G/H$.
+Si bien ambas acciones a izquierda o a derecha casi siempre son distintas en nuestro caso no va a ser necesario hacer la distinción entre la acción a izquierda y a derecha salvo para algunos resultado del capítulo \ref{cap_BS}.
+Si no hay motivo para confusión alguno utilizaremos $G/H$ para referirnos al cociente de $G$ por $H$ indistintamente.
 
 
-\begin{lema}\label{lema_subg_fg}
-	Sea $G$ un \fg y sea $H$ subgrupo de índice finito entonces $H$ es un \fg.
-\end{lema}
-\begin{proof}
-	Sea $A = \{g_1, \dots, g_n\}$ conjunto finito de generadores de $G$.
-	Sea $T =\{t_1, \dots, t_m\}$ conjunto transversal a derecha de $H$ tal que $t_1=1$.
-	
-	Dado $g_j$ generador de $G$ debe existir $h_{ij} \in H$ tal que $h_{ij}t_{k} = t_ig_j$ para cierto $t_k$.
-	También debe existir $h_i \in H$ de manera que $ h_i t_{k} = g_i$ para cierto $t_k$.
-	Veamos que el conjunto finito 
-	\[
-	B = \{ \ h_{ ij}  \mid {1 \le i,j \le n } \} \cup \{ \ h_i \mid {1 \le i \le n} \}
-	\]
-	genera a $H$.
-	
-	Dado $h \in H$ veamos que se puede escribir como una palabra en $B$. 
-	Tenemos que 
-	\[
-	h = g_{i_1}\dots g_{i_r}
-	\]
-	donde usamos el conjunto finito de generadores de $G$.
-	
-	Por lo visto anteriormente podemos escribir  $g_{i_1} = h_{i_1}t_{k_1}$ para cierto y entonces nos queda la siguiente escritura de $h$,
-	\[
-	h = h_{i_1}t_{k_1} g_{i_2}\dots g_{i_r}
-	\]
-	entonces usando que $h_{k_{1}i_{2}}t_{k_2} = t_{k_1}g_{i_2} $ llegamos a la siguiente escritura de $h$,
-	\[
-	h = h_{i_1}h_{k_{1}i_{2}}t_{k_2}\dots g_{i_r}.
-	\]
-	Repitiendo inductivamente este procedimiento llegamos a que $h =h_{i_1}h_{k_{1}i_{2}} \dots t_{k_r}$.
-	Necesariamente $t_{k_r} = 1$ porque $T$ es un conjunto de transversales de $H$ y $h \in H$.
-	Concluimos que $B$ es un conjunto finito de generadores de $H$.
-	
-\end{proof}
+
+
+
+
+A los elementos de $G/H$ los llamaremos \emph{cosets a izquierda} y los denotaremos $gH$ mientras que a los de $H \backslash G$ los llamaremos \emph{cosets a derecha} y los denotaremos $Hg$.
+Dado $G$ grupo y $H$ subgrupo el \emph{índice} de $H$ en $G$ es el número de cosets a izquierda de $H$ en $G$ (o a derecha) y lo denotaremos $[G:H]$.
+
+
+Ya podemos definir la familia de grupos con la que trabajaremos en este trabajo.
 
 \begin{deff}
 	Un grupo finitamente generado $G$ es \emph{virtualmente libre} si tiene un subgrupo libre $F$ tal que $(G:F) < \infty$.
 \end{deff}
 
-
-
+Notemos en particular que un grupo virtualmente libre cumple que es finitamente generado por definición.
 
 
 \begin{ej}
@@ -807,6 +721,9 @@ Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del sub
 
 
 
+
+
+
 \section{Grafos no dirigidos.}\label{secc_graf_nd}
 
 Sea $V$ un conjunto entonces introducimos la siguiente notación:
@@ -825,7 +742,7 @@ Sea $V$ un conjunto entonces introducimos la siguiente notación:
 Diremos que $\Gamma$ es un \emph{grafo infinito} si $|V| = \infty$ caso contrario diremos que es un grafo finito.
 
 Un vértice $v \in V$ diremos que es \emph{incidente} con una arista $e \in E$ si $v \in e$.
-Si la arista $e \in E$ es incidente con $v \in V$ y con $w \in V$ luego escribiremos $e = vw$ mientras diremos que los vértices $v,w$ son \emph{adyacentes} en este caso.
+Si la arista $e \in E$ es incidente con $v \in V$ y con $w \in V$ luego escribiremos $e = \{v,w\}$ mientras diremos que los vértices $v,w$ son \emph{adyacentes} en este caso.
 Definimos el conjunto $E(v) = \{  e \in E : v \ \text{es incidente en } \ e \}$.
 Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 
@@ -927,8 +844,8 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	
 En el caso de los grafos de Cayley vamos a identificar los caminos con palabras en los generadores del grupo.
 Más específicamente si $G$ es un grupo finitamente generado por $A$ conjunto simétrico de generadores y $\Gamma = \text{Cay}(G,A)$ el grafo de Cayley entonces dado un camino $c = (g_{0}, \dots, g_{n})$ sobre $\Gamma$ vamos a considerar la siguiente palabra $c \in A^{*}$ en el monoide libre sobre los generadores de $G$, definida como:
-si $g_{i}g_{i+1} \in E(\Gamma)$ tiene etiqueta $a_{i}$ luego $c = a_{0}\dots a_{n}$ es la palabra asociada al camino $c$.
-Bajo esta interpretación de caminos como palabras notemos que si $c$ es un camino tal que empieza y termina en el mismo vértice luego su palabra asociada resulta ser $c \in A^*$ tal que $c \underset{G}{=} 1$.
+si $\{g_{i},g_{i+1}\} \in E(\Gamma)$ tiene etiqueta $a_{i}$ luego $c = a_{0}\dots a_{n}$ es la palabra asociada al camino $c$.
+Bajo esta interpretación de caminos como palabras notemos que si $c$ es un camino tal que empieza y termina en el mismo vértice luego su palabra asociada resulta ser $c \in A^*$ tal que $c \overset{G}{=} 1$.
 En el caso particular de un ciclo tenemos que la palabra asociada está reducida.
 \end{obs}
 
@@ -952,7 +869,7 @@ Todo grafo lo podemos ver como un espacio métrico discreto si consideramos como
 Dado $\Gamma$ un grafo no dirigido conexo el espacio métrico asociado es 
 $ (V(\Gamma), d )$ con $d$ la distancia definida como 
 \[
-	d(v,w) = \inf \{ \  |\gamma|  \mid \gamma \subseteq \Gamma \land \gamma \ \text{es un camino y} \ 
+	d(v,w) = \inf \{ \  |\gamma|  \mid  \gamma \ \text{es un camino y} \ 
 	\gamma=(v,\dots, w)  \}
 \] 
 a los caminos $\gamma$ tales que realizan la distancia las llamaremos \emph{geodésicas}.

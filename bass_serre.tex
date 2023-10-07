@@ -19,11 +19,27 @@
 
 \begin{document}
 
-\chapter{Teoría de Bass--Serre.}
+\chapter{Teoría de Bass--Serre.}\label{cap_BS}
 
-La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque la notación no es exactamente la misma sino que es similar a la utilizada en el trabajo \cite{diekert2017context} 
+La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque empleamos una notación diferente. 
+También se usó como referencia a los trabajos \cite{scott1979topological}, \cite{diekert2017context} y \cite{dicks1989groups}.
 
-\section{Definiciones básicas.}
+En la primera sección damos varias definiciones básicas que emplearemos en el capítulo. 
+Muchas se corresponden con las vistas en la sección \ref{secc_graf_nd} sobre grafos no dirigidos.
+Introduciremos el objeto central de la teoría de Bass--Serre que son los grafos de grupos y los resultados estándares de los grupos fundamentales de estos objetos.
+
+En la sección \ref{secc_palab_reds} generalizaremos la noción de palabras reducidas que vimos para grupos libres al contexto más general de los grupos fundamentales de grafos de grupos.
+
+En la sección \ref{secc_arb_BS} daremos la construcción del árbol de Bass--Serre que en cierta manera generaliza la idea del revestimiento de un grafo en este contexto.
+Para su construcción emplearemos fuertemente las propiedades sintácticas del los grupos fundamentales de grafos de grupos probados en la sección anterior.
+
+Finalmente en la sección \ref{secc_acciones_arboles} mostraremos cómo se consigue un grafo de grupos a partir de una acción de un grupo sobre un árbol.
+En esta sección probaremos el teorema central de Serre \ref{teo_Serre} que nos caracteriza a los grupos que son grupos fundamentales de grafos de grupos como grupos que actúan en árboles de cierta manera.
+En especial nos va a interesar un teorema que se desprende de este resultado que nos dice que los grupos fundamentales de grafos de grupos finitos resultan ser virtualmente libres. 
+
+
+
+\section{Definiciones básicas.}\label{secc_defs_basicas}
 
 
 \begin{deff}
@@ -33,6 +49,27 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 	Al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
 	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
 	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
+	
+	
+	 
+	
+%	Primero debemos ver una definición equivalente de un grafo de Cayley. 
+%	En la sección \ref{secc_graf_nd} los definimos como grafos no dirigidos pero se puede dar una definición como grafo dirigido.
+%	
+%	\begin{deff}
+%		Dado $G$ un grupo finitamente generado por $A$ tal que $1 \notin A$ sea $\Gamma = Cay(G,A)$ el grafo de Cayley no dirigido.
+%		Definimos \emph{el grafo de Cayley dirigido} $X = \text{Cay}(G,A)$ como $V(X) = G$ y $E(X) = E(\Gamma) \times \{ -1,1 \} $.
+%		De manera que si $(e,i) \in E(X)$ entonces $e=\{ g,h \}$ de manera que $g = ha$ para $a\in A$ entonces:
+%		\begin{itemize}
+%			\item $s(e,1) = g$ mientras que $s(e,-1)= h$.
+%			\item $t(e,i) = h $ mientras que $t(e,-1)= g$.
+%			\item $\ol {(e,1)} = (e,-1)$ y $\ol{(e,-1)} = (e,1)$.
+%		\end{itemize}
+%	\end{deff}
+%	
+
+	
+	
 	
 	A continuación varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
 	\begin{itemize}
@@ -76,32 +113,25 @@ La mayoría de las construcciones de esta sección siguen la exposición de \cit
 	\end{itemize}
 \end{deff}	
 
-A continuación citamos resultados estándares de teoría de grafos que utilizaremos en esta sección.
-\todo{Agregar esto en la sección que lo usamos.}
-\begin{lema}\label{lema_union_arboles}
-	Dada una sucesión de árboles $\{T_{i}\}_{i\in \NN}$ tales que para todo $i \in \NN$ vale que $T_{i} \subseteq T_{i+1}$ entonces 
-	\[
-		T = \bigcup_{i=1}^{\infty} T_{i}
-	\]
-	es un árbol.
-\end{lema}
-\begin{proof}
-	Ver \cite{diestel2005graph}.
-\end{proof}
-	
-\begin{lema}
-	Todo árbol $T$ es únicamente geodésico.
-\end{lema}
-\begin{proof}
-	Ver \cite{diestel2005graph}
-\end{proof}
+En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los no dirigidos pueden tener más de una arista entre dos vértices y pueden tener bucles.
+Dado un grafo no dirigido $\Gamma$ lo podemos considerar como un grafo dirigido $Y$ por medio de la siguiente construcción.
+Definimos 
+\[
+V(Y) = V(\Gamma) \ \ \ E(Y) = E(\Gamma) \times \{ -1,1 \}.
+\]
+de manera tal que $ s(\{x,y\},1) = x $, $t(\{ x,y \}, -1) = y$ y tal que $\ol{(\{x,y\}, 1)} = (\{x,y\}, -1)$.
 
-\begin{prop}
-	Dado un grafo conexo $Y$ existe un árbol generador $T$ de $Y$.
-\end{prop}
-\begin{proof}
-	Ver \cite{diestel2005graph}.
-\end{proof}
+Podemos ver que si $\Gamma$ cumplía cierta propiedad como grafo no dirigido también la va a seguir cumpliendo el grafo dirigido $Y$.
+En nuestro caso en particular nos va a interesar el caso de la definición del grafo de Cayley dada en \ref{secc_graf_nd}, que bajo esta traducción lo podemos ver como un grafo dirigido también que sigue manteniendo las mismas propiedades.
+Más aún si $G$ es un grupo libre entonces podemos tomar su grafo de Cayley dirigido para que sea un árbol.
+
+Por otro lado si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
+\[
+V(\Gamma) = V(Y) \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in A \}.
+\]
+donde $A$ es una orientación de las aristas de $Y$.
+
+Estas dos construcciones son inversas y así podemos ver que valen los resultados enunciados para árboles no dirigidos en el contexto de los grafos dirigidos.
 
 
 
@@ -315,7 +345,7 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 	Fijado este vértice tenemos que por el resultado anterior \ref{teo_grp_fund_iso} que $\pi_1(\cG,P) \simeq \pi_1(\cG,T)$ para cualquier $T$ árbol generador por lo tanto obtenemos que $\pi_1(\cG, T) \simeq \pi_1(\cG,T')$ volviendo a usar este resultado para $T'$.
 \end{proof}
 
-\section{Palabras reducidas.}
+\section{Palabras reducidas.}\label{secc_palab_reds}
 
 En esta sección probaremos que todo elemento del grupo fundamental de un grafo de grupos puede ser llevado a una forma reducida.
 
@@ -418,16 +448,16 @@ Primero vamos a dar una definición estándar que es la del cociente de un grafo
 	\begin{equation*}
 		s(y) = 
 		\begin{cases}
-			s(y),  & \text{si} \ s(y) \notin V(Y') \\ 
-			[Y'], & \text{caso contrario}
+			s(y)  & \text{si} \ s(y) \notin V(Y') \\ 
+			[Y'] & \text{caso contrario}
 		\end{cases}
 	\end{equation*}
 	y análogamente,
 	\begin{equation*}
 		t(y) = 
 		\begin{cases}
-			t(y),  & \text{si} \ t(y) \notin V(Y') \\ 
-			[Y']. & \text{caso contrario}
+			t(y)  & \text{si} \ t(y) \notin V(Y') \\ 
+			[Y'] & \text{caso contrario}
 		\end{cases}
 	\end{equation*}
 	Si las aristas no empiezan ni terminaban en $Y'$ dentro del grafo $Y$ al contraer el subgrafo siguen idénticas. 
@@ -731,7 +761,7 @@ Separamos en casos dependiendo cómo es el grafo $Y$.
 	\end{enumerate}
 
 
-\section{Árbol de Bass--Serre.}
+\section{Árbol de Bass--Serre.}\label{secc_arb_BS}
 En esta sección presentamos una construcción del árbol de Bass--Serre un poco más concisa que la que aparece en \cite{serre2002trees} si bien la idea es prácticamente la misma.
 Otra construcción posible del árbol de Bass--Serre se puede ver en el trabajo \cite{diekert2017context} donde los autores construyen este árbol de una manera más sintáctica usando sistemas de reescritura.
 
@@ -855,7 +885,7 @@ Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 	\]
 	luego por lo visto es una unión de conexos (acá usamos la hipótesis inductiva que nos garantiza que $W_{g'}$ es conexo) con intersección no vacía, por lo tanto $W_{g}$ es conexo.
 	
-	Vimos así que el grafo $\tilde X$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
+	Vimos así que el grafo $\Xm$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
 	
 	Veamos ahora que no tiene ciclos.
 	Probaremos la proposición equivalente: para todo $n \in \NN$ no existe camino cerrado de longitud $n$ sin backtracking.
@@ -915,17 +945,20 @@ Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 	
 \end{proof}
 
-\todo[]{En realidad alcanza con pedir que los grupos de los vértices sean \fg pero escribí la construcción usando que eran finitos. Se podría cambiar.}
+
+
 \begin{deff}
 	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y=(V,E)$ tal que para todo $P \in V$ vale que $G_{P}$ es un grupo finito.	
 	El grafo $\tilde X$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
 \end{deff}
 
+Si bien la definición la dimos para el caso que los grupos de los vértices son finitos vale más aún cuando estos son grupos finitamente generados.
+
 \begin{center}
 	\missingfigure[figwidth=6cm]{Dib del árbol de BS}
 \end{center}
 	
-\section{Acciones de grupos sobre árboles.}
+\section{Acciones de grupos sobre árboles.}\label{secc_acciones_arboles}
 
 Sea $X$ un grafo conexo finito y sea $G$ un grupo finitamente generado que actúa sobre $X$.
 Llamemos $Y = G / X$ y sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
@@ -1084,7 +1117,18 @@ En particular si consideramos que para toda arista $y \in E(X)$ el grupo $G_y$ e
 \end{proof}
 
 Ahora vamos a probar que este morfismo $\varphi$ se factoriza por el cociente $\pi_1(\cG, T)$.
-Antes debemos ver un lema de levantado de árboles en cocientes de acciones por grupos sin inversiones.
+Para esto primero vamos a requerir que podamos levantar árboles de acciones de grupos sin inversiones.
+
+\begin{obs}\label{lema_union_arboles}
+	Dada una sucesión de árboles $\{T_{i}\}_{i\in \NN}$ tales que para todo $i \in \NN$ vale que $T_{i} \subseteq T_{i+1}$ entonces 
+	\[
+	T = \bigcup_{i=1}^{\infty} T_{i}
+	\]
+	es un árbol.
+	Esto se debe a que la unión de conexos sigue siendo conexo y si tuviera un ciclo entonces existiría $N$ suficientemente grande tal que $T_{N}$ tendría un ciclo y esto contradice que es un árbol.
+\end{obs}
+
+Ahora sí veamos que podemos definir un levantado de un árbol.
 
 \begin{prop}\label{prop_levantado_accion_arbol}
 	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
@@ -1094,7 +1138,6 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 \end{prop}
 
 \begin{proof}
-	\todo{No me gusta como está escrita esta demo}
 	Vamos a usar el Lema de Zorn.
 	Sea el siguiente conjunto
 	\[
@@ -1109,24 +1152,25 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 	Observemos que si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ y para toda $y \in E(Y)$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$. 
 	Esto nos dice que es posible definir secciones a la proyección $\pi:X \to Y$.
 	
-	Veamos que $\Omega$ es no vacío.
-	Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
-	Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
-	De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
-	
-	
-	Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
-	Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
-	\begin{equation*}
-		S = \bigcup_{i \in \NN} S_{i}.
-	\end{equation*}
-	Similarmente tomamos la unión de todas las secciones,
-	\[
+	\begin{itemize}
+		\item Veamos que $\Omega$ es no vacío.
+		Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
+		Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
+		De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
+		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
+		Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
+		\begin{equation*}
+			S = \bigcup_{i \in \NN} S_{i}.
+		\end{equation*}
+		Similarmente tomamos la unión de todas las secciones,
+		\[
 		\iota = \bigcup_{i = 0}^{k} \iota_i
-	\]
-	donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
-	Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por el resultado \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
-	Tomamos como supremo para esta cadena a $(S, \iota) \in \Omega$.
+		\]
+		donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
+		Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por la observación \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
+		El supremo para esta cadena resulta ser $(S, \iota) \in \Omega$.
+	\end{itemize}
+	
 	
 	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
 	Veamos que $(\pi \circ j)(M) = T$.
@@ -1134,6 +1178,8 @@ Antes debemos ver un lema de levantado de árboles en cocientes de acciones por 
 	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
 	Concluimos así que $M = T$ tal como queríamos ver.	
 \end{proof}
+
+
 
 \begin{coro}
 	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
@@ -1340,22 +1386,7 @@ De este teorema se desprende una caracterización importante que es que dado un 
 Como corolario directo obtenemos una caracterización para los grupos libres.
 
 
-Primero debemos ver una definición equivalente de un grafo de Cayley. 
-En la sección \ref{secc_graf_nd} los definimos como grafos no dirigidos pero se puede dar una definición como grafo dirigido.
 
-\begin{deff}
-	Dado $G$ un grupo finitamente generado por $A$ tal que $1 \notin A$ sea $\Gamma = Cay(G,A)$ el grafo de Cayley no dirigido.
-	Definimos \emph{el grafo de Cayley dirigido} $X = \text{Cay}(G,A)$ como $V(X) = G$ y $E(X) = E(\Gamma) \times \{ -1,1 \} $.
-	De manera que si $(e,i) \in E(X)$ entonces $e=\{ g,h \}$ de manera que $g = ha$ para $a\in A$ entonces:
-	\begin{itemize}
-		\item $s(e,1) = g$ mientras que $s(e,-1)= h$.
-		\item $t(e,i) = h $ mientras que $t(e,-1)= g$.
-		\item $\ol {(e,1)} = (e,-1)$ y $\ol{(e,-1)} = (e,1)$.
-	\end{itemize}
-\end{deff}
-
-En particular bajo esta definición obtenemos que el grafo de Cayley sigue siendo conexo y que $G$ sigue actuando de manera libremente sobre $X$ y más aún como $G$ actúa libremente sobre $\Gamma$ tenemos que la acción de $G$ en $X$ es sin inversiones de aristas.
-Más aún si $G$ es un grupo libre entonces podemos tomar su grafo de Cayley dirigido para que sea un árbol.
 
 \begin{coro}\label{coro_libre_sii_actua_arbol}
 	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
