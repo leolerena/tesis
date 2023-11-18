@@ -117,7 +117,7 @@ En particular bajo esta definición tenemos que los grafos dirigidos a diferenci
 Dado un grafo no dirigido $\Gamma$ lo podemos considerar como un grafo dirigido $Y$ por medio de la siguiente construcción.
 Definimos 
 \[
-V(Y) = V(\Gamma) \ \ \ E(Y) = E(\Gamma) \times \{ -1,1 \}.
+V(Y) = V(\Gamma), \ \ \ E(Y) = E(\Gamma) \times \{ -1,1 \}.
 \]
 de manera tal que $ s(\{x,y\},1) = x $, $t(\{ x,y \}, -1) = y$ y tal que $\ol{(\{x,y\}, 1)} = (\{x,y\}, -1)$.
 
@@ -127,7 +127,7 @@ Más aún si $G$ es un grupo libre entonces podemos tomar su grafo de Cayley dir
 
 Por otro lado si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
 \[
-V(\Gamma) = V(Y) \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in A \}.
+V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in A \}.
 \]
 donde $A$ es una orientación de las aristas de $Y$.
 
@@ -188,12 +188,14 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por los elementos
 	\[
 		R = \{  \ol y a y = a^{\overline y}   \ \text{para toda $y \in E$ y todo \  $a \in G_y$} \}
 	\]
+	A este grupo lo denotaremos el \emph{grupo universal} del grafo de grupos $\cG$.
 \end{deff}
 
+En particular el grupo que más nos va a interesar es un cociente de $F(\cG)$ que llamaremos el grupo fundamental del grafo de grupos.
 
 \begin{deff} \label{def_pi1_arbol}
 	Sea un grafo de grupos $\cal G$ sobre $Y$.
-	Consideremos $T$ un árbol de expansión del grafo $Y$.
+	Consideremos $T$ un árbol generador del grafo $Y$.
 	El \emph{grupo fundamental del grafo de grupos} es
 	\begin{equation*}
 		\pi_1({\cal G}, T) = F({\cal G}) / \{ y \  | \ y \in E(T)  \}.
@@ -203,6 +205,8 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por los elementos
 \begin{obs}
 	Para cada arista $y \in E(Y)$ notaremos por $g_{y}$ a la imagen de $y \in F(\cG)$ en el cociente $\pi_1(\cG,T)$.
 \end{obs}
+
+Veamos en el siguiente ejemplo que nuestra construcción de un grupo fundamental generaliza la definición topológica del grupo fundamental.
 
 \begin{ej}
 	Sea un grafo de grupos $\cal G$ sobre un grafo $Y$ tal que $G_y = \{ 1 \}$ para todo $y \in E(Y)$.
@@ -218,25 +222,59 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por los elementos
 		\pi({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (T \cap A)}
 	\]
 	
-	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico $\pi_1(Y)$ es isomorfo al grupo libre generado por las aristas que no pertenecen a un árbol generador nos queda que 
+	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico $\pi_1(Y)$ es isomorfo al grupo libre generado por las aristas que no pertenecen a un árbol generador nos queda que: 
 	\[
-		\pi_1({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P  \Asterisk \pi_1(Y) 
+		\pi_1({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P  \Asterisk \pi_1(Y). 
 	\]
 \end{ej}
 
+\begin{ej}\label{ej_pi1_bucle}
+	Si $Y$ es un bucle. 
+	Es decir si $Y = (\{P\}, \{y,\ol y \})$ de manera que $s(y)=P=s(\ol y)$ y $t(y) = P = t(\ol y)$ entonces este grafo tiene como único árbol generador al vértice $P$.
+	Consideremos $\cG$ un grafo de grupos sobre este grafo.
+	\[
+	\cG = 	\begin{tikzcd}
+		\overset{G_P}{\bullet} \arrow["G_y", loop, distance=3.5em, in=355, out=50]
+	\end{tikzcd}
+	\]
+	
+	Por la definición del grupo fundamental del grafo de grupos obtenemos el siguiente isomorfismo. 
+	\[
+		\pi_1(\cG,T) \simeq F(\cG).
+	\]
+	Si $a$ es algún elemento de $G_y$ entonces notaremos por $a^{\ol y}$ a la imagen de $a$ por el isomorfismo con el grupo $G_{\ol y}$.
+	Sea $y$ el generador de $F_{E}$ correspondiente a la arista $y$.
+		 
+	En este caso las relaciones que tenemos en nuestro grupo son las siguientes
+	\[
+	y^{-1}ay = a^{\ol y}  \  \ \ \text{para todo} \ a \in G_y.
+	\]   
+	De esta manera tenemos que una presentación de nuestro grupo fundamental es la siguiente
+	\[
+	\pi_1(\cG) = \langle G_P, y \ | \ y^{-1}ay = \ol{a}, \ \forall a \in G_y \rangle
+	\]
+	es decir el grupo fundamental de este grafo de grupos resulta ser una extensión HNN del grupo correspondiente al vértice que denotaremos $G_P^{\ast G_y}$.
+	Notemos que esta extensión depende de la elección del isomorfismo entre los grupos de las aristas aunque en el caso de este capítulo siempre va a quedar claro a qué isomorfismo nos referimos.
+	
+\end{ej}
+
 \begin{ej}\label{ej_pi1_segmento}
-	Si el grafo $Y$ es un segmento en particular él mismo es el árbol de expansión puesto que es un árbol.
-	De esta manera si $Y$ es el siguiente segmento de grupos,
+	
+	Si el grafo $Y$ es un segmento entonces $Y = (\{ P,Q \}, \{ y, \ol y\})$ tal que $s(y) = P$ y $t(y) = Q$.
+	El árbol generador resulta ser el mismo grafo $Y$ en este caso.
+	Consideremos $\cG$ un grafo de grupos sobre este grafo.
 	\[\begin{tikzcd}
-		{G_P \ \ \bullet} && {\bullet \ \ G_Q}
+		\cG = {G_P \ \ \bullet} && {\bullet \ \ G_Q}
 		\arrow["G_y"{pos=0.6}, from=1-1, to=1-3]
 	\end{tikzcd}\]
-	entonces el grupo fundamental de este grafo de grupos resulta ser el producto amalgamado
+	Dado $a \in G_{y}$ denotaremos $a^\{\ol y\}$ la imagen por el isomorfismo entre $G_{y}$ y $G_{\ol y}$ de $a$.
+	
+	Entonces el grupo fundamental de este grafo de grupos resulta ser 
+	$\pi_1({\cal G}, Y) =  F(\cG) / \langle a = a^{\ol y} \quad \forall a \in G_{y} \rangle$.
+	Esto por definición el grupo que buscábamos resulta ser el producto amalgamado
 	\[
 	\pi_1({\cal G}, Y) = G_P \underset{G_{y}}{\Asterisk} G_Q.
 	\]
-	donde acá estamos abusando levemente la notación para decir que $G_{y}$ es subgrupo de $G_{Q}$ cuando realmente es subgrupo de $G_{p}$.
-	Dado que $G_{y} \simeq G_{\ol y}$ por ser un grafo de grupos entonces podemos escribirlo de esta manera.
 \end{ej}
 
 Nuestro foco ahora es dar una definición equivalente de grupo fundamental pero esta vez usando caminos así como lo hacemos para el grupo fundamental usual de un espacio topológico.
@@ -354,89 +392,222 @@ En esta sección probaremos que todo elemento del grupo fundamental de un grafo 
 En esta subsección vamos a caracterizar las palabras reducidas de los grupos fundamentales de algunos grafos de grupos donde los grafos resultan ser más sencillos.
 El objetivo aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos de grupos arbitrarios a grafos de grupos donde sus grafos sean de estas formas.
 
-\subsubsection{Segmentos.}
-Consideremos que nuestro grafo de grupos $\cG$ está dado sobre cierto segmento $Y$,
-\[\begin{tikzcd}
-Y \ = \  	{P \ \ \bullet} && {\bullet \ \ Q}
-	\arrow["y"{pos=0.6}, from=1-1, to=1-3]
-\end{tikzcd}\]
-Por lo visto en la sección anterior \ref{ej_pi1_segmento} su grupo fundamental es el producto amalgamado $\pi_1(\cG) = G_P \ast_{G_y} G_Q$. 
-Vamos a construir una manera de escribir a los elementos de este producto amalgamado.
-
-Para eso sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
-Las \emph{formas normales} van a ser sucesiones $(x_0,x_1,\dots, x_n ,a)$ tales que $a \in G_{y}$ y para todo $0\le  i \le n$ tenemos que $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no hay elementos consecutivos $x_{i}, x_{i+1}$ en el mismo transversal.
-
-\begin{prop}\label{prop_amalgamado_formanormal}
-	Para todo elemento $g$ de un grupo amalgamado $G_P \ast_{G_y} G_Q$ existe una única forma normal $(x_0,x_1,\dots,x_n,a)$ tal que $g= x_0x_1\dots x_n a$.
-\end{prop}
-\begin{proof}
-	Ver \cite{lyndon1977combinatorial}
-\end{proof}
- 
 \subsubsection{Bucles.}
-Consideremos que nuestro grafo de grupos $\cG$ está dado sobre cierto bucle $Y$,
-\[
-Y = 	\begin{tikzcd}
-	\overset{P}{\bullet} \arrow["y", loop, distance=2.5em, in=355, out=50]
-	\end{tikzcd}
-\]
-Este grafo no tiene árbol de expansión por lo que $F(\cG) \simeq \pi_1(\cG)$.
-Si $a$ es algún elemento de $G_y$ entonces notaremos por $\overline{a}$ a la imagen de $a$ por el isomorfismo con el grupo $G_{\ol y}$.
-Sea $g$ el generador de $F_{E}$ correspondiente a la arista $y$. 
-En este caso las relaciones que tenemos en nuestro grupo son las siguientes
-\[
-	g^{-1}ag = \ol{a}  \  \ \ \text{para todo} \ a \in G_y.
-\]   
-De esta manera tenemos que una presentación de nuestro grupo fundamental es la siguiente
-\[
-	\pi_1(\cG) = \langle G_P, g \ | \ g^{-1}ag = \ol{a}, \ a \in G_y \rangle
-\]
-es decir el grupo fundamental de este grafo de grupos resulta ser una extensión HNN del grupo correspondiente al vértice que denotaremos $G_P^{\ast G_y}$.
-
-Así como hicimos en los grupos amalgamados podemos considerar formas normales en estos grupos.
-Sea $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
-Una \emph{forma normal para una extensión HNN} va a ser una sucesión 
-\[
-	(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
-\]
- donde $x_0 \in G_P$ es algún elemento arbitrario de este grupo, $\epsilon_{i} \in \{ -1,1 \}$.
-En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$. 
+Por lo visto en el ejemplo \ref{ej_pi1_bucle} tenemos que dado $Y = (\{P\}, \{y,\ol y\})$ un bucle, entonces entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento 
+hace que el grupo fundamental sea isomorfo a un producto HNN, es decir que $\pi_1(\cG) = G_P^{\ast G_y}$. 
 
 
-Ahora veamos un resultado análogo al que demostramos anteriormente para grupos amalgamados que nos dirá una manera de escribir las palabras en estos grupos.
+Vamos a clasificar las formas normales en esta familia de grupos.
 
-\begin{prop}\label{prop_hnn_formanormal}
+\begin{deff}\label{deff_hnn_fn}
+	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
+	Una \emph{forma normal para una extensión HNN} va a ser una sucesión 
+	\[
+	(x_{0},y^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+	\]
+	donde para todo $0 \le i \le n$ tenemos que $x_{i} \in G_{P}$ y $\epsilon_{i} \in \{ -1,1 \}$ y cumple las siguientes propiedades:
+	\begin{enumerate}[a)]
+		\item $x_0 \in G_P$.
+		\item En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$.
+		\item No tiene subsucesiones $y^{-1},x_i,y$ con $x_i \in S$ o bien tal que $y,x_i,y^{-1}$ con $x_i \in T$.
+	\end{enumerate}
+\end{deff}
+
+
+
+\begin{prop}[Britton]\label{teo_britton}
 	Para todo $g \in G_P^{\ast G_y}$ existe una única forma normal 
 	\[
-		(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
+	(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
 	\]
-	 tal que $g = x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n},g^{\epsilon_n}x_{n+1u} $ .
+	tal que $g = x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1}$.
 \end{prop}
 \begin{proof}
-	Ver \cite{lyndon1977combinatorial}
+	Ver \cite[p.182]{lyndon1977combinatorial}.
 \end{proof}
 
-Un refinamiento de esta proposición nos dice una condición necesaria para que una forma normal no represente el neutro del grupo.
-Consideremos una sucesión 
-\[
-	(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})
-\]
-tal que no sea necesariamente una forma normal. 
-Diremos que esta sucesión es \emph{reducida} si no tiene subsucesiones $t^{-1},x_i,t$ con $x_i \in S$ o bien tal que $t,x_i,t^{-1}$ con $x_i \in T$.
-\begin{teo}[Britton]\label{teo_britton}
-	Sea $G_P^{\ast G_y}$ una extensión HNN y sea $(x_{0},g^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},g^{\epsilon_n},x_{n+1})$ una sucesión en este grupo.
-	Si $x_{0}g^{\epsilon_0}x_{1}g^{\epsilon_1} \dots x_{n}g^{\epsilon_n}x_{n+1} = 1$ entonces la sucesión no está reducida.
-\end{teo}
+En particular un corolario útil que se desprende de esta caracterización es el siguiente.
+
+\begin{coro}\label{coro_hnn_neq_1}
+	Sea $G_P^{\ast G_y}$ extensión HNN entonces si $(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})$ es una forma normal tal que $n \le 1$ o bien $x_{0} \neq 1$
+	 entonces tenemos que $1 \neq x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1}$.
+\end{coro}
+
+%Un refinamiento de esta proposición nos dice una condición necesaria para que una forma normal no represente el neutro del grupo.
+%Consideremos una sucesión 
+%\[
+%(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+%\]
+%tal que no sea necesariamente una forma normal. 
+%Diremos que esta sucesión es \emph{reducida} .
+%\begin{teo}[Britton]
+%	Sea $G_P^{\ast G_y}$ una extensión HNN entonces 
+%	para todo $g \in G_P^{\ast G_y}$ existe una única forma normal reducida	
+%	$(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})$ 
+%	tal que $g = x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n}y^{\epsilon_n}x_{n+1}$.
+%\end{teo}
+%\begin{proof}
+%	Por el teorema \ref{prop_hnn_formanormal} tenemos que $g$ se puede escribir como el producto de una forma normal.
+%	Basta observar que toda forma normal al reducirla sigue siendo una forma normal y que al reducirla se reduce la longitud de la sucesión por lo tanto este procedimiento eventualmente termina y así obtenemos una forma normal reducida.
+%\end{proof}
+%
+%En particular nos va a resultar conveniente usar el siguiente corolario que se puede escribir como una negación del teorema anterior en el caso especial que $g=1$.
+%
+%\begin{coro}
+%	Sea $G_P^{\ast G_y}$ una extensión HNN y
+%	 $(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})$
+%	una forma normal tal que si:
+%	\begin{itemize}
+%		\item $n=0$ entonces $x_{0}\neq 1$.
+%		\item $n > 0$ entonces es una forma normal reducida. 
+%	\end{itemize}
+%	 entonces $x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n}y^{\epsilon_n}x_{n+1} \neq 1$ en $G_P^{\ast G_y}$.
+%\end{coro}
+
+
+
+
+\subsubsection{Segmentos.}
+
+En el ejemplo \ref{ej_pi1_segmento} vimos que dado un segmento $Y = (\{P,Q\}, \{y, \ol y\}  )$ entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento
+resulta que el grupo fundamental es isomorfo a un producto amalgamado, es decir que $\pi_1(\cG) = G_P \ast_{G_y} G_Q$. 
+
+En esta subsección vamos a buscar una forma normal para los elementos de los grupos amalgamados.
+\begin{deff}\label{deff_amalgamado_fn}
+	Sea $G_P \ast_{G_y} G_Q$ un producto amalgamado.
+	Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
+	
+	Una \emph{forma normal para un producto amalgamado} va a ser una sucesión
+	$(a,x_0,x_1,\dots, x_n)$ tal que $a \in G_{y}$ y para todo $0\le  i \le n$ tenemos que $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no 
+	existe $ 0 \le i  < n$ tal que  $x_{i}, x_{i+1} \in T$ o $x_{i}, x_{i+1} \in S$ .	
+\end{deff}
+
+\begin{prop}\label{prop_amalgamado_formanormal}
+	Dado un grupo amalgamado $G_P \ast_{G_y} G_Q$
+	vale que para todo $g \in G_P \ast_{G_y} G_Q$ 
+	existe una única forma normal $(a,x_0,x_1,\dots,x_n)$ de manera que $g= ax_0x_1\dots x_n$.
+\end{prop}
 \begin{proof}
-	Ver \cite{lyndon1977combinatorial}.
+	Ver \cite[p.187]{lyndon1977combinatorial}.
 \end{proof}
+ 
+Obtenemos la siguiente caracterización bastante útil a la hora de trabajar con productos amalgamados.
+	
+\begin{coro}\label{coro_amalgamado_neq_1}
+	Sea $G_P \ast_{G_y} G_Q$ grupo amalgamado entonces si $(a,x_0,x_1,\dots,x_n)$ es una forma normal tal que $n \ge 0$ o bien $a \neq 1$
+	entonces tenemos que $1 \neq ax_0x_1\dots x_n$.
+\end{coro}
+
+%Similarmente al caso de las extensiones HNN vamos a definir una sucesión reducida.
+%Que se corresponden a palabras en el grupo libre $G_{P} \ast G_{Q}$ tales que no tienen a ninguna relación como subpalabra.
+%
+%\begin{deff}
+%	Sea $G_P \ast_{G_y} G_Q$ un producto amalgamado.
+%	Una \emph{sucesión reducida} para el producto amalgamado es una sucesión
+%	$(x_0,x'_0,\dots, x'_n)$
+%	tal que para todo $0 \le i \le n$ tenemos que:
+%	\begin{itemize}
+%		\item $x_{i} \in G_{P}$ y que $x'_{i} \in G_{Q}$.
+%		\item $x_{i}, x'_{i} \notin G_{y}$ para todo $0 < i < n$.
+%	\end{itemize} 
+%\end{deff}
 
 
 \subsection{ Caso general.}
-Primero vamos a dar una definición estándar que es la del cociente de un grafo no dirigido que va a ser la herramienta principal para probar el resultado central de esta sección.
+
+En el contexto de esta sección vamos a pensar que $\cG$ es un grafo de grupos sobre un grafo conexo y finito $Y$.
+Nuestro objetivo es probar que en el grupo universal del grafo de grupos $F(\cG)$ ciertas sucesiones que resultan asociadas a caminos las podemos llevar a una forma normal.
+Más específicamente queremos probar que definen elementos diferentes de la identidad del grupo tal como hicimos en los resultados \ref{coro_amalgamado_neq_1} y \ref{coro_hnn_neq_1}.
+
+
 
 \begin{deff}
-	Sea $Y$ un grafo conexo y finito y sea $Y'$ un subgrafo conexo de $Y$ entonces
+	Sea $Y$ grafo conexo y finito, $\cG$ un grafo de grupos sobre $Y$ y $F(\cG)$ el grupo universal de este grafo de grupos.
+	Sean:
+	\begin{enumerate}[i)]
+		\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V$;
+		\item $\mu = (r_0, \dots r_n)$ una sucesión tomados de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
+	\end{enumerate}
+	De esta manera denotaremos por el par $(c, \mu)$ a la palabra en el grupo $\underset{P \in V}{\Asterisk} G_P \Asterisk F_E$:
+	\[
+	(c,\mu) = r_0 y_1 r_1 y_2 \dots r_n.
+	\]
+	Diremos que $(c, \mu)$ es una \emph{palabra de tipo $c$}.
+\end{deff}
+ 
+Denotaremos por $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ esto es que
+\[
+|c,\mu| = [r_0 y_1 r_1 y_2 \dots r_n]_{F(\cG)}.
+\]
+
+\begin{deff}
+	Una palabra $(c, \mu)=r_0 y_1 r_1 y_2 \dots r_n$ de tipo $c$ está en \emph{forma normal} si satisface:
+	\begin{enumerate}[R1.]
+		\item Si la longitud de $c$ es $0$ entonces $r_0 \neq 1$.
+		\item Si la longitud de $c$ es positiva entonces $r_i \notin G_{\ol y_{i}}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
+	\end{enumerate}
+\end{deff}
+
+Equivalentemente diremos que $(c, \mu)$ está reducida si está en forma normal. 
+
+A partir de esta definición podemos ver inmediatamente las siguientes dos observaciones.
+\begin{enumerate}[1.]
+	\item Sea $c=(y_1, \dots, y_n)$ un camino que no tiene backtracking: esto es que no existe $1 \le i  < n$ tal que $\ol {y_{i+1}} = y_{i}$.
+	Entonces toda palabra de tipo $c$ va a estar en forma normal porque cumple \textbf{R2}.
+	
+	\item Esta definición de forma normal generaliza las definiciones que dimos para grafos con una única arista en \ref{deff_amalgamado_fn} y \ref{deff_hnn_fn}.
+\end{enumerate}
+
+
+\begin{teo}\label{teo_pal_red}
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego toda palabra $(c, \mu)$ en forma normal es tal que $|c,\mu| \neq 1$.
+\end{teo}
+
+En particular de este resultado se desprenden corolarios importantes para entender la estructura de los grupos fundamentales de grafos de grupos finitos.
+
+\begin{coro}\label{coro_pal_red_1}
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego para todo $P \in V$ vale que $G_P$ es un subgrupo de $F(\cG)$.
+\end{coro}
+\begin{proof}
+	Para todo $P \in V$ tenemos que $G_P$ es un subgrupo de $\ast_{P \in V} G_P \ast F_E$.
+	Sea  $g \in G_{P} \setminus \{ 1 \}$ entonces $(c, \mu) = g$ donde $c = ()$ es el camino constante en $P$ y $\mu = (g)$.
+	Es una palabra reducida por cumplir la propiedad \textbf{R1}.
+	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ por lo que  la proyección a $F(\cG)$ nos da un isomorfismo restringida a $G_P$ y así a $G_P$ lo podemos considerar un subgrupo de $F(\cG)$.
+\end{proof}
+
+\begin{coro}\label{coro_pal_red_2}
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, sea $c = y_0 \dots y_n$ un camino no constante y $(c, \mu)$ una palabra reducida entonces $|c, \mu| \notin G_{s(y_0)}$.
+\end{coro}
+\begin{proof}
+	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
+	Sea $(c, \mu) = r_0y_1r_1\dots r_n$.
+	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_{s(y_0)}$. 
+	Consideremos entonces otra palabra $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que por como la tomamos $|c,\mu'| = 1$.
+	Es una palabra reducida porque por suposición tenemos que $c$ no es el camino constante y aparte $\mu'$ es idéntica a $\mu$ salvo en la primera posición que no afecta la condición \textbf{R2}.
+	Esto contradice \ref{teo_pal_red} por lo tanto $|c, \mu| \notin G_{s(y_0)}$.
+\end{proof}
+
+El siguiente corolario va resultarnos el de mayor utilidad porque en general vamos a trabajar con el grupo fundamental de un grafo de grupos.
+El grupo fundamental de un grafo de grupos con respecto a un árbol generador $T$ es un cociente de $F(\cG)$. 
+Sea $\pi: F(\cG) \to \pi_1(\cG,T)$ la proyección.
+
+\begin{coro}\label{coro_pal_red_3}
+	Sean $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, $c$ un camino cerrado en $Y$, $T$ un árbol generador de $Y$ y $(c, \mu)$ una palabra reducida entonces $\pi(|c,\mu|) \neq 1$ en $\pi_1(\cG, T)$. 
+\end{coro}
+\begin{proof}
+	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ en el grupo $F(\cG)$.
+	A su vez por como elegimos a $(c, \mu)$ tenemos que es un elemento del grupo fundamental $\pi_1(\cG, P)$.
+	Por el teorema \ref{teo_grp_fund_iso} tenemos que este grupo es isomorfo con el grupo fundamental $\pi_1(\cG, T)$ por medio de la proyección $\pi$ entonces esto termina de probar el resultado.
+\end{proof}
+
+
+
+
+
+Primero vamos a dar una definición estándar que es la del cociente de un grafo no dirigido que va a ser la herramienta principal para poder reducir el tamaño de un grafo.
+
+\begin{deff}
+	Sea $Y$ un grafo conexo y sea $Y'$ un subgrafo conexo de $Y$ entonces
 	el grafo dirigido $W = Y/Y'$ \emph{cociente de $Y$ por $Y'$} es el grafo dado por los siguientes conjuntos de aristas y vértices:
 	
 	\begin{enumerate}
@@ -490,87 +661,19 @@ Un ejemplo particular de cómo es el grafo cociente:
 Donde en este ejemplo distinguimos al subgrafo $Y'$ conexo con este \textcolor{rgb,255:red,214;green,153;blue,92}{color}.
 \end{ej}
 
-En el contexto de esta sección vamos a pensar que $\cG$ es un grafo de grupos sobre un grafo conexo y finito $Y$.
-Si $T$ es un árbol generador de $Y$ entonces vamos a caracterizar los elementos del grupo $\pi_1(\cG, T)$ a partir de sucesiones reducidas, tal como hicimos en el caso particular de los productos amalgamados y las extensiones HNN.
-Definimos las sucesiones que vamos a usar:
-\begin{itemize}
-	\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V$;
-	\item $\mu = (r_0, \dots r_n)$ una sucesión tomados de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
-\end{itemize}
 
-De esta manera denotaremos por el par $(c, \mu)$ a la palabra en el grupo $\underset{P \in V}{\Asterisk} G_P \Asterisk F_E$:
-\[
-(c,\mu) = r_0 y_1 r_1 y_2 \dots r_n.
-\]
-Notaremos $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ esto es que
-\[
-	|c,\mu| = [r_0 y_1 r_1 y_2 \dots r_n]_{F(\cG)}.
-\]
-
-\begin{deff}
-	Una palabra $(c, \mu)$ es \emph{reducida} si satisface:
-	\begin{enumerate}[R1.]
-		\item Si la longitud de $c$ es $0$ entonces $r_0 \neq 1$.
-		\item Si la longitud de $c$ es positiva entonces $r_i \notin G_{\ol y_{i}}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
-	\end{enumerate}
-\end{deff}
-En particular si tomamos una palabra $(c, \mu)$ tal que el camino $c$ no tiene backtracking: esto es que no existe $y_i$ tal que $\ol {y_{i+1}} = y_{i}$ entonces por la propiedad \textbf{R2} tenemos que esta palabra va a ser reducida.
-
-Queremos ver que esta definición de una palabra reducida nos alcanza para probar que estas palabras vistas en $F(\cG)$ son distintas de la identidad.
-Nuestro objetivo es el siguiente teorema.
-
-\begin{teo}\label{teo_pal_red}
-	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego toda palabra $(c, \mu)$ reducida es tal que $|c,\mu| \neq 1$.
-\end{teo}
-
-En particular de este resultado se desprenden corolarios importantes para entender la estructura de los grupos fundamentales de grafos de grupos finitos.
-
-\begin{coro}\label{coro_pal_red_1}
-	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego para todo $P \in V$ vale que $G_P$ es un subgrupo de $F(\cG)$.
-\end{coro}
-\begin{proof}
-	Para todo $P \in V$ tenemos que $G_P$ es un subgrupo de $\ast_{P \in V} G_P \ast F_E$.
-	Sea  $g \in G_{P} \setminus \{ 1 \}$ entonces $(c, \mu) = g$ donde $c = ()$ es el camino constante en $P$ y $\mu = (g)$.
-	Es una palabra reducida por cumplir la propiedad \textbf{R1}.
-	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ por lo que  la proyección a $F(\cG)$ nos da un isomorfismo restringida a $G_P$ y así a $G_P$ lo podemos considerar un subgrupo de $F(\cG)$.
-\end{proof}
-
-\begin{coro}\label{coro_pal_red_2}
-	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, sea $c = y_0 \dots y_n$ un camino no constante y $(c, \mu)$ una palabra reducida entonces $|c, \mu| \notin G_{s(y_0)}$.
-\end{coro}
-\begin{proof}
-	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
-	Sea $(c, \mu) = r_0y_1r_1\dots r_n$.
-	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_{s(y_0)}$. 
-	Consideremos entonces otra palabra $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que por como la tomamos $|c,\mu'| = 1$.
-	Es una palabra reducida porque por suposición tenemos que $c$ no es el camino constante y aparte $\mu'$ es idéntica a $\mu$ salvo en la primera posición que no afecta la condición \textbf{R2}.
-	Esto contradice \ref{teo_pal_red} por lo tanto $|c, \mu| \notin G_{s(y_0)}$.
-\end{proof}
-
-El siguiente corolario va resultarnos el de mayor utilidad porque en general vamos a trabajar con el grupo fundamental de un grafo de grupos.
-El grupo fundamental de un grafo de grupos con respecto a un árbol generador $T$ es un cociente de $F(\cG)$. 
-Sea $\pi: F(\cG) \to \pi_1(\cG,T)$ la proyección.
-
-\begin{coro}\label{coro_pal_red_3}
-	Sean $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, $c$ un camino cerrado en $Y$, $T$ un árbol generador de $Y$ y $(c, \mu)$ una palabra reducida entonces $\pi(|c,\mu|) \neq 1$ en $\pi_1(\cG, T)$. 
-\end{coro}
-\begin{proof}
-	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ en el grupo $F(\cG)$.
-	A su vez por como elegimos a $(c, \mu)$ tenemos que es un elemento del grupo fundamental $\pi_1(\cG, P)$.
-	Por el teorema \ref{teo_grp_fund_iso} tenemos que este grupo es isomorfo con el grupo fundamental $\pi_1(\cG, T)$ por medio de la proyección $\pi$ entonces esto termina de probar el resultado.
-\end{proof}
-
-Vamos a demostrar el teorema \ref{teo_pal_red}.
-Para esto emplearemos una construcción previa que nos ayude a probarlo recursivamente a partir de grafos cada vez más chicos.
+\subsubsection{Argumento dévissage.}
 
 
-
+Queremos probar que toda palabra de tipo $c$ cumple que es distinta de la identidad en $F(\cG)$. 
+Para esto siguiendo a Serre en \cite{serre2002trees} vamos a emplear un argumento de \emph{dévissage} qué consiste en reducir el problema que queremos probar para grafos de grupos arbitrarios a casos más pequeños. 
+Más específicamente queremos reducir este problema a los casos que los grafos de grupos están dados sobre grafos con una única arista.
 
 Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$ finito y conexo. 
 Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
 El grupo de este grafo de grupos restringido al subgrafo $Y'$ lo denotaremos $F(\cG | Y')$.
-Por inducción supongamos que vale el teorema \ref{teo_pal_red} para este subgrafo $Y'$.
-Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W$ bajo esta suposición de la siguiente manera.
+Supongamos que $F(\cG | Y')$ tiene la propiedad del teorema \ref{teo_pal_red}.
+Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W=Y/Y'$ de la siguiente manera.
 \begin{itemize}
 	\item Si $P \in V(Y) \setminus V(Y')$, tomamos $H_P = G_P$;
 	\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$.
@@ -579,7 +682,7 @@ Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W$ bajo es
 
 Construyamos un morfismo de grupos $\beta:F(\cG) \to F(\cH)$.
 Para eso primero lo definimos sobre los generadores.
-Para todo $g \in G_P$ con $P \in V(Y)$ definimos,
+Para todo $g \in G_P$ con $P \in V(Y)$ definimos
 \begin{equation*}
 	\beta(g) = 
 	\begin{cases}
@@ -587,12 +690,12 @@ Para todo $g \in G_P$ con $P \in V(Y)$ definimos,
 		[g] \in F(\cG | Y') & \text{si} \ P \in Y'  \\ 
 	\end{cases}
 \end{equation*}
-y para toda arista $ y \in E(Y)$ definimos,
+y para toda arista $ y \in E(Y)$ definimos
 \begin{equation*}
 	\beta(y) = 
 	\begin{cases}
 		y  & \text{si} \ y \notin E(Y') \\
-		[y] \in F(\cG | Y') & \text{si} \ y \in E(Y')  \\ 
+		[y] \in F(\cG | Y') & \text{si} \ y \in E(Y').  \\ 
 	\end{cases}
 \end{equation*}
 
@@ -612,7 +715,7 @@ Obtenemos así que $\beta$ está bien definida.
 	\end{equation*}
 	y para toda arista $ y \in E(W)$ tal que no empiece ni termine en $[Y']$ definimos,
 	\begin{equation*}
-		\alpha(y) = [y]  \ \ \ 
+		\alpha(y) = [y].  \ \ \ 
 	\end{equation*}
 	En el caso de $F(\cG | Y')$ usamos que este grupo está generado por $y \in E(Y')$ y por $g \in G_{P}$ tales que $P \in Y'$.
 	Sobre $F(\cG | Y')$ definimos 
@@ -623,16 +726,17 @@ Obtenemos así que $\beta$ está bien definida.
 	\begin{equation*}
 		\alpha([y]) = [y]  \ \ 
 	\end{equation*}
-	Es claro que es un morfismo de grupos que nos define un morfismo $\alpha:F(\cH) \to F(\cG)$ tal que es la inversa de $\beta$ anteriormente definida.
+	Vemos que bajo esta definición sobre los generadores de $F(\cH)$ y que respeta las relaciones del grupo entonces tenemos que define un morfismo $\alpha:F(\cH) \to F(\cG)$ tal que por construcción es la inversa de $\beta$.
 \end{proof}
 
 La moraleja de este lema es que podemos tomar el grupo $F(\cG | Y')$ para un subgrafo $Y'$ conexo y después tomar el grupo $F(\cH)$ para el grafo resultante $Y / Y'$ y es exactamente lo mismo que tomar $F(\cG)$ en el comienzo con la ventaja que el grafo es más chico ahora.
 
 Para cada palabra $(c, \mu)$ del grafo de grupos $F(\cG)$ le vamos a asociar una palabra $(c', \mu')$ de $\cH$ tal que $\beta (|c,\mu|) = |c',\mu'|$.
 La idea es reemplazar las partes de la palabra que involucren a $Y'$ con las respectivas en $F(\cG | Y')$.
-Dados $ 1 \le i \le j \le n$ llamemos $c_{ij}$ al camino $y_i \dots y_{j}$ y $\mu_{ij}$ a los elementos $(r_i, \dots, r_j)$.
+Dados $ 1 \le i \le j \le n$ llamemos $c_{ij}$ al camino 
+$(y_i \dots y_{j})$ y $\mu_{ij}$ a los elementos $(r_i, \dots, r_j)$.
 Si $c_{ij}$ está contenida en $Y'$ denotaremos por $r_{ij}$ al elemento correspondiente visto en $F(\cG | Y')$.
-De esta manera lo que haremos es pensar en todos los subintervalos $[i_a,j_a]$ tales que el camino $c$ está dentro del subgrafo $Y'$.
+De esta manera lo que haremos es pensar en todos los subintervalos $[i_a,j_a]$  tales que el camino $c$ está dentro del subgrafo $Y'$.
 Así tenemos subdividido al intervalo $[1,n]$ de la siguiente manera,
 \[
 	1\le i_1 \le j_1 < i_2 \le j_2 < \dots i_m \le j_m \le n.
@@ -640,15 +744,11 @@ Así tenemos subdividido al intervalo $[1,n]$ de la siguiente manera,
 Donde en particular si miramos la palabra $c_{j_{a-1}i_a}$ notemos que es un camino por fuera de $Y'$ exceptuando su comienzo y su final.
 
 Definimos la palabra $(c', \mu')$ sobre los generadores de $F(\cH)$ como:
-\begin{itemize}
-	\item $c' = c_{j_1i_2} \dots, c_{j_{a-1}i_a},c_{j_{a}i_{a+1}} \dots, c_{j_{m-1}i_{m}}$
-	\item $\mu' = \mu_{1i_1}, r_{i_1j_2}, \dots, r_{i_mj_m}, \mu_{j_m n}   $
-\end{itemize}
+\begin{enumerate}[1.]
+	\item $c' = (c_{j_1i_2} \dots, c_{j_{a-1}i_a},c_{j_{a}i_{a+1}} \dots, c_{j_{m-1}i_{m}})$
+	\item $\mu' = (\mu_{1i_1}, r_{i_1j_2}, \dots, r_{i_mj_m}, \mu_{j_m n} )  $
+\end{enumerate}
 donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la identidad si $i_1=1$ o bien si $j_m = n$.
-
-\begin{center}
-	\missingfigure[figwidth=6cm]{Dibujo para entender esta situación.}
-\end{center}
 
 
 Por como las construimos nos queda que $\beta(|c,\mu|) = |c',\mu'|$ tal como queríamos ver.
@@ -715,7 +815,8 @@ Como último resultado previo veamos un lema que nos dice qué pasa cuando contr
 
 Finalmente estamos en condiciones de probar el resultado central de esta sección. 
 
-\paragraph{Demostración del teorema \ref{teo_pal_red}.}
+
+\paragraph{Demostración de \ref{teo_pal_red}.}
 Separamos en casos dependiendo cómo es el grafo $Y$.
 	\begin{enumerate}
 		\item El caso que $Y$ es un segmento.
@@ -731,11 +832,11 @@ Separamos en casos dependiendo cómo es el grafo $Y$.
 		Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
 		
 		\[
-			\phi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
+		\phi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
 		\]
 		
 		Bajo nuestra definición de las palabras reducidas para grupos amalgamados tenemos que $\phi(|c, \mu|)$ es una palabra reducida para $G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}$ entonces por \ref{prop_amalgamado_formanormal} concluimos que $|c, \mu|$ no es la identidad porque justamente $\phi(|c,\mu|) \neq 1$.
-
+		
 		
 		\item El caso que $Y$ es un árbol. 
 		Lo probamos usando inducción en la cantidad de aristas del grafo.
