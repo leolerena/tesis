@@ -392,12 +392,13 @@ En esta sección probaremos que todo elemento del grupo fundamental de un grafo 
 En esta subsección vamos a caracterizar las palabras reducidas de los grupos fundamentales de algunos grafos de grupos donde los grafos resultan ser más sencillos.
 El objetivo aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos de grupos arbitrarios a grafos de grupos donde sus grafos sean de estas formas.
 
-\subsubsection{Bucles.}
+\subsubsection{Bucles.}\label{subsub_bucle}
 Por lo visto en el ejemplo \ref{ej_pi1_bucle} tenemos que dado $Y = (\{P\}, \{y,\ol y\})$ un bucle, entonces entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento 
 hace que el grupo fundamental sea isomorfo a un producto HNN, es decir que $\pi_1(\cG) = G_P^{\ast G_y}$. 
 
 
 Vamos a clasificar las formas normales en esta familia de grupos.
+\todo{Dar la noción de sucesión reducida. Explicar la diferencia con forma normal, que ésta es una elección de una sucesión reducida (viene de una estrategia en particular).}
 
 \begin{deff}\label{deff_hnn_fn}
 	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
@@ -467,12 +468,13 @@ En particular un corolario útil que se desprende de esta caracterización es el
 
 
 
-\subsubsection{Segmentos.}
+\subsubsection{Segmentos.}\label{subsub_segmento}
 
 En el ejemplo \ref{ej_pi1_segmento} vimos que dado un segmento $Y = (\{P,Q\}, \{y, \ol y\}  )$ entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento
 resulta que el grupo fundamental es isomorfo a un producto amalgamado, es decir que $\pi_1(\cG) = G_P \ast_{G_y} G_Q$. 
 
 En esta subsección vamos a buscar una forma normal para los elementos de los grupos amalgamados.
+\todo{Dar la noción de sucesión reducida. Explicar la diferencia con forma normal, que ésta es una elección de una sucesión reducida (viene de una estrategia en particular).}
 \begin{deff}\label{deff_amalgamado_fn}
 	Sea $G_P \ast_{G_y} G_Q$ un producto amalgamado.
 	Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
@@ -667,7 +669,7 @@ Donde en este ejemplo distinguimos al subgrafo $Y'$ conexo con este \textcolor{r
 
 Queremos probar que toda palabra de tipo $c$ cumple que es distinta de la identidad en $F(\cG)$. 
 Para esto siguiendo a Serre en \cite{serre2002trees} vamos a emplear un argumento de \emph{dévissage} qué consiste en reducir el problema que queremos probar para grafos de grupos arbitrarios a casos más pequeños. 
-Más específicamente queremos reducir este problema a los casos que los grafos de grupos están dados sobre grafos con una única arista.
+Más específicamente queremos reducir este problema a los casos que los grafos de grupos están dados sobre grafos con una única arista como ya hicimos anteriormente en las subsecciones \ref{subsub_bucle} y \ref{subsub_segmento}.
 
 Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$ finito y conexo. 
 Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
@@ -750,6 +752,68 @@ Definimos la palabra $(c', \mu')$ sobre los generadores de $F(\cH)$ como:
 \end{enumerate}
 donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la identidad si $i_1=1$ o bien si $j_m = n$.
 
+\begin{ej}
+	Sea $Y = (V,E)$ grafo finito que representamos de la siguiente manera.	
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 15mm and 15mm,
+			V/.style = {circle, draw, fill=gray!30},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)   {$P_1$};
+				\node (2) [above right=of 1,fill=carrotorange]    {$P_2$};
+				\node (3) [right=of 2,fill=carrotorange]          {$P_3$};
+				\node (4) [below right=of 3,fill=carrotorange]    {$P_4$};
+				\node (5) [below  left=of 4,fill=carrotorange]    {$P_5$};
+				\node (6) [left= of 5,fill=carrotorange]          {$P_6$};
+				\node (7) [right=of 4]          {$P_7$};
+				\node (8) [right=of 7]          {$P_8$};
+			\end{scope}
+			\draw   (1)  edge[->,line width=1.3pt,"$y_1$"] (2)
+			(2)  edge[->,"$y_2$",carrotorange,line width=1.3pt] (3)
+			(3)  edge[->,"$y_3$",carrotorange,line width=1.3pt] (4)
+			(4)  edge[->,"$y_4$",carrotorange] (5)
+			(5)  edge[->,"$y_5$",carrotorange] (6)
+			(6)  edge[->,"$y_6$"] (1)
+			(5)  edge[->,"$y_9$"]  (2)
+			(4)  edge[->,"$y_7$",line width=1.3pt] (7)
+			(7)  edge[->,"$y_8$",line width=1.3pt] (8);
+		\end{tikzpicture}
+	\end{center}
+	
+	En este caso consideramos que el subgrafo conexo $Y'$ es el que está pintado de color \textcolor{carrotorange}{naranja}.
+	Consideremos $\cG$ una estructura de grafo de grupos sobre $Y$.
+	Sea $c = (y_1, y_2, y_3, y_7, y_8)$ resaltado en negrita en la figura un camino en el grafo $Y$ y sea $\mu = (r_0, r_1, \dots, r_8)$ una sucesión de elementos de manera que $(c, \mu)$ es una palabra de tipo $c$.
+	Si contraemos el subgrafo $Y'$ nos queda el grafo $W=Y/Y'$ que representamos de la siguiente manera.
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 15mm and 15mm,
+			V/.style = {circle, draw, fill=gray!30},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)   {$P_1$};
+				\node (2) [above right=of 1,fill={carrotorange}]    {$[Y']$};
+				\node (7) [right=of 2]          {$P_7$};
+				\node (8) [right=of 7]          {$P_8$};
+			\end{scope}
+			\draw   (1)  edge[->,line width=1.3pt,"$y_1$"] (2)
+					(2)  edge[->,"$y_9$", loop]  (2)
+					(2)  edge[->,"$y_7$",line width=1.3pt] (7)
+					(7)  edge[->,"$y_8$",line width=1.3pt] (8);
+		\end{tikzpicture}
+	\end{center}
+	tal que si $\cH$ es la estructura de grafo de grupos que construimos sobre el grafo $W$ entonces tenemos definida $(c', \mu')$ una palabra de tipo $c'$ donde
+	 $c' = (y_1,y_7,y_8)$ y donde $\mu'=(r_0,r_1y_2r_2y_3r_3,r_7,r_8)$ con $r_1y_2r_2y_3r_3 \in H_{[Y']} = F(\cG \mid Y')$.
+	
+	
+	
+\end{ej}
+
+
+
+
 
 Por como las construimos nos queda que $\beta(|c,\mu|) = |c',\mu'|$ tal como queríamos ver.
 Veamos ahora que $\beta$ preserva las palabras reducidas. 
@@ -767,19 +831,23 @@ Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida q
 	En el caso que $P' = [Y']$ nos queda que $r_0 \in F(\cG | Y')$ y por lo tanto es reducida usando el teorema \ref{teo_pal_red} inductivamente en el grafo $Y'$.
 	
 	Supongamos ahora que la longitud de $c'$ es al menos $1$, entonces si queremos ver que  $(c',\mu')$ es reducida debemos garantizar que cumpla \textbf{R2}.
-	Sean $c' = w_1 \dots w_{n}$, $\mu' = r'_0, \dots, r'_n$ y sean $c = y_{1} \dots y_{k}$ , $\mu = r_{0} \dots r_{k}$.
+	Sean $c = (y_{1} \dots y_{k})$, $\mu = (r_{0} \dots r_{k})$ y sean
+	$c' = (w_1 \dots w_{n})$, $\mu' = (r'_0, \dots, r'_n)$.
 	Queremos ver que si existe $1 \le k \le n$ tal que  $w_{k+1} = \ol{w_k}$ entonces $r'_k \notin H_{w_k}$.		
 	El caso particular que $t(w_k) \neq [Y']$ tenemos que $(c', \mu')$ es reducida porque justamente $(c, \mu)$ lo es y por lo tanto cumple \textbf{R2}.
-	Vamos a distinguir dos casos si $t(w_k) = [Y']$:
+	Si $t(w_k) = [Y']$ vamos a distinguir dos casos.
+	
 	\begin{enumerate}[i)]
-		\item En el primer caso tenemos que  $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierta $y_i$ que aparece en $c$.
-		Esto nos dice que $s(w_k) \in V(W) \setminus [Y']$ y por lo tanto por como definimos a $(c', \mu')$ tenemos que $r'_k = r_i$ bajo esta hipótesis.
+		\item En el primer caso tenemos que $s(w_{k}) \in Y \setminus \{[Y']\}$.
+		En este caso $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierta $y_i$ que aparece en $c$.
+		Por como definimos a $(c', \mu')$ tenemos que $r'_k = r_i$ bajo esta hipótesis.
 		Queremos ver que $r'_k \notin H_{\ol{w_k}}$.
 		El grupo $H_{\ol{w_k}}$ es isomorfo a $G_{\ol{y_i}}$ aunque la diferencia es que el primero es un subgrupo de $H_{[Y]}$ mientras que el segundo es un subgrupo de $G_{t(y_i)}$.
 		Por ser $(c, \mu)$ reducida tenemos que $r_i \notin G_{\ol{y_i}}$.
 		Por el corolario \ref{coro_pal_red_1} tenemos que $G_{\ol{y_i}}$ es un subgrupo de $H_{[Y']} = F(\cG | Y')$ entonces $r'_k \notin H_{[Y']}$.
 		
-		\item En el otro caso tenemos que se corresponde a un camino no constante dentro de $Y'$.
+		\item En el segundo caso tenemos que $s(w_{k}) \in [Y']$. 
+		En este caso se corresponde a un camino no constante dentro de $Y'$.
 		Siguiendo la notación introducida anteriormente tenemos que para cierto $a$ vale que $w_k = y_{i_a}, r'_k = r_{i_aj_a}$ y que $w_{k+1} = y_{j_{a+1}}$ donde bajo nuestras suposiciones tenemos que $w_{k+1} = \ol{w_{k}}$ por lo tanto $ y_{j_{a+1}} = \ol{y_{i_a}}$.
 		
 		Nuevamente queremos ver que se cumple \textbf{R2}. 
@@ -795,17 +863,11 @@ Como último resultado previo veamos un lema que nos dice qué pasa cuando contr
 	Si $Y$ es un árbol finito e $Y'$ es un subárbol de $Y$ entonces $W=Y/Y'$ es un árbol. 
 \end{lema} 
 \begin{proof}
-	Debemos ver que $W$ es un grafo conexo y sin ciclos.
+	Debemos ver que $W$ no tiene ciclos dado que todo cociente de un grafo conexo sigue siendo conexo.
 	Para cada vértice $P' \in V(W)$ consideremos $P$ su levantado en $Y$ tal que para el caso particular de $[Y']$ consideramos algún vértice $P \in V(Y')$ arbitrario.
 	En el caso de las aristas cada arista $w \in E(W)$ se corresponde con una única arista $y \in E(Y)$.
-	
-	Para ver que es conexo tomemos dos vértices $P'_1,P'_2 \in V(W)$ y veamos de construir un camino entre ellos.
-	Consideramos $P_{1}, P_{2} \in V(Y)$ sus levantados.
-	Como el grafo $Y$ es conexo existe un camino $c$ que los une.
-	De manera idéntica a cómo hicimos anteriormente podemos armarnos un camino $c'$ tal que los una sobre $W$.
-	
-	Para ver que \textit{no tiene ciclos} supongamos que $c'$ es un ciclo de $W$.
-	Este ciclo tiene que pasar por $[Y']$ caso contrario tomando levantados de aristas y vértices conseguiríamos un ciclo en $Y$.
+	Para ver que no tiene ciclos supongamos que $c'$ es un ciclo de $W$.
+	Este ciclo tiene que pasar por $[Y']$ caso contrario tomando levantados de aristas y vértices conseguiríamos un ciclo en $Y$, consideremos que este ciclo $c'$ pasa solamente al comienzo y al final por $[Y']$.
 	Si levantamos este ciclo nos queda un camino $c$ en $Y$ tal que comienza y termina en $Y'$ y aparte cumple que ninguna de las aristas está en $E(Y')$.
 	Por hipótesis tenemos que $Y'$ es conexo por lo tanto debe existir un camino $d$ con aristas contenidas en $Y'$ tal que une los extremos de $c$. 
 	Concantenando $c$ con $d$ obtenemos un ciclo de $Y$ pero esto contradice que $Y$ es un árbol.
@@ -819,23 +881,36 @@ Finalmente estamos en condiciones de probar el resultado central de esta secció
 \paragraph{Demostración de \ref{teo_pal_red}.}
 Separamos en casos dependiendo cómo es el grafo $Y$.
 	\begin{enumerate}
-		\item El caso que $Y$ es un segmento.
-		\[Y =  \begin{tikzcd}
-			{P_{-1} \ \ \bullet} && {\bullet \ \ P_1}
-			\arrow["y"{pos=0.6}, from=1-1, to=1-3]
-		\end{tikzcd}\]
-		El elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
+		\item El caso que $Y$ es un segmento que representaremos de la siguiente manera:
+		
+		\begin{center}
+			\begin{tikzpicture}[
+			node distance = 25mm and 25mm, 
+			V/.style = {circle, draw, fill=gray!20},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=1.2cm] {$P_{-1}$};
+				\node (2) [right=of 1,minimum size=1.2cm]    {$P_1$};
+			\end{scope}
+			\draw   (1)  edge[->,"$y$"] (2);
+		\end{tikzpicture}
+		\end{center}
+		Sea $\cG$ un grafo de grupos sobre este grafo.		
+		Si $(c, \mu)$ es una palabra de tipo $c$ entonces el elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
 		Donde $e_{i} = -e_{i+1}$ para todo $i=1 \dots n$ y los elementos cumplen que $r_0 \in G_{P_{-e_1}}$ y $r_i \in G_{P_{e_i}} \setminus G_{y^{e_i}}$ dado que $(c, \mu)$ es una palabra reducida.
 		El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
 		
-		Para el otro caso en el cual  el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente $\pi_1(\cG,T)$ donde $T$ es el mismo segmento $Y$ en este caso.
+		Para el otro caso en el cual  el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente $\pi_1(\cG,T)$ donde $T=Y$ es el mismo segmento.
 		Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
 		
+		Consideramos el morfismo sobreyectivo $\pi$ que es la proyección del grupo universal al grupo fundamental
 		\[
-		\phi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
+		\pi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
 		\]
-		
-		Bajo nuestra definición de las palabras reducidas para grupos amalgamados tenemos que $\phi(|c, \mu|)$ es una palabra reducida para $G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}$ entonces por \ref{prop_amalgamado_formanormal} concluimos que $|c, \mu|$ no es la identidad porque justamente $\phi(|c,\mu|) \neq 1$.
+		Bajo nuestra definición de las palabras reducidas para grupos
+		\todo{Escribir detalladamente esta cuenta en el grupo amalgamado.}
+		amalgamados tenemos que $\phi(|c, \mu|)$ es una palabra reducida para $G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}$ entonces por \ref{prop_amalgamado_formanormal} concluimos que $|c, \mu|$ no es la identidad porque justamente $\phi(|c,\mu|) \neq 1$.
 		
 		
 		\item El caso que $Y$ es un árbol. 
