@@ -232,11 +232,19 @@ Veamos en el siguiente ejemplo que nuestra construcción de un grupo fundamental
 	Si $Y$ es un bucle. 
 	Es decir si $Y = (\{P\}, \{y,\ol y \})$ de manera que $s(y)=P=s(\ol y)$ y $t(y) = P = t(\ol y)$ entonces este grafo tiene como único árbol generador al vértice $P$.
 	Consideremos $\cG$ un grafo de grupos sobre este grafo.
-	\[
-	\cG = 	\begin{tikzcd}
-		\overset{G_P}{\bullet} \arrow["G_y", loop, distance=3.5em, in=355, out=50]
-	\end{tikzcd}
-	\]
+\begin{center}
+		\begin{tikzpicture}
+		[node distance = 25mm and 25mm, 
+		V/.style = {circle, draw, fill=gray!20},
+		every edge quotes/.style = {auto, font=\footnotesize, sloped}
+		]
+		\node[align=center] at (-1.5, 0) {$\cG=$};
+		\begin{scope}[nodes=V]
+			\node (1)  [minimum size=0.25cm] {$G_P$};
+		\end{scope}
+		\draw   (1)  edge[->,"$G_y$", loop] (1);
+	\end{tikzpicture}
+\end{center}
 	
 	Por la definición del grupo fundamental del grafo de grupos obtenemos el siguiente isomorfismo. 
 	\[
@@ -263,14 +271,26 @@ Veamos en el siguiente ejemplo que nuestra construcción de un grupo fundamental
 	Si el grafo $Y$ es un segmento entonces $Y = (\{ P,Q \}, \{ y, \ol y\})$ tal que $s(y) = P$ y $t(y) = Q$.
 	El árbol generador resulta ser el mismo grafo $Y$ en este caso.
 	Consideremos $\cG$ un grafo de grupos sobre este grafo.
-	\[\begin{tikzcd}
-		\cG = {G_P \ \ \bullet} && {\bullet \ \ G_Q}
-		\arrow["G_y"{pos=0.6}, from=1-1, to=1-3]
-	\end{tikzcd}\]
-	Dado $a \in G_{y}$ denotaremos $a^\{\ol y\}$ la imagen por el isomorfismo entre $G_{y}$ y $G_{\ol y}$ de $a$.
+	\begin{center}
+		\begin{tikzpicture}
+			[node distance = 25mm and 25mm, 
+			V/.style = {circle, draw, fill=gray!20},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\node[align=center] at (-1.5, 0) {$\cG=$};
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=1cm] {$G_P$};
+				\node (2) [right=of 1,minimum size=1cm]    {$G_Q$};
+			\end{scope}
+			\draw   (1)  edge[->,"$G_y$"] (2);
+		\end{tikzpicture}
+	\end{center}
+	Dado $a \in G_{y}$ denotaremos $a^{\ol y}$ la imagen por el isomorfismo entre $G_{y}$ y $G_{\ol y}$ de $a$.
 	
 	Entonces el grupo fundamental de este grafo de grupos resulta ser 
-	$\pi_1({\cal G}, Y) =  F(\cG) / \langle a = a^{\ol y} \quad \forall a \in G_{y} \rangle$.
+	\[
+		\pi_1({\cal G}, Y) =  F(\cG) / \langle a = a^{\ol y}, \quad \forall a \in G_{y} \rangle
+	\]
 	Esto por definición el grupo que buscábamos resulta ser el producto amalgamado
 	\[
 	\pi_1({\cal G}, Y) = G_P \underset{G_{y}}{\Asterisk} G_Q.
@@ -396,43 +416,58 @@ El objetivo aparte de ejemplificar en unos casos en particular, es que más en a
 Por lo visto en el ejemplo \ref{ej_pi1_bucle} tenemos que dado $Y = (\{P\}, \{y,\ol y\})$ un bucle, entonces entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento 
 hace que el grupo fundamental sea isomorfo a un producto HNN, es decir que $\pi_1(\cG) = G_P^{\ast G_y}$. 
 
-
-Vamos a clasificar las formas normales en esta familia de grupos.
-\todo{Dar la noción de sucesión reducida. Explicar la diferencia con forma normal, que ésta es una elección de una sucesión reducida (viene de una estrategia en particular).}
-
 \begin{deff}\label{deff_hnn_fn}
-	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
-	Una \emph{forma normal para una extensión HNN} va a ser una sucesión 
+	Dado $G_P^{\ast G_y}$ extensión HNN diremos que una sucesión
 	\[
-	(x_{0},y^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+		(x_{0},y^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
 	\]
-	donde para todo $0 \le i \le n$ tenemos que $x_{i} \in G_{P}$ y $\epsilon_{i} \in \{ -1,1 \}$ y cumple las siguientes propiedades:
-	\begin{enumerate}[a)]
-		\item $x_0 \in G_P$.
-		\item En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$.
-		\item No tiene subsucesiones $y^{-1},x_i,y$ con $x_i \in S$ o bien tal que $y,x_i,y^{-1}$ con $x_i \in T$.
-	\end{enumerate}
+	donde para todo $0 \le i \le n$ tenemos que $x_{i} \in G_{P}$ y $\epsilon_{i} \in \{ -1,1 \}$
+	es una \emph{sucesión reducida} si no tiene subsucesiones 
+	$y^{-1}x_iy$ con $x \in G_{y}$ o bien $yx_iy^{-1}$ con $x \in G_{\ol y}$.	
 \end{deff}
 
-
+En particular nos interesan las sucesiones reducidas porque es una manera fácil de chequear cuándo algún elemento no es la identidad en el grupo.
 
 \begin{prop}[Britton]\label{teo_britton}
-	Para todo $g \in G_P^{\ast G_y}$ existe una única forma normal 
+	Sea $G_P^{\ast G_y}$ una extensión HNN.
+	Para todo sucesión reducida
 	\[
 	(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
 	\]
-	tal que $g = x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1}$.
+	vale que $x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1} \neq 1$.
 \end{prop}
 \begin{proof}
 	Ver \cite[p.182]{lyndon1977combinatorial}.
 \end{proof}
 
-En particular un corolario útil que se desprende de esta caracterización es el siguiente.
+Dentro de las sucesiones reducidas podemos quedarnos con algunas que llamamos las formas normales.
+Estas caracterizan unívocamente a los elementos de una extensión HNN.
 
-\begin{coro}\label{coro_hnn_neq_1}
-	Sea $G_P^{\ast G_y}$ extensión HNN entonces si $(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})$ es una forma normal tal que $n \le 1$ o bien $x_{0} \neq 1$
-	 entonces tenemos que $1 \neq x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1}$.
-\end{coro}
+\begin{deff}
+	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
+	Una \emph{forma normal para una extensión HNN} va a ser una sucesión reducida
+	\[
+	(x_{0},y^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+	\]
+	donde para todo $0 \le i \le n$ tenemos que $x_{i} \in G_{P}$ y $\epsilon_{i} \in \{ -1,1 \}$ y cumple las siguientes propiedades:
+	\begin{enumerate}
+		\item $x_0 \in G_P$.
+		\item En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$.
+	\end{enumerate}
+\end{deff}
+
+Podemos probar que todo elemento de una extensión HNN puede ser escrita como el producto de una forma normal y más aún esta escritura es única.
+ 
+\begin{teo}
+	Para todo $g \in G_P^{\ast G_y}$ existe una única forma normal 
+	\[
+	(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+	\]
+	tal que $g = x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1}$.
+\end{teo}
+\begin{proof}
+	Ver \cite[p.182]{lyndon1977combinatorial}.
+\end{proof}
 
 %Un refinamiento de esta proposición nos dice una condición necesaria para que una forma normal no represente el neutro del grupo.
 %Consideremos una sucesión 
@@ -470,12 +505,36 @@ En particular un corolario útil que se desprende de esta caracterización es el
 
 \subsubsection{Segmentos.}\label{subsub_segmento}
 
-En el ejemplo \ref{ej_pi1_segmento} vimos que dado un segmento $Y = (\{P,Q\}, \{y, \ol y\}  )$ entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento
+En el ejemplo \ref{ej_pi1_segmento} vimos que dado un segmento $Y = (\{P,Q\}, \{y, \ol y\}  )$ entonces para toda estructura de grafo de grupos $\cG$ que le demos a este segmento
 resulta que el grupo fundamental es isomorfo a un producto amalgamado, es decir que $\pi_1(\cG) = G_P \ast_{G_y} G_Q$. 
 
-En esta subsección vamos a buscar una forma normal para los elementos de los grupos amalgamados.
-\todo{Dar la noción de sucesión reducida. Explicar la diferencia con forma normal, que ésta es una elección de una sucesión reducida (viene de una estrategia en particular).}
+En esta subsección vamos a repetir las ideas que vimos para las extensiones HNN y definir sucesiones reducidas y formas normales.
+
 \begin{deff}\label{deff_amalgamado_fn}
+	Dado $G_P \ast_{G_y} G_Q$ producto amalgamado diremos que una sucesión
+	\[
+	(x_0,x_1,\dots, x_n)
+	\]
+	es una \emph{sucesión reducida} si valen las siguientes condiciones:
+	\begin{enumerate}
+		\item Para todo $0 \le i \le n$ vale que $x_{i} \in G_{P}$ o $x_i \in G_Q$
+		\item Para todo $0 \le i < n$ no puede valer que $x_i,x_{i+1} \in G_P$ o que $x_i,x_{i+1} \in G_Q$.
+		\item Si $n > 1$ entonces $x_i \notin G_y$.
+		\item Si $n = 1$ entoces $x_0 \neq 1$.
+	\end{enumerate}
+\end{deff}
+
+
+\begin{teo}\label{coro_amalgamado_neq_1}
+	Sea $G_P \ast_{G_y} G_Q$ grupo amalgamado entonces si $(x_0,x_1,\dots,x_n)$ es una sucesión reducida entonces tenemos que $1 \neq x_0x_1\dots x_n$.
+\end{teo}
+\begin{proof}
+	Ver \cite[pp.187-188]{lyndon1977combinatorial}.
+\end{proof}
+
+Analogamente al caso de las extensiones HNN podemos definir una forma normal para un producto amalgamado.
+
+\begin{deff}
 	Sea $G_P \ast_{G_y} G_Q$ un producto amalgamado.
 	Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
 	
@@ -493,12 +552,6 @@ En esta subsección vamos a buscar una forma normal para los elementos de los gr
 	Ver \cite[p.187]{lyndon1977combinatorial}.
 \end{proof}
  
-Obtenemos la siguiente caracterización bastante útil a la hora de trabajar con productos amalgamados.
-	
-\begin{coro}\label{coro_amalgamado_neq_1}
-	Sea $G_P \ast_{G_y} G_Q$ grupo amalgamado entonces si $(a,x_0,x_1,\dots,x_n)$ es una forma normal tal que $n \ge 0$ o bien $a \neq 1$
-	entonces tenemos que $1 \neq ax_0x_1\dots x_n$.
-\end{coro}
 
 %Similarmente al caso de las extensiones HNN vamos a definir una sucesión reducida.
 %Que se corresponden a palabras en el grupo libre $G_{P} \ast G_{Q}$ tales que no tienen a ninguna relación como subpalabra.
@@ -518,8 +571,8 @@ Obtenemos la siguiente caracterización bastante útil a la hora de trabajar con
 \subsection{ Caso general.}
 
 En el contexto de esta sección vamos a pensar que $\cG$ es un grafo de grupos sobre un grafo conexo y finito $Y$.
-Nuestro objetivo es probar que en el grupo universal del grafo de grupos $F(\cG)$ ciertas sucesiones que resultan asociadas a caminos las podemos llevar a una forma normal.
-Más específicamente queremos probar que definen elementos diferentes de la identidad del grupo tal como hicimos en los resultados \ref{coro_amalgamado_neq_1} y \ref{coro_hnn_neq_1}.
+Nuestro objetivo es probar que en el grupo universal del grafo de grupos $F(\cG)$ ciertas sucesiones que resultan asociadas a caminos van a ser reducidas.
+Más específicamente queremos probar que definen elementos diferentes de la identidad del grupo tal como hicimos en los resultados \ref{teo_britton} y\ref{coro_amalgamado_neq_1}.
 
 
 
@@ -543,21 +596,18 @@ Denotaremos por $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ esto es
 \]
 
 \begin{deff}
-	Una palabra $(c, \mu)=r_0 y_1 r_1 y_2 \dots r_n$ de tipo $c$ está en \emph{forma normal} si satisface:
+	Una palabra $(c, \mu)=r_0 y_1 r_1 y_2 \dots r_n$ de tipo $c$ está \emph{reducida} si satisface:
 	\begin{enumerate}[R1.]
 		\item Si la longitud de $c$ es $0$ entonces $r_0 \neq 1$.
 		\item Si la longitud de $c$ es positiva entonces $r_i \notin G_{\ol y_{i}}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
 	\end{enumerate}
 \end{deff}
-
-Equivalentemente diremos que $(c, \mu)$ está reducida si está en forma normal. 
-
 A partir de esta definición podemos ver inmediatamente las siguientes dos observaciones.
 \begin{enumerate}[1.]
 	\item Sea $c=(y_1, \dots, y_n)$ un camino que no tiene backtracking: esto es que no existe $1 \le i  < n$ tal que $\ol {y_{i+1}} = y_{i}$.
 	Entonces toda palabra de tipo $c$ va a estar en forma normal porque cumple \textbf{R2}.
 	
-	\item Esta definición de forma normal generaliza las definiciones que dimos para grafos con una única arista en \ref{deff_amalgamado_fn} y \ref{deff_hnn_fn}.
+	\item Esta definición de forma normal generaliza las definiciones que dimos para grafos con una única arista en \ref{deff_hnn_fn} y \ref{deff_amalgamado_fn}.
 \end{enumerate}
 
 
@@ -642,25 +692,54 @@ Una observación directa de esta definición es que si los grafos $Y$ e $Y'$ son
 
 \begin{ej}
 	
-Un ejemplo particular de cómo es el grafo cociente:
+Un ejemplo particular de cómo es el grafo cociente
 
-\[\begin{tikzcd}
-	& \color{rgb,255:red,214;green,153;blue,92}\bullet &  \color{rgb,255:red,214;green,153;blue,92} \bullet &&&  \color{rgb,255:red,214;green,153;blue,92} \bullet \\
-	\bullet & \color{rgb,255:red,214;green,153;blue,92} \bullet &&&& \bullet \\
-	\bullet &&&&&& \bullet \\
-	& Y &&&& W = Y/Y' \\ 	
-	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=1-3]
-	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=1-2, to=2-2]
-	\arrow[color={rgb,255:red,214;green,153;blue,92}, from=2-2, to=1-3]
-	\arrow[from=2-1, to=1-2]
-	\arrow[bend left=60, from=1-2, to=1-3]
-	%\arrow[from=2-1, to=2-2]
-	\arrow[from=2-2, to=3-1]
-	\arrow[from=1-6, to=3-7]
-	\arrow[from=2-6, to=1-6]
-	\arrow[loop, from=1-6, to=1-6]
-\end{tikzcd}\]
+\begin{center}
+	\begin{tikzpicture}[
+		node distance = 15mm and 15mm,
+		V/.style = {circle, draw, fill=gray!30, minimum size=1.5em},
+		every edge quotes/.style = {auto, font=\footnotesize, sloped},
+		]
+		
+		% First graph
+		\node[align=center] at (-4.5, 3) {Grafo \textbf{$Y$}};
+		\begin{scope}[nodes=V, xshift=-4.5cm]
+			\node (1) {$P_1$};
+			\node (2) [above right=of 1, fill=orange] {$P_2$};
+			\node (3) [right=of 2, fill=orange] {$P_3$};
+			\node (4) [below right=of 3, fill=orange] {$P_4$};
+			\node (5) [below left=of 4, fill=orange] {$P_5$};
+			\node (6) [left= of 5, fill=orange] {$P_6$};
+		\end{scope}
+		\draw   (1)  edge[->,"$y_1$"] (2)
+		(2)  edge[->,"$y_2$",orange] (3)
+		(3)  edge[->,"$y_3$",orange] (4)
+		(4)  edge[->,"$y_4$",orange] (5)
+		(5)  edge[->,"$y_5$",orange] (6)
+		(6)  edge[->,"$y_6$"] (1)
+		(5)  edge[->,"$y_7$"]  (2);
+		
+		
+		% Second graph
+		\node[align=center] at (8.5, 3) {Grafo \textbf{$W$}};
+		\begin{scope}[nodes=V, xshift=4.5cm, yshift=-1cm]
+			\node (1) {$P_1$};
+			\node (2) [above right=of 1, fill=orange] {$[Y']$};
+			\node (3) [right=of 2, fill=orange] {$P_3$};
+		\end{scope}	
+		\draw   (1)  edge[->,"$y_1$"] (2)
+		(2)  edge[->,"$y_7$", loop]  (2)
+		(2)  edge[->,"$y_2$",orange] (3);
+		
+	\end{tikzpicture}
+\end{center}
+
 Donde en este ejemplo distinguimos al subgrafo $Y'$ conexo con este \textcolor{rgb,255:red,214;green,153;blue,92}{color}.
+
+
+
+
+
 \end{ej}
 
 
@@ -678,7 +757,7 @@ Supongamos que $F(\cG | Y')$ tiene la propiedad del teorema \ref{teo_pal_red}.
 Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W=Y/Y'$ de la siguiente manera.
 \begin{itemize}
 	\item Si $P \in V(Y) \setminus V(Y')$, tomamos $H_P = G_P$;
-	\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$.
+	\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$;
 	\item Si $y \in E(W)$ ponemos $H_y = G_y$ tal que como suponemos válido el resultado \ref{teo_pal_red} para $Y'$ tenemos que es un subgrupo.
 \end{itemize}
 
@@ -704,7 +783,7 @@ y para toda arista $ y \in E(Y)$ definimos
 De manera que así como está definida cumple las relaciones de $F(\cG)$ porque en particular el grupo $F(\cH)$ también las cumple.
 Obtenemos así que $\beta$ está bien definida.
 
-\begin{lema}
+\begin{lema}\label{lema_reduc_isomorfismo_beta}
 	El morfismo de grupos $\beta:F(\cG) \to F(\cH)$ es un isomorfismo. 
 \end{lema}
 \begin{proof}
@@ -785,7 +864,7 @@ donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la
 	En este caso consideramos que el subgrafo conexo $Y'$ es el que está pintado de color \textcolor{carrotorange}{naranja}.
 	Consideremos $\cG$ una estructura de grafo de grupos sobre $Y$.
 	Sea $c = (y_1, y_2, y_3, y_7, y_8)$ resaltado en negrita en la figura un camino en el grafo $Y$ y sea $\mu = (r_0, r_1, \dots, r_8)$ una sucesión de elementos de manera que $(c, \mu)$ es una palabra de tipo $c$.
-	Si contraemos el subgrafo $Y'$ nos queda el grafo $W=Y/Y'$ que representamos de la siguiente manera.
+	Si contraemos el subgrafo $Y'$ nos queda el grafo $W=Y/Y'$ que representamos de la siguiente manera,
 	\begin{center}
 		\begin{tikzpicture}[
 			node distance = 15mm and 15mm,
@@ -806,14 +885,7 @@ donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la
 	\end{center}
 	tal que si $\cH$ es la estructura de grafo de grupos que construimos sobre el grafo $W$ entonces tenemos definida $(c', \mu')$ una palabra de tipo $c'$ donde
 	 $c' = (y_1,y_7,y_8)$ y donde $\mu'=(r_0,r_1y_2r_2y_3r_3,r_7,r_8)$ con $r_1y_2r_2y_3r_3 \in H_{[Y']} = F(\cG \mid Y')$.
-	
-	
-	
 \end{ej}
-
-
-
-
 
 Por como las construimos nos queda que $\beta(|c,\mu|) = |c',\mu'|$ tal como queríamos ver.
 Veamos ahora que $\beta$ preserva las palabras reducidas. 
@@ -831,23 +903,22 @@ Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida q
 	En el caso que $P' = [Y']$ nos queda que $r_0 \in F(\cG | Y')$ y por lo tanto es reducida usando el teorema \ref{teo_pal_red} inductivamente en el grafo $Y'$.
 	
 	Supongamos ahora que la longitud de $c'$ es al menos $1$, entonces si queremos ver que  $(c',\mu')$ es reducida debemos garantizar que cumpla \textbf{R2}.
-	Sean $c = (y_{1} \dots y_{k})$, $\mu = (r_{0} \dots r_{k})$ y sean
+	Sean $c = (y_{1} \dots y_{m})$, $\mu = (r_{0} \dots r_{m})$ y sean
 	$c' = (w_1 \dots w_{n})$, $\mu' = (r'_0, \dots, r'_n)$.
 	Queremos ver que si existe $1 \le k \le n$ tal que  $w_{k+1} = \ol{w_k}$ entonces $r'_k \notin H_{w_k}$.		
 	El caso particular que $t(w_k) \neq [Y']$ tenemos que $(c', \mu')$ es reducida porque justamente $(c, \mu)$ lo es y por lo tanto cumple \textbf{R2}.
 	Si $t(w_k) = [Y']$ vamos a distinguir dos casos.
 	
 	\begin{enumerate}[i)]
-		\item En el primer caso tenemos que $s(w_{k}) \in Y \setminus \{[Y']\}$.
-		En este caso $w_{k} = y_i, w_{k+1} = \ol y_i$ para cierta $y_i$ que aparece en $c$.
+		\item En el primer caso tenemos que proviene de backtracking de $c$.
+		Esto es que para cierto $i$ vale que $w_{k} = y_i$ y  $w_{k+1} = \ol y_i$.
 		Por como definimos a $(c', \mu')$ tenemos que $r'_k = r_i$ bajo esta hipótesis.
 		Queremos ver que $r'_k \notin H_{\ol{w_k}}$.
 		El grupo $H_{\ol{w_k}}$ es isomorfo a $G_{\ol{y_i}}$ aunque la diferencia es que el primero es un subgrupo de $H_{[Y]}$ mientras que el segundo es un subgrupo de $G_{t(y_i)}$.
 		Por ser $(c, \mu)$ reducida tenemos que $r_i \notin G_{\ol{y_i}}$.
 		Por el corolario \ref{coro_pal_red_1} tenemos que $G_{\ol{y_i}}$ es un subgrupo de $H_{[Y']} = F(\cG | Y')$ entonces $r'_k \notin H_{[Y']}$.
 		
-		\item En el segundo caso tenemos que $s(w_{k}) \in [Y']$. 
-		En este caso se corresponde a un camino no constante dentro de $Y'$.
+		\item En el segundo caso tenemos que proviene de un ciclo no constante de $c$ sobre $Y'$. 
 		Siguiendo la notación introducida anteriormente tenemos que para cierto $a$ vale que $w_k = y_{i_a}, r'_k = r_{i_aj_a}$ y que $w_{k+1} = y_{j_{a+1}}$ donde bajo nuestras suposiciones tenemos que $w_{k+1} = \ol{w_{k}}$ por lo tanto $ y_{j_{a+1}} = \ol{y_{i_a}}$.
 		
 		Nuevamente queremos ver que se cumple \textbf{R2}. 
@@ -908,32 +979,54 @@ Separamos en casos dependiendo cómo es el grafo $Y$.
 		\[
 		\pi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
 		\]
-		Bajo nuestra definición de las palabras reducidas para grupos
-		\todo{Escribir detalladamente esta cuenta en el grupo amalgamado.}
-		amalgamados tenemos que $\phi(|c, \mu|)$ es una palabra reducida para $G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}$ entonces por \ref{prop_amalgamado_formanormal} concluimos que $|c, \mu|$ no es la identidad porque justamente $\phi(|c,\mu|) \neq 1$.
+		tenemos que
+		\[
+			\pi(|c, \mu|) = r_0r_1 \dots r_n
+		\]
+		tal que para todo $0 \le i \le n$ vale que 
+		$r_i \in G_{P_{e_i}} \setminus G_{y_{e_i}}$.
+		Esto es equivalente a que $\phi(|c, \mu|)$ sea reducida para el grupo amalgamado $G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
+		Por el resultado \ref{prop_amalgamado_formanormal} tenemos que $\phi(|c,\mu|) \neq 1$ y así concluimos que $|c, \mu| \neq 1$ no es la identidad.
 		
 		
-		\item El caso que $Y$ es un árbol. 
-		Lo probamos usando inducción en la cantidad de aristas del grafo.
-		Tomemos un segmento $Y'$ dentro del árbol donde ya sabemos que el resultado vale por el caso anterior.
-		Por el lema \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que tiene menos vértices que $Y$. 
-		De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ sobre $W$ por lo que $|c',\mu'| \neq 1$ y usando el lema \ref{lema_pal_red_iso} tenemos que $|c, \mu| \neq 1$.
+		\item El caso que $Y = (V,E)$ es un árbol. 
+		
+		Lo probamos usando inducción en la cantidad de aristas $|E| = m$.
+		El caso base es $m=1$ lo que implica que $Y$ es un segmento y esto lo probamos en el caso anterior de la demostración de este teorema.
+		Para el paso inductivo nos basta tomar $Y'$ algún segmento de $Y$.
+		Por el lema \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que $|E(W)| < m$. 
+		De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ \todo{Agregar cita a la definición del grafo de grupos sobre el grafo cociente? No sé como manejarme en estas demos.} 
+		sobre $W$  entonces vale que $|c',\mu'| \neq 1$.
+		Por el isomorfismo $\alpha$ definido en \ref{lema_reduc_isomorfismo_beta} 
+		y por el lema \ref{lema_pal_red_iso} terminamos de ver que $|c, \mu| \neq 1$.
 		
 		\item El caso que $Y$ es un bucle.
-		\[
-		Y = 	\begin{tikzcd}
-			\overset{P}{\bullet} \arrow["y", loop, distance=2.5em, in=355, out=50]
-		\end{tikzcd}
-		\]
-		
-		En este caso el grupo $F(\cG)$ resulta ser isomorfo a $G_P^{\ast G_y}$.
-		Por ser $(c, \mu)$ una palabra reducida para $F(\cG)$ vemos que esta condición en este caso coincide con la definición inicial de una palabra reducida para una extensión HNN.		
+	\begin{center}
+			\begin{tikzpicture}[
+				node distance = 15mm and 15mm,
+				V/.style = {circle, draw, fill=gray!30},
+				every edge quotes/.style = {auto, font=\footnotesize, sloped}
+				]
+				\begin{scope}[nodes=V]
+					\node (1)   {$P$};
+				\end{scope}
+				\draw 
+				(1)  edge[->,"$y$", loop]  (1);
+			\end{tikzpicture}
+	\end{center}
+		Sea $\cG$ una estructura de grafo de grupos sobre entonces en este caso el grupo universal resulta $F(\cG) \simeq G_P^{\ast G_y}$.
+		Por ser $(c, \mu)$ una palabra reducida para $F(\cG)$ vemos que esta condición en este caso coincide con la definición de una palabra reducida para una extensión HNN.		
 		Bajo estas condiciones podemos aplicar el lema de Britton \ref{teo_britton} que nos garantiza que $|c, \mu| \neq 1$ en el grupo $F(\cG)$ tal como queríamos ver.
 		
-		\item El caso general que $Y$ es un grafo finito conexo.
-		Lo probamos por inducción en la cantidad de aristas. 
-		Para eso tomamos $Y'$ un segmento o bien un loop dentro de $Y$ y luego aplicamos el resultado a $Y/Y'$.
-		Por inducción en este caso vale el resultado y luego volviendo a usar el lema \ref{lema_pal_red_iso} terminamos de probarlo para un grafo $Y$ conexo y finito arbitrario.
+		\item El caso general. 
+		Sea $Y = (V,E)$ un grafo finito conexo arbitrario.
+		Lo probamos por inducción en $m = |E|$.
+		El caso base $m=1$ se corresponde con un bucle o bien con un segmento ambos casos ya probados en la demostración de este teorema.
+		Para el paso inductivo sea $Y'$ subgrafo de $Y$ que podría ser un segmento o bien un bucle. 
+		Aplicamos el resultado a $W=Y/Y'$ tal que $|E(W)| < m$.
+		A $W$ le damos la estructura de grafo de grupos $\cH$.
+		Por inducción vale en $\cH$ 
+		entonces usando el lema \ref{lema_pal_red_iso} terminamos de probarlo para un grafo $Y$ conexo y finito arbitrario.
 	\end{enumerate}
 
 
@@ -1765,71 +1858,7 @@ Primero debemos ver unos lemas de acciones de grupos finitos.
 
 
 
-%\section{Productos semi directos.}
-%
-%En esta sección vamos a refinar los resultados obtenidos anteriormente para ver que los grupos fundamentales de grafos finitos de grupos finitos y por lo tanto los grupos virtualmente libres se pueden meter dentro de un producto semidirecto $F Q$ donde $F$ es un grupo libre y $Q$ es un cociente finito de $G$.
-%La referencia de esta sección es el paper \cite{} que a su vez se basó en los métodos del paper de Dahmani-Guirardel.
-%
-%\begin{prop}
-%	
-%\end{prop}
-%\begin{proof}
-%	\red{ sorry}
-%\end{proof}
-%
-%\begin{ej}
-%	Ejemplo de $SL_2(\ZZ)$.
-%\end{ej}
-%
-%\section{Ends de grupos.}
-%
-%\begin{deff}
-%	Ends de grupos
-%\end{deff}
-%
-%\begin{obs}
-%	No dependen de las presentaciones.
-%\end{obs}
-%
-%\begin{teo}[Hopf]
-%	La cantidad de ends de un grupo \fg solo puede ser...
-%\end{teo}
-%\begin{proof}
-%\end{proof}
-%
-%\begin{deff}
-%	Grupo accesible.
-%\end{deff}
-%
-%\section{Accesibilidad en terminos de teoría de grafos.}
-%
-%\begin{deff}
-%	Def de VK95 usando grafos.
-%\end{deff}
-%
-%\begin{teo}
-%	Probar que son equivalentes con la otra construcción.
-%\end{teo}
-%\begin{proof}
-%	
-%\end{proof}
-%
-%
-%\begin{deff}
-%	Grafos minor excluded
-%\end{deff}
-%
-%\begin{teo}[Khukro]
-%	Recaracterización de virtualmente libre usando menores de grafos.
-%\end{teo}
-%\begin{proof}
-%\end{proof}
-%
-%\begin{teo}
-%	Grupo qi a un árbol $\implies$ minor excluded?
-%\end{teo}
-%\begin{proof}
-%\end{proof}
+
 
 
 
