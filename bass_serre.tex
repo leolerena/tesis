@@ -1031,57 +1031,83 @@ Separamos en casos dependiendo cómo es el grafo $Y$.
 
 
 \section{Árbol de Bass--Serre.}\label{secc_arb_BS}
-En esta sección presentamos una construcción del árbol de Bass--Serre un poco más concisa que la que aparece en \cite{serre2002trees} si bien la idea es prácticamente la misma.
-Otra construcción posible del árbol de Bass--Serre se puede ver en el trabajo \cite{diekert2017context} donde los autores construyen este árbol de una manera más sintáctica usando sistemas de reescritura.
 
-Sea $\cG$ un grafo de grupos sobre un grafo $Y = (V,E)$ conexo tal que para todo $P \in V$ tenemos que $G_{P}$ es un grupo finito. 
+Vamos a definir el árbol de Bass--Serre que resulta ser en nuestro contexto el revestimiento universal de un grafo de grupos.
+Presentamos una construcción un poco más concisa que la que aparece en \cite{serre2002trees} si bien la idea es prácticamente la misma.
+Otra construcción posible del árbol de Bass--Serre se puede ver en el trabajo \cite{diekert2017context} donde los autores construyen este árbol de una manera sintáctica usando sistemas de reescritura.
+
+\subsection{Construcción de $\Xm$.}
+
+Sea  $Y$ un grafo dirigido conexo y sea $\cG$ un grafo de grupos sobre este grafo.
 Sea $T$ un árbol generador del grafo $Y$ luego llamemos $G = \pi_1(\cG,T)$.
-Queremos construirnos un árbol $\Xm$ tal que $G$ actúe sobre este árbol sin inversiones de aristas y de manera que $Y = \Xm / G$.
-Para construir este árbol vamos a partir de la siguiente observación.
-Si $\tilde x \in \Xm$ luego por el teorema de órbitas estabilizador tenemos una biyección entre la órbita $G \tilde x $ y los cosets del estabilizador $G / G_{\tilde x}$.
-De esta manera valiéndonos de esta observación definimos el conjunto de vértices de la siguiente manera,
+Queremos construirnos los siguientes objetos:
+
+\begin{enumerate}[]
+	\item Un grafo dirigido $\Xm$.
+	\item Una acción de $G$ en $\Xm$ sin inversiones de aristas de manera que $\Xm / G \simeq Y$.
+	\item Una sección $Y \to \Xm$ tal que
+	para todo vértice $P \in V(Y)$ denotaremos $\tilde P \in V(\Xm)$ a su imagen y similarmente para toda arista $y \in E(Y)$ denotaremos $\tilde y \in E(\Xm)$ a su imagen.
+\end{enumerate}
+
+Para construir este grafo vamos a partir de la siguiente observación.
+Si $\Xm$ fuera un grafo tal que $G$ actúa sobre él e 
+$Y = \Xm / G$ entonces tendríamos que vale lo siguiente:
+para todo vértice $\widetilde{ P} \in V(\Xm)$ por el teorema de órbitas estabilizador existe una biyección entre la órbita $G \widetilde{P} $ y los cosets del estabilizador $G / G_{\widetilde P}$.
+De esta manera vamos a construir a los vértices para que valga esta propiedad:
 \[
 V(\Xm) = \bigsqcup_{v \in V(Y)} G/G_{v}
 \]
-mientras que las aristas van a ser este otro conjunto
+mientras que para las aristas por un razonamiento idéntico llegamos a que: 
 \[
 E(\Xm) = \bigsqcup_{y \in E(Y)} G/G_{y}.
 \]
-Para ver que sea un grafo nos falta definir cuales son los inicios y finales de estas aristas.
-Recordemos que definimos que la imagen de $y \in F(\cG)$ en el cociente resulta ser $g_{y} \in \pi(\cG,T)$. 
-Esto lo hacemos por medio de las siguientes fórmulas.
-\[
-t(gG_{y}) = gg_{y}G_{t(y)}
-\]
-y 
+
+Ya habiendo definido el conjunto de vértices y de aristas del grafo $\Xm$
+vamos a definir la arista con orientación opuesta y los inicios y finales de las aristas.
+\todo{Quizá podría recordar qué es $g_y$}
+
+El comienzo de una arista $s:E(\Xm) \to V(\Xm)$ va a estar definida como:
 \[
 s(gG_{y}) = gG_{s(y)}.
 \]
-Probemos primero que estas definiciones no dependen de la elección del representante del coset.
-
-Arrancamos con la definición del inicio de una arista.
+Probemos que esta definición no depende de los representantes elegidos.
 Si tenemos que $gG_{y} = hG_{y}$ esto nos dice que $h^{-1}gG_{y} = G_{y}$.
 Como $G_{y}$ es un subgrupo de $G_{s(y)}$ entonces si $h^{-1}g \in G_y$ esto nos dice que $h^{-1}g \in G_{s(y)}$.
 De esta manera $hG_{s(y)} = gG_{s(y)}$ tal como queríamos ver y por lo tanto el origen de una arista no depende de la elección del representante.
 
 
-Ahora vamos a ver la definición del fin de una arista.
+Ahora vamos a ver la definición del fin de una arista $t:E(\Xm) \to V(\Xm)$ que está dada por:
+\[
+t(gG_{y}) = gg_{y}G_{t(y)}
+\]
+Probemos que esta definición no depende de los representantes elegidos.
 Si tenemos que $hG_{y} = gG_{y}$ luego queremos ver que $hg_{y}G_{t(y)} = gg_{y}G_{t(y)}$y esto ocurre si y solo sí $g^{-1}_y h^{-1}g g_{y} G_{t(y)} = G_{t(y)}$.
 Usando una de las relaciones del grupo tenemos que $g_{y}^{-1} G_{y} g_{y} \subseteq G_{\ol y}$ y como $h^{-1}g \in G_{y}$ luego obtenemos que $g^{-1}_y h^{-1}g g_{y} \in G_{\ol y}$.
 Por como definimos a los grafos de grupos tenemos que $G_{\ol y}$ es un subgrupo $G_{s(\ol y)}$ y como $s(\ol y) = t(y)$ terminamos de probar que $g^{-1}_y h^{-1}g g_{y} \in G_{t(y)}$ tal como queríamos ver.
 
 
-Usando estas dos definiciones tenemos que para cada arista $gG_{y}$ la arista inversa tiene que ser:
+Usando estas dos definiciones tenemos que la arista inversa $\ol{(.)}:E(\Xm) \to E(\Xm)$ tiene que ser:
 \[
 \ol{gG_{y}} = gg_{y} G_{\ol y}.
 \]
 tal que $s(gg_{y}G_{\ol y}) = gg_{y}G_{t(y)}$ y $t(gg_{y}G_{\ol y}) = gg_{y}g_{\ol y}G_{s(y)}$ y como $g_{y}g_{\ol y} = 1$ obtenemos así que $t(gg_{y}G_{\ol y}) = gG_{s(y)}$.
 A su vez por una cuenta similar vemos que $\ol{\ol{gG_{y}}} = gG_{y}$.
-De esta manera tenemos que $\Xm$ es un grafo dirigido.
 
+De esta manera ya tenemos definido el grafo dirigido $\Xm$.
 Por como construimos a $\Xm$ nos aseguramos que $G$ actúa en $\Xm$ y que $\Xm / G \simeq Y$.
+A su vez esta acción es sin inversión de aristas por que para todo $g \in G$ y toda arista $hG_{y} \in E(\Xm)$ tenemos que
+\[
+	g (hG_{y}) \neq hg_{y}G_{\ol{y}}
+\]
+dado que son cosets correspondientes a aristas diferentes.
+
+\todo{Pensar cómo hablar de q y si es necesario hablar de la sección? Quizá lo pueda decir como un comentario nomás.}
 Sea $q:\Xm \to Y$ definida por $q(gG_{P}) = P$ para todo $P \in V$ y $q(gG_{y}) = y$ para toda $y \in E$.
 Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
+
+\subsection{Teorema de Serre.}
+
+\todo[inline]{Hacer lo siguiente: 1) Escribir mejor esto del levantado, quizá agregar un dibujo. 2) Mostrar cómo es el árbol de Bass-Serre localmente. Su star está en biyección con los cosets de GP/Gy.}
 
 \begin{obs}\label{obs_levantado_arbol}
 	Para todo $y \in E(T)$ tenemos que $g_y=1$. 
@@ -1586,7 +1612,7 @@ El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea
 \end{prop}
 \begin{proof}
 	Notemos que el grafo $Y$ es conexo por hipótesis entonces para todo par de vértices existe un camino que los une.
-	Vamos a probar la siguiente afirmación equivalente usando inducción. 
+	Vamos a probar la siguiente afirmación equivalente a que $\psi$ es un monomorfismo. 
 	Para todo todo $n \in \NN$ y para todo par de vértices distintos $P,Q \in V(Y)$  tales que existe una geodésica $\alpha$ que une $P$ con $Q$ y que cumple que $l(\alpha) = n$ entonces  $\psi(P) \neq \psi(Q)$.	
 		
 	
