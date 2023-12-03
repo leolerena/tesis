@@ -989,9 +989,9 @@ Separamos en casos dependiendo cómo es el grafo $Y$.
 		Por el resultado \ref{prop_amalgamado_formanormal} tenemos que $\phi(|c,\mu|) \neq 1$ y así concluimos que $|c, \mu| \neq 1$ no es la identidad.
 		
 		
-		\item El caso que $Y = (V,E)$ es un árbol. 
+		\item El caso que $Y$ es un árbol. 
 		
-		Lo probamos usando inducción en la cantidad de aristas $|E| = m$.
+		Lo probamos usando inducción en la cantidad de aristas $|E(Y)| = m$.
 		El caso base es $m=1$ lo que implica que $Y$ es un segmento y esto lo probamos en el caso anterior de la demostración de este teorema.
 		Para el paso inductivo nos basta tomar $Y'$ algún segmento de $Y$.
 		Por el lema \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que $|E(W)| < m$. 
@@ -1097,22 +1097,96 @@ De esta manera ya tenemos definido el grafo dirigido $\Xm$.
 Por como construimos a $\Xm$ nos aseguramos que $G$ actúa en $\Xm$ y que $\Xm / G \simeq Y$.
 A su vez esta acción es sin inversión de aristas por que para todo $g \in G$ y toda arista $hG_{y} \in E(\Xm)$ tenemos que
 \[
-	g (hG_{y}) \neq hg_{y}G_{\ol{y}}
+g (hG_{y}) \neq hg_{y}G_{\ol{y}}
 \]
 dado que son cosets correspondientes a aristas diferentes.
-
-\todo{Pensar cómo hablar de q y si es necesario hablar de la sección? Quizá lo pueda decir como un comentario nomás.}
-Sea $q:\Xm \to Y$ definida por $q(gG_{P}) = P$ para todo $P \in V$ y $q(gG_{y}) = y$ para toda $y \in E$.
-Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 
 \subsection{Teorema de Serre.}
 
 \todo[inline]{Hacer lo siguiente: 1) Escribir mejor esto del levantado, quizá agregar un dibujo. 2) Mostrar cómo es el árbol de Bass-Serre localmente. Su star está en biyección con los cosets de GP/Gy.}
 
-\begin{obs}\label{obs_levantado_arbol}
-	Para todo $y \in E(T)$ tenemos que $g_y=1$. 
-	Esto nos permite definirnos un \emph{levantado} $\widetilde{T}$ del árbol $T$ dado por mandar $P \mapsto  G_P$ para todo $P \in V(Y)$ y para las aristas mandar $y \mapsto  G_y$. 
+
+Llamemos $q:\Xm \to Y$ a la proyección de $\Xm$ en $\Xm / G \simeq Y$.
+Este epimorfismo de grafos está definido por 
+$q(gG_{P}) = P$ para todo $P \in V$ y 
+$q(gG_{y}) = y$ para toda $y \in E$.
+
+\begin{obs}\label{obs_subgrafo_dom_fund}
+	El subgrafo $W \subseteq \Xm$ generado por el siguiente conjunto de vértices \todo{definitivamente agregar definición de subgrafo generado por unos vértices}
+\[
+V(W) = \{ G_{P} \mid \forall P \in V(Y) \} \cup \{ g_{y}G_{Q} : \forall y \in E(Y), Q \in V(Y) / \ t(y) = Q  \}
+\]
+es tal que resulta ser un dominio fundamental de la acción de $G$ en $\Xm$.
+
 \end{obs}
+
+Sea $T$ el árbol generador de $Y$ que fijamos en el comienzo de la sección.
+Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
+
+\begin{prop}\label{prop_levantado_accion_arbol}
+	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
+	Sea $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
+	Sea $T$ árbol generador de $Y$.
+	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección a $\pi$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
+\end{prop}
+
+\begin{proof}
+	Vamos a usar el Lema de Zorn.
+	Sea el siguiente conjunto
+	\[
+	\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota \ \text{es sección de} \ \pi, \ \iota (S) \ \text{subárbol de} \ X  \}
+	\]
+	tal que si consideramos el siguiente orden
+	\[
+	(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S') \land \left. j \right|_{S} = \iota)
+	\]
+	donde miramos la inclusión como grafos en ambas coordenadas.
+	
+	Observemos que si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ y para toda $y \in E(Y)$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$. 
+	Esto nos dice que es posible definir secciones a la proyección $\pi:X \to Y$.
+	
+	\begin{itemize}
+		\item Veamos que $\Omega$ es no vacío.
+		Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
+		Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
+		De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
+		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
+		Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
+		\begin{equation*}
+			S = \bigcup_{i \in \NN} S_{i}.
+		\end{equation*}
+		Similarmente tomamos la unión de todas las secciones,
+		\[
+		\iota = \bigcup_{i = 0}^{k} \iota_i
+		\]
+		donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
+		Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por la observación \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
+		El supremo para esta cadena resulta ser $(S, \iota) \in \Omega$.
+	\end{itemize}
+	
+	
+	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
+	Veamos que $(\pi \circ j)(M) = T$.
+	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
+	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
+	Concluimos así que $M = T$ tal como queríamos ver.	
+\end{proof}
+\begin{obs}\label{obs_levantado_arbol}
+	En particular podemos definir $\widetilde {T}$ subárbol de $\Xm$ de manera que está generado por el siguiente conjunto de vértices:
+	\[
+	V(\widetilde T) = \{ G_P \mid P \in V(Y) \}
+	\]
+	y que tiene como aristas a
+	\[
+	E(\widetilde T) = \{ G_{y} \mid y \in E(Y) \}.	
+	\]
+	Donde usamos que $g_{y} = 1$ para toda $y \in E(T)$.
+	De esta manera nuestra sección $\iota:\widetilde T \to \Xm$ está definida por 
+	$\iota(P) =  G_P$ y $\iota(y) = G_y$.
+	Tal que $q \circ \iota:\widetilde T \to \widetilde{T}$ es la identidad. 
+\end{obs}
+
+
 
 \begin{teo}[Serre]
 	El grafo $\Xm$ es un árbol.
@@ -1120,143 +1194,163 @@ Podemos chequear que $q$ así definida resulta ser un epimorfismo de grafos.
 \begin{proof}
 	Debemos ver dos cosas: que es conexo y que no tiene ciclos.
 	
-	Empezamos probando que $\Xm$ es conexo.
-	Consideremos $T$ el árbol generador de $Y$ elegido anteriormente para la construcción de $\Xm$. 
-	Por la observación \ref{obs_levantado_arbol} tenemos que existe $\widetilde T$ un subárbol de $\Xm$ tal que es isomorfo a $T$ por medio de $q:\Xm \to Y$.
-	A este árbol podemos agregarle las aristas $G_{y}$ para todo $y \in E \setminus E(T)$, notando que estas aristas cumplen que $s(G_{y}) = G_{s(y)} \in V(\widetilde T)$.
-	Llamemos a este subgrafo $W$.
-	Es un grafo conexo porque el árbol $\widetilde T$ lo era y las aristas que agregamos  intersecan a $\widetilde T$.	
-	Dado que toda arista del tipo $G_y \in E(\Xm)$ está en $W$ obtenemos que $G \cdot W = \tilde X$.
-	Es decir que el subgrafo conexo $W$ es un dominio fundamental de la acción de $G$ sobre $\Xm$.
-	Esto quiere decir que podemos escribir a $\Xm$ de la siguiente manera:
-	\[
-		\tilde X = \bigcup_{g \in G} gW.
-	\]
-	donde $gW$ es conexo para todo $g \in G$ dado que $W$ lo es.
-	Si $S$ es un conjunto finito de generadores de $G$ entonces para todo $g \in G$ lo podemos escribir como $g = s_{i_1} \dots s_{i_n}$ para $s_{i_j} \in S$.
-	Si fijamos $g \in G$ definimos el siguiente conjunto,
-	\[
+	\begin{itemize}
+		\item 
+		$\Xm$ es conexo.
+		
+		
+		El subgrafo $W$ definido en la observación \ref{obs_subgrafo_dom_fund} es un dominio fundamental para la acción de $G$ en $\Xm$ esto quiere decir que $G \cdot W = \Xm$ por lo que 
+		\todo{Agregar que la unión de grafos es un grafo?}
+		\[
+		\widetilde X = \bigcup_{g \in G} gW
+		\]
+		donde $gW$ es conexo para todo $g \in G$ dado que $W$ lo es.
+		
+		Si $S$ es un conjunto finito de generadores de $G$ entonces todo $g \in G$ lo podemos escribir como $g = s_{i_1} \dots s_{i_n}$ para $s_{i_j} \in S$.
+		Si fijamos $g \in G$ podemos definir el siguiente grafo:
+		\[
 		W_{g} = W \cup \bigcup_{j=1}^{n} s_{i_{j}}\dots s_{i_{n}}W.
-	\]
-	Entonces al grafo $\Xm$ lo podemos reescribir de la siguiente manera:
-	\[
+		\]
+		Entonces al grafo $\Xm$ lo podemos reescribir de la siguiente manera:
+		\[
 		\Xm =  \bigcup_{g \in G} W_{g}.
-	\]
+		\]
 		
-	
-	Fijamos un conjunto finito de generadores, 
-	\[
+		
+		Fijamos un conjunto finito de generadores de $G$: 
+		\[
 		S = \bigcup_{P \in V(Y)} G_{P} \cup \{ g_y \ : \ y \in E \setminus E(T) \}.   
-	\] 
-	
-	Con este conjunto de generadores vamos a probar que para todo $g \in G$ resulta que $W_{g}$ es conexo.
-	Si probamos esto como $\Xm$ es unión de $W_{g}$ y la intersección de $W_{g}$ con $W_{h}$ es no trivial para todo $g, h \in G$ luego tendremos que $\Xm$ es conexo tal como queríamos ver.
+		\] 
 		
-	
-	Entonces nos alcanza con probar que $W_{g}$ es conexo.
-	Para esto lo vamos a probar por inducción en la longitud de $g$ visto como palabra en los generadores $S$.
-	
-	Para el caso base tenemos que $g = s$ para $s \in S$.
-	Queremos ver que $W \cup sW$ es conexo.
-	Debemos ver dos casos dependiendo como sea el generador que estemos tomando.
-	\begin{enumerate}
-		\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego tenemos que $g_yG_y \in g_{y}W$.
-		Queremos ver que $g_{y}G_{y} \in W$.
-		Para eso notemos que por nuestra definición	$g_yG_y  = \ol G_y \in E(W)$.
-		De esta manera $g_yW \cap W \neq \emptyset$ y por lo tanto la unión es conexa.		
+		Con este conjunto de generadores vamos a probar que para todo $g \in G$ resulta que $W_{g}$ es conexo.
+		Si probamos esto como $\Xm$ es unión de $W_{g}$ y 
+		para todo $g, h \in G$
+		tenemos que $W \subseteq W_{g} \cap W_{h}$ con $W \neq \emptyset$ luego tendremos que $\Xm$ es conexo tal como queríamos ver.
+		\todo{Agregar esta proposición de grafos conexos? Es un caso especial de la de conjunto conexos.}
 		
-		\item Si $s \in G_P$ para algún $P \in V$ entonces $s G_P = G_P \in V(sW)$ por lo tanto $sW \cap W \neq \emptyset$ y así la unión es conexa.
-	\end{enumerate} 
-
-	Ahora para el paso inductivo sigamos con la suposición de que $W_{g}$ es conexo para todo $g$ tal que puede ser escrito como una palabra de $n-1$ letras en $S$. 
-	Queremos verlo para $g = s_1\dots s_n$ y esto lo podemos hacer notando que 
-	\[
-	s_1(s_2 \dots s_n) W \cap s_2 \dots s_{n} W \neq \emptyset 
-	\]
-	Por la misma cuenta que hicimos para el caso base.
-	De esta manera si llamamos $g' = s_{1} \dots s_{n-1}$
-	\[
-		W_{g} = W_{g'} \cup s_{1}\dots s_{n}W
-	\]
-	luego por lo visto es una unión de conexos (acá usamos la hipótesis inductiva que nos garantiza que $W_{g'}$ es conexo) con intersección no vacía, por lo tanto $W_{g}$ es conexo.
-	
-	Vimos así que el grafo $\Xm$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
-	
-	Veamos ahora que no tiene ciclos.
-	Probaremos la proposición equivalente: para todo $n \in \NN$ no existe camino cerrado de longitud $n$ sin backtracking.
-	Sea $\tilde c$ un camino sobre $\tilde X$ con estas propiedades. 
-	Queremos llegar a un absurdo.
-	Sea este camino $\tilde c = h_1G_{y_1}, h_2 G_{y_2}, \dots, h_n G_{y_n}$.
-	Si miramos la proyección de los vértices tenemos una sucesión de vértices $P_0, \dots, P_n$ donde $P_n = P_0$ dado que el camino $\tilde c$ es cerrado por lo tanto su proyección también lo es.
-	Introduzcamos la siguiente notación: sea $g_i = g_{y_i}$.
-	Al ser $\tilde c$ un camino cerrado valen las siguientes igualdades,
-	\begin{align*}
-		t(h_n{G_y}_n) &= h_ng_nG_{P_0} = h_1G_{P_0} = s(h_1G_{ y_1}) \\ 
-		\vdots \ \ \  &= \ \ \ \ \    \vdots\ \ \ \ \ \ \ \ \ \ \ \ \ \    \vdots \\
-		t(h_{n-1}G_{y_{n-1}}) &= h_{n-1}g_{n-1}G_{P_{n-1}} = h_{n}G_{P_{n-1}} = s(h_nG_{P_{n-1}} )  
-	\end{align*}
-	de manera que existe $r_i \in G_{P_i}$ tal que $h_ig_ir_i = h_{i+1}$ para todo $1 \le i \le n$. 	
-	Podemos reescribir las igualdades anteriormente obtenidas de la siguiente manera,
-	\begin{align*}
-		h_1 &= h_{n}g_{n}r_{n} \\
-		h_2 &= h_1g_1r_1 \\
-		\vdots & \ \ \ \vdots \\
-		h_n &= h_{n-1}g_{n-1}r_{n-1} 
-	\end{align*}
-	Más aún usando cada ecuación para reescribirla en la anterior obtenemos que multiplicando todo de forma telescópica nos termina quedando lo siguiente,
-	\begin{equation*}
-		g_1r_1\dots g_nr_n = 1.
-	\end{equation*} 
-	
-	
-	Sea la palabra $(c, \mu)$ para $F(\cG)$ dada por el camino $c= q(\tilde c)$ y la sucesión $\mu = 1,r_1, \dots, r_n$.
-	Sea $\pi:F(\cG) \to \pi_1(\cG,T)$ la proyección al cociente.
-	Anteriormente vimos que $\pi(|c, \mu|) = g_1r_1\dots g_nr_n = 1$.
-	Veamos que $(c, \mu)$ es una palabra reducida.
-	Si probamos esto, entonces $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que $c$ es un camino cerrado no trivial y es una palabra reducida por lo tanto $\pi(|c, \mu|) \neq 1$ y así llegaríamos a una contradicción.
-
-	Para eso debemos chequear que se cumpla la condición \textbf{R2} de la definición de las palabras reducidas, ya que suponemos que $\tilde c$ tiene longitud al menos $1$.
-	
-	Supongamos que existe $i$ tal que $y_{i+1} = \ol{y_i}$ por lo que $g_{i+1} = g_{i}$.
-	Queremos ver que para ese mismo $i$ vale que $r_i \notin G_{\ol{y_{i}}}$.
-	Para eso miramos la ecuación que teníamos 
-	\[
+		
+		Dado $g \in G$ nos alcanza con probar que $W_{g}$ es conexo.
+		Para esto lo vamos a probar por inducción en la longitud de $g$ visto como palabra en los generadores $S$.
+		
+		Para el caso base tenemos que $g = s$ para $s \in S$.
+		Queremos ver que $W_{s} = W \cup sW$ es conexo.
+		Debemos ver dos casos dependiendo como sea el generador que estemos tomando.
+		\begin{enumerate}
+			\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego tenemos que $g_yG_y \in g_{y}W$.
+			Queremos ver que $g_{y}G_{y} \in W$.
+			Para esto debemos ver que el comienzo y el final de la arista pertenecen al grafo $W$.
+			Por la definición tenemos que $s(gG_{y}) = G_{s(y)} \in V(W)$ y similarmente $t(gG_{y}) = g_{y}G_{t(y)} \in V(W)$.
+			De esta manera $g_yW \cap W \neq \emptyset$ y por lo tanto la unión es conexa.		
+			
+			\item Si $s \in G_P$ para algún $P \in V$ entonces $s G_P = G_P \in V(sW) \cap V(W)$ por lo tanto $sW \cap W \neq \emptyset$ y así la unión es conexa.
+		\end{enumerate} 
+		
+		Ahora para el paso inductivo supongamos que $W_{g}$ es conexo para todo $g$ tal que puede ser escrito como una palabra de $n-1$ letras en $S$. 
+		Queremos verlo para $g = s_1\dots s_n$ y esto lo podemos hacer notando que		
+		\[
+			s_{n} W \cup W
+		\]
+		es conexo por lo tanto si multiplicamos a izquierda por $s_{1} \dots s_{n-1}$ va a seguir siendo conexo:
+		
+		\begin{equation}\label{eq_snW_cup_W}
+			s_{1} \dots s_{n-1} (W \cup s_{n} W) = s_{1} \dots s_{n-1} W \cup s_{1} \dots s_{n}W
+		\end{equation}
+		
+		De esta manera si llamamos $g' = s_{1} \dots s_{n-1}$ entonces
+		\[
+		W_{g} = W_{g'} \cup s_{1}\dots s_{n}W.
+		\]
+		Por hipótesis inductiva tenemos que $W_{g'}$ es conexo y como por \ref{eq_snW_cup_W} vimos que $s_{1} \dots s_{n-1} W \cap s_{1} \dots s_{n}W \neq \emptyset$ 
+		y $s_{1} \dots s_{n-1} W \subseteq W_{g'}$ entonces probamos que $W_{g}$ es conexo tal como queríamos ver.
+		
+		
+		
+		Vimos así que el grafo $\Xm$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
+		
+		
+		\item 
+		Veamos ahora que no tiene ciclos.
+		Probaremos la proposición equivalente: para todo $n \in \NN$ no existe camino cerrado de longitud $n$ sin backtracking.
+		
+		El caso que $n=0,1$ es claro porque no existen caminos con estas longitudes de manera que tengan backtracking.
+		
+		Supongamos entonces que $n \ge 2$.
+		Sea $\widetilde c$ un camino sobre $\widetilde X$ cerrado de longitud $n$ y sin backtracking.
+		Queremos llegar a un absurdo.
+		Sea este camino $\widetilde c = (h_1G_{y_1}, h_2 G_{y_2}, \dots, h_n G_{y_n})$.
+		Introduciremos las siguientes notaciones.
+		Para todo $1 \le i \le n$ llamemos $P_{i} = s(y_i)$ y llamaremos $g_i = g_{y_i}$.
+		Al ser $\widetilde c$ un camino cerrado valen las siguientes igualdades:
+		\begin{align*}
+			t(h_n{G_y}_n) &= h_ng_nG_{P_0} = h_1G_{P_0} = s(h_1G_{ y_1}) \\ 
+			\vdots \ \ \  &= \ \ \ \ \    \vdots\ \ \ \ \ \ \ \ \ \ \ \ \ \    \vdots \\
+			t(h_{n-1}G_{y_{n-1}}) &= h_{n-1}g_{n-1}G_{P_{n-1}} = h_{n}G_{P_{n-1}} = s(h_nG_{P_{n-1}} )  
+		\end{align*}
+		de manera que para todo $1 \le i \le n$ existe $r_i \in G_{P_i}$ tal que $h_ig_ir_i = h_{i+1}$. 	
+		
+		Podemos reescribir las igualdades anteriormente obtenidas de la siguiente manera:
+		\begin{align*}
+			h_1 &= h_{n}g_{n}r_{n} \\
+			h_2 &= h_1g_1r_1 \\
+			\vdots & \ \ \ \vdots \\
+			h_n &= h_{n-1}g_{n-1}r_{n-1} 
+		\end{align*}
+		Más aún usando cada ecuación para reescribirla en la anterior obtenemos que multiplicando todo de forma telescópica nos termina quedando lo siguiente,
+		\begin{equation}\label{eq_cmu_1}
+			g_1r_1\dots g_nr_n = 1.
+		\end{equation} 
+		
+		
+		Sea la palabra $(c, \mu)$ de tipo $c$ dada por el camino $c= q(\tilde c)$ y la sucesión $\mu = (1,r_1, \dots, r_n)$.
+		Sea $\pi:F(\cG) \to \pi_1(\cG,T)$ la proyección al cociente.
+		En la ecuación \ref{eq_cmu_1} vimos que $\pi(|c, \mu|) = g_1r_1\dots g_nr_n = 1$.
+		Veamos que $(c, \mu)$ es una palabra reducida.
+		Si probamos esto, entonces $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que $c$ es un camino cerrado no trivial y es una palabra reducida por lo tanto $\pi(|c, \mu|) \neq 1$ y así llegaríamos a una contradicción.
+		
+		Para eso debemos chequear que se cumpla la condición \textbf{R2} de la definición de las palabras reducidas, ya que suponemos que $\widetilde c$ es un camino cerrado con longitud al menos $2$.
+		
+		Para ver que $(c, \mu)$ es reducida debemos ver que si
+		existe $ 1 \le i \le n$ tal que $y_{i+1} = \ol{y_i}$ entonces para ese mismo $i$ vale que $r_i \notin G_{\ol{y_{i}}}$.
+		
+		
+		Consideramos la ecuación que teníamos anteriormente
+		\[
 		h_ig_ir_i = h_{i+1}
-	\]
-	de manera que si despejamos a $r_{i}$ obtenemos que
-	\[
-		r_i =   g_i^{-1}(h_i^{-1} h_{i+1} )
-	\]
-	Supongamos que $r_{i} \in G_{\ol y_{i}}$, en tal caso tendríamos que 
-	\[
-		h_ig_i G_{\ol{y_i}} = h_{i+1}G_{\ol{y_i}}.
-	\] 
-	Esto nos dice que vale la siguiente igualdad 
-	\[
-	h_{i+1}G_{\ol y_{i}} = \ol{h_{i}G_{y_i}}
-	\]
-	pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking. 
-	Por lo tanto $r_{i} \notin G_{\ol{y_{i}}}$ y así vemos que $(c, \mu)$ era reducida tal como queríamos ver.
+		\]
+		de manera que si despejamos a $r_{i}$ obtenemos que
+		\[
+		r_i =   g_i^{-1}(h_i^{-1} h_{i+1} ).
+		\]
+		Supongamos que $r_{i} \in G_{\ol y_{i}}$, en tal caso tendríamos que 
+		\[
+		 h_ig_ir_i G_{\ol{y_i}} = h_ig_i G_{\ol{y_i}} = h_{i+1}G_{\ol{y_i}}.
+		\] 
+		Esto nos dice que vale la siguiente igualdad 
+		\[
+		h_{i+1}G_{\ol y_{i}} = \ol{h_{i}G_{y_i}}
+		\]
+		pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking. 
+		Por lo tanto $r_{i} \notin G_{\ol{y_{i}}}$ y así vemos que $(c, \mu)$ era reducida tal como queríamos ver.
+	\end{itemize}
+	
+	
+	
+	
 	
 \end{proof}
 
-
-
 \begin{deff}
-	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y=(V,E)$ tal que para todo $P \in V$ vale que $G_{P}$ es un grupo finito.	
+	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y=(V,E)$.	
 	El grafo $\tilde X$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
 \end{deff}
 
-Si bien la definición la dimos para el caso que los grupos de los vértices son finitos vale más aún cuando estos son grupos finitamente generados.
-
-\begin{center}
-	\missingfigure[figwidth=6cm]{Dib del árbol de BS}
-\end{center}
-	
 \section{Acciones de grupos sobre árboles.}\label{secc_acciones_arboles}
 
 Sea $X$ un grafo conexo finito y sea $G$ un grupo finitamente generado que actúa sobre $X$.
-Llamemos $Y = G / X$ y sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
+Llamemos $Y = G / X$ y $T$ árbol generador de $Y$.
+Nuestro objetivo es construir un grafo de grupos $\cG$ sobre $Y$ de manera que se corresponda a esta acción y $\pi_1(\cG,T) \simeq G$.
+ 
+Sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
 Este grafo está dado por los siguientes vértices,
 \[
 	V(Y) = \{ G P :  P \in V(X)    \}
@@ -1269,8 +1363,8 @@ y las  aristas
 En particular como el grafo $X$ es conexo tenemos que $Y$ también lo es.
 Consideremos $\iota: Y \to X$ una sección como conjuntos que la armamos con los siguientes dos pasos.
 \begin{enumerate}
-	\item Para cada vértice $P \in V(Y)$ elegimos $\iota (P) = P'$ tal que $\pi(P') = P$.
-	\item Para cada arista $y \in E(Y)$ elegimos $\iota(y) = y'$ de manera que $s(\iota(y)) = \iota s(y)$. 
+	\item Para cada vértice $P \in V(Y)$ elegimos $\iota (P) = P' \in V(X)$ tal que $\pi(P') = P$.
+	\item Para cada arista $y \in E(Y)$ elegimos $\iota(y) = y' \in E(X)$ de manera que $s(\iota(y)) = \iota s(y)$. 
 	Esto lo podemos hacer para cada arista por separado.
 \end{enumerate}
 
@@ -1425,54 +1519,7 @@ Para esto primero vamos a requerir que podamos levantar árboles de acciones de 
 
 Ahora sí veamos que podemos definir un levantado de un árbol.
 
-\begin{prop}\label{prop_levantado_accion_arbol}
-	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
-	Sea $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
-	Sea $T$ árbol generador de $Y$.
-	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección a $\pi$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
-\end{prop}
 
-\begin{proof}
-	Vamos a usar el Lema de Zorn.
-	Sea el siguiente conjunto
-	\[
-		\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota \ \text{es sección de} \ \pi, \ \iota (S) \ \text{subárbol de} \ X  \}
-	\]
-	tal que si consideramos el siguiente orden
-	\[
-		(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S') \land \left. j \right|_{S} = \iota)
-	\]
-	donde miramos la inclusión como grafos en ambas coordenadas.
-	
-	Observemos que si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ y para toda $y \in E(Y)$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$. 
-	Esto nos dice que es posible definir secciones a la proyección $\pi:X \to Y$.
-	
-	\begin{itemize}
-		\item Veamos que $\Omega$ es no vacío.
-		Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
-		Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
-		De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
-		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
-		Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
-		\begin{equation*}
-			S = \bigcup_{i \in \NN} S_{i}.
-		\end{equation*}
-		Similarmente tomamos la unión de todas las secciones,
-		\[
-		\iota = \bigcup_{i = 0}^{k} \iota_i
-		\]
-		donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
-		Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por la observación \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
-		El supremo para esta cadena resulta ser $(S, \iota) \in \Omega$.
-	\end{itemize}
-	
-	
-	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
-	Veamos que $(\pi \circ j)(M) = T$.
-	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
-	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
-	Concluimos así que $M = T$ tal como queríamos ver.	
-\end{proof}
 
 
 
