@@ -1103,7 +1103,6 @@ dado que son cosets correspondientes a aristas diferentes.
 
 \subsection{Teorema de Serre.}
 
-\todo[inline]{Hacer lo siguiente: 1) Escribir mejor esto del levantado, quizá agregar un dibujo. 2) Mostrar cómo es el árbol de Bass-Serre localmente. Su star está en biyección con los cosets de GP/Gy.}
 
 
 Llamemos $q:\Xm \to Y$ a la proyección de $\Xm$ en $\Xm / G \simeq Y$.
@@ -1111,8 +1110,16 @@ Este epimorfismo de grafos está definido por
 $q(gG_{P}) = P$ para todo $P \in V$ y 
 $q(gG_{y}) = y$ para toda $y \in E$.
 
+\begin{deff}
+	Dado un grafo $Y$, $C \subseteq V(Y)$ un conjunto de vértices entonces diremos que el \emph{subgrafo generado por $C$} es el siguiente grafo $W$:
+	\[
+		V(W) = C, \quad E(W) = \{ y \in E(Y) \mid s(y), t(y) \in C \}.
+	\]
+	Donde las definiciones de $s:E(W) \to V(W), t:E(W) \to V(W)$ y de $\ol{(.)}:E(W) \to E(W)$ son las restricciones de las de $Y$.
+\end{deff}
+
 \begin{obs}\label{obs_subgrafo_dom_fund}
-	El subgrafo $W \subseteq \Xm$ generado por el siguiente conjunto de vértices \todo{definitivamente agregar definición de subgrafo generado por unos vértices}
+	El subgrafo $W \subseteq \Xm$ generado por el siguiente conjunto de vértices
 \[
 V(W) = \{ G_{P} \mid \forall P \in V(Y) \} \cup \{ g_{y}G_{Q} : \forall y \in E(Y), Q \in V(Y) / \ t(y) = Q  \}
 \]
@@ -1123,54 +1130,7 @@ es tal que resulta ser un dominio fundamental de la acción de $G$ en $\Xm$.
 Sea $T$ el árbol generador de $Y$ que fijamos en el comienzo de la sección.
 Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 
-\begin{prop}\label{prop_levantado_accion_arbol}
-	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
-	Sea $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
-	Sea $T$ árbol generador de $Y$.
-	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección a $\pi$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
-\end{prop}
 
-\begin{proof}
-	Vamos a usar el Lema de Zorn.
-	Sea el siguiente conjunto
-	\[
-	\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota \ \text{es sección de} \ \pi, \ \iota (S) \ \text{subárbol de} \ X  \}
-	\]
-	tal que si consideramos el siguiente orden
-	\[
-	(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S') \land \left. j \right|_{S} = \iota)
-	\]
-	donde miramos la inclusión como grafos en ambas coordenadas.
-	
-	Observemos que si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ y para toda $y \in E(Y)$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$. 
-	Esto nos dice que es posible definir secciones a la proyección $\pi:X \to Y$.
-	
-	\begin{itemize}
-		\item Veamos que $\Omega$ es no vacío.
-		Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
-		Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
-		De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
-		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
-		Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
-		\begin{equation*}
-			S = \bigcup_{i \in \NN} S_{i}.
-		\end{equation*}
-		Similarmente tomamos la unión de todas las secciones,
-		\[
-		\iota = \bigcup_{i = 0}^{k} \iota_i
-		\]
-		donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
-		Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por la observación \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
-		El supremo para esta cadena resulta ser $(S, \iota) \in \Omega$.
-	\end{itemize}
-	
-	
-	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
-	Veamos que $(\pi \circ j)(M) = T$.
-	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
-	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
-	Concluimos así que $M = T$ tal como queríamos ver.	
-\end{proof}
 \begin{obs}\label{obs_levantado_arbol}
 	En particular podemos definir $\widetilde {T}$ subárbol de $\Xm$ de manera que está generado por el siguiente conjunto de vértices:
 	\[
@@ -1186,7 +1146,13 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 	Tal que $q \circ \iota:\widetilde T \to \widetilde{T}$ es la identidad. 
 \end{obs}
 
+Antes de probar el resultado central de esta sección vamos a enunciar un lema que usaremos fuertemente en la demostración.
 
+\begin{lema}\label{lema_union_conexos_es_conexo}
+	Sean $\{X_{i}\}_{i \in \NN}$ grafos conexos de manera que para todo $i \in \NN$ vale que	
+	$X_{i} \cap X_{i+1} \neq \emptyset$ 
+	entonces $\bigcup_{i \in \NN} X_{i}$ es un grafo conexo.
+\end{lema}
 
 \begin{teo}[Serre]
 	El grafo $\Xm$ es un árbol.
@@ -1200,7 +1166,6 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 		
 		
 		El subgrafo $W$ definido en la observación \ref{obs_subgrafo_dom_fund} es un dominio fundamental para la acción de $G$ en $\Xm$ esto quiere decir que $G \cdot W = \Xm$ por lo que 
-		\todo{Agregar que la unión de grafos es un grafo?}
 		\[
 		\widetilde X = \bigcup_{g \in G} gW
 		\]
@@ -1225,8 +1190,8 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 		Con este conjunto de generadores vamos a probar que para todo $g \in G$ resulta que $W_{g}$ es conexo.
 		Si probamos esto como $\Xm$ es unión de $W_{g}$ y 
 		para todo $g, h \in G$
-		tenemos que $W \subseteq W_{g} \cap W_{h}$ con $W \neq \emptyset$ luego tendremos que $\Xm$ es conexo tal como queríamos ver.
-		\todo{Agregar esta proposición de grafos conexos? Es un caso especial de la de conjunto conexos.}
+		tenemos que $W \subseteq W_{g} \cap W_{h}$ con $W \neq \emptyset$ luego por el lema \ref{lema_union_conexos_es_conexo} tendremos que $\Xm$ es conexo tal como queríamos ver.
+
 		
 		
 		Dado $g \in G$ nos alcanza con probar que $W_{g}$ es conexo.
@@ -1250,7 +1215,7 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 		\[
 			s_{n} W \cup W
 		\]
-		es conexo por lo tanto si multiplicamos a izquierda por $s_{1} \dots s_{n-1}$ va a seguir siendo conexo:
+		es conexo por lo tanto si multiplicamos a izquierda por $s_{1} \dots s_{n-1}$ va a seguir siendo conexo y no vacío
 		
 		\begin{equation}\label{eq_snW_cup_W}
 			s_{1} \dots s_{n-1} (W \cup s_{n} W) = s_{1} \dots s_{n-1} W \cup s_{1} \dots s_{n}W
@@ -1260,7 +1225,7 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 		\[
 		W_{g} = W_{g'} \cup s_{1}\dots s_{n}W.
 		\]
-		Por hipótesis inductiva tenemos que $W_{g'}$ es conexo y como por \ref{eq_snW_cup_W} vimos que $s_{1} \dots s_{n-1} W \cap s_{1} \dots s_{n}W \neq \emptyset$ 
+		Por hipótesis inductiva tenemos que $W_{g'}$ es conexo y como por \ref{eq_snW_cup_W} vimos que $s_{1} \dots s_{n-1} W \cap s_{1} \dots s_{n}W \neq \emptyset$  
 		y $s_{1} \dots s_{n-1} W \subseteq W_{g'}$ entonces probamos que $W_{g}$ es conexo tal como queríamos ver.
 		
 		
@@ -1340,9 +1305,11 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 \end{proof}
 
 \begin{deff}
-	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y=(V,E)$.	
-	El grafo $\tilde X$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
+	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y$ y sea $T$ un árbol generador de $Y$.	
+	El grafo $\widetilde{ X} = \widetilde{ X} (T, \cG)$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
 \end{deff}
+
+
 
 \section{Acciones de grupos sobre árboles.}\label{secc_acciones_arboles}
 
@@ -1351,7 +1318,7 @@ Llamemos $Y = G / X$ y $T$ árbol generador de $Y$.
 Nuestro objetivo es construir un grafo de grupos $\cG$ sobre $Y$ de manera que se corresponda a esta acción y $\pi_1(\cG,T) \simeq G$.
  
 Sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
-Este grafo está dado por los siguientes vértices,
+Este grafo está dado por el conjunto de vértices
 \[
 	V(Y) = \{ G P :  P \in V(X)    \}
 \]
@@ -1364,9 +1331,10 @@ En particular como el grafo $X$ es conexo tenemos que $Y$ también lo es.
 Consideremos $\iota: Y \to X$ una sección como conjuntos que la armamos con los siguientes dos pasos.
 \begin{enumerate}
 	\item Para cada vértice $P \in V(Y)$ elegimos $\iota (P) = P' \in V(X)$ tal que $\pi(P') = P$.
-	\item Para cada arista $y \in E(Y)$ elegimos $\iota(y) = y' \in E(X)$ de manera que $s(\iota(y)) = \iota s(y)$. 
+	\item Para cada arista $y \in E(Y)$ elegimos $\iota(y) = y' \in E(X)$ de manera que $s(\iota(y)) = \iota (s(y))$. 
 	Esto lo podemos hacer para cada arista por separado.
 \end{enumerate}
+
 
 Por como hicimos esta construcción nos garantizamos que el comienzo de cada arista cuando la miramos en $X$ sea uno de los vértices que tomamos como representantes de vértices de $Y$ en $X$.
 En principio no sabemos que el vértice del final de la arista de $y$ coincida con el de comienzo de $y$. 
@@ -1383,14 +1351,113 @@ Para las aristas con la orientación opuesta tendremos algún $g_{\ol y} \in G$ 
 Como la acción de $G$ sobre $X$ es por morfismos de grafos tenemos que $\ol {g y} = g \ol y$ y por lo tanto podemos elegir $g_{\ol y} = g_{y}^{-1}$.
 El caso particular que $\ol{\iota (y)} = \iota (\ol y)$ definiremos que $g_y = 1 = g_{\ol y}$.
 
+Veamos un ejemplo de cómo sería construir esta sección en una acción de un grupo particular en un grafo sencillo.
+
+\begin{ej}
+	Veamos cómo construir esta sección  a partir de una acción de un grupo en un grafo dirigido.
+	
+	Sea $G = \langle a \mid a^2 \rangle$ el grupo cíclico de orden $2$.
+	Sea $X$ el siguiente grafo dirigido.
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 10mm and 10mm, 
+			V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=0.75cm] {$P_{1}$};
+				\node (2) [right=of 1,minimum size=0.75cm]    {$P_{2}$};
+				\node (3) [right=of 2,minimum size=0.75cm]    {$P_{3}$};
+				\node (4) [right=of 3,minimum size=0.75cm]    {$P_{4}$};
+				\node (5) [right=of 4,minimum size=0.75cm]    {$P_{5}$};
+			\end{scope}
+			\draw   (1)  edge[->,"$y_1$"] (2);
+			\draw   (2)  edge[->,"$y_2$"] (3);
+			\draw   (3)  edge[->,"$y_3$"] (4);
+			\draw   (4)  edge[->,"$y_4$"] (5);
+		\end{tikzpicture}
+	\end{center}
+	
+	entonces para definir la acción de $G$ en $X$ nos basta definir un morfismo idempotente sobre este grafo.
+	Para eso definimos $a \cdot X$ de la siguiente manera:
+	
+	\begin{center}
+		$a \cdot X = $ \quad 
+		\begin{tikzpicture}[
+			node distance = 10mm and 10mm, 
+			V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=0.75cm] {$P_{1}$};
+				\node (2) [left=of 1,minimum size=0.75cm]    {$P_{2}$};
+				\node (3) [left=of 2,minimum size=0.75cm]    {$P_{3}$};
+				\node (4) [left=of 3,minimum size=0.75cm]    {$P_{4}$};
+				\node (5) [left=of 4,minimum size=0.75cm]    {$P_{5}$};
+			\end{scope}
+			\draw   (1)  edge[->,"$y_1$"] (2);
+			\draw   (2)  edge[->,"$y_2$"] (3);
+			\draw   (3)  edge[->,"$y_3$"] (4);
+			\draw   (4)  edge[->,"$y_4$"] (5);
+		\end{tikzpicture}
+	\end{center}
+	Este morfismo de grafos es tal que $a(a X) = X$.
+	
+	De esta manera tenemos definida una acción de $G$ sobre el grafo dirigido $X$.
+	Sea $Y=X/G$ el grafo dirigido definido de la siguiente manera:
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 10mm and 10mm, 
+			V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=0.85cm] {$GP_{1}$};
+				\node (2) [right=of 1,minimum size=0.85cm]    {$GP_{2}$};
+				\node (3) [right=of 2,minimum size=0.85cm]    {$GP_{3}$};
+			\end{scope}
+			\draw   (1)  edge[->,"$Gy_1$ "] (2);
+			\draw   (2)  edge[->,"$Gy_2$"] (3);
+		\end{tikzpicture}
+	\end{center}
+	donde los vértices están dados por las órbitas de la acción de $G$ en $X$  por lo que $GP_1 = \{ P_1, P_5 \}, GP_2 = \{ P_2, P_4  \}$ y $GP_3 = \{ P_3 \}$. Para las aristas tenemos que $Gy_1 = \{ y_1, \ol{y_4} \}$, $ {G\ol{y_1}} = \{ \ol{y_1}, y_4 \}$, $Gy_2 = \{ y_2, \ol{y_3} \}$ y ${G\ol{y_2}} = \{ \ol{y_2}, {y_3} \}$.
+	
+	Ahora vamos a definirnos una sección $\iota: Y \to X$ de la misma manera que la hicimos anteriormente.
+	Para eso definimos $\iota(GP_3) = P_3$, $\iota(GP_2) = P_2$ y $\iota(GP_1) = P_5$.
+	Para definir la sección sobre las aristas recordamos que para la arista que esté en la imagen por la sección tiene que ser tal que su comienzo sea uno de los vértices que estaban en la imagen en la sección.
+	De esta manera podemos definir así:
+	$\iota(Gy_1) = \ol{y_4}, \iota(\ol{Gy_1}) = \ol{y_1}, \iota(Gy_2) = y_2, \iota(\ol{Gy_2}) = \ol{y_2}$.
+	Tal que $\iota: Y \to X$ así definida es una sección tal como queríamos construir.
+	
+	Ahora procedemos a definir para cada arista de $y \in E(Y)$ algún elemento $g_{y} \in G$ de manera que:
+	\[
+	g_y \ol{\iota(y)} = \iota(\ol y).
+	\]
+	Notemos que si definimos $g_{Gy_1} = a$ luego 
+	\[
+	a \ol{\iota(Gy_1)} = a\ol{\ol{ y_4}} = ay_4 = \ol{ y_1} = \iota{\ol Gy_1}. 
+	\] 
+	Por otro lado tenemos que si definimos $g_{Gy_2} = 1$ entonces
+	\[
+	1 \ol{\iota(Gy_2)} = \ol{y_2} = \iota{\ol Gy_2}. 
+	\]
+	
+	
+	Un comentario importante es que podríamos haber tomado varias secciones $\iota: Y \to X$. 
+	En particular usando la proposición \ref{prop_levantado_accion_arbol} como el grafo $Y$ es un árbol podríamos haber tomado una sección $\iota$ de manera que $\iota(Y)$ sea un subárbol de $X$.
+	En tal caso tendríamos que $g_y = 1$ para todo $y \in E(Y)$.
+	Más en adelante probaremos que no importa qué sección tomemos el grafo de grupos que vamos a construir va a tener el mismo grupo fundamental.
+\end{ej}
+
+
 Vamos a construir $\cG$ un grafo de grupos sobre el grafo $Y$.
 Consideremos para $P \in V(Y), y \in E(Y)$ los siguientes grupos,
 \[
 	G_P = G_{\iota (P)}, \ G_y = G_{\iota(y)}
 \]
 donde estamos mirando los estabilizadores de la acción de $G$ sobre $X$.
-Por como elegimos a la sección tenemos que $G_{\iota(y)} \subset G_{s(\iota y)}$. 
-Si hubiéramos tomado otra sección que no sea $\iota$ los grupos que nos quedarían serían conjugados a los que obtuvimos tomando a $\iota$ como nuestra sección.
+Por como elegimos a la sección tenemos que $G_{\iota(y)} \subset G_{s(\iota y)}$.
+Si no hubiéramos definido a la sección $\iota$ para que $\iota(y)$ cumpla que $s(\iota (y)) = \iota(s(y))$ no podríamos habernos asegurado que se cumpla que $G_{y} \subseteq G_{s(y)}$ para todo $y \in E(Y)$ como requerimos para la definición de un grafo de grupos.
 
 Queremos ver que $G_{y} \simeq G_{\ol y}$ para garantizar que $\cG$ sea un grafo de grupos.
 Consideremos el siguiente morfismo de grupos;
@@ -1404,6 +1471,9 @@ Como $g_y \iota(y) = \ol{\iota(\ol y)}$ dado que $g_y \ol{\iota(y)} = \iota (\ol
 Ahora usamos que si $a \in G_{\iota({\ol y})}$ luego $a \in G_{\ol{\iota(\ol y)}}$ por lo tanto $a \ol{\iota(\ol y)} = \ol{\iota(\ol y)} $.
 Finalmente como $ g_{y}^{-1} \ol {\iota (\ol y) } = \iota (y)$ tal como queríamos ver.
 Este morfismo tiene un inverso $\phi^{-1}: G_{y} \to G_{\ol y}$ definido por $\phi^{-1}(b) = g_{y}bg_{y}^{-1}$ por lo tanto $\phi$ es un isomorfismo tal como queríamos ver.
+
+
+
 
 Definimos el siguiente morfismo del producto libre de los estabilizadores de los vértices y el grupo libre en las aristas del grafo al grupo $G$.
 \begin{align*}
@@ -1422,7 +1492,7 @@ Para eso veamos que cumple las relaciones que definen a este cociente.
 \end{enumerate}
 
 De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
-Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol de expansión.
+Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol generador.
 
 \begin{lema}\label{lema_morfismo_pi1_inyectivo}
 	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
@@ -1442,6 +1512,7 @@ En particular si consideramos que para toda arista $y \in E(X)$ el grupo $G_y$ e
 
 \begin{proof}
 	Dado $g \in G$ queremos ver que $g \in \varphi(\pi_1(\cG, P))$.
+	
 	Sea $P \in \iota(V(Y))$ un vértice.
 	Consideremos $gP \in V(X)$, como el grafo es conexo tenemos un camino que une a $P$ con $gP$. 
 	Sea este camino $(e_{0}\iota(y_{1}), \dots, e_{k-1}\iota(y_{k}))$ donde $e_{i} \in G$ para todo $0 \le i \le k-1$ y $(y_{1}, \dots, y_{k})$ es un camino en el grafo $Y$.
@@ -1506,8 +1577,8 @@ En particular si consideramos que para toda arista $y \in E(X)$ el grupo $G_y$ e
 \end{proof}
 
 Ahora vamos a probar que este morfismo $\varphi$ se factoriza por el cociente $\pi_1(\cG, T)$.
-Para esto primero vamos a requerir que podamos levantar árboles de acciones de grupos sin inversiones.
 
+Primero una observación sobre uniones de árboles.
 \begin{obs}\label{lema_union_arboles}
 	Dada una sucesión de árboles $\{T_{i}\}_{i\in \NN}$ tales que para todo $i \in \NN$ vale que $T_{i} \subseteq T_{i+1}$ entonces 
 	\[
@@ -1517,10 +1588,55 @@ Para esto primero vamos a requerir que podamos levantar árboles de acciones de 
 	Esto se debe a que la unión de conexos sigue siendo conexo y si tuviera un ciclo entonces existiría $N$ suficientemente grande tal que $T_{N}$ tendría un ciclo y esto contradice que es un árbol.
 \end{obs}
 
-Ahora sí veamos que podemos definir un levantado de un árbol.
 
+\begin{prop}\label{prop_levantado_accion_arbol}
+	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
+	Sea $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
+	Sea $T$ árbol generador de $Y$.
+	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección a $\pi$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
+\end{prop}
 
-
+\begin{proof}
+	Vamos a usar el Lema de Zorn.
+	Sea el siguiente conjunto
+	\[
+	\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota \ \text{es sección de} \ \pi, \ \iota (S) \ \text{subárbol de} \ X  \}
+	\]
+	tal que si consideramos el siguiente orden
+	\[
+	(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S') \land \left. j \right|_{S} = \iota)
+	\]
+	donde miramos la inclusión como grafos en ambas coordenadas.
+	
+	Observemos que si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ y para toda $y \in E(Y)$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$. 
+	Esto nos dice que es posible definir secciones a la proyección $\pi:X \to Y$.
+	
+	\begin{itemize}
+		\item Veamos que $\Omega$ es no vacío.
+		Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
+		Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
+		De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
+		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
+		Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
+		\begin{equation*}
+			S = \bigcup_{i \in \NN} S_{i}.
+		\end{equation*}
+		Similarmente tomamos la unión de todas las secciones,
+		\[
+		\iota = \bigcup_{i = 0}^{k} \iota_i
+		\]
+		donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
+		Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por la observación \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
+		El supremo para esta cadena resulta ser $(S, \iota) \in \Omega$.
+	\end{itemize}
+	
+	
+	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
+	Veamos que $(\pi \circ j)(M) = T$.
+	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
+	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
+	Concluimos así que $M = T$ tal como queríamos ver.	
+\end{proof}
 
 
 \begin{coro}
@@ -1529,7 +1645,8 @@ Ahora sí veamos que podemos definir un levantado de un árbol.
 	Entonces la restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por $\pi_1(\cG, T)$.
 \end{coro}
 \begin{proof}
-	Por la proposición anterior \ref{prop_levantado_accion_arbol} tenemos que al levantado $\iota(T) \subseteq X$ lo podemos tomar para que sea un subárbol.
+	Por la proposición anterior \ref{prop_levantado_accion_arbol} tenemos que
+	podemos construirnos una sección $\iota:Y \to X$ de manera que el levantado $\iota(T) \subseteq X$ lo podemos tomar para que sea un subárbol de $X$.
 	Al ser un subgrafo tenemos que $\iota(\ol y) = \ol {\iota (y)}$ y equivalentemente que $g_{y}=1$ y esto nos dice que $\varphi(\iota(y)) = 1$.
 	Como $\pi_1(\cG,T) = F(\cG) / \langle \langle R \rangle \rangle$ donde $R = \{ y \in E(T) \}$ luego tenemos que $\varphi$ define un morfismo $\ol \varphi: \pi_1(\cG, T) \to G$ tal como queríamos ver.
 \end{proof}
@@ -1741,10 +1858,6 @@ Como corolario directo obtenemos una caracterización para los grupos libres.
 	Este grupo es libre por ser el grupo fundamental de un grafo en el cual los grupos correspondientes a las aristas y a los vértices son triviales dado que la acción de $G$ es libre.
 	
 \end{proof}
-
-El siguiente resultado conocido como teorema de Nielsen--Schreier fue originalmente probado por Nielsen en 1932.
-Esa demostración utilizaba la acción de $H$ sobre el grafo de Cayley de $G$ y es de carácter combinatórico. 
-La demostración que damos es una demostración alternativa que fue pensada por Serre en \cite{serre2002trees}.
 
 \begin{coro}[Nielsen--Schreier]\label{coro_niels_sch}
 	Sea $G$ un grupo libre entonces todo subgrupo $H$ de $G$ resulta ser libre.
