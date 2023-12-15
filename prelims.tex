@@ -84,9 +84,9 @@ Usaremos para este caso especial la notación $ \text{Pre}(w) = \{w\}/\Sigma^*$.
 En particular para cada alfabeto podemos definir un lenguaje que es el de los palíndromos.
 
 \begin{deff}
-	Dado $\Sigma = \{a,b\}$ definimos el \emph{lenguaje de los palíndromos sobre $\Sigma$} de la siguiente manera
+	Sea $\Sigma = \{a,b\}$ entonces el \emph{lenguaje de los palíndromos sobre $\Sigma$} es el siguiente lenguaje:
 	\[
-		L_{\text{PAL}} = \{  w \in \Sigma^* \mid w = w^R \}
+		L_{\text{PAL}} = \{  w \in \Sigma^* \mid w = w^R \}.
 	\]
 \end{deff}
 
@@ -198,14 +198,12 @@ De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
 
 Un par $(q,w) \in Q \times \Sigma^*$ lo llamaremos una \emph{configuración} del autómata.
 Consideremos que $w = aw'$ donde $a \in \Sigma$ y $w' \in \Sigma^*$ luego si tenemos que $p \in \delta(q,a) $ entonces denotaremos esto así $(q,w) \vdash (p,w')$ y diremos que la configuración $(q,w)$ \emph{deriva} en la configuración $(p,w')$.
-Esto nos define una relación sobre $Q \times \Sigma^*$ tal que su clausura transitiva y reflexiva la denotaremos $\vdash^*$.
+Esto nos define una relación sobre $Q \times \Sigma^*$ tal que su clausura transitiva y reflexiva la denotaremos $\vdash^*_{\cal M}$.
 
 Una configuración $(q,w)$ se dice \emph{irreducible} si no existe ninguna configuración $(p,u)$ tal que $(q,w) \vdash (p,u)$.
 Equivalentemente esto sucede en dos casos.
 El primero es que $w = \epsilon$.
 El segundo es que $w = aw'$ y tenemos que $\delta(q,a) = \emptyset$.
-
-
 Una configuración $(q,w)$ se dice \emph{final} si $q \in F$ y $w = \epsilon$.
 En particular las configuraciones finales son irreducibles.
 
@@ -352,55 +350,60 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 \end{deff}
 
 Una \emph{configuración} de un autómata de pila no determinístico va a ser un triple $(q,w,\gamma) \in Q \times \Sigma^* \times \Gamma^*$.
-Dada una configuración de un autómata de pila no determinístico $(q,w, Z\gamma)$ diremos que $Z \in \Gamma$ es el \emph{tope de la pila}.
-Intuitivamente es lo último que apilamos en nuestra pila.
-La función de transición es tal que dada $(q,a,Z) \in Q  \times \Sigma \cup \{ \epsilon \} \times \Gamma $ nos devuelve un par $(p,\gamma)$ de manera que $\gamma \in \Gamma^{*}$ es la palabra que reemplaza al tope de la pila.
-Vamos a tener las siguientes tres maneras de modificar el tope de la pila a través de la función de transición que lo haremos con la siguiente notación:
+Dada una configuración de un autómata de pila no determinístico $(q,w, \gamma)$
+tal que $\gamma \neq \epsilon$ y en tal caso $\gamma = Z \gamma'$ diremos que $Z \in \Gamma$ es el \emph{tope de la pila} de esta configuración.
+Intuitivamente el tope de la pila es lo último que apilamos y es lo único que podemos leer de la pila.
 
-\begin{enumerate}
-	\item Si $\delta(q,a,Z) = (p,\epsilon)$ luego eliminamos el tope de la pila.
-	\item Si $\delta(q,a,Z) =  (p,Z)$ luego dejamos el mismo tope de pila.
-	\item Si $\delta(q,a,Z) = (p, XZ)$ luego cambiamos el tope de pila por $X$ y dejamos a $Z$ apilada.
-\end{enumerate}
-
-
-Esto nos define una relación sobre el conjunto de todas las transiciones de un autómata de pila no determinístico.
-Sea $(q,w,\gamma)$ una configuración entonces sean $w = aw'$ con $a \in \Sigma \cup \{ \epsilon \}$ y $w' \in \Sigma^*$  y sean $\gamma = Z\gamma'$ con $Z \in \Gamma$ y $\gamma' \in \Gamma^{*}$.
-Si $(p,\theta) \in \delta (q,a,Z)$  luego denotaremos $(q,w,\gamma) \vdash_{\cal M} (p,w',\theta\gamma')$ la transición de una configuración en otra en el \APND $\cal M$,
-donde $\theta \gamma'$ es la concatenación en el monoide libre $\Gamma^{*}$. 
-
-Esta operación nos define una relación sobre $Q \times \Sigma^* \times \Gamma^*$.
+Sea una configuración $(q,w,\gamma)$ tal que $Z$ es el tope de la pila de esta configuración por lo tanto $\gamma = Z \gamma'$ y $w = aw'$ con $a \in \Sigma \cup \{\epsilon\}$ 
+entonces si $(p,\theta) \in \delta(q,a,Z)$ luego denotaremos $(q,aw', Z\gamma') \vdash (p,w',\theta\gamma')$ y diremos que la configuración $(q,w,\gamma)$ \emph{deriva} en la configuración $(p,w',\theta\gamma')$.
 Así como en el caso anterior de los autómatas finitos consideremos la relación generada por la clausura transitiva y reflexiva de esta operación tal que la denotaremos $\vdash^*_{\cal M}$.
 
+Así como en el caso de los autómatas finitos no determinísticos podemos definir una \emph{configuración irreducible} $(q,aw',\gamma)$ como una configuración para la cual no existe ninguna otra configuración $(p,u,\theta)$ tal que $(q,w,\gamma) \vdash (p,u,\theta)$.
+En particular esto podría ser por dos casos: el primero es que $\gamma = \epsilon$ y el segundo es que si $Z$ es el tope de pila de la configuración luego $\delta(q,a,Z) = \emptyset$.
+Las \emph{configuraciones finales} van a ser las configuraciones que tienen la pinta $(q,\epsilon,\gamma)$ donde $q \in F$.
+Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión finita de configuraciones $(q_{0},w,Z_{0}) \vdash \dots \vdash (p,u,\theta)$ donde $(p,u,\theta)$ es una configuración irreducible.
 
 \begin{deff}
-	Dado $\cal M$ un autómata de pila no determinístico consideramos el \emph{lenguaje generado por estado final} como
+	Dado $\cal M$ un autómata de pila no determinístico consideramos el \emph{lenguaje aceptado por estado final} como
 	\begin{equation*}
 		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,Z_0) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
 	\end{equation*}
 \end{deff}
 
+Dicho de otra manera el lenguaje aceptado por un autómata de pila no determinístico son las palabras que pueden ser consumidas de manera que terminan en un una configuración final.
 
+\begin{lema}
+	Sea ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, Z_0)$ un \APND y 
+	sean $w_1, w_2 \in \Sigma^*$, $\gamma \in \Gamma^*$ entonces
+	\[
+		(q_{0},w_{1}, Z_{0}) \vdash^* (q, \epsilon, \gamma) \iff (q_{0},w_{1}w_{2}, Z_{0}) \vdash^* (q,w_{2}, \gamma).
+	\]
+\end{lema}
+\begin{proof}
+	\todo[inline]{HACER.}
+\end{proof}
 
 \begin{ej}\label{ej_ic_palindromos}
 	Sea nuestro alfabeto $\Sigma = \{ a, b\}$ y $L$ el lenguaje de los palíndromos sobre este alfabeto tal como lo definimos en el ejemplo \ref{leng_ej_gram_palindromos}.
 	Consideremos el siguiente autómata de pila 
 	\[
-	M=(Q,\{a,b\}, \{a,b,\$\} , \delta, q_0, \{q_1\}, \$)
+	M=(\{ q_{0}, q_{1}, q_{2} \},\{a,b\}, \{a,b,\$\} , \delta, q_0, \{q_2\}, \$)
 	\]
 	donde nuestra pila tiene el mismo alfabeto que el de entrada con un símbolo adicional que va funcionar como nuestro símbolo inicial de la pila. 
 	El autómata tiene dos estados, el inicial y el final. 
-	Al automáta de pila lo representaremos de la siguiente manera:
+	Al autómata de pila lo representaremos de la siguiente manera:
 	\begin{center}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
 			scale = 1,transform shape]
 			
 			\node[state,initial] (q_0) {$q_0$};
-			\node[state,accepting] (q_1) [right of=q_0] {$q_1$};
+			\node[state] (q_1) [right of= q_0] {$q_1$};
+			\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
 			
 			\path (q_0) edge [bend right]             node {} (q_1);
 			\path (q_1) edge [loop above] node {}    (   );
 			\path (q_0) edge [loop above] node {}    (   );
+			\path (q_1) edge [bend right] node {} (q_2);
 		\end{tikzpicture}
 	\end{center}
 	Donde dibujamos una flecha siempre y cuando la función de transición nos permita ir del estado del cual sale la flecha al estado al que llega.
