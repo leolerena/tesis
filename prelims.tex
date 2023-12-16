@@ -950,6 +950,7 @@ Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 \end{obs}
 
 Un \emph{camino} $c$ en un grafo no dirigido es una sucesión de vértices $c=(v_{0}, \dots, v_{n})$ de manera tal que $v_{i}$ es adyacente con $v_{i+1}$ para todo $0 \le i < n$.
+Dado un grafo no dirigido $\Gamma$ entonces $\Pi (\Gamma) = \{  c \mid c \ \text{es un camino en } \ \Gamma \}$.
 Dado un camino $c = (v_{0}, \dots, v_{n})$ denotaremos por su \emph{longitud} al número entero positivo $|c|= n$.
 Un grafo es \emph{conexo} si para todo par de vértices $(v,w) \in V \times V$ existe un camino $c = (v_{0}, \dots, v_{n})$ tal que $v_{0} = v$ y $w=v_{n}$.
 Diremos que el camino $c$ \emph{une los vértices} $v$ y $w$.
@@ -995,7 +996,7 @@ En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos d
 
 
 \begin{lema}\label{lema_grp_acc_libre_cayley}
-	Sea $G$ grupo finitamente generado por $A$ y $\Gamma = \text{Cay}(G,A)$ su grafo de Cayley entonces $G$ actúa libremente sobre $\Gamma$.
+	Sea $G$ grupo finitamente generado por $A$ tal que $1 \notin A$ y $\Gamma = \text{Cay}(G,A)$ su grafo de Cayley entonces $G$ actúa libremente sobre $\Gamma$.
 \end{lema}
 
 \begin{proof}
@@ -1015,38 +1016,57 @@ En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos d
 Veamos ahora que características necesariamente tiene que cumplir un grafo no dirigido para ser un grafo de Cayley.
 
 \begin{lema}\label{lema_cayley_conexo_grado}
-	Si $G$ es un grupo finitamente generado por un conjunto simétrico $A$ luego $\Gamma = \text{Cay}(G,A)$ es un grafo conexo y de grado acotado uniformemente.
+	Si $G$ es un grupo finitamente generado por un conjunto $A$ tal que $1 \notin A$ luego $\Gamma = \text{Cay}(G,A)$ es un grafo conexo y de grado acotado uniformemente.
 \end{lema}
 \begin{proof}
 	Para ver que es conexo,	probaremos que para todo $g \in V(\Gamma)$ existe un camino $c$ tal que une $1 \in V(\Gamma)$ con $g$.
 	Para eso usamos que $A$ es un conjunto de generadores por lo tanto $g = a_{1} \dots a_{k}$ para $a_{i} \in A$ para todo $1 \le i \le k$.
 	Esto nos dice que el camino $c = (1, a_{1}, a_{1}a_{2}, \dots, a_{1} \dots a_{k})$ une $1$ con $g$ y así vemos que el grafo $\Gamma$ es conexo. 
 	
-	Para ver que tiene grado acotado uniformemente consideramos algún vértice $g \in V(\Gamma)$ luego $E(g) = \{  h \in V(\Gamma) : \{g,h\} \in E \}$ tal que por como definimos al grafo de Cayley tenemos que $|E(g)| \le |A| < \infty$ usando que $A$ es un conjunto finito.
+	Para ver que tiene grado acotado uniformemente consideramos algún vértice $g \in V(\Gamma)$ luego $E(g) = \{  h \in V(\Gamma) : \{g,h\} \in E \}$ tal que por como definimos al grafo de Cayley tenemos que $\{g,h\} \in E(\Gamma) \iff h = ga$ para cierto $a \in A \cup A^{-1}$.
+	De esta manera obtenemos la siguiente cota  $|E(g)| \le 2|A| < \infty$ usando que $A$ es un conjunto finito.
 \end{proof}
 
 Si $G$ es un grupo finitamente generado por $A$ tomaremos $B = A \cup A^{-1}$ otro conjunto finito de generadores que llamaremos el \emph{simétrico} de $A$.
 Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de generadores de $G$ no como grupo sino como monoide.
 
-\begin{obs}\label{obs_grafo_Cayley_palabras}
+\todo[inline]{revisar a partir de acá.}
+\begin{deff}
+	Sea $G$ grupo finitamente generado por $A$ tal que $1 \notin A$.
+	Sea $\text{Cay}(G,A)$ entonces definimos la siguiente función 
+	$l: \Pi(\text{Cay}(G,A)) \to (A \cup A^{-1})^*$
+	de la siguiente manera:
+	si $c = (g_{0}, \dots), g_{n}) \in \Pi(\text{Cay}(G,A))$ entonces para cada $0 \le i < n$ consideramos $a_{i} \in A \cup A^{-1}$ tal que $g_{i} = g_{i-1}a_{i}$ y así podemos finalmente definir $l(c) = a_{0}\dots a_{n-1}$.
+\end{deff}
+\begin{lema}\label{obs_grafo_Cayley_palabras}
+	Sea $G$ grupo finitamente generado por $A$ tal que $1 \notin A$.
+	Sea $\text{Cay}(G,A)$ el grafo de Cayley para estos generadores y $l: \Pi(\text{Cay}(G,A)) \to (A \cup A^{-1})^*$ y sea $\pi:(A \cup A^{-1})^* \to G$ la proyección de monoides entonces vale lo siguiente:
+	\begin{enumerate}
+		\item Si $c$ es un camino cerrado luego $\pi(l(c)) = 1$.
+		
+		\item Si $c$ es un ciclo entonces $l(c)$ es una palabra reducida vista en el grupo libre $F_{A}$.
+	\end{enumerate}
+\end{lema}
+
+%\begin{obs}
 	
-En el caso de los grafos de Cayley vamos a identificar los caminos con palabras en los generadores del grupo.
-Más específicamente si $G$ es un grupo finitamente generado por $A$ conjunto simétrico de generadores y $\Gamma = \text{Cay}(G,A)$ el grafo de Cayley entonces dado un camino $c = (g_{0}, \dots, g_{n})$ sobre $\Gamma$ vamos a considerar la siguiente palabra $c \in A^{*}$ en el monoide libre sobre los generadores de $G$, definida como:
-si $\{g_{i},g_{i+1}\} \in E(\Gamma)$ tiene etiqueta $a_{i}$ luego $c = a_{0}\dots a_{n}$ es la palabra asociada al camino $c$.
-Bajo esta interpretación de caminos como palabras notemos que si $c$ es un camino tal que empieza y termina en el mismo vértice luego su palabra asociada resulta ser $c \in A^*$ tal que $c \overset{G}{=} 1$.
-En el caso particular de un ciclo tenemos que la palabra asociada está reducida.
-\end{obs}
+%En el caso de los grafos de Cayley vamos a identificar los caminos con palabras en los generadores del grupo.
+%Más específicamente si $G$ es un grupo finitamente generado por $A$ conjunto simétrico de generadores y $\Gamma = \text{Cay}(G,A)$ el grafo de Cayley entonces dado un camino $c = (g_{0}, \dots, g_{n})$ sobre $\Gamma$ vamos a considerar la siguiente palabra $c \in A^{*}$ en el monoide libre sobre los generadores de $G$, definida como:
+%si $\{g_{i},g_{i+1}\} \in E(\Gamma)$ tiene etiqueta $a_{i}$ luego $c = a_{0}\dots a_{n}$ es la palabra asociada al camino $c$.
+%Bajo esta interpretación de caminos como palabras notemos que si $c$ es un camino tal que empieza y termina en el mismo vértice luego su palabra asociada resulta ser $c \in A^*$ tal que $c \overset{G}{=} 1$.
+%En el caso particular de un ciclo tenemos que la palabra asociada está reducida.
+%\end{obs}
 
 Ahora vamos a ver que en el caso particular que el grupo sea libre entonces su grafo de Cayley para ciertos generadores se puede tomar para que sea un árbol.
 
 \begin{lema}\label{lema_cayley_libre_arbol}
-	Si $G = F_{A}$ para un conjunto finito $A$ luego si $B$ es el simétrico de $A$ tenemos que $\Gamma = \text{Cay}(G,B)$ es un árbol.
+	Sea $A$ conjunto finito y $F_{A}$ el grupo libre sobre $A$ entonces $\Gamma = \text{Cay}(F_{A},A \cup A^{-1})$ es un árbol.
 \end{lema}
 
 \begin{proof}
 	Todo grafo de Cayley es conexo por \ref{lema_cayley_conexo_grado}.
 	Debemos ver que no tiene ciclos.
-	Para eso si $c$ es un ciclo en $\Gamma$ entonces por la observación \ref{obs_grafo_Cayley_palabras} obtenemos una palabra $c$ en $B^*$ tal que es {reducida} y tal que $c \underset{G}{=} 1$.
+	Para eso si $c$ es un ciclo en $\Gamma$ entonces por la observación \ref{obs_grafo_Cayley_palabras} obtenemos una palabra $c$ en $(A \cup A^{-1})^*$ tal que es {reducida} y tal que $c \underset{G}{=} 1$.
 	Por \ref{obs_libres_pal_red} si una palabra reducida es la identidad del grupo entonces esta palabra es la palabra vacía.
 	Concluimos así que no hay ciclos en el grafo de Cayley de este grupo libre.
 	
@@ -1058,9 +1078,9 @@ Dado $\Gamma$ un grafo no dirigido conexo el espacio métrico asociado es
 $ (V(\Gamma), d )$ con $d$ la distancia definida como 
 \[
 	d(v,w) = \inf \{ \  |\gamma|  \mid  \gamma \ \text{es un camino y} \ 
-	\gamma=(v,\dots, w)  \}
+	\gamma=(v,\dots, w)  \}.
 \] 
-a los caminos $\gamma$ tales que realizan la distancia las llamaremos \emph{geodésicas}.
+A los caminos $\gamma$ tales que realizan la distancia las llamaremos \emph{geodésicas}.
 
 Utilizaremos en varias ocasiones las siguientes dos observaciones:
 
