@@ -914,24 +914,24 @@ Notemos en particular que un grupo virtualmente libre cumple que es finitamente 
 
 \section{Grafos no dirigidos.}\label{secc_graf_nd}
 
-Sea $V$ un conjunto entonces introducimos la siguiente notación:
+Sea $V$ un conjunto y $k \in \NN$ entonces introducimos la siguiente notación:
 \[
-	[V]^k = \{ \{ v_1, v_2, \dots, v_{k} \} \mid v_{i} \in V, \ 1 \le i \le k \}
+	{\cal P}_k(V) = \{ X \subseteq {\cal P}(V) \mid |X| = k   \}
 \]
 
 \begin{deff}
-	Un \emph{grafo no dirigido} $\Gamma$ va a ser un par $(V,E)$ de conjuntos disjuntos que satisfacen que
-	$E \subseteq [V]^2$.
+	Un \emph{grafo no dirigido} $\Gamma$ es un par $(V,E)$ de conjuntos disjuntos que satisfacen que
+	$E \subseteq {\cal P}_{2}(V)$.
 	Los elementos de $V$ serán denominados \emph{vértices} mientras que los elementos de $E$ serán denominados \emph{aristas}.
 	El conjunto de vértices de un grafo $\Gamma$ se escribe $V(\Gamma)$ y el de aristas se escribe $E(\Gamma)$.
 \end{deff}
 
 
-Diremos que $\Gamma$ es un \emph{grafo infinito} si $|V| = \infty$ caso contrario diremos que es un grafo finito.
+Diremos que $\Gamma$ es un \emph{grafo infinito} si $V$ no es un conjunto finito.
+Dos vértices $v,w \in V$ son \emph{adyacentes} si $\{v,w \} \in E$.
+Un vértice $v \in V$ es \emph{incidente} con una arista $e \in E$ si $v \in e$.
 
-Un vértice $v \in V$ diremos que es \emph{incidente} con una arista $e \in E$ si $v \in e$.
-Si la arista $e \in E$ es incidente con $v \in V$ y con $w \in V$ luego escribiremos $e = \{v,w\}$ mientras diremos que los vértices $v,w$ son \emph{adyacentes} en este caso.
-Definimos el conjunto $E(v) = \{  e \in E : v \ \text{es incidente en } \ e \}$.
+Definimos el conjunto $E(v) = \{  e \in E : v \ \text{es incidente con } \ e \}$.
 Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 
 
@@ -949,44 +949,44 @@ Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 	Todo grafo $\Gamma$ tal que tiene grado acotado uniformemente es un grafo localmente finito.
 \end{obs}
 
-Un \emph{camino} $c$ en un grafo no dirigido es una sucesión de vértices $c=(v_{0}, \dots, v_{n})$ de manera tal que $v_{i}$ es adyacente con $v_{i+1}$ para todo $1 \le i < n$.
+Un \emph{camino} $c$ en un grafo no dirigido es una sucesión de vértices $c=(v_{0}, \dots, v_{n})$ de manera tal que $v_{i}$ es adyacente con $v_{i+1}$ para todo $0 \le i < n$.
 Dado un camino $c = (v_{0}, \dots, v_{n})$ denotaremos por su \emph{longitud} al número entero positivo $|c|= n$.
 Un grafo es \emph{conexo} si para todo par de vértices $(v,w) \in V \times V$ existe un camino $c = (v_{0}, \dots, v_{n})$ tal que $v_{0} = v$ y $w=v_{n}$.
 Diremos que el camino $c$ \emph{une los vértices} $v$ y $w$.
-Un \emph{ciclo} es un camino $c = (v_{0}, \dots, v_{n}, v_{0})$ en el cual el primer vértice y el último son idénticos y todas las aristas $\{ v_{i}, v_{i+1} \}$ que aparecen en el camino son distintas.
+Un camino $c$ es \emph{cerrado} si $v_{0} = v_{n}$.
+Es \emph{simple} si $v_{i} \neq v_{j}$ para todo $0 \le i < j \le n$.
+Un camino $c$ es un \emph{ciclo} si es un camino simple cerrado tal que $|c| \ge 3$.
 Un grafo conexo y sin ciclos es un \emph{árbol}.
 
 
 
 \begin{deff}
 	Dados grafos no dirigidos $\Gamma, \Gamma'$ un \emph{morfismo de grafos no dirigidos} es una función $\varphi:V(\Gamma) \to V(\Gamma')$ tal que para toda arista $\{ v,w \} \in E(\Gamma)$ vale que $\{  \varphi(v), \varphi(w) \} \in E(\Gamma')$.
-	Un \emph{automorfismo} va a ser un morfismo de grafos biyectivo $\varphi:V(\Gamma) \to V(\Gamma)$.
-	Equivalentemente $\varphi: V(\Gamma) \to V(\Gamma)$ es un automorfismo si
+	Un \emph{automorfismo} es un morfismo de grafos biyectivo $\varphi: V(\Gamma) \to V(\Gamma)$ tal que 
 	$\{ v,w \} \in E(\Gamma) \iff \{ \varphi(v), \varphi(w) \} \in E(\Gamma)$. 
 \end{deff}
 
 Dado un grafo $\Gamma$ sus automorfismos forman un grupo con la composición.
-Esto es que si $\text{Aut}(\Gamma) = \{ \varphi: \Gamma \to \Gamma  \mid \varphi \ \text{es un automorfismo} \  \}$ luego $(\text{Aut}(\Gamma), \circ)$ es un grupo.
+Esto es que si $\text{Aut}(\Gamma) = \{ \varphi: \Gamma \to \Gamma  \mid \varphi \ \text{es un automorfismo} \  \}$ luego si miramos este conjunto con la composición de morfismos $\circ$ tenemos que $(\text{Aut}(\Gamma), \circ)$ es un grupo.
 
 Una vez que tenemos definido el grupo de automorfismos de un grafo podemos hablar de acciones de grupos.
 
 \begin{deff}
 	Una \emph{acción} de un grupo $G$ sobre un grafo no dirigido $\Gamma$ es un morfismo $\psi:G \to \text{Aut}(\Gamma)$.
-	En el caso que exista una acción diremos que $G$ actúa sobre $\Gamma$.
+	En este caso diremos que $G$ actúa sobre $\Gamma$.
 \end{deff}
 
 
 
 
-Definimos ahora el tipo de grafos que nos van a interesar mayoritariamente en este trabajo.
-Estos grafos nos van a unir la teoría de grupos con la teoría de grafos no dirigidos.
-
+Definimos ahora el tipo de grafos que utilizamos mayoritariamente en este trabajo.
+Estos grafos conectan la teoría de grupos con la teoría de grafos no dirigidos.
 Primero una definición útil en este contexto.
 
 
 \begin{deff}
 	Sea $G$ un grupo y $A$ un conjunto de generadores tal que $1 \notin A$.
-	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $\{g,h\} \in E(\Gamma)$ si y solo sí $h=ga$ para ciertos $g,h \in G$ y $a \in B$. 
+	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $E(\Gamma) = \{ \{g,ga \} \mid g \in G, a \in A \}$.
 	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta} de $e$ al generador $a \in A$.
 \end{deff}
 
