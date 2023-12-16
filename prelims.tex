@@ -774,8 +774,8 @@ Enunciamos y damos definiciones estándares de la teoría de grupos que usaremos
 
 
 \begin{deff}
-	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función inyectiva $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
-	dado $H$ grupo y $f:A \to H$ función entonces existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota (a) = f(a)$ para todo $a \in A$.
+	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función  $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
+	Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
 	Equivalentemente el siguiente diagrama conmuta,
 	\begin{center}
 		\begin{tikzcd}
@@ -797,17 +797,15 @@ Todo grupo en particular es un monoide.
 En el caso que $F_{A}$ es un grupo libre si miramos el \emph{conjunto simétrico de generadores} $B = A \cup A^{-1}$ donde $A^{-1} = \{ a^{-1} : a \in A \}$ luego tenemos que el grupo libre $F_{A}$ es un cociente del monoide libre $B^*$.
 Esto es porque $F_{A} \simeq B^{*} / \{ aa^{-1} : a \in A \}$.
 Sea $\pi: B^{*} \to F_{A}$ el epimorfismo de monoides al cociente.
-Dada una palabra $w \in B^{*}$ notaremos $w \overset{F_{A}}{=} g$ si $\pi(w) = g$.
 
 
 \begin{deff}
-	Dado un grupo libre $F_{A}$ luego si consideramos el conjunto $B = A \cup A^{-1}$. 
-	Una \emph{palabra reducida} es una palabra $w = a_{0} \dots a_{n} \in B^{*}$ tal que no existe ningún $0 \le i < n$ de manera que $a_{i+1}=a_{i}^{-1}$.
+	Dado un grupo libre $F_{A}$ y sea $B$ el conjunto simétrico de generadores de $A$, luego una \emph{palabra reducida} es una palabra $w = a_{0} \dots a_{n} \in B^{*}$ tal que no existe ningún $0 \le i < n$ de manera que $a_{i+1}=a_{i}^{-1}$.
 \end{deff}
 
 
 \begin{obs}\label{obs_libres_pal_red}
-	Dado un grupo $F_{A}$ libre entonces una palabra reducida y no vacía $w \in B^*$  es tal que $w \overset{F_{A}}{\neq} 1$.
+	Dado un grupo $F_{A}$ libre si $\pi:B^* \to F_{A}$ entonces una palabra reducida y no vacía $w \in B^*$  es tal que $\pi(w) \neq 1$.
 \end{obs}
 
 Una vez definidos los grupos libres podemos hablar de grupos infinitos finitamente generados que van a ser la familia de grupos que mayoritariamente trataremos en este trabajo.
@@ -833,7 +831,7 @@ Estas definiciones aparecen en cada contexto en específico pero siempre cumplen
 	
 Dado $H$ subgrupo de $G$ podemos definir la \emph{acción por multiplicación a izquierda} sobre $G$ como $\alpha: H \to S(G)$ definida por $\alpha(h)(g) = hg$.
 En este caso el cociente por esta acción lo vamos a denotar $H \backslash G $.
-Análogamente podemos definir una \emph{acción por multiplicación a derecha} $\beta:H \to S(G)$ definida como $\beta(h)(g) = gh$.
+Análogamente podemos definir una \emph{acción por multiplicación a derecha} $\beta:H^{op} \to S(G)$ definida como $\beta(h)(g) = gh$.
 Al cociente de esta acción lo vamos a denotar $G/H$.
 Si bien ambas acciones a izquierda o a derecha casi siempre son distintas en nuestro caso no va a ser necesario hacer la distinción entre la acción a izquierda y a derecha salvo para algunos resultado del capítulo \ref{cap_BS}.
 Si no hay motivo para confusión alguno utilizaremos $G/H$ para referirnos al cociente de $G$ por $H$ indistintamente.
@@ -850,10 +848,12 @@ Dado $G$ grupo y $H$ subgrupo el \emph{índice} de $H$ en $G$ es el número de c
 Ya podemos definir la familia de grupos con la que trabajaremos en este trabajo.
 
 \begin{deff}
-	Un grupo finitamente generado $G$ es \emph{virtualmente libre} si tiene un subgrupo libre $F$ tal que $(G:F) < \infty$.
+	Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y si
+	tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.
+	Un grupo $G$ es \emph{virtualmente $\ZZ$} si es \fg y si tiene un subgrupo $F \simeq \ZZ$ tal que $[G:F] < \infty$. 
 \end{deff}
 
-Notemos en particular que un grupo virtualmente libre cumple que es finitamente generado por definición.
+Notemos en particular que un grupo virtualmente libre cumple que es finitamente generado bajo nuestra definición.
 
 
 \begin{ej}
@@ -900,9 +900,8 @@ Notemos en particular que un grupo virtualmente libre cumple que es finitamente 
 		\[
 		\alpha q  = \beta m
 		\]
-		acá tenemos que al ser $m$ coprimo con $p$ luego la multiplicidad de $p$ en la descomposición en primos de lo que está a la izquierda es $r_2 - 1 $ mientras que lo que está a la derecha es $r_2$.
-		
-		Esto es una contradicción que vino de suponer que $[(p,q)] \in \ZZ \times \ZZ / F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
+		acá tenemos que al ser $m$ coprimo con $p$ luego la multiplicidad de $p$ en la descomposición en primos de lo que está a la izquierda es $r_1$ mientras que lo que está a la derecha es $r_2$.
+		De acá concluimos que $r_{1} = r_{1} + 1$ y esto es una contradicción que vino de suponer que $[(p,q)] \in \ZZ \times \ZZ / F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
 		
 	\end{enumerate}
 \end{ej}
