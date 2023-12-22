@@ -22,20 +22,20 @@
 \chapter{Teoría de Bass--Serre.}\label{cap_BS}
 
 La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque empleamos una notación diferente. 
-También se usó como referencia a los trabajos \cite{scott1979topological}, \cite{diekert2017context} y \cite{dicks1989groups}.
+También se usó como referencia los trabajos \cite{scott1979topological}, \cite{diekert2017context} y \cite{dicks1989groups}.
 
-En la primera sección damos varias definiciones básicas que emplearemos en el capítulo. 
+En la primera sección damos varias definiciones básicas que empleamos en el capítulo. 
 Muchas se corresponden con las vistas en la sección \ref{secc_graf_nd} sobre grafos no dirigidos.
-Introduciremos el objeto central de la teoría de Bass--Serre que son los grafos de grupos y los resultados estándares de los grupos fundamentales de estos objetos.
+Introduciremos los grafos de grupos que son el objeto central de la teoría de Bass--Serre y los resultados estándares acerca de sus grupos fundamentales.
 
 En la sección \ref{secc_palab_reds} generalizaremos la noción de palabras reducidas que vimos para grupos libres al contexto más general de los grupos fundamentales de grafos de grupos.
 
-En la sección \ref{secc_arb_BS} daremos la construcción del árbol de Bass--Serre que en cierta manera generaliza la idea del revestimiento de un grafo en este contexto.
-Para su construcción emplearemos fuertemente las propiedades sintácticas del los grupos fundamentales de grafos de grupos probados en la sección anterior.
+En la sección \ref{secc_arb_BS} damos la construcción del árbol de Bass--Serre que en cierta manera generaliza la idea del revestimiento de un grafo en este contexto.
+Para su construcción emplearemos fuertemente las propiedades sintácticas de los grupos fundamentales de grafos de grupos probados en la sección anterior.
 
-Finalmente en la sección \ref{secc_acciones_arboles} mostraremos cómo se consigue un grafo de grupos a partir de una acción de un grupo sobre un árbol.
+Finalmente en la sección \ref{secc_acciones_arboles} mostramos cómo se consigue un grafo de grupos a partir de una acción de un grupo sobre un árbol.
 En esta sección probaremos el teorema central de Serre \ref{teo_Serre} que nos caracteriza a los grupos que son grupos fundamentales de grafos de grupos como grupos que actúan en árboles de cierta manera.
-En especial nos va a interesar un teorema que se desprende de este resultado que nos dice que los grupos fundamentales de grafos de grupos finitos resultan ser virtualmente libres. 
+En especial nos interesa un teorema que se desprende de este resultado que nos dice que los grupos fundamentales de grafos de grupos finitos resultan ser virtualmente libres. 
 
 
 
@@ -43,10 +43,11 @@ En especial nos va a interesar un teorema que se desprende de este resultado que
 
 
 \begin{deff}
-	Un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ junto con unas funciones
-	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, $t(\ol y) = s(y)$ y que $\ol{\ol y} = y$.
+	Dados conjuntos $V$ y $E$ un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ junto con funciones
+	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$ y que $\ol{\ol y} = y$.
+	Esto implica que vale la siguiente propiedad $t(\ol y) = s(y)$.
 	
-	Al conjunto $V$ lo llamaremos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
+	Al conjunto $V$ lo nombramos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
 	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
 	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
 	
@@ -71,7 +72,7 @@ En especial nos va a interesar un teorema que se desprende de este resultado que
 	
 	
 	
-	A continuación varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
+	A continuación damos varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
 	\begin{itemize}
 
 		\item Dado un grafo dirigido $Y=(V,E)$ con funciones $s,t, \ol{(.)}$ diremos que $Y'=(V',E')$ con funciones $s',t',\ol{()}'$ es un \emph{subgrafo} de $Y$ si $V' \subseteq V$, $E' \subseteq E$ y si $s'=\left. s \right|_{E'}, t' = \left. s \right|_{E'}$ y $\ol{(.)}' = \left. \ol{(.)} \right|_{E'}$ .
@@ -85,8 +86,8 @@ En especial nos va a interesar un teorema que se desprende de este resultado que
 		st(P) = \{  y \in E(Y) : s(y) = P  \}
 		\]
 		
-		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
-		Por cada camino $c = (y_0, \dots, y_k)$ podemos tomarnos una sucesión de vértices $(s(y_{0}), \dots, s(y_{n}))$, que observamos que no determinan al camino.
+		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k-1$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
+		Por cada camino $c = (y_0, \dots, y_k)$ podemos tomarnos una sucesión de vértices $(s(y_{0}), \dots, s(y_{n}))$, que observamos que no necesariamente determinan al camino.
 		Un camino es \emph{cerrado} si $P = Q$.
 		La \emph{longitud} del camino $l(c) = k$ es la cantidad de aristas que lo componen.
 		
@@ -99,6 +100,7 @@ En especial nos va a interesar un teorema que se desprende de este resultado que
 		Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $(y_0, \dots, y_k)$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
 		
 		\item 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
+		Un grafo es \emph{únicamente geodésico} si para todo par de vértices $P,Q \in V$ existe una única geodésica entre ellos.
 		
 		
 		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todas los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
@@ -106,6 +108,7 @@ En especial nos va a interesar un teorema que se desprende de este resultado que
 				
 		\item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
 		Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
+		Todo árbol $T$ es un únicamente geodésico.
 		
 		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
 		
@@ -114,24 +117,24 @@ En especial nos va a interesar un teorema que se desprende de este resultado que
 \end{deff}	
 
 En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los no dirigidos pueden tener más de una arista entre dos vértices y pueden tener bucles.
-Dado un grafo no dirigido $\Gamma$ lo podemos considerar como un grafo dirigido $Y$ por medio de la siguiente construcción.
-Definimos 
+%Dado un grafo no dirigido $\Gamma$ lo podemos considerar como un grafo dirigido $Y$ por medio de la siguiente construcción.
+%Definimos 
+%\[
+%V(Y) = V(\Gamma), \ \ \ E(Y) = E(\Gamma) \times \{ -1,1 \}.
+%\]
+%de manera tal que $ s(\{x,y\},1) = x $, $t(\{ x,y \}, -1) = y$ y tal que $\ol{(\{x,y\}, 1)} = (\{x,y\}, -1)$.
+%
+%Podemos ver que si $\Gamma$ cumplía cierta propiedad como grafo no dirigido también la va a seguir cumpliendo el grafo dirigido $Y$.
+%En nuestro caso en particular nos va a interesar el caso de la definición del grafo de Cayley dada en \ref{secc_graf_nd}, que bajo esta traducción lo podemos ver como un grafo dirigido también que sigue manteniendo las mismas propiedades.
+%Más aún si $G$ es un grupo libre entonces podemos tomar su grafo de Cayley dirigido para que sea un árbol.
+
+Si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
 \[
-V(Y) = V(\Gamma), \ \ \ E(Y) = E(\Gamma) \times \{ -1,1 \}.
+V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
 \]
-de manera tal que $ s(\{x,y\},1) = x $, $t(\{ x,y \}, -1) = y$ y tal que $\ol{(\{x,y\}, 1)} = (\{x,y\}, -1)$.
 
-Podemos ver que si $\Gamma$ cumplía cierta propiedad como grafo no dirigido también la va a seguir cumpliendo el grafo dirigido $Y$.
-En nuestro caso en particular nos va a interesar el caso de la definición del grafo de Cayley dada en \ref{secc_graf_nd}, que bajo esta traducción lo podemos ver como un grafo dirigido también que sigue manteniendo las mismas propiedades.
-Más aún si $G$ es un grupo libre entonces podemos tomar su grafo de Cayley dirigido para que sea un árbol.
 
-Por otro lado si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
-\[
-V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in A \}.
-\]
-donde $A$ es una orientación de las aristas de $Y$.
-
-Estas dos construcciones son inversas y así podemos ver que valen los resultados enunciados para árboles no dirigidos en el contexto de los grafos dirigidos.
+%Estas dos construcciones son inversas y así podemos ver que valen los resultados enunciados para árboles no dirigidos en el contexto de los grafos dirigidos.
 
 
 
@@ -159,10 +162,11 @@ Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición q
 Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
 \begin{deff}
 	Sea $G$ un grupo y sea $Y$ un grafo dirigido una \emph{acción} de $G$ sobre $Y$ es un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
-	Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $\psi(g)(y) \neq \ol y$.
+	
 \end{deff}
 
 Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
+Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $g \cdot y \neq \ol y$.
 
 
 Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
@@ -191,7 +195,8 @@ Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por los elementos
 	A este grupo lo denotaremos el \emph{grupo universal} del grafo de grupos $\cG$.
 \end{deff}
 
-En particular el grupo que más nos va a interesar es un cociente de $F(\cG)$ que llamaremos el grupo fundamental del grafo de grupos.
+Si tomamos $1 \in G_{y}$ tenemos que para toda $y \in E(Y)$ vale que $\ol{y}y=1$. 
+El grupo que más nos interesa es un cociente de $F(\cG)$ que llamamos el grupo fundamental del grafo de grupos.
 
 \begin{deff} \label{def_pi1_arbol}
 	Sea un grafo de grupos $\cal G$ sobre $Y$.
@@ -203,7 +208,7 @@ En particular el grupo que más nos va a interesar es un cociente de $F(\cG)$ qu
 \end{deff}
 
 \begin{obs}
-	Para cada arista $y \in E(Y)$ notaremos por $g_{y}$ a la imagen de $y \in F(\cG)$ en el cociente $\pi_1(\cG,T)$.
+	Para cada arista $y \in E(Y)$ notamos por $g_{y}$ a la imagen de $y \in F(\cG)$ en el cociente $\pi_1(\cG,T)$.
 \end{obs}
 
 Veamos en el siguiente ejemplo que nuestra construcción de un grupo fundamental generaliza la definición topológica del grupo fundamental.
@@ -213,13 +218,14 @@ Veamos en el siguiente ejemplo que nuestra construcción de un grupo fundamental
 	En este caso en particular tenemos que 	$F(\cG) \simeq (\underset{P \in V}{\Asterisk} G_P \Asterisk F_{E}) / \langle \langle  R \rangle \rangle$
 	donde $R = \{ \ol{y}y = 1 \ \text{para toda} \ y \in E \}$.
 	Consideremos una orientación $A$ para las aristas del grafo.
-	Dado que las relaciones $R$ involucran exclusivamente a los generadores de $F_{E}$ podemos ver que $F(\cG) \simeq \underset{P \in V}{\Asterisk} G_P \Asterisk {F_{E \cap A}}$ donde usamos que $F_{E}/\langle \langle  R \rangle \rangle \simeq F_{E \cap A}$.
+	Dado que las relaciones $R$ involucran exclusivamente a los generadores de $F_{E}$ podemos ver que $F(\cG) \simeq \underset{P \in V}{\Asterisk} G_P \Asterisk {F_{A}}$ donde usamos que $F_{E}/\langle \langle  R \rangle \rangle \simeq F_{A}$.
 	
-	Vamos a calcular el grupo fundamental de este grafo de grupos.
+	Sea $T$ un árbol generador de $Y$ entonces consideremos una orientación $A$ de las aristas de $Y$ de manera que para toda $y \in E(T)$ vale que $y \in A$.	
+	Calculamos el grupo fundamental de este grafo de grupos.
 	Por definición este resulta ser $F(\cG) / \{  y : y \in E(T) \}$.
 	Por el mismo razonamiento que usamos para calcular el grupo $F(\cG)$ obtenemos el siguiente isomorfismo
 	\[
-		\pi({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (T \cap A)}
+		\pi({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (E(T) \cap A)}
 	\]
 	
 	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico $\pi_1(Y)$ es isomorfo al grupo libre generado por las aristas que no pertenecen a un árbol generador nos queda que: 
@@ -261,7 +267,7 @@ Veamos en el siguiente ejemplo que nuestra construcción de un grupo fundamental
 	\[
 	\pi_1(\cG) = \langle G_P, y \ | \ y^{-1}ay = \ol{a}, \ \forall a \in G_y \rangle
 	\]
-	es decir el grupo fundamental de este grafo de grupos resulta ser una extensión HNN del grupo correspondiente al vértice que denotaremos $G_P^{\ast G_y}$.
+	es decir el grupo fundamental de este grafo de grupos resulta ser por definición una extensión HNN del grupo correspondiente al vértice que denotaremos $G_P^{\ast G_y}$.
 	Notemos que esta extensión depende de la elección del isomorfismo entre los grupos de las aristas aunque en el caso de este capítulo siempre va a quedar claro a qué isomorfismo nos referimos.
 	
 \end{ej}
@@ -311,7 +317,7 @@ Todo camino $(y_1, \dots, y_k) \in \Pi(P,Q)$ lo podemos pensar como la palabra $
 	Dado $\cG$ grafo de grupos sobre $Y$ grafo conexo y $P,Q \in V$ dos vértices de $Y$ definimos el siguiente subconjunto de $F(\cG)$,
 	\begin{equation*}
 		\pi(\cG, P, Q) = \{  g_0y_1g_1 \dots g_{k-1}y_kg_k : (y_1,\dots, y_k) \in \Pi(P,Q), \ \ 
-		 \forall i, \ 1 \le i < k, g_i \in G_{s(y_{i+1})}, \ \ g_k \in G_Q \}	
+		 \forall i, \ 0 \le i < k, g_i \in G_{s(y_{i+1})}, \ \ g_k \in G_Q \}	
 	\end{equation*}
 \end{deff}
  
@@ -321,7 +327,7 @@ Todo camino $(y_1, \dots, y_k) \in \Pi(P,Q)$ lo podemos pensar como la palabra $
 \begin{proof}
 	Debemos ver que tiene a la identidad del grupo, que es cerrado por el producto y que todo elemento tiene un inverso.
 
-	Si consideramos el constante en $P$ y $g_0 = 1$ luego obtenemos que $1 \in \pi(\cG, P , P)$.
+	Si consideramos el camino constante en $P$ y $g_0 = 1$ luego obtenemos que $1 \in \pi(\cG, P , P)$.
 	Para ver que es cerrado por el producto notemos que 
 	\begin{equation*}
 		(g_0y_1g_1 \dots g_{k-1}y_kg_k ) \circ ( g'_0y'_1g'_1 \dots g'_{k-1}y'_kg'_k) =  g_0y_1g_1 \dots g_{k-1}y_k(g_kg'_0)y'_1g'_1 \dots g'_{k-1}y'_kg'_k
@@ -353,10 +359,15 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 		 \tau(y) &= T[P,s(y)]yT[t(y),P] \ \ \text{para } \ y\in E(Y) \\
 		\tau(g) &= T[P,Q] g T[Q,P] \ \  \text{para} \ Q \in V(Y), \ g \in G_Q
 	\end{align*}
+	Tal que lo único que debemos chequear es que $\tau(gh) = \tau(g) \tau (h)$ para $g,h \in G_{Q}$.
+	Para eso notemos que 
+	\[
+		\tau(gh) = T[P,Q] gh T[Q,P] = T[P,Q] g T[Q,P] \  T[P,Q] h T[Q,P] = \tau(g)\tau(h).
+	\]
 	Notemos que por como definimos a este morfismo tenemos que $\tau(y) \in \pi_1(\cG,P)$ y que similarmente $\tau(g) \in \pi_1(\cG,P)$.
 	
 
-	Veamos que a partir de $\tau$ nos podemos definir un morfismo sobre $F(\cG)$.
+	Veamos que $\tau$ pasa al cociente $F(\cG)$.
 	Debemos ver que cumple la relación $\tau(\overline y a y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$ y todo $a \in G_y$.
 	Esto vale porque justamente 
 	\begin{align*}
@@ -365,33 +376,34 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 		& = \tau (a^{\ol y}).
 	\end{align*}
 	donde usamos que $\ol y a y = a^{\ol y}$ en $\pi_1(\cG,P)$.
-	Sea $\tau: F(\cG) \to \pi_1(\cG, P)$ este morfismo que definimos.
+	Sea $\ol{\tau}: F(\cG) \to \pi_1(\cG, P)$ este morfismo que definimos.
 	Por como está definido $\tau$ tenemos que si lo restringimos al subgrupo  $\pi_1(\cG,P)$ resulta ser la identidad y en particular tenemos que $\tau$ es un epimorfismo.
 	
-	Veamos que $\tau$ baja al cociente $\pi_1(\cG, T)$ y luego que este es el isomorfismo que buscamos para terminar de probar el teorema.
+	Veamos que $\ol{\tau}$ baja al cociente $\pi_1(\cG, T)$.
 	Sea $y \in E(T)$ luego $\tau(y) = T[P,s(y)]yT[t(y), P]$ donde $T[t(y), P] = \ol y T[s(y), P]$ y de esta manera $\tau(y) = 1$ para todo $y \in E(T)$.
-	Por esta razón $\tau$ pasa al cociente y existe $\ol \tau: \pi_{1}(\cG, T) \to \pi_1 (\cG, P)$ epimorfismo tal que hace conmutar el siguiente diagrama,
+	Por esta razón $\tau$ pasa al cociente y existe $\ol{\ol{\tau}}: \pi_{1}(\cG, T) \to \pi_1 (\cG, P)$ epimorfismo tal que hace conmutar el siguiente diagrama,
 	
 	\begin{center}
 		\begin{tikzcd}
-			F(\cal{G}) \arrow[rr, "\tau"] \arrow[dd, "\pi"']             &  & {\pi_1({\cal G}, P)} \\
+			F(\cal{G}) \arrow[rr, "\ol{\tau}"] \arrow[dd, "\pi"']             &  & {\pi_1({\cal G}, P)} \\
 			&  &                      \\
-			{\pi_1({\cal G}, T)} \arrow[rruu, "\overline \tau"', dashed] &  &                     
+			{\pi_1({\cal G}, T)} \arrow[rruu, "\ol{\ol{\tau}}"', dashed] &  &                     
 		\end{tikzcd}
 	\end{center}
 	
-	Para terminar la demostración probemos que $\ol \tau$ es un monomorfismo.
+	Para terminar la demostración probemos que $\ol{\ol{\tau}}$ es un monomorfismo.
 	Para eso consideramos $\nu = \pi \circ \iota$ donde $\iota: \pi_1(\cG,P) \to F(\cG)$ es la inclusión como subgrupo y probemos que $\nu \circ \ol \tau$ nos queda la identidad.
-	Si hacemos $\nu \circ \ol \tau$ notemos que si $g \in G_Q$ con $Q \in V$ luego
+	Si hacemos $\nu \circ {\ol \tau}$ notemos que si $g \in G_Q$ con $Q \in V$ luego
 	\begin{align*}
-		\nu \circ \ol \tau (\pi (g)) & = \nu (T[P,Q]gT[Q,P]) \\
+		\nu \circ \ol{\ol{ \tau}} (\pi (g)) & = \nu (T[P,Q]gT[Q,P]) \\
 					&= \pi(T[P,Q]gT[Q,P]) \\
 					&= \pi(T[P,Q]) \pi (g) \pi (T[Q,P]) \\
 					&= \pi(g).
 	\end{align*}
-	Donde usamos que $T[P,Q]$ es un camino de aristas en el árbol de expansión por lo tanto $\pi(T[P,Q]) = 1$. 
-	Similarmente podemos ver que para toda $y \in E$ tenemos que $\nu \circ \ol \tau (\pi(y)) = \pi(y)$.
-	De esta manera vimos que $\ol \tau : \pi_{1}(\cG,T) \to \pi_{1}(\cG,P)$ es un isomorfismo de grupos.
+	Donde usamos que $T[P,Q]$ es un camino de aristas en el árbol de expansión y por lo tanto $\pi(T[P,Q]) = 1$. 
+	Similarmente podemos ver que para toda $y \in E$ tenemos que $\nu \circ \ol {\ol \tau} (\pi(y)) = \pi(y)$.
+	De esta manera vimos que $\ol{\ol \tau} : \pi_{1}(\cG,T) \to \pi_{1}(\cG,P)$ es un isomorfismo de grupos.
+	
 \end{proof}
 
 \begin{coro}
@@ -399,8 +411,8 @@ Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfism
 	Sean $T, T'$ árboles generadores de $Y$ luego tenemos que $\pi_1(\cG,T) \simeq \pi_1(\cG,T')$.
 \end{coro}
 \begin{proof}
-	Sea $P \in V$ caso contrario es trivial.
-	Fijado este vértice tenemos que por el resultado anterior \ref{teo_grp_fund_iso} que $\pi_1(\cG,P) \simeq \pi_1(\cG,T)$ para cualquier $T$ árbol generador por lo tanto obtenemos que $\pi_1(\cG, T) \simeq \pi_1(\cG,T')$ volviendo a usar este resultado para $T'$.
+	Sea $P \in V$ entonces por el resultado anterior \ref{teo_grp_fund_iso} que vale que $\pi_1(\cG,P) \simeq \pi_1(\cG,T)$ para cualquier $T$ árbol generador por lo tanto obtenemos que $\pi_1(\cG, T) \simeq \pi_1(\cG,T')$ volviendo a usar este resultado para $T'$.
+	
 \end{proof}
 
 \section{Palabras reducidas.}\label{secc_palab_reds}
@@ -419,14 +431,14 @@ hace que el grupo fundamental sea isomorfo a un producto HNN, es decir que $\pi_
 \begin{deff}\label{deff_hnn_fn}
 	Dado $G_P^{\ast G_y}$ extensión HNN diremos que una sucesión
 	\[
-		(x_{0},y^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+		(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
 	\]
 	donde para todo $0 \le i \le n$ tenemos que $x_{i} \in G_{P}$ y $\epsilon_{i} \in \{ -1,1 \}$
 	es una \emph{sucesión reducida} si no tiene subsucesiones 
 	$y^{-1}x_iy$ con $x \in G_{y}$ o bien $yx_iy^{-1}$ con $x \in G_{\ol y}$.	
 \end{deff}
 
-En particular nos interesan las sucesiones reducidas porque es una manera fácil de chequear cuándo algún elemento no es la identidad en el grupo.
+Nos interesan las sucesiones reducidas porque principalmente es una manera fácil de chequear cuándo algún elemento no es la identidad en el grupo.
 
 \begin{prop}[Britton]\label{teo_britton}
 	Sea $G_P^{\ast G_y}$ una extensión HNN.
@@ -434,18 +446,21 @@ En particular nos interesan las sucesiones reducidas porque es una manera fácil
 	\[
 	(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
 	\]
+	tal que $n \ge 0$
 	vale que $x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1} \neq 1$.
 \end{prop}
 \begin{proof}
 	Ver \cite[p.182]{lyndon1977combinatorial}.
 \end{proof}
 
-Dentro de las sucesiones reducidas podemos quedarnos con algunas que llamamos las formas normales.
+Si elegimos conjuntos transversales de $G_{y}$ y de $G_{\ol y}$ vamos a poder 
+quedarnos con algunas de las sucesiones reducidas que llamaremos las formas normales.
 Estas caracterizan unívocamente a los elementos de una extensión HNN.
 
 \begin{deff}
-	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y sea $T$ conjunto transversal de $G_{\ol y}$ en $G_P$.
-	Una \emph{forma normal para una extensión HNN} va a ser una sucesión reducida
+	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y $T$ conjunto transversal a izquierda de $G_{\ol y}$ en $G_P$. 
+	Tomamos ambos transversales de manera que $1 \in S$ y $1 \in T$.
+	Una \emph{forma normal para una extensión HNN} va a ser una sucesión 
 	\[
 	(x_{0},y^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
 	\]
@@ -453,10 +468,11 @@ Estas caracterizan unívocamente a los elementos de una extensión HNN.
 	\begin{enumerate}
 		\item $x_0 \in G_P$.
 		\item En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$.
+		\item No tiene la subsucesión $y^{\epsilon}1y^{-\epsilon}$.
 	\end{enumerate}
 \end{deff}
 
-Podemos probar que todo elemento de una extensión HNN puede ser escrita como el producto de una forma normal y más aún esta escritura es única.
+Podemos probar que todo elemento de una extensión HNN puede ser escrita en forma normal y más aún esta escritura es única.
  
 \begin{teo}
 	Para todo $g \in G_P^{\ast G_y}$ existe una única forma normal 
@@ -469,46 +485,13 @@ Podemos probar que todo elemento de una extensión HNN puede ser escrita como el
 	Ver \cite[p.182]{lyndon1977combinatorial}.
 \end{proof}
 
-%Un refinamiento de esta proposición nos dice una condición necesaria para que una forma normal no represente el neutro del grupo.
-%Consideremos una sucesión 
-%\[
-%(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
-%\]
-%tal que no sea necesariamente una forma normal. 
-%Diremos que esta sucesión es \emph{reducida} .
-%\begin{teo}[Britton]
-%	Sea $G_P^{\ast G_y}$ una extensión HNN entonces 
-%	para todo $g \in G_P^{\ast G_y}$ existe una única forma normal reducida	
-%	$(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})$ 
-%	tal que $g = x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n}y^{\epsilon_n}x_{n+1}$.
-%\end{teo}
-%\begin{proof}
-%	Por el teorema \ref{prop_hnn_formanormal} tenemos que $g$ se puede escribir como el producto de una forma normal.
-%	Basta observar que toda forma normal al reducirla sigue siendo una forma normal y que al reducirla se reduce la longitud de la sucesión por lo tanto este procedimiento eventualmente termina y así obtenemos una forma normal reducida.
-%\end{proof}
-%
-%En particular nos va a resultar conveniente usar el siguiente corolario que se puede escribir como una negación del teorema anterior en el caso especial que $g=1$.
-%
-%\begin{coro}
-%	Sea $G_P^{\ast G_y}$ una extensión HNN y
-%	 $(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})$
-%	una forma normal tal que si:
-%	\begin{itemize}
-%		\item $n=0$ entonces $x_{0}\neq 1$.
-%		\item $n > 0$ entonces es una forma normal reducida. 
-%	\end{itemize}
-%	 entonces $x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n}y^{\epsilon_n}x_{n+1} \neq 1$ en $G_P^{\ast G_y}$.
-%\end{coro}
-
-
-
 
 \subsubsection{Segmentos.}\label{subsub_segmento}
 
 En el ejemplo \ref{ej_pi1_segmento} vimos que dado un segmento $Y = (\{P,Q\}, \{y, \ol y\}  )$ entonces para toda estructura de grafo de grupos $\cG$ que le demos a este segmento
 resulta que el grupo fundamental es isomorfo a un producto amalgamado, es decir que $\pi_1(\cG) = G_P \ast_{G_y} G_Q$. 
 
-En esta subsección vamos a repetir las ideas que vimos para las extensiones HNN y definir sucesiones reducidas y formas normales.
+En esta subsección vamos a repetir los resultados y definiciones que vimos para las extensiones HNN y definir sucesiones reducidas y formas normales.
 
 \begin{deff}\label{deff_amalgamado_fn}
 	Dado $G_P \ast_{G_y} G_Q$ producto amalgamado diremos que una sucesión
@@ -519,14 +502,14 @@ En esta subsección vamos a repetir las ideas que vimos para las extensiones HNN
 	\begin{enumerate}
 		\item Para todo $0 \le i \le n$ vale que $x_{i} \in G_{P}$ o $x_i \in G_Q$
 		\item Para todo $0 \le i < n$ no puede valer que $x_i,x_{i+1} \in G_P$ o que $x_i,x_{i+1} \in G_Q$.
-		\item Si $n > 1$ entonces $x_i \notin G_y$.
-		\item Si $n = 1$ entoces $x_0 \neq 1$.
+		\item Si $n > 0$ entonces $x_i \notin G_y$.
+		\item Si $n = 0$ entonces $x_0 \neq 1$.
 	\end{enumerate}
 \end{deff}
 
 
 \begin{teo}\label{coro_amalgamado_neq_1}
-	Sea $G_P \ast_{G_y} G_Q$ grupo amalgamado entonces si $(x_0,x_1,\dots,x_n)$ es una sucesión reducida entonces tenemos que $1 \neq x_0x_1\dots x_n$.
+	Sea $G_P \ast_{G_y} G_Q$ grupo amalgamado entonces si $(x_0,x_1,\dots,x_n)$ es una sucesión reducida y $n \ge 0$ entonces tenemos que $1 \neq x_0x_1\dots x_n$.
 \end{teo}
 \begin{proof}
 	Ver \cite[pp.187-188]{lyndon1977combinatorial}.
@@ -537,6 +520,7 @@ Analogamente al caso de las extensiones HNN podemos definir una forma normal par
 \begin{deff}
 	Sea $G_P \ast_{G_y} G_Q$ un producto amalgamado.
 	Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
+	Tomamos ambos transversales de manera que $1 \in S$ y $1 \in T$.
 	
 	Una \emph{forma normal para un producto amalgamado} va a ser una sucesión
 	$(a,x_0,x_1,\dots, x_n)$ tal que $a \in G_{y}$ y para todo $0\le  i \le n$ tenemos que $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no 
@@ -551,28 +535,12 @@ Analogamente al caso de las extensiones HNN podemos definir una forma normal par
 \begin{proof}
 	Ver \cite[p.187]{lyndon1977combinatorial}.
 \end{proof}
- 
-
-%Similarmente al caso de las extensiones HNN vamos a definir una sucesión reducida.
-%Que se corresponden a palabras en el grupo libre $G_{P} \ast G_{Q}$ tales que no tienen a ninguna relación como subpalabra.
-%
-%\begin{deff}
-%	Sea $G_P \ast_{G_y} G_Q$ un producto amalgamado.
-%	Una \emph{sucesión reducida} para el producto amalgamado es una sucesión
-%	$(x_0,x'_0,\dots, x'_n)$
-%	tal que para todo $0 \le i \le n$ tenemos que:
-%	\begin{itemize}
-%		\item $x_{i} \in G_{P}$ y que $x'_{i} \in G_{Q}$.
-%		\item $x_{i}, x'_{i} \notin G_{y}$ para todo $0 < i < n$.
-%	\end{itemize} 
-%\end{deff}
-
 
 \subsection{ Caso general.}
 
-En el contexto de esta sección vamos a pensar que $\cG$ es un grafo de grupos sobre un grafo conexo y finito $Y$.
-Nuestro objetivo es probar que en el grupo universal del grafo de grupos $F(\cG)$ ciertas sucesiones que resultan asociadas a caminos van a ser reducidas.
-Más específicamente queremos probar que definen elementos diferentes de la identidad del grupo tal como hicimos en los resultados \ref{teo_britton} y\ref{coro_amalgamado_neq_1}.
+En el contexto de esta sección $\cG$ denota un grafo de grupos sobre un grafo conexo y finito $Y$.
+Nuestro objetivo es probar que en el grupo universal del grafo de grupos $F(\cG)$ ciertas sucesiones que resultan asociadas a caminos son reducidas.
+Más específicamente queremos probar que definen elementos diferentes de la identidad del grupo tal como hicimos en los resultados \ref{teo_britton} y \ref{coro_amalgamado_neq_1}.
 
 
 
@@ -1378,7 +1346,7 @@ Veamos un ejemplo de cómo sería construir esta sección en una acción de un g
 		\end{tikzpicture}
 	\end{center}
 	
-	entonces para definir la acción de $G$ en $X$ nos basta definir un morfismo idempotente sobre este grafo.
+	entonces para definir una acción de $G$ en $X$ nos basta definir un morfismo idempotente sobre este grafo.
 	Para eso definimos $a \cdot X$ de la siguiente manera:
 	
 	\begin{center}
@@ -1733,6 +1701,7 @@ Así como el revestimiento de un grafo es un epimorfismo de grafos localmente in
 	\]
 	tal como queríamos ver.
 	Una cuenta idéntica prueba que toda arista $g \cdot \iota(y) \in E(X)$ está en la imagen de $\psi$. 
+	
 \end{proof}
 
 
