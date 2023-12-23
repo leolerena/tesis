@@ -13,12 +13,168 @@
 \chapter{Grupos independientes de contexto.}
 Este capítulo sigue las ideas de los trabajos \cite{muller1983groups} y \cite{muller1985theory} completando muchos detalles que son omitidos por estos.
 
-En la primera sección \ref{secc_wp} daremos formalmente la definición del problema de la palabra como un lenguaje y una condición necesaria para que esta definición no dependa de los generadores elegidos para el grupo: esto es que el lenguaje sea un cono.
+En la sección \ref{secc_grp_ic} probamos varias propiedades importantes de los lenguajes independientes de contexto que nos sirven para poder conectar la teoría de lenguajes con la teoría de grupos.
 
-En la sección \ref{secc_grp_ic} probaremos que los lenguajes independientes de contexto cumplen las condiciones necesarias para ser un cono y por lo tanto podemos hablar de grupos independientes de contexto.
+En la sección \ref{secc_wp} damos la definición formal del problema de la palabra de un grupo visto como un lenguaje y también damos una condición necesaria para que esta definición no dependa de los generadores elegidos para el grupo.
 
-En la sección \ref{secc_teo_MS} probaremos algunos resultados que nos garanticen tener una buena presentación para un grupo virtualmente libre.
-Finalmente probaremos el resultado central de este capítulo que es el teorema de Muller--Schupp \ref{teo_Muller_Schupp} por el cual todo grupo virtualmente libre resulta ser un grupo independiente de contexto.
+
+En la sección \ref{secc_teo_MS} probamos algunos resultados que nos garanticen tener una buena presentación para un grupo virtualmente libre y probamos el resultado central de este capítulo que es el teorema de Muller--Schupp \ref{teo_Muller_Schupp}.
+
+
+\section{Propiedades de los lenguajes independiente de contexto.}\label{secc_grp_ic}
+
+La familia de lenguajes independientes de contexto va a ser la siguiente:
+\[
+	\text{IC} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es independiente de contexto} \}.
+\]
+de manera similar podemos definir la familai de lenguajes regulares como
+\[
+	\text{REG} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es regular}  \}.
+\]
+
+La primera propiedad que vamos a ver de los lenguajes independiente de contexto es que son cerrados con respecto a la intersección con lenguajes regulares.
+
+\begin{prop}\label{intersecciones-reg-ic}
+	Sea $L \in \text{IC}$ y sea $R \in \text{REG}$ tales que existe $\Sigma$ de manera que $L,R \subseteq \Sigma^{*}$ entonces $L \cap R \in \text{IC}$.	
+\end{prop}
+
+\begin{proof}
+	Sea $L$ un lenguaje \ic tal que $L \subset \Sigma^*$ y sea $R$ un lenguaje regular tal que $R \subset \Sigma^*$. 
+	Queremos ver que el lenguaje $L \cap R$ es aceptado por un \APND.
+	
+	Si $L$ es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, \$)$ y R es aceptado por un autómata no determinístico ${\cal M' } = (Q', \Sigma, \delta', q_0', F',)$.
+	
+	Consideremos el siguiente \APND
+	\[
+		{\cal N } = (Q \times Q', \Sigma, Z, \delta \times \delta', (q_0,q_0'), F \times F', \$).
+	\]	
+	tal que la función de transición está definida de la siguiente manera.
+	Para todo $q_{i} \in Q, q_{j}' \in Q', a \in \Sigma, Z \in \Gamma$ vale que
+	si $(q,\gamma) \in \delta(q_{i},a,Z) = $ para $\gamma \in \Gamma^*$ y $q'  \in \delta(q_{i}', a)$ entonces $ ((q,q'), \gamma) \in \delta \times \delta'((q_{i},q_{j}'),a,Z)$.
+	
+	
+	Queremos ver que $L({\cal N}) = L \cap R $.	
+	Probemos primero la siguiente afirmación.
+	\[
+	((q_0,q_0'), w, \$) \vdash^*_{\cal N}  ((q_i,q_j), \epsilon, z) \ \iff (q_0, w, \$) \vdash^*_{\cal M}  (q_i, \epsilon, z) \ \text{y} \ (q_0', w) \vdash^*_{\cal M'} (q_j, \epsilon)  	
+	\]
+	Para ver esto veremos las dos implicaciones a la vez haciendo inducción en la longitud de la palabra $w$.
+	
+	En el caso base $|w| = 1$ de manera que $w = a \in \Sigma$.
+	Este caso tenemos la igualdad porque justamente la función de transición del \APND $\cal N$ es $\delta \times \delta'$.
+	
+	Para el paso inductivo consideremos que $|w|=n$ de manera que $w=ua$ con $|u|=n-1$ y $a \in \Sigma$.
+	Luego tenemos que $((q_0,q_0'), u, \$) \vdash^*_{\cal N}  ((q_k,q_l), \epsilon, z') \ \iff (q_0, u, \$) \vdash^*_{\cal M}  (q_k, \epsilon, z') \ \text{y} \ (q_0', u) \vdash^*_{\cal M'} (q_l, \epsilon)$.
+	Nuevamente usamos nuestra definición de la función de transición $\delta \times \delta'$ para concluir que
+	\[ 
+	((q_i,q_j),\epsilon, z) \in \delta \times \delta'((q_k,q_l), a, z') \iff  (q_i, a, z') \in \delta(q_k, a, z') \ \text{y} \ (q_j, a) \in \delta(q_l, a).
+	\]	
+	Con esto terminamos de probar la afirmación.
+	
+	Finalmente para ver que $L({\cal N})  =  L \cap R$ usamos que por nuestra afirmación si $w \in L \cap R$ entonces es aceptado por lo dos autómatas $\cal M$ y por $\cal M'$, esto es que $(q_0, w, \$) \vdash^* (q_F, \epsilon, z)$ y que $(q_0', w) \vdash^* (q_F', \epsilon)$ y equivalentemente $((q_0,q_0'),w,\$) \vdash^* ((q_F, q_F'),\epsilon, z)$. 
+	Dado que los estados finales del autómata $\cal N$ resultan ser $F \times F'$ obtenemos que $w \in L({\cal N}) \iff w \in L \cap R$.
+	Concluimos así que el lenguaje $L \cap R$ resulta ser \ic tal como queríamos ver.		
+\end{proof}
+
+Otras propiedades que nos van a interesar tienen que ver con la relación que tienen con los morfismos de monoides.
+Precisamente probaremos que los lenguajes \ic como familia son cerrados por imágenes de morfismos de monoides y por preimágenes de morfismos de monoides.
+ 
+
+\begin{prop}\label{morfismos-monoides-ic}
+
+		Sea $L \in \text{IC}$, $\Sigma$ tal que $L \subseteq \Sigma^{*}$ y $h:\Sigma^{*} \to \Delta^*$ un morfismo de monoides 
+		 entonces $h(L) \in \text{IC}$.
+		 
+\end{prop}
+
+\begin{proof}
+		Consideramos $L$ lenguaje \ic sobre $\Sigma$.
+		Esto nos dice que existe una gramática $\gramatica $ independiente de contexto tal que $L(\cG) = L$, supongamos que $\cG$ está en forma normal de Chomsky.
+		Si tenemos un morfismo de monoides $h: \Sigma^* \to \Delta^*$ consideramos la sustitución $\sigma:\Sigma \cup V \to \Delta^* \cup V$ definida por $\sigma(a) = h(a)$ para toda $a \in \Sigma$ y $\sigma(A) = A$ para toda $A \in V$.		
+		Para probar que $h(L)$ es \ic vamos a construir una gramática $\cG'$ tal que $L(\cG') = h(L)$.
+		Sea la gramática $\cG'  = (V, \Delta, P', S')$ tal que si $A \to w \in P$ luego $A \to \sigma(w) \in P'$.
+		Es decir la única diferencia con la gramática $\cG$ es que reemplazamos en cada producción $P \in \cG$ a cada letra $a \in \Sigma$ por $h(a) \in \Delta^*$.
+		La gramática sigue siendo \ic porque las producciones tienen la forma $A \to u$ con $A \in V, u \in (\Delta \cup V)^*$.
+		Para finalizar la demostración nos alcanza con ver que genera al lenguaje que queremos.
+		
+		Probamos que $h(L) \subseteq L(\cG')$.
+		Sea $w=a_{0}\dots a_{n} \in L$ luego como $L(\cG) = L$ vale que 
+		$S \overset{*}{\implies}_{\cG} w$. 
+		Como $\cG$ está en forma normal de Chomsky luego vale que para todo $0 \le i \le n$ existe $A_{i} \in V$ tal que $A_{i} \to a_{i}$.
+		Como las producciones de $\cG'$ son de la pinta $A \to h(a)$ si $A \to a$ era una producción de $\cG$ luego tenemos que $A_{i} \to h(a_{i})$ y así que $S' \overset{*}{\implies}_{\cG'} h(w)$.
+		
+		Probamos que $L(\cG') \subseteq h(L)$.
+		Para esto probaremos la siguiente afirmación por inducción.
+		Para todo $n \in \NN$ vale que si $A \in V$ luego si $u \in L(A)$ y $|u| = n$ luego $u \in h(L)$.
+		
+		El caso base es claro porque si $|u| = 1$ y $u \in L(A)$ esto dice que necesariamente que $A \to u$ entonces por como definimos a la gramática $\cG'$ tenemos que $u = h(a)$ para $a \in \Sigma$.
+		
+		Para el paso inductivo sea $|u| = n$ luego tenemos que $S' \to AB \overset{*}{\implies}_{\cG'} u$ para ciertos $A, B \in V$.
+		Por como definimos a la gramática $\cG'$ tenemos que $A \overset{*}{\implies}_{\cG} u_{1}$ y $B \overset{*}{\implies}_{\cG} u_{2}$ tales que $u = u_{1}u_{2}$ y $|u_{1}|, |u_{2}| \ge 0$.
+		Por la hipótesis inductiva tenemos que $u_{1} \in h(L)$ y que $u_{2} \in h(L)$ por lo que $u \in h(L)$ tal como queríamos ver.
+		
+\end{proof}
+
+
+\begin{prop}
+	Sea $L \in \text{IC}$, $\Sigma$ tal que $L \subseteq \Sigma^{*}$ y $h:\Delta^{*} \to \Sigma^*$ un morfismo de monoides 
+	entonces $h^{-1}(L) \in \text{IC}$.
+\end{prop}
+
+\begin{proof}
+	Sea $L$ un lenguaje \ic sobre el alfabeto $\Sigma$ tal que es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, \$)$.
+	Consideremos un morfismo de monoides $h: \Delta^* \to \Sigma^*$. 
+	Queremos ver que el lenguaje $h^{-1}(L) \subset \Delta^*$ es independiente de contexto.
+	 
+	Consideremos el número $ n = \max_{a \in \Delta} |h(a)|$ y el conjunto $\Sigma^{\le n} = \{ w \in \Sigma^* : |w| \le n  \}$.	
+	Definimos un \APND de la siguiente forma
+	\[
+	{\cal M' } = (Q \times \Sigma^{\le n}, \Delta, Z, \delta, (q_0, \epsilon), F \times \{ \epsilon \}, \$)
+	\]
+	Finalmente nuestra función de transición resulta ser 
+	\[
+	\delta'((q,v), a ,z) = 
+	\begin{cases}
+		\{(q,h(a), z )\}  \ &\text{si} \ v=\epsilon, z \in Z \quad (I)\\
+		\{(p,u),z' \} \ &\text{si} \ (p,z') \in \delta(q,y,z), v=yu \quad (II) \\  
+		\emptyset \ &\text{caso contrario}.
+	\end{cases}
+	\]
+	
+	Probemos primero la siguiente afirmación.
+	Para cada $w \in \Delta^*$ tenemos la siguiente equivalencia,
+	\[
+	((q_0, \epsilon),w,z) \vdash^*_{\cal M'} ((q,\epsilon), \sigma) \iff (q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma).
+	\]
+	
+	Para probar esta equivalencia lo hacemos por inducción en la longitud de $|w|$.
+	Para el caso base tenemos que $w = a \in \Delta$.
+	En este caso tenemos que $((q_0, \epsilon), a, z) \vdash ((q,h(a)), z)$ usando una vez el caso (I) de la función de transición $\delta'$.
+	Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \overset{*}{\vdash }(q, \sigma)  \iff ((q_0,h(a)), \epsilon ,z) \overset{*}{\vdash} ((q,\epsilon), \sigma)$ usando reiteradas veces el caso (II) de la función de transición $\delta'$.
+	\todo[]{Acá podría escribir esto más detalladamente haciendo una inducción en la longitud de h(a) pero no me queda claro que sea una buena idea.}
+	El caso general tenemos una palabra $w$ tal que $|w|=n$.
+	Sabemos que la afirmación vale para cualquier palabra de longitud menor a $n$.
+	En particular si $w=ua$ con $|u|=n-1$ y $a \in \Delta$, tenemos que por la hipótesis inductiva que 
+	\[
+	(q_0',u,z) \vdash^*_{\cal M'} ((q,\epsilon), \sigma) \iff (q_0,h(u), z) \vdash^*_{\cal M} (q, \sigma)
+	\]
+	entonces de nuevo por el mismo razonamiento que hicimos para el caso base tenemos probada la afirmación.
+	
+	Para concluir la demostración notamos que por nuestra afirmación si $w \in L(\cal M')$ entonces existe $q \in F$ tal que $ ((q_0, \epsilon),w,z) \vdash^*_{\cal M'} ((q,\epsilon) $ y esto sucede sí y solo sí $(q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma)$, dicho de otra forma que $h(w) \in L(\cal M)$.	
+	Entonces $w \in L(\cal M')$ si y solo si $h(w) \in L$.
+	Esto nos dice que el lenguaje aceptado por estado final de $\cal M'$ resulta ser $L' = \{ w \in \Delta^* : h(w) \in L \} = h^{-1}(L)$.
+\end{proof}
+
+La herramienta principal que tenemos para ver que cierto lenguaje $L$ no es \ic es usar el siguiente lema.
+
+\begin{lema}[Pumping] \label{pumping}
+	Sea $L$ un lenguaje independiente de contexto entonces existe una constante $n \ge 0$ tal que para todas las palabras $w \in L$ de longitud al menos $n$ existe una factorización $w = uvxwy$ con $|vwx| \le n$ y $|vx| > 0$ tal que para todo $i \in \NN$ vale que $uv^iwx^iy \in L$.
+\end{lema}
+
+\begin{proof}
+	Resultado estándar. Ver \cite{hopcraft-ullman}.
+\end{proof}
+
 
 
 \section{El problema de la palabra.}\label{secc_wp}
@@ -34,7 +190,7 @@ Definimos entonces el siguiente lenguaje.
 	y $\Sigma$ conjunto finito con un epimorfismo de monoides $\pi:\Sigma^* \to G$ entonces
 	el \emph{problema de la palabra de $G$ para los generadores $\Sigma$} es el siguiente lenguaje	
 	\[ 
-	\text{WP} (G, \Sigma) = \{ w \in \Sigma^* \ | \ \pi(w)= 1 \}
+	\text{WP} (G, \Sigma) = \{ w \in \Sigma^* \ | \ \pi(w)= 1 \}.
 	\]
 \end{deff}
 
@@ -44,18 +200,18 @@ Definimos entonces el siguiente lenguaje.
 \end{obs}
 
 
-Dado que este lenguaje depende del conjunto de generadores elegido nos gustaría ver qué condiciones tienen que cumplir los lenguajes o bien qué condiciones deberán cumplir los grupos para que no exista esta dependencia en los generadores.
-En este contexto nos van a interesar las familias de lenguajes que cumplen las siguientes propiedades.
+Dado que este lenguaje depende del conjunto de generadores elegido nos interesa saber qué condiciones tienen que cumplir los lenguajes o bien qué condiciones tienen que cumplir los grupos para que no exista esta dependencia en los generadores.
+En este contexto nos interesan las familias de lenguajes que cumplen las siguientes propiedades.
 \medskip
 \begin{deff}
 	Una familia de lenguajes $\CC$ es un \emph{cono} si para todo $L \in \CC$ tal que $L \subseteq \Sigma^*$ resulta que:
 	\begin{itemize}
 		\item[\textbf{C1.}] Es cerrado por imágenes de morfismos de monoides. 
-		Si existe $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
+		Para todo $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
 		\item[\textbf{C2.}] Es cerrado por preimagenes de morfismos de monoides. 
-		Si existe $\phi:\Delta^* \to \Sigma^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
+		Para todo $\phi:\Delta^* \to \Sigma^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
 		\item[\textbf{C3.}] Es cerrado por intersecciones con lenguajes regulares. 
-		Si $R \subseteq \Sigma^*$ es un lenguaje regular entonces $L \cap R \in \CC$.
+		Para todo $R \subseteq \Sigma^*$ lenguaje regular vale que $L \cap R \in \CC$.
 	\end{itemize}
 \end{deff} 
 
@@ -63,7 +219,8 @@ En este contexto nos van a interesar las familias de lenguajes que cumplen las s
 Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para el estudio del problema de la palabra.
 \medskip
 \begin{prop}\label{prop-cono-wp}
-	Sea $WP(G, \Sigma)$ el lenguaje del problema de la palabra de cierto grupo $G$ para algunos generadores $\Sigma$ y $\CC$ cono de lenguajes. 
+	Sea $\CC$ cono de lenguajes y $G$ un grupo finitamente generado por $\Sigma$.
+	Sea $WP(G, \Sigma)$ el lenguaje del problema de la palabra. 
 	Si $WP(G, \Sigma) \in \CC$ luego valen las siguientes afirmaciones:
 	\begin{itemize}
 		\item[\textbf{W1.}] $WP(G, \Delta) \in \CC$ para cualquier conjunto de generadores $\Delta$.
@@ -91,8 +248,11 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 			\Sigma^* \arrow[ru, "\pi",swap]    &  
 		\end{tikzcd}
 	\end{center}
+	para probar que $\pi \circ \ol f = \delta$ nos alcanza con probarlo sobre $\Delta$.
+	Para esto notemos que si $b_{i} \in \Delta$ luego $\pi(\ol f(b_{i})) = \pi(f(b_{i})) = \pi(b_{i}')$ donde $b_{i}' \in \pi^{-1}(\delta(b_{i}))$ lo que implica que $\pi(b'_{i}) = \delta(b_{i})$ tal como queríamos ver.
 	
-	Notemos que como el diagrama conmuta tenemos que 
+	
+	Notemos que como el diagrama conmuta luego vale que 
 	\[
 	\ol{f}^{-1}(\pi^{-1}(1)) = \delta^{-1}(1)
 	\]
@@ -100,7 +260,7 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	\[
 	\ol{f}^{-1}(WP(G,\Sigma)) = WP(G, \Delta).
 	\]
-	Como $WP(G, \Sigma) \in \CC$ resulta que $\ol{f}^{-1}(WP(G,\Sigma)) \in \CC$ por lo tanto $WP(G, \Delta) \in \CC$ tal como queríamos ver.
+	Como $WP(G, \Sigma) \in \CC$ resulta que por la propiedad \textbf{C2} de los conos de lenguajes que $\ol{f}^{-1}(WP(G,\Sigma)) \in \CC$ por lo tanto $WP(G, \Delta) \in \CC$ tal como queríamos ver.
 	
 	Veamos ahora que vale \textbf{W2}. 
 	Sea $\Sigma$ conjunto de generadores de $H$.
@@ -109,163 +269,25 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	\[
 	WP(H, \Sigma) = WP(G, \Sigma') \cap \Sigma^*
 	\]
-	y dado que $WP(G, \Sigma') \in \CC$ es un cono entonces $WP(H, \Sigma) \in \CC$.
+	y dado que $WP(G, \Sigma') \in \CC$ entonces por la propiedad \textbf{C3} de los conos vale que $WP(H, \Sigma) \in \CC$.
 	
 \end{proof}
 
-La moraleja de este resultado es que si $\CC$ es un cono entonces están bien definidos los grupos $G$ tales $WP(G) \in \CC$, es decir que no depende qué generadores tomemos del grupo. 
+La moraleja de este resultado es que si $\CC$ es un cono entonces si $G$ es un grupo finitamente generado tal que para cierto conjunto de generadores finito $\Sigma$ vale que $WP(G, \Sigma) \in \CC$ luego decimos que $G$ es un grupo $\CC$.
+Notamos $WP(G)$ al lenguaje del problema de la palabra en este caso. 
 
-La familia de lenguajes independientes de contexto va a ser la siguiente:
-\[
-	\text{IC} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es independiente de contexto} \}.
-\]
-de manera similar podemos definir la familai de lenguajes regulares como
-\[
-	\text{REG} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es regular}  \}.
-\]
-
-La primera propiedad que vamos a ver de los lenguajes independiente de contexto es que son cerrados con respecto a la intersección con lenguajes regulares.
-
-\begin{prop}\label{intersecciones-reg-ic}
-	Sea $L \in \text{IC}$ y sea $R \in \text{REG}$ tales que existe $\Sigma$ de manera que $L,R \subseteq \Sigma^{*}$ entonces $L \cap R \in \text{IC}$.	
-\end{prop}
-
-\begin{proof}
-	Sea $L$ un lenguaje \ic tal que $L \subset \Sigma^*$ y sea $R$ un lenguaje regular tal que $R \subset \Sigma^*$. 
-	Queremos ver que el lenguaje $L \cap R$ es aceptado por un \APND.
-	
-	Si $L$ es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)$ y R es aceptado por un autómata no determinístico ${\cal M' } = (Q', \Sigma, \delta', q_0', F',)$.
-	
-	Consideremos el siguiente \APND
-	\[
-		{\cal N } = (Q \times Q', \Sigma, Z, \delta \times \delta', (q_0,q_0'), F \times F', Z_0).
-	\]	
-	
-	Queremos ver que $L({\cal N}) = L \cap R $.	
-	Probemos primero la siguiente afirmación.
-	\[
-	((q_0,q_0'), w, Z_0) \vdash^*_{\cal N}  ((q_i,q_j), \epsilon, z) \ \iff (q_0, w, Z_0) \vdash^*_{\cal M}  (q_i, \epsilon, z) \ \text{y} \ (q_0', w) \vdash^*_{\cal M'} (q_j, \epsilon)  	
-	\]
-	Para ver esto veremos las dos implicaciones a la vez haciendo inducción en la longitud de la palabra $w$.
-	
-	En el caso base $|w| = 1$ de manera que $w = a \in \Sigma$.
-	Este caso tenemos la igualdad porque justamente la función de transición del \APND $\cal N$ es $\delta \times \delta'$.
-	
-	Para el paso inductivo consideremos que $|w|=n$ de manera que $w=ua$ con $|u|=n-1$ y $a \in \Sigma$.
-	Luego tenemos que $((q_0,q_0'), u, Z_0) \vdash^*_{\cal N}  ((q_k,q_l), \epsilon, z') \ \iff (q_0, u, Z_0) \vdash^*_{\cal M}  (q_k, \epsilon, z') \ \text{y} \ (q_0', u) \vdash^*_{\cal M'} (q_l, \epsilon)$.
-	Nuevamente usamos nuestra definición de la función de transición $\delta \times \delta'$ para concluir que
-	\[ 
-	((q_i,q_j),\epsilon, z) \in \delta \times \delta'((q_k,q_l), a, z') \iff  (q_i, a, z') \in \delta(q_k, a, z') \ \text{y} \ (q_j, a) \in \delta(q_l, a).
-	\]	
-	Con esto terminamos de probar la afirmación.
-	
-	Finalmente para ver que $L({\cal N})  =  L \cap R$ usamos que por nuestra afirmación si $w \in L \cap R$ entonces es aceptado por lo dos autómatas $\cal M$ y por $\cal M'$, esto es que $(q_0, w, Z_0) \vdash^* (q_F, \epsilon, z)$ y que $(q_0', w) \vdash^* (q_F', \epsilon)$ y equivalentemente $((q_0,q_0'),w,Z_0) \vdash^* ((q_F, q_F'),\epsilon, z)$. 
-	Dado que los estados finales del autómata $\cal N$ resultan ser $F \times F'$ obtenemos que $w \in L({\cal N}) \iff w \in L \cap R$.
-	Concluimos así que el lenguaje $L \cap R$ resulta ser \ic tal como queríamos ver.		
-\end{proof}
-
-Otras propiedades que nos van a interesar tienen que ver con la relación que tienen con los morfismos de monoides.
-Precisamente probaremos que los lenguajes \ic como clase son cerrados por imágenes de morfismos de monoides y por preimágenes de morfismos de monoides.
  
 
-\begin{prop}\label{morfismos-monoides-ic}
 
-		Sea $L \in \text{IC}$, $\Sigma$ tal que $L \subseteq \Sigma^{*}$ y $h:\Sigma^{*} \to \Delta^*$ un morfismo de monoides 
-		 entonces $h(L) \in \text{IC}$.
-		 
-\end{prop}
-
-\begin{proof}
-		Consideramos $L$ lenguaje \ic sobre $\Sigma$.
-		Esto nos dice que existe una gramática $\gramatica $ tal que $L(\cG) = L$.
-		Si tenemos un morfismo de monoides $h: \Sigma^* \to \Delta^*$ queremos ver que existe una gramática $\cG'$ tal que $L(\cG') = h(L)$.
-		Para eso consideramos $\cG  = (V, \Sigma, P', S)$ donde la única diferencia es que reemplazamos en cada producción $P \in \cG$ a cada letra $a \in \Sigma$ por $h(a) \in \Delta^*$.
-		La gramática sigue siendo \ic, nos alcanza con ver que genera al lenguaje que queremos.
-		
-		Miramos las dos contenciones a la vez.		
-		Si tomamos una palabra $w \in L$ luego tenemos que $h(w) \in h(L)$ por lo tanto tiene que haber una sucesión de producciones $S  \implies^* w  $ en la gramática $\cG$.
-		Si tomamos esta derivación y cambiamos cada producción $A \to \alpha \in P$ por la correspondiente $A \to \beta \in P'$, donde $\beta = h(\alpha)$, en la gramática $\cG'$ ahora obtenemos la palabra $h(w)$.
-		Volviendo para atrás obtenemos que $L(\cG') = h(L)$ tal como queríamos ver.
-
-\end{proof}
-
-
-\begin{prop}
-	Sea $L \in \text{IC}$, $\Sigma$ tal que $L \subseteq \Sigma^{*}$ y $h:\Delta^{*} \to \Sigma^*$ un morfismo de monoides 
-	entonces $h^{-1}(L) \in \text{IC}$.
-\end{prop}
-
-\begin{proof}
-	Sea $L$ un lenguaje \ic sobre el alfabeto $\Sigma$ tal que es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, Z_0)$.
-	Consideremos un morfismo de monoides $h: \Delta^* \to \Sigma^*$. 
-	Queremos ver que el lenguaje $h^{-1}(L) \subset \Delta^*$ resulta ser \ic. 
-	Primero introduzcamos la constante $ n = \max_{a \in \Delta} |h(a)|$.
-	
-	Ahora consideremos el siguiente \APND 
-	\[
-	{\cal M' } = (Q', \Delta, Z, \delta, q_0', F', Z_0)
-	\]
-	donde $Q' = Q \times \Sigma^{\le n}$, donde $\Sigma^{\le n} = \{ w \in \Sigma^* : |w| \le n  \}$.
-	Los estados finales $F' = F \times \{ \epsilon \}$.
-	El estado inicial es $q_0' = (q_0, \epsilon)$.
-	Finalmente nuestra función de transición resulta ser 
-	\[
-	\delta'((q,v), a ,z) = 
-	\begin{cases}
-		\{(q,h(a), z )\}  \ &\text{si} \ v=\epsilon, z \in Z \\
-		\{(p,u),z' \} \ &\text{si} \ (p,z') \in \delta(q,y,z), v=yu \\  
-		\emptyset \ &\text{caso contrario}.
-	\end{cases}
-	\]
-	
-	Probemos primero la siguiente afirmación.
-	Para cada $w \in \Delta^*$ tenemos la siguiente equivalencia,
-	\[
-	(q_0',w,z) \vdash^*_{\cal M'} ((q,\epsilon), \sigma) \iff (q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma).
-	\]
-	
-	Para probar esta equivalencia lo hacemos por inducción en la longitud de $|w|$.
-	Para el caso base tenemos que $w = a \in \Delta$.
-	En este caso tenemos que $(q_0', a, z) \vdash ((q,h(a)), z)$.
-	Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \vdash (q, \sigma)  \iff ((q_0,h(a)), \epsilon ,z) \vdash ((q,\epsilon), \sigma)$.
-	
-	El caso general tenemos una palabra $w$ tal que $|w|=n$.
-	Sabemos que la afirmación vale para cualquier palabra de longitud menor a $n$.
-	En particular si $w=ua$ con $|u|=n-1$ y $a \in \Delta$, tenemos que por la hipótesis inductiva que 
-	\[
-	(q_0',u,z) \vdash^*_{\cal M'} ((q,\epsilon), \sigma) \iff (q_0,h(u), z) \vdash^*_{\cal M} (q, \sigma)
-	\]
-	entonces de nuevo por el mismo razonamiento que hicimos para el caso base tenemos probada la afirmación.
-	
-	Para concluir la demostración notemos que por nuestra afirmación una palabra $w \in L(\cal M')$ si y solo si $h(w) \in L$. 
-	Esto nos dice que el lenguaje aceptado por estado final de $\cal M'$ resulta ser $L' = \{ w \in \Delta^* : h(w) \in L \} = h^{-1}(L)$.
-\end{proof}
-
-Finalmente la herramienta principal que tenemos para ver que cierto lenguaje $L$ no es \ic es usar el siguiente lema.
-
-\begin{lema}[Pumping] \label{pumping}
-	Sea $L$ un lenguaje independiente de contexto entonces existe una constante $n \ge 0$ tal que para todas las palabras $w \in L$ de longitud al menos $n$ existe una factorización $w = uvxwy$ con $|vwx| \le n$ y $|vx| > 0$ tal que para todo $i \in \NN$ vale que $uv^iwx^iy \in L$.
-\end{lema}
-
-\begin{proof}
-	Resultado estándar. Ver \cite{hopcraft-ullman}.
-\end{proof}
-
-
-
-
-
-\section{Propiedades de los lenguajes independiente de contexto.}\label{secc_grp_ic}
 
 La flia de lenguajes $\text{IC}$ es un cono.
 Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \ref{morfismos-monoides-ic}.
-Esto nos dice que la siguiente definición no depende de los generadores que tomemos.
 
 \begin{deff}
-	Si $G$ es un \fg tal que es generado por un conjunto finito $\Sigma$ y el lenguaje $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo \ic }.
+	Si $G$ es un \fg generado por un conjunto finito $\Sigma$ y el lenguaje $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo independiente de contexto}.
 \end{deff}
 
-
+\todo[inline]{continuar desde acá, este autómata me inspira cero confianza}
 \begin{ej} Consideremos los siguientes ejemplos.	
 	\begin{enumerate}[E1.]
 		\item 
@@ -303,7 +325,7 @@ Esto nos dice que la siguiente definición no depende de los generadores que tom
 		\[
 		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)  \}.
 		\]
-		donde en particular notemos que $w \in L(\cal M)$ si y solo sí $w \in N(\cal M)$. 
+		donde en particular notamos que $w \in L(\cal M)$ si y solo sí $w \in N(\cal M)$. 
 		Esto nos dice que si $(q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)$ entonces $y = \epsilon$.
 		En particular $\cal M$ es un autómata especial determinístico.
 		
@@ -331,7 +353,7 @@ Esto nos dice que la siguiente definición no depende de los generadores que tom
 		si $|vwx| \le n$ implica que no todas las letras aparecen en $vwx$.
 		Supongamos que la letra que no aparece es $c$.
 		Por otro lado como $|vx| \le 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
-		Si tomamos $i=0$ notemos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
+		Si tomamos $i=0$ notamos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
 	\end{enumerate}
 \end{ej}
 
@@ -362,7 +384,7 @@ El siguiente lema nos va decir que los grupos de índice finito tienen finitos c
 	Si $G$ es un grupo finitamente generado y $H$ es un subgrupo de índice finito entonces $N_G(H)$ tiene índice finito y más aún $[G:N_G(H)] = |S|$.
 \end{lema}
 \begin{proof}
-	Para ver que tiene índice finito notemos que $H \le N_G(H)$ por lo tanto tenemos que 
+	Para ver que tiene índice finito notamos que $H \le N_G(H)$ por lo tanto tenemos que 
 	\[
 	[G:N_G(H)] \le [G:H] < \infty.
 	\]
@@ -392,7 +414,7 @@ Este lema nos permite intersecar finitos grupos de índice finito para conseguir
 \begin{proof}
 	Lo probaremos por inducción en la cantidad de subgrupos de índice finito que estamos intersecando.
 	En el caso base tenemos dos subgrupos $H,K$ de índice finito.
-	Primero notemos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
+	Primero notamos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
 	Como  $|KH / H| \le |G / H| < \infty$ dado que $H$ tiene índice finito obtenemos así que $|K / K \cap H| < \infty$.
 	
 	Por una propiedad de los índices obtenemos lo siguiente
@@ -476,7 +498,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	
 	Como $F$ tiene índice finito y todos sus conjugados al ser isomorfos a $F$ también tienen índice finito entonces $F'$ tiene índice finito por el lema \ref{lema_indice_interseccion}.
 	Como $G$ es finitamente generado por ser virtualmente libre entonces usando \ref{lema_subg_fg} obtenemos que $F'$ es finitamente generado.
-	Finalmente notemos que es libre por el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
+	Finalmente notamos que es libre por el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
 	
 	Probemos \textbf{2}. 
 	Por el lema \ref{lema_subg_fg} obtenemos directamente que $H$ es un grupo finitamente generado.
@@ -516,7 +538,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 		W = A \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}
 	\]
 	Vamos a probar que $G \equiv \langle W \mid R \rangle$ 
-	Denotemos a este grupo presentado como $H = \langle W \mid R \rangle$ y sea $F_{W}$ el grupo libre sobre sus generadores.
+	Denotamos a este grupo presentado como $H = \langle W \mid R \rangle$ y sea $F_{W}$ el grupo libre sobre sus generadores.
 	
 	Notemos que $W$ genera a $G$ porque
 	dado $g \in G$ luego existe $a \in F$ y $t \in T$ de manera que $g = at$.
@@ -629,7 +651,7 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 	Para esto veamos primero dos observaciones del funcionamiento de este autómata.
 	
 	\begin{enumerate}[i)]
-		\item Primero notemos que si $w = a_{i}w'$ donde $a_{i} \in B$ entonces tenemos la siguiente derivación:
+		\item Primero notamos que si $w = a_{i}w'$ donde $a_{i} \in B$ entonces tenemos la siguiente derivación:
 		\[
 		(a_{i}w', ( 1,1,1), 1 ) \vdash (w', (1,a_{i},1),1) \vdash (w',(1,a_{i},a_{i}),a_{i}) \vdash (w', (1,1,1), a_{i})
 		\]
