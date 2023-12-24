@@ -287,22 +287,21 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 	Si $G$ es un \fg generado por un conjunto finito $\Sigma$ y el lenguaje $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo independiente de contexto}.
 \end{deff}
 
-\todo[inline]{continuar desde acá, este autómata me inspira cero confianza}
 \begin{ej} Consideremos los siguientes ejemplos.	
 	\begin{enumerate}[E1.]
 		\item 
 		Dado $F$ grupo libre generado por un conjunto finito $A$ tal que $1 \notin A$. 
-		Sea  $B = A \cup A^{-1}$ el conjunto de generadores simétrico de $A$. 
-		Probemos que $\text{WP}(F,B)$ es un lenguaje independiente de contexto.
+		Sea  $B = A \cup A^{-1}$ el conjunto de generadores simétrico de $A$ y sea $\pi:B^* \to G$. 
+		Probemos que ${WP}(F,B)$ es un lenguaje independiente de contexto.
 		
 		Consideremos el siguiente autómata de pila,
 		\[
 		M = (\{ q_{0},q_{1} \}, B, B \cup \{ 1, \$ \}, \delta, \$, \{q_{1}\}).
 		\]
 		
-		Por como lo definimos tiene dos estados y uno solo es final.
+		Por como lo definimos tiene dos estados y solamente uno es final.
 		El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1 , \$ \}$ donde $\$$ es el símbolo inicial de la pila.
-		Representamos al autómata de la siguiente manera donde $b_{i} \in B$ genérico y $b \in B \cup \{1\}$ entonces si $b_{i} \cdot b$ es el producto en $F$ de ambos generadores
+		Representamos al autómata de la siguiente manera donde $b_{i}, b_{j} \in B$ entonces si $b_{i} \cdot b_{j}$ es el producto en $F$ de ambos generadores nuestro automáta lo describimos de la siguiente manera
 		
 		\begin{center}
 			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=6.5cm,
@@ -312,29 +311,43 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 				\node[state,accepting] (q_1) [right of=q_0] {$q_1$};
 				
 				\path 
-				(q_1) edge    [bend right,swap]          node {$b_{i}, b \mid b_{i} \cdot b $ \ } (q_0)
-				(q_0) edge    [bend right, swap]          node {$\epsilon, 1 \mid \epsilon $ \ } (q_1)
-				(q_0) edge    [loop above]          node {$b_{i}, b \mid  b_{i} \cdot b$ \ }  (q_0)
+				(q_1) edge    [bend right,swap]          node {$b_{i}, b_{j} \mid b_{i} \cdot b_{j} $ \ } (q_0)
+				(q_0) edge    [bend right, swap]          node {$\epsilon, 1 \mid 1 $ \ } (q_1)
+				(q_0) edge    [loop above]          node {$b_{i}, b_{j} \mid  b_{i} \cdot b_{j}$ \ }  (q_0)
 				(q_1) edge    [loop above]          node {$\epsilon, \$ \mid \epsilon   $ \ }  (q_1);;
 				
 			\end{tikzpicture}
 		\end{center}
 		
-				
-		Consideremos el lenguaje aceptado por estado final, esto es:
+		Notemos que este automáta es determinístico.				
+		Consideramos el lenguaje aceptado por estado final, esto es:
 		\[
-		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)  \}.
+		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{0}, \epsilon, y)  \}.
 		\]
-		donde en particular notamos que $w \in L(\cal M)$ si y solo sí $w \in N(\cal M)$. 
-		Esto nos dice que si $(q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)$ entonces $y = \epsilon$.
-		En particular $\cal M$ es un autómata especial determinístico.
 		
-		Notemos que $L({\cal M}) = WP(F,B)$ porque si $w \in L(\cal M)$ entonces
-		\[
-			(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1) \vdash (q_{1},\epsilon, \epsilon)
-		\]
-		donde en en el estado $q_{0}$ apilamos a $w$ y hacemos el producto en el grupo libre en la pila.
-		De esta manera $w \in L({\cal M}) \iff w \in WP(F,B)$.
+		Probamos las siguientes dos observaciones:
+		\begin{enumerate}[a)]
+			\item Sea $w = w_{1}w_{2} \in B^*$ luego 
+			$(q_{0},w,1) \overset{*}{\vdash} (q,w_{2},\pi(w_{1}))$ si $q \in \{q_{0},q_{1}\}$.
+			
+			Para probar esto lo hacemos por inducción en la longitud de la derivación.
+			Supongamos que $w = bw'$ con $w' \in B^*$ caso contrario no hay nada que probar.
+			Para el caso base tenemos que $(q_{0},bw',1) \vdash (q_{0},w',b)$ donde $w_{1} = b_{i}$ y $w_{2} = w'$.
+			
+			Para el paso inductivo se sigue de manera idéntica.
+			Supongamos que vale que: \newline			
+			$(q_{0},w_{1}w_{2},1) \overset{*}{\vdash} (q, w_{2}, \pi(w_{1}))$ para $p\in \{ q_{0}, q_{1}\}$.
+			Sea $w_{2}=b_{i}w_{2}'$ luego si $p,q \in \{ q_{0}, q_{1}\}$ y tenemos que $(q,w_{2},\pi(w_{1})) \overset{*}{\vdash} (p,w_{2}',\pi(w_{1}) \cdot b_{i})$.
+			
+			\item Si $(q_{0},w,1) \overset{*}{\vdash} (q_{1},v,\gamma)$ entonces $\gamma = 1$.
+			Esto se sigue de la definición de la función de transición.
+		\end{enumerate}
+		
+		Si juntamos ambas observaciones \textbf{a)} y \textbf{b)} entonces obtenemos que si $w \in L(\cal M)$ luego \newline 
+		$(q_{0},w,1) \overset{*}{\vdash} (q_{1},\epsilon,1)$ lo que nos dice que $\pi(w) = 1$ y esto nos dice que $w \in WP(F, B)$.
+		Para la otra contención usamos que es un \APD por lo tanto cada palabra se puede consumir de una única forma.
+		Dada $w \in WP(F, B)$ tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q_{1}, \epsilon, 1)$.
+		
 		
 		\item 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
 		Si tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
