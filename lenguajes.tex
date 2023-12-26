@@ -290,18 +290,20 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 \begin{ej} Consideremos los siguientes ejemplos.	
 	\begin{enumerate}[E1.]
 		\item 
-		Dado $F$ grupo libre generado por un conjunto finito $A$ tal que $1 \notin A$. 
+		Sea $F$ grupo libre generado por un conjunto finito $A$ tal que $1 \notin A$. 
 		Sea  $B = A \cup A^{-1}$ el conjunto de generadores simétrico de $A$ y sea $\pi:B^* \to G$. 
+		Dada $w \in B^*$ notaremos $\pi(w)$ a la palabra reducida que representa el mismo elemento que $w$ en el grupo $G$.
 		Probemos que ${WP}(F,B)$ es un lenguaje independiente de contexto.
 		
 		Consideremos el siguiente autómata de pila,
 		\[
-		M = (\{ q_{0},q_{1} \}, B, B \cup \{ 1, \$ \}, \delta, \$, \{q_{1}\}).
+		M = (\{ q_{0},q_{1} \}, B, B \cup \{ 1 \}, \delta, 1, \{q_{1}\}).
 		\]
 		
 		Por como lo definimos tiene dos estados y solamente uno es final.
-		El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1 , \$ \}$ donde $\$$ es el símbolo inicial de la pila.
-		Representamos al autómata de la siguiente manera donde $b_{i}, b_{j} \in B$ entonces si $b_{i} \cdot b_{j}$ es el producto en $F$ de ambos generadores nuestro automáta lo describimos de la siguiente manera
+		El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1 , \$ \}$ donde $1$ es el símbolo inicial de la pila.
+		Representamos al autómata de la siguiente manera: sean $b_{i}, b_{j} \in B$ luego notamos $b_{i} \cdot b_{j}$ la concatenación en el monoide libre $B^*$ de ambos elementos. 
+		El autómata lo describimos de la siguiente manera: 
 		
 		\begin{center}
 			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=6.5cm,
@@ -311,46 +313,53 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 				\node[state,accepting] (q_1) [right of=q_0] {$q_1$};
 				
 				\path 
-				(q_1) edge    [bend right,swap]          node {$b_{i}, b_{j} \mid b_{i} \cdot b_{j} $ \ } (q_0)
+				(q_1) edge    [bend right,swap]          node {$b_{i}, 1 \mid b_{i} \cdot 1 $ \ } (q_0)
 				(q_0) edge    [bend right, swap]          node {$\epsilon, 1 \mid 1 $ \ } (q_1)
 				(q_0) edge    [loop above]          node {$b_{i}, b_{j} \mid  b_{i} \cdot b_{j}$ \ }  (q_0)
-				(q_1) edge    [loop above]          node {$\epsilon, \$ \mid \epsilon   $ \ }  (q_1);;
+				(q_0) edge    [loop below]          node {$b_{i}, b_{i}^{-1} \mid  \epsilon$ \ }  (q_0);
 				
 			\end{tikzpicture}
 		\end{center}
 		
 		Notemos que este automáta es determinístico.				
-		Consideramos el lenguaje aceptado por estado final, esto es:
+		Consideramos el lenguaje aceptado por estado final
 		\[
-		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{0}, \epsilon, y)  \}.
+		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)  \}.
 		\]
 		
 		Probamos las siguientes dos observaciones:
 		\begin{enumerate}[a)]
-			\item Sea $w = w_{1}w_{2} \in B^*$ luego 
-			$(q_{0},w,1) \overset{*}{\vdash} (q,w_{2},\pi(w_{1}))$ si $q \in \{q_{0},q_{1}\}$.
+			\item Sea $w = w_{1}w_{2} \in B^*$ luego si
+			$(q_{0},w,1) \overset{*}{\vdash} (q,w_{2},u)$ para $q \in \{q_{0},q_{1}\}$ entonces $u = \pi(w_{1})$.
 			
 			Para probar esto lo hacemos por inducción en la longitud de la derivación.
-			Supongamos que $w = bw'$ con $w' \in B^*$ caso contrario no hay nada que probar.
-			Para el caso base tenemos que $(q_{0},bw',1) \vdash (q_{0},w',b)$ donde $w_{1} = b_{i}$ y $w_{2} = w'$.
+			Supongamos que $|w| \ge 1$ caso contrario no hay nada que probar.
+			Sea entonces $w = bw'$ con $w' \in B^*$ y $b \in B$.
+			En este caso $w_{1} = b$ y $w_{2} = w'$.
+			Para el caso base tenemos que $(q_{0},bw',1) \vdash (q_{0},w',b)$ donde usamos que $\pi(b) = b$ dado que $1 \notin B$.
+			
 			
 			Para el paso inductivo se sigue de manera idéntica.
 			Supongamos que vale que: \newline			
-			$(q_{0},w_{1}w_{2},1) \overset{*}{\vdash} (q, w_{2}, \pi(w_{1}))$ para $p\in \{ q_{0}, q_{1}\}$.
-			Sea $w_{2}=b_{i}w_{2}'$ luego si $p,q \in \{ q_{0}, q_{1}\}$ y tenemos que $(q,w_{2},\pi(w_{1})) \overset{*}{\vdash} (p,w_{2}',\pi(w_{1}) \cdot b_{i})$.
+			$(q_{0},w_{1}w_{2},1) \overset{*}{\vdash} (q, w_{2}, \pi(w_{1}))$ para $q\in \{ q_{0}, q_{1}\}$.
+			Sea $w_{2}=bw_{2}'$ luego si $p,q \in \{ q_{0}, q_{1}\}$ y tenemos que $(q,w_{2},\pi(w_{1})) \overset{*}{\vdash} (p,w_{2}',\pi(w_{1}) \cdot b)$.
 			
 			\item Si $(q_{0},w,1) \overset{*}{\vdash} (q_{1},v,\gamma)$ entonces $\gamma = 1$.
 			Esto se sigue de la definición de la función de transición.
+			
+			\item Toda palabra $w \in B^*$ es tal que $(q_{0},w,1) \overset{*}{\vdash} (q,\epsilon,u)$ para $q \in \{q_{0}, q_{1}\} $ y $u \in B^*$. 
 		\end{enumerate}
 		
 		Si juntamos ambas observaciones \textbf{a)} y \textbf{b)} entonces obtenemos que si $w \in L(\cal M)$ luego \newline 
 		$(q_{0},w,1) \overset{*}{\vdash} (q_{1},\epsilon,1)$ lo que nos dice que $\pi(w) = 1$ y esto nos dice que $w \in WP(F, B)$.
 		Para la otra contención usamos que es un \APD por lo tanto cada palabra se puede consumir de una única forma.
-		Dada $w \in WP(F, B)$ tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q_{1}, \epsilon, 1)$.
+		Por la observación \textbf{a)} y por la observación \textbf{c)} tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q,\epsilon,1)$ dado que $\pi(w) = 1$.
+		Si $q = q_{1}$ ya está porque en este caso $w \in L(\cal M)$. 
+		Notemos que si $q = q_{0}$ entonces tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1) \vdash (q_{1},\epsilon,1)$ tal como queríamos ver.
 		
 		
 		\item 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
-		Si tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ tal que tenemos un morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
+		Tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ con morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
 		Bajo esta presentación 
 		\[
 		WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
@@ -363,10 +372,10 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 		\[
 		uvwxy = a^nb^nc^n
 		\]
-		si $|vwx| \le n$ implica que no todas las letras aparecen en $vwx$.
+		tal que $|vwx| \le n$, esto implica que no todas las letras aparecen en $vwx$.
 		Supongamos que la letra que no aparece es $c$.
-		Por otro lado como $|vx| \le 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
-		Si tomamos $i=0$ notamos que la palabra $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque la cantidad de $c$ en esta palabra es mayor que de $a$ o $b$.
+		Por otro lado como $|vx| \ge 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
+		Si tomamos $i=0$ esto implicaría que $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque $|uwy|_{c} > |uwy|_{a}$ y $|uwy|_{c} > |uwy|_{b}$.
 	\end{enumerate}
 \end{ej}
 
@@ -402,10 +411,10 @@ El siguiente lema nos va decir que los grupos de índice finito tienen finitos c
 	[G:N_G(H)] \le [G:H] < \infty.
 	\]
 	
-	Para probar la otra afirmación definimos la siguiente función hacia los cosets a izquierda del normalizador desde el conjunto $S$,
+	Para probar la otra afirmación definimos la siguiente función:
 	\begin{align*}
 		S  &\to  G/N_G(H)  \\
-		sHs^{-1} &\mapsto sN_G(H)
+		sHs^{-1} &\mapsto sN_G(H).
 	\end{align*}
 	Veamos que es biyectiva viendo que es inyectiva ya que $G/N_{G}(H)$ es un conjunto finito.
 	
@@ -429,8 +438,7 @@ Este lema nos permite intersecar finitos grupos de índice finito para conseguir
 	En el caso base tenemos dos subgrupos $H,K$ de índice finito.
 	Primero notamos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
 	Como  $|KH / H| \le |G / H| < \infty$ dado que $H$ tiene índice finito obtenemos así que $|K / K \cap H| < \infty$.
-	
-	Por una propiedad de los índices obtenemos lo siguiente
+	Por una propiedad de los índices \ref{} obtenemos lo siguiente
 	\[
 	[G:K\cap H] = [G:K][K: K \cap H]
 	\]
@@ -550,7 +558,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	\[
 		W = A \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}
 	\]
-	Vamos a probar que $G \equiv \langle W \mid R \rangle$ 
+	Vamos a probar que $G \equiv \langle W \mid R \rangle$. 
 	Denotamos a este grupo presentado como $H = \langle W \mid R \rangle$ y sea $F_{W}$ el grupo libre sobre sus generadores.
 	
 	Notemos que $W$ genera a $G$ porque
