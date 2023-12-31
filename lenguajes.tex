@@ -321,13 +321,13 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 			\end{tikzpicture}
 		\end{center}
 		
-		Notemos que este automáta es determinístico.				
+		Notemos que este autómata es determinístico.				
 		Consideramos el lenguaje aceptado por estado final
 		\[
 		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)  \}.
 		\]
 		
-		Probamos las siguientes dos observaciones:
+		Probamos las siguientes observaciones:
 		\begin{enumerate}[a)]
 			\item Sea $w = w_{1}w_{2} \in B^*$ luego si
 			$(q_{0},w,1) \overset{*}{\vdash} (q,w_{2},u)$ para $q \in \{q_{0},q_{1}\}$ entonces $u = \pi(w_{1})$.
@@ -346,8 +346,10 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 			
 			\item Si $(q_{0},w,1) \overset{*}{\vdash} (q_{1},v,\gamma)$ entonces $\gamma = 1$.
 			Esto se sigue de la definición de la función de transición.
+			\todo[]{Agregar detalle.}
 			
 			\item Toda palabra $w \in B^*$ es tal que $(q_{0},w,1) \overset{*}{\vdash} (q,\epsilon,u)$ para $q \in \{q_{0}, q_{1}\} $ y $u \in B^*$. 
+			\todo{Agregar detalle.}
 		\end{enumerate}
 		
 		Si juntamos ambas observaciones \textbf{a)} y \textbf{b)} entonces obtenemos que si $w \in L(\cal M)$ luego \newline 
@@ -438,7 +440,7 @@ Este lema nos permite intersecar finitos grupos de índice finito para conseguir
 	En el caso base tenemos dos subgrupos $H,K$ de índice finito.
 	Primero notamos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
 	Como  $|KH / H| \le |G / H| < \infty$ dado que $H$ tiene índice finito obtenemos así que $|K / K \cap H| < \infty$.
-	Por una propiedad de los índices \ref{} obtenemos lo siguiente
+	Entonces:
 	\[
 	[G:K\cap H] = [G:K][K: K \cap H]
 	\]
@@ -493,8 +495,16 @@ La intersección de los conjugados de un subgrupo resultan ser un subgrupo norma
 \begin{lema}\label{lema_int_normal}
 	Sea $G$ grupo, sea $H$ subgrupo de $G$ luego el subgrupo $K = \bigcap_{g \in G} gHg^{-1}$ es un subgrupo normal de $G$.
 \end{lema}
+
 \begin{proof}
-	Ver \cite{}.
+	Es un subgrupo porque dados $k_{1}, k_{2} \in K$ tenemos que para todo $g \in G$ vale que $k_{1} = gh_{1}g^{-1}$ y $k_{2} = gh_{2}g^{-1}$ para ciertos $h_{1},h_{2} \in H$.
+	De esta manera $k_{1}k_{2} = g h_{1}h_{2}g^{-1} \in gHg^{-1}$. 
+	Como esto lo hicimos para un $g \in G$ genérico concluimos que $k_{1}k_{2} \in K$ tal como queríamos ver.
+	
+	Para ver que es normal consideramos la acción de $G$ sobre los cosets de $K$ en $G$ por multiplicación a izquierda.
+	Sea $\phi:G \to G/K$ esta acción luego $\ker(\phi) = \{  k \in G \mid kgH = gH, \ \forall g \in G \}$. 
+	Esto nos dice que $k \in \ker(\phi) \iff \forall g \in G, \exists h_{g} \in H. \ kg = gh_{g}$ y esto implica que $k = gh_{g}g^{-1}$ para todo $g \in G$.
+	De esta manera probamos que $K = \ker(\phi)$ y por lo tanto vimos que $K$ es normal.
 \end{proof}
 
 Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser cerrada por subgrupos de índice finito y que a su vez los subgrupos libres pueden ser tomados para que sean normales.
@@ -532,8 +542,8 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 
 
 \begin{obs}\label{obs_presentacion_vl}
-	Dado $G$ \vl \ vamos a construirnos una presentación en particular.
-	Como es un grupo \vl \ tenemos $F$ subgrupo libre que podemos tomarlo normal por \ref{prop_vls} y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
+	Dado $G$ \vl vamos a construirnos una presentación en particular.
+	Como es un grupo \vl tenemos $F$ subgrupo libre que podemos tomarlo normal por \ref{prop_vls} y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
 	\begin{center}
 		\begin{tikzcd}
 			1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & G/F \arrow[r] & 1
@@ -578,7 +588,9 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	
 	Vimos que $\ol \varphi$ es un epimorfismo, veamos ahora que es un monomorfismo.
 	Sea $w \in H$ luego queremos ver que $\ol \varphi(w) = 1 \iff w = 1$.
-	Por el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg} tenemos que podemos llevar a $w$ (vista como una palabra en $F_{W}$) a que sea de la siguiente pinta
+	Por el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg} 
+	\todo[]{No está muy bien explicado esto... No sé cómo decirlo sin hacer la cuenta de sistemas de reescritura.}
+	tenemos que podemos llevar a $w$ (vista como una palabra en $F_{W}$) a que sea de la siguiente pinta
 	\[
 		w = yt
 	\]
@@ -597,7 +609,7 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 \begin{teo}\label{teo_Muller_Schupp}\cite{muller1983groups}
 	Todo grupo virtualmente libre es independiente de contexto.
 \end{teo}
-
+\todo[]{Revisar desde acá. Quizá agregar intuición.}
 
 \begin{proof}
 	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{obs_presentacion_vl} respetando la misma notación que introducimos en esta observación.
@@ -714,11 +726,6 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
 	
 \end{proof}
-
-\begin{center}
-	\missingfigure[figwidth=6cm]{Ejemplo de un grupo que sepa hacer?}
-\end{center}
-\todo[]{Agregar citas y uno o dos párrafos precisos sobre la complejidad computacional del problema.}
 
 
 
