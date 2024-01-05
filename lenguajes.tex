@@ -609,29 +609,29 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 \begin{teo}\label{teo_Muller_Schupp}\cite{muller1983groups}
 	Todo grupo virtualmente libre es independiente de contexto.
 \end{teo}
-\todo[]{Revisar desde acá. Quizá agregar intuición.}
 
 \begin{proof}
 	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{obs_presentacion_vl} respetando la misma notación que introducimos en esta observación.
 	Para probar que es \ic vamos a construir un autómata de pila $\cal M$ de manera que  $ {\cal L(M)}= \text{WP}(G,W)$.
-	Antes de definirlo vamos a definir algunos conjuntos finitos que nos van a servir para esta construcción.
+	Antes de definirlo vamos a precisar algunos conjuntos finitos que nos van a servir para esta construcción.
 	
-	Por nuestra definición del conjunto de relaciones $R$ teníamos que para todo $t_{i}, t_{j}, t_{k} \in T, a_{j} \in A$ existían $u_{ij}, z_{ijk} \in F$ de manera que 
-	$t_j a_i = u_{ij} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
+	\todo{Podría recordar cómo era esa presentación pero siento que es un poco redundante.}
+	Por nuestra definición del conjunto de relaciones $R$ teníamos que para todo $t_{i}, t_{j}, t_{k} \in T, a_{l} \in A$ existían $u_{il}, z_{ijk} \in F$ de manera que 
+	$t_j a_i = u_{il} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
 	Sea entonces el conjunto finito 
 	\[
-		U =  \{u_{ij} : 1 \le i,j \le n\}  \cup  \{z_{ijk} : 1 \le i,j,k \le n\} 
+		U =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
 	\]
 	donde tomamos la escritura de todas las palabras en $U$ para que sean reducidas.
 	Sea $B = A \cup A^{-1}$ el conjunto simétrico de generadores de $A$.
 	Consideremos 
 	\[
-		U/B^* = \{ u' \in B^* : \exists v \in B^*, \  u'v \in U  \}
+		\text{Pre}(U) = \{ u \in B^* : \exists v \in B^*, \  uv \in U  \}
 	\]
 	el conjunto de los prefijos de las palabras en $U$  tal que es un conjunto finito también.
-	Sea entonces $Q = T \times (T \cup A) \times U/B^* $.
+	Sea entonces $Q = T \times (T \cup A) \times \text{Pre}(U)$.
 	
-	Con estas definiciones ya podemos definir al autómata
+	Con estas definiciones ya podemos especificar al autómata
 	\[
 	{\cal M }= (Q, W , B \cup \{ 1 \}, \delta, (1,1,1), 1 ,\{(1,1,1)\})
 	\]
@@ -648,12 +648,11 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 		 ((t_k,t_i,1), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
 	\end{cases}\]
 	de manera que si estamos en $T \times \{ 1 \} \times \{ 1 \}$ podemos pasar a la segunda coordenada correspondiente a la letra de $W$ que hayamos leído.	
-	Ahora en esta instancia lo que vamos a hacer es la reducción del producto de $u_{ij} \cdot v$ en el caso del estado $(t_j,a_i,1)$ o bien el de $z_{ijk} \cdot v$ en el caso del estado $(t_k,t_i,1)$.
-	Esta reducción la hacemos una letra a la vez.
-	Sea entonces $v \in U$ la palabra correspondiente al estado $(t_{j},w_{i},1)$.
+	Ahora en esta instancia lo que vamos a hacer es la reducción, una letra a la vez, del producto de $u_{kj} \cdot v$ en el caso del estado $(t_k,a_i,1)$ o bien el de $z_{ijk} \cdot v$ en el caso del estado $(t_k,t_i,1)$.
+	Sea entonces $v \in U$ la palabra correspondiente al estado $(t_{j},w_{i},1)$, es decir que si $w_{i} = a_{i}$ entonces $v = u_{ij}$ mientras que si $w_{i} = t_{i}$ entonces $v = z_{ijk}$. 
 	En este caso obtenemos:
 	\begin{equation*}
-		\delta(\epsilon,(t_j,w_i,u), s) = ((t_j,w_i,u a_i), v \cdot a_i ) \quad \ \text{si} \ ua_{i} \in \text{Pre}(v).
+		\delta(\epsilon,(t_j,w_i,u), s) = ((t_j,w_i,u a_i), s \cdot a_i ) \quad \ \text{si} \ ua_{i} \in \text{Pre}(v).
 	\end{equation*}
 	siempre y cuando $ua_i$ sea un prefijo de la palabra de $U$ correspondiente.
 	La notación $v \cdot a_{i}$ representa el producto de $v \in F$ con $a_{i}$ un generador en $F$.
@@ -663,19 +662,14 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 	\begin{equation*}
 		\delta(\epsilon,(t_j,w_i,v), s) = ((t_j,1,1), s) \quad \ \text{si} \ v \in U.		
 	\end{equation*}
-	en el caso que $v \in U$, es decir que ya hicimos toda la reducción.
-	Finalmente definimos 
-	\[
-		\delta (\epsilon, (1,1,1), 1) = ((1,1,1), \epsilon)
-	\]
-	para poder terminar de vaciar la pila y así poder aceptar por pila vacía también.
+
 	
 	Con esto tenemos definida la función de transición y así al autómata $\cal M$. 
 	Notemos que por como lo definimos resulta ser un autómata de pila determinístico.
 		
-	Una vez definido este autómata consideremos ahora el lenguaje aceptado por pila vacía y estado final a la vez:
+	Una vez definido este autómata consideremos ahora el lenguaje aceptado por estado final:
 	\[
-	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), \epsilon)  \}
+	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), s)  \}.
 	\]
 	Debemos ver que el autómata acepta justamente al lenguaje que queremos. 
 	Esto es que $ {\cal L }(M) = \text{WP}(G,W) $ 
