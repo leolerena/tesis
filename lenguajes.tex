@@ -592,60 +592,46 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	\todo[]{No está muy bien explicado esto... No sé cómo decirlo sin hacer la cuenta de sistemas de reescritura.}
 	tenemos que podemos llevar a $w$ (vista como una palabra en $F_{W}$) a que sea de la siguiente pinta
 	\[
-		w = yt
+		w = ts
 	\]
-	donde $y \in F$ reducida y $t \in T$.
+	donde $s \in F$ reducida y $t \in T$.
 	Por lo tanto $\ol \varphi (w) = \ol \varphi(yt) = yt$.
 	Entonces $yt=1$ si y solamente si $y=1$ y $t=1$. 
 	Esto nos dice que $\ol \varphi(w) = 1$ si y solamente si $w=1$. 
 	Concluimos así que $\ol \varphi$ es un isomorfismo de grupos tal como queríamos ver y por lo tanto  $\langle W \mid R \rangle$ resultó ser una presentación de $G$.
 \end{obs}
-\medskip
-
-Ya estamos en condiciones de probar uno de los resultados centrales de este trabajo.
-
-
-
-\begin{teo}\label{teo_Muller_Schupp}\cite{muller1983groups}
-	Todo grupo virtualmente libre es independiente de contexto.
-\end{teo}
-
-\begin{proof}
+	\medskip
 	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{obs_presentacion_vl} respetando la misma notación que introducimos en esta observación.
-	Para probar que es \ic vamos a construir un autómata de pila $\cal M$ de manera que  $ {\cal L(M)}= \text{WP}(G,W)$.
-	Antes de definirlo vamos a precisar algunos conjuntos finitos que nos van a servir para esta construcción.
 	
-	\todo{Podría recordar cómo era esa presentación pero siento que es un poco redundante.}
 	Por nuestra definición del conjunto de relaciones $R$ teníamos que para todo $t_{i}, t_{j}, t_{k} \in T, a_{l} \in A$ existían $u_{il}, z_{ijk} \in F$ de manera que 
-	$t_j a_i = u_{il} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
+	$t_j a_l = u_{il} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
 	Sea entonces el conjunto finito 
 	\[
-		U =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
+	U =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
 	\]
 	donde tomamos la escritura de todas las palabras en $U$ para que sean reducidas.
 	Sea $B = A \cup A^{-1}$ el conjunto simétrico de generadores de $A$.
 	Consideremos 
 	\[
-		\text{Pre}(U) = \{ u \in B^* : \exists v \in B^*, \  uv \in U  \}
+	\text{Pre}(U) = \{ u \in B^* : \exists v \in B^*, \  uv \in U  \}
 	\]
 	el conjunto de los prefijos de las palabras en $U$  tal que es un conjunto finito también.
-	Sea entonces $Q = T \times (T \cup A) \times \text{Pre}(U)$.
-	
-	Con estas definiciones ya podemos especificar al autómata
+	El \emph{\APD de Muller--Schupp } está definido por 
 	\[
-	{\cal M }= (Q, W , B \cup \{ 1 \}, \delta, (1,1,1), 1 ,\{(1,1,1)\})
+	{\cal M }= (Q, W , B \cup \{ 1 \}, \delta, (1,1,1), 1 ,\{(1,1,1)\}).
 	\]
+	Donde $Q = T \times (T \cup A) \times \text{Pre}(U)$.
 	El alfabeto de entrada es $W$ que es el conjunto de generadores del grupo.
 	El alfabeto de la pila es $B \cup 1$ que es el conjunto simétrico de generadores del subgrupo libre $F$.
 	Nuestro estado inicial que también es el final corresponde a $(1,1,1)$.
-	
+
 	Ahora podemos definir la función de transición. 
 	Sea $w_i \in W$ algún generador del grupo luego tenemos que
 	\[
 	\delta(w_i,(t_j,1,1), s) =
-		\begin{cases}
-		 ((t_j,a_i,1), s) \quad \text{si} \ w_{i}=a_{i} \\
-		 ((t_k,t_i,1), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
+	\begin{cases}
+		((t_j,a_i,1), s) \quad \text{si} \ w_{i}=a_{i} \\
+		((t_k,t_i,1), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
 	\end{cases}\]
 	de manera que si estamos en $T \times \{ 1 \} \times \{ 1 \}$ podemos pasar a la segunda coordenada correspondiente a la letra de $W$ que hayamos leído.	
 	Ahora en esta instancia lo que vamos a hacer es la reducción, una letra a la vez, del producto de $u_{kj} \cdot v$ en el caso del estado $(t_k,a_i,1)$ o bien el de $z_{ijk} \cdot v$ en el caso del estado $(t_k,t_i,1)$.
@@ -661,66 +647,66 @@ Ya estamos en condiciones de probar uno de los resultados centrales de este trab
 	Para eso tenemos 
 	\begin{equation*}
 		\delta(\epsilon,(t_j,w_i,v), s) = ((t_j,1,1), s) \quad \ \text{si} \ v \in U.		
-	\end{equation*}
-
-	
-	Con esto tenemos definida la función de transición y así al autómata $\cal M$. 
+	\end{equation*}	
 	Notemos que por como lo definimos resulta ser un autómata de pila determinístico.
-		
-	Una vez definido este autómata consideremos ahora el lenguaje aceptado por estado final:
+
+
+	Vamos a probar una propiedad importante que cumple este autómata.
+	\begin{lema}\label{lema_MuSc_invariante}
+	 Sea $w \in W^*$ tal que $ w = uv $ entonces si consideramos una configuración de la pinta
+		\[
+			(v, (t_{k},1,1), s)
+		\]
+		vale que $u = t_{k}s$.
+	\end{lema}
+	
+	\begin{proof}
+		Lo probamos por inducción.
+		En el caso base $|u| = 1$.
+		Separamos en dos subcasos. 
+		En el primer subcaso $u = a_{i} \in B$.
+		\[
+		(a_{i}v, ( 1,1,1), 1 ) \vdash (v, (1,a_{i},1),1) \vdash (v,(1,a_{i},a_{i}),a_{i}) \vdash (v, (1,1,1), a_{i})
+		\]
+		tal que $1 \cdot a_{i} = a_{i}$ tal como queríamos ver.
+		El otro subcaso corresponde a que $u = t_{j} \in T$.
+		\[
+		(t_{i}v, (1,1,1), 1) \vdash (v, (t_{i},t_{i},1),1) \vdash (v,(t_{i},t_{i},1),1) \vdash (v, (t_{i},1,1), 1)
+		\]
+		donde usamos que $z_{1i1} = 1$ y cumple que $t_{i} \cdot 1 = t_{i}$ tal como queríamos ver.
+		El paso inductivo es idéntico al caso base.
+	\end{proof}
+	
+	
+	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la observación \ref{obs_presentacion_vl} para transformar una palabra $w \in W^*$ en $w = ts$ con $s \in F, t \in T$.
+	
+	Ya estamos en condiciones de probar el resultado central de este capítulo.
+
+\begin{teo}\label{teo_Muller_Schupp}\cite{muller1983groups}
+	Todo grupo virtualmente libre es independiente de contexto.
+\end{teo}
+
+\begin{proof}
+	Para probar que es \ic vamos a probar que el \APD de Muller--Schupp $\cal M$ cumple que ${\cal L(M)}= \text{WP}(G,W)$.
+	Consideremos ahora el lenguaje aceptado por estado final y por palabra en la pila $1$:
 	\[
-	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), s)  \}.
+	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), 1)  \}.
 	\]
 	Debemos ver que el autómata acepta justamente al lenguaje que queremos. 
 	Esto es que $ {\cal L }(M) = \text{WP}(G,W) $ 
 	
-	Sea $w \in W^*$ entonces veamos que el autómata $\cal M$ hace las operaciones que describimos en la observación \ref{obs_presentacion_vl} para reescribir a $w = st$ donde $s \in F$ reducida y $t \in T$.
-	Para esto veamos primero dos observaciones del funcionamiento de este autómata.
+	Si $w \in L(\cal M)$ entonces $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (1,1,1), 1)$ y por lo tanto por el lema \ref{lema_MuSc_invariante} obtenemos que $w = 1$ y así que $w \in \text{WP}(G,W)$.
 	
-	\begin{enumerate}[i)]
-		\item Primero notamos que si $w = a_{i}w'$ donde $a_{i} \in B$ entonces tenemos la siguiente derivación:
-		\[
-		(a_{i}w', ( 1,1,1), 1 ) \vdash (w', (1,a_{i},1),1) \vdash (w',(1,a_{i},a_{i}),a_{i}) \vdash (w', (1,1,1), a_{i})
-		\]
-		donde usamos que $u_{1i} = a_{i}$
-		y similarmente en el caso que $w = t_{i}w'$ donde $t_{i} \in T$ tenemos la siguiente derivación:
-		\[
-		(t_{i}w', (1,1,1), 1) \vdash (w', (t_{i},t_{i},1),1) \vdash (w',(t_{1},t_{i},1),1) \vdash (w', (t_{i},1,1), 1)
-		\]
-		donde usamos que $z_{1i1} = 1$.
-		
-		\item Por otro lado observemos que dada una configuración del tipo $(w, ( t_{k}, w_{i}, u), s)$ con $w_{i} \neq 1$ entonces separamos en dos casos.
-		Si $w_{i} = t_{j}$ sea $v = z_{ijk}$ y si $w_{i} = a_{l}$ sea $v = u_{il}$ entonces tenemos que si $u \in \text{Pre}(v)$ de manera que $uv' = v$ entonces
-		\[
-		(w, ( t_{k}, w_{i}, u), s) \overset{*}{\vdash} (w, ( t_{k}, 1, 1), s \cdot v').
-		\]
-	\end{enumerate}
+	Si $w \in \text{WP}(G,W)$ entonces $w = 1$ en $G$ por lo que nuevamente usando el lema \ref{lema_MuSc_invariante} obtenemos que $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{i},1,1), s)$
+	y esto implica que $t_{i}s = 1$ por lo que $t_{i} = 1, s =1$ y así $w \in L(\cal M)$.
 	
-	
-	
-	
-	
-	
-	En particular de estas dos observaciones obtenemos que toda palabra $w \in W^*$ satisface que 
-	\[
-		(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t, 1,1), s)
-	\]
-	donde $s \in F$ es el elemento del grupo libre que se consigue luego de hacer todas las operaciones que describimos en la observación \ref{obs_presentacion_vl}. 
-	En particular del autómata obtenemos que si miramos la primera coordenada de nuestro estado tenemos que $w = st$.
-	
-	De esta manera $w \in {\cal L(M)} \iff w = 1 $ y así obtenemos que $WP(G,W) = \cal L(M)$ tal como queríamos ver.
-	
-	
-%	Dada una palabra $w \in W^*$ por como es esta presentación sabemos que se puede escribir como $w = vt$ donde $v \in F$ reducida y $t \in  T$. 
-%	De esta manera $w \in \text{WP}(G,W)$ si y solo si $v=1, t=1$.
-%	Notemos que el autómata en toda transición no hace más que reescribir la cadena de izquierda a derecha tal como hicimos en la observación \ref{obs_presentacion_vl}.
-%	Esto es que cuando termina de consumir la cadena de entrada llegamos a la configuración $(1, t_i, v)$ es decir que $w = vt_i$.
-%	Por lo tanto como aceptamos por estado final y pila vacía esto nos dice que $w \in \text{WP}(G,W)$ si y solo sí $w \in {\cal L}(M)$.
 	
 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
 	
 \end{proof}
 
+Siendo más precisos probamos algo más fuerte que lo enunciado en el teorema.
+A saber, los lenguajes que son el problema de la palabra de un grupo virtualmente libre son lenguajes determinísticos independientes de contexto especiales.
 
 
 
