@@ -160,7 +160,7 @@ Precisamente probaremos que los lenguajes \ic como familia son cerrados por imá
 	\]
 	entonces de nuevo por el mismo razonamiento que hicimos para el caso base tenemos probada la afirmación.
 	
-	Para concluir la demostración notamos que por nuestra afirmación si $w \in L(\cal M')$ entonces existe $q \in F$ tal que $ ((q_0, \epsilon),w,z) \vdash^*_{\cal M'} ((q,\epsilon) $ y esto sucede sí y solo sí $(q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma)$, dicho de otra forma que $h(w) \in L(\cal M)$.	
+	Para concluir la demostración notamos que por nuestra afirmación si $w \in L(\cal M')$ entonces existe $q \in F$ tal que $ ((q_0, \epsilon),w,z) \vdash^*_{\cal M'} (q,\epsilon) $ y esto sucede sí y solo sí $(q_0,h(w), z) \vdash^*_{\cal M} (q, \sigma)$, dicho de otra forma que $h(w) \in L(\cal M)$.	
 	Entonces $w \in L(\cal M')$ si y solo si $h(w) \in L$.
 	Esto nos dice que el lenguaje aceptado por estado final de $\cal M'$ resulta ser $L' = \{ w \in \Delta^* : h(w) \in L \} = h^{-1}(L)$.
 \end{proof}
@@ -287,99 +287,94 @@ Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \
 	Si $G$ es un \fg generado por un conjunto finito $\Sigma$ y el lenguaje $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo independiente de contexto}.
 \end{deff}
 
-\begin{ej} Consideremos los siguientes ejemplos.	
-	\begin{enumerate}[E1.]
-		\item 
-		Sea $F$ grupo libre generado por un conjunto finito $A$ tal que $1 \notin A$. 
-		Sea  $B = A \cup A^{-1}$ el conjunto de generadores simétrico de $A$ y sea $\pi:B^* \to G$. 
-		Dada $w \in B^*$ notaremos $\pi(w)$ a la palabra reducida que representa el mismo elemento que $w$ en el grupo $G$.
-		Probemos que ${WP}(F,B)$ es un lenguaje independiente de contexto.
-		
-		Consideremos el siguiente autómata de pila,
-		\[
-		M = (\{ q_{0},q_{1} \}, B, B \cup \{ 1 \}, \delta, 1, \{q_{1}\}).
-		\]
-		
-		Por como lo definimos tiene dos estados y solamente uno es final.
-		El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1 , \$ \}$ donde $1$ es el símbolo inicial de la pila.
-		Representamos al autómata de la siguiente manera: sean $b_{i}, b_{j} \in B$ luego notamos $b_{i} \cdot b_{j}$ la concatenación en el monoide libre $B^*$ de ambos elementos. 
-		El autómata lo describimos de la siguiente manera: 
-		
-		\begin{center}
-			\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=6.5cm,
-				scale = 1,transform shape]
-				
-				\node[state,initial] (q_0) {$q_0$};
-				\node[state,accepting] (q_1) [right of=q_0] {$q_1$};
-				
-				\path 
-				(q_1) edge    [bend right,swap]          node {$b_{i}, 1 \mid b_{i} \cdot 1 $ \ } (q_0)
-				(q_0) edge    [bend right, swap]          node {$\epsilon, 1 \mid 1 $ \ } (q_1)
-				(q_0) edge    [loop above]          node {$b_{i}, b_{j} \mid  b_{i} \cdot b_{j}$ \ }  (q_0)
-				(q_0) edge    [loop below]          node {$b_{i}, b_{i}^{-1} \mid  \epsilon$ \ }  (q_0);
-				
-			\end{tikzpicture}
-		\end{center}
-		
-		Notemos que este autómata es determinístico.				
-		Consideramos el lenguaje aceptado por estado final
-		\[
-		L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{1}, \epsilon, y)  \}.
-		\]
-		
-		Probamos las siguientes observaciones:
-		\begin{enumerate}[a)]
-			\item Sea $w = w_{1}w_{2} \in B^*$ luego si
-			$(q_{0},w,1) \overset{*}{\vdash} (q,w_{2},u)$ para $q \in \{q_{0},q_{1}\}$ entonces $u = \pi(w_{1})$.
+Construyamos algunos ejemplos de grupos independientes de contexto.
+\begin{prop}
+	Todo grupo libre $F$ finitamente generado es independiente de contexto.
+\end{prop}
+\begin{proof}
+			Sea $F$ grupo libre generado por un conjunto finito $A$ tal que $1 \notin A$. 
+	Sea  $B = A \cup A^{-1}$ el conjunto de generadores simétrico de $A$ y sea $\pi:B^* \to G$. 
+	Dada $w \in B^*$ notaremos $\pi(w)$ a la palabra reducida que representa el mismo elemento que $w$ en el grupo $G$.
+	
+	Probemos que ${WP}(F,B)$ es un lenguaje independiente de contexto construyendo un autómata de pila $\cal M$ tal que acepte a este lenguaje.
+	Consideremos el siguiente autómata de pila:
+	\[
+	{\cal M} = (\{ q_{0} \}, B, B \cup \{ 1 \}, \delta, q_{0}, \{q_{0}\}, 1,). 
+	\]
+	
+	Por como lo definimos tiene un solo estado que es final e inicial.
+	El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1 , \$ \}$ donde $1$ es el símbolo inicial de la pila.
+	Representamos al autómata de la siguiente manera: sean $b_{i}, b_{j} \in B$ luego notamos $b_{i} \cdot b_{j}$ la concatenación en el monoide libre $B^*$ de ambos elementos. 
+	El autómata lo describimos de la siguiente manera: 
+	
+	\begin{center}
+		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=6.5cm,
+			scale = 1,transform shape]
 			
-			Para probar esto lo hacemos por inducción en la longitud de la derivación.
-			Supongamos que $|w| \ge 1$ caso contrario no hay nada que probar.
-			Sea entonces $w = bw'$ con $w' \in B^*$ y $b \in B$.
-			En este caso $w_{1} = b$ y $w_{2} = w'$.
-			Para el caso base tenemos que $(q_{0},bw',1) \vdash (q_{0},w',b)$ donde usamos que $\pi(b) = b$ dado que $1 \notin B$.
+			\node[state,initial,accepting] (q_0) {$q_0$};
 			
+			\path 
+			(q_0) edge    [loop above]          node {$b_{i}, b_{j} \mid  b_{i} \cdot b_{j}$ \ }  (q_0)
+			(q_0) edge    [loop below]          node {$b_{i}, b_{i}^{-1} \mid  \epsilon$ \ }  (q_0);
 			
-			Para el paso inductivo se sigue de manera idéntica.
-			Supongamos que vale que: \newline			
-			$(q_{0},w_{1}w_{2},1) \overset{*}{\vdash} (q, w_{2}, \pi(w_{1}))$ para $q\in \{ q_{0}, q_{1}\}$.
-			Sea $w_{2}=bw_{2}'$ luego si $p,q \in \{ q_{0}, q_{1}\}$ y tenemos que $(q,w_{2},\pi(w_{1})) \overset{*}{\vdash} (p,w_{2}',\pi(w_{1}) \cdot b)$.
-			
-			\item Si $(q_{0},w,1) \overset{*}{\vdash} (q_{1},v,\gamma)$ entonces $\gamma = 1$.
-			Esto se sigue de la definición de la función de transición.
-			\todo[]{Agregar detalle.}
-			
-			\item Toda palabra $w \in B^*$ es tal que $(q_{0},w,1) \overset{*}{\vdash} (q,\epsilon,u)$ para $q \in \{q_{0}, q_{1}\} $ y $u \in B^*$. 
-			\todo{Agregar detalle.}
-		\end{enumerate}
-		
-		Si juntamos ambas observaciones \textbf{a)} y \textbf{b)} entonces obtenemos que si $w \in L(\cal M)$ luego \newline 
-		$(q_{0},w,1) \overset{*}{\vdash} (q_{1},\epsilon,1)$ lo que nos dice que $\pi(w) = 1$ y esto nos dice que $w \in WP(F, B)$.
-		Para la otra contención usamos que es un \APD por lo tanto cada palabra se puede consumir de una única forma.
-		Por la observación \textbf{a)} y por la observación \textbf{c)} tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q,\epsilon,1)$ dado que $\pi(w) = 1$.
-		Si $q = q_{1}$ ya está porque en este caso $w \in L(\cal M)$. 
-		Notemos que si $q = q_{0}$ entonces tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1) \vdash (q_{1},\epsilon,1)$ tal como queríamos ver.
-		
-		
-		\item 	$\ZZ \times \ZZ$ no es un grupo independiente de contexto.
-		Tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ con morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
-		Bajo esta presentación 
-		\[
-		WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
-		\]
-		Este lenguaje no es independiente de contexto.
-		Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
-		Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipotesis del lema.
-		Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
-		Si tenemos una factorización 
-		\[
-		uvwxy = a^nb^nc^n
-		\]
-		tal que $|vwx| \le n$, esto implica que no todas las letras aparecen en $vwx$.
-		Supongamos que la letra que no aparece es $c$.
-		Por otro lado como $|vx| \ge 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
-		Si tomamos $i=0$ esto implicaría que $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque $|uwy|_{c} > |uwy|_{a}$ y $|uwy|_{c} > |uwy|_{b}$.
-	\end{enumerate}
-\end{ej}
+		\end{tikzpicture}
+	\end{center}
+	
+	Notemos que este autómata es determinístico.				
+	Consideramos el lenguaje aceptado por estado final y por $1$ en la pila
+	\[
+	L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{0}, \epsilon, 1)  \}.
+	\]
+	
+	Probamos la siguiente observación.
+	Sea $w = uv \in B^*$ luego si
+	$(q_{0},uv,1) \overset{*}{\vdash} (q,v,u')$ entonces $u' = \pi(u)$.
+	
+	Para probar esto lo hacemos por inducción en la longitud de $u$.
+	Supongamos que $|w| \ge 1$ caso contrario no hay nada que probar.
+	Sea entonces $w = bv$ con $v \in B^*$ y $b \in B$, en este caso $u = b$.
+	Para el caso base tenemos que $(q_{0},bv,1) \vdash (q_{0},v,b)$ donde usamos que $\pi(b) = b$ dado que $1 \notin B$.
+	Para el paso inductivo se sigue de manera idéntica.
+	Supongamos que vale que: \newline			
+	$(q_{0},uv,1) \overset{*}{\vdash} (q_{0}, v, \pi(u))$.
+	Sea $v=bv'$ luego $(q,v,\pi(u)) \overset{*}{\vdash} (p,v',b \cdot \pi(u)^R)$.
+	Donde $b \cdot \pi(u)^R$ es una palabra reducida y en este caso vale que $b \cdot \pi(u)^R = (\pi(u \cdot b))^R$ tal como queríamos ver.
+	
+	
+	A partir de esta observación obtenemos que si $w \in L(\cal M)$ luego 
+	$(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1)$ lo que nos dice que $\pi(w) = 1$ y esto nos dice que $w \in WP(F, B)$.
+	Para la otra contención usamos que es un \APD por lo tanto cada palabra se puede consumir de una única forma.
+	Por la observación tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1)$ dado que $\pi(w) = 1$.
+\end{proof}
+
+En particular obtuvimos que los grupos libres tienen un problema de la palabra independiente de contexto determinístico especial.
+Más en adelante construiremos un \APD que acepta al problema de la palabra de un grupo virtualmente libre generalizando esta misma construcción.
+Veamos ahora un grupo que no es independiente de contexto.
+
+\begin{prop}
+	El grupo $\ZZ \times \ZZ$ no es independiente de contexto.
+\end{prop}
+
+\begin{proof}
+	Tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ con morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
+	Bajo esta presentación 
+	\[
+	WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
+	\]
+	Este lenguaje no es independiente de contexto.
+	Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
+	Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipótesis del lema.
+	Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
+	Si tenemos una factorización 
+	\[
+	uvwxy = a^nb^nc^n
+	\]
+	tal que $|vwx| \le n$, esto implica que no todas las letras aparecen en $vwx$.
+	Supongamos que la letra que no aparece es $c$.
+	Por otro lado como $|vx| > 0$ esto nos dice que al menos una letra aparece en la subpalabra $vx$.
+	Si tomamos $i=0$ esto implicaría que $uwy \in WP(G,\Sigma)$ pero esto es una contradicción porque $|uwy|_{c} > |uwy|_{a}$ y $|uwy|_{c} > |uwy|_{b}$.
+\end{proof}
+ 
 
 
 
@@ -566,7 +561,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	\end{enumerate}
 	Sean
 	\[
-		W = A \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}
+		W = A \cup A^{-1} \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}
 	\]
 	Vamos a probar que $G \equiv \langle W \mid R \rangle$. 
 	Denotamos a este grupo presentado como $H = \langle W \mid R \rangle$ y sea $F_{W}$ el grupo libre sobre sus generadores.
@@ -589,14 +584,29 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	Vimos que $\ol \varphi$ es un epimorfismo, veamos ahora que es un monomorfismo.
 	Sea $w \in H$ luego queremos ver que $\ol \varphi(w) = 1 \iff w = 1$.
 	Por el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg} 
-	\todo[]{No está muy bien explicado esto... No sé cómo decirlo sin hacer la cuenta de sistemas de reescritura.}
 	tenemos que podemos llevar a $w$ (vista como una palabra en $F_{W}$) a que sea de la siguiente pinta
 	\[
-		w = ts
+		w = st
 	\]
 	donde $s \in F$ reducida y $t \in T$.
-	Por lo tanto $\ol \varphi (w) = \ol \varphi(yt) = yt$.
-	Entonces $yt=1$ si y solamente si $y=1$ y $t=1$. 
+	
+	Dada $w \in W^*$ supongamos que $|w| \ge 2$ caso contrario no tenemos nada para hacer.
+	Sea entonces $w = w_{1}w_{2}w'$ con $w_{1}, w_{2} \in W$ y $w' \in W^*$.
+	Separamos en casos.
+	\begin{itemize}
+		\item Si $w_{1}, w_{2} \in A \cup A^{-1}$ no hacemos nada.
+		\item Si $w_{1}, w_{2} \in T$ luego si $w_{1} = t_{i}$ y $w_{2} = t_{j}$ cambiamos a $t_{i}t_{j}$ por $z_{ijk}t_{k}$.
+		\item Si $w_{1}\in T$ y $ w_{2} \in A \cup A^{-1}$ luego si $w_{1} = t_{i}$ y $w_{2} = a_{l}$ cambiamos a $t_{i}a_{l}$ por $u_{il}t_{i}$.
+		\item Si $ w_{1} \in A \cup A^{-1}$ y $w_{2} \in T$ no hacemos nada.
+	\end{itemize}
+	Hacemos este procedimiento inductivamente empezando desde la izquierda y como la longitud $|w|$ es finita eventualmente llevamos a una palabra de la pinta $w = s't$ con $t \in T$ y $s' \in A \cup A^{-1}$.
+	Para terminar reducimos la palabra $s' \in A \cup A^{-1}$ a una palabra reducida tal como hicimos en el lema \ref{lema_subg_fg}.
+	
+	
+	
+	
+	Por lo tanto $\ol \varphi (w) = \ol \varphi(st) = st$.
+	Entonces $st = 1$ si y solamente si $s=1$ y $t=1$. 
 	Esto nos dice que $\ol \varphi(w) = 1$ si y solamente si $w=1$. 
 	Concluimos así que $\ol \varphi$ es un isomorfismo de grupos tal como queríamos ver y por lo tanto  $\langle W \mid R \rangle$ resultó ser una presentación de $G$.
 \end{obs}
@@ -610,7 +620,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	U =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
 	\]
 	donde tomamos la escritura de todas las palabras en $U$ para que sean reducidas.
-	Sea $B = A \cup A^{-1}$ el conjunto simétrico de generadores de $A$.
+	Sea $B = A \cup A^{-1}$ el conjunto simétrico de generadores.
 	Consideremos 
 	\[
 	\text{Pre}(U) = \{ u \in B^* : \exists v \in B^*, \  uv \in U  \}
@@ -638,7 +648,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	Sea entonces $v \in U$ la palabra correspondiente al estado $(t_{j},w_{i},1)$, es decir que si $w_{i} = a_{i}$ entonces $v = u_{ij}$ mientras que si $w_{i} = t_{i}$ entonces $v = z_{ijk}$. 
 	En este caso obtenemos:
 	\begin{equation*}
-		\delta(\epsilon,(t_j,w_i,u), s) = ((t_j,w_i,u a_i), s \cdot a_i ) \quad \ \text{si} \ ua_{i} \in \text{Pre}(v).
+		\delta(\epsilon,(t_j,w_i,u), s) = ((t_j,w_i,u a_i), a_{i} \cdot s) \quad \ \text{si} \ ua_{i} \in \text{Pre}(v).
 	\end{equation*}
 	siempre y cuando $ua_i$ sea un prefijo de la palabra de $U$ correspondiente.
 	La notación $v \cdot a_{i}$ representa el producto de $v \in F$ con $a_{i}$ un generador en $F$.
@@ -653,11 +663,11 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 
 	Vamos a probar una propiedad importante que cumple este autómata.
 	\begin{lema}\label{lema_MuSc_invariante}
-	 Sea $w \in W^*$ tal que $ w = uv $ entonces si consideramos una configuración de la pinta
+	Sea $\cal M$ el \APD de Muller--Schupp, $w \in W^*$ tal que $ w = uv $ entonces si consideramos una configuración de la pinta
 		\[
-			(v, (t_{k},1,1), s)
+			(uv,(1,1,1), 1) \overset{*}{\vdash} (v, (t_{k},1,1), s^R)
 		\]
-		vale que $u = t_{k}s$.
+		vale que $u = st_{k}$.
 	\end{lema}
 	
 	\begin{proof}
@@ -687,7 +697,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 \end{teo}
 
 \begin{proof}
-	Para probar que es \ic vamos a probar que el \APD de Muller--Schupp $\cal M$ cumple que ${\cal L(M)}= \text{WP}(G,W)$.
+	Para probar que es \ic vamos a probar que el \APD de Muller--Schupp $\cal M$ cumple que $L({\cal M})= \text{WP}(G,W)$.
 	Consideremos ahora el lenguaje aceptado por estado final y por palabra en la pila $1$:
 	\[
 	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), 1)  \}.
