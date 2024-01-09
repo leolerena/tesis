@@ -197,8 +197,8 @@ Equivalentemente esto es ver si $\pi(w'w^{-1}) = 1$.
 Definimos entonces el siguiente lenguaje.
 
 \begin{deff}
-	Dado $G$ un grupo finitamente generado 
-	y $\Sigma$ conjunto finito con un epimorfismo de monoides $\pi:\Sigma^* \to G$ entonces
+	Dado $G$ un grupo finitamente generado como monoide por $\Sigma$ 
+	con epimorfismo de monoides $\pi:\Sigma^* \to G$ entonces
 	el \emph{problema de la palabra de $G$ para los generadores $\Sigma$} es el siguiente lenguaje	
 	\[ 
 	\text{WP} (G, \Sigma) = \{ w \in \Sigma^* \ | \ \pi(w)= 1 \}.
@@ -206,23 +206,21 @@ Definimos entonces el siguiente lenguaje.
 \end{deff}
 
 \begin{obs}
-	En esta definición que damos del problema de la palabra no estamos considerando conjuntos simétricos de generadores sino que estamos considerando conjuntos de generadores como monoides arbitrarios.
+	En esta definición que damos del problema de la palabra no estamos considerando conjuntos simétricos de generadores sino que estamos considerando conjuntos de generadores como monoide.
 	Esto es que $\Sigma$ no necesariamente cumple que $\Sigma = A \cup A^{-1}$ para $A$ conjunto finito de generadores de $G$ como grupo.
 \end{obs}
 
 
-Dado que este lenguaje depende del conjunto de generadores elegido nos interesa saber qué condiciones tienen que cumplir los lenguajes o bien qué condiciones tienen que cumplir los grupos para que no exista esta dependencia en los generadores.
-En este contexto nos interesan las familias de lenguajes que cumplen las siguientes propiedades.
+El lenguaje del problema de la palabra depende de una elección de un conjunto finito de generadores, en principio no queda claro que si tomamos otro conjunto finito de generadores estos lenguajes tengan algo en común, como por ejemplo su clasificación.
+Queremos saber bajo qué condiciones el lenguaje del problema de la palabra podría ser un invariante del grupo y así la clasificación del lenguaje del problema de la palabra no dependa del conjunto de generadores utilizado.
+Para garantizar esto, nos enfocamos en las familias de lenguajes que cumplen las siguientes propiedades.
 \medskip
 \begin{deff}
-	Una familia de lenguajes $\CC$ es un \emph{cono} si para todo $L \in \CC$ tal que $L \subseteq \Sigma^*$ resulta que:
+	Una familia de lenguajes $\CC$ es un \emph{cono} si para todo $L \in \CC$ lenguaje sobre algún alfabeto finito $\Sigma$ resulta que:
 	\begin{itemize}
-		\item[\textbf{C1.}] Es cerrado por imágenes de morfismos de monoides. 
-		Para todo $\phi:\Sigma^* \to \Delta^*$ morfismo de monoides debe ser que $\phi(L) \in \CC$.
-		\item[\textbf{C2.}] Es cerrado por preimagenes de morfismos de monoides. 
-		Para todo $\phi:\Delta^* \to \Sigma^*$ morfismo de monoides  debe ser que $\phi^{-1}(L) \in \CC$. 
-		\item[\textbf{C3.}] Es cerrado por intersecciones con lenguajes regulares. 
-		Para todo $R \subseteq \Sigma^*$ lenguaje regular vale que $L \cap R \in \CC$.
+		\item[\textbf{C1.}] Es cerrado por imágenes de morfismos de monoides de manera que para todo morfismo de monoides $\phi:\Sigma^* \to \Delta^*$ debe ser que $\phi(L) \in \CC$.
+		\item[\textbf{C2.}] Es cerrado por preimágenes de morfismos de monoides de manera que para todo morfismo de monoides  $\phi:\Delta^* \to \Sigma^*$ debe ser que $\phi^{-1}(L) \in \CC$. 
+		\item[\textbf{C3.}] Es cerrado por intersecciones con lenguajes regulares de manera que para todo lenguaje regular $R$ sobre el alfabeto $\Sigma$ vale que $L \cap R \in \CC$.
 	\end{itemize}
 \end{deff} 
 
@@ -230,12 +228,11 @@ En este contexto nos interesan las familias de lenguajes que cumplen las siguien
 Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para el estudio del problema de la palabra.
 \medskip
 \begin{prop}\label{prop-cono-wp}
-	Sea $\CC$ cono de lenguajes y $G$ un grupo finitamente generado por $\Sigma$.
-	Sea $WP(G, \Sigma)$ el lenguaje del problema de la palabra. 
+	Sea $\CC$ cono de lenguajes, $G$ un grupo finitamente generado por $\Sigma$ como monoide y $WP(G, \Sigma)$ el lenguaje del problema de la palabra. 
 	Si $WP(G, \Sigma) \in \CC$ luego valen las siguientes afirmaciones:
 	\begin{itemize}
-		\item[\textbf{W1.}] $WP(G, \Delta) \in \CC$ para cualquier conjunto de generadores $\Delta$.
-		\item[\textbf{W2.}] $WP(H) \in \CC$ para todo subgrupo $H$ \fg de $G$.
+		\item[\textbf{W1.}] Sea $\Delta$ conjunto finito de generadores de $G$ como monoide entonces $WP(G, \Delta) \in \CC$. 
+		\item[\textbf{W2.}] Sea $H$ subgrupo de $G$ finitamente generado por $\Omega$ entonces $WP(H, \Omega) \in \CC$.
 	\end{itemize} 
 \end{prop}
 \begin{proof}
@@ -243,8 +240,8 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	Como $\Delta$ y $\Sigma$ son dos conjuntos finitos de generadores de $G$ entonces tenemos dos epimorfismos de monoides:
 	$\delta: \Delta^* \to G$ y $\pi:\Sigma^* \to G$.
 	Si $\Delta = \{ b_{1}, \dots, b_{n} \}$ entonces definimos $\Delta' = \{ b'_{1}, \dots, b'_{n}   \} \subseteq \Sigma^*$ de manera que $b'_{i} \in \pi^{-1}(\delta(b_{i}))$ para todo $1 \le i \le n$.
-	Tenemos una función biyectiva $f:\Delta \to \Delta'$ definida como $f(b_{i}) = b'_{i}$ para todo $1 \le i \le n$.
-	Por la propiedad universal de los monoides libres tenemos que existe $\ol f: \Delta^* \to \Sigma^*$ morfismo tal que hace conmutar al siguiente diagrama
+	Definimos una función biyectiva $f:\Delta \to \Delta'$ como $f(b_{i}) = b'_{i}$ para todo $1 \le i \le n$.
+	Por la propiedad universal de los monoides libres tenemos que existe $\ol f: \Delta^* \to \Sigma^*$ morfismo tal que hace conmutar al siguiente diagrama:
 	\begin{center}
 		\begin{tikzcd}
 			\Delta^* \arrow[r, "\ol{f}",dashed ]  & \Sigma^* \\
@@ -274,18 +271,17 @@ Los conos de lenguajes cumplen la siguiente propiedad de gran importancia para e
 	Como $WP(G, \Sigma) \in \CC$ resulta que por la propiedad \textbf{C2} de los conos de lenguajes que $\ol{f}^{-1}(WP(G,\Sigma)) \in \CC$ por lo tanto $WP(G, \Delta) \in \CC$ tal como queríamos ver.
 	
 	Veamos ahora que vale \textbf{W2}. 
-	Sea $\Sigma$ conjunto de generadores de $H$.
-	Podemos extender este conjunto a otro conjunto finito $\Sigma'$ tal que $\Sigma'$ genera a $G$ y $\Sigma \subseteq \Sigma'$. 
+	Sea $\Omega$ conjunto de generadores de $H$.
+	Podemos extender este conjunto a otro conjunto finito $\Sigma$ tal que $\Sigma$ genera a $G$ y $\Omega \subseteq \Sigma$. 
 	De esta manera la siguiente igualdad es inmediata
 	\[
-	WP(H, \Sigma) = WP(G, \Sigma') \cap \Sigma^*
+	WP(H, \Omega) = WP(G, \Sigma) \cap \Omega^*
 	\]
-	y dado que $WP(G, \Sigma') \in \CC$ entonces por la propiedad \textbf{C3} de los conos vale que $WP(H, \Sigma) \in \CC$.
+	y dado que $WP(G, \Sigma) \in \CC$ entonces por la propiedad \textbf{C3} de los conos vale que $WP(H, \Omega) \in \CC$.
 	
 \end{proof}
 
 La moraleja de este resultado es que si $\CC$ es un cono entonces si $G$ es un grupo finitamente generado tal que para cierto conjunto de generadores finito $\Sigma$ vale que $WP(G, \Sigma) \in \CC$ luego decimos que $G$ es un grupo $\CC$.
-Notamos $WP(G)$ al lenguaje del problema de la palabra en este caso. 
 
  
 
@@ -295,7 +291,7 @@ La flia de lenguajes $\text{IC}$ es un cono.
 Esto se puede ver a partir de las proposiciones  \ref{intersecciones-reg-ic} y \ref{morfismos-monoides-ic}.
 
 \begin{deff}
-	Si $G$ es un \fg generado por un conjunto finito $\Sigma$ y el lenguaje $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo independiente de contexto}.
+	Si $G$ es un \fg como monoide por un conjunto finito $\Sigma$ y el lenguaje $WP(G, \Sigma)$ es independiente de contexto entonces diremos que $G$ es un \emph{grupo independiente de contexto}.
 \end{deff}
 
 Construyamos algunos ejemplos de grupos independientes de contexto.
@@ -305,18 +301,18 @@ Construyamos algunos ejemplos de grupos independientes de contexto.
 \begin{proof}
 			Sea $F$ grupo libre generado por un conjunto finito $A$ tal que $1 \notin A$. 
 	Sea  $B = A \cup A^{-1}$ el conjunto de generadores simétrico de $A$ y sea $\pi:B^* \to G$. 
-	Dada $w \in B^*$ notaremos $\pi(w)$ a la palabra reducida que representa el mismo elemento que $w$ en el grupo $G$.
+	Dada $w \in B^*$ notaremos $\ol w$ a la palabra reducida que representa el mismo elemento que $w$ en el grupo $G$.
 	
 	Probemos que ${WP}(F,B)$ es un lenguaje independiente de contexto construyendo un autómata de pila $\cal M$ tal que acepte a este lenguaje.
 	Consideremos el siguiente autómata de pila:
 	\[
-	{\cal M} = (\{ q_{0} \}, B, B \cup \{ 1 \}, \delta, q_{0}, \{q_{0}\}, 1,). 
+	{\cal M} = (\{ q_{0} \}, B, B \cup \{ 1 \}, \delta, q_{0}, \{q_{0}\}, 1). 
 	\]
 	
 	Por como lo definimos tiene un solo estado que es final e inicial.
-	El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1 , \$ \}$ donde $1$ es el símbolo inicial de la pila.
-	Representamos al autómata de la siguiente manera: sean $b_{i}, b_{j} \in B$ luego notamos $b_{i} \cdot b_{j}$ la concatenación en el monoide libre $B^*$ de ambos elementos. 
-	El autómata lo describimos de la siguiente manera: 
+	El alfabeto de entrada es el conjunto de generadores $B$ mientras que el de pila es $B \cup \{ 1  \}$ donde $1$ es el símbolo inicial de la pila aunque no es la identidad del grupo libre o del monoide libre que denotaremos indistintamente $\epsilon$.
+	Sean $b_{i}, b_{j} \in B$ luego notamos $b_{i} \cdot b_{j}$ su producto en el grupo libre $F$. 
+	El autómata lo representamos de la siguiente manera: 
 	
 	\begin{center}
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=6.5cm,
@@ -325,8 +321,7 @@ Construyamos algunos ejemplos de grupos independientes de contexto.
 			\node[state,initial,accepting] (q_0) {$q_0$};
 			
 			\path 
-			(q_0) edge    [loop above]          node {$b_{i}, b_{j} \mid  b_{i} \cdot b_{j}$ \ }  (q_0)
-			(q_0) edge    [loop below]          node {$b_{i}, b_{i}^{-1} \mid  \epsilon$ \ }  (q_0);
+			(q_0) edge    [loop above]          node {$b_{i}, b_{j} \mid  b_{i} \cdot b_{j}$ \ }  (q_0);
 			
 		\end{tikzpicture}
 	\end{center}
@@ -334,28 +329,28 @@ Construyamos algunos ejemplos de grupos independientes de contexto.
 	Notemos que este autómata es determinístico.				
 	Consideramos el lenguaje aceptado por estado final y por $1$ en la pila
 	\[
-	L({\cal M}) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{0}, \epsilon, 1)  \}.
+	L({\cal M}, 1) = \{  w \in B^* \mid (q_{0},w,1)   \vdash^*  (q_{0}, \epsilon, 1)  \}.
 	\]
 	
-	Probamos la siguiente observación.
-	Sea $w = uv \in B^*$ luego si
-	$(q_{0},uv,1) \overset{*}{\vdash} (q,v,u')$ entonces $u' = \pi(u)$.
+	Probamos la siguiente observación:
+	sea $w = uv \in B^*$ luego si
+	$(q_{0},uv,1) \overset{*}{\vdash} (q,v,s)$ entonces $s = \ol u^R$, es decir la palabra reducida asociada a $u$ en reversa.
 	
 	Para probar esto lo hacemos por inducción en la longitud de $u$.
 	Supongamos que $|w| \ge 1$ caso contrario no hay nada que probar.
-	Sea entonces $w = bv$ con $v \in B^*$ y $b \in B$, en este caso $u = b$.
-	Para el caso base tenemos que $(q_{0},bv,1) \vdash (q_{0},v,b)$ donde usamos que $\pi(b) = b$ dado que $1 \notin B$.
+	Sea entonces $w = bv$ con $b \in B$ y $v \in B^*$ tal que en este caso $u = b$.
+	Tenemos que $(q_{0},bv,1) \vdash (q_{0},v,b)$ donde usamos que $\ol b^R = b$.
 	Para el paso inductivo se sigue de manera idéntica.
-	Supongamos que vale que: \newline			
-	$(q_{0},uv,1) \overset{*}{\vdash} (q_{0}, v, \pi(u))$.
-	Sea $v=bv'$ luego $(q,v,\pi(u)) \overset{*}{\vdash} (p,v',b \cdot \pi(u)^R)$.
-	Donde $b \cdot \pi(u)^R$ es una palabra reducida y en este caso vale que $b \cdot \pi(u)^R = (\pi(u \cdot b))^R$ tal como queríamos ver.
+	Supongamos que vale que: 		
+	$(q_{0},uv,1) \overset{*}{\vdash} (q_{0}, v, \ol u^R)$.
+	Sea $ |v| \ge 1 $, caso contrario no hay nada que probar, luego si $v=bv'$ para $b \in B$ y $v' \in B^{*}$ entonces 
+	$(q,bv',{\ol u}^R ) {\vdash} (p,v',b \cdot {\ol u}^R)$.
+	Donde $b \cdot {\ol u}^R$ es una palabra reducida y en este caso vale que $b \cdot {\ol u}^R = (\ol{u \cdot b})^R$ tal como queríamos ver.
 	
 	
 	A partir de esta observación obtenemos que si $w \in L(\cal M)$ luego 
-	$(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1)$ lo que nos dice que $\pi(w) = 1$ y esto nos dice que $w \in WP(F, B)$.
-	Para la otra contención usamos que es un \APD por lo tanto cada palabra se puede consumir de una única forma.
-	Por la observación tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1)$ dado que $\pi(w) = 1$.
+	$(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1)$ lo que nos dice que $\ol w = 1$ y esto implica que $w \in WP(F, B)$.
+	Para la otra contención usamos que es un \APD por lo tanto cada palabra se puede consumir de una única forma y por la observación tenemos que $(q_{0},w,1) \overset{*}{\vdash} (q_{0},\epsilon,1)$ dado que $\ol w = 1$.
 \end{proof}
 
 En particular obtuvimos que los grupos libres tienen un problema de la palabra independiente de contexto determinístico especial.
@@ -372,8 +367,8 @@ Veamos ahora un grupo que no es independiente de contexto.
 	\[
 	WP(\ZZ \times \ZZ, \Sigma) = \{ \gamma \in \Sigma^*  : \ \exists n \in \NN, \ |\gamma|_a = |\gamma|_b = |\gamma|_c = n \}.
 	\]
-	Este lenguaje no es independiente de contexto.
-	Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
+	Probemos que este lenguaje no es independiente de contexto.
+	Para eso usamos el lema del pumping \ref{pumping} para probarlo por contradicción.
 	Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipótesis del lema.
 	Consideremos la palabra $\gamma = a^n b^n c^n \in WP(G, \Sigma)$.
 	Si tenemos una factorización 
