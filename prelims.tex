@@ -689,83 +689,203 @@ El mismo ejemplo del lenguaje de los palíndromos nos sirve como contraejemplo.
 	
 \end{proof}
 
-Una diferencia importante del caso de los autómatas de pila determinísticos del caso no determinístico es que no todo lenguaje que es aceptado por pila vacía es aceptado por estado final.
-
-Primero veamos una propiedad necesaria para que un lenguaje sea aceptado por un autómata determinístico por pila vacía. 
-
-\begin{prop}\label{prop_apd_pila_prefijo}
-	Sea ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ \APD tal que $L = N(\cal M)$ entonces $L$ es libre de prefijos.
-\end{prop}
-\begin{proof}
-	Sea $w \in L$ tal que $w \in N(\cal M)$ luego si $u$ es un prefijo de $w$ entonces por el lema \ref{lema_configuracion_prefijo} tenemos que $(q_{0},u,\$) \vdash^* (q,\epsilon, \gamma)$ con $q \in Q$ y $\gamma \in \Gamma^*$ tal que $\gamma \neq \epsilon$.
-	Esto en definitiva dice que $u \notin L$ tal como queríamos ver.
-\end{proof}
-
-\begin{prop}\label{prop_leng_APD_pila_vs_estado}
-	Existe $L$ lenguaje tal que existe $\cal M$ \APD de manera que $L(\cal M) = L$ pero no existe ningún ${\cal M}'$ tal que $N({\cal M}')$.
-\end{prop}
-\begin{proof}
-	Consideremos el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$.
-	
-	Primero veamos que es aceptado por un \APD por estado final.
-	Sea 
-	\[
-	{\cal M} = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,\$\}, \$, q_2), 
-	\] 
-	introducimos la siguiente notación estándar para representar la función de transición en un gráfico.
-	Si tenemos una flecha de un estado $q \in Q$ a otro estado $p \in Q$ tal que tiene como etiqueta $b, a | \gamma$
-	entonces esto quiere decir que $\delta(q,b,a) = (p,\gamma)$.
-	
-	Entonces podemos representar gráficamente al \APD de la siguiente manera, donde usamos que $Z \in \{a,b,\$\}$ es cualquier letra del alfabeto de la pila,	
-	\begin{center}
-		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
-			scale = 1,transform shape]
-			
-			\node[state,initial] (q_0) {$q_0$};
-			\node[state] (q_1) [right of=q_0] {$q_1$};
-			\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
-			
-			\path (q_0) edge    [bend right]          node {$b, a | \epsilon$ \ } (q_1)
-			(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
-			(q_1) edge      [bend right]      node {$\epsilon, Z | Z$}   (q_2)
-			(q_1) edge    [loop above]           node {$b, a | \epsilon$} (q_1);
-			
-		\end{tikzpicture}
-	\end{center}
-	Podemos ver de manera directa que $L = L(\cal M)$.
-	Para esto notemos que si $w \in L(\cal M)$ entonces
-	\[
-	(q_{0},w,\$) \overset{*}{\vdash} (q_{0},bw',a^m\$)
-	\]
-	donde $a^mbw' = w$ y $m \ge 1$.
-	Entonces para pasar al estado $q_{1}$ necesitamos leer una $b$ por lo que
-	\[
-	(q_{0},bw',a^m\$) \vdash (q_{1},w',a^{m-1}\$) \overset{*}{\vdash} (q_{2},\epsilon, a^{m-1-n}\$)
-	\]
-	donde $0 \le n \le m-1$.
-	Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
-	Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
-	
-	Para ver que no es aceptado por un \APD por pila vacía basta ver por el lema \ref{prop_apd_pila_prefijo} que $L$ tiene la propiedad de los prefijos.
-	Es decir que existe una palabra $w \in L$ tal que $u$ es un prefijo propio de $w$ y $u \in L$.
-	Por ejemplo consideremos:
-	\[
-	u = a^m b^i, \ w = a^m b^j \ \
-	\text{para}  \
-	m \ge 2,  \ i < j \le m
-	\] 
-	entonces $u,w \in L$.
-\end{proof}	
-\todo[]{Sacar esto?}
+%Una diferencia importante del caso de los autómatas de pila determinísticos del caso no determinístico es que no todo lenguaje que es aceptado por pila vacía es aceptado por estado final.
+%
+%Primero veamos una propiedad necesaria para que un lenguaje sea aceptado por un autómata determinístico por pila vacía. 
 
 \begin{deff}
 	Sea ${\cal {M}} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ un autómata de pila determinístico. 
-	Diremos que $\cal M$ es un \emph{autómata de pila determinístico especial} si $L({\cal M})  = N(\cal M)$.
+	Consideremos el siguiente lenguaje
+	\[
+		L({\cal M}, \gamma) = \{ w \in \Sigma^{*} \mid (q_{0},w,\$) \overset{*}{\vdash} (q, \epsilon, \gamma), \ q \in F  \}
+	\]
+	tal que lo llamaremos el lenguaje aceptado por estado final y palabra $\gamma$ en la pila.
+	Si $L = L({\cal M}, \gamma)$ para cierto $\cal M$ \APD entonces diremos que $L$ es un \emph{lenguaje \ic determinístico especial}. 
 \end{deff}
 
+En nuestro caso en particular nos va a interesar más que nada el caso que $\gamma = \$$, es decir el símbolo inicial de la pila.
+Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 
-La familia de lenguajes aceptados por los autómatas de pila determinísticos especiales es estrictamente menor a la familia de los que son aceptados por autómatas de pila determinísticos.
-El lenguaje que usamos para la proposición \ref{prop_leng_APD_pila_vs_estado} nos sirve de ejemplo.
+
+\begin{prop}
+	Todo lenguaje $L$ \ic determinístico especial es \ic determinístico.
+\end{prop}
+\begin{proof}
+	Como $L$ es un lenguaje \ic determinístico especial entonces existe ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{*}$ tal que $L({\cal M}, \gamma) = L$.
+	
+	Construimos $\cal M'$ un \APD que lo acepte por estado final.
+	Para eso definimos ${\cal M}' = (Q',\Sigma, \Gamma', \delta', (q_0,0), F', (\$,1))$
+	donde $Q' = Q \times \{ 0,1\}$, $\Gamma' = \Gamma \times \{ \bot ,1, \dots, |\gamma|  \}$, $q'_{0} = (q_{0, 0})$,$F = \{ (q,1) \mid q \in F \}$ y la función de transición la definimos de la siguiente manera si $\delta(q,a,Z) = (p, \theta)$ y $\theta = \theta_{1}\dots \theta_{k}$ entonces si usamos la convención que $l = \bot$ si $l>|\gamma|$ luego
+
+	
+	\[
+	\delta'((q,i),a,(z,j)) = \left\{\begin{array}{lr}
+		((p,1), (\theta_{1},j+k)\dots(\theta_{k},j)) , & \text{si } j+k = n\\
+		((p,0), (\theta_{1},j+k)\dots(\theta_{k},j)) , & \text{si } j+k \neq |\gamma| \\
+	\end{array}\right\}
+	\]
+	Este automáta es determinístico y de su definición se sigue que vale la siguiente equivalencia:
+	\[
+		(q, w, \theta) \overset{*}{\vdash} (p,u,\phi) \iff 
+		((q,i), w, (\theta_{1}, |\theta|)\dots (\theta_{|\theta|}, 1)) \overset{*}{\vdash} ((p,j),u,(\phi_{1},|\phi|) \dots (\phi_{|\phi|}, 1)). 
+	\]
+	donde $j = 1$ si $|\phi| =|\gamma|$ e $i = 1$ si $|\theta| = |\gamma|$.
+	
+	
+	Con esto podemos probar que $L ({\cal M}, \gamma) = L(\cal M')$.
+	Para esto usamos que si $(q_{0},w, \$) \overset{*}{\vdash} (q,\epsilon, \gamma)$ entonces esto sucede si y solo sí
+	$((q_{0},0), w, (\$,1)) \overset{*}{\vdash} 
+	((q,1), \epsilon, (\gamma_1,|\gamma|) \dots (\gamma_{|\gamma|}, 1))$ lo que dice que $w \in L(\cal M')$ si y solo sí $w \in L({\cal M}, \gamma)$.
+	
+	Con esto concluimos que $\cal M'$ acepta a $L({\cal M}, \gamma)$ y así que los lenguajes \ic determinísticos especiales resultan ser \ic determinísticos.
+	
+	
+\end{proof}
+
+Ahora probemos que la familia de los lenguajes \ic determinísticos especiales están contenidos estrictamente en la familia de los lenguajes \ic determinísticos.
+
+\begin{prop}
+	Existen lenguajes \ic determinísticos que no son \ic determinísticos especiales.
+\end{prop}
+
+\begin{proof}
+		Consideremos el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$.
+		
+		Primero veamos que es aceptado por el siguiente \APD por estado final:
+		\[
+		{\cal M} = (\{q_0,q_1\}, \{q_0\}, \{a,b\}, \{a,b,\$\}, \$, q_1).
+		\] 
+		Introducimos la siguiente notación estándar para representar la función de transición en un gráfico:
+		Si tenemos una flecha de un estado $q \in Q$ a otro estado $p \in Q$ tal que tiene como etiqueta $b, a | \gamma$
+		entonces esto quiere decir que $\delta(q,b,a) = (p,\gamma)$.
+		
+		Entonces podemos representar gráficamente al \APD de la siguiente manera, donde usamos que $Z \in \{a,b,\$\}$ es cualquier letra del alfabeto de la pila,	
+		\begin{center}
+				\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+						scale = 1,transform shape]
+						
+						\node[state,initial] (q_0) {$q_0$};
+						\node[state, accepting] (q_1) [right of=q_0] {$q_1$};
+						
+						\path (q_0) edge    [bend right]          node {$b, a | \epsilon$ \ } (q_1)
+						(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
+						(q_1) edge    [loop above]           node {$b, a | \epsilon$} (q_1);
+						
+					\end{tikzpicture}
+			\end{center}
+		Notemos que es determinístico por la construcción que hicimos.
+		Veamos que $L = L(\cal M)$.
+		
+		Primero probamos que $L \subseteq L(\cal M)$.
+		Sea $w \in L$ luego notemos que podemos consumir a la palabra $w = a^mb^n$ de la siguiente manera:
+		\[
+			(q_{0},a^mb^n,\$) \overset{*}{\vdash} (q_{0},b^n,a^m\$) \vdash (q_{1},b^{n-1},a^{m-1}\$) \overset{*}{\vdash} (q_{1},\epsilon,a^{m-n}\$).
+		\]
+		
+		En el caso que $w \in L(\cal M)$ notemos que necesariamente para ser aceptada al consumirla tiene que llegar al estado $q_{2}$.
+		Esto nos dice que $w = a^m b u$ donde $m \ge 1$, $u \in \Sigma^*$ caso contrario no tendríamos que $(q_{0},w,\$) \overset{*}{\vdash} (q_{1},u,a^{m-1}\$)$.
+		Para que la palabra sea consumida tiene que valer que $u = b^{n}$ con $n \le m-1$.
+		Con esto vimos que $w \in L$ tal como queríamos ver. 
+		
+		
+		
+%		
+%		
+%		Para esto notemos que si $w \in L(\cal M)$ entonces si
+%		$a^mbw' = w$ y $m \ge 0$ luego
+%		\[
+%		(q_{0},w,\$) \overset{*}{\vdash} (q_{0},bw',a^m\$).
+%		\]
+%		
+%		Para pasar al estado $q_{1}$ necesitamos leer una $b$ por lo que
+%		\[
+%		(q_{0},bw',a^m\$) \vdash (q_{1},w',a^{m-1}\$) \overset{*}{\vdash} (q_{2},\epsilon, a^{m-1-n}\$)
+%		\]
+%		donde $0 \le n \le m-1$.
+%		Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
+%		Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
+		
+		Para ver que no es aceptado por un \APD por estado final y una palabra $\gamma$ en la pila consideremos que ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{*}$ tal que $L({\cal M}, \gamma) = L$.
+		En este caso sea $m > |Q|$ luego si consideramos las palabras de la pinta $\{ a^mb, \dots, a^mb^m  \} \subseteq L$ por el principio del palomar tiene que existir $1 \le i < j \le m$ tales que $(q_{0},a^mb^i, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ y $(q_{0},a^mb^j, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ para un mismo estado final $q \in F$.
+		Entonces notemos que necesariamente $m - i > 0$ y que $m-i+j > m$ por lo que
+		\[
+			(q_{0},a^mb^{i+m-i}, \$) \overset{*}{\vdash} (p,\epsilon,\gamma)
+		\]
+		donde $p \in F$ es otro estado final dado que $a^mb^{i+m-i} = a^mb^m \in L$ pero esto implica que 
+		\[
+		(q_{0},a^mb^{j+m-i}, \$) \overset{*}{\vdash} (p,\epsilon,\gamma)
+		\]
+		contradiciendo que $j+m-i \le m$ y así obtuvimos una contradicción que vino de suponer que el lenguaje $L$ era aceptado por estado final y por palabra $\gamma$ en la pila.
+	
+\end{proof}
+
+
+
+%\begin{prop}\label{prop_apd_pila_prefijo}
+%	Sea ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ \APD tal que $L = N(\cal M)$ entonces $L$ es libre de prefijos.
+%\end{prop}
+%\begin{proof}
+%	Sea $w \in L$ tal que $w \in N(\cal M)$ luego si $u$ es un prefijo de $w$ entonces por el lema \ref{lema_configuracion_prefijo} tenemos que $(q_{0},u,\$) \vdash^* (q,\epsilon, \gamma)$ con $q \in Q$ y $\gamma \in \Gamma^*$ tal que $\gamma \neq \epsilon$.
+%	Esto en definitiva dice que $u \notin L$ tal como queríamos ver.
+%\end{proof}
+
+%\begin{prop}\label{prop_leng_APD_pila_vs_estado}
+%	Existe $L$ lenguaje tal que existe $\cal M$ \APD de manera que $L({\cal M}) = L$ pero no existe ningún ${\cal M}'$ tal que $L = N({\cal M}')$.
+%\end{prop}
+%\begin{proof}
+%	Consideremos el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$.
+%	
+%	Primero veamos que es aceptado por un \APD por estado final.
+%	Sea 
+%	\[
+%	{\cal M} = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,\$\}, \$, q_2), 
+%	\] 
+%	introducimos la siguiente notación estándar para representar la función de transición en un gráfico.
+%	Si tenemos una flecha de un estado $q \in Q$ a otro estado $p \in Q$ tal que tiene como etiqueta $b, a | \gamma$
+%	entonces esto quiere decir que $\delta(q,b,a) = (p,\gamma)$.
+%	
+%	Entonces podemos representar gráficamente al \APD de la siguiente manera, donde usamos que $Z \in \{a,b,\$\}$ es cualquier letra del alfabeto de la pila,	
+%	\begin{center}
+%		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+%			scale = 1,transform shape]
+%			
+%			\node[state,initial] (q_0) {$q_0$};
+%			\node[state] (q_1) [right of=q_0] {$q_1$};
+%			\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
+%			
+%			\path (q_0) edge    [bend right]          node {$b, a | \epsilon$ \ } (q_1)
+%			(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
+%			(q_1) edge      [bend right]      node {$\epsilon, Z | Z$}   (q_2)
+%			(q_1) edge    [loop above]           node {$b, a | \epsilon$} (q_1);
+%			
+%		\end{tikzpicture}
+%	\end{center}
+%	Podemos ver de manera directa que $L = L(\cal M)$.
+%	Para esto notemos que si $w \in L(\cal M)$ entonces
+%	\[
+%	(q_{0},w,\$) \overset{*}{\vdash} (q_{0},bw',a^m\$)
+%	\]
+%	donde $a^mbw' = w$ y $m \ge 1$.
+%	Entonces para pasar al estado $q_{1}$ necesitamos leer una $b$ por lo que
+%	\[
+%	(q_{0},bw',a^m\$) \vdash (q_{1},w',a^{m-1}\$) \overset{*}{\vdash} (q_{2},\epsilon, a^{m-1-n}\$)
+%	\]
+%	donde $0 \le n \le m-1$.
+%	Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
+%	Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
+%	
+%	Para ver que no es aceptado por un \APD por pila vacía basta ver por el lema \ref{prop_apd_pila_prefijo} que $L$ tiene la propiedad de los prefijos.
+%	Es decir que existe una palabra $w \in L$ tal que $u$ es un prefijo propio de $w$ y $u \in L$.
+%	Por ejemplo consideremos:
+%	\[
+%	u = a^m b^i, \ w = a^m b^j \ \
+%	\text{para}  \
+%	m \ge 2,  \ i < j \le m
+%	\] 
+%	entonces $u,w \in L$.
+%\end{proof}	
+
+
 
 
 \section{Teoría de grupos.}\label{secc_teo_grp}

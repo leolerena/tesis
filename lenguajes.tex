@@ -27,7 +27,7 @@ La familia de lenguajes independientes de contexto va a ser la siguiente:
 \[
 	\text{IC} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es independiente de contexto} \}.
 \]
-de manera similar podemos definir la familai de lenguajes regulares como
+de manera similar podemos definir la familia de lenguajes regulares como
 \[
 	\text{REG} = \{  L \mid \exists \Sigma, \ L \subseteq \Sigma^*, \ \ L \  \text{es regular}  \}.
 \]
@@ -42,15 +42,15 @@ La primera propiedad que vamos a ver de los lenguajes independiente de contexto 
 	Sea $L$ un lenguaje \ic tal que $L \subset \Sigma^*$ y sea $R$ un lenguaje regular tal que $R \subset \Sigma^*$. 
 	Queremos ver que el lenguaje $L \cap R$ es aceptado por un \APND.
 	
-	Si $L$ es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, \$)$ y R es aceptado por un autómata no determinístico ${\cal M' } = (Q', \Sigma, \delta', q_0', F',)$.
+	Si $L$ es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, \$)$ y R es aceptado por un autómata no determinístico ${\cal M' } = (Q', \Sigma, \delta', q_0', F')$.
 	
 	Consideremos el siguiente \APND
 	\[
-		{\cal N } = (Q \times Q', \Sigma, Z, \delta \times \delta', (q_0,q_0'), F \times F', \$).
+		{\cal N } = (Q \times Q', \Sigma, Z, \delta \times \delta', (q_0,q_0'), F \times F', \$),
 	\]	
 	tal que la función de transición está definida de la siguiente manera.
 	Para todo $q_{i} \in Q, q_{j}' \in Q', a \in \Sigma, Z \in \Gamma$ vale que
-	si $(q,\gamma) \in \delta(q_{i},a,Z) = $ para $\gamma \in \Gamma^*$ y $q'  \in \delta(q_{i}', a)$ entonces $ ((q,q'), \gamma) \in \delta \times \delta'((q_{i},q_{j}'),a,Z)$.
+	si $(q,\gamma) \in \delta(q_{i},a,Z)$ para $\gamma \in \Gamma^*$ y $q'  \in \delta(q_{j}', a)$ entonces $ ((q,q'), \gamma) \in \delta \times \delta'((q_{i},q_{j}'),a,Z)$.
 	
 	
 	Queremos ver que $L({\cal N}) = L \cap R $.	
@@ -71,13 +71,13 @@ La primera propiedad que vamos a ver de los lenguajes independiente de contexto 
 	\]	
 	Con esto terminamos de probar la afirmación.
 	
-	Finalmente para ver que $L({\cal N})  =  L \cap R$ usamos que por nuestra afirmación si $w \in L \cap R$ entonces es aceptado por lo dos autómatas $\cal M$ y por $\cal M'$, esto es que $(q_0, w, \$) \vdash^* (q_F, \epsilon, z)$ y que $(q_0', w) \vdash^* (q_F', \epsilon)$ y equivalentemente $((q_0,q_0'),w,\$) \vdash^* ((q_F, q_F'),\epsilon, z)$. 
+	Finalmente para ver que $L({\cal N})  =  L \cap R$ usamos que por nuestra afirmación si $w \in L \cap R$ entonces es aceptado por lo dos autómatas $\cal M$ y por $\cal M'$, esto es que $(q_0, w, \$) \vdash^* (p, \epsilon, z)$ para $p \in F$ y que $(q_0', w) \vdash^* (p', \epsilon)$ para $p' \in F'$ y equivalentemente $((q_0,q_0'),w,\$) \vdash^* ((p, p'),\epsilon, z)$. 
 	Dado que los estados finales del autómata $\cal N$ resultan ser $F \times F'$ obtenemos que $w \in L({\cal N}) \iff w \in L \cap R$.
 	Concluimos así que el lenguaje $L \cap R$ resulta ser \ic tal como queríamos ver.		
 \end{proof}
 
-Otras propiedades que nos van a interesar tienen que ver con la relación que tienen con los morfismos de monoides.
-Precisamente probaremos que los lenguajes \ic como familia son cerrados por imágenes de morfismos de monoides y por preimágenes de morfismos de monoides.
+Ahora vamos a estudiar la relación de esta familia de lenguajes con los morfismos de monoides. 
+Probaremos que IC es cerrada por imágenes de morfismos de monoides y por preimágenes de morfismos de monoides.
  
 
 \begin{prop}\label{morfismos-monoides-ic}
@@ -89,7 +89,7 @@ Precisamente probaremos que los lenguajes \ic como familia son cerrados por imá
 
 \begin{proof}
 		Consideramos $L$ lenguaje \ic sobre $\Sigma$.
-		Esto nos dice que existe una gramática $\gramatica $ independiente de contexto tal que $L(\cG) = L$, supongamos que $\cG$ está en forma normal de Chomsky.
+		Esto nos dice que existe una gramática $\gramatica $ independiente de contexto, que la tomamos en forma normal de Chomsky, tal que $L(\cG) = L$. 
 		Si tenemos un morfismo de monoides $h: \Sigma^* \to \Delta^*$ consideramos la sustitución $\sigma:\Sigma \cup V \to \Delta^* \cup V$ definida por $\sigma(a) = h(a)$ para toda $a \in \Sigma$ y $\sigma(A) = A$ para toda $A \in V$.		
 		Para probar que $h(L)$ es \ic vamos a construir una gramática $\cG'$ tal que $L(\cG') = h(L)$.
 		Sea la gramática $\cG'  = (V, \Delta, P', S')$ tal que si $A \to w \in P$ luego $A \to \sigma(w) \in P'$.
@@ -97,21 +97,33 @@ Precisamente probaremos que los lenguajes \ic como familia son cerrados por imá
 		La gramática sigue siendo \ic porque las producciones tienen la forma $A \to u$ con $A \in V, u \in (\Delta \cup V)^*$.
 		Para finalizar la demostración nos alcanza con ver que genera al lenguaje que queremos.
 		
-		Probamos que $h(L) \subseteq L(\cG')$.
-		Sea $w=a_{0}\dots a_{n} \in L$ luego como $L(\cG) = L$ vale que 
-		$S \overset{*}{\implies}_{\cG} w$. 
-		Como $\cG$ está en forma normal de Chomsky luego vale que para todo $0 \le i \le n$ existe $A_{i} \in V$ tal que $A_{i} \to a_{i}$.
-		Como las producciones de $\cG'$ son de la pinta $A \to h(a)$ si $A \to a$ era una producción de $\cG$ luego tenemos que $A_{i} \to h(a_{i})$ y así que $S' \overset{*}{\implies}_{\cG'} h(w)$.
+		Para esto notemos que vale la siguiente igualdad:
+		\[
+			S \to^* w \iff S' \to^{*} h(w).
+		\]
+		Veamos la ida. 
+		Si tenemos que $S \to^* w $  para $w = a_{1}a_{2} \dots a_{k}$ luego esto dice que existe una sucesión finita de producciones $P_{1} = S \to AB, \dots, P_{n} = C \to a_{j}$ para $ 1 \le j \le k$ de manera que 
+		$S \to AB \to \dots \to a_{1}\dots C \dots a_{k} \to a_{1} \dots a_{j} \dots a_{k} = w$.
 		
-		Probamos que $L(\cG') \subseteq h(L)$.
-		Para esto probaremos la siguiente afirmación por inducción.
-		Para todo $n \in \NN$ vale que si $A \in V$ luego si $u \in L(A)$ y $|u| = n$ luego $u \in h(L)$.
+		Si tomamos la sucesión de producciones para la gramática $\cG'$ dada por $P'_{1} = S' \to A'B', \dots, P'_{n} = C' \to h(a_{j})$ luego obtuvimos que $S' \to^* h(w)$.
+		De manera idéntica se prueba la vuelta.
+		Así vimos que $w \in L(\cG) \iff h(w) \in L(\cG')$ y probamos así que $h(L) = L(\cG')$.
 		
-		El caso base es claro porque si $|u| = 1$ y $u \in L(A)$ esto dice que necesariamente que $A \to u$ entonces por como definimos a la gramática $\cG'$ tenemos que $u = h(a)$ para $a \in \Sigma$.
 		
-		Para el paso inductivo sea $|u| = n$ luego tenemos que $S' \to AB \overset{*}{\implies}_{\cG'} u$ para ciertos $A, B \in V$.
-		Por como definimos a la gramática $\cG'$ tenemos que $A \overset{*}{\implies}_{\cG} u_{1}$ y $B \overset{*}{\implies}_{\cG} u_{2}$ tales que $u = u_{1}u_{2}$ y $|u_{1}|, |u_{2}| \ge 0$.
-		Por la hipótesis inductiva tenemos que $u_{1} \in h(L)$ y que $u_{2} \in h(L)$ por lo que $u \in h(L)$ tal como queríamos ver.
+%		Sea $w=a_{0}\dots a_{n} \in L$ luego como $L(\cG) = L$ vale que 
+%		$S \overset{*}{\implies}_{\cG} w$. 
+%		Como $\cG$ está en forma normal de Chomsky luego vale que para todo $0 \le i \le n$ existe $A_{i} \in V$ tal que $A_{i} \to a_{i}$.
+%		Como las producciones de $\cG'$ son de la pinta $A \to h(a)$ si $A \to a$ era una producción de $\cG$ luego tenemos que $A_{i} \to h(a_{i})$ y así que $S' \overset{*}{\implies}_{\cG'} h(w)$.
+%		
+%		Probamos que $L(\cG') \subseteq h(L)$.
+%		Para esto probaremos la siguiente afirmación por inducción.
+%		Para todo $n \in \NN$ vale que si $A \in V$ luego si $u \in L(A)$ y $|u| = n$ entonces $u \in h(L)$.
+%		
+%		El caso base es claro porque si $|u| = 1$ y $u \in L(A)$ esto dice que necesariamente que $A \to u$ entonces por como definimos a la gramática $\cG'$ tenemos que $u = h(a)$ para $a \in \Sigma$.
+%		
+%		Para el paso inductivo sea $|u| = n$ luego tenemos que $S' \to AB \overset{*}{\implies}_{\cG'} u$ para ciertos $A, B \in V$.
+%		Por como definimos a la gramática $\cG'$ tenemos que $A \overset{*}{\implies}_{\cG} u_{1}$ y $B \overset{*}{\implies}_{\cG} u_{2}$ tales que $u = u_{1}u_{2}$ y $|u_{1}|, |u_{2}| \ge 0$.
+%		Por la hipótesis inductiva tenemos que $u_{1} \in h(L)$ y que $u_{2} \in h(L)$ por lo que $u \in h(L)$ tal como queríamos ver.
 		
 \end{proof}
 
@@ -123,23 +135,23 @@ Precisamente probaremos que los lenguajes \ic como familia son cerrados por imá
 
 \begin{proof}
 	Sea $L$ un lenguaje \ic sobre el alfabeto $\Sigma$ tal que es aceptado por un \APND ${\cal M } = (Q, \Sigma, Z, \delta, q_0, F, \$)$.
-	Consideremos un morfismo de monoides $h: \Delta^* \to \Sigma^*$. 
 	Queremos ver que el lenguaje $h^{-1}(L) \subset \Delta^*$ es independiente de contexto.
 	 
-	Consideremos el número $ n = \max_{a \in \Delta} |h(a)|$ y el conjunto $\Sigma^{\le n} = \{ w \in \Sigma^* : |w| \le n  \}$.	
+	 Consideremos el conjunto finito ${\cal U } = \{ h(a) \mid a \in \Delta \}$ luego $\text{Pos}(\cal U)$ los posfijos de estas finitas palabras.
+%	Consideremos el número $ n = \max_{a \in \Delta} |h(a)|$ y el conjunto $\Sigma^{\le n} = \{ w \in \Sigma^* : |w| \le n  \}$.	
 	Definimos un \APND de la siguiente forma
 	\[
-	{\cal M' } = (Q \times \Sigma^{\le n}, \Delta, Z, \delta, (q_0, \epsilon), F \times \{ \epsilon \}, \$)
+	{\cal M' } = (Q \times \text{Pos}({\cal U}), \Delta, Z, \delta, (q_0, \epsilon), F \times \{ \epsilon \}, \$)
 	\]
-	Finalmente nuestra función de transición resulta ser 
-	\[
-	\delta'((q,v), a ,z) = 
-	\begin{cases}
-		\{(q,h(a), z )\}  \ &\text{si} \ v=\epsilon, z \in Z \quad (I)\\
-		\{(p,u),z' \} \ &\text{si} \ (p,z') \in \delta(q,y,z), v=yu \quad (II) \\  
-		\emptyset \ &\text{caso contrario}.
-	\end{cases}
-	\]
+	Finalmente nuestra función de transición resulta ser para $a \in \Delta, z \in Z, q \in Q$
+	\begin{equation}\label{eq_prop_morf_1}
+		\delta((q,\epsilon),a,z) = ((q,h(a)),z)
+	\end{equation} 
+	y en el caso que $u \in \text{Pos}(\cal U)$ y $u \neq \epsilon$ vale que si $u = yu'$ con $y \in \Sigma, u' \in \text{Pos}(\cal U)$ luego
+	\begin{equation}\label{eq_prop_morf_2}
+		\delta((q,yu'),\epsilon,z) = ((p,u'),z')
+	\end{equation}
+	si $\delta(q,y,z) = (p,z')$.
 	
 	Probemos primero la siguiente afirmación.
 	Para cada $w \in \Delta^*$ tenemos la siguiente equivalencia,
@@ -149,9 +161,8 @@ Precisamente probaremos que los lenguajes \ic como familia son cerrados por imá
 	
 	Para probar esta equivalencia lo hacemos por inducción en la longitud de $|w|$.
 	Para el caso base tenemos que $w = a \in \Delta$.
-	En este caso tenemos que $((q_0, \epsilon), a, z) \vdash ((q,h(a)), z)$ usando una vez el caso (I) de la función de transición $\delta'$.
-	Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \overset{*}{\vdash }(q, \sigma)  \iff ((q_0,h(a)), \epsilon ,z) \overset{*}{\vdash} ((q,\epsilon), \sigma)$ usando reiteradas veces el caso (II) de la función de transición $\delta'$.
-	\todo[]{Acá podría escribir esto más detalladamente haciendo una inducción en la longitud de h(a) pero no me queda claro que sea una buena idea.}
+	En este caso tenemos que $((q_0, \epsilon), a, z) \vdash ((q,h(a)), z)$ usando una vez el caso \ref{eq_prop_morf_1} de la función de transición $\delta'$.
+	Una vez en este estado por como definimos la función de transición tenemos que $ (q_0,h(a), z) \overset{*}{\vdash }(q, \sigma)  \iff ((q_0,h(a)), \epsilon ,z) \overset{*}{\vdash} ((q,\epsilon), \sigma)$ usando reiteradas veces el caso \ref{eq_prop_morf_2} de la función de transición $\delta'$.
 	El caso general tenemos una palabra $w$ tal que $|w|=n$.
 	Sabemos que la afirmación vale para cualquier palabra de longitud menor a $n$.
 	En particular si $w=ua$ con $|u|=n-1$ y $a \in \Delta$, tenemos que por la hipótesis inductiva que 
@@ -168,11 +179,11 @@ Precisamente probaremos que los lenguajes \ic como familia son cerrados por imá
 La herramienta principal que tenemos para ver que cierto lenguaje $L$ no es \ic es usar el siguiente lema.
 
 \begin{lema}[Pumping] \label{pumping}
-	Sea $L$ un lenguaje independiente de contexto entonces existe una constante $n \ge 0$ tal que para todas las palabras $w \in L$ de longitud al menos $n$ existe una factorización $w = uvxwy$ con $|vwx| \le n$ y $|vx| > 0$ tal que para todo $i \in \NN$ vale que $uv^iwx^iy \in L$.
+	Sea $L$ un lenguaje independiente de contexto entonces existe una constante $n \ge 0$ tal que para todas las palabras $\gamma \in L$ de longitud al menos $n$ existe una factorización $\gamma = uvwxy$ con $|vwx| \le n$ y $|vx| > 0$ tal que para todo $i \in \NN$ vale que $uv^iwx^iy \in L$.
 \end{lema}
 
 \begin{proof}
-	Resultado estándar. Ver \cite{hopcraft-ullman}.
+	Ver \cite[p.281]{hopcraft-ullman}.
 \end{proof}
 
 
@@ -359,12 +370,12 @@ Veamos ahora un grupo que no es independiente de contexto.
 	Tomamos los siguientes generadores como monoide $\Sigma = \{ a,b,c \}$ con morfismo de monoides $\pi: \Sigma^* \to \ZZ \times \ZZ$ dado por $\pi(a)=(1,0), \pi(b)=(0,1), \pi(c)=(-1,-1)$.
 	Bajo esta presentación 
 	\[
-	WP(\ZZ \times \ZZ, \Sigma) = \{ w \in \Sigma^*  : \ \exists n \in \NN, \ |w|_a = |w|_b = |w|_c = n \}.
+	WP(\ZZ \times \ZZ, \Sigma) = \{ \gamma \in \Sigma^*  : \ \exists n \in \NN, \ |\gamma|_a = |\gamma|_b = |\gamma|_c = n \}.
 	\]
 	Este lenguaje no es independiente de contexto.
 	Para eso usemos el lema del pumping \ref{pumping} para probarlo por contradicción.
 	Si fuera \ic debería existir una constante $n \ge 0$ tal que hace valer las hipótesis del lema.
-	Consideremos la palabra $w = a^n b^n c^n \in WP(G, \Sigma)$.
+	Consideremos la palabra $\gamma = a^n b^n c^n \in WP(G, \Sigma)$.
 	Si tenemos una factorización 
 	\[
 	uvwxy = a^nb^nc^n
@@ -688,7 +699,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	\end{proof}
 	
 	
-	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la observación \ref{obs_presentacion_vl} para transformar una palabra $w \in W^*$ en $w = ts$ con $s \in F, t \in T$.
+	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la observación \ref{obs_presentacion_vl} para transformar una palabra $w \in W^*$ en $w = st$ con $s \in F, t \in T$.
 	
 	Ya estamos en condiciones de probar el resultado central de este capítulo.
 
