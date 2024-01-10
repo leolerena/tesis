@@ -382,13 +382,12 @@ Para cada $k \in \NN$ notaremos $\vdash^k$ a la aplicación $k$ veces de la deri
 
 Así como en el caso de los autómatas finitos no determinísticos podemos definir una \emph{configuración irreducible} $(q,aw',\gamma)$ como una configuración para la cual no existe ninguna otra configuración $(p,u,\theta)$ tal que $(q,w,\gamma) \vdash (p,u,\theta)$.
 En particular esto podría ser por dos casos: el primero es que $\gamma = \epsilon$ y el segundo es que si $Z$ es el tope de pila de la configuración luego $\delta(q,a,Z) = \emptyset$.
-\todo{Escribir notación $\vdash^k$}
-Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión finita de configuraciones $(q_{0},w,\$) \vdash \dots \vdash (p,u,\theta)$ donde $(p,u,\theta)$ es una configuración irreducible.
+Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión finita de configuraciones $(q_{0},w,\$) \vdash \dots \vdash (p,u,\theta)$ donde $(p,u,\theta)$ es una configuración irreducible, o escrito de manera equivalente, debe existir $k \in \NN$ tal que $(q_{0},w,\$) \vdash^k (p,u,\theta)$.
 
 \begin{deff}
 	Dado $\cal M$ un autómata de pila no determinístico consideramos el \emph{lenguaje aceptado por estado final} como
 	\begin{equation*}
-		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,\$) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}
+		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,\$) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}.
 	\end{equation*}
 \end{deff}
 Las \emph{configuraciones finales} para el lenguaje aceptado por estado final de un \APND van a ser las configuraciones que tienen la pinta $(q,\epsilon,\gamma)$ donde $q \in F$.
@@ -401,7 +400,6 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 \end{prop}
 
 \begin{proof}
-	\todo[]{REVISAR!! se esconden errores }
 	Consideremos el siguiente autómata de pila 
 	\[
 	M=(\{ q_{0}, q_{1}, q_{2} \},\{a,b\}, \{a,b,\$\} , \delta, q_0, \{q_2\}, \$)
@@ -478,15 +476,13 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 	Primero vemos que $L_{\text{PAL}} \subseteq L(\cal M)$.
 	Si $w \in L_{\text{PAL}}$ luego usando el lema \ref{lema_palindromos_forma}
 	tenemos que existe $u$ prefijo de $w$ de manera que
-	$w = uu^R$ si $|w|$ es par
-	o bien $w = ucu^R$ para cierto $c \in \Sigma$ si $|w|$ es impar.
-	Vamos a probar ambos casos a la vez.
+	$w = ucu^R$ para cierto $c \in \Sigma \cup \{ \epsilon\}$.
 	
 	Si $|w|$ es par entonces sea $w = ucu^R$ con $|u| = k$ y $c=\epsilon$.
 	Mientras que si es impar tenemos que $w = ucu^R$ con $|u| = k$ y $c \in \Sigma$.
 	Primero apilamos la subpalabra $u$ en la pila y consumimos $u$,
 	\[
-	(q_{0}, ucu^R, \$) \overset{k}{\vdash} (q_{0},cu^R,u^R\$)
+	(q_{0}, ucu^R, \$) \overset{k}{\vdash} (q_{0},cu^R,u^R\$).
 	\]
 	Usando una de las transiciones del caso $II$ obtenemos que 
 	$(q_{0},cu^R,u^R\$) \vdash (q_{1},u^R,u^R\$)$.
@@ -496,7 +492,7 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 	\] 
 	Finalmente tenemos que podemos transicionar al estado final de la siguiente manera
 	\[
-		(q_{2}, \epsilon, \$) \vdash (q_{2}, \epsilon, \epsilon).
+		(q_{2}, \epsilon, \$) \vdash (q_{2}, \epsilon, \epsilon),
 	\]
 	tal que $(q_{2}, \epsilon, \epsilon)$ es una configuración final por lo tanto $w$ es una palabra aceptada por el autómata $\cal M$ tal como queríamos ver.
 
@@ -512,7 +508,8 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 	
 	Por el caso $IV$ la única manera de transicionar del estado $q_{1}$ al estado $q_{2}$ es que el tope de la pila sea exactamente $ \$ $. 
 	Por como son las transiciones del caso $III$ tenemos que la palabra en la pila en cada derivación de una configuración con estado $q_{1}$ se achica. 
-	A su vez tendríamos que haber leído todo el postfijo $v$ esto nos dice que: 
+	A su vez tendríamos que haber leído todo el posfijo $v$ y éste debería haber coincidido con $u^R$. 
+	Esto nos dice que: 
 	\[
 		(q_{1}, v, u^R\$) \vdash^* (q_{1},\epsilon, \$).
 	\]
@@ -586,6 +583,9 @@ Así como existe una equivalencia de los lenguajes regulares con los lenguajes a
 
 Esto nos dice que todas las definiciones que dimos para \APND siguen siendo válidas en este contexto.
 Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una palabra $w \in \Sigma^*$ existe una única manera de consumir a la palabra $w$.
+A los lenguajes $L$ tales que son aceptados por un \APD los llamaremos \emph{lenguajes independientes de contexto determinísticos}.
+
+
 %
 %\begin{teo}
 %	Existen lenguajes $L, L'$ independientes de contexto tales que:
@@ -603,7 +603,7 @@ Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una pal
 	Sean $u, v \in \Sigma^*$ tales que $v \neq \epsilon$, $\gamma \in \Gamma^*$ y $p,q \in Q$.
 	Si
 	\[
-		(q_{0},uv, \$) \vdash^* (q,\epsilon, \gamma).
+		(q_{0},uv, \$) \vdash^* (q,\epsilon, \gamma),
 	\]
 	entonces no puede valer que 
 	\[
@@ -628,7 +628,7 @@ El mismo ejemplo del lenguaje de los palíndromos nos sirve como contraejemplo.
 	Existe un lenguaje $L$ tal que es aceptado por un \APND pero no es aceptado por ningún autómata de pila determinístico por estado final.
 \end{prop}
 
-\begin{proof}\todo{revisar}
+\begin{proof}
 	Consideramos el lenguaje $L_{\text{PAL}}$.
 	Por la proposición \ref{ej_apnd_palindromos} vimos que es aceptado por un \APND entonces nos alcanza con probar que no existe ningún $\cal M$ \APD que lo acepta por estado final.
 	
@@ -1098,12 +1098,11 @@ Primero una definición útil en este contexto.
 \begin{deff}
 	Sea $G$ un grupo y $A$ un conjunto de generadores tal que $1 \notin A$.
 	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $E(\Gamma) = \{ \{g,ga \} \mid g \in G, a \in A \}$.
-	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta} de $e$ al generador $a \in A$.
+	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta de la arista $e$} al generador $a \in A$.
 \end{deff}
 
 
 En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos de Cayley tal que es una acción libre.
-\todo{Arreglar multiplicación a derecha en la acción... sino no es consistente.}
 
 \begin{lema}\label{lema_grp_acc_libre_cayley}
 	Sea $G$ grupo finitamente generado por $A$ tal que $1 \notin A$ y $\Gamma = \text{Cay}(G,A)$ su grafo de Cayley entonces $G$ actúa libremente sobre $\Gamma$.
@@ -1145,8 +1144,9 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	Sea $\text{Cay}(G,A)$ el grafo de Cayley respecto a $A$ entonces definimos la siguiente función 
 	$l: \Pi(\text{Cay}(G,A)) \to (A \cup A^{-1})^*$
 	de la siguiente manera:
-	si $c = (g_{0}, \dots, g_{n}) \in \Pi(\text{Cay}(G,A))$ entonces para cada $0 \le i < n$ consideramos la etiqueta $a_{i} \in A \cup A^{-1}$ tal que $g_{i} = g_{i-1}a_{i}$ y así podemos finalmente definir la palabra $l(c) = a_{0}\dots a_{n-1}$.
-	En el caso que $c = (g_{0})$ luego definimos $l(c) = 1$. 
+	si $c = (g_{0}, \dots, g_{n}) \in \Pi(\text{Cay}(G,A))$ entonces para cada $0 \le i < n$ consideramos la etiqueta $a_{i} \in A \cup A^{-1}$ tal que $g_{i} = g_{i-1}a_{i}$ y así podemos finalmente definir \emph{la etiqueta del camino $c$} como siguiente palabra 
+	$l(c) = a_{0}\dots a_{n-1}$.
+	En el caso que $c = (g_{0})$ un camino constante definimos $l(c) = 1$. 
 \end{deff}
 \begin{lema}\label{obs_grafo_Cayley_palabras}
 	Sea $G$ grupo finitamente generado por $A$ tal que $1 \notin A$.
@@ -1166,8 +1166,14 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	\[
 		(g_{0}a_{0})(a_{1}a_{2} \dots a_{n-1}) = g_{1}(a_{1} \dots a_{n-1}) = \dots = a_{n-1}g_{n-1} =  g_{0}.
 	\] 
-	Esto dice que $g_{0}(a_{0} \dots a_{n-1}) = g_{0}$ pero por lo visto en la proposición \ref{lema_grp_acc_libre_cayley} el grupo $G$ actúa libremente sobre su grafo de Cayley, por lo tanto el estabilizador de todo vértice tiene que ser trivial.
-	Concluimos que $l(c) = 1$ tal como queríamos ver.
+	Esto dice que $g_{0}(a_{0} \dots a_{n-1}) = g_{0}$.
+	Por lo tanto como tenemos una acción a izquierda del grupo en su grafo de Cayley obtenemos que 
+	\[
+		(g_{0} a_{0} \dots a_{n-1} g_{0}^{-1}) \cdot g_{0} = g_{0}
+	\] 
+	dado por lo visto en la proposición \ref{lema_grp_acc_libre_cayley} el grupo $G$ actúa libremente sobre su grafo de Cayley, por lo tanto el estabilizador de todo vértice tiene que ser trivial.
+	Esto nos dice que 
+	$g_{0} a_{0} \dots a_{n-1} g_{0}^{-1}  = 1$ lo que implica que $a_{0} \dots a_{n-1} = 1$ , esto es que $l(c) = 1$ tal como queríamos ver.
 	
 	Probemos \textbf{2}.
 	Si $c = (g_{0}, \dots, g_{n})$ es un ciclo tal que $l(c) = (a_{0}, \dots, a_{n-1})$ luego va a ser reducida porque caso contrario existiría $i$ tal que $a_{i}^{-1} = a_{i+1}$ lo que implica que $g_{i}a_{i} = g_{i+1}$ y que $g_{i+1}a_{i}^{-1} = g_{i+2}$ y de esta manera obtenemos que $g_{i+2}a_{i} = g_{i+1} = g_{i}a_{i}$ y por lo tanto $g_{i+2} = g_{i}$ por lo que el camino $c$ no es un ciclo.
