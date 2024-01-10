@@ -75,11 +75,12 @@ Si $w = vu$ entonces $v$ es un \emph{prefijo} de $w$ y $u$ es un \emph{sufijo} d
 Destacamos el caso particular que $L_{1} = \{w\}$ un lenguaje formado con una única palabra y que $L_{2} = \Sigma^*$.
 En este caso tenemos que $L_{1}/\Sigma^* = \{  x \in \Sigma^*  \mid x \ \text{es prefijo de} \ w  \}$.
 Usaremos para este caso especial la notación $ \text{Pre}(w) = \{w\}/\Sigma^*$.
-Un \emph{prefijo propio} de $w$ es un prefijo $u$ tal que $u \neq w$ y $u \neq \epsilon$.
+Análogamente el caso $L_{1} \backslash \Sigma^{*} = = \{  x \in \Sigma^*  \mid x \ \text{es posfijo de} \ w  \}$.
+Usaremos para este caso especial la notación $ \text{Pos}(w) = \{w\} \backslash \Sigma^*$.
 
-\begin{deff}
-	Un lenguaje $L$ es \emph{libre de prefijos} si para toda $w \in L$ no existe $u$ prefijo propio de $w$ tal que $u \in L$.
-\end{deff}
+
+Un \emph{prefijo propio} de $w$ es un prefijo $u$ tal que $u \neq w$ y $u \neq \epsilon$ y definimos similarmente un \emph{posfijo propio} como un posfijo $u$ tal que $u \neq w$ y $u \neq \epsilon$.
+
 
 \begin{deff}\label{deff_pal_reversa}
 	Sea $\Sigma$ un conjunto finito.
@@ -97,23 +98,20 @@ En particular para cada alfabeto podemos definir un lenguaje que es el de los pa
 \end{deff}
 
 
-\begin{obs}
-	El lenguaje $L_{\text{PAL}}$ es no es libre de prefijos. 
-\end{obs}
 
 \begin{lema}\label{lema_palindromos_forma}
-	Sea $w \in L_{\text{PAL}}$ entonces existe $u$ prefijo de $w$ tal que $w = uu^R$.
+	Sea $w \in L_{\text{PAL}}$ entonces existe $u$ prefijo de $w$ y $c \in \{ a, b, \epsilon\}$ tal que $w = ucu^R$.
 \end{lema}
 \begin{proof}
 	Separamos en dos casos.
 	\begin{enumerate}
 		\item Caso $|w| = 2k$ para $k \in \NN$.
-		Sea $w = w_{1}w_{2}$ tal que $|w_{1}| = |w_{2}| = k$. 
-		Luego como $w = w^R$ tenemos que $w_{1}w_{2} = w_{2}^Rw_{1}^R$ lo que implica que $w_{2} = w_{1}^R$ por lo tanto nos alcanza con tomar $u = w_{1}$.
+		Sea $w = uv$ tal que $|u| = |v| = k$. 
+		Luego como $w = w^R$ tenemos que $uv = v^Ru^R$ lo que implica que $v = u^R$ y así $w = u \epsilon u^R$ tal como queríamos probar.
 		
 		\item Caso $|w| = 2k+1$ para $k \in \NN$.
-		En este caso podemos tomar $w = w_{1}cw_{2}$ donde $c \in \Sigma$.
-		Idénticamente al caso anterior concluimos que podemos tomar $u = w_{1}$.
+		En este caso podemos tomar $w = ucv$ donde $c \in \Sigma$.
+		Idénticamente al caso anterior concluimos que $u = v^R$.
 	\end{enumerate}
 \end{proof}
 
@@ -137,14 +135,12 @@ Dados $x,y \in (\Sigma \cup V)^*$ diremos que $x$ \emph{deriva} en $y$ si existe
 La notación que usaremos es $x \Rightarrow_{\cal G} y$. 
 Consideremos la clausura transitiva y reflexiva de esta relación que denotaremos por $\deriva$.
 
-\todo[inline]{agregar lenguaje generado por una variable?}
 
-\todo[inline]{cambiar símbolo lenguaje generado por gramática así es más consistente con sist de reescritura}
 
 \begin{deff}
 	Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
 	\[
-	L({\cal G}) = \{ w \in \Sigma^* \ | \ S \overset{*}{\Rightarrow_{\cal G}} w   \}.
+	L({\cal G}) = \{ w \in \Sigma^* \ | \ S \deriva w   \}.
 	\]
 \end{deff}
 
@@ -207,7 +203,6 @@ Es posible clasificar los lenguajes a partir de las características de las gram
 	Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \emph{lenguaje regular}. 
 \end{deff}
 
-\todo[inline]{agregar gramatica regular a derecha y a izquierda}
 
 En particular la gramática del ejemplo \ref{gramatica-regular} es regular. 
 De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
@@ -226,19 +221,18 @@ De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
 
 Un par $(q,w) \in Q \times \Sigma^*$ lo llamaremos una \emph{configuración} del autómata.
 Consideremos que $w = aw'$ donde $a \in \Sigma$ y $w' \in \Sigma^*$ luego si tenemos que $p \in \delta(q,a) $ entonces denotaremos esto así $(q,w) \vdash (p,w')$ y diremos que la configuración $(q,w)$ \emph{deriva} en la configuración $(p,w')$.
-Esto nos define una relación sobre $Q \times \Sigma^*$ tal que su clausura transitiva y reflexiva la denotaremos $\vdash^*_{\cal M}$.
+Esto nos define una relación $\vdash$ sobre $Q \times \Sigma^*$ tal que su clausura transitiva y reflexiva la denotaremos $\vdash^*_{\cal M}$.
 
 Una configuración $(q,w)$ se dice \emph{irreducible} si no existe ninguna configuración $(p,u)$ tal que $(q,w) \vdash (p,u)$.
 Equivalentemente esto sucede en dos casos.
-El primero es que $w = \epsilon$.
-El segundo es que $w = aw'$ y tenemos que $\delta(q,a) = \emptyset$.
+El primero es que $w = \epsilon$ y el segundo es que $w = aw'$ y tenemos que $\delta(q,a) = \emptyset$.
 Una configuración $(q,w)$ se dice \emph{final} si $q \in F$ y $w = \epsilon$.
 En particular las configuraciones finales son irreducibles.
 
 Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión de configuraciones $(q_0,w) \vdash (q_{i_{1}}, w_{i_{1}}) \vdash \dots \vdash (q_{i_{n}}, w')$ donde $(q_{i_{n}}, w')$ es una configuración irreducible.
 
 \begin{obs}
-	Los autómatas $\cal M$ son \emph{no determinísticos} porque dada una configuración $(q,w)$ donde $w = aw'$ podría suceder que $|\delta(q,a)| \ge 2$ por lo tanto la configuración $(q,w)$ podría derivar en más de una configuración.
+	Los autómatas $\cal M$ son \emph{no determinísticos} porque dada una configuración $(q,w)$ no irreducible donde $w = aw'$ con $a \in \Sigma, w' \in \Sigma^*$ podría suceder que $|\delta(q,a)| \ge 2$ por lo tanto la configuración $(q,w)$ podría derivar en más de una configuración.
 	Un corolario de esta afirmación es que las palabras $w \in \Sigma^*$ pueden ser consumidas en más de una forma.
 \end{obs}
 
@@ -252,11 +246,11 @@ Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión de c
 	\]
 \end{deff}
 Equivalentemente el lenguaje aceptado por un automáta son las palabras que pueden ser 
-consumidas de manera que terminan en un estado final.
+consumidas de manera que terminan en una configuración final.
 Notemos que al ser un automáta no determinístico podría ser que $w \in L(\cal M)$ y a su vez exista una forma de consumir a $w$ de manera que termina en una configuración que no es final.
 Lo importante en esta definición es que exista al menos una manera de consumir a la palabra y termine en una configuración final.
 
-Así como las gramáticas generan lenguajes pensamos que los autómatas aceptan lenguajes.
+Así como las gramáticas generan lenguajes los autómatas aceptan lenguajes.
 Más en particular dado ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ autómata finito no determinístico y $w \in \Sigma^*$ palabra diremos que $\cal M$ \emph{acepta} a $w$ si $w \in L(\cal M)$.
 
 
@@ -265,7 +259,7 @@ Más en particular dado ${\cal M} = (Q,\{q_0\},\Sigma,\delta,F)$ autómata finit
 \end{teo}
 
 \begin{proof}
-	Ver \cite{hopcraft-ullman}.
+	Ver \cite[pp.218-219]{hopcraft-ullman}.
 \end{proof}
 
 
@@ -349,14 +343,12 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 \end{deff}
 
 \begin{prop}\label{prop_fn_Chomsky}
-	Dada una gramática $\cal G$ independiente de contexto existe otra gramática $\cal G'$ tal que esté en forma normal de Chomsky y $\lengderivado = L(\cal G')$,
+	Para toda gramática $\cal G$ independiente de contexto existe otra gramática $\cal G'$ independiente de contexto tal que está en forma normal de Chomsky y $\lengderivado = L(\cal G')$,
 \end{prop}
 
 \begin{proof}
 	Ver \cite[pp.274-275]{hopcraft-ullman}.
 \end{proof}
-
-\todo[inline]{agregar gramática de Chomsky que acepta a los palindromos}
 
 \subsection{Autómatas de pila.}
 
@@ -390,6 +382,7 @@ Para cada $k \in \NN$ notaremos $\vdash^k$ a la aplicación $k$ veces de la deri
 
 Así como en el caso de los autómatas finitos no determinísticos podemos definir una \emph{configuración irreducible} $(q,aw',\gamma)$ como una configuración para la cual no existe ninguna otra configuración $(p,u,\theta)$ tal que $(q,w,\gamma) \vdash (p,u,\theta)$.
 En particular esto podría ser por dos casos: el primero es que $\gamma = \epsilon$ y el segundo es que si $Z$ es el tope de pila de la configuración luego $\delta(q,a,Z) = \emptyset$.
+\todo{Escribir notación $\vdash^k$}
 Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión finita de configuraciones $(q_{0},w,\$) \vdash \dots \vdash (p,u,\theta)$ donde $(p,u,\theta)$ es una configuración irreducible.
 
 \begin{deff}
@@ -399,7 +392,7 @@ Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión fini
 	\end{equation*}
 \end{deff}
 Las \emph{configuraciones finales} para el lenguaje aceptado por estado final de un \APND van a ser las configuraciones que tienen la pinta $(q,\epsilon,\gamma)$ donde $q \in F$.
-Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pila no determinístico son las palabras que pueden ser consumidas de manera que terminan en un una configuración final.
+Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pila no determinístico son las palabras que pueden ser consumidas de manera que terminan en una configuración final.
 
 
 
@@ -408,6 +401,7 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 \end{prop}
 
 \begin{proof}
+	\todo[]{REVISAR!! se esconden errores }
 	Consideremos el siguiente autómata de pila 
 	\[
 	M=(\{ q_{0}, q_{1}, q_{2} \},\{a,b\}, \{a,b,\$\} , \delta, q_0, \{q_2\}, \$)
@@ -606,43 +600,39 @@ Una diferencia importante es que si ${\cal M }$ es un \APD entonces dada una pal
 
 \begin{lema}\label{lema_configuracion_prefijo}
 	Sea ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ un autómata de pila determinístico.
-	Sean $w_1, w_2 \in \Sigma^*$ tales que $w_{2} \neq \epsilon$. 
-	Sean $\gamma \in \Gamma^*$ y $p,q \in Q$.
+	Sean $u, v \in \Sigma^*$ tales que $v \neq \epsilon$, $\gamma \in \Gamma^*$ y $p,q \in Q$.
 	Si
 	\[
-		(q_{0},w_{1}w_{2}, \$) \vdash^* (q,\epsilon, \gamma).
+		(q_{0},uv, \$) \vdash^* (q,\epsilon, \gamma).
 	\]
 	entonces no puede valer que 
 	\[
-		(q_{0},w_{1}, \$) \vdash^* (p, \epsilon, \epsilon).
+		(q_{0},u, \$) \vdash^* (p, \epsilon, \epsilon).
 	\]
 \end{lema}
 \begin{proof}
 	Supongamos que $(q_{0},w_{1}, \$) \vdash^* (p, \epsilon, \epsilon)$.
-	Como $\cal M$ es una \APD entonces para toda configuración $(q_{0}, w_{1}w_{2}, \$)$ existe una única manera de consumirla.
+	Como $\cal M$ es una \APD entonces para toda configuración $(q_{0}, uv, \$)$ existe una única manera de consumirla.
 	Esto quiere decir que 
 	\[
-		(q_{0},w_{1}w_{2}, \$) \vdash^* (p,w_{2}, \epsilon) \vdash^* (q,\epsilon, \gamma).
+		(q_{0},uv, \$) \vdash^* (p,v, \epsilon) \vdash^* (q,\epsilon, \gamma).
 	\]
-	Pero esto es una contradicción porque $(p, w_{2}, \epsilon)$ es una configuración final por lo tanto no existe ninguna otra configuración que derive de ella.
+	Pero esto es una contradicción porque $(p, v, \epsilon)$ es una configuración final por lo tanto no existe ninguna otra configuración que derive de ella.
 \end{proof}
 
 Informalmente el lema dice que si un \APD $\cal M$ puede consumir una palabra $w$ entonces todos los prefijos pueden ser consumidos y terminan en una configuración donde la pila no está vacía.
 
 Ahora probemos que no todo lenguaje aceptado por estado final por un \APND puede ser aceptado por estado final por un autómata de pila determinístico.
 El mismo ejemplo del lenguaje de los palíndromos nos sirve como contraejemplo.
-
 \begin{prop}
 	Existe un lenguaje $L$ tal que es aceptado por un \APND pero no es aceptado por ningún autómata de pila determinístico por estado final.
 \end{prop}
 
-\begin{proof}
+\begin{proof}\todo{revisar}
 	Consideramos el lenguaje $L_{\text{PAL}}$.
 	Por la proposición \ref{ej_apnd_palindromos} vimos que es aceptado por un \APND entonces nos alcanza con probar que no existe ningún $\cal M$ \APD que lo acepta por estado final.
 	
 	Supongamos que ${\cal {M}} = (Q, \{ a, b \}, \Gamma, \delta, q_0, F, \$)$ es un \APD que lo acepta. 
-	
-	
 	Sea $w \in \{ a,b \}^*$ arbitraria y distinta de $\epsilon$ entonces $w$ es el prefijo de $u = ww^R$ tal que $u \in L_{\text{PAL}}$.
 	Entonces por el lema \ref{lema_configuracion_prefijo} debe ser que
 	\[
@@ -1113,7 +1103,7 @@ Primero una definición útil en este contexto.
 
 
 En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos de Cayley tal que es una acción libre.
-
+\todo{Arreglar multiplicación a derecha en la acción... sino no es consistente.}
 
 \begin{lema}\label{lema_grp_acc_libre_cayley}
 	Sea $G$ grupo finitamente generado por $A$ tal que $1 \notin A$ y $\Gamma = \text{Cay}(G,A)$ su grafo de Cayley entonces $G$ actúa libremente sobre $\Gamma$.
@@ -1123,7 +1113,7 @@ En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos d
 	Vamos a definir una acción de $G$ sobre $\Gamma$ y probar que es libre.
 	
 	Una acción de $G$ en $\Gamma$ es un morfismo de grupos $\psi: G \to \text{Aut}(\Gamma)$.
-	Dado $g \in G$ definimos $\psi(g)$ como $\psi(g)(h) = gh$ donde usamos que los vértices del grafo de Cayley son los elementos del grupo por lo tanto podemos multiplicarlos en el grupo $G$ y mirar el vértice correspondiente.
+	Dado $g \in G$ definimos $\psi(g)$ para $h \in V(\Gamma)$ como $\psi(g)(h) = gh$ donde usamos que los vértices del grafo de Cayley son los elementos del grupo por lo tanto podemos multiplicarlos en el grupo $G$ y mirar el vértice correspondiente.
 	Por como lo definimos es claro que $\psi(g)$ es un morfismo de grafos. 
 	Para ver que es un automorfismo basta con tomar $\psi(g^{-1})$ tal que es la inversa de $\psi(g)$.
 	Por la definición también es claro que $\psi$ es un morfismo de grupos.
@@ -1174,13 +1164,13 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	Supongamos que $|c| \ge 1$ caso contrario no hay nada que probar.
 	Sea $l(c) = a_{0} \dots a_{n-1}$ luego tenemos que 
 	\[
-		(g_{0}a_{0})(a_{2} \dots a_{n-1}) = g_{1}(a_{2} \dots a_{n-1}) = \dots = g_{0}.
+		(g_{0}a_{0})(a_{1}a_{2} \dots a_{n-1}) = g_{1}(a_{1} \dots a_{n-1}) = \dots = a_{n-1}g_{n-1} =  g_{0}.
 	\] 
-	y esto dice que $g_{0}(a_{0} \dots a_{n-1}) = g_{0}$ pero por lo visto en la proposición \ref{lema_grp_acc_libre_cayley} el grupo $G$ actúa libremente sobre su grafo de Cayley, por lo tanto el estabilizador de todo vértice tiene que ser trivial.
-	Esto nos dice que $l(c) = 1$ tal como queríamos ver.
+	Esto dice que $g_{0}(a_{0} \dots a_{n-1}) = g_{0}$ pero por lo visto en la proposición \ref{lema_grp_acc_libre_cayley} el grupo $G$ actúa libremente sobre su grafo de Cayley, por lo tanto el estabilizador de todo vértice tiene que ser trivial.
+	Concluimos que $l(c) = 1$ tal como queríamos ver.
 	
 	Probemos \textbf{2}.
-	Si $c = (g_{0}, \dots, g_{n})$ es un ciclo tal que $l(c) = (a_{0}, \dots, a_{n-1})$ luego va a ser reducida porque caso contrario existiría $i$ tal que $a_{i}^{-1} = a_{i+1}$ lo que implica que $g_{i}a_{i} = g_{i+1}$ y que $g_{i+1}a_{i}^{-1} = g_{i+2}$ y de esta manera obtenemos que $g_{i+2}a_{i} = g_{i+1} = g_{i}a_{i}$ y así concluimos que $g_{i+2} = g_{i}$ por lo que el camino $c$ no es un ciclo.
+	Si $c = (g_{0}, \dots, g_{n})$ es un ciclo tal que $l(c) = (a_{0}, \dots, a_{n-1})$ luego va a ser reducida porque caso contrario existiría $i$ tal que $a_{i}^{-1} = a_{i+1}$ lo que implica que $g_{i}a_{i} = g_{i+1}$ y que $g_{i+1}a_{i}^{-1} = g_{i+2}$ y de esta manera obtenemos que $g_{i+2}a_{i} = g_{i+1} = g_{i}a_{i}$ y por lo tanto $g_{i+2} = g_{i}$ por lo que el camino $c$ no es un ciclo.
 	
 \end{proof}
 

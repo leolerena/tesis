@@ -388,20 +388,22 @@ Veamos ahora un grupo que no es independiente de contexto.
 
 \section{Teorema de Muller--Schupp.}\label{secc_teo_MS}
 
-Nuestro objetivo es probar que todo grupo \vl resulta ser \ic pero para esto debemos primero probar algunos resultados sobre grupos virtualmente libres.
+Nuestro objetivo es probar que todo grupo \vl resulta ser \ic pero para esto debemos  demostrar algunos resultados sobre grupos virtualmente libres.
 
 Primero vamos a ver que todo grupo virtualmente libre puede tomarse de manera que el subgrupo libre sea normal.
 Para eso nuestra estrategia es probar que la intersección de los conjugados del subgrupo libre tiene índice finito y también es un grupo libre. 
-La parte más laboriosa de esta demostración es la de probar que todo subgrupo de un grupo libre es libre.
+La parte más laboriosa de esta demostración es la de demostrar que todo subgrupo de un grupo libre es libre.
 Este resultado sale como un corolario directo del teorema central de Bass--Serre que probamos en el capítulo \ref{cap_BS}.
 \begin{deff}
 	Sea $G$ un grupo y $H$ un subgrupo entonces el \emph{normalizador} de $H$ en $G$ es el siguiente subgrupo
 	\begin{equation*}
-		N_G(H) = \{ g\in G : gHg^{-1} = H  \}
+		N_G(H) = \{ g\in G : gHg^{-1} = H  \}.
 	\end{equation*}
+	Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al \emph{conjunto de conjugados del subgrupo $H$}.
+
 \end{deff}
 
-Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al conjunto de conjugados del subgrupo $H$. 
+ 
 
 El siguiente lema nos va decir que los grupos de índice finito tienen finitos conjugados.
 
@@ -430,14 +432,12 @@ El siguiente lema nos va decir que los grupos de índice finito tienen finitos c
 	
 \end{proof}
 
-Este lema nos permite intersecar finitos grupos de índice finito para conseguirnos otro subgrupo de índice finito. 
-
 
 \begin{lema}\label{lema_indice_interseccion}
 	Sea $G$ grupo y $K_1, \dots, K_n$ subgrupos tales que $K_{i}$ tiene índice finito para todo $ 1 \le i \le n $ entonces $\bigcap_{i=1}^{n} K_{i}$ es un subgrupo de índice finito.
 \end{lema}
 \begin{proof}
-	Lo probaremos por inducción en la cantidad de subgrupos de índice finito que estamos intersecando.
+	Lo probaremos por inducción en $n$ que es la cantidad de subgrupos de índice finito que estamos intersecando.
 	En el caso base tenemos dos subgrupos $H,K$ de índice finito.
 	Primero notamos que por el segundo teorema de isomorfismo para grupos tenemos que existe una biyección entre los siguientes conjuntos de cosets $ KH / H \simeq K / K \cap H $ (en principio ningún subgrupo es normal así que no podemos hablar de grupos sino de conjuntos).
 	Como  $|KH / H| \le |G / H| < \infty$ dado que $H$ tiene índice finito obtenemos así que $|K / K \cap H| < \infty$.
@@ -445,7 +445,7 @@ Este lema nos permite intersecar finitos grupos de índice finito para conseguir
 	\[
 	[G:K\cap H] = [G:K][K: K \cap H]
 	\]
-	y como ambos índices de la derecha son finitos por lo visto obtenemos que $K \cap H$ es un subgrupo de índice finito también tal como queríamos ver.
+	y como ambos índices de la derecha son finitos esto implica que $K \cap H$ es un subgrupo de índice finito tal como queríamos ver.
 	
 	Para la demostración del paso inductivo debemos ver que si tenemos $n$ subgrupos de índice finito $K_{1}, \dots, K_{n}$ entonces $\bigcap_{i=1}^{n} K_{i}$ también tiene índice finito.
 	La demostración se reduce a la del caso base si tomamos $H = \bigcap_{i=1}^{n-1} K_{i}$ (que por hipótesis inductiva tiene índice finito) y $K = K_{n}$.
@@ -464,7 +464,7 @@ Este lema nos garantiza que tomar subgrupos de índice finito preserva la propie
 	También debe existir $h_i \in H$ de manera que $ h_i t_{k} = g_i$ para cierto $t_k$.
 	Veamos que el conjunto finito 
 	\[
-	B = \{ \ h_{ ij}  \mid {1 \le i,j \le n } \} \cup \{ \ h_i \mid {1 \le i \le n} \}
+	B = \{ \ h_{ ij}  \mid {1 \le j \le n, \  1 \le i \le m } \} \cup \{ \ h_i \mid {1 \le i \le n} \}
 	\]
 	genera a $H$.
 	
@@ -475,7 +475,9 @@ Este lema nos garantiza que tomar subgrupos de índice finito preserva la propie
 	\]
 	donde usamos el conjunto finito de generadores de $G$.
 	
-	Por lo visto anteriormente podemos escribir  $g_{i_1} = h_{i_1}t_{k_1}$ para cierto y entonces nos queda la siguiente escritura de $h$,
+	Por lo visto anteriormente podemos escribir  $g_{i_1} = h_{i_1}t_{k_1}$ para ciertos
+	$h_{i_{1}} \in B, t_{k_{1}} \in T$.
+	Entonces nos queda la siguiente escritura de $h$,
 	\[
 	h = h_{i_1}t_{k_1} g_{i_2}\dots g_{i_r}
 	\]
@@ -484,53 +486,59 @@ Este lema nos garantiza que tomar subgrupos de índice finito preserva la propie
 	h = h_{i_1}h_{k_{1}i_{2}}t_{k_2}\dots g_{i_r}.
 	\]
 	Repitiendo inductivamente este procedimiento llegamos a que $h =h_{i_1}h_{k_{1}i_{2}} \dots t_{k_r}$.
-	Necesariamente $t_{k_r} = 1$ porque $T$ es un conjunto de transversales de $H$ y $h \in H$.
+	Necesariamente $t_{k_r} = 1$ porque $T$ es un conjunto de transversales a derecha de $H$ y $h \in H$.
 	Concluimos que $B$ es un conjunto finito de generadores de $H$.
 	
 \end{proof}
 
 
-El siguiente lema omitimos la demostración que resulta ser estándar en la literatura.
-La intersección de los conjugados de un subgrupo resultan ser un subgrupo normal.
 
 \begin{lema}\label{lema_int_normal}
 	Sea $G$ grupo, sea $H$ subgrupo de $G$ luego el subgrupo $K = \bigcap_{g \in G} gHg^{-1}$ es un subgrupo normal de $G$.
 \end{lema}
 
 \begin{proof}
-	Es un subgrupo porque dados $k_{1}, k_{2} \in K$ tenemos que para todo $g \in G$ vale que $k_{1} = gh_{1}g^{-1}$ y $k_{2} = gh_{2}g^{-1}$ para ciertos $h_{1},h_{2} \in H$.
+	Primero veamos que es un subgrupo.
+	El neutro cumple que $1 \in K$ dado que para todo $g \in G$ vale que $1 = g1g^{-1} \in gHg^{-1}$.
+	Para ver que es cerrado por inversos notamos que si $k \in K$ luego para todo $g \in G$ existe $h_{g} \in H$ de manera que $k = gh_{g}g$. 
+	Para ver que $k^{-1} \in K$ basta notar que $k^{-1} = g^{-1}{h_{g}}^{-1}g$ lo que implica que $k \in g^{-1}Hg$ para todo $g \in G$. 
+	Esto dice que $k^{-1} \in K$ tal como queríamos ver.
+	Veamos ahora que dados $k_{1}, k_{2} \in K$ vale que $k_{1}k_{2} \in K$. 
+	Tenemos que para todo $g \in G$ vale que existen $h_{1},h_{2} \in H$ de manera que $k_{1} = gh_{1}g^{-1}$ y $k_{2} = gh_{2}g^{-1}$.
 	De esta manera $k_{1}k_{2} = g h_{1}h_{2}g^{-1} \in gHg^{-1}$. 
 	Como esto lo hicimos para un $g \in G$ genérico concluimos que $k_{1}k_{2} \in K$ tal como queríamos ver.
 	
 	Para ver que es normal consideramos la acción de $G$ sobre los cosets de $K$ en $G$ por multiplicación a izquierda.
-	Sea $\phi:G \to G/K$ esta acción luego $\ker(\phi) = \{  k \in G \mid kgH = gH, \ \forall g \in G \}$. 
-	Esto nos dice que $k \in \ker(\phi) \iff \forall g \in G, \exists h_{g} \in H. \ kg = gh_{g}$ y esto implica que $k = gh_{g}g^{-1}$ para todo $g \in G$.
+	Sea $\phi:G \to G/K$ esta acción luego $\ker(\phi) = \{  k \in G \mid  \ \forall g \in G, \ kgH = gH \}$. 
+	Esto nos dice que $k \in \ker(\phi) \iff \forall g \in G. \  \exists h_{g} \in H. \ kg = gh_{g}$ y esto implica que para todo $g \in G$ vale que $k = gh_{g}g^{-1}$.
 	De esta manera probamos que $K = \ker(\phi)$ y por lo tanto vimos que $K$ es normal.
+	
 \end{proof}
 
-Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser cerrada por subgrupos de índice finito y que a su vez los subgrupos libres pueden ser tomados para que sean normales.
+Finalmente podemos probar que la clase de grupos que son virtualmente libres resulta ser cerrada por subgrupos de índice finito y que a su vez los subgrupos libres pueden ser tomados para que sean normales.
 
 \begin{prop}\label{prop_vls}
-	Para todo grupo $G$ \vl \ valen las siguientes propiedades.
+	Para todo grupo $G$ \vl valen las siguientes propiedades.
 	\begin{enumerate}
-		\item Si $F$ es un subgrupo libre de índice finito de $G$ entonces podemos tomarnos otro subgrupo $F'$ de manera que sea normal, libre y de índice finito.
-		\item Si $H$ es un subgrupo de $G$ de índice finito entonces $H$ también resulta ser \vl.
+		\item Si $F$ es un subgrupo libre de índice finito de $G$ entonces podemos tomarnos un subgrupo $F'$ de $G$ de manera que sea normal, libre y de índice finito.
+		\item Si $H$ es un subgrupo de $G$ de índice finito entonces $H$ es virtualmente libre.
 	\end{enumerate}
 \end{prop}
 
 \begin{proof}
 	Vamos a probar \textbf{1}.
-	Si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por el lema \ref{lema_normalizador_conjugados}.
+	Si $G$ es virtualmente libre y $F$ es un subgrupo libre tenemos que la cantidad de conjugados de $F$ es finita por el lema \ref{lema_normalizador_conjugados} dado que el índice de $F$ en $G$ es finito.
 	Por el lema \ref{lema_int_normal} tenemos que el siguiente subgrupo de $G$ es normal
 	\[
 	F' = \bigcap_{g \in G} gFg^{-1}.
 	\]
-	Veamos que este subgrupo $F'$ nos sirve. 
+	Veamos que este subgrupo $F'$ cumple las propiedades que queremos. 
 	
 	
-	Como $F$ tiene índice finito y todos sus conjugados al ser isomorfos a $F$ también tienen índice finito entonces $F'$ tiene índice finito por el lema \ref{lema_indice_interseccion}.
+	El subgrupo $F$ tiene índice finito y todos sus conjugados, al ser isomorfos a $F$, también tienen índice finito entonces $F'$ tiene índice finito por el lema \ref{lema_indice_interseccion}.
 	Como $G$ es finitamente generado por ser virtualmente libre entonces usando \ref{lema_subg_fg} obtenemos que $F'$ es finitamente generado.
-	Finalmente notamos que es libre por el resultado \ref{coro_niels_sch} que nos dice que todo subgrupo de un grupo libre es libre, en particular al ser $F'$ subgrupo de $F$ que es libre obtenemos que $F'$ es libre tal como queríamos ver.
+	Finalmente como $F'$ es subgrupo de $F$ y $F$ es un grupo libre entonces por el resultado \ref{coro_niels_sch} obtenemos que $F'$ es libre también.
+	
 	
 	Probemos \textbf{2}. 
 	Por el lema \ref{lema_subg_fg} obtenemos directamente que $H$ es un grupo finitamente generado.
@@ -539,12 +547,13 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	\[
 	[H:F\cap H] \le [G:F] < \infty.
 	\]
+	Concluimos así que $H$ es un grupo virtualmente libre.
 \end{proof}
 
 
 \begin{obs}\label{obs_presentacion_vl}
 	Dado $G$ \vl vamos a construirnos una presentación en particular.
-	Como es un grupo \vl tenemos $F$ subgrupo libre que podemos tomarlo normal por \ref{prop_vls} y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos por medio de la siguiente forma
+	Como es un grupo \vl tenemos $F$ subgrupo libre que podemos tomarlo normal por \ref{prop_vls} y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos de la siguiente forma
 	\begin{center}
 		\begin{tikzcd}
 			1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & G/F \arrow[r] & 1
@@ -557,24 +566,25 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	Por otro lado el cociente $G/F$ resulta ser finito entonces $G/F = \{ q_i : 1 \le i \le m \}$.
 	Elegimos un transversal a derecha $T = \{ t_1, \dots, t_m \}$ de manera que $\pi(t_i)= q_i$ y fijamos para que $t_1 = 1$.
 	
-	Dado que es un transversal tenemos que se deben cumplir las siguientes dos relaciones para todo $a_l \in A$ y $t_i,t_j,t_k \in T$. 
+	Observamos que se deben cumplir las siguientes dos relaciones para todo $a_l \in A$, $t_i,t_j,t_k \in T$ y $q_{i},q_{j},q_{k} \in G/F$. 
 	\begin{enumerate}
-		\item $t_ia_{l}t_i^{-1} = u_{il}$ donde $u_{il} \in F$ usando que $F$ es normal.
-		\item Si tenemos que $q_iq_j = q_k$ entonces tenemos la siguiente igualdad 
-		$(Ft_{i}) (Ft_{j}) = Ft_{k}$
-		de donde se desprende que debe existir $z_{ij} \in F$ tal que 
+		\item  $F$ es normal por lo tanto para todo $1 \le i \le m$ y todo $1 \le l \le n$ debe existir $u_{il} \in F$ de manera que 
+		$t_ia_{l}t_i^{-1} = u_{il}$.
+		\item $T$ es un transversal a derecha entonces si tenemos que $q_iq_j = q_k$ entonces necesariamente vale la siguiente igualdad 
+		$(Ft_{i}) (Ft_{j}) = Ft_{k}$,
+		de la cual se desprende que debe existir $z_{ij} \in F$ tal que 
 		 $t_it_j = z_{ij}t_k$.
 	\end{enumerate}
 	Sean
 	\[
-		W = A \cup A^{-1} \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}
+		W = A \cup A^{-1} \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}.
 	\]
 	Vamos a probar que $G \equiv \langle W \mid R \rangle$. 
 	Denotamos a este grupo presentado como $H = \langle W \mid R \rangle$ y sea $F_{W}$ el grupo libre sobre sus generadores.
 	
 	Notemos que $W$ genera a $G$ porque
 	dado $g \in G$ luego existe $a \in F$ y $t \in T$ de manera que $g = at$.
-	Como $F$ es libre generado por $A \subseteq W$ y $T \subseteq W$ entonces $g$ está generado por $W$. 
+	Como $F$ es libre generado por $A \subseteq W$ y por otro lado $T \subseteq W$ entonces $g$ está generado por $W$. 
 	Esto nos dice que tenemos un epimorfismo de grupos $\varphi: F_{W} \to G$.
 	
 	Por como elegimos las relaciones $r \in R$ de $H$ tenemos que el grupo $G$ las cumple.
@@ -589,13 +599,14 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	
 	Vimos que $\ol \varphi$ es un epimorfismo, veamos ahora que es un monomorfismo.
 	Sea $w \in H$ luego queremos ver que $\ol \varphi(w) = 1 \iff w = 1$.
-	Por el mismo procedimiento que hicimos en la demostración del lema \ref{lema_subg_fg} 
-	tenemos que podemos llevar a $w$ (vista como una palabra en $F_{W}$) a que sea de la siguiente pinta
+	Por un procedimiento similar al que hicimos en la demostración del lema \ref{lema_subg_fg} 
+	tenemos que podemos llevar a $w$ (vista como una palabra en $W^*$) a que sea de la siguiente pinta
 	\[
 		w = st
 	\]
 	donde $s \in F$ reducida y $t \in T$.
 	
+	Especificamos como funciona este procedimiento.
 	Dada $w \in W^*$ supongamos que $|w| \ge 2$ caso contrario no tenemos nada para hacer.
 	Sea entonces $w = w_{1}w_{2}w'$ con $w_{1}, w_{2} \in W$ y $w' \in W^*$.
 	Separamos en casos.
@@ -606,7 +617,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 		\item Si $ w_{1} \in A \cup A^{-1}$ y $w_{2} \in T$ no hacemos nada.
 	\end{itemize}
 	Hacemos este procedimiento inductivamente empezando desde la izquierda y como la longitud $|w|$ es finita eventualmente llevamos a una palabra de la pinta $w = s't$ con $t \in T$ y $s' \in A \cup A^{-1}$.
-	Para terminar reducimos la palabra $s' \in A \cup A^{-1}$ a una palabra reducida tal como hicimos en el lema \ref{lema_subg_fg}.
+	Para terminar reducimos la palabra $s' \in A \cup A^{-1}$ a una palabra reducida en el grupo libre $F$.
 	
 	
 	
@@ -623,74 +634,108 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	$t_j a_l = u_{il} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
 	Sea entonces el conjunto finito 
 	\[
-	U =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
+	{\cal U} =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
 	\]
 	donde tomamos la escritura de todas las palabras en $U$ para que sean reducidas.
-	Sea $B = A \cup A^{-1}$ el conjunto simétrico de generadores.
 	Consideremos 
-	\[
-	\text{Pre}(U) = \{ u \in B^* : \exists v \in B^*, \  uv \in U  \}
-	\]
-	el conjunto de los prefijos de las palabras en $U$  tal que es un conjunto finito también.
+	$\text{Pos}({\cal U})$
+	el conjunto de los posfijos de las palabras en $\cal U$, tal que es un conjunto finito también.
 	El \emph{\APD de Muller--Schupp } está definido por 
 	\[
-	{\cal M }= (Q, W , B \cup \{ 1 \}, \delta, (1,1,1), 1 ,\{(1,1,1)\}).
+	{\cal M }= (Q, W , A \cup A^{-1} \cup \{ 1 \}, \delta, (1,1,1), 1 ,\{(1,1,1)\}).
 	\]
-	Donde $Q = T \times (T \cup A) \times \text{Pre}(U)$.
+	Donde $Q = T \times (T \cup A \cup A^{-1}) \times \text{Pos}(\cal U)$.
 	El alfabeto de entrada es $W$ que es el conjunto de generadores del grupo.
-	El alfabeto de la pila es $B \cup 1$ que es el conjunto simétrico de generadores del subgrupo libre $F$.
-	Nuestro estado inicial que también es el final corresponde a $(1,1,1)$.
+	El alfabeto de la pila es $A \cup A^{-1} \cup 1$ que es el conjunto simétrico de generadores del subgrupo libre $F$ y agregamos a $1$ como símbolo inicial para la pila.
+	Nuestro estado inicial que también es el final corresponde a la terna $(1,1,1)$.
 
 	Ahora podemos definir la función de transición. 
 	Sea $w_i \in W$ algún generador del grupo luego tenemos que
 	\[
 	\delta(w_i,(t_j,1,1), s) =
 	\begin{cases}
-		((t_j,a_i,1), s) \quad \text{si} \ w_{i}=a_{i} \\
-		((t_k,t_i,1), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
+		((t_j,a_i,u_{ij}), s) \quad \text{si} \ w_{i}=a_{i} \\
+		((t_k,t_i,z_{ijk}), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
 	\end{cases}\]
-	de manera que si estamos en $T \times \{ 1 \} \times \{ 1 \}$ podemos pasar a la segunda coordenada correspondiente a la letra de $W$ que hayamos leído.	
-	Ahora en esta instancia lo que vamos a hacer es la reducción, una letra a la vez, del producto de $u_{kj} \cdot v$ en el caso del estado $(t_k,a_i,1)$ o bien el de $z_{ijk} \cdot v$ en el caso del estado $(t_k,t_i,1)$.
-	Sea entonces $v \in U$ la palabra correspondiente al estado $(t_{j},w_{i},1)$, es decir que si $w_{i} = a_{i}$ entonces $v = u_{ij}$ mientras que si $w_{i} = t_{i}$ entonces $v = z_{ijk}$. 
-	En este caso obtenemos:
+%	Ahora en esta instancia lo que vamos a hacer es la reducción, una letra a la vez, del producto de $u_{ij} \cdot v$ en el caso del estado $(t_j,a_i,1)$ o bien el de $z_{ijk} \cdot v$ en el caso del estado $(t_k,t_i,1)$.
+%	Sea entonces $v \in U$ la palabra correspondiente al estado $(t_{j},w_{i},1)$, es decir que si $w_{i} = a_{i}$ entonces $v = u_{ij}$ mientras que si $w_{i} = t_{i}$ entonces $v = z_{ijk}$. 
+
+	Sea $u \in \text{Pos}({\cal U})$ tal que $u \neq 1$ luego si $u = a_{i}v $ donde $v \in \text{Pos}(\cal U)$ y $a_{i} \in A \cup A^{-1}$ 
+	en este caso definimos 
 	\begin{equation*}
-		\delta(\epsilon,(t_j,w_i,u), s) = ((t_j,w_i,u a_i), a_{i} \cdot s) \quad \ \text{si} \ ua_{i} \in \text{Pre}(v).
+		\delta(\epsilon,(t_j,w_i,a_{i}v), s) = ((t_j,w_i,v), a_{i} \cdot s).
 	\end{equation*}
-	siempre y cuando $ua_i$ sea un prefijo de la palabra de $U$ correspondiente.
-	La notación $v \cdot a_{i}$ representa el producto de $v \in F$ con $a_{i}$ un generador en $F$.
-	Notemos que para cada configuración del tipo $(w,(t_{j}, w_{i}, u),s)$ existe una única transición posible dado que fijamos de antemano alguna escritura única en los generadores $A$ para cada palabra $u \in U$.
-	Finalmente la función de transición la definimos para que podamos volver una vez que ya reducimos toda la palabra $v \in U$.
-	Para eso tenemos 
-	\begin{equation*}
-		\delta(\epsilon,(t_j,w_i,v), s) = ((t_j,1,1), s) \quad \ \text{si} \ v \in U.		
-	\end{equation*}	
-	Notemos que por como lo definimos resulta ser un autómata de pila determinístico.
+	La notación $v \cdot a_{i}$ representa el producto en el grupo libre $F$ de $v \in F$ con $a_{i}$ un generador en $F$.
+	Notemos que para cada configuración del tipo $(w,(t_{j}, w_{i}, u),s)$ existe una única transición posible dado que fijamos de antemano alguna escritura única en los generadores $A$ para cada palabra $u \in \cal U$.
+	
+	Finalmente definimos la función de transición de la siguiente manera para todo $w_{i} \in W$ y $t_{j} \in T$,
+	\[
+		\delta(\epsilon, (t_{j},w_{i},1), s) = ((t_{j},1,1),s).
+	\]
 
-
-	Vamos a probar una propiedad importante que cumple este autómata.
+	
+%	\begin{lema}
+%		Las configuraciones finales del \APD de Muller-Schupp resultan ser $(\epsilon, (t_{j},1,1),s)$ para $t_{j} \in T, s \in (A \cup A^{-1})^*$.
+%		
+%		Toda palabra $w \in W^*$ es tal que 
+%		\[
+%			(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{j},1,1),s)
+%		\]
+%		para cierto $t_{j} \in T$ y $s \in (A \cup A^{-1})^*$.
+%	\end{lema}
+%	\begin{proof}
+%		Primero notamos que para 
+%	\end{proof}
+	
+	
 	\begin{lema}\label{lema_MuSc_invariante}
-	Sea $\cal M$ el \APD de Muller--Schupp, $w \in W^*$ tal que $ w = uv $ entonces si consideramos una configuración de la pinta
+	Sea $\cal M$ el \APD de Muller--Schupp, $w \in W^*$ tal que $ w = uv $ entonces  
 		\[
 			(uv,(1,1,1), 1) \overset{*}{\vdash} (v, (t_{k},1,1), s^R)
 		\]
-		vale que $u = st_{k}$.
+		si y solo sí $u = st_{k}$.
 	\end{lema}
 	
 	\begin{proof}
-		Lo probamos por inducción.
-		En el caso base $|u| = 1$.
+		Probamos ambas implicaciones a la vez usando inducción en la longitud de $u$.
+		El caso base es que $|u| = 1$.
 		Separamos en dos subcasos. 
 		En el primer subcaso $u = a_{i} \in B$.
 		\[
-		(a_{i}v, ( 1,1,1), 1 ) \vdash (v, (1,a_{i},1),1) \vdash (v,(1,a_{i},a_{i}),a_{i}) \vdash (v, (1,1,1), a_{i})
+		(a_{i}v, ( 1,1,1), 1 ) \vdash (v, (1,a_{i},a_{i}),1) \vdash (v,(1,a_{i},1),a_{i}) \vdash (v, (1,1,1), a_{i})
 		\]
-		tal que $1 \cdot a_{i} = a_{i}$ tal como queríamos ver.
+		tal que $1 \cdot a_{i} = a_{i}$ así como queríamos ver.
 		El otro subcaso corresponde a que $u = t_{j} \in T$.
 		\[
-		(t_{i}v, (1,1,1), 1) \vdash (v, (t_{i},t_{i},1),1) \vdash (v,(t_{i},t_{i},1),1) \vdash (v, (t_{i},1,1), 1)
+		(t_{i}v, (1,1,1), 1) \vdash (v, (t_{i},t_{i},t_{i}),1) \vdash (v,(t_{i},t_{i},1),1) \vdash (v, (t_{i},1,1), 1)
 		\]
 		donde usamos que $z_{1i1} = 1$ y cumple que $t_{i} \cdot 1 = t_{i}$ tal como queríamos ver.
-		El paso inductivo es idéntico al caso base.
+		De manera idéntica vemos que vale la vuelta.
+		
+		Para el paso inductivo sea $u = u'w_{i}$ donde $u' \in \text{Pre(w)}$ y $w_{i} \in W$.
+
+		Tenemos que por hipótesis inductiva
+		\[
+		(u'a_{i}v, ( 1,1,1), 1 ) \overset{*}{\vdash} (a_{i}v, (t_{k},1,1), s^R)
+		\]
+		de manera que $st_{k} = u'$.
+		
+		Nuevamente separamos en casos.
+		En el caso que $w_{i} = a_{i} \in A \cup A^{-1}$	
+		si usamos la definición del autómata obtenemos que  
+		\[
+			(a_{i}v, (t_{k},1,1), s^R) {\vdash} 
+			(v, (t_{k},a_{i},u_{ki}), s^R ) \overset{*}{\vdash }
+			(v, (t_{k}, 1,1), u_{ki}^R \cdot s^R)
+		\]
+		si y solo si $st_{k}a_{i} = su_{ik}t_{k}$.
+		Para el caso que $w_{i} = t_{i} \in T$ similarmente si $t_{k}t_{i} = z_{kij} t_{j}$ luego
+		\[
+		(t_{i}v, (t_{k},1,1), s^R) {\vdash} 
+		(v, (t_{j},t_{j},z_{kij}), s^R ) \overset{*}{\vdash }
+		(v, (t_{k}, 1,1), z_{kij}^R \cdot s^R)
+		\]
+		si y solo si $st_{k}t_{i} = sz_{kij}t_{j}$.
 	\end{proof}
 	
 	
@@ -714,7 +759,7 @@ Finalmente podemos probar que la clase de grupos virtualmente libres resulta ser
 	Si $w \in L(\cal M)$ entonces $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (1,1,1), 1)$ y por lo tanto por el lema \ref{lema_MuSc_invariante} obtenemos que $w = 1$ y así que $w \in \text{WP}(G,W)$.
 	
 	Si $w \in \text{WP}(G,W)$ entonces $w = 1$ en $G$ por lo que nuevamente usando el lema \ref{lema_MuSc_invariante} obtenemos que $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{i},1,1), s)$
-	y esto implica que $t_{i}s = 1$ por lo que $t_{i} = 1, s =1$ y así $w \in L(\cal M)$.
+	y esto implica que $st_{i} = 1$ por lo que $t_{i} = 1, s =1$ y así $w \in L(\cal M)$.
 	
 	
 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
