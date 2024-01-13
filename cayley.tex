@@ -42,14 +42,51 @@ Notemos que la tercer condición \textbf{T3} se puede reescribir de la siguiente
 dado $v \in V(\Gamma)$ entonces el conjunto $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ forma un subárbol de $T$.
 
 Dado $t \in V(T)$ llamaremos a $f(t) \in 2^{V(\Gamma)}$ un \emph{bolsón}.
-
-\begin{center}
-	\missingfigure[figwidth=6cm]{Mostrar como son los bolsones.}
-\end{center}
-
 \smallskip
+\begin{ej}
+	
+	Sea $\Gamma$ el siguiente grafo con descomposición en un árbol $T$ y 
+	
+	\begin{center}
+		\begin{tikzpicture}[V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
+				\fill[#1] 
+				(path picture bounding box.south) rectangle
+				(path picture bounding box.north west);
+		}},
+		fill fraction/.default=gray!50
+		]
+	\node[align=center] at (-2.5, 1) {Grafo \textbf{$T$}};
+	\begin{scope}[nodes=V, xshift=-3.5cm, yshift=0cm]
+		\node (1) [fill = brightcerulean] {$t_1$};
+		\node (2) [below=of 1, fill=cadmiumred] {$t_{2}$};
+		\node (3) [below=of 2, fill=brightube] {$t_3$};
+	\end{scope}	
+	\draw   (1)  edge[-,] (2)
+	(2)  edge[-] (3);
+		
+		\node[align=center] at (5.5, 1) {Grafo \textbf{$\Gamma$}};
+		\begin{scope}[nodes=V,xshift=4.5cm, yshift=0cm]
+			\node (1)  [fill = brightcerulean] {$v_{1}$};
+			\node (2) [below=of 1, fill = brightcerulean, fill fraction=cadmiumred]{$v_{2}$};
+			\node (3) [right=of 2, fill = brightcerulean, fill fraction=cadmiumred	]    {$v_{3}$};
+			\node (4) [below=of 2,fill = cadmiumred, fill fraction=brightube]    {$v_{4}$};
+			\node (5) [below=of 3, fill = cadmiumred]    {$v_{5}$};
+			\node (6) [below=of 4,fill = brightube]    {$v_{6}$};
+		\end{scope}
+			\draw   (1)  edge[-] (2);
+			\draw   (1)  edge[-] (3);
+			\draw   (2)  edge[-] (3);
+			\draw   (3)  edge[-] (4);
+			\draw   (4)  edge[-] (5);
+			\draw   (2)  edge[-] (5);
+			\draw   (4)  edge[-] (6);
+	\end{tikzpicture}
+	\end{center}
+\end{ej}
 Si queremos que una descomposición en un árbol de un grafo nos modelice la idea que el grafo se parece a un árbol entonces nos va a interesar que los \emph{bolsones} $f(t) \in 2^{V(\Gamma)}$ no tengan muchos vértices. 
 Esto nos conduce a la siguiente definición.
+
+
 
 \begin{deff}
 	Dado un grafo $\Gamma$ y $(T,f)$ una descomposición en un árbol de $\Gamma$ el \emph{bagsize} de esta descomposición es el siguiente valor:
@@ -67,11 +104,27 @@ Esto es que dado $T$ un árbol vale que $T$ tiene treewidth finito y más aún e
 	$V(X') = V(X) \cup E(X)$ y $E(X') = \{ \{ v, \{v,w \} \} \mid \ \text{si} \ \{ v,w \} \in E(\Gamma) \}$.
 \end{deff}
 
-Gráficamente lo representamos de la siguiente manera:
+
 \begin{center}
-	\missingfigure[figwidth=6cm]
-	{Dibujo de subdivisión baricéntrica}
+	\begin{tikzpicture}[
+		node distance = 10mm and 10mm, 
+		V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
+		every edge quotes/.style = {auto, font=\footnotesize, sloped}
+		]
+		\begin{scope}[nodes=V]
+			\node (1)  [minimum size=0.75cm] {$P_{1}$};
+			\node (2) [right=of 1,minimum size=0.75cm]    {$P_{2}$};
+			\node (3) [right=of 2,minimum size=0.75cm]    {$P_{3}$};
+			\node (4) [right=of 3,minimum size=0.75cm]    {$P_{4}$};
+			\node (5) [right=of 4,minimum size=0.75cm]    {$P_{5}$};
+		\end{scope}
+		\draw   (1)  edge[->,"$y_1$"] (2);
+		\draw   (2)  edge[->,"$y_2$"] (3);
+		\draw   (3)  edge[->,"$y_3$"] (4);
+		\draw   (4)  edge[->,"$y_4$"] (5);
+	\end{tikzpicture}
 \end{center}
+
 
 \begin{obs}\label{obs_sub_bari_arbol}
 	Si $T$ es un árbol entonces la subdivisión baricéntrica de $T$ también es un árbol.
