@@ -43,46 +43,7 @@ dado $v \in V(\Gamma)$ entonces el conjunto $T_{v} = \{ t \in V(T) :  v \in f(t)
 
 Dado $t \in V(T)$ llamaremos a $f(t) \in 2^{V(\Gamma)}$ un \emph{bolsón}.
 \smallskip
-\begin{ej}
-	
-	Sea $\Gamma$ el siguiente grafo con descomposición en un árbol $T$ y 
-	
-	\begin{center}
-		\begin{tikzpicture}[V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
-				\fill[#1] 
-				(path picture bounding box.south) rectangle
-				(path picture bounding box.north west);
-		}},
-		fill fraction/.default=gray!50
-		]
-	\node[align=center] at (-2.5, 1) {Grafo \textbf{$T$}};
-	\begin{scope}[nodes=V, xshift=-3.5cm, yshift=0cm]
-		\node (1) [fill = brightcerulean] {$t_1$};
-		\node (2) [below=of 1, fill=cadmiumred] {$t_{2}$};
-		\node (3) [below=of 2, fill=brightube] {$t_3$};
-	\end{scope}	
-	\draw   (1)  edge[-,] (2)
-	(2)  edge[-] (3);
-		
-		\node[align=center] at (5.5, 1) {Grafo \textbf{$\Gamma$}};
-		\begin{scope}[nodes=V,xshift=4.5cm, yshift=0cm]
-			\node (1)  [fill = brightcerulean] {$v_{1}$};
-			\node (2) [below=of 1, fill = brightcerulean, fill fraction=cadmiumred]{$v_{2}$};
-			\node (3) [right=of 2, fill = brightcerulean, fill fraction=cadmiumred	]    {$v_{3}$};
-			\node (4) [below=of 2,fill = cadmiumred, fill fraction=brightube]    {$v_{4}$};
-			\node (5) [below=of 3, fill = cadmiumred]    {$v_{5}$};
-			\node (6) [below=of 4,fill = brightube]    {$v_{6}$};
-		\end{scope}
-			\draw   (1)  edge[-] (2);
-			\draw   (1)  edge[-] (3);
-			\draw   (2)  edge[-] (3);
-			\draw   (3)  edge[-] (4);
-			\draw   (4)  edge[-] (5);
-			\draw   (2)  edge[-] (5);
-			\draw   (4)  edge[-] (6);
-	\end{tikzpicture}
-	\end{center}
-\end{ej}
+
 Si queremos que una descomposición en un árbol de un grafo nos modelice la idea que el grafo se parece a un árbol entonces nos va a interesar que los \emph{bolsones} $f(t) \in 2^{V(\Gamma)}$ no tengan muchos vértices. 
 Esto nos conduce a la siguiente definición.
 
@@ -96,8 +57,53 @@ Esto nos conduce a la siguiente definición.
 	Un grafo $X$ tiene \emph{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
 
-Probemos con esta definición que sucede lo que es razonable que suceda.
-Esto es que dado $T$ un árbol vale que $T$ tiene treewidth finito y más aún el bagsize de $T$ se puede tomar para que sea exactamente $1$.
+\begin{ej}
+	Sea $\Gamma$ el grafo dado por $V = \{ v_{1}, v_{2},v_{3}, v_{4},v_{5},v_{6} \}$ con aristas \linebreak 
+	$ E = \{ \{ v_{1}, v_{2}\}, \{ v_{1},v_{3} \},\{v_{2} ,v_{3} \} , \{ v_{2} , v_{5} \}, \{ v_{3} , v_{4} \}, \{ v_{5}, v_{4} \}, \{ v_{4}, v_{6} \} \} $.
+	Entonces una descomposición está dada por $T$ árbol con vértices  $V(T)=\{ t_{1}, t_{2}, t_{3}  \}$ y con aristas $E(T) = \{ \{t_{1}, t_{2} \}, \{ t_{2}, t_{3} \} \}$ y un mapa 
+	definido por $f(t_{1}) = \{ v_{1}, v_{2}, v_{3} \}$, $f(t_{2}) = \{ v_{2}, v_{3}, v_{4}, v_{5} \}$ y $f(t_{3}) = \{ v_{4}, v_{6} \}$.
+	Representamos gráficamente esta descomposición pintando los vértices del grafo $\Gamma$ con el color correspondiente al bolsón del vértice del árbol $T$ que pertenece.
+	\begin{center}
+		\begin{tikzpicture}[V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
+					\fill[#1] 
+					(path picture bounding box.south) rectangle
+					(path picture bounding box.north west);
+			}},
+			fill fraction/.default=gray!50
+			]
+			\node[align=center] at (-2.5, 1) {Grafo \textbf{$T$}};
+			\begin{scope}[nodes=V, xshift=-3.5cm, yshift=0cm]
+				\node (1) [fill = brightcerulean!80] {$t_1$};
+				\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
+				\node (3) [below=of 2, fill=brightube!90] {$t_3$};
+			\end{scope}	
+			\draw   (1)  edge[-,] (2)
+			(2)  edge[-] (3);
+			
+			\node[align=center] at (5.5, 1) {Grafo \textbf{$\Gamma$}};
+			\begin{scope}[nodes=V,xshift=4.5cm, yshift=0cm]
+				\node (1)  [fill = brightcerulean!80] {$v_{1}$};
+				\node (2) [below=of 1, fill = brightcerulean!80, fill fraction=cadmiumred!75]{$v_{2}$};
+				\node (3) [right=of 2, fill = brightcerulean!80, fill fraction=cadmiumred!75	]    {$v_{3}$};
+				\node (4) [below=of 2,fill = cadmiumred!75, fill fraction=brightube!90]    {$v_{4}$};
+				\node (5) [below=of 3, fill = cadmiumred!75]    {$v_{5}$};
+				\node (6) [below=of 4,fill = brightube!90]    {$v_{6}$};
+			\end{scope}
+			\draw   (1)  edge[-] (2);
+			\draw   (1)  edge[-] (3);
+			\draw   (2)  edge[-] (3);
+			\draw   (3)  edge[-] (4);
+			\draw   (4)  edge[-] (5);
+			\draw   (2)  edge[-] (5);
+			\draw   (4)  edge[-] (6);
+		\end{tikzpicture}
+	\end{center}
+	
+	Por como lo construimos tenemos que $bs(\Gamma, T, f) = 3$.
+\end{ej}
+
+En particular si $\Gamma$ es un grafo finito vale que $\Gamma$ tiene treewidth finito. 
+
 
 \begin{deff}
 	Dado $\Gamma$ un grafo no dirigido llamaremos a $\Gamma'$ \emph{la subdivisión baricéntrica de $\Gamma$ }al grafo no dirigido dado por
@@ -105,35 +111,18 @@ Esto es que dado $T$ un árbol vale que $T$ tiene treewidth finito y más aún e
 \end{deff}
 
 
-\begin{center}
-	\begin{tikzpicture}[
-		node distance = 10mm and 10mm, 
-		V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
-		every edge quotes/.style = {auto, font=\footnotesize, sloped}
-		]
-		\begin{scope}[nodes=V]
-			\node (1)  [minimum size=0.75cm] {$P_{1}$};
-			\node (2) [right=of 1,minimum size=0.75cm]    {$P_{2}$};
-			\node (3) [right=of 2,minimum size=0.75cm]    {$P_{3}$};
-			\node (4) [right=of 3,minimum size=0.75cm]    {$P_{4}$};
-			\node (5) [right=of 4,minimum size=0.75cm]    {$P_{5}$};
-		\end{scope}
-		\draw   (1)  edge[->,"$y_1$"] (2);
-		\draw   (2)  edge[->,"$y_2$"] (3);
-		\draw   (3)  edge[->,"$y_3$"] (4);
-		\draw   (4)  edge[->,"$y_4$"] (5);
-	\end{tikzpicture}
-\end{center}
 
 
 \begin{obs}\label{obs_sub_bari_arbol}
 	Si $T$ es un árbol entonces la subdivisión baricéntrica de $T$ también es un árbol.
 \end{obs}
 
-\begin{ej}\label{desc-arbol-arbol}
-	Sea $T$ un árbol probemos que $T$ tiene treewidth exactamente igual a $1$.
-	
-	Para eso consideremos el siguiente par $(T',f)$ donde $T'$ es la subdivisión baricéntrica de $T$ y por lo tanto es un árbol por \ref{obs_sub_bari_arbol} y donde $f$ está definida como
+\begin{prop}\label{desc-arbol-arbol}
+	Todo árbol $T$ tiene treewidth exactamente igual a $1$.
+\end{prop}
+
+\begin{proof}
+	Consideremos el siguiente par $(T',f)$ donde $T'$ es la subdivisión baricéntrica de $T$ y por lo tanto es un árbol por \ref{obs_sub_bari_arbol} y donde $f$ está definida como
 	\[
 	f(t) = 
 	\begin{cases}
@@ -143,11 +132,9 @@ Esto es que dado $T$ un árbol vale que $T$ tiene treewidth finito y más aún e
 	\]
 	
 	
-	Por como definimos a $f$ es evidente que $|f(t)| \le 2$ para todo $t \in V(T)$.
+	Por como definimos a $f$ vale que $|f(t)| \le 2$ para todo $t \in V(T)$.
 	De esta manera si vemos que $(T',f)$ se trata de una descomposición en un árbol para $T$ tendremos probado que $bs(T,T',f) = 1$ tal como queríamos ver.
 	
-	Finalmente lo único que nos queda por probar es que se trata de una descomposición en un árbol.
-	Esto es que cumple las tres condiciones necesarias.
 	\begin{enumerate}
 		\item[\textbf{T1.}] 
 		Sea $t \in V(T)$ luego consideremos $f(t) = \{ t \}$ dado que $t \in V(T')$ por construcción de la subdivisión baricéntrica.
@@ -159,17 +146,17 @@ Esto es que dado $T$ un árbol vale que $T$ tiene treewidth finito y más aún e
 		Sea $t \in V(T)$, queremos ver que $\{ t' \in V(T') :  t \in f(t') \}$ resulta ser un subárbol de $T'$.		
 		Para empezar tenemos que $t \in f(t')$ si y solo sí sucede alguno de dos casos:
 		$t' = t$ o bien ocurre que $t' = \{ t,s \}$ para cierta arista $\{t,s\} \in E(T)$.
-		En particular notemos que todos estos vértices de $T'$ están conectados y en particular son un subgrafo dado que $ \{t, \{t,s\}\} \in E(T')$ para $t \in V(T)$ y $\{t,s\} \in E(T)$. 
+		Estos vértices de $T'$ están conectados y en particular son un subgrafo dado que $ \{t, \{t,s\}\} \in E(T')$ para $t \in V(T)$ y $\{t,s\} \in E(T)$. 
 	\end{enumerate}
 	
+\end{proof}
 	
-\end{ej}
+	
+
 
 Probaremos algunas proposiciones útiles de las descomposiciones en árboles de grafos.
 Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposición.
-Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica que las une. 
-Denotemosla $[t,s]$.
-\todo{Mencionar 1- árboles uni geod 2- concatenacion de caminos} 
+Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica que las une que denotamos $[t,s]$.
 \begin{prop}\label{prop-camino-desc}
 	Sea $\Gamma$ grafo no dirigido.
 	Sea $(T,f)$ una descomposición en un árbol de $\Gamma$.
@@ -188,17 +175,17 @@ Denotemosla $[t,s]$.
 	Para el paso inductivo supongamos que vale para caminos de longitud $n$.
 	Sea $t' \in V(T)$ de manera que $v_{0}, v_{1} \in f(t')$ que existe por la propiedad \textbf{T2}.
 	Dado que 
-	$[t_{1}, t_{2}] = [t_{1}, t']*[t',t_{2}]$
-	luego $t_{3}$ está en alguna de las dos geodésicas: $[t_{1},t']$ o $[t',t_{2}]$.
+	$[t_{1}, t_{2}] = [t_{1}, t'][t',t_{2}]$
+	luego $t_{3}$ está en alguna de las dos geodésicas: $[t_{1},t']$ o bien en  $[t',t_{2}]$.
 	
 	Si $t_{3}$ está en la primera geodésica entonces $t' = t_{3}$ y ya está porque nos alcanza con tomar $i=1$ de manera que $v_1 \in f(t_{3})$.
-	En el otro caso consideramos el camino de longitud $n$ dado por $(v_1 v_2 \dots v_n)$ y usando la hipótesis inductiva llegamos al resultado.	
+	En el otro caso consideramos el camino de longitud $n$ dado por $(v_1, v_2, \dots v_n)$ y usando la hipótesis inductiva llegamos al resultado.	
 \end{proof}
 
 \begin{prop}\label{prop_tw_finitos_bolsones}
-	Sea $\Gamma$ un grafo localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol $(T',f')$ de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
+	Sea $\Gamma$ un grafo localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol $(T,f')$ de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
 	\[
-	| \{  t' \in V(T') : \ v \in f'(t)  \} | < \infty.
+	|T_{v}| = | \{  t' \in V(T') : \ v \in f'(t)  \} | < \infty.
 	\]
 \end{prop}
 \begin{proof}
@@ -209,30 +196,33 @@ Denotemosla $[t,s]$.
 	Fijamos $v \in V(\Gamma)$ un vértice  de $\Gamma$.
 	Consideremos el siguiente conjunto de vértices de $T$
 	\[
-		\{  t_{uv} \in V(T) \mid \exists v \in V(\Gamma), \ \{ u,v \} \in E(\Gamma)  \}.
+		\{  t_{uv} \in V(T) \mid \exists u \in V(\Gamma), \ \{ u,v \} \in E(\Gamma)  \}.
 	\]
 	Notemos que es un conjunto finito porque por hipótesis $\Gamma$ es un grafo localmente finito.
 	Sea $T'$ el subárbol finito de $T$ generado a partir de estos finitos vértices.
 	
-	Vamos a definir a $f'$ utilizando a $f$ de la siguiente manera
+	Vamos a definir una descomposición en un árbol de $\Gamma$ usando este subárbol de manera que $|T_{v}| < \infty$.
+	Nuestra descomposición resulta ser $(T,f_{v})$ con $f_{v}$ definida de la siguiente manera
 	
 	\[
-	f'(t) = 
+	f_{v}(t) = 
 	\begin{cases}
 		f(t)  \ \  &\text{si} \ \  t \in V(T') \\
 		f(t) \setminus \{  v \} \ \  &\text{si} \ \  t \notin V(T')
 	\end{cases}
 	\]
-	haciendo esto mismo para cada uno de los vértices del grafo $\Gamma$ terminamos de definir a $(T',f')$.
+	haciendo esto mismo para cada uno de los vértices del grafo $\Gamma$ terminamos de definir a $(T,f_{v})$.
 	
 	Finalmente chequeamos que sea trata de una descomposición en un árbol.
-	Las primeras dos condiciones \textbf{T1} y \textbf{T2} se siguen cumpliendo porque por nuestra construcción de $T'$ garantizamos que se sigan cumpliendo.
-	La condición \textbf{T3} es válida porque si tomamos $v \in V(\Gamma)$ por nuestra construcción el subgrafo 
+	Las primeras dos condiciones \textbf{T1} y \textbf{T2} se siguen cumpliendo.
+	La condición \textbf{T3} es válida porque si tomamos $w \in V(\Gamma)$, tal que $w \neq v$, por nuestra construcción $T_{w}$ era un subárbol de $T$ y similarmente para el vértice $v$ tenemos que 
 	\[
-		\{ t' \in V(T') \mid v \in f'(t') \}
+		\{ t' \in V(T') \mid v \in f_{v}(t') \}
 	\]	
-	es un subárbol generado a partir de una cantidad finita de vértices.
-	Con esto probamos que $(T',f')$ es una descomposición en un árbol y como $|f'(t)| \le |f(t)|$ para todo $t \in V(T)$ luego obtenemos que el bagsize de $(T',f')$ también es finito.
+	es un subárbol generado a partir de una cantidad finita de vértices por lo tanto $T_{v}$ también es un árbol.
+	Con esto probamos que $(T,f_{v})$ es una descomposición en un árbol y como $|f_{v}(t)| \le |f(t)|$ para todo $t \in V(T)$ luego obtenemos que el bagsize de $(T,f_{v})$ también es finito.
+	
+	Hacemos este procedimiento para cada vértice $v \in V(\Gamma)$ para obtener la descomposición en un árbol que buscábamos.
 \end{proof}
 
 \begin{deff}
@@ -240,13 +230,13 @@ Denotemosla $[t,s]$.
 	\[
 	N(C) = \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.
 	\]
-	De esta manera podemos definir recursivamente los \emph{l-ésimos vecinos} por medio de $N^l(C) = N(N^{l-1}(C))$.
+	De esta manera dado $l \ge 2$ podemos definir recursivamente los \emph{l-ésimos vecinos} por medio de $N^l(C) = N(N^{l-1}(C))$.
 \end{deff}
 
 
-	Si al grafo no dirigido $\Gamma$ lo interpretamos como un espacio métrico entonces podemos escribir esta definición de la siguiente manera un poco más concisa:
+	Si al grafo no dirigido $\Gamma$ lo interpretamos como un espacio métrico entonces podemos escribir esta definición de la siguiente manera un poco más concisa
 	\[
-		N^l (C) = \{ v \in V(\Gamma) : \ \exists w \in C, \  d(v,w) \le l  \}
+		N^l (C) = \{ v \in V(\Gamma) : \ \exists w \in C, \  d(v,w) \le l  \}.
 	\]
 	Veamos ahora que dada una descomposición en un árbol si tomamos los vecinos de los bolsones podemos armarnos otra descomposición en un árbol.
 
@@ -284,22 +274,18 @@ Denotemosla $[t,s]$.
 \medskip
 
 \begin{deff}
-	Dado un grafo $\Gamma$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como:
+	Dado un grafo $\Gamma$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como
 	\[
-	\beta C =  N(C) \cap N(\ol{ C})
+	\beta C =  N(C) \cap N(\ol{ C}).
 	\] 
-	por otro lado tenemos que el \emph{borde de aristas} de $C \subseteq V(\Gamma)$ se define como:	
+	El \emph{borde de aristas} de $C \subseteq V(\Gamma)$ se define como
 	\[
 	\delta C = \{  \{v,w \} \in E(\Gamma) \mid v \in C, w \in \ol C    \}.
 	\]
 \end{deff}
 
 
-\begin{center}
-	\missingfigure[figwidth=6cm]{Dibujo ilustrativo.}
-\end{center}
-
-\begin{ej}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
+\begin{obs}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
 	
 	Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
 	Consideremos el grafo $\Gamma = \text{Cay}(G,A)$ para cierto conjunto de generadores $A$ finito.
@@ -308,7 +294,7 @@ Denotemosla $[t,s]$.
 	Sea $V_l = \Gamma \setminus N^l(\{1\}) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
 	Los vértices del árbol $T$ van a estar dados por los siguientes conjuntos:
 	\[
-	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \} \cup \{ 1 \}
+	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \} \cup \{ 1 \}.
 	\]
 	estamos tomando todos los posibles bordes de vértices 
 	de todas las componentes conexas de todos los $V_l$ con $l \in \NN$.
@@ -318,7 +304,7 @@ Denotemosla $[t,s]$.
 	Esto se debe a que $V_{l+1} \subseteq V_{l}$ y a su vez como $C$ es conexo si interseca a una componente conexa necesariamente tiene que estar incluido en esta componente.
 	Las aristas van a estar dadas por lo siguiente:
 	\[
-	E(T) = \{ \{ \beta C, \beta D \} : \exists l \in \NN / \ C \subseteq D \subseteq V_l \land \ C \subset V_{l+1}  \} \cup \{  \{1,\beta C\} : C \subseteq V_0  \}
+	E(T) = \{ \{ \beta C, \beta D \} : \exists l \in \NN / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}  \} \cup \{  \{1,\beta C\} : C \subseteq V_0  \}
 	\]
 	
 	Probemos que el grafo $T$ resulta ser un árbol. 
@@ -332,7 +318,8 @@ Denotemosla $[t,s]$.
 		El caso base es $l = 0$ y en este caso tenemos que $\{ 1, \beta C  \}$ para todo $C \in V_{0}$ por definición de las aristas de $T$.
 		
 		Para el paso inductivo suponemos que todo $\beta D$ para $D$ componente conexa de $V_{l}$ está conectado con $1$.
-		Sea entonces $C$ componente conexa de $V_{l+1}$, notemos que necesariamente tiene que existir $D$ componente conexa de $V_{l}$ tal que $C \subseteq D$ dado que $C$ es conexo y $V_{l+1} \subseteq V_{l}$.
+		Sea entonces $C$ componente conexa de $V_{l+1}$ entonces necesariamente tiene que existir $D$ componente conexa de $V_{l}$ tal que $C \subseteq D$ dado que $C$ es conexo y $V_{l+1} \subseteq V_{l}$.
+		Esto nos dice que $\{ \beta C, \beta D \} \in V(\Gamma)$ y así como $\beta D$ está conectado con $1$ vimos que $\beta C$ también lo está.
 		
 		\item \textbf{$T$ es acíclico.}
 		Probemos que todo camino cerrado en $T$ no es simple.
@@ -348,7 +335,7 @@ Denotemosla $[t,s]$.
 		
 	\end{enumerate}
 	  
-	Sea entonces $f: V(T) \to 2^{V(\Gamma)}$ la función definida por $f(\beta C) = \beta C$ donde en el lado izquierdo lo miramos como un vértice y en el lado derecho como un conjunto de vértices de $\Gamma$.
+	Sea entonces $f: V(T) \to 2^{V(\Gamma)}$ la función definida por $f(\beta C) = \beta C$ donde en el lado izquierdo lo miramos como un vértice del árbol $T$ y en el lado derecho como un conjunto de vértices de $\Gamma$.
 	Afirmamos que $(T,f)$ es una descomposición en un árbol para el grafo de Cayley $\Gamma$.
 	Para verlo debemos ver que cumple las tres condiciones \ref{desc-arbol} de la definición. 
 	\begin{enumerate}
@@ -373,16 +360,227 @@ Denotemosla $[t,s]$.
 		\[
 			d(g,1)= l < l+1 = d(h,1)
 		\] 
-		y en este caso como $g,h$ están conectados resulta que $g,h \in \beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_l$.
+		y en este caso resulta que $g,h \in \beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_l$.
 		
 		\item[\textbf{T3.}] Queremos ver que si fijamos $g \in V(\Gamma)$ entonces el subgrafo $T_{g} = \{ t \in V(T) \mid g \in f(t) \} $ es un subárbol de $T$.
-		Para eso notemos que si $d(g,1) = l$ luego
-		existe una única componente conexa $D \in V_{l-1}$ de manera que $g \in \beta D$ y como el grafo de Cayley de un grupo \fg es localmente finito entonces existen finitas componentes conexas $C_{1}, \dots, C_{k}$ de $V_{l}$ de manera que $g \in \beta C_{1}, \dots, g \in \beta C_{k}$.
+		Para eso notemos que si $d(g,1) = l$ luego $g \in \beta V_{l-1}$ y $g \in \beta V_{l}$ y para cualquier otro valor $j$ no vale que $g \in \beta V_{j}$.
+		
+		Existe una única componente conexa $D \in V_{l-1}$ de manera que $g \in \beta D$. 
+		Por otro lado como el grafo de Cayley de un \fg es localmente finito entonces existen finitas componentes conexas $C_{1}, \dots, C_{k}$ de $V_{l}$ de manera que $g \in \beta C_{1}, \dots, g \in \beta C_{k}$.
+
 		Notemos que $T_{g}$ es conexo porque para todo $\beta C_{i}$ vale que $\{ \beta D, \beta C_{i} \} \in E(T)$ por lo que $T_{g}$ resulta ser un subárbol de $T$ tal como queríamos ver.
 		 
-		
 	\end{enumerate}
+\end{obs}
+
+\begin{ej}
+	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ tal que tiene la siguiente presentación $G \simeq \langle a,b \mid a^2, b^3 \rangle$.
+	Este grupo es generado por el conjunto simétrico de generadores $\{ a, b, b^{-1} \}$ tal que al grafo $\text{Cay}(G, \{a,b,b^2\})$ lo representamos de la siguiente manera:
+	
+	\begin{tikzpicture}
+			[V/.style = {circle, draw,align= center, minimum size=0.5cm,
+					minimum size=2em,inner sep=2,
+					 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
+							\fill[#1] 
+							(path picture bounding box.south) rectangle
+							(path picture bounding box.north west);
+					}},
+			fill fraction/.default=astral!90
+			]
+	
+			\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+					 \node (1) at (0,0) {$1$};
+					\node (a) at (2,0)  {$a$};
+					 \node (b) at (-2,2)     {$b$};
+					\node (bb) at (-2,-2)    {$b^2$};
+					\node (ab) at (4,2)      {$ab$};
+					 \node (abb) at (4,-2)     {$ab^2$};
+					\node (ba) at (-4,2)     {$ba$};
+					\node (bba) at (-4,-2)     {$b^2a$};
+					\node (aba) at (6,2)    {$aba$};
+					\node (abba) at (6,-2)    {$ab^2a$};
+					\node (bab) at (-6,3)    {$bab$};
+					\node (babb) at (-6,1)     {$bab^2$};
+					\node (bbab) at (-6,-3)     {$b^2ab$};
+					\node (bbabb) at (-6,-1)    {$b^2ab^2$};
+					\node (abab) at (8,3)    {$abab$};
+					\node (ababb) at (8,1)    {$abab^2$};
+					
+					\node (abbab) at (8,-1)     {$ab^2ab$};
+					\node (abbabb) at (8,-3)  {$ab^2ab^2$};
+					
+				\end{scope}
+			
+			\node[right=.1cm of abbab] {$\dots$};
+			\node[right=.1cm of abbabb] {$\dots$};
+			\node[left=.1cm of bab] {$\dots$};
+			\node[left=.1cm of babb] {$\dots$};
+			\node[left=.1cm of bbabb] {$\dots$};
+			\node[left=.1cm of bbab] {$\dots$};
+			\node[right=.1cm of abab] {$\dots$};
+			\node[right=.1cm of ababb] {$\dots$};
+			
+			
+			\draw   (1)  edge[-] (a);
+			\draw   (1)  edge[-] (b);
+			\draw   (1)  edge[-] (bb);
+			\draw   (b)  edge[-] (bb);
+			\draw   (b)  edge[-] (ba);
+			\draw   (bb)  edge[-] (bba);
+			\draw   (a)  edge[-] (ab);
+			\draw   (abb)  edge[-] (a);
+			\draw   (ab)  edge[-] (abb);
+			\draw   (ab)  edge[-] (aba);
+			\draw   (aba)  edge[-] (abab);
+			\draw   (ababb)  edge[-] (aba);
+			\draw   (ababb)  edge[-] (abab);
+			\draw   (abb)  edge[-] (abba);
+			\draw   (abba)  edge[-] (abbab);
+			\draw   (abba)  edge[-] (abbabb);
+			\draw   (bba)  edge[-] (bbabb);
+			\draw   (bba)  edge[-] (bbab);
+			\draw   (ba)  edge[-] (bab);
+			\draw   (babb)  edge[-] (bab);
+			\draw   (abbab)  edge[-] (abbabb);
+			\draw   (ba)  edge[-] (babb);
+			\draw   (bbabb)  edge[-] (bbab);
+			\draw   (abbab)  edge[-] (abbabb);
+	\end{tikzpicture}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		
+%	\begin{tikzpicture}
+%		[V/.style = {circle, draw,align= center, minimum size=0.5cm,
+%			minimum size=2em,inner sep=2,
+%			 fill=gray!15,font=\scriptsize	},fill fraction/.style={path picture={
+%				\fill[#1] 
+%				(path picture bounding box.south) rectangle
+%				(path picture bounding box.north west);
+%		}},
+%		fill fraction/.default=gray!50
+%		]
+%		\node[align=center] at (5, 0) {Grafo \textbf{$\text{Cay}(\ZZ/2\ZZ \ast \ZZ / 3\ZZ, \{ a,b,b^2 \})$}};
+%		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+%			 \node (1) at (0,0) [fill = brightcerulean!80,  fill fraction=brightube!90] {$1$};
+%			\node (a) at (2,0)  [fill = cadmiumred!75,fill fraction=brightcerulean!80]{$a$};
+%			 \node (b) at (-2,2) [fill fraction = carrotorange!90,fill =brightube!90	]    {$b$};
+%			\node (bb) at (-2,-2) [fill fraction = aurometalsaurus!90,  fill =brightube!90]    {$b^2$};
+%			\node (ab) at (4,2)  [fill fraction= cadmiumred!75,fill = astral!90]    {$ab$};
+%			 \node (abb) at (4,-2) [fill fraction = cadmiumred!75,fill = applegreen!90]    {$ab^2$};
+%			\node (ba) at (-4,2) [fill = carrotorange!90]    {$ba$};
+%			\node (bba) at (-4,-2) [fill = aurometalsaurus!90]    {$b^2a$};
+%			\node (aba) at (6,2) [fill = astral!90]    {$aba$};
+%			\node (abba) at (6,-2) [fill = applegreen!90]    {$ab^2a$};
+%			\node (bab) at (-6,3) [fill = carrotorange!90]    {$bab$};
+%			\node (babb) at (-6,1) [fill = carrotorange!90]    {$bab^2$};
+%			\node (bbab) at (-6,-3) [fill = aurometalsaurus!90]    {$b^2ab$};
+%			\node (bbabb) at (-6,-1) [fill = aurometalsaurus!90]    {$b^2ab^2$};
+%			\node (abab) at (8,3) [fill = astral!90]    {$abab$};
+%			\node (ababb) at (8,1) [fill = astral!90]    {$abab^2$};
+%			
+%			\node (abbab) at (8,-1) [fill = applegreen!90]    {$ab^2ab$};
+%			\node (abbabb) at (8,-3) [fill = applegreen!90]    {$ab^2ab^2$};
+%			
+%		\end{scope}
+%		
+%		\node[right=.1cm of abbab] {$\dots$};
+%		\node[right=.1cm of abbabb] {$\dots$};
+%		\node[left=.1cm of bab] {$\dots$};
+%		\node[left=.1cm of babb] {$\dots$};
+%		\node[left=.1cm of bbabb] {$\dots$};
+%		\node[left=.1cm of bbab] {$\dots$};
+%		\node[right=.1cm of abab] {$\dots$};
+%		\node[right=.1cm of ababb] {$\dots$};
+%		
+%		
+%		\draw   (1)  edge[-] (a);
+%		\draw   (1)  edge[-] (b);
+%		\draw   (1)  edge[-] (bb);
+%		\draw   (b)  edge[-] (bb);
+%		\draw   (b)  edge[-] (ba);
+%		\draw   (bb)  edge[-] (bba);
+%		\draw   (a)  edge[-] (ab);
+%		\draw   (abb)  edge[-] (a);
+%		\draw   (ab)  edge[-] (abb);
+%		\draw   (ab)  edge[-] (aba);
+%		\draw   (aba)  edge[-] (abab);
+%		\draw   (ababb)  edge[-] (aba);
+%		\draw   (ababb)  edge[-] (abab);
+%		\draw   (abb)  edge[-] (abba);
+%		\draw   (abba)  edge[-] (abbab);
+%		\draw   (abba)  edge[-] (abbabb);
+%		\draw   (bba)  edge[-] (bbabb);
+%		\draw   (bba)  edge[-] (bbab);
+%		\draw   (ba)  edge[-] (bab);
+%		\draw   (babb)  edge[-] (bab);
+%		\draw   (abbab)  edge[-] (abbabb);
+%		\draw   (ba)  edge[-] (babb);
+%		\draw   (bbabb)  edge[-] (bbab);
+%		\draw   (abbab)  edge[-] (abbabb);
+%	\end{tikzpicture}
+
+Consideremos entonces cómo es la descomposición en un árbol construida en \ref{desc-grafo-cayley}.
+El árbol $T$ lo representamos de la siguiente manera tal que cada vértice $t \in V(T)$ es el bolsón correspondiente para la descomposición en un árbol de $\text{Cay}(G,\{ a,b,b^2 \})$.
+   
+   \begin{tikzpicture}
+   	[V/.style = {circle, draw,align= center, minimum size=0.5cm,
+   		minimum size=3em,inner sep=2,
+   		fill=applegreen!15,font=\tiny	},fill fraction/.style={path picture={
+   			\fill[#1] 
+   			(path picture bounding box.south) rectangle
+   			(path picture bounding box.north west);
+   	}},
+   	fill fraction/.default=gray!50
+   	]
+   	\node[align=center] at (7, 2) {Árbol \textbf{$T$}};
+   	\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+   		\node (1) at (0,0)  {$\{ b,b^2,1 \}$};
+   		\node (2) at (2,0)  {$1$};
+   		\node (3) at (4,0)  {$\{ 1,a \}$};
+   		\node (4) at (-2,3)     {$\{ b,ba \}$};
+   		\node (5) at (-2,-3)   {$\{b^2,b^2a\}$};
+   		\node (6) at (6,0)  {$\{ a,ab,ab^2 \}$};
+  
+   		\node (7) at (-4,5)  {$\{ba,bab,bab^2\}$};
+   		\node (8) at (-4,-5)    {$\{b^2a,b^2ab,b^2ab^2\}$};
+   		\node (9) at (8,3)  {$\{ab,aba\}$};
+   		\node (10) at (8,-3)  {$\{ ab^2, ab^2a \}$};
+   		\node (11) at (10,5)  {$\{aba,abab,abab^2\}$};
+   		\node (12) at (10,-5)[] {$\{ab^2a,ab^2ab,ab^2ab^2\}$};
+ 
+   	\end{scope}
+   
+   \node[right=.1cm of 12] {$\dots$};
+   	\node[right=.1cm of 11] {$\dots$};
+   	\node[ left=.1cm of 7] {$\dots$};
+   	\node[ left=.1cm of 8] {$\dots$};
+   
+   
+   \draw (1) edge[-] (2);
+   \draw (2) edge[-] (3);
+   \draw (1) edge[-] (5);
+   \draw (1) edge[-] (4);
+   \draw (7) edge[-] (4);
+   \draw (8) edge[-] (5);
+   \draw (3) edge[-] (6);
+   \draw (6) edge[-] (9);
+   \draw (6) edge[-] (10);
+   \draw (9) edge[-] (11);
+   \draw (10) edge[-] (12);
+   
+   
+   \end{tikzpicture}
+
+	
 \end{ej}
+
 
 \section{Cuasisometrías.}\label{secc_qi}
 
