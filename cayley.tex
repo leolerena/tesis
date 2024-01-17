@@ -888,12 +888,22 @@ entonces vale el siguiente resultado.
 	Idénticamente hacemos esto para las variables $A$ y $C$.
 	Por como definimos a $k$ tenemos las siguientes cotas $d(x,y), d(y,z), d(x,z) \le k$.
 	%agregar dibujito, creo que es la manera más clara de explicar esto
-	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[scale=0.5]{treewidth.png}
-		\caption*{}
-	\end{figure}
+
+
+\begin{tikzpicture}[font=\sffamily]
+	\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+	\draw[thick,path picture={
+		\foreach \X in {A,B,C}
+		{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{$g$} to[bend right=10] node (y) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= above:y] {}
+	(B) node[above right]{$h$} to[bend right=25] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:z] {}
+	(C) node[below]{$1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:x] {} cycle;
+	\draw[line width = 0.8pt] (y) to (z) ;
+	\draw[line width = 0.8pt] (z) to (x) ;
+	\draw[line width = 0.8pt] (y) to (x) ;
+	\node[label=left:A] at (barycentric cs:x=1,y=1) {};
+	\node[label=right:B] at (barycentric cs:y=1,z=1) {};
+	\node[label=below:C] at (barycentric cs:x=1,z=1) {};
+\end{tikzpicture}
 	
 	\todo{Cambiar las variables... Están en el orden equivocado.}
 	
