@@ -273,6 +273,17 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 \end{proof}
 \medskip
 
+\begin{coro}\label{coro_vecinos_bagsize_grado}
+	Sea $\Gamma$ un grafo no dirigido con grado acotado uniformemente y con treewidth finito si $(T,f)$ es una descomposición en un árbol para $\Gamma$ tal que tiene bagsize finito luego dado $l \in \NN$ consideramos $(T,g)$ tal que $g(t) = N^l(f(t))$ entonces $(T,g)$ resulta ser una descomposición en un árbol para $\Gamma$ con bagsize finito.
+\end{coro}
+\begin{proof}
+	Para ver esto basta notar que si existe $k \in \NN$ de manera que  $|f(t)| \le k$ para todo $t \in V(T)$ entonces como $\Gamma$ tiene grado acotado uniformemente por $n \in \NN$ luego para todo $t \in V(T)$ vale que
+	\[
+		|N^{l} (f(t))| \le kn < \infty.
+	\]
+	
+\end{proof}
+
 \begin{deff}
 	Dado un grafo $\Gamma$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como
 	\[
@@ -606,42 +617,49 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 
 \medskip
 \begin{prop}\label{prop_qi_simetrica}
-	Si existe $f:X \to Y$ cuasisometría entonces existe $g:Y \to X$ cuasisometría 
-	y constantes positivas $C,D \in \RR$ tales que:
+	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
+	Una función $f:X \to Y$ es una cuasisometría si y solo sí existe 
+	$g:Y \to X$ cuasisometría y constantes positivas $C,D \in \RR$ tales que:
 	\begin{itemize}
 		\item $d(g \circ f (x), x) < C$ para todo $x \in X$.
 		\item $d(f \circ g (y), y) < D$ para todo $y \in Y$. 
 	\end{itemize}
 \end{prop}
 \begin{proof}
-	Ver \cite{loh2017geometric}.
+	Ver \cite[pp.84-85]{loh2017geometric}.
+\end{proof}
+
+\begin{prop}\label{prop_qi_transitiva}
+	Sean $(X,d_X),(Y,d_Y), (Z, d_{Z})$ espacios métricos y sean $f:X \to Y$ y $g:Y \to Z$ cuasisometrías,
+	 entonces $g \circ f: X \to Z$ es una cuasisometría.
+\end{prop}
+\begin{proof}
+	Ver \cite[p.86]{loh2017geometric}.
+	\todo[]{La demo está como ejercicio en este libro, la podría escribir sino ja}
 \end{proof}
 
 
 \begin{deff}
-	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos de manera que existe $\phi:X \to Y$ cuasisometría diremos que son espacios métricos \emph{cuasisométricos} y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasisometría entre espacios métricos.
+	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos de manera que existe $f:X \to Y$ cuasisometría diremos que son espacios métricos \emph{cuasisométricos} y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasisometría entre espacios métricos.
 \end{deff}
 
-La proposición \ref{prop_qi_simetrica} nos dice que la relación de cuasisometría entre espacios métricos es simétrica. 
-Vale más aún que esta relación es una relación de equivalencia sobre los espacios métricos.
+La relación de cuasisometría es reflexiva-
+La proposición \ref{prop_qi_simetrica} nos dice que la relación de cuasisometría entre espacios métricos es simétrica.
+Por la proposición \ref{prop_qi_transitiva} tenemos que esta relación es transitiva también. 
+Esto nos dice que la relación de cuasisometría es una relación de equivalencia entre los espacios métricos.
 
-\begin{prop}
-	Ser cuasisométricos es una relación de equivalencia entre espacios métricos.
-\end{prop}
-\begin{proof}
-	Ver \cite{loh2017geometric}.
-\end{proof}
+
+
 
 En nuestro caso en particular los espacios métricos que nos van a interesar son los grafos no dirigidos.
 Más aún nos vamos a interesar en los grafos de Cayley de grupos finitamente generados.
-
 El siguiente resultado que enunciamos sin demostración nos garantiza que todos los grafos de Cayley para un grupo finitamente generado son cuasisométricos entre sí.
 \begin{prop}
 	Sea $G$ grupo finitamente generado por $\Sigma$ y por $\Delta$, ambos conjuntos finitos entonces $\text{Cay}(G,\Sigma)$ y $\text{Cay}(G, \Delta)$ son cuasisométricos entre sí.
 \end{prop}
 
 \begin{proof}
-	Ver \cite{bridson2013metric}.
+	Ver \cite[p.89]{loh2017geometric}.
 \end{proof}
 
 Este resultado deja de ser cierto en el contexto que tomamos un conjunto de generadores que no es finito.
@@ -652,28 +670,30 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 
 
 \begin{prop} \label{treewidth-inv}
-	Sean $(\Gamma_{1},d_{1}), (\Gamma_{2}, d_{2})$ grafos no dirigidos vistos como espacios métricos tales que $\Gamma_{1}$ tiene treewidth finito.
-	Sea $\phi:(\Gamma_{1},d_{1})\to (\Gamma_{2},d_{2})$ una cuasisometría.
+	Sean $(\Gamma_{1},d_{1}), (\Gamma_{2}, d_{2})$ grafos no dirigidos de grado uniformemente acotado cuasisométricos entre sí y $\Gamma_{1}$ grafo con treewidth finito.
 	Entonces $\Gamma_{2}$ tiene treewidth finito.
 \end{prop}
 
 \begin{proof}
-	Sea la cuasisometría $\phi$ tal que existe una constante $A > 0$ de manera que para todo par $v_{1}, v_{2} \in \Gamma_{1}$ tenemos que
+	Sea $\phi:\Gamma_{1} \to \Gamma_{2}$ una cuasisometría entonces existe una constante $A > 0$ de manera que para todo par $v_{1}, v_{2} \in \Gamma_{1}$ tenemos que
 	\[
 	\frac{1}{A} d_X(v_1,v_2) - A \le d_Y(\phi(v_1),\phi(v_2)) \le A d_X(v_1,v_2) + A
 	\]
-	y existe una constante $C \ge 0$ tal que para todo $w \in \Gamma_{2}$ debe existir $v \in \Gamma_{1}$ de manera que
+	y existe una constante $C \ge 0$ tal que para todo $w \in \Gamma_{2}$ existe $v \in \Gamma_{1}$ de manera que
 	\[
 	d(w,\phi(v)) \le C.
 	\]
 	
 	Sea $(T,f)$ una descomposición en un árbol para $\Gamma_{1}$ tal que tiene bagsize finito.
-	Si consideramos a $g: V(T) \ni t \mapsto N^{A(2C+1)}(f(t)) \in 2^{V(\Gamma_{1})}$ luego $(T,g)$ es una descomposición en un árbol para $\Gamma_{1}$ por el lema \ref{prop-vecinos-desc}.
+	Si consideramos a $g: V(T) \mapsto 2^{V(\Gamma_{1})}$ definida por $g(t) = N^{A(2C+1)}(f(t))$
+	luego $(T,g)$ es una descomposición en un árbol para $\Gamma_{1}$ por el lema \ref{prop-vecinos-desc}.
 	Consideremos entonces la siguiente función 
-	\[
-		h: V(T) \ni t \mapsto N^{C+1}(\phi(g(t))) \in 2^{V(\Gamma_{2})}
-	\]
-	afirmamos que $(T,h)$ es una descomposición en un árbol para $\Gamma_{2}$ tal que tiene bagsize finito.
+	\begin{align*}
+	h: V(T)  &\mapsto 2^{V(\Gamma_{2})} \\
+	h(t) =& N^{C+1}(\phi(g(t)).) 
+	\end{align*}
+	
+	Afirmamos que $(T,h)$ es una descomposición en un árbol para $\Gamma_{2}$ tal que tiene bagsize finito.
 	
 	
 	Para ver esto debemos ver que cumple las tres condiciones que definen a una descomposición en un árbol.
@@ -703,6 +723,8 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 		Esto implica que $w \in h(r)$ tal como queríamos ver.
 	\end{enumerate}
 	
+	Por el resultado \ref{coro_vecinos_bagsize_grado} tenemos que $(T,g)$ tiene bagsize finito dado que $(T,f)$ lo tiene. 
+	De esta manera también concluimos que $(T,h)$ tiene bagsize finito por lo que $ \Gamma_{2} $ tiene treewidth finito tal como queríamos ver.
 \end{proof}
 
 
@@ -769,73 +791,81 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 De esta manera podemos definir el treewidth finito como un invariante para grupos.
 
 \begin{deff}
-	Un grupo $G$ finitamente generado tiene treewidth finito si para algún conjunto generadores $A$ vale que $Cay(G,A)$ tiene treewidth finito.
+	Un \emph{grupo $G$ finitamente generado tiene treewidth finito} si para algún conjunto generadores $A$ vale que $\text{Cay}(G,A)$ tiene treewidth finito.
 \end{deff}
 
-A partir de este resultado podemos ver que la otra manera que teníamos de pensar a los grafos que se parecen a árboles resulta ser más débil. 
-El siguiente resultado lo demostramos en el caso general de un grafo tal que los grados de sus vértices están acotados uniformemente. 
-Como caso particular tenemos los grafos de Cayley de grupos finitamente generados.
-
-%
-%\begin{prop} 
-%	Un grafo $X$ de grado acotado uniformemente cuasisométrico con un árbol tiene treewidth finito.
-%\end{prop}
-%\begin{proof}	
-%	El grafo $X$ es cuasisométrico a un árbol $T$ y todo árbol por la observación \ref{desc-arbol-arbol} tiene treewidth exactamente $1$.
-%	Por la proposición anterior \ref{treewidth-inv} como tener treewidth finito es un invariante por cuasisometría vemos que $X$ debe tener treewidth finito tal como queríamos ver.
-%\end{proof}
+%A partir de este resultado podemos ver que la otra manera que teníamos de pensar a los grafos que se parecen a árboles resulta ser más débil. 
+%El siguiente resultado lo demostramos en el caso general de un grafo tal que los grados de sus vértices están acotados uniformemente. 
+%Como caso particular tenemos los grafos de Cayley de grupos finitamente generados.
 
 \section{Grupos \ic tienen treewidth finito.}\label{secc_MuSch}
 
 En esta sección probaremos un resultado que fue originalmente probado por Muller--Schupp en \cite{muller1985theory}.
 En ese trabajo usan una definición que resultó ser equivalente al treewidth que es la de ser $k$-triangulable.
 La demostración que presentamos sigue la exposición del trabajo \cite{diekert2017context}.
-Primero un lema sobre el lenguaje del problema de la palabra de un grupo independiente de contexto.
+Primero unos lemas sobre el lenguaje del problema de la palabra de un grupo independiente de contexto.
 
-
-Dado un grupo \ic con gramática $\gramatica$ de manera que $L(\cG) = WP(G,\Sigma)$.
-Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
-\[
-	L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
-\]
-entonces vale el siguiente resultado.
 
 \begin{lema}\label{palabras-wp}
-	Dadas palabras $v,v' \in L_{A}$ entonces $v \overset{G}{=} v'$.
+	Sea $G$ un grupo \ic con gramática $\gramatica$ de manera que $L(\cG) = WP(G,\Sigma)$.
+	Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
+	\[
+	L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
+	\]
+	Sea $\pi:\Sigma^* \to G$ la proyección del monoide libre al grupo.
+	Entonces vale el siguiente resultado:
+	dadas palabras $v,v' \in L_{A}$ luego $\pi(v) = \pi(v')$.
 \end{lema}
 
 \begin{proof}
-	Veamos que si $v,v' \in L_A$ entonces $v \overset{G}{=} v'$, es decir son el mismo elemento vistos en el grupo $G$. 
+	Veamos que si $v,v' \in L_A$ entonces $\pi(v){=} \pi(v')$. 
+	Es decir son el mismo elemento vistos en el grupo $G$. 
 	Para eso si tenemos una derivación que en algún momento llega a $S \deriva \beta A \gamma \deriva uvw$ también tenemos otra derivación que deriva en $S \deriva \beta A \gamma  \deriva uv'w$. 
 	Es decir que $uvw, u'v'w' \in \WP$ por lo tanto 
 	\begin{equation*}
-		uvw =_G 1 =_G uv'w \implies v =_G v'
+		\pi(uvw) = 1 = \pi(uv'w) \implies \pi(v) = \pi( v')
 	\end{equation*}
 	tal como queríamos ver.
 \end{proof}
 
+\begin{lema}\label{lema_tw_diam_bagsize}
+	Sea $\Gamma$ un grafo de grado acotado uniformemente y 
+	$(T,f)$ una descomposición en un árbol para $\Gamma$ de manera que existe $M \in \NN$ tal que para todo $t \in V(T)$ tenemos la siguiente cota
+	\[
+		\text{diam}( f(t)) < M
+	\]   
+	entonces la descomposición $(T,f)$ tiene bagsize finito.
+\end{lema}
+\begin{proof}
+	Buscamos $k \in \NN$ tal que nos permita acotar $|f(t)| \le k$ para todo $t \in V(T)$. 
+	Como exista $M \in \NN$ tal que 
+	\[
+	\text{diam}(f(t)) =  \sup_{g,h \in f(t)} d(g,h) \le M
+	\] 
+	para todo $t$ 
+	entonces al ser $\Gamma$ de grado acotado uniformemente por $n$ luego 
+	\[
+		|f(t)| \le n^{M} < \infty
+	\]
+	para todo $t \in V(T)$ así probando que $(T,f)$ es una descomposición con bagsize finito.
+\end{proof}
+
+
 
 \begin{teo} \label{teo_Mul-Sch}\cite{muller1985theory}
-	Todo grupo independiente de contexto $G$ tiene treewidth finito.
+	Sea $G$ un grupo \ic entonces $G$ tiene treewidth finito.
 \end{teo}
 \begin{proof}
-	La descomposición que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley.
-	Sea $\Sigma$ un conjunto finito de generadores de $G$, 
-	Veamos que esta descomposición para un grupo independiente de contexto tiene treewidth finito. 
-	Buscamos $k \in \NN$ tal que nos permita acotar $|\beta C| \le k$ para todo $\beta C \in V(T)$. 
-	Alcanza con ver que los diámetros de los bolsones $\beta C$ están acotados uniformemente, 
-	esto es que exista $M \in \NN$ tal que 
-	\[
-	\text{diam}(\beta C) =  \sup_{g,h \in \beta C} d(g,h) \le M
-	\] 
-	para todo $\beta C$ de la descomposición de árboles.
-	Si esto sucede, al ser el grupo finitamente generado por $\Sigma$ entonces $|\beta C| \le |\Sigma|^{M} < \infty$.
+	Sea $\Sigma$ un conjunto finito de generadores de $G$.
+	La descomposición en un árbol $(T,f)$ que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley en particular resulta serlo para $\text{Cay}(G,\Sigma)$.
+	Veamos que esta descomposición para $G$ tiene treewidth finito. 
+	Para esto vamos a usar el lema \ref{lema_tw_diam_bagsize} para probar que todo $\beta C \in V(T)$ cumple que $\text{diam}(\beta C) < \infty$.
 	
 	
 	Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $ \gramatica$ independiente de contexto que lo genera. 
 	Por la proposición \ref{prop_fn_Chomsky} consideremos que la gramática está en forma normal de Chomsky.
 	
-	Para cada variable $A$ de nuestra gramática podemos considerar el siguiente lenguaje
+	Para cada variable $A$ de nuestra gramática podemos considerar el siguiente lenguaje:
 	\[
 	L_A = \{ w \in \Sigma^* : A \deriva w  \}.
 	\]
@@ -843,69 +873,56 @@ entonces vale el siguiente resultado.
 	Como tenemos finitas variables en nuestra gramática $\cal G$ podemos considerar $k = \max_{A \in V} k_A$. 
 	Veamos que $\text{diam}(\beta C) \le 3k$ para todo $\beta C \in V(T)$.
 	
-	Sean $g,h \in \beta C$ para cierta $C$ componente conexa de $V_n$, acotemos $d(g,h)$. 
-	Para eso consideremos una geodésica $\alpha$ que una $1$ con $g$ y análogamente otra $\gamma$ que una $1$ con $h$. 
-	Como $C \cup \beta C$ es conexo podemos tomar un arco $\tau$ que una $g$ con  $h$ dentro de $C$ exceptuando sus extremos. 
-	Sin pérdida de generalidad supongamos que $|\tau| \ge 2$ caso contrario tendríamos que $g$ y $h$ son adyacentes y no tendríamos nada que probar.
-	De esta manera tenemos un triángulo tal que si leemos las letras que están en la etiqueta del arco empezando desde $1$ y moviéndonos por $\alpha$ leemos la etiqueta $u$. 
-	Cuando nos movemos por $\tau$ leemos la etiqueta $v$ que por lo que supusimos es tal que $|v| \ge 2$. 
-	Finalmente leemos la etiqueta $w$ cuando regresamos a $1$ por medio de $\gamma$.
-	Como $uvw$ está en un ciclo en el grafo de Cayley entonces $uvw \in  \WP$ y por lo tanto tenemos alguna derivación $S \deriva uvw$.
+	Sea $C$ componente conexa de $V_{n}$ para algún valor de $n \in \NN$ genérico.
+	Sean $g,h \in \beta C$, vamos a acotar $d(g,h)$. 
+	Para eso consideremos una geodésica $\alpha$ que una $1$ con $g$ y análogamente otra geodésica $\gamma$ que una $1$ con $h$. 
+	Como $C \cup \beta C$ es conexo podemos tomar un camino $\tau$ que una $g$ con $h$ dentro de $C$ exceptuando sus extremos. 
+	Sin pérdida de generalidad supongamos que $|\tau| \ge 2$ caso contrario tendríamos que $g$ y $h$ son adyacentes y no tendríamos nada que probar porque en este caso $d(g,h) =1$.
+	De esta manera tenemos un triángulo tal que tiene los lados tienen las siguientes etiquetas:
+	$l(\alpha) = u $, $l(\tau) =v$ y $l(\gamma) = w$.
+	Como $\alpha \tau \gamma$ es un ciclo en el grafo de Cayley entonces $l(\alpha \tau \gamma) = uvw \in  \WP$ por el resultado \ref{obs_grafo_Cayley_palabras} y por lo tanto tenemos alguna derivación $S \deriva uvw$.
 	
-	Ya que tenemos esta derivación $S \deriva uvw$ miremos la última variable que deriva a $v$ como subpalabra. 
+	Ya que tenemos esta derivación $S \deriva uvw$ consideramos la última variable que deriva a $v$ como subpalabra. 
 	Esto es que para la subpalabra $v$ sabemos que existe alguna variable $A$ y palabras posiblemente vacías $v',v''$ tal que $A \deriva v'v''$ donde $v$ es una subpalabra de $v'v''$. 
 	Tomamos la última variable que aparece en la derivación antes de que aparezca $v$ como subpalabra en la derivación.
 	Ésta variable debe existir porque en particular $S$ cumple que deriva a una palabra que contiene a $v$ como subpalabra.
 	
-	Como está en la forma normal de Chomsky sabemos que al suponer que $|v| \ge 2$ entonces tenemos que la derivación tiene la siguiente pinta
+	Como la gramática $ \cG $ está en forma normal de Chomsky sabemos que al suponer que $|v| \ge 2$ entonces la derivación tiene la siguiente pinta
 	\begin{equation*}
-		S \deriva u'Aw' \Rightarrow_{\cal G} u'BC w' \deriva u'v'v''w'
+		S \deriva u'Aw' \to_{\cal G} u'BC w' \deriva u'v'v''w'
 	\end{equation*}
 	donde $B,C$ son otras variables. 
-	En particular notemos que $A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
+	En particular notamos que $A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
 	
 	
-	Si miramos la geodésica $\alpha$ sabemos que cuando leímos $u'$ habremos llegado a un vértice del grafo $x$, y al estar sobre la geodésica misma tenemos la siguiente igualdad,
+	La palabra $u'$ es un prefijo de $u$ luego si consideramos la geodésica $\alpha$ tenemos que al haber leído la etiqueta $u'$ llegamos a un vértice $x$ y por estar sobre la geodésica cumple la siguiente igualdad:
 	\begin{equation*}
 		d(x,g) = d(1,g) - d(1,x).
 	\end{equation*}
-	Análogamente cuando miramos la geodésica $\gamma$ en la instancia que ya leímos $w'$ saliendo desde $h$ llegamos a cierto vértice $z$ y por la misma razón que en el caso anterior obtenemos
+	Análogamente $w'$ es un prefijo de $w$ luego si consideramos la geodésica $\gamma$ en la instancia que ya leímos $w'$ comenzando desde $h$ llegamos a cierto vértice $z$ y por la misma razón que en el caso anterior obtenemos
 	\begin{equation*}
 		d(z,h) = d(1,h) - d(1,z).
 	\end{equation*}
 
 	Consideremos el vértice $y$ al que llegamos después de leer $u'v'$.
-	Este vértice está en el arco $\tau$ dado que $v$ es subpalabra de $v'v''$.
+	Este vértice está en el camino $\tau$ dado que $v$ es subpalabra de $v'v''$.
 	Usando que $y \in \tau \subseteq C $ tenemos que $d(1,y) \ge n+1 = d(1,g)$ por ser $C$ una componente conexa de $V_n$, entonces vale la siguiente desigualdad
 	\begin{equation*}
 		d(x,g) = d(1,g) - d(1,x) \le d(1,y) - d(1,x) = d(x,y)
 	\end{equation*}
-	y análogamente tenemos que $d(z,h) \le d(z,y)$.
+	donde usamos que $x,y$ están en una misma geodésica.
+	Análogamente tenemos que $d(z,h) \le d(z,y)$.
 	
 	
 	Por el lema \ref{palabras-wp} notemos que si reemplazamos $v'$ por la palabra de menor tamaño del lenguaje $L_B$ seguimos teniendo un ciclo pero de longitud idéntica o más chica. 
 	La palabra $v'$ la leemos justamente cuando vamos del vértice $x$ al vértice $y$, así la distancia  $d(x,y)$ está acotada por la palabras que puede derivarse de $B$ de menor longitud. 
 	Idénticamente hacemos esto para las variables $A$ y $C$.
-	Por como definimos a $k$ tenemos las siguientes cotas $d(x,y), d(y,z), d(x,z) \le k$.
-	%agregar dibujito, creo que es la manera más clara de explicar esto
+	Por como definimos a $k$ tenemos las siguientes cotas: 
+	$d(x,y), d(y,z), d(x,z) \le k$.
 
 
-\begin{tikzpicture}[font=\sffamily]
-	\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
-	\draw[thick,path picture={
-		\foreach \X in {A,B,C}
-		{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{$g$} to[bend right=10] node (y) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= above:y] {}
-	(B) node[above right]{$h$} to[bend right=25] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:z] {}
-	(C) node[below]{$1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:x] {} cycle;
-	\draw[line width = 0.8pt] (y) to (z) ;
-	\draw[line width = 0.8pt] (z) to (x) ;
-	\draw[line width = 0.8pt] (y) to (x) ;
-	\node[label=left:A] at (barycentric cs:x=1,y=1) {};
-	\node[label=right:B] at (barycentric cs:y=1,z=1) {};
-	\node[label=below:C] at (barycentric cs:x=1,z=1) {};
-\end{tikzpicture}
+
 	
-	\todo{Cambiar las variables... Están en el orden equivocado.}
 	
 	Terminamos de probar que $d(g,h) \le 3k$. 
 	Usamos la desigualdad triangular tres veces,
@@ -914,7 +931,32 @@ entonces vale el siguiente resultado.
 		& \le d(x,y) + d(x,z) + d(y,z) \le 3k
 	\end{align*}
 	tal como queríamos ver.
-\end{proof}
+	
+\end{proof}	
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[font=\sffamily]
+		\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+		\draw[thick,path picture={
+			\foreach \X in {A,B,C}
+			{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{$g$} to[bend right=10] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:y] {}
+		(B) node[above right]{$h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:z] {}
+		(C) node[below]{$1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:x] {} cycle;
+		\draw[line width = 0.8pt] (y) to (z) ;
+		\draw[line width = 0.8pt] (z) to (x) ;
+		\draw[line width = 0.8pt] (y) to (x) ;
+		\node[label=left:B] at (barycentric cs:x=1,y=1) {};
+		\node[label=right:C] at (barycentric cs:y=1,z=1) {};
+		\node[label=below:A] at (barycentric cs:x=1,z=1) {};
+		\node[label=right:{\Large{$\alpha$}}] at (2,-2) {};
+		\node[label=right:{\Large{$\tau$}}] at (2.4,2.5) {};
+		\node[label=right:{\Large{$\gamma$}}] at (7.5,-1.5) {};
+	
+\end{tikzpicture} 
+	\caption{Diagrama que muestra como acotar la distancia entre $g$ y $h$.}
+\end{figure}
+
 	
 	
 \end{document}
