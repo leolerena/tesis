@@ -4,18 +4,16 @@
 	
 \chapter{Grafos de Cayley.} \label{seccion_treewidth}
 
-Las referencias centrales de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
-\todo{Cambiar la palabra "centrales", podría ser "más importantes"??}
+Las principales referencias de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
 
-En la primer sección \ref{secc_tw} introducimos las descomposiciones en árboles para grafos no dirigidos y así una de las definiciones equivalentes a ser virtualmente libre: el treewidth finito.
-\todo{No lo escribiría como una definición equivalente sino que simplemente diría que introduzco el treewidth.}
-El ejemplo \ref{desc-grafo-cayley} de la descomposición en un árbol para el grafo de Cayley de un grupo finitamente generado va a ser crucial en la demostración del teorema central de este capítulo.
+En la primer sección \ref{secc_tw} introducimos las descomposiciones en árboles para grafos no dirigidos y la definición del treewidth finito.
+El ejemplo \ref{desc-grafo-cayley} de la descomposición en un árbol para el grafo de Cayley de un grupo finitamente generado va a ser crucial en la demostración del teorema principal de este capítulo.
 
 
-En la segundo sección \ref{secc_qi} introducimos brevemente las ideas centrales detrás de las cuasisometrías (en nuestro caso restringidas al contexto de grafos).
+En la segundo sección \ref{secc_qi} introducimos brevemente ideas elementales detrás de las cuasisometrías (en nuestro caso restringidas al contexto de grafos).
 La idea es poder usar estas herramientas para probar que la definición de treewidth no depende de los generadores.
 
-Finalmente en la sección \ref{secc_MuSch} probamos uno de los resultados centrales que establece que todo grupo independiente de contexto tiene treewidth finito.
+Finalmente en la sección \ref{secc_MuSch} probamos uno de los resultados centrales del trabajo que establece que todo grupo independiente de contexto tiene treewidth finito.
 
 
 
@@ -37,21 +35,22 @@ Vamos a dar una primera definición que nos permite formalizar esta idea de que 
 		\item[\textbf{T2.}] Para toda arista $\{v,w\} \in E(\Gamma)$ 
 		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
 		\item[\textbf{T3.}] Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$ dentro de $T$.  
-	\end{enumerate} 
+	\end{enumerate}
+	Dado $t \in V(T)$ llamaremos a $f(t) \in 2^{V(\Gamma)}$ un \emph{bolsón}.
+	 
 \end{deff}
 Notemos que la tercer condición \textbf{T3} se puede reescribir de la siguiente manera:
 dado $v \in V(\Gamma)$ entonces el conjunto $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ forma un subárbol de $T$.
-\todo[]{Cambiar el orden, pondría lo de los bolsones adentro de la definición.}
-Dado $t \in V(T)$ llamaremos a $f(t) \in 2^{V(\Gamma)}$ un \emph{bolsón}.
 \smallskip
 
-Si queremos que una descomposición en un árbol de un grafo nos modelice la idea que el grafo se parece a un árbol entonces nos va a interesar que los \emph{bolsones} $f(t) \in 2^{V(\Gamma)}$ no tengan muchos vértices. 
+Si queremos que una descomposición en un árbol de un grafo modele la idea que el grafo se parece a un árbol entonces vamos a requerir que los 
+\emph{bolsones} $f(t) \in 2^{V(\Gamma)}$ no tengan muchos vértices. 
 Esto nos conduce a la siguiente definición.
 
 
 
 \begin{deff}
-	Dado un grafo $\Gamma$ y $(T,f)$ una descomposición en un árbol de $\Gamma$ el \emph{bagsize} de esta descomposición es el siguiente valor:
+	Dado $\Gamma$ un grafo no dirigido y $(T,f)$ una descomposición en un árbol de $\Gamma$ el \emph{bagsize} de esta descomposición es el siguiente valor:
 	\begin{equation*}
 		bs(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1
 	\end{equation*}
@@ -127,7 +126,7 @@ Esto nos conduce a la siguiente definición.
 \end{obs}
 
 \begin{prop}\label{desc-arbol-arbol}
-	Todo árbol $T$ tiene treewidth exactamente igual a $1$.
+	Todo árbol $T$ tiene treewidth igual a  $1$.
 \end{prop}
 
 \begin{proof}
@@ -165,7 +164,7 @@ Esto nos conduce a la siguiente definición.
 
 Probaremos algunas proposiciones útiles de las descomposiciones en árboles de grafos.
 Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposición.
-Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica que las une que denotamos $[t,s]$.
+%Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica que las une que denotamos $[t,s]$.
 \begin{prop}\label{prop-camino-desc}
 	Sea $\Gamma$ grafo no dirigido.
 	Sea $(T,f)$ una descomposición en un árbol de $\Gamma$.
@@ -192,7 +191,7 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 \end{proof}
 
 \begin{prop}\label{prop_tw_finitos_bolsones}
-	Sea $\Gamma$ un grafo localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol $(T,f')$ de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
+	Sea $\Gamma$ un grafo no dirigido localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol $(T,f')$ de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
 	\[
 	|T_{v}| = | \{  t \in V(T) : \ v \in f'(t)  \} | < \infty.
 	\]
@@ -205,7 +204,7 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 	Fijamos $v \in V(\Gamma)$ un vértice  de $\Gamma$.
 	Consideremos el siguiente conjunto de vértices de $T$
 	\[
-		\{  t_{uv} \in V(T) \mid \exists u \in V(\Gamma), \ \{ u,v \} \in E(\Gamma)  \}.
+		\{  t_{uv} \in V(T) \mid \exists u \in V(\Gamma). \ \{ u,v \} \in f(t_{uv})  \}.
 	\]
 	Notemos que es un conjunto finito porque por hipótesis $\Gamma$ es un grafo localmente finito.
 	Sea $T'$ el subárbol finito de $T$ generado a partir de estos finitos vértices.
@@ -220,9 +219,9 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 		f(t) \setminus \{  v \} \ \  &\text{si} \ \  t \notin V(T')
 	\end{cases}
 	\]
-	haciendo esto mismo para cada uno de los vértices del grafo $\Gamma$ terminamos de definir a $(T,f_{v})$.
 	
-	Finalmente chequeamos que sea trata de una descomposición en un árbol.
+	
+	Chequeamos que sea trata de una descomposición en un árbol.
 	Las primeras dos condiciones \textbf{T1} y \textbf{T2} se siguen cumpliendo.
 	La condición \textbf{T3} es válida porque si tomamos $w \in V(\Gamma)$, tal que $w \neq v$, por nuestra construcción $T_{w}$ era un subárbol de $T$ y similarmente para el vértice $v$ tenemos que 
 	\[
@@ -231,11 +230,12 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 	es un subárbol generado a partir de una cantidad finita de vértices por lo tanto $T_{v}$ también es un árbol.
 	Con esto probamos que $(T,f_{v})$ es una descomposición en un árbol y como $|f_{v}(t)| \le |f(t)|$ para todo $t \in V(T)$ luego obtenemos que el bagsize de $(T,f_{v})$ también es finito.
 	
-	Hacemos este procedimiento para cada vértice $v \in V(\Gamma)$ para obtener la descomposición en un árbol que buscábamos.
+	Hacemos este procedimiento para cada vértice $v \in V(\Gamma)$ de manera iterativa para obtener la descomposición en un árbol que buscábamos.
+	
 \end{proof}
 
 \begin{deff}
-	Sea $\Gamma$ un grafo y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \emph{vecinos de $C$} por medio de 
+	Sea $\Gamma$ un grafo no dirigido y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \emph{vecinos de $C$} por medio de 
 	\[
 	N(C) = \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.
 	\]
@@ -278,7 +278,7 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 	De esta manera vemos que necesariamente $v \in g(t_{3})$ tal como queríamos ver.
 		
 	El paso inductivo se sigue directamente del caso base.
-	Esto se debe a que si sabemos que $(T,g)$ con $g(t) = N^{l-1}(f(t))$ forma una descomposición de un árbol entonces podemos usar el caso base para ver que los vecinos de esta descomposición siguen siendo otra descomposición en un árbol y con esto terminamos de probarlo porque $N^l(f(t)) = N (N^{l-1})(f(t))$.
+	Esto se debe a que si sabemos que $(T,g)$ con $g(t) = N^{l-1}(f(t))$ forma una descomposición de un árbol entonces podemos usar el caso base para ver que los vecinos de esta descomposición siguen siendo otra descomposición en un árbol y con esto terminamos de probarlo porque $N^l(f(t)) = N (N^{l-1}(f(t)))$.
 \end{proof}
 \medskip
 
@@ -294,7 +294,7 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 \end{proof}
 
 \begin{deff}
-	Dado un grafo $\Gamma$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como
+	Dado un grafo no dirigido $\Gamma$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como
 	\[
 	\beta C =  N(C) \cap N(\ol{ C}).
 	\] 
@@ -308,10 +308,10 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 \begin{obs}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
 	
 	Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
-	Consideremos el grafo $\Gamma = \text{Cay}(G,A)$ para cierto conjunto de generadores $A$ finito.
-		
+	Sea $G$ un grupo finitamente generado por $A$ y $\Gamma = \text{Cay}(G,A)$ el respectivo grafo de Cayley de $G$. 
 	
-	Sea $V_l = \Gamma \setminus N^l(\{1\}) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
+	
+	Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
 	Los vértices del árbol $T$ van a estar dados por los siguientes conjuntos:
 	\[
 	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \} \cup \{ 1 \}.
@@ -335,7 +335,7 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 		Para todo $\beta C \in V(T)$ existe un camino que lo conecte con $1$.
 		Lo probaremos por inducción en $l$ siendo $l \in \NN$ tal que $C$ es una componente conexa de $V_{l}$.
 		
-		El caso base es $l = 0$ y en este caso tenemos que $\{ 1, \beta C  \}$ para todo $C \in V_{0}$ por definición de las aristas de $T$.
+		El caso base es $l = 0$ y en este caso tenemos que $\{ 1, \beta C  \}$ para toda componente conexa $C \in V_{0}$ por definición de las aristas de $T$.
 		
 		Para el paso inductivo suponemos que todo $\beta D$ para $D$ componente conexa de $V_{l}$ está conectado con $1$.
 		Sea entonces $C$ componente conexa de $V_{l+1}$ entonces necesariamente tiene que existir $D$ componente conexa de $V_{l}$ tal que $C \subseteq D$ dado que $C$ es conexo y $V_{l+1} \subseteq V_{l}$.
@@ -363,7 +363,7 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 		tenemos que $g \in C \subseteq V_{l-1}$ para cierta $C$ componente conexa de $V_{l-1}$ y en particular $g \in \beta C$.		 
 		
 		
-		\item[\textbf{T2.}] Sea una arista $\{g,h\} \in E(\Gamma)$ 
+		\item[\textbf{T2.}] Sea una arista $\{g,h\} \in E(\Gamma)$. 
 		Separamos en dos casos dependiendo si $d(g,1) = d(h,1)$ o si no sucede esto.
 		
 		Supongamos que ambas están a la misma distancia del vértice $1$. 
@@ -395,7 +395,7 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 
 \begin{ej}
 	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ tal que tiene la siguiente presentación $G \simeq \langle a,b \mid a^2, b^3 \rangle$.
-	Este grupo es generado por el conjunto simétrico de generadores $\{ a, b, b^{-1} \}$ tal que al grafo $\text{Cay}(G, \{a,b,b^2\})$ lo representamos de la siguiente manera:
+	Tomamos el conjunto simétrico de generadores $\{ a, b, b^{-1} \}$ tal que al grafo $\text{Cay}(G, \{a,b,b^2\})$ lo representamos de la siguiente manera:
 	
 	
 	\begin{center}
@@ -549,8 +549,8 @@ Sean $t,s \in V(T)$ vértices cualesquiera entonces existe una única geodésica
 %		\draw   (abbab)  edge[-] (abbabb);
 %	\end{tikzpicture}
 
-Consideremos entonces cómo es la descomposición en un árbol construida en \ref{desc-grafo-cayley}.
-El árbol $T$ lo representamos de la siguiente manera tal que cada vértice $t \in V(T)$ es el bolsón correspondiente para la descomposición en un árbol de $\text{Cay}(G,\{ a,b,b^2 \})$.
+Consideremos entonces cómo es la descomposición en un árbol construida en \ref{desc-grafo-cayley} para este grafo de Cayley.
+El árbol $T$ lo representamos de la siguiente manera: 
    
    	\centering
    	\begin{tikzpicture}[scale=0.70, V/.style = {circle, draw,align= center, minimum size=0.5cm,
@@ -562,7 +562,7 @@ El árbol $T$ lo representamos de la siguiente manera tal que cada vértice $t \
    	}},
    	fill fraction/.default=gray!50
    	]
-   	\node[align=center] at (7, 2) {Árbol \textbf{$T$}};
+   	\node[align=center] at (9, 2) {};
    	\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
    		\node (1) at (0,0)  {$\{ b,b^2,1 \}$};
    		\node (2) at (2,0)  {$1$};
@@ -599,7 +599,7 @@ El árbol $T$ lo representamos de la siguiente manera tal que cada vértice $t \
    \draw (10) edge[-] (12);
    \end{tikzpicture}
 
-	
+Cada vértice $t \in V(T)$ es el bolsón correspondiente para la descomposición en un árbol de $\text{Cay}(G,\{ a,b,b^2 \})$.	
 \end{ej}
 
 
@@ -610,15 +610,15 @@ Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017
 
 \begin{deff}
 	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
-	Una \emph{cuasisometría} es una función $f:X \to Y$ tal que:
+	Una \emph{cuasisometría} es una función $\phi:X \to Y$ tal que:
 	\begin{itemize}
 		\item[\textbf{Q1.}] Existe constante $A > 0$ tal que para todo par de puntos $x_1,x_2 \in X$ hace valer la siguientes desigualdades
 		\[
-		\frac{1}{A} d_X(x_1,x_2) - A \le d_Y(f(x_1),f(x_2)) \le A d_X(x_1,x_2) + A
+		\frac{1}{A} d_X(x_1,x_2) - A \le d_Y(\phi(x_1),\phi(x_2)) \le A d_X(x_1,x_2) + A
 		\]
 		\item[\textbf{Q2.}] Existe una constante $C \ge 0$ tal que para todo punto $y \in Y$ debe existir $x \in X$ de manera que 
 		\[
-		d(y,f(x)) \le C
+		d(y,\phi(x)) \le C
 		\]
 	\end{itemize}
 \end{deff}
@@ -628,11 +628,11 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 \medskip
 \begin{prop}\label{prop_qi_simetrica}
 	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
-	Una función $f:X \to Y$ es una cuasisometría si y solo sí existe 
-	$g:Y \to X$ cuasisometría y constantes positivas $C,D \in \RR$ tales que:
+	Una función $\phi:X \to Y$ es una cuasisometría si y solo sí existe 
+	$\psi:Y \to X$ cuasisometría y constantes positivas $C,D \in \RR$ tales que:
 	\begin{itemize}
-		\item $d(g \circ f (x), x) < C$ para todo $x \in X$.
-		\item $d(f \circ g (y), y) < D$ para todo $y \in Y$. 
+		\item $d(\psi \circ \phi (x), x) < C$ para todo $x \in X$.
+		\item $d(\phi \circ \psi (y), y) < D$ para todo $y \in Y$. 
 	\end{itemize}
 \end{prop}
 \begin{proof}
@@ -640,24 +640,24 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 \end{proof}
 
 \begin{prop}\label{prop_qi_transitiva}
-	Sean $(X,d_X),(Y,d_Y), (Z, d_{Z})$ espacios métricos y sean $f:X \to Y$ y $g:Y \to Z$ cuasisometrías,
-	 entonces $g \circ f: X \to Z$ es una cuasisometría.
+	Sean $(X,d_X),(Y,d_Y), (Z, d_{Z})$ espacios métricos y sean $\phi:X \to Y$ y $\psi:Y \to Z$ cuasisometrías,
+	 entonces $\psi \circ \phi: X \to Z$ es una cuasisometría.
 \end{prop}
 \begin{proof}
 	Ver \cite[p.86]{loh2017geometric}.
-	\todo[]{La demo está como ejercicio en este libro, la podría escribir sino ja}
 \end{proof}
 
 
-\begin{deff}
-	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos de manera que existe $f:X \to Y$ cuasisometría diremos que son espacios métricos \emph{cuasisométricos} y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasisometría entre espacios métricos.
-\end{deff}
+
 
 La relación de cuasisometría es reflexiva.
 La proposición \ref{prop_qi_simetrica} nos dice que la relación de cuasisometría entre espacios métricos es simétrica.
 Por la proposición \ref{prop_qi_transitiva} tenemos que esta relación es transitiva también. 
 Esto nos dice que la relación de cuasisometría es una relación de equivalencia entre los espacios métricos.
-
+\begin{deff}
+	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos diremos que son espacios métricos \emph{cuasisométricos} si existe $\phi:X \to Y$ cuasisometría. 
+	%	y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasisometría entre espacios métricos.
+\end{deff}
 
 
 
@@ -665,7 +665,7 @@ En nuestro caso en particular los espacios métricos que nos van a interesar son
 Más aún nos vamos a interesar en los grafos de Cayley de grupos finitamente generados.
 El siguiente resultado que enunciamos sin demostración nos garantiza que todos los grafos de Cayley para un grupo finitamente generado son cuasisométricos entre sí.
 \begin{prop}
-	Sea $G$ grupo finitamente generado por $\Sigma$ y por $\Delta$, ambos conjuntos finitos entonces $\text{Cay}(G,\Sigma)$ y $\text{Cay}(G, \Delta)$ son cuasisométricos entre sí.
+	Sea $G$ grupo finitamente generado por $\Sigma$ y por $\Delta$ entonces $(\text{Cay}(G,\Sigma), d_{\Sigma})$ y $(\text{Cay}(G, \Delta), d_{\Delta})$ son cuasisométricos entre sí.
 \end{prop}
 
 \begin{proof}
@@ -800,10 +800,10 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 	Concluímos así que la descomposición que nos armamos para $\Gamma_1$ tiene treewidth finito.
 \end{proof}
 
-De esta manera podemos definir el treewidth finito como un invariante para grupos dado que para todo \fg si consideramos un conjunto finito de generadores su grafo de Cayley tiene grado uniformemente acotado.
+De esta manera podemos definir el treewidth finito como un invariante para grupos.
 
 \begin{deff}
-	Un \emph{grupo $G$ finitamente generado tiene treewidth finito} si para algún conjunto generadores $A$ vale que $\text{Cay}(G,A)$ tiene treewidth finito.
+	Un \emph{grupo $G$ finitamente generado tiene treewidth finito} si para algún conjunto de generadores $A$ vale que $\text{Cay}(G,A)$ tiene treewidth finito.
 \end{deff}
 
 %A partir de este resultado podemos ver que la otra manera que teníamos de pensar a los grafos que se parecen a árboles resulta ser más débil. 
@@ -855,7 +855,7 @@ Primero unos lemas sobre el lenguaje del problema de la palabra de un grupo inde
 	\text{diam}(f(t)) =  \sup_{g,h \in f(t)} d(g,h) \le M
 	\] 
 	para todo $t$ 
-	entonces al ser $\Gamma$ de grado acotado uniformemente por $n$ luego 
+	entonces al ser $\Gamma$ de grado acotado uniformemente por $n \in \NN$ luego 
 	\[
 		|f(t)| \le n^{M} < \infty
 	\]
