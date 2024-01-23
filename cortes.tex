@@ -16,7 +16,6 @@ La notación y el orden presentado sigue el del trabajo \cite{diekert2013context
 
 De ahora en más consideraremos que $\Gamma$ es un grafo conexo, infinito y localmente finito salvo que se mencione lo contrario.
 En particular estos grafos incluyen a los grafos de Cayley de grupos finitamente generados.
-
 \begin{deff}
 	Sea $\Gamma$ un grafo no dirigido.
 	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones:
@@ -26,6 +25,8 @@ En particular estos grafos incluyen a los grafos de Cayley de grupos finitamente
 	\end{itemize}
 	Si $|\delta C| = k$ diremos que $C$ es un \emph{$k$-corte}.
 \end{deff}	
+\todo[inline]{Dibujito de un 2-corte.}
+Equivalentemente un subconjunto de vértices $C$ es un corte si $\Gamma \setminus \delta C$ tiene dos componentes conexas no vacías.
 
 
 La siguiente observación elemental va a ser fundamental a los argumentos de este capítulo.
@@ -42,62 +43,58 @@ Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo
 
 \begin{ej}
 	Consideremos $\ZZ \times \ZZ = \langle a,b \mid aba^{-1}b^{-1} \rangle$ y 
-	$\Gamma = \text{Cay}(\ZZ^2, \{ a, b \})$ su grafo de Cayley.
+	$\Gamma = \text{Cay}(\ZZ^2, \{ a, b,a^{-1},b^{-1} \})$ su grafo de Cayley.
 	
 	Este grafo cumple que todo conjunto $C \subseteq V(\Gamma)$ es tal que $C$ es finito o bien $\ol C$ es finito.
 	Para probar esto sea $v \in \delta C$ tal que
 	maximice $\underset{w \in \delta C}{\max} \ d(1,w)$.
-	Si consideramos una bola $B$ de radio mayor a esta distancia entonces tenemos que $C \subseteq B$ o bien $\ol C \subseteq B$ dado que en caso contrario como $\ol B$ es conexo entonces usando la observación \ref{obs_camino_corte} tendríamos que habría algún $v' \in \ol B$ tal que $v' \in \beta C$ contradiciendo la elección del radio de $B$.
-	
+	Si consideramos una bola $B$ centrada en $1$ de radio mayor a esta distancia entonces tenemos que $C \subseteq B$ o bien $\ol C \subseteq B$ dado que, en caso contrario como $\ol B$ es conexo entonces usando la observación \ref{obs_camino_corte} tendríamos que habría algún $v' \in \ol B$ tal que $v' \in \beta C$ contradiciendo la elección del radio de $B$.
 	Como $|B| < \infty$ obtenemos que $|C| < \infty$ o bien que $|\ol C| < \infty$.
 \end{ej}
 
 Una propiedad fundamental de los cortes es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
 Más aún podemos probar la siguiente generalización de esta afirmación.
 \begin{lema}\label{obs_kCorte_restriccion}
-	Sea $\Gamma$ un grafo conexo y localmente finito y $k \ge 2$.
-	Si $C$ es un $k$-corte en $\Gamma$ y $\{ x,y  \} \in \delta C$ entonces $\Gamma \setminus \{ x,y \}$ es un $(k-1)$-corte.
+	Sea $\Gamma$ un grafo conexo infinito y $k \ge 2$.
+	Si $C$ es un $k$-corte en $\Gamma$ y $\{ x,y  \} \in \delta C$ entonces $C$ es un $(k-1)$-corte en $ \Gamma \setminus \{ x,y \} $.
 \end{lema}
 
 \begin{proof}
 	Para ver esto notemos que $\Gamma \setminus \{ x,y \}$ es tal que si restringimos $C$ a este grafo nos queda que $|\delta C| = k-1$.
-	Por otro lado $C$ y $\ol C$ siguen siendo conexos porque efectivamente siguen siendo los mismos conjuntos de vértices del grafo y por el mismo motivo siguen siendo no vacíos.
-
-
+	Por otro lado $C$ y $\ol C$ siguen siendo conexos y no vacíos porque no los modificamos.
 \end{proof}
 
 \begin{lema}\label{lema_corte_disconexo_vertices}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
-	Sea $S \subseteq V(\Gamma)$ un subconjunto finito de manera que $\Gamma \setminus S$ resulta ser disconexo.
-	Entonces todo corte $C$ tal que $S \subseteq \beta C$ es tal que $S = \beta C$.
+	Sea $Y \subseteq E(\Gamma)$ un subconjunto finito de manera que $\Gamma \setminus Y$ resulta ser disconexo.
+	Entonces todo corte $C$ tal que $Y \subseteq \delta C$ es tal que $Y = \delta C$.
 \end{lema}
 
 \begin{proof}
-	Si $\Gamma \setminus S$ resulta ser disconexo entonces para que exista algún corte $C$ con $S \subseteq \beta C$ es necesario que $\Gamma \setminus S$ tenga exactamente dos componentes conexas.
-	Llamemos a estas dos componentes conexas $D $ y  $\ol D$.
+	Si $\Gamma \setminus Y$ resulta ser disconexo entonces para que exista algún corte $C$ con $Y \subseteq \delta C$ es necesario que $\Gamma \setminus Y$ tenga exactamente dos componentes conexas.
+	Si tuviera más de una componente conexa entonces tendríamos que, de existir $C$ corte, valdría que $\Gamma \setminus \delta C$ tiene más de dos componentes conexas.	
 	
-	Supongamos que $C$ es un corte tal que $S \subset \beta C$, sea entonces $v \in \beta C \cap \ol S$.
-	Por ser $C$ un corte entonces tenemos que $C \subseteq D \iff \ol C \subseteq \ol D$ o viceversa.
-	En otras palabras el corte $D$ desconecta a $C$ y $\ol C$ dado que ambos son conexos.
-	
-	Como $v \in \beta C$ (sin pérdida de generalidad) supongamos que $v \in C$.
-	Esto nos dice que si $v \in D$ o $v \in \ol D$ entonces tendríamos que existe $w \in \ol C$ tal que $w \in D$ o $w \in \ol D$.
-	Esto nos contradice que $D$ desconecta a $C$ y a $\ol C$.
-	
+	Llamemos a las dos componentes conexas de $\Gamma \setminus Y$ como $D$ y  $\ol D$.
+	Supongamos que $C$ es un corte tal que $Y \subseteq \delta C$. 
+	En este caso tenemos que necesariamente $C \cap \ol C = \emptyset$ en $\Gamma \setminus Y$.
+	Caso contrario como $C \cup \ol C = V(\Gamma)$ entonces negaríamos que $D$ y $\ol D$ desconectan a $\Gamma \setminus Y$.
+	Concluimos que necesariamente $C = D$ o bien $C = \ol D$ y así que $\delta C = Y$ tal como queríamos ver.
 \end{proof}
 
 \begin{prop}\label{lema_aristas_finitos_kcortes}
-	Sea $\Gamma$ un grafo conexo y localmente finito y sea $\{x,y\} \in E(\Gamma)$ entonces existen finitos $k$-cortes $C$ tales que $\{x,y\} \in \delta C$.
+	Sea $\Gamma$ un grafo conexo y sea $\{x,y\} \in E(\Gamma)$ entonces existen finitos $k$-cortes $C$ tales que $\{x,y\} \in \delta C$.
 \end{prop}
 
 \begin{proof}
 	Vamos a probar esta afirmación por inducción en $k$.
 	
-	En el caso base tenemos que si $k=1$ y este caso nos queda que a lo sumo hay un solo corte, si es que $\Gamma \setminus \{x,y\}$ desconecta al grafo.
+	En el caso base tenemos que $k=1$. 
+	Si $\Gamma \setminus \{x,y\}$ es disconexo y separa al grafo en dos componentes conexas no vacías entonces tenemos un $1$-corte. 
+	Caso contrario no existe un $1$-corte $C$ tal que $\delta C = \{x,y\}$.
 	
 	Para el paso inductivo supongamos que vale para $k-1$ cortes y veamos que vale para $k$-cortes.
 	Sea $C$ un $k$-corte sobre $\Gamma$, por la observación \ref{obs_kCorte_restriccion} tenemos que $C$ es un $k-1$-corte para el grafo $\Gamma \setminus \{x,y\}$.
-	Por el lema \ref{lema_corte_disconexo_vertices} el grafo $\Gamma \setminus \{x,y\}$ tiene que ser conexo caso contrario no existiría tal corte $C$.
+	Como suponemos que $k \ge 2$ entonces por el lema \ref{lema_corte_disconexo_vertices} el grafo $\Gamma \setminus \{x,y\}$ tiene que ser conexo caso contrario no existiría tal corte $C$.
 	Esto nos dice que debe existir un camino $\alpha$ tal que $\alpha = (x_{0}, \dots, x_{n})$ con $x_{0} = x$ y $x_{n} = y$.
 	Por la observación \ref{obs_camino_corte} tenemos que alguna de las aristas $\{x_{i},x_{i+1}\}$ es tal que pertenece a $\delta C$.
 	Por cada una de estas aristas si aplicamos la hipótesis inductiva concluimos que existen finitos $(k-1)$-cortes que la contienen.
@@ -120,6 +117,60 @@ Más aún podemos probar la siguiente generalización de esta afirmación.
 \end{proof}
 	
 
+
+
+
+
+\begin{deff}
+	Dos cortes $C,D \in V(\Gamma)$ están \emph{anidados} si vale alguna de las cuatro inclusiones $C \subseteq D, C \subseteq \ol D, \ol C \subseteq \ol D, \ol C \subseteq D$.
+	Los conjuntos $C \cap D, C \cap \ol D, \ol C \cap D, \ol C \cap \ol D$ los llamamos las \emph{esquinas}.
+\end{deff}
+
+\begin{lema}
+	Dos cortes $C,D$ están anidados si y solo si alguna de las cuatro esquinas es vacía.
+\end{lema}
+\begin{proof}
+	Para la ida supongamos que $C \subseteq D$ luego tiene que valer que $C \cap \ol D = \emptyset$.
+	Para la vuelta si por ejemplo $C \cap D = \emptyset$ como vale que $C = (C \cap D) \cup (C \cap \ol D)$ esto nos dice que $C \subseteq \ol D$.
+	
+\end{proof}
+
+\begin{lema}\label{lema_corte_borde_anidado}
+	Sean $C,D$ cortes tales que $\beta C \subseteq D$ entonces $C \subseteq D$ o $\ol C \subseteq D$.
+\end{lema}
+\begin{proof}
+	Si $C,D$ no estuvieran anidados tendríamos que $C \cap \ol D \neq \emptyset \neq \ol C \cap \ol D$.
+	Esto nos diría que podríamos tomarnos un camino entre $c_0 \in C \cap \ol D$ y $c_1 \in \ol C \cap \ol D$ tal que esté contenido en $\ol D$.
+	Esto es una contradicción porque este camino tendría que pasar por $\beta C$ y sabemos que $\beta C \subseteq D$.
+	
+\end{proof}
+
+De este último lema se desprende que en esta situación particular los cortes $C,D$ están anidados.
+
+\begin{lema}
+	Dado $C$ corte y $k \in \NN$ tenemos que 
+	\[
+	| \{  D : C, D \ \text{no están anidados y} \ D \ \text{es un k-corte}   \} | < \infty
+	\]
+\end{lema}
+\begin{proof}
+	Por el lema \ref{lema_corte_borde_anidado} no pueden haber cortes anidados $D$ tales que $\beta C \subseteq D$.
+	Por el lema \ref{lema_finitos_kcortes} concluimos que hay finitos $k$-cortes $D$ tales que $\beta C \cap \beta D \neq \emptyset$ dado que $\beta C$ es un conjunto finito.
+				
+\end{proof}
+
+Este lema nos garantiza la buena definición del siguiente número natural.
+\begin{deff}
+	Dado $\Gamma$ grafo conexo y localmente finito, $C$ un corte y $k \in \NN$ constante definimos
+	\[
+	m_k(C) = | \{  D : C, D \ \text{no están anidados y} \ D \ \text{es un k-corte}   \} |. 
+	\]
+\end{deff}
+
+
+
+\section{Grafos accesibles.}
+
 \begin{deff}
 	Dado $\Gamma$ un grafo no dirigido conexo diremos que un camino simple $r$ es un \emph{rayo} si es un camino indexado por los naturales,
 	\[
@@ -135,26 +186,31 @@ Más aún podemos probar la siguiente generalización de esta afirmación.
 En particular utilizaremos en varias ocasiones los siguientes resultados.
 
 
-\begin{lema}[König]
+\begin{lema}[König]\label{lema_Konig}
 	Si $\Gamma$ es un grafo conexo e infinito entonces existe un rayo $r$ sobre $\Gamma$.
 \end{lema}
 \begin{proof}
-	Ver \cite{diestel2005graph}.
+	Ver \cite[p.215]{diestel2005graph}.
 \end{proof}
 
 
-\begin{lema}
-	Sea $\Gamma$ un grafo no dirigido conexo y $C \subseteq {\cal P}(\Gamma)$ un corte de $\Gamma$ de manera que $|C| = |\ol C| = \infty$ entonces existe $\alpha$ un camino infinito tal que 
+\begin{lema}\label{lema_camino_infinito_cortado}
+	Sea $\Gamma$ un grafo no dirigido infinito y conexo y $C \subseteq V(\Gamma)$ un corte de $\Gamma$ de manera que $|C| = |\ol C| = \infty$ entonces existe $\alpha$ un camino infinito tal que 
 	$|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
 \end{lema}
 
 \begin{proof}
-	Fijemos dos vértices $u \in C$ y $v \in \ol C$ de manera que $(u,v) \in \delta C$.
-	Por el lema de König  tenemos un rayo dentro de $C$.
-	Si este rayo no pasa por el vértice $u$ nos tomamos un camino simple finito que una $u$ con el origen de este rayo llamemos a este vértice $u_{0}$.
+	Fijemos dos vértices $u \in C$ y $v \in \ol C$ de manera que $\{u,v\} \in \delta C$.
+	Vamos a construir dos rayos, uno en $C$ que empieza en $u$ y el otro en $\ol C$ empezando en $v$.
+	Por \ref{lema_Konig} existe $r_{1}$ un rayo dentro de $C$.
+	Si este rayo no pasa por el vértice $u$ nos tomamos un camino simple finito que una $u$ con el origen de este rayo.
 	Consideremos entonces el primer vértice del rayo que interseca a este camino, sea este $u_{1}$.
-	Si consideramos la concatenación de este camino finito hasta $u_{1}$ y luego la continuación del rayo a partir de $u_{1}$ obtenemos el rayo $\alpha \cap C$.
-	Para obtener la otra parte y así llegar a tener un camino infinito $\alpha$ hacemos lo mismo a partir del vértice $v \in \ol C$ y luego concatenamos estos dos rayos con la arista $(u,v)$ para así llegar a un camino infinito $\alpha$. 
+	Si consideramos la concatenación de este camino finito hasta $u_{1}$ y luego la continuación del rayo a partir de $u_{1}$ obtenemos 
+	un rayo $r_{2}$ de manera que $r_{2} = (u, \dots, u_{1}, \dots)$.
+	Para obtener el otro rayo y así llegar a tener un camino infinito $\alpha$ hacemos lo mismo a partir del vértice $v \in \ol C$. 
+	
+	Para finalizar concatenamos estos dos rayos con la arista $\{u,v\}$ para así llegar a un camino infinito $\alpha$ que cumple lo pedido. 
+	
 \end{proof}
 
 
@@ -168,7 +224,7 @@ Esto nos lleva a dar la siguiente definición.
 	Sea $\Gamma$ un grafo no dirigido conexo y sea $\alpha$ un camino infinito en este grafo.
 	Definimos el conjunto de \emph{cortes del camino} como 
 	\[
-		{\cal C}(\alpha) = \{ C \subset V(\Gamma) \mid  C \ \text{es un corte y} \ |\alpha \cap C| = \infty = |\alpha \cap \ol C| \}
+	{\cal C}(\alpha) = \{ C \subset V(\Gamma) \mid  C \ \text{es un corte y} \ |\alpha \cap C| = \infty = |\alpha \cap \ol C| \}
 	\] 
 \end{deff}
 
@@ -177,63 +233,20 @@ Esto nos lleva a dar la siguiente definición.
 \end{obs}
 
 
-
 \begin{deff}
-	Dos cortes $C,D \in V(\Gamma)$ están \emph{anidados} si vale alguna de las cuatro inclusiones $C \subseteq D, C \subseteq \ol D, \ol C \subseteq \ol D, \ol C \subseteq D$.
-	Los conjuntos $C \cap D, C \cap \ol D, \ol C \cap D, \ol C \cap \ol D$ los llamamos las \emph{esquinas}.
+	Dado $\Gamma$ un grafo infinito y conexo,
+	definimos una relación sobre los rayos $ r,r' $ de $\Gamma$ de la siguiente manera:
+	\[
+	r \sim r' \iff \forall C \ \text{corte de $\Gamma$}. \ \ 
+	(|r \cap C| = \infty \iff |r' \cap C| = \infty). 
+	\]
+	A las clases de equivalencia de esta relación se las llama \emph{ends} del grafo.
 \end{deff}
 
-\begin{lema}
-	Dos cortes $C,D$ están anidados si y solo si alguna de las cuatro esquinas es vacía.
-\end{lema}
-\begin{proof}
-	Para la ida supongamos que $C \subseteq D$ luego tiene que valer que $\ol C \cap \ol D = \emptyset$.
-	Para la vuelta si por ejemplo $C \cap D = \emptyset$ como vale que $C = (C \cap D) \cup (C \cap \ol D)$ esto nos dice que $C \subseteq \ol D$.
-	
-\end{proof}
+Por resultados anteriores \ref{lema_camino_infinito_cortado} tenemos que un grafo $\Gamma$ tiene más de un end si y solo sí existe un camino infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
+En el caso que $\Gamma$ es conexo y localmente finito esto resulta equivalente a que exista un conjunto finito $S$ de vértices de manera que $\alpha$ tenga dos componentes conexas infinitas en $\Gamma \setminus S$.
 
-\begin{lema}
-	Dado $C$ corte y $k \in \NN$ tenemos que 
-	\[
-	| \{  D : C, D \ \text{no están anidados y} \ D \ \text{es un k-corte}   \} | < \infty
-	\]
-\end{lema}
-\begin{proof}
-	Por el lema \ref{lema_finitos_kcortes} tenemos finitos $k$-cortes tales que intersecan a $\beta C$ dado que este es un conjunto finito.
-	
-	Esto nos dice que debemos mirar los casos que $\beta C \subseteq D$.
-	Si $C,D$ no estuvieran anidados tendríamos que $C \cap \ol D \neq \emptyset \neq \ol C \cap \ol D$.
-	Esto nos diría que podríamos tomarnos un camino entre $c_0 \in C \cap \ol D$ y $c_1 \in \ol C \cap \ol D$ tal que esté contenido en $\ol D$.
-	Esto es una contradicción porque este camino tendría que pasar por $\beta C$ y sabemos que $\beta C \subseteq D$.
-	
-	En conclusión tenemos que todos los $k$-cortes no anidados tienen que intersecar a $\beta C$ y estos son finitos.
-				
-\end{proof}
-
-Este lema nos garantiza la buena definición del siguiente número natural.
-\todo{Por qué localmente finito? No entiendo dónde lo usamos.}
-\begin{deff}
-	Dado $\Gamma$ grafo conexo y localmente finito, $C$ un corte y $k \in \NN$ constante definimos
-	\[
-	m_k(C) = | \{  D : C, D \ \text{no están anidados y} \ D \ \text{es un k-corte}   \} |. 
-	\]
-\end{deff}
-
-
-
-\section{Grafos accesibles.}
-
-Dado $\Gamma$ un grafo infinito y conexo.
-Definimos una relación sobre todos los rayos de $\Gamma$ de la siguiente manera
-\[
-r \sim r' \iff \forall C \ \text{$k$-corte de $\Gamma$}. \ \ 
-(|r \cap C| = \infty \iff |r' \cap C| = \infty). 
-\]
-A las clases de equivalencia de esta relación se las llama \emph{ends} del grafo.
-Por observaciones anteriores tenemos que un grafo $\Gamma$ tiene más de un end si y solo sí existe un camino infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
-Esto resulta equivalente a que exista un conjunto finito $S$ de vértices de manera que $\alpha$ tenga dos componentes conexas infinitas en $\Gamma \setminus S$.
-
-Un dato importante es que en el contexto de los grupos la cantidad de ends de los grafos de Cayley resultan ser invariantes por generadores.
+Un dato importante es que en el contexto de los grupos la cantidad de ends de sus grafos de Cayley resulta ser un invariante del grupo.
 En \cite{stallings1971group} Stallings probó que dado un \fg con más de un end entonces se parte como el producto amalgamado o producto HNN sobre un subgrupo finito no trivial.
 Si alguno de estos factores resulta tener más de un end este procedimiento continúa.
 En el caso que el procedimiento termine Stallings denominó a estos grupos como grupos accesibles. 
@@ -245,7 +258,7 @@ En ese trabajo prueban que un grupo es accesible siguiendo la definición clási
 	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
 \end{deff}
 Equivalentemente un grafo es accesible si existe $k \in \NN$ tal que para todo par de ends $\omega_1, \omega_2$ resulta que existe un k-corte $C$ de manera que separa a ambos ends.
-
+\todo[inline]{Ejemplo o dibujito de grafo accesible.}
 
 Veamos que bajo esta definición los grafos con treewidth finito son accesibles.
 Esto no nos va a asegurar en principio que ser accesible en este sentido signifique que es una propiedad intrínseca de un grupo.
@@ -254,33 +267,32 @@ Para probar esto vamos a probar un lema un poco más técnico que generaliza est
 \begin{lema}\label{lema_corte_treewidth}
 	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
 	Entonces existe $k \in \NN$ tal que:
-	para todo $r$ rayo simple, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades, $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap r| = \infty$. 
+	para todo $r$ rayo, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades: $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap r| = \infty$. 
 \end{lema}
 
 \begin{proof}
-	Sea $d$ una cota para el grado de los vértices del grafo $\Gamma$ y sea $k$ el treewidth del grafo.
+	Sea $d$ una cota para el grado de los vértices del grafo $\Gamma$ y sea $m$ el treewidth del grafo.
 	Propondremos $k = dm$ como la constante que buscamos.
 	
-	Sea $(T,f)$ descomposición en un árbol para $\Gamma$ tal que tenga bagsize finito.
-	Sea $r$ un rayo simple sobre $\Gamma$ y $v_{0} \in V(\Gamma)$ un vértice.
+	Sea $(T,f)$ descomposición en un árbol para $\Gamma$ tal que $bs(\Gamma,T,f) = m$.
+	Sea $r$ un rayo sobre $\Gamma$ y $v_{0} \in V(\Gamma)$ un vértice.
 	Consideremos $t_0 \in V(T)$ de manera que $v_0 \in f(t_{0})$.
-	Si tenemos dos vértices $u_1,u_2 \in \ol{ f(t)}$ tales que $u_1$ y $u_2$ están en bolsones $f(t_{1}), f(t_{2})$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos y usando la proposición \ref{prop-camino-desc} obtenemos que todo camino $\alpha$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $f(t_{0})$.
-	En particular nosotros estamos considerando un rayo $r$ que resulta ser simple, dado que  $|f({t_0})| < \infty$ obtenemos que debe haber una única componente conexa de $\ol{f({t_0})}$ tal que interseca infinitas veces al rayo $r$.
+	Si tenemos dos vértices $u_1,u_2 \in \ol{ f(t_{0})}$ tales que $u_1$ y $u_2$ están en bolsones $f(t_{1}), f(t_{2})$ de manera que $t_1$ y $t_2$ están en componentes conexas distintas de $T \setminus t_0$, luego como los árboles son únicamente geodésicos si usamos	la proposición \ref{prop-camino-desc} obtenemos que todo camino $\alpha$ que pase por $u_1$ y por $u_2$ debe pasar en algún momento por $f(t_{0})$.
+	En particular estamos considerando un rayo $r$ que resulta ser un camino simple entonces dado que $|f({t_0})| < \infty$ obtenemos que debe haber una única componente conexa de $\ol{f({t_0})}$ tal que interseca infinitas veces al rayo $r$.
 	Nombraremos a esta componente conexa $C_{t_0,r}$.
-	Tenemos así que para una de las dos componentes conexas de $T \setminus \{t_{0}\}$ la unión de los bolsones de sus vértices contienen a $C_{t_{0},r}$.
+	Tenemos así que, nuevamente por \ref{prop-camino-desc}, exactamente una de las dos componentes conexas de $T \setminus \{t_{0}\}$ la unión de los bolsones de sus vértices contienen a $C_{t_{0},r}$.
 	
 	Sea ahora $t_{1} \in V(T)$ tal que es adyacente a $t_{0}$ y cumple que está en la componente conexa de $T \setminus \{t_{0}\}$ que cubre a $C_{t_{0},r}$.  
 	Elegimos la componente conexa de $\ol{f(t_{1})}$ que interseca infinitas veces al rayo $r$.
 	Repetimos este procedimiento para llegar a un rayo sobre el árbol
-	$(t_0,t_1, \dots t_n \dots)$ y una sucesión de componentes conexas correspondientes $C_{t_0,r} C_{t_1,r} \dots C_{t_n, r} \dots$.
+	$(t_0,t_1, \dots t_n \dots)$ y una sucesión de componentes conexas correspondientes $(C_{t_0,r}, C_{t_1,r}, \dots, C_{t_n, r}, \dots)$.
 	
-	Sea $n \in \NN$ arbitrario. 
-	Si elegimos $l \in \NN$ suficientemente grande podemos garantizar que
+	Sea $n \in \NN$ arbitrario luego si elegimos $l \in \NN$ suficientemente grande podemos garantizar que
 	\[
-	f({t_l}) \cap B_n(v_0) = \emptyset
+	f({t_l}) \cap B_n(v_0) = \emptyset.
 	\]
 	Esto porque por la proposición \ref{prop_tw_finitos_bolsones} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones.
-	Y por otro lado como $\Gamma$ es localmente finito esto nos dice que la bola $|B_n(v_0)|$ es finita por lo tanto hay finitos bolsones en los cuales pueden aparecer los vértices de $B_{n}(v_{0})$.
+	Por otro lado como $\Gamma$ es localmente finito esto nos dice que la bola $|B_n(v_0)|$ es finita por lo tanto hay finitos bolsones en los cuales pueden aparecer los vértices de $B_{n}(v_{0})$.
 	
 	
 	Ahora vamos a buscar el corte $D$ que nos cumpla lo pedido.
@@ -291,19 +303,19 @@ Para probar esto vamos a probar un lema un poco más técnico que generaliza est
 		\item 	
 		Primero veamos que $\ol D$ es conexo.
 		Para ver esto notemos que $C_{t_{l},r} \subseteq \ol D$. 
-		Si tenemos un elemento $u_1 \in \ol D$ tiene que estar conectado con algún vértice de $C_{t_l, r}$.
+		Si tenemos un elemento $u_1 \in \ol D$ tiene que estar conectado en $\Gamma$ con algún vértice de $C_{t_l, r}$.
 		Esto se debe a que el grafo $\Gamma$ es conexo por lo que $u_{1}$ tiene al menos un camino que lo conecta con el conjunto de vértices $C_{t_{l},r}$.
-		Si todo camino interseca a $D$ tendríamos que $u_{1} \in D$ porque estarían en la misma componente conexa de $\ol{ C_{t_l, r}}$.
-		De esta manera vimos que todo elemento de $\ol D$ está conectado con un conexo $C_{t_l, r}$ evitando pasar por $D$ y así concluimos que $\ol D$ es conexo.
+		Si este camino interseca a $D$ tendríamos que $u_{1} \in D$ porque sería la misma componente conexa de $\ol{ C_{t_l, r}}$ que $D$ llegando a una contradicción.
+		De esta manera vimos que todo elemento de $\ol D$ está conectado con  $C_{t_l, r}$, que es conexo, evitando pasar por $D$ y así concluimos que $\ol D$ es conexo.
 		\item 
-		Tanto $D$ como $\ol D$ son no vacíos porque $C_{t_l, r}$ es infinito y está contenido en $\ol D$ y por que $v_0 \in D$.
+		Tanto $D$ como $\ol D$ son no vacíos porque $C_{t_l, r}$ es infinito y está contenido en $\ol D$ y por otro lado porque $v_0 \in D$.
 		\item
-		Finalmente veamos que es un $k-$corte.
+		Finalmente veamos que $D$ es un $k-$corte.
 		Notemos que si $v \in D \cap \beta D$ luego tenemos que existe $u \in \ol D \cap \beta D$ tal que $\{u,v\} \in E(\Gamma)$.
 %		Vamos a ver de acotar $|\beta D \cap D|$ y $|\beta D \cap \ol D|$.
 		
 		Por lo visto anteriormente todo camino que va de $\ol D$ a $D$ tiene que pasar necesariamente por $C_{t_l, r}$. 
-		Entonces nos alcanza con tomar $u \in C_{t_l, r}$.
+		Entonces tenemos que $u \in C_{t_l, r}$.
 		En este caso notemos que $v \in f{(t_l)}$ caso contrario tendríamos que $v \in C_{t_l, r}$ dado que esta es una de las componentes conexas de $\Gamma \setminus f{(t_l)}$.
 		De esta manera vimos que $\beta D \cap D \subseteq f{(t_l)}$.
 		Como toda arista $\delta D$ tiene uno de sus vértices en $f(t_{l})$ y el grafo tiene grado acotado uniformemente esto nos dice que $|\delta D| \le dm = k$ tal como queríamos ver. 
@@ -311,31 +323,33 @@ Para probar esto vamos a probar un lema un poco más técnico que generaliza est
 	\end{itemize}
 	
 Finalmente notemos que por la construcción $v_{0} \in D$.
-Como $d(v_{0}, f(t_{l})) \ge n$ dado que así elegimos a $t_{l}$ entonces se garantiza que $d(v_{0}, \ol D) \ge n$ y como $|r \cap C_{t_{l},r}| = \infty$ y $C_{t_{l},r} \subseteq \ol D$ obtenemos lo que queríamos probar.
+Como $d(v_{0}, f(t_{l})) \ge n$ dado que así elegimos a $t_{l}$ 
+y vimos que $D \cap \delta D \subseteq f(t_{l})$
+entonces se garantiza que $d(v_{0}, \ol D) \ge n$. 
+Como $|r \cap C_{t_{l},r}| = \infty$ y $C_{t_{l},r} \subseteq \ol D$ obtenemos lo que queríamos probar.
 	
 \end{proof}
 
-Ahora sí con este resultado podemos probar que los grafos con treewidth acotado y grado uniformemente acotado son accesibles.
+Ahora sí con este resultado podemos probar que los grafos con treewidth finito y grado uniformemente acotado son accesibles.
 
 \begin{teo}\label{teo_treewidth_fin_accesible}
-	Sea $\Gamma$ un grafo de treewidth finito y de grado uniformemente acotado.
+	Sea $\Gamma$ un grafo no dirigido con treewidth finito y con grado uniformemente acotado.
 	Entonces $\Gamma$ es accesible.
 \end{teo}
 \begin{proof}
-	Tomemos $\alpha$ un camino infinito tal que ${\cal C}(\alpha) \neq \emptyset$.
-	Sea $C \in {\cal C}(\alpha)$.
+	Tomemos $\alpha$ un camino infinito tal que ${\cal C}(\alpha) \neq \emptyset$ y $C \in {\cal C}(\alpha)$.
 	Veamos de construirnos un $k$-corte $D$ de manera que $D \in {\cal C}(\alpha)$.
+	Denotemos al rayo $\gamma = \alpha \cap C$.
 	
-	Fijemos $v_0  \in \beta C$ y consideremos el siguiente número natural,
+	Fijemos $v_0  \in \beta C$ y consideremos el siguiente número natural
 	\[
 	n = \max \{ d(v_0,w) : w \in \beta C  \}.
 	\]
-	Por el lema anterior \ref{lema_corte_treewidth} podemos ver que existe un $k$-corte $D$ de manera que $d(v_0, \ol D) \ge n+1$ y que cumple que $|\ol D \cap \gamma| < \infty$.
-	Por como tomamos a este corte $D$ cumple que $\beta C \subset D$
+	Por el lema anterior \ref{lema_corte_treewidth} podemos ver que existe un $k$-corte $D$ de manera que $v_{0} \in D$, $d(v_0, \ol D) \ge n+1$ y que cumple que $|\ol D \cap \gamma| = \infty$.
+	Por como tomamos a este corte $D$ cumple que $\beta C \subset D$ y así por el lema \ref{lema_corte_borde_anidado} tenemos que el corte $C$ cumple que 
+	$C \subseteq D$ o bien $C \subseteq \ol D$.
+	En cualquiera de estos dos casos como $|\alpha \cap C| = |\alpha \cap \ol  C| = \infty$ obtenemos así que $|D \cap \alpha|=\infty$ y así que $D \in {\cal C}(\alpha)$ tal como queríamos ver. 
 	
-	Este corte $D$ nos sirve porque por la distancia elegida tenemos entonces que $C \subseteq D$ o bien $\ol C \subseteq D$.
-	Caso contrario existirían $u_1 \in C \cap \ol D$ y $u_2 \in \ol C \cap \ol D$ tal que al ser $\ol D$ conexo podríamos armarnos un camino dentro de esta componente que una $u_1$ con $u_2$.
-	Por la observación \ref{obs_camino_corte} tendríamos que este camino debería pasar por $\beta C$ eventualmente y esto contradice que $\beta C \subseteq D$.
 \end{proof}
 
 
@@ -363,7 +377,7 @@ m(C) = m_k(C).
 
 
 
-
+\todo[inline]{Hacer un ejemplo.}
 
 \begin{deff}
 	Dado $\alpha$ camino infinito sea
@@ -383,7 +397,8 @@ m(C) = m_k(C).
 El siguiente es el resultado central y más importante de los cortes óptimos.
 
 \begin{teo}\label{teo_copt_anidados}
-	Todo par de cortes óptimos $C,D \in \copt$ está anidado.
+	Sea $\Gamma$ un grafo infinito, conexo, localmente finito y accesible.
+	Entonces todo par de cortes óptimos $C,D \in \copt$ está anidado.
 \end{teo}
 \begin{proof}
 	Tenemos dos caminos $\alpha$, $\beta$ tales que $C \in \copt(\alpha)$ y $D \in \copt(\beta)$.
@@ -608,9 +623,7 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 	\]
 	luego por como tomamos estos cortes obtenemos que $\ol C_i \sim C_{i+1}$ por lo tanto obtenemos el siguiente camino $[C],[C_1], \dots, [C_{n-1}],[D]$ en el grafo $T(\copt)$ probando así que es conexo.	
 \end{proof}
-\begin{center}
-	\missingfigure[figwidth=6cm]{}
-\end{center}
+
 
 
 
