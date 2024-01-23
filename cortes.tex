@@ -12,11 +12,13 @@ El objetivo es partir de un grupo con treewidth finito y ver qué actúa sobre u
 El árbol que vamos a construir es el árbol de estructura del grafo.
 Vamos a ver en qué caso se puede construir y cómo se construye a partir de cortes del grafo. 
 La notación y el orden presentado sigue el del trabajo \cite{diekert2013context}, completando algunos detalles que ahí se omiten.
+\todo{Agregaría una introducción como la de los otros caps}
 
 De ahora en más consideraremos que $\Gamma$ es un grafo conexo, infinito y localmente finito salvo que se mencione lo contrario.
 En particular estos grafos incluyen a los grafos de Cayley de grupos finitamente generados.
 
 \begin{deff}
+	Sea $\Gamma$ un grafo no dirigido.
 	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones:
 	\begin{itemize}
 		\item $C$ y $\ol C$ son conexos y no vacíos.
@@ -50,18 +52,19 @@ Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo
 	Como $|B| < \infty$ obtenemos que $|C| < \infty$ o bien que $|\ol C| < \infty$.
 \end{ej}
 
-Una propiedad fundamental de los cortes en estos grafos es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
+Una propiedad fundamental de los cortes es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
 Más aún podemos probar la siguiente generalización de esta afirmación.
-
-\begin{obs}\label{obs_kCorte_restriccion}
+\begin{lema}\label{obs_kCorte_restriccion}
 	Sea $\Gamma$ un grafo conexo y localmente finito y $k \ge 2$.
 	Si $C$ es un $k$-corte en $\Gamma$ y $\{ x,y  \} \in \delta C$ entonces $\Gamma \setminus \{ x,y \}$ es un $(k-1)$-corte.
-	
+\end{lema}
+
+\begin{proof}
 	Para ver esto notemos que $\Gamma \setminus \{ x,y \}$ es tal que si restringimos $C$ a este grafo nos queda que $|\delta C| = k-1$.
 	Por otro lado $C$ y $\ol C$ siguen siendo conexos porque efectivamente siguen siendo los mismos conjuntos de vértices del grafo y por el mismo motivo siguen siendo no vacíos.
-\end{obs}
 
 
+\end{proof}
 
 \begin{lema}\label{lema_corte_disconexo_vertices}
 	Sea $\Gamma$ un grafo conexo y localmente finito.
@@ -118,18 +121,18 @@ Más aún podemos probar la siguiente generalización de esta afirmación.
 	
 
 \begin{deff}
-	Dado $\Gamma$ un grafo conexo diremos que un camino simple $r$ es un \emph{rayo} si
+	Dado $\Gamma$ un grafo no dirigido conexo diremos que un camino simple $r$ es un \emph{rayo} si es un camino indexado por los naturales,
 	\[
-	\alpha = (v_0 \dots v_{n} \dots)
+	r = (v_0, \dots, v_{n}, \dots).
 	\]	
-	Diremos que es un \emph{camino infinito} si
+	Diremos que $\alpha$ es un \emph{camino infinito} si es un camino indexado por los enteros,
 	\[
-	\alpha = ( \dots v_{-n} \dots v_0 \dots v_{n} \dots )
+	\alpha = ( \dots, v_{-n}, \dots, v_0, \dots, v_{n}, \dots ).
 	\]
 \end{deff}		
 
 
-En particular utilizaremos en varias ocasiones el siguiente resultado clásico.
+En particular utilizaremos en varias ocasiones los siguientes resultados.
 
 
 \begin{lema}[König]
@@ -140,29 +143,38 @@ En particular utilizaremos en varias ocasiones el siguiente resultado clásico.
 \end{proof}
 
 
-Una primera observación es que dado un corte $C$ tal que $C$ es infinito y $\ol C$ también lo es, podemos armarnos un camino infinito $\alpha$ tal que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
-Fijemos dos vértices $u \in C$ y $v \in \ol C$ de manera que $(u,v) \in \delta C$.
-Por el lema de König  tenemos un rayo dentro de $C$.
-Si este rayo no pasa por el vértice $u$ nos tomamos un camino simple finito que una $u$ con el origen de este rayo llamemos a este vértice $u_{0}$.
-Consideremos entonces el primer vértice del rayo que interseca a este camino, sea este $u_{1}$.
-Si consideramos la concatenación de este camino finito hasta $u_{1}$ y luego la continuación del rayo a partir de $u_{1}$ obtenemos el rayo $\alpha \cap C$.
-Para obtener la otra parte y así llegar a tener un camino infinito $\alpha$ hacemos lo mismo a partir del vértice $v \in \ol C$ y luego concatenamos estos dos rayos con la arista $(u,v)$ para así llegar a un camino infinito $\alpha$. 
+\begin{lema}
+	Sea $\Gamma$ un grafo no dirigido conexo y $C \subseteq {\cal P}(\Gamma)$ un corte de $\Gamma$ de manera que $|C| = |\ol C| = \infty$ entonces existe $\alpha$ un camino infinito tal que 
+	$|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+\end{lema}
+
+\begin{proof}
+	Fijemos dos vértices $u \in C$ y $v \in \ol C$ de manera que $(u,v) \in \delta C$.
+	Por el lema de König  tenemos un rayo dentro de $C$.
+	Si este rayo no pasa por el vértice $u$ nos tomamos un camino simple finito que una $u$ con el origen de este rayo llamemos a este vértice $u_{0}$.
+	Consideremos entonces el primer vértice del rayo que interseca a este camino, sea este $u_{1}$.
+	Si consideramos la concatenación de este camino finito hasta $u_{1}$ y luego la continuación del rayo a partir de $u_{1}$ obtenemos el rayo $\alpha \cap C$.
+	Para obtener la otra parte y así llegar a tener un camino infinito $\alpha$ hacemos lo mismo a partir del vértice $v \in \ol C$ y luego concatenamos estos dos rayos con la arista $(u,v)$ para así llegar a un camino infinito $\alpha$. 
+\end{proof}
+
 
 No necesariamente vale la vuelta.
-Esto es que si tenemos un camino infinito $\alpha$ y un corte $C$ entonces el corte cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+Esto es que si tenemos un camino infinito $\alpha$ entonces existe un corte $C$ tal que cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
 
 Esto nos dice que dado un corte podemos tener caminos que son separados por el corte pero no vale que dado un camino tenemos que un corte lo separa.
 Esto nos lleva a dar la siguiente definición.
 
 \begin{deff}
-	Sea $\alpha$ un camino infinito.
+	Sea $\Gamma$ un grafo no dirigido conexo y sea $\alpha$ un camino infinito en este grafo.
 	Definimos el conjunto de \emph{cortes del camino} como 
 	\[
 		{\cal C}(\alpha) = \{ C \subset V(\Gamma) \mid  C \ \text{es un corte y} \ |\alpha \cap C| = \infty = |\alpha \cap \ol C| \}
 	\] 
 \end{deff}
 
-Una manera equivalente de escribir esta definición es que ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manera que $\alpha \setminus \delta C$ tiene dos componentes conexas infinitas.
+\begin{obs}
+	Dado $\Gamma$ un grafo no dirigido conexo y $\alpha$ un camino infinito en $\Gamma$ entonces: ${\cal C}(\alpha) \neq \emptyset$ si y solo sí existe un corte $C$ de manera que $\alpha \setminus \delta C$ tiene dos componentes conexas infinitas.
+\end{obs}
 
 
 
@@ -187,7 +199,7 @@ Una manera equivalente de escribir esta definición es que ${\cal C}(\alpha) \ne
 	\]
 \end{lema}
 \begin{proof}
-	Por el lema anterior \ref{lema_finitos_kcortes} tenemos finitos $k$-cortes tales que intersecan a $\beta C$ dado que este es un conjunto finito.
+	Por el lema \ref{lema_finitos_kcortes} tenemos finitos $k$-cortes tales que intersecan a $\beta C$ dado que este es un conjunto finito.
 	
 	Esto nos dice que debemos mirar los casos que $\beta C \subseteq D$.
 	Si $C,D$ no estuvieran anidados tendríamos que $C \cap \ol D \neq \emptyset \neq \ol C \cap \ol D$.
@@ -198,14 +210,15 @@ Una manera equivalente de escribir esta definición es que ${\cal C}(\alpha) \ne
 				
 \end{proof}
 
-Este lema nos garantiza la definición del siguiente número natural.
-
+Este lema nos garantiza la buena definición del siguiente número natural.
+\todo{Por qué localmente finito? No entiendo dónde lo usamos.}
 \begin{deff}
 	Dado $\Gamma$ grafo conexo y localmente finito, $C$ un corte y $k \in \NN$ constante definimos
 	\[
 	m_k(C) = | \{  D : C, D \ \text{no están anidados y} \ D \ \text{es un k-corte}   \} |. 
 	\]
 \end{deff}
+
 
 
 \section{Grafos accesibles.}
