@@ -403,11 +403,11 @@ m(C) = m_k(C).
 	Sea $\Gamma$ un grafo infinito y conexo y sean $C,D \in \copt$ cortes tales que $C \in {\cal C}(\alpha)$ y $D \in {\cal C}(\beta)$ para $\alpha$ y $\beta$ caminos infinitos.
 	Entonces sucede alguno de estos dos casos:
 	\begin{enumerate}
-		\item$C \in {\cal C}(\beta)$ y $D \in {\cal C}(\alpha)$.
+		\item $C \in {\cal C}(\beta)$ y $D \in {\cal C}(\alpha)$ y existen esquinas opuestas $E, E'$ tales que $|E \cap \alpha| = \infty = |E' \cap \alpha|.$
 		
-		\item Existen $K_{1}, K_{2}$ esquinas opuestas tales que
+		\item Existen $E, E'$ esquinas opuestas tales que
 		\[
-		|K_{1} \cap \alpha| = |K_{2} \cap \beta | = \infty. 
+		|E \cap \alpha| = |E' \cap \beta | = \infty. 
 		\]
 		
 	\end{enumerate}
@@ -417,13 +417,44 @@ m(C) = m_k(C).
 	Por otro lado deben existir al menos dos esquinas tales que intersecan infinitamente a $\alpha$ y otras dos tales que intersecan infinitamente a $\beta$. 
 	
 	Estas restricciones nos dejan en dos casos posibles.
-	El primer caso que consideramos es el que tenemos dos esquinas $K_{1}, K_{2}$ tales que $|K_{1} \cap \alpha| = |\ol{K_{1}} \cap \alpha| = \infty$ y $|K_{2} \cap \alpha| = |\ol{K_{2}} \cap \alpha|=\infty$.
+	El primer caso que consideramos es el que tenemos dos esquinas $E, E'$ tales que $|E \cap \alpha| = |\ol{E} \cap \alpha| = \infty$ y $|E' \cap \alpha| = |\ol{E'} \cap \alpha|=\infty$.
 	Esto nos dice que $C \in {\cal C}(\beta)$ y que $D \in {\cal C}(\alpha)$.
-	En cualquier otro caso obtenemos que existen $K_{1},K_{2}$ esquinas opuestas de manera que $|K_{1} \cap \alpha| = |K_{2} \cap \beta | = \infty$.
+	En cualquier otro caso obtenemos que existen $E,E'$ esquinas opuestas de manera que $|E \cap \alpha| = |E' \cap \beta | = \infty$.
 	
 \end{proof}
 
+\begin{figure}[H]
+	
+\centering
+\begin{tikzpicture}[scale=0.85]
+	\draw[step=2.0,black,thin] (0,0) grid (4,4);
+	\draw [ultra thick,cadmiumred, label=above:$A$] (0,0) to[out=45,in=115] (1,1) to[out=-180+115,in=10] (1,4);
+	\draw [ultra thick,astral] (2.2,0) to[out=105,in=15] (2,2) to[out=+105,in=-100] (4,4);
+	
+	\draw[step=2.0,black,thin] (8,0) grid (12,4);
+	\draw [ultra thick,cadmiumred, label=above:$A$] (8,0) to[out=45,in=115] (9,1) to[out=-180+115,in=120] (12,3);
+	\draw [ultra thick,astral, label=above:$A$] (8,0.75) to[out=45,in=115] (10,1) to[out=-180+115,in=-120] (11,4);
+	
+	\node (1) at (3.5,4.25)  {$C \cap D$};
+	\node (2) at (3.5+8,4.25)  {$C \cap D$};
+	\node (3) at (0.5,4.25)  {$\ol C \cap D$};
+	\node (4) at (0.5+8,4.25)  {$\ol C \cap D$};
+	\node (5) at (0.5,-0.25)  {$\ol C \cap \ol D$};
+	\node (6) at (0.5+8,-0.25)  {$\ol C \cap \ol D$};
+	\node (7) at (3.5,-0.25)  {$C \cap \ol D$};
+	\node (8) at (3.5+8,-0.25)  {$ C \cap \ol D$};
+	
+	\node (9) at (1.25,3.5) {\textcolor{cadmiumred}{$\alpha$}};
+	\node (9) at (11.75,2.75) {\textcolor{cadmiumred}{$\alpha$}};
+	
+	\node (9) at (3.25,3.5) {\textcolor{astral}{$\beta$}};
+	\node (9) at (3.25+7.25,3.5) {\textcolor{astral}{$\beta$}};
 
+\end{tikzpicture}
+\caption{\small{En la izquierda tenemos que si tomamos $E = \ol C \cap D$ y $E' = C \cap \ol D$ estas esquinas cumplen que $|E \cap \alpha| = \infty$ y que $|E' \cap \beta | = \infty$.
+En la derecha tenemos que nos alcanza con tomar $E = \ol C \cap \ol D$ y $E' = C \cap D$.
+En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
+\end{figure}
 
 El siguiente es el resultado central y más importante de los cortes óptimos.
 
@@ -432,73 +463,114 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	Entonces todo par de cortes óptimos $C,D \in \copt$ está anidado.
 \end{teo}
 \begin{proof}
-	\todo[]{Reescribir esta primera parte siguiendo el lema.}
 	Dado que $C, D \in \copt$ entonces tenemos dos caminos $\alpha$, $\beta$ tales que $C \in \copt(\alpha)$ y $D \in \copt(\beta)$.
-	Supongamos que $m_{\alpha} \ge m_{\beta}$.
-	Esta suposición nos dice que en el caso que $D \in {\cal C}_{\text{min}}(\alpha)$ luego por ser un corte óptimo para $\beta$ resulta que $D \in \copt(\alpha)$.
-	Esto fuerza a que $m_{\alpha} = m_{\beta}$, por lo tanto tenemos que en este caso en particular podemos considerar simplemente el camino $\alpha$ y olvidarnos de $\beta$.
+	Supongamos sin pérdida de generalidad que $m_{\alpha} \ge m_{\beta}$.
 	
 	La idea de la demostración es suponer que estos dos cortes no están anidados y llegar a una contradicción.
 	Para esto queremos encontrar cortes $E, E' \in \copt$ de manera que estén anidados con $C$ y con $D$ y que hagan valer la siguiente desigualdad:
 	\[
-		m(E) + m(E') < m(C) + m(D).
+	m(E) + m(E') < m(C) + m(D).
 	\]   
 	La validez de esta desigualdad nos diría que alguno de los dos cortes $C,D$ no es óptimo tal como supusimos.
 	
-	Consideremos el caso que $\alpha = \beta$.
-	Afirmamos que hay dos esquinas de $C,D$ tales que contienen infinitos vértices de $\alpha$.
-	Caso contrario si solamente alguna de las esquinas, supongamos $C \cap D$ tiene infinitos vértices entonces tendríamos que $|\alpha \cap \ol C| < \infty$ negando que $C \in {\cal C}(\alpha)$.
-	Cambiando los nombres a los cortes, sean estas esquinas $E = C \cap D$ y $E' = \ol C \cap \ol D$.
+	Por el lema \ref{lema_esquinas_caminos} podemos separar en dos casos.
+	\begin{enumerate}
+		\item Si $C \in {\cal C}(\beta)$ y $D \in {\cal C}(\alpha)$ entonces esto nos dice que $|\delta C| = |\delta D|$ dado que ambos cortes son minimales.
+		Esto implica que $D \in \cam$ por lo tanto $m_{\alpha} = m_{\beta}$ por lo tanto $D \in \copta$. 
+		En este caso simplemente nos olvidamos del camino $\beta$ y consideramos $C,D \in \copta$.
+		Luego tenemos que existen dos esquinas opuestas $E,E'$ tales que $|E \cap \alpha| = \infty$ y $|E' \cap \alpha| = \infty$.
+		\item Existen esquinas $E,E'$ tales que $|E \cap \alpha| = \infty = |E' \cap \beta|$.
+	\end{enumerate}	
 	
-	Consideremos ahora el caso que $\alpha$ y $\beta$ son caminos distintos.
-	Afirmamos que hay una esquina $K$ de los cortes $C$ y $D$ 
-	tal que $|K \cap \alpha| < \infty$ y tal que $|K \cap \beta| < \infty$.
-	Caso contrario tendríamos que $D \cap \alpha = D \cap C \cap \alpha  \cup D \cap \ol C \cap \alpha$ e idénticamente para $\ol D$, obteniendo así que $D \in \copt(\alpha)$.
-	Por la primera observación esto nos diría que $\alpha = \beta$ así que este caso queda descartado.
-	Consideremos las esquinas $E,E'$ que son adyacentes a $K$.
-	Notemos que estas esquinas cumplen que $|E \cap \alpha| = \infty$ y que $|E' \cap \beta| = \infty$ caso contrario negaríamos que estos cortes separan en dos a los caminos.
-	Sin pérdida de generalidad supongamos que $E = C \cap D$ y que $E' = \ol C \cap \ol D$.
+	Si es necesario renombramos a los cortes para que $E = C \cap D$ y $E' = \ol C \cap \ol D$.
 	
-	\todo{Fletar parte de la componente conexa y escribir bien el argumento de la conexión.}
+	
+	
+%	
+%	Esta suposición nos dice que en el caso que $D \in {\cal C}_{\text{min}}(\alpha)$ luego por ser un corte óptimo para $\beta$ resulta que $D \in \copt(\alpha)$.
+%	Esto fuerza a que $m_{\alpha} = m_{\beta}$, por lo tanto tenemos que en este caso en particular podemos considerar simplemente el camino $\alpha$ y olvidarnos de $\beta$.
+%	
+	
+	
+%	Consideremos el caso que $\alpha = \beta$.
+%	Afirmamos que hay dos esquinas de $C,D$ tales que contienen infinitos vértices de $\alpha$.
+%	Caso contrario si solamente alguna de las esquinas, supongamos $C \cap D$ tiene infinitos vértices entonces tendríamos que $|\alpha \cap \ol C| < \infty$ negando que $C \in {\cal C}(\alpha)$.
+%	Cambiando los nombres a los cortes, sean estas esquinas $E = C \cap D$ y $E' = \ol C \cap \ol D$.
+%	
+%	Consideremos ahora el caso que $\alpha$ y $\beta$ son caminos distintos.
+%	Afirmamos que hay una esquina $K$ de los cortes $C$ y $D$ 
+%	tal que $|K \cap \alpha| < \infty$ y tal que $|K \cap \beta| < \infty$.
+%	Caso contrario tendríamos que $D \cap \alpha = D \cap C \cap \alpha  \cup D \cap \ol C \cap \alpha$ e idénticamente para $\ol D$, obteniendo así que $D \in \copt(\alpha)$.
+%	Por la primera observación esto nos diría que $\alpha = \beta$ así que este caso queda descartado.
+%	Consideremos las esquinas $E,E'$ que son adyacentes a $K$.
+%	Notemos que estas esquinas cumplen que $|E \cap \alpha| = \infty$ y que $|E' \cap \beta| = \infty$ caso contrario negaríamos que estos cortes separan en dos a los caminos.
+%	Sin pérdida de generalidad supongamos que $E = C \cap D$ y que $E' = \ol C \cap \ol D$.
+	
 	Nuestros posibles candidatos a cortes óptimos son $E,E'$ pero en principio no sabemos si son cortes siquiera.
 	Sea $F$ componente conexa de $E$ tal que $|F \cap \alpha| = \infty$.
 	Notemos que $\ol C \cup \ol D \subseteq \ol F$ por lo tanto tenemos que $|\ol F \cap \alpha|=\infty$.
 	Más aún podemos ver que $\ol F$ es conexo.
 	Para eso consideremos $v,w \in \ol F$.
-	Si ambos vértices están en un mismo corte ya está porque es conexo por lo tanto tenemos un camino que los une y no toca a $F$.
-	Si no están en un mismo corte, como podría ser que $v \in C \cap \ol D$ y $w \in \ol C \cap D$ luego usando la conexión de $\ol D$ y de $\ol C$ podemos unir ambos con algún vértice en $\ol C \cap \ol D$ y así vemos que es conexo.
-	Con esto concluimos que $F$ es un corte que separa en dos partes a $\alpha$.
-	Hacemos algo similar para construirnos un corte $F' \subseteq E'$ que separe en dos partes a $\beta$.
+	Si tanto $v,w \in \ol C \cup \ol D$ entonces como este conjunto es un conexo y está contenido en $\ol F$ no hay nada para hacer.
+	En el caso que $v \in (C \cap D) \setminus F$ luego consideramos $\gamma$ un camino en $\Gamma$ tal que los una.
+	Sea $u$ el primer vértice tal que $u \notin C \cap D$ entonces necesariamente el camino $(v, \dots, u)$ está contenido en la componente conexa de $v$ en $C \cap D$ y esta componente conexa no es $F$. 
+	Como $u \in \ol C \cup \ol D$ luego tenemos un camino entre $u$ y $w$ contenido en $\ol F$ y así cerramos nuestra demostración.
+	Similarmente encontramos un conjunto de vértices $F'$ que cumple esto para $\beta$.
+	Notemos que $|\delta F| < \infty$, esto se debe a que si $\{ v,w \} \in \delta F$ luego necesariamente $\{v,w\} \in \delta E$.
+	Por otro lado $\delta E = \delta (C \cap D)  \subseteq \delta C \cup \delta D$ y $|\delta C| + |\delta D| < \infty$. 
+	Con esto probamos que $F \in {\cal C}(\alpha)$ y que $F' \in {\cal C}(\beta)$.
 	
-	Veamos ahora que $E=F$ y que $E' = F'$.
-	\todo{En realidad estamos viendo que $E,E'$ son cortes minimales. Escribir bien.}
-	Para eso consideremos los bordes. 
-	Por como elegimos a $E$ tenemos que $\delta E \subseteq \delta D \cup \delta C$ y similarmente para $E'$ concluyendo así que $\delta E \cup \delta E' \subseteq \delta D \cup \delta C$.
-	De esto se sigue la siguiente desigualdad,
+%	Si ambos vértices están en un mismo corte ya está porque es conexo por lo tanto tenemos un camino que los une y no toca a $F$.
+%	Si no están en un mismo corte, como podría ser que $v \in C \cap \ol D$ y $w \in \ol C \cap D$ luego usando la conexión de $\ol D$ y de $\ol C$ podemos unir ambos con algún vértice en $\ol C \cap \ol D$ y así vemos que es conexo.
+%	Con esto concluimos que $F$ es un corte que separa en dos partes a $\alpha$.
+%	Hacemos algo similar para construirnos un corte $F' \subseteq E'$ que separe en dos partes a $\beta$.
+	
+	Veamos ahora que $F$ y que $F'$ son cortes minimales.
+	Consideremos las siguientes desigualdades:
 	\begin{align*}
 		|\delta E \cup \delta E'| & \le |\delta C \cup \delta D| \\
 		|\delta E| + |\delta E'| - |\delta (E \cap E')| & \le |\delta C| + |\delta D| - |\delta (C \cap D)|
 	\end{align*}
-	y usando que las intersecciones están acotadas obtenemos finalmente la ecuación,
+	entonces:
 	\[
 		|\delta E| + |\delta E'| \le |\delta C| + |\delta D|.
-	\]
-	Por otro lado como $F$ es una componente conexa de $E$ tenemos que $\delta F \subseteq \delta E$ y similarmente para el caso de $F'$ dentro de $E'$.
-	Esto nos dice que en definitiva tenemos estas desigualdades,
+	\]	
+	Por otro lado como $F$ y $F'$ son cortes tales que $|\delta F| \le |\delta E|$ y $|\delta F'| \le |\delta E'|$ luego obtenemos que
 	\[
-		|\delta F| \le  |\delta E|, \ |\delta F'| \le |\delta E'| 
-	\]
-	y como $F$ es un corte en ${\cal C}(\alpha)$ y $F'$ es un corte en ${\cal C}(\beta)$ obtenemos finalmente que $|\delta F| = |\delta E|$ y que $|\delta F'| = |\delta E'|$ concluyendo así que $E=F$ y que $E'=F'$.
-	Así vimos que tanto $E$ como $E'$ son cortes mínimos.
-	Queremos ver ahora que son óptimos.
+		|\delta F| + |\delta F'| \le |\delta C| + |\delta D|
+	\] 
+	y dado que $C,D$ son cortes minimales obtenemos así que $|\delta C| \le |\delta F|$ y que $|\delta D| \le |\delta F'|$ concluyendo que $|\delta F | = |\delta C|, |\delta F'| = |\delta D|$ y por lo tanto que $F,F'$ son cortes minimales.
+	Por el mismo razonamiento obtenemos que $|\delta E| = |\delta C|$ y que $|\delta E'| = |\delta D|$.
 	
+	Probemos ahora que $E=F$, equivalentemente que $E$ es conexo y que por lo tanto esto implicaría que $E \in \cam$.
+	Para esto notemos que si $v \in E \setminus F$ luego necesariamente por el mismo argumento anterior que usamos para probar que $\ol F$ es conexo tenemos que debe existir $u$ tal que $u \in \ol C \cup \ol D$ y conectado con $v' \in E \setminus F$.
+	Si existiera esta arista $\{v',u \}$ luego esto nos diría que $\{v',u \} \in \delta E \setminus \delta F$ lo que contradice que $|\delta E| = |\delta F| = |\delta C|$.
+	Similarmente podemos probar que $E' = F'$.
+	
+	
+%	es una componente conexa de $E$ tenemos que $\delta F \subseteq \delta E$ y similarmente para el caso de $F'$ dentro de $E'$.
+%	Esto nos dice que en definitiva tenemos estas desigualdades,
+%	\[
+%		|\delta F| \le  |\delta E|, \ |\delta F'| \le |\delta E'| 
+%	\]
+%	y como $F$ es un corte en ${\cal C}(\alpha)$ y $F'$ es un corte en ${\cal C}(\beta)$ obtenemos finalmente que $|\delta F| = |\delta E|$ y que $|\delta F'| = |\delta E'|$ concluyendo así que $E=F$ y que $E'=F'$.
+%	Así vimos que tanto $E$ como $E'$ son cortes mínimos.
+	Queremos ver ahora que son $E,E'$ son cortes óptimos.	
 	Para esto probaremos primero que si $F$ es un corte anidado con $C$ o con $D$ entonces está anidado con $E$ o con $E'$.
-	\todo{Aclarar esta parte.}
 	Separamos en dos casos que son simétricos.
 	Si $F \cap C = \emptyset$ entonces $F \cap E= \emptyset$ y similarmente si $F \cap \ol C = \emptyset$ entonces $F \cap E' = \emptyset$.
-	Esto nos va a decir que todos los cortes que estén anidados con alguno de los dos cortes originales va a estar anidado con alguno de los dos propuestos.
-	No tenemos garantizada la desigualdad de $m(E) + m(E') < m(C) + m(D)$ porque nos faltaría el caso que algún corte no esté anidado con $C$ y con $D$ a la vez.
-	Entonces supongamos que $F$ no está anidado con $C$ ni con $D$ y queremos ver que no lo está con $E$ ni con $E'$.
+	Similarmente para $D$.
+	Esto nos va a decir que todos los cortes que estén anidados con alguno de los dos cortes originales $C,D$ va a estar anidado con alguno de los dos propuestos $E,E'$.
+	
+	Por ahora tenemos la siguiente desigualdad de conjuntos
+	\[
+		|\{ F : F \ \text{no está anidado con} \ E \lor E' \}| \le |\{ F : F \  \text{no está anidado con} \ C \lor D \}|
+	\]
+	notemos que esta desigualdad la podemos escribir como
+	\[
+		m(E) + m(E') - |\{ F : F \ \text{no está anidado con} \ E \land E' \}| \le m(C) + m(D) - |\{ F : F \ \text{no está anidado con} \ C \land D \}|.
+	\] 
+	Ahora vamos a probar que $|\{ F : F \ \text{no está anidado con} \ E \land E' \}| \le |\{ F : F \ \text{no está anidado con} \ C \land D \}|$.
 	Tenemos cuatro casos a analizar.
 	\begin{enumerate}
 		\item $C \subseteq F$ y $D \subseteq \ol F$.
@@ -510,14 +582,14 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 		\item $ C \subseteq F$ y $D \subseteq \ol F$.
 		Esto nos dice que $E \subseteq F$ y que $E' \subseteq \ol F$.
 	\end{enumerate}
-	En definitiva llegamos a la siguiente desigualdad,
+	Por lo tanto $|\{ F : F \ \text{no está anidado con} \ E \land E' \}| \le |\{ F : F \ \text{no está anidado con} \ C \land D \}|$ y esto nos dice que:
 	\[
 		m(E) + m(E') \le m(C) + m(D)
 	\]
 	pero nosotros queremos ver que es estricta para terminar de probar este teorema.
 	Para eso notemos que $C$ está anidado con $E$ puesto que $\ol C \cap E = \ol C \cap C \cap D = \emptyset$.
 	Idénticamente vemos que está anidado con $E'$.
-	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estricta y por lo tanto llegamos a una contradicción de suponer que los cortes $C,D$ no están anidados.
+	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estricta y por lo tanto llegamos a una contradicción (que alguno de los dos cortes $C$ o $D$ no son óptimos) de suponer que los cortes $C,D$ no están anidados.
 \end{proof}
 
 \section{Árbol de estructura.}
