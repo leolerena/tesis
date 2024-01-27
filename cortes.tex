@@ -596,7 +596,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 
 
 Los árboles de estructura fueron introducidos y demostradas todas las propiedades que describimos en esta sección en los trabajos de Dunwoody \cite{dunwoody1979accessibility} y \cite{dunwoody1982cutting}.
-La teoría se profundizó enormemente en \cite{dicks1989groups} codificando la construcción en un problema de un cierto anillo booleano asociado al grafo. 
+La teoría se profundizó enormemente en \cite{dicks1989groups} codificando la construcción en un problema de un anillo booleano asociado al grafo. 
 
 Así como en la sección anterior, todos los grafos que vamos a considerar a partir de ahora son accesibles.
 Vamos a construir un árbol a partir de los cortes óptimos.
@@ -626,6 +626,10 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	\]
 \end{deff}
 
+\begin{obs}\label{obs_copt_igualdad}
+	Sean $C,D \in \copt$ cortes óptimos tales que $C \subseteq D$ y $C \sim D$ entonces necesariamente $C = D$.
+\end{obs}
+
 \begin{prop}
 	La relación $(\copt, \sim)$ es de equivalencia.
 \end{prop}
@@ -643,36 +647,47 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	
 	Finalmente nos queda ver que la relación resulta ser transitiva.
 	Esto es que para ciertos cortes óptimos tenemos que $C \sim D$, $D \sim E$ y queremos ver que $C \sim E$.
-	Una primera observación que podemos hacer es que $\emptyset \neq \ol D = C \cap E$.
+	Una primera observación que podemos hacer es que si partimos que $C \neq D \neq E$ entonces dado que $C \sim D$ luego $\ol D \subseteq C$ y similarmente $\ol D \subseteq E$ por lo tanto tenemos que $\ol D \subseteq C \cap D$ y así que $C \cap D \neq \emptyset$.
 
-	
 	Por el teorema \ref{teo_copt_anidados} tenemos que $C,E$ están anidados.
 	Veamos que sucede en los cuatro posibles casos.
 	\begin{itemize}
 		\item $C \subseteq E$. 
-		Tenemos que $\ol D \subsetneq E$ con $\ol D \subsetneq F \subseteq E$ y esto implica que $F=E$.
-		Si tomamos $F = C$ entonces obtenemos lo que queríamos ver.
+		Como $D \sim C$ tenemos que $ \ol D \subseteq C $ y como $D \sim E$ entonces para todo $\forall F \in \copt : \ol D \subsetneq F \subseteq E \implies F = E)$. 
+		Si tomamos $F = C$ luego obtenemos que $C = E$ lo que nos dice que $C \sim E$ tal como queríamos ver.
+		
+		
 		\item $E \subseteq C$ análogo al caso anterior.
-		\item $E \subseteq \ol C$ contradice que $C \cap E \neq \emptyset$.
+		\item $E \subseteq \ol C$.
+		Tenemos que por la observación anterior que $C \cap E \neq \emptyset$ contradiciendo que $E \subseteq \ol C$.
 		\item $\ol C \subseteq E$.
-		Como $C \cap E \neq \emptyset$ esto nos dice que $\ol C \subsetneq E$ por lo tanto tenemos que si $F \in \copt$ luego	$\ol C \subsetneq F \subseteq E$ queremos ver que $F=E$.
+		Como $C \cap E \neq \emptyset$ esto nos dice que $\ol C \subsetneq E$ por lo tanto tenemos que si $F \in \copt$ luego para todo $F \in \copt$ tal que $\ol C \subsetneq F \subseteq E$ queremos ver que $F=E$.
 		Lo separamos en cuatro casos nuevamente gracias al teorema \ref{teo_copt_anidados} dado que $F$ debe estar anidado con $D$.
 		\begin{itemize}
 			\item $D \subseteq F$.
-			Esto nos dice que $D \subseteq E$ pero por lo visto tenemos que $\ol D \subseteq E$ y esto es una contradicción porque al ser $E$ un corte no puede ser todo el conjunto de vértices $V(\Gamma)$.
-			\item $D \subseteq \ol F$. 
-			Esto nos dice que $F \subseteq \ol D$ y por lo tanto tenemos $\ol C \subsetneq F \subseteq \ol D$ pero esto nos dice que $\ol C \subseteq \ol D$ y como $\ol D \subseteq C$ llegamos a una contradicción.
-			\item $\ol D \subseteq F$.
-			Usamos que $D \sim E$ por lo tanto concluimos que $F=E$ tal como queríamos ver.			
-			\item $\ol D \subseteq \ol F$.
-			Esto nos dice que $\ol C \subsetneq F \subseteq D \subseteq E$ por lo tanto obtenemos que $F = D$ o bien contradecimos que $C \sim D$.
+			Esto nos dice que $D \subseteq E$ entonces por la obs \label{obs_copt_igualdad} obtenemos que $D = E$ y así $C \sim E$.
+			
+			\item $F \subseteq D$.
+			Tenemos que $C \sim D$ entonces $\ol C \subsetneq F \subset D$ implica que $F = D$ y así tenemos que $D \subseteq E$ y por lo tanto nuevamente por la observación \ref{obs_copt_igualdad} que $C \sim E$.
+			
+			\item $\ol D \subseteq F$. 
+			Tenemos que dado que $D \sim E$ entonces $\ol D \subsetneq F \subseteq E$ implica que $F = E$.
+			
+			\item $F \subseteq \ol D$.
+			Entonces tenemos que $\ol C \subseteq F \subseteq \ol D$ entonces por la observación \ref{obs_copt_igualdad} concluimos que $\ol C = \ol D$ lo que implica que $C = D$.
+%			\item $D \subseteq \ol F$. 
+%			Esto nos dice que $F \subseteq \ol D$ y por lo tanto tenemos $\ol C \subsetneq F \subseteq \ol D$ pero esto nos dice que $\ol C \subseteq \ol D$ y como $\ol D \subseteq C$ llegamos a una contradicción.
+%			\item $\ol D \subseteq F$.
+%			Usamos que $D \sim E$ por lo tanto concluimos que $F=E$ tal como queríamos ver.			
+%			\item $\ol D \subseteq \ol F$.
+%			Esto nos dice que $\ol C \subsetneq F \subseteq D \subseteq E$ por lo tanto obtenemos que $F = D$ o bien contradecimos que $C \sim D$.
 		\end{itemize}
 	\end{itemize}
 \end{proof}
 
 \begin{deff}
 	Sea $\Gamma$ un grafo conexo, accesible y localmente finito y sea $\copt$ el conjunto de sus cortes óptimos.
-	El árbol de estructura $T(\copt)$ de un grafo $\Gamma$ es el siguiente grafo.
+	El \emph{árbol de estructura} $T(\copt)$ de un grafo $\Gamma$ es el siguiente grafo dirido:
 	\begin{align*}
 		V(T(\copt)) &= \{ [C] : C \in \copt \} \\
 		E(T(\copt)) &= \{ \{ [C], [\ol C] \} : C \in \copt   \}
@@ -680,9 +695,8 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 \end{deff}
 
 En particular notemos que está bien definido como grafo no dirigido dado que para todo $C \in \copt$ tenemos que $C \nsim \ol C$ por lo que no tiene bucles.
-Por otro lado si $C \sim D$ entonces no puede pasar que $\ol C \sim \ol D$ caso contrario llegaríamos a una contradicción.
-
-Por nuestra construcción el árbol de estructura no es localmente finito.
+Por otro lado si $C \sim D$ entonces no puede pasar que $\ol C \sim \ol D$ caso contrario obtendríamos que $\ol C \subsetneq D$ y que $D \subsetneq \ol C$ por lo tanto $\ol C \subsetneq \ol C$ y esto es una contradicción.
+Por nuestra construcción el árbol de estructura no tiene porqué ser localmente finito.
 El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de la clase de equivalencia de $C$ y éste podría ser infinito.
 
 \begin{prop}
@@ -695,37 +709,32 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 	Primero veamos que no tiene ciclos.
 	Supongamos que $\gamma$	es un ciclo
 	\[
-		\gamma = ([C_0], [C_1], [C_2], \dots [C_{n}], [C_0])
+		\gamma = ([C_0], [C_1], [C_2], \dots [C_{n-1}], [C_0])
 	\]
-	donde $\ol C_{i} \sim C_{i+1}$ para todo $i=1 \dots n$.
-	Notemos que $\ol C_{i-1} \neq C_{i}$ para todo $i=1 \dots n$ sino tendríamos que $C_{i-1} = \ol{ C_{i}}$. 
-	Esto nos implicaría que $C_{i-1} = \ol{C_{i}} \sim C_{i+1}$
-	y esto diría que el camino $\gamma$ no es simple.
+	donde $\ol C_{i} \sim C_{i+1}$ para todo $i=1 \dots n-1$.
+	Notemos que $\ol C_{i-1} \neq C_{i}$ para todo $i=1 \dots n-1$ sino tendríamos que $C_{i-1} = \ol{ C_{i}}$ y esto implicaría que $C_{i-1} = \ol{C_{i}} \sim C_{i-1}$
+	y esto contradice que el camino $\gamma$ no es simple.
 	
 	De esta manera tenemos una cadena de inclusiones
 	\begin{equation}\label{eq:inclusiones}
 			C_0 \subsetneq C_1 \subsetneq \dots C_{n-1}
 	\end{equation}
-	tal que $\ol C_{n-1} \sim C_n \sim \ol C_0$.
-	Veamos que no puede haber una arista $\{C_{n-1}, C_0\}$.
-	Si la hubiera tendría que valer alguna de estas dos inclusiones:
+	tal que $\ol{ C_{n-1}} \sim C_0$.
+	Veamos que no puede haber una arista $\{[\ol{ C_{n-1}}], [C_0]\}$.
+	Si la hubiera tendría que valer alguna de estas dos condiciones:
 	\begin{enumerate}
-		\item $\ol C_{n-1} \subsetneq C_0$.
-		Usando \ref{eq:inclusiones}, esto nos diría que $\ol C_{n-1} \subseteq C_{n-1}$ que es una contradicción.
-		\item $\ol C_{0} \subsetneq C_{n-1}$.
-		Nuevamente usando las inclusiones \ref{eq:inclusiones} llegaríamos a que $V(\Gamma) = C_0 \cup \ol C_0 \subseteq C_{n-1} \subsetneq V(\Gamma)$ que también es una contradicción.
+		\item $C_{n-1} = C_{0}$ y nuevamente obtenemos un absurdo porque en este caso tenemos que dado que $n \ge 3$ entonces por \ref{eq:inclusiones} llegamos a que $C_{0} \subsetneq C_{0}$ y esto es un absurdo.
+		
+		\item ${C_{n-1}} \subsetneq C_{0}$ pero esto nos da un absurdo porque en tal caso por \ref{eq:inclusiones} obtenemos que $C_{0} \subsetneq C_{0}$.
 	\end{enumerate}
 	Por lo tanto el grafo resulta ser acíclico.
 	
 	Veamos ahora que es conexo.
 	Sean $[C], [D] \in V(T(\copt))$, vamos a construir un camino entre ellos.
-	Por el teorema \ref{teo_copt_anidados} tenemos que necesariamente están anidados.
-	Sin pérdida de generalidad podemos suponer que $C \subseteq D$ dado que
-	\[
-	\{[C], [\ol C]\}, \{[D],[\ol D]\} \in E(T(\copt)).
-	\]
+	Por el teorema \ref{teo_copt_anidados} tenemos que necesariamente $C,D \in \copt$ están anidados.
+	Sin pérdida de generalidad podemos suponer que $C \subseteq D$.
 	Por el lema \ref{lema_intermedios} sabemos que hay finitos cortes $E$ intermedios.
-	Tomemos entonces una sucesión creciente no refinable de cortes de manera que llegamos 
+	Tomemos entonces una sucesión creciente no refinable de cortes de manera que  
 	\[
 		C=C_0 \subsetneq C_1 \subsetneq \dots C_n = D
 	\]
