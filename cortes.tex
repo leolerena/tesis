@@ -617,6 +617,9 @@ Para esto lo primero que vamos a ver es que los cortes óptimos forman un poset 
 	Si ahora usamos el lema \ref{lema_finitos_kcortes} con el conjunto finito $\gamma$ esto nos dice que solo existen finitos cortes $E$ que cumplen lo pedido.
 \end{proof}
 
+\todo{Agregar lema que el maximal respecto a la inclusión está en la clase de equivalencia de $C$.}
+
+
 Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 
 \begin{deff}
@@ -630,6 +633,7 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	Sean $C,D \in \copt$ cortes óptimos tales que $C \subseteq D$ y $C \sim D$ entonces necesariamente $C = D$.
 \end{obs}
 
+\todo{Escribir interpretación de esta relación como contenciones y etc..}
 \begin{prop}
 	La relación $(\copt, \sim)$ es de equivalencia.
 \end{prop}
@@ -665,7 +669,7 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 		Lo separamos en cuatro casos nuevamente gracias al teorema \ref{teo_copt_anidados} dado que $F$ debe estar anidado con $D$.
 		\begin{itemize}
 			\item $D \subseteq F$.
-			Esto nos dice que $D \subseteq E$ entonces por la obs \label{obs_copt_igualdad} obtenemos que $D = E$ y así $C \sim E$.
+			Esto nos dice que $D \subseteq E$ entonces por la observación \ref{obs_copt_igualdad} obtenemos que $D = E$ y así $C \sim E$.
 			
 			\item $F \subseteq D$.
 			Tenemos que $C \sim D$ entonces $\ol C \subsetneq F \subset D$ implica que $F = D$ y así tenemos que $D \subseteq E$ y por lo tanto nuevamente por la observación \ref{obs_copt_igualdad} que $C \sim E$.
@@ -748,7 +752,7 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 \section{Acciones sobre el árbol de estructura.}
 
 En esta sección vamos a ver que los cortes óptimos no solamente están anidados entre sí sino que si $G$ actúa sobre el grafo $\Gamma$ luego actúa sobre estos cortes óptimos.
-Esta acción se traslada naturalmente a una acción sobre el árbol de estructura tal como queríamos ver y así vamos a poder usar la teoría de Bass--Serre.
+Esta acción se traslada naturalmente a una acción sobre el árbol de estructura.
 
 
 
@@ -761,11 +765,16 @@ Esta acción se traslada naturalmente a una acción sobre el árbol de estructur
 	Para eso notemos que si $C$ es un corte luego si $\varphi \in \aut(\Gamma)$ tenemos que $\varphi(C)$ es conexo y no vacío. 
 	Por otro lado al ser un morfismo del grafo $\Gamma$ obtenemos que $\ol{\varphi(C)} = \varphi(\ol C)$ por lo tanto su complemento sigue siendo conexo.
 	Al ser un automorfismo tenemos que $\varphi(\beta C) = \beta (\varphi C)$ y por este motivo tenemos que $|\varphi (\beta C)| = |\beta (\varphi C)|$ y esto nos dice que manda $k$-cortes en $k$-cortes.
+	
+	
 	Veamos que manda un corte minimal en uno minimal. 
-	Para eso si $C \in {{\cal C}}_{\text{min}}(\alpha)$ para cierto camino infinito $\alpha$ luego notemos que $\varphi(\alpha)$ es otro camino infinito y por ser un automorfismo obtenemos que $\varphi(C) \in {\cal C}_{\varphi(\alpha)}$.
-	Similarmente tenemos que si $C$, $D$ no están anidados luego necesariamente $\varphi(C)$ y $\varphi(D)$ no están anidados tampoco.
-	Caso contrario si $\varphi(C) \cap \varphi(D) = \emptyset$ luego tendríamos que al ser $\varphi \in \aut(\Gamma)$ que preserva las intersecciones y tiene una inversa por lo que $C \cap D = \emptyset$ y esta es la contradicción.
-	Juntando todo nos dice que $\aut(\Gamma)$ actúa sobre los cortes óptimos.
+	Para eso si $C \in {{\cal C}}_{\text{min}}(\alpha)$ para cierto camino infinito $\alpha$ luego notemos que $\varphi(\alpha)$ es otro camino infinito y por ser un automorfismo obtenemos que $\varphi(C) \in {\cal C}({\varphi(\alpha)})$.
+	Por otro lado es un camino minimal porque si $D \in {\cal C}(\varphi(\alpha))$ obtenemos que $\varphi^{-1}(D) \in \ca$ lo que implica que $|\delta D| \ge |\delta C|$ dado que $C \in \cam$.
+	
+	Veamos ahora que manda cortes óptimos en cortes óptimos.
+	Sean $C,D \in {\cal C}_{\text{min}}$ cortes que no están anidados luego necesariamente $\varphi(C)$ y $\varphi(D)$ no están anidados tampoco.
+	Caso contrario si lo estuvieran supongamos que $\varphi(C) \cap \varphi(D) = \emptyset$ luego tendríamos que dado que $\varphi \in \aut(\Gamma)$ esto dice que preserva las intersecciones y tiene una inversa por lo que $C \cap D = \emptyset$ y esto contradice que $C, D$ no están anidados.
+	Esto nos dice que $\aut(\Gamma)$ actúa sobre los cortes óptimos porque dado $C \in \copta$ luego $\varphi(C) \in {\cal C}_{\text{opt}}(\varphi(\alpha))$.
 	
 \end{proof}
 
@@ -777,29 +786,42 @@ Más aún podemos extender esta acción al árbol de estructura.
 \end{coro}
 
 \begin{proof}
-	Si $C \sim D \in \copt$ son cortes óptimos relacionados luego tenemos que para todo $\varphi \in \aut(\Gamma)$ vale que $\varphi(C) \sim \varphi(D)$.
-	Para eso notemos que si $\ol C \subsetneq E \subset D$ implica que $E = D$ luego si tenemos que
+	Sean $C \sim D \in \copt$ cortes óptimos relacionados probemos que para todo $\varphi \in \aut(\Gamma)$ vale que $\varphi(C) \sim \varphi(D)$.
+	Para eso notemos que si para todo $E \in \copt$ tenemos que 
+	$\ol C \subsetneq E \subset D$ implica que $E = D$ luego
 	\[
-	\ol {\varphi(C)} \subsetneq E \subset \varphi(D) \iff C \subsetneq \varphi(E) \subset D
+	\ol {\varphi(C)} \subsetneq E \subset \varphi(D) \iff \ol C \subsetneq \varphi^{-1}(E) \subset D
 	\]  
 	donde usamos que $\varphi$ es un automorfismo y que actúa sobre los cortes óptimos.
-	Esto nos dice que la acción dada por $\varphi([C]) = [\varphi (C)]$ está bien definida y por lo tanto actúa sobre los vértices.
-	Para ver que actúa sobre las aristas notemos que al ser un morfismo de grafos y por actúar sobre los vértices que $[\ol{\varphi(C)}] = [\varphi (\ol C)]$.	
+	Entonces como $C \sim D$ luego $\varphi^{-1}(E) = D$ lo que implica que $E = \varphi(D)$ tal como queríamos ver.
+	Esto nos dice que la acción dada por $\varphi([C]) = [\varphi (C)]$ está bien definida y por lo tanto actúa sobre los vértices de $T(\copt)$.
+	Para ver que actúa sobre el árbol notemos que 
+	\[
+		\varphi([C],[\ol C]) = ([\varphi (C)], [\varphi (\ol C)]) = ([\varphi (C)], [\ol{\varphi (C)}])
+	\]
+	donde usamos que $\varphi(\ol{C}) = \ol{\varphi(C)}$ dado que $\varphi \in \aut(\Gamma)$.
+	
 \end{proof}
 
 
 \begin{lema}\label{lema_finitas_orbitas}
-	Sea $\Gamma$ un grafo accesible.
+	Sea $\Gamma$ un grafo accesible, conexo y localmente finito.
 	Si $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$ luego actúa con finitas órbitas sobre $\copt$ y sobre el árbol de estructura $T(\copt)$.
 \end{lema} 
 \begin{proof}
 	Veamos primero que actúa con finitas órbitas sobre $\copt$.
 	Para eso tenemos que existe $A \in V(\Gamma)$ dominio fundamental finito de la acción de $\aut(\Gamma)$ sobre $\Gamma$.
-	Por lo tanto todo corte se puede tomar alguno que esté en su misma órbita, llamesmolo $C$ de manera que $C \cap A \neq \emptyset$.
-	Como el grafo es accesible todo corte óptimo es un $k$-corte para un cierto $k$.
-	Por el resultado \ref{lema_finitos_kcortes} tenemos que hay finitos cortes posibles por lo tanto tenemos que hay finitas órbitas posibles para esta acción.
+	Por lo tanto para todo corte $C \in \copt$ podemos tomar otro corte $D \in \copt$ de manera que para cierta $\varphi \in \aut(\Gamma)$ vale que $C  = \varphi(D)$ y tal que $\delta D \cap A \neq \emptyset$.
+	Entonces la acción de $\aut(\Gamma)$ sobre $\copt$ tiene el siguiente dominio fundamental
+	\[
+		B = \{  D \in \copt \mid \delta D \cap A \neq \emptyset \}.
+	\]
+	
+	Como el grafo $\Gamma$ es accesible existe $k$ de manera que todo corte óptimo $D$ es un $k$-corte.
+	Por el resultado \ref{lema_finitos_kcortes} tenemos que $|B| < \infty$ y así vimos que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\copt$. 
 	
 	Para ver que son finitas las órbitas sobre el árbol de estructura notemos que al ser $V(T(\copt))$ isomorfo a un cociente de $\copt$ luego tenemos que en particular las órbitas sobre el árbol de estructura también tienen que ser finitas.
+	
 \end{proof}
 
 \begin{obs}
@@ -811,27 +833,46 @@ Nuestro objetivo ahora es entender cómo es la acción sobre el árbol de estruc
 Lo primero que vamos a buscar entender es cómo son los estabilizadores de esta acción.
 
 \begin{lema}\label{lema_nlC_cap_olC_conexo}
-	Existe $l \in \NN$ de manera que $N^l(C) \cap \ol C$ es conexo para todo $C \in \copt$.
+	Sea $\Gamma$ un grafo accesible, conexo y localmente finito.
+	Entonces existe $l \in \NN$ de manera que $N^l(C) \cap \ol C$ es conexo para todo $C \in \copt$.
 \end{lema}
 \begin{proof}
 	Primero consideremos algún $C \in \copt$ y después veamos de extender este resultado para todos los cortes óptimos.
 	
-	Para empezar sea $v \in \delta C \cap \ol C$ y consideremos $l' = \max  \{d(v,w) \ | \ w \in \delta C\}$.
-	Como $\ol C$ es conexo tenemos que $N^{l'+1}(C) \cap \ol C$ resulta ser conexo.
-	Esto porque si $w,w' \in N^{l'+1}(C) \cap \ol C$ luego su distancia a $C$ está acotada por $l'+1$ por lo tanto existe un camino que lo une con $C$ menor a esa longitud.
-	Si ambos pasan por $u,u' \in \delta C \cap \ol C$ vértices que estén en el borde luego por nuestra elección de $l'$ tenemos que $d(u,v) \le l'$ y que $d(u',v) \le l'$ concluyendo así que $N^{l'+1}(C) \cap \ol C$ es conexo.
+	Dado que $\ol C$ es conexo tenemos que para todo par de vértices $v,w \in \delta C \cap \ol C$ existe un camino $\alpha_{vw}$ tal que $\alpha_{vw} \subset \ol C$ y es de longitud minimal.
+	Sea $l \in \NN$ tal que $l \ge \sup_{v,w \in \delta C \cap \ol C} d(C,\alpha_{vw})$ dado que existen finitos pares de vértices que cumplen esta propiedad.
+	Afirmamos que $N^{l}(C) \cap \ol C$ es conexo.
+	Para eso sean $w,w' \in N^{l}(C) \cap \ol C$ luego tenemos que existe un camino tal que conecta a $w$ con $v  \in \delta C \cap \ol C$ y un camino que conecta a $w'$ con $v' \in \delta C \cap \ol C$ y ambos caminos están contenidos en $N^{l}(C) \cap \ol C$.
+	Por la elección de $l$ tenemos que $v$ y $v'$ están conectados en $N^l(C) \cap \ol C$ probando así que es conexo.
 	
-	Para finalizar la demostración observemos que por el lema anterior \ref{lema_finitas_orbitas} tenemos finitas órbitas de cortes óptimos.
-	Para cada representante de órbita $C_i \in \copt$ donde $i=1,\dots,n$ podemos tomar $l_i \in \NN$ de manera que nos sirva y finalmente tomando $l = \underset{{i=1,\dots,n}}{\max} l_i$ vemos que nos sirve para todos los representantes de órbitas y así para todos los cortes óptimos.
+	
+%	
+%	Para empezar sea $v \in \delta C \cap \ol C$ 
+%	
+%	
+%	
+%	y consideremos $n = \max  \{d(v,w) \ | \ w \in \delta C\}$.
+%	Como $\ol C$ es conexo tenemos que $N^{n+1}(C) \cap \ol C$ resulta ser conexo.
+%	Esto porque si $w,w' \in N^{n+1}(C) \cap \ol C$ luego su distancia a $C$ está acotada por $n+1$ por lo tanto existe un camino que lo une con $C$ menor a esa longitud.
+%	Si ambos pasan por $u,u' \in \delta C \cap \ol C$ vértices que estén en el borde luego por nuestra elección de $n$ tenemos que $d(u,v) \le n$ y que $d(u',v) \le n$ concluyendo así que $N^{n+1}(C) \cap \ol C$ es conexo.
+	
+	Para finalizar la demostración observemos que por el lema anterior \ref{lema_finitas_orbitas} tenemos finitas órbitas de la acción de $\aut(\Gamma)$ sobre los cortes óptimos.
+	Para cada representante de órbita $C_i \in \copt$ donde $i=1,\dots,n$ podemos tomar $l_i \in \NN$ de manera que $ N^{l_{i}}(C_{\textit{}}) \cap \ol C_{i} $ sea conexo. 
+	Si tomamos $l = \underset{{i=1,\dots,n}}{\max} l_i$ vemos que nos sirve para todos los representantes de órbitas y así para todos los cortes óptimos.
+	
 \end{proof}
 \begin{obs}
-	En particular tenemos que $|N^l(C) \cap \ol C|<\infty$ dado que si $v \in N^l(C) \cap \ol C$ luego existe $w \in \beta C \cap C$ tal que esté en el camino que une $v$ con $C$.
-	Esto nos dice que resulta ser el conjunto $N^l(\beta C  \cap C) \cap \ol C$ que sabemos que es finito porque $\beta C \cap C$ es finito por ser un corte.
+	En particular notemos que si $\Gamma$ es un grafo localmente finito accesible entonces  $|N^l(C) \cap \ol C|<\infty$. 
+	Esto se puede ver porque si $v \in N^l(C) \cap \ol C$ luego existe $w \in \beta C \cap C$ tal que esté en el camino que une $v$ con $C$.
+	Esto nos dice que $N^l(C) \cap \ol C = N^l(\beta C  \cap C) \cap \ol C$. 
+	El conjunto $N^l(\beta C  \cap C) \cap \ol C$ es finito porque los vecinos de un conjunto finito en un grafo localmente finito forman un conjunto finito.
 \end{obs}
+
 Ahora definimos un objeto que nos va a ayudar a entender como son estos estabilizadores.
 
 \begin{deff}
-	Sea $\Gamma$ un grafo tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\copt$.
+	Sea $\Gamma$ un grafo accesible, conexo y localmente finito
+	tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\copt$.
 	Sea $l \in \NN$ tal que $N^l(C) \cap \ol C$ es conexo para todo $C \in \copt$.
 	El \emph{bloque} asignado a $[C] \in V(T(\copt))$ está definido como
 	\[
@@ -843,7 +884,7 @@ Ahora definimos un objeto que nos va a ayudar a entender como son estos estabili
 
 Veamos que estos bloques no son vacíos.
 
-\begin{lema}
+\begin{lema}\label{lema_bloques_def_equiv}
 	Tenemos la siguiente igualdad de conjuntos,
 	\[
 		B([C]) = \bigcap_{D \sim C} D \cup \bigcup_{D \sim C} N^l(D) \cap \ol D
@@ -858,7 +899,7 @@ Veamos que estos bloques no son vacíos.
 		Sea $v \in B([C])$. 
 		Si $v \in \bigcap_{D \sim C} D$ ya está. 
 		Caso contrario tenemos que debe existir $D \in [C]$ tal que $v \in N^l(D) \cap \ol D$ y por lo tanto queda probada esta inclusión.
-		\item \textbf{$(\supseteq)$} 
+		\item \textbf{$(\supseteq)$}. 
 		Nos alcanza con ver que $ N^l(D) \cap \ol D \subseteq B([C])$ para todo $D \in [C]$.
 		Para eso notemos que al estar en la misma clase de equivalencia tenemos que 
 		\[
@@ -871,24 +912,38 @@ Veamos que estos bloques no son vacíos.
 Estos bloques aparte cumplen que son conexos.
 
 \begin{lema}\label{lema_conexion_B(C)}
-	Existe una constante $\lambda \in \NN$ tal que para todo $C \in \copt$ y todo $S \subseteq B([C])$ tenemos que: 
-	Cuando dos vértices $u,v \in B([C]) \setminus N^l(S)$ se pueden conectar por algún camino en $\Gamma \setminus N^l(S)$ entonces se pueden conectar por algún camino en $B([C]) \setminus S$. 
+	Sea $\Gamma$ grafo infinito, conexo, localmente finito y accesible tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$.
+	Existe una constante $\kappa \in \NN$ tal que para todo $C \in \copt$ y todo $S \subseteq B([C])$ tenemos que: 
+	Cuando dos vértices $u,v \in B([C]) \setminus N^\kappa(S)$ se pueden conectar por algún camino en $\Gamma \setminus N^{\kappa}(S)$ entonces se pueden conectar por algún camino en $B([C]) \setminus S$. 
 \end{lema}
 
 \begin{proof}
 	% Agregar dibujito.
-	Consideremos $\lambda = \max \{ d(u,v) \ | \ D \in \copt, u,v \in N^l(D) \cap \ol D  \}$ que sabemos existe porque tenemos finitas órbitas de cortes óptimos tal como en el lema \ref{lema_nlC_cap_olC_conexo}. 	
+	La acción de $\aut(\Gamma)$ sobre $\copt$ tiene finitas órbitas entonces por lo probado en el lema \ref{lema_nlC_cap_olC_conexo} podemos considerar 
+	$\kappa = \max \{ d(u,v) \ | \ D \in \copt, \  u,v \in N^l(D) \cap \ol D  \}$. 	
+	Veamos que esta constante nos sirve.
 	
 	Vamos a probarlo por inducción en la longitud del camino.
-	Sea $\gamma$ camino en $\Gamma \setminus N^{\lambda}(S)$ tal que une $u$ con $v$.
-	Queremos ver de acortar este camino usando que $N^{\lambda}(D) \cap \ol D \subseteq B([C])$ es conexo.
-	Si $\gamma \subseteq B([C])$ ya está entonces consideremos el primer vértice $v_m$ de $\gamma$ tal que $v_m \notin B([C])$ y esto quiere decir que para cierto $D \in [C]$ tenemos que $v_m \notin N^l(D)$.
-	Esto nos dice que $v_{m-1} \in N^l(D) \cap \ol D$ caso contrario tendríamos que $v_m \in N^l(D)$.
+	Sea $\gamma$ camino en $\Gamma \setminus N^{\kappa}(S)$ tal que une $u$ con $v$.
+	Queremos ver de acortar este camino usando el  que $N^{l}(D) \cap \ol D$ es conexo.
+	Si $\gamma \subseteq B([C])$ no hay nada que probar.
+	Entonces consideremos el primer vértice $v_m$ de $\gamma$ tal que $v_m \notin B([C])$ y esto quiere decir que para cierto $D \in [C]$ tenemos que $v_m \notin N^l(D)$.
+	Por como tomamos a $v_{m}$ y por el lema \ref{lema_bloques_def_equiv} tenemos que $v_{m-1} \in N^l(D) \cap \ol D$.
 	
+		
 	Consideremos ahora el primer vértice $v_n$ de $\gamma$ con $n > m$ tal que $v_n \in N^l(D)$.
-	Por ser el primer vértice tenemos que en particular que $v_n \in N^l(D) \cap \ol D$.
-	Dado que $N^l(D) \cap \ol D$ es conexo tenemos un camino que une $v_{m-1}$ con $v_m$ tal que está contenido en $N^l(D) \cap \ol D$ y en particular está contenido en $B([C])$.
-	Este camino evita $S$ porque como $d(v_n,v_m) \le \lambda$ esto nos diría que $d(v_n,S) \le \lambda$ contradiciendo que el camino $\gamma$ está contenido en $\Gamma \setminus N^{\lambda}(S)$.	
+	Por ser el primer vértice que aparece en el camino después de $v_{m}$ y por el lema \ref{lema_bloques_def_equiv} tiene que valer que $v_n \in N^l(D) \cap \ol D$.
+	
+	Dado que $N^l(D) \cap \ol D$ es conexo tenemos un camino que une $v_{m-1}$ con $v_n$ tal que está contenido en $N^l(D) \cap \ol D$ y en particular por el lema \ref{lema_bloques_def_equiv} está contenido en $B([C])$.
+	
+	Este camino evita $S$ porque para todo $w$ en el camino vale que 
+	\[
+		d(v_{n},w) \le d(v_{n},v_{m-1}) \le \kappa
+	\]
+	dado que $v_{n}, v_{m-1} \in \delta D \cap \ol D$.
+	Luego si algún $w$ del camino estuviera en $S$ tendríamos que 
+	$d(v_n,S) \le \kappa$ contradiciendo que partimos de un camino $\gamma$ que está contenido en $\Gamma \setminus N^{\kappa}(S)$.	
+	
 \end{proof}
 
 
@@ -898,7 +953,8 @@ Estos bloques aparte cumplen que son conexos.
 \end{obs}
 
 \begin{lema}\label{lema_accion_vecinos}
-	Sea $D$ corte y sea $g \in G$ entonces vale la siguiente igualdad de conjuntos,
+	Sea $\Gamma$ grafo accesible, infinito, conexo, localmente finito tal que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\Gamma$, $D$ corte y $g \in \aut(\Gamma)$. 
+	Entonces vale la siguiente igualdad de conjuntos:
 	\[
 		g \cdot N^l(D) = N^l(g \cdot D).
 	\]
@@ -911,18 +967,21 @@ Estos bloques aparte cumplen que son conexos.
 		\item $(\subseteq)$. 
 		Sea $v \in N^l(D)$ luego existe $w \in D$ tal que $d(v,w) \le l$.
 		Como multiplicar por $g$ es un automorfismo manda vértices adyacentes en vértices adyacentes, en particular no aumenta la distancia.
-		Esto es que $d(g\cdot v,g\cdot w) \le l$ concluyendo así que $g \cdot v \in N^l(g \cdot D)$  
+		Esto es que $d(g\cdot v,g\cdot w) \le l$ concluyendo así que $g \cdot v \in N^l(g \cdot D)$.  
 		\item $(\supseteq)$.
 		Si $v \in N^l(g\cdot D)$ luego tenemos que debe existir $w \in D$ tal que $d(g \cdot w, v) \le l$.
 		Ahora como multiplicar por $g$ es un automorfismo con inversa multiplicar por $g^{-1}$ obtenemos que 
 		\[
-			d(g^{-1} \cdot v, w) \le l \implies v \in g\cdot N^l(D).
+			d(g^{-1} \cdot v, w) \le l 
+			\implies g^{-1}v \in N^l(D) \implies 
+			 v \in g\cdot N^l(D).
 		\]
 	\end{itemize}
 \end{proof}
 
 \begin{lema}\label{lema_g_actua_b(C)}
-	Sea $g \in G_{[C]}$ luego tenemos que $g \cdot B([C]) = B([C])$.
+	Sea $\Gamma$ grafo accesible, infinito, conexo, localmente finito tal que $G$ actúa con finitas órbitas sobre $\Gamma$, $D$ corte y $g \in G$ tal que $g \in G_{[C]}$ luego tenemos que 
+	$g \cdot B([C]) = B([C])$.
 \end{lema}
 \begin{proof}
 	Si $v \in B([C])$ luego $v \in \bigcap_{C \sim D} N^l(D)$.
@@ -935,7 +994,12 @@ Estos bloques aparte cumplen que son conexos.
 		g\cdot v \in \bigcap_{C \sim D}   N^l(g\cdot D).
 	\]	
 	
-	Por nuestra hipótesis tenemos que $g \cdot C \sim C$ luego si $D \sim C$ obtenemos que dado que la acción de $G$ está bien definida sobre $T(\copt)$ que $g\cdot D \sim g\cdot C \sim C$ tal como queríamos ver.		
+	Por nuestra hipótesis tenemos que $g \cdot D \sim C$ para todo $D \in [C]$ por lo tanto renombrando obtenemos la siguiente igualdad
+	\[
+	g\cdot v \in \bigcap_{C \sim D}   N^l(D) = B([C]),
+	\]
+	tal como queríamos ver.
+%	 $g \cdot C \sim C$ luego si $D \sim C$ obtenemos que dado que la acción de $G$ está bien definida sobre $T(\copt)$ que $g\cdot D \sim g\cdot C \sim C$ tal como queríamos ver.		
 	
 \end{proof}
 
@@ -944,42 +1008,56 @@ Estos bloques aparte cumplen que son conexos.
 	Entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
 \end{lema}
 \begin{proof}
-	Podemos ver que $G_{[C]}$ actúa con finitas órbitas sobre $[C]$.
-	La acción es la restricción de la acción de $G$ que sabemos que tiene finitas órbitas y está bien definida porque si $C \sim D$ luego si $g \cdot C \sim C$ esto nos dice que $g \cdot D \sim g \cdot C \sim C$.
-	
-	Ya sabemos que $G_{[C]}$ actúa sobre $B([C])$ justamente por el lema previo \ref{lema_g_actua_b(C)}.
-	Queremos ver que lo hace con finitas órbitas.
-	
-	Para eso vamos a ver que existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D$ que cumple las siguientes dos propiedades:
-	\begin{enumerate}
-		\item $D \sim C$.
-		\item $d(v,\beta D) \le m$.
-	\end{enumerate}
-	
+	Podemos ver que $G_{[C]}$ actúa sobre $[C]$ si restringimos la acción de $G$ al subgrupo $G_{[C]}$.
+	Como $G$ actúa con finitas órbitas tenemos que existen finitos cortes $D_{1}, \dots, D_{k} \in [C]$ de manera que las órbitas ${\cal O}(D_{i})$ sean distintas para todo $1 \le i \le k$.
+	Sea $D \in [C]$ entonces existe $g \in G$ y $D_{i}$ tal que $D = gD_{i}$ y como $D \sim gD_{i} \sim C$ esto dice que $gC \sim C$ lo que implica que 
+	$g \in G_{[C]}$.
+	De esta manera tenemos que $G_{[C]}$ también actúa con finitas órbitas sobre $[C]$. 
+
 	Como $G$ actúa con finitas órbitas sobre $\copt$ en particular lo hace sobre el subconjunto $\bigcup_{D \sim C} \beta D$.
-	Dado que el grafo resulta ser localmente finito tenemos que entonces todo $v \in B([C])$ tendría que estar en la órbita de alguno de estos finitos elementos.
+	Por el mismo razonamiento que usamos para ver que $G_{[C]}$ actúa con finitas órbitas en $[C]$ vemos que $G_{[C]}$ actúa con finitas órbitas en el conjunto $ \bigcup_{D \sim C} \beta D $.
+	
+	Por el lema previo \ref{lema_g_actua_b(C)} vimos que $G_{[C]}$ actúa sobre $B([C])$.
+	Queremos ver que lo hace con finitas órbitas.
+	Para eso vamos a ver que existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D \in [C]$ que cumple que
+	$d(v,\beta D) \le m$.
+	
+	Notemos que de probar esto nos alcanza para ver que $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
+	Esto porque porque podríamos armarnos un dominio fundamental finito de la siguiente manera.
+	Dado que existen finitos $v_{1}, \dots, v_{n}$ tales que $v_{i} \in \beta D_{i}$ para algún $D_{i} \in [C]$ tales que son dominio fundamental de la acción de $G_{[C]}$ en $\bigcup_{D \sim C} \beta D$ podemos considerar el conjunto 
+	$A  = \bigcup_{i=1 \dots n} N^m(v_{i})$. 
+	Luego este conjunto es un dominio fundamental de la acción de $G_{[C]}$ en $B([C])$ y es finito porque $\Gamma$ es localmente finito.
+	
+	
 	
 	Probemos entonces que existe tal corte $D$.
 	Sea $v \in B([C])$ luego tenemos que si $v \in N^l(D) \cap \ol D$ ya está porque podemos tomar $m=l$.
 	Entonces nos interesa el caso que $v \in D$ para todo $D \sim C$.
 	Sabemos que $G$ actúa con finitas órbitas sobre el grafo $\Gamma$ por lo tanto debe existir $U \subseteq V(\Gamma)$ finito tal que $B([C]) \subseteq G \cdot U$.
 	Esto nos dice que $v = g \cdot u$ con $u \in U$.
-	Dado que $U$ es finito tenemos que debe existir $m \ge 1$ tal que $d(u,\beta C) \ge m$ para todo $u \in U$.
-	Esto nos dice que $d(g \cdot u, \beta g \cdot C) \le m$, por lo tanto todo $v \in B([C])$ está en una bola de radio $m$ de $\beta g \cdot C$.
+	Dado que $U$ es finito tenemos que debe existir $m \ge 1$ tal que $d(u,\beta C) \le m$ para todo $u \in U$.
+	Esto nos dice que usando el lema \ref{lema_accion_vecinos} luego
+	\[
+		d(g \cdot u, \beta (g \cdot C)) \le m,
+	\]
+	por lo tanto $v \in B([C])$ está en una bola de radio $m$ de $\beta (g \cdot C)$.
 	Si vemos que hay finitas órbitas de la acción de $G_{[C]}$ sobre $\bigcup_{D \sim C} \beta (g \cdot C)$ entonces dado que el grafo es localmente finito, por el mismo argumento de antes tendríamos que hay finitas posibles órbitas.
-	Esto nos dice que en particular podemos suponer que $v \in \beta g \cdot C$.
-	Sea $E = g \cdot C$ luego queremos ver que $\beta E \subseteq \bigcup_{D \sim C} \beta $ que es un conjunto que sabemos que actúa con finitas órbitas.
 	
-	Por la proposición \ref{teo_copt_anidados} tenemos que $E$ y $C$ están anidados.
-	Renombrando a $E$ de ser necesario obtenemos dos casos en particular, $\ol E \subsetneq C$ y $C \subseteq \ol E$.
+	Probemos que $\beta (g \cdot C) \subseteq \bigcup_{D \sim C} \beta D$.
+	Esto nos dice que en particular podemos suponer que $v \in \beta (g \cdot C) \cap B([C])$, caso contrario tendríamos que existe $w \in \beta (g \cdot C)$ y para todo $D \sim C$ tendríamos que $w \in \ol D$ lo que implicaría  que $d(v,\beta D) \le m$ y en este caso no quedaría nada para probar.
+	Entonces supongamos que $ v \in \beta (g \cdot C) \cap B([C])$ y más aún nos queda considerar el caso que $v \in D$ para todo $D \sim C$ y $v \in \beta (g \cdot C)$.
 	
-	El caso que $C \subseteq \ol E$ tenemos que $ E \subseteq \ol C$ lo que nos dice que $\beta E \subseteq \beta \ol C \cup \ol C$.
-	Como suponemos que $v \in C$ luego esto nos dice que $v \in \beta C$ tal como queríamos ver.
+	Por la proposición \ref{teo_copt_anidados} tenemos que $g \cdot C$ y $C$ están anidados.
+	Renombrando a $g \cdot C$ de ser necesario obtenemos dos casos en particular, $\ol{ g \cdot C} \subsetneq C$ y $C \subseteq \ol {g \cdot C}$.
 	
-	El caso que $\ol E \subsetneq C$.
-	Por el lema \ref{lema_finitos_kcortes} tenemos que debe existir $D \in \copt$ tal que $D \sim C$ y tal que $\ol E \subsetneq \ol D$.
-	Como $v \in B([C]) = \bigcap_{C \sim D} D $ luego tenemos que $v \in D \cap \beta E$.
-	Como tenemos la siguiente contención $\beta E \subseteq \beta D \cup \ol D$ obtenemos que
+	El caso que $C \subseteq \ol{ g \cdot C}$ tenemos que $ g \cdot C \subseteq \ol C$ lo que nos dice que $\beta (g \cdot C) \subseteq \beta \ol C \cup \ol C$.
+	Como suponemos que $v \in C$ luego esto nos dice que $v \in \beta \ol C = \beta C$ tal como queríamos ver.
+	
+	Consideremos ahora el caso que ${\ol{ g \cdot C}} \subsetneq C$.
+	Por el lema \ref{lema_intermedios} tenemos que existen finitos cortes intermedios y debe existir $D \in \copt$ tal que 
+	$\ol{g \cdot C}  \subsetneq \ol D \subsetneq C$ y resulta maximal respecto a la inclusión y así por definición $D \sim C$.
+	Como $v \in B([C]) = \bigcap_{C \sim D} D $ luego tenemos que $v \in D \cap \beta (g \cdot C)$.
+	Como tenemos la siguiente contención $\beta (g \cdot C) \subseteq \beta D \cup \ol D$ obtenemos que
 	\[
 		v \in D \cap (\beta D \cup \ol D) \implies v \in \beta D
 	\]
@@ -991,14 +1069,15 @@ Estos bloques aparte cumplen que son conexos.
 \end{lema}
 \begin{proof}
 	Si el bloque tuviera más de un end entonces debería existir $\alpha$ camino infinito y $S \subseteq B([C])$ finito de manera que $\alpha$ tiene infinitos vértices en dos componentes conexas distintas de $B([C]) \setminus S$.
-	Como tenemos que $\alpha \subseteq B([C]) \subseteq N^l(D)$ y por el lema \ref{lema_nlC_cap_olC_conexo} sabemos que $|N^l(D) \cap \ol D | < \infty$.
-	Esto nos dice que en particular para todo $D \in [C]$ tenemos que $|\alpha \cap \ol D| < \infty$.
+	Para todo $D \in [C]$ tenemos que $\alpha \subseteq B([C]) \subseteq N^l(D)$ y por el lema \ref{lema_nlC_cap_olC_conexo} sabemos que $|N^l(D) \cap \ol D | < \infty$.
+	Esto nos dice que en particular tenemos que $|\alpha \cap \ol D| < \infty$.
 	
 	% por el lema anterior tenemos al menos un corte que lo parte
 	El conjunto $N^l(S)$ sigue siendo finito por lo tanto tenemos que $\alpha$ tiene infinitos vértices en $\Gamma \setminus N^l(S)$.
-	Por el lema \ref{lema_conexion_B(C)} tenemos que todo camino en $\Gamma \setminus N^l(S)$ se puede tomar para que esté dentro de $B([C]) \setminus S$, de esta manera tienen que existir dos componentes conexas de $\Gamma \setminus N^l(S)$ tales que tengan infinitos vértices de $\alpha$. 
+	Por el lema \ref{lema_conexion_B(C)} tenemos que dados dos vértices de $B[C]$ luego todo camino en $\Gamma \setminus N^l(S)$ que los conecte se puede tomar para que esté dentro de $B([C]) \setminus S$, de esta manera tienen que existir dos componentes conexas de $\Gamma \setminus N^l(S)$ tales que tengan infinitos vértices de $\alpha$. 
 	Caso contrario negaríamos que existen dos componentes conexas de $B([C]) \setminus S$ que tienen infinitos vértices de $\alpha$.
-	Esto nos dice que ${\cal C}_{\alpha} \neq \emptyset$ porque en particular $N^l(S)$ es un corte que separa a $\alpha$.
+	Esto nos dice que ${\cal C}_{\alpha} \neq \emptyset$.
+	\todo{Comentar mejor como ir de sacarle S a $\ca$.}
 	Como el conjunto de cortes es no vacío debe existir $E \in \copt \cap {\cal C}_{\alpha}$.
 	Como $E \in {\cal C}_{\alpha}$ luego tenemos que $|\alpha \cap E| = \infty = |\alpha \cap \ol E|$.
 	Nuestro objetivo es llegar a una contradicción de suponer la existencia de este corte. 	
@@ -1006,7 +1085,7 @@ Estos bloques aparte cumplen que son conexos.
 	
 	Dado que $E,C \in \copt$ luego están anidados gracias a la proposición \ref{teo_copt_anidados}.
 	Dos posibilidades están descartadas. 
-	Es imposible que $E \subseteq \ol C$ o bien $\ol E \subseteq \ol C$ porque en ambos casos contradiríamos que $E \in {\cal C}_{\alpha}$.
+	Es imposible que $E \subseteq \ol C$ o bien $\ol E \subseteq \ol C$ porque en ambos casos contradecimos que $E \in {\cal C}_{\alpha}$.
 	Nos queda considerar los otros dos casos que son $E \subsetneq C$ o bien $\ol E \subsetneq C$, ambos casos los tratamos análogamente.
 	Por el lema \ref{lema_intermedios} tenemos que tiene que existir $D \in [C]$ tal que 
 	\[
@@ -1034,7 +1113,7 @@ Estos bloques aparte cumplen que son conexos.
 	siempre y cuando $(v_{-n-1},\dots, v_0,\dots,v_{n+1})$ siga siendo una geodésica con $v_0$ su punto medio.
 	Dado que el grafo $\Gamma$ es localmente finito por suposición tenemos que $T$ también lo va a ser.
 	
-	Finalmente para encontrar la geodésica infinita lo que hacemos es usar el lema de König en $T$ para obtener un rayo en $T$, que se corresponde justamente con una geodésica bi-infinita en $\Gamma$ tal como buscábamos.
+	Finalmente para encontrar la geodésica infinita lo que hacemos es usar el lema de König \ref{lema_Konig} en $T$ para obtener un rayo en $T$, que se corresponde justamente con una geodésica bi-infinita en $\Gamma$ tal como buscábamos.
 	
 \end{proof}
 
