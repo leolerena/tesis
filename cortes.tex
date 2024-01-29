@@ -25,8 +25,68 @@ En particular estos grafos incluyen a los grafos de Cayley de grupos finitamente
 	\end{itemize}
 	Si $|\delta C| = k$ diremos que $C$ es un \emph{$k$-corte}.
 \end{deff}	
-\todo[inline]{Dibujito de un 2-corte.}
+
 Equivalentemente un subconjunto de vértices $C$ es un corte si $\Gamma \setminus \delta C$ tiene dos componentes conexas no vacías.
+
+\begin{figure}[]
+	\centering
+	\begin{tikzpicture}
+		[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.25cm,
+			minimum size=1em,inner sep=2,
+			fill=applegreen!15,font=\scriptsize	},fill fraction/.style={path picture={
+				\fill[#1] 
+				(path picture bounding box.south) rectangle
+				(path picture bounding box.north west);
+		}},
+		fill fraction/.default=astral!90
+		]
+		
+		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+			\node (1) at (0,0) {};
+			\node (a) at (2,0)  {};
+			\node (b) at (-2,2)     {};
+			\node (bb) at (-2,-2)    {};
+			\node (ab) at (4,2)      {};
+			\node (ba) at (-4,2)     {};
+			\node (bba) at (-4,-2)     {};
+			\node (aba) at (6,2)    {};
+			\node (abba) at (6,-2)    {};
+			\node (bab) at (-6,3)    {};
+			\node (bbab) at (-6,-3)    {};
+			\node (bbabb) at (-6,-1)    {};
+			\node (ababb) at (8,1)    {};
+			
+			\node (abbab) at (8,-1)     {};
+			\node (abbabb) at (8,-3)  {};
+			
+		\end{scope}
+		
+		
+		
+		
+		\draw   (1)  edge[-] (a);
+		\draw   (1)  edge[-] (b);
+		\draw   (1)  edge[-] (bb);
+		\draw   (b)  edge[-] (bb);
+		\draw   (b)  edge[-] (ba);
+		\draw   (b)  edge[-] (abbab);
+		\draw   (aba)  edge[-] (ababb);
+		\draw   (abba)  edge[-] (ababb); 
+		\draw   (abba)  edge[-] (ab); 
+		\draw   (a)  edge[-] (ab);
+		\draw   (1)  edge[-] (bba);
+		\draw   (bbab)  edge[-] (bba);
+		\draw   (abbab)  edge[-] (abbabb);
+		\draw   (bbabb)  edge[-] (bbab);
+		\draw   (bbabb)  edge[-] (bab);
+		\draw   (bbabb)  edge[-] (bab);
+		
+		
+		\draw [ultra thick,cadmiumred, label=above:$A$] (5.25,-5) to[out=45,in=-15] (5.25,-2);
+		\node (9) at (5.25,-1.5) {\textcolor{cadmiumred}{$\beta C$}};
+	\end{tikzpicture}
+\caption{\small{ $C$ es un $2$-corte en este caso. }}
+\end{figure}
 
 
 La siguiente observación elemental va a ser fundamental a los argumentos de este capítulo.
@@ -237,11 +297,38 @@ Esto nos lleva a dar la siguiente definición.
 	r \sim r' \iff \forall C \ \text{corte de $\Gamma$}. \ \ 
 	(|r \cap C| = \infty \iff |r' \cap C| = \infty). 
 	\]
-	A las clases de equivalencia de esta relación se las llama \emph{ends} del grafo.
+	A las clases de equivalencia $\omega$ de esta relación se las llama \emph{ends} del grafo.
 \end{deff}
 
-Por resultados anteriores \ref{lema_camino_infinito_cortado} tenemos que un grafo $\Gamma$ tiene más de un end si y solo sí existe un camino infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
-En el caso que $\Gamma$ es conexo y localmente finito esto resulta equivalente a que exista un conjunto finito $S$ de vértices de manera que $\alpha$ tenga dos componentes conexas infinitas en $\Gamma \setminus S$.
+
+
+\begin{figure}[H]
+	\centering
+	\begin{tikzpicture}[scale=0.85]
+%		\draw[step=2.0,black,thin] (0,0) grid (4,4);
+		\draw [ultra thick, label=above:$A$] (0,0)[bend right=8] to (3,3) to[bend right=8] (1,4);
+		\draw [ultra thick, label=above:$A$] (2,0)[bend left=10] to (5,2) to[bend right=8] (10,0);		
+		\draw [ultra thick, label=above:$A$] (10,2) to[bend left=20] (3.5,4.5);
+		
+		\draw [very thick, cadmiumred, <-, label=l:r] (10,1) to (3.5,3.25);
+		\draw [very thick, cadmiumred, ->] (1.5,1)[bend right=10] to (5,2.5) to[bend right=8] (10,0.65);
+		\draw [very thick, carrotorange, ->] (1.75,1.25) to (4.5,3.25) to[bend left=8] (1.5,4.75);
+		\draw [very thick, applegreen, ->] (5,2.95) to[bend right=10] (1,0);
+		
+		\draw [ultra thick, carrotorange, densely dotted,bend right=10] (1,3.5) to (5.5,4);
+		\draw [ultra thick, applegreen, densely dotted,bend left=10] (0,0.75) to (3.5,0.75);
+		\draw [ultra thick, cadmiumred, densely dotted,bend left=10] (8-0.5,0.75-0.5) to (9.75,2.75);
+		
+		\node[label=right:{\Large{$\Gamma$}}] at (8,4.5) {};
+		
+	\end{tikzpicture}
+	\caption{El grafo $\Gamma$ tiene tres ends. Estos son $\textcolor{cadmiumred}{\omega_{1}}, \textcolor{carrotorange}{\omega_{2}}$ y $\textcolor{applegreen}{\omega_{3}}$.}
+\end{figure}
+
+
+Por resultados anteriores \ref{lema_camino_infinito_cortado} tenemos que un grafo $\Gamma$ conexo y localmente finito tiene más de un end si y solo sí existe un camino infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
+
+Equivalentemente diremos que un \emph{grafo $\Gamma$ tiene más de un end} si existe un conjunto finito $S$ de vértices de manera que $\Gamma \setminus S$ tiene más de dos componentes conexas infinitas.
 
 Un dato importante es que en el contexto de los grupos la cantidad de ends de sus grafos de Cayley resulta ser un invariante del grupo.
 En \cite{stallings1971group} Stallings probó que dado un \fg con más de un end entonces se parte como el producto amalgamado o producto HNN sobre un subgrupo finito no trivial.
@@ -255,7 +342,7 @@ En ese trabajo prueban que un grupo es accesible siguiendo la definición clási
 	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
 \end{deff}
 Equivalentemente un grafo es accesible si existe $k \in \NN$ tal que para todo par de ends $\omega_1, \omega_2$ resulta que existe un k-corte $C$ de manera que separa a ambos ends.
-\todo[inline]{Ejemplo o dibujito de grafo accesible.}
+
 
 Veamos que bajo esta definición los grafos con treewidth finito son accesibles.
 Esto no nos va a asegurar en principio que ser accesible en este sentido signifique que es una propiedad intrínseca de un grupo.
@@ -679,12 +766,6 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 			
 			\item $F \subseteq \ol D$.
 			Entonces tenemos que $\ol C \subseteq F \subseteq \ol D$ entonces por la observación \ref{obs_copt_igualdad} concluimos que $\ol C = \ol D$ lo que implica que $C = D$.
-%			\item $D \subseteq \ol F$. 
-%			Esto nos dice que $F \subseteq \ol D$ y por lo tanto tenemos $\ol C \subsetneq F \subseteq \ol D$ pero esto nos dice que $\ol C \subseteq \ol D$ y como $\ol D \subseteq C$ llegamos a una contradicción.
-%			\item $\ol D \subseteq F$.
-%			Usamos que $D \sim E$ por lo tanto concluimos que $F=E$ tal como queríamos ver.			
-%			\item $\ol D \subseteq \ol F$.
-%			Esto nos dice que $\ol C \subsetneq F \subseteq D \subseteq E$ por lo tanto obtenemos que $F = D$ o bien contradecimos que $C \sim D$.
 		\end{itemize}
 	\end{itemize}
 \end{proof}
@@ -845,17 +926,7 @@ Lo primero que vamos a buscar entender es cómo son los estabilizadores de esta 
 	Para eso sean $w,w' \in N^{l}(C) \cap \ol C$ luego tenemos que existe un camino tal que conecta a $w$ con $v  \in \delta C \cap \ol C$ y un camino que conecta a $w'$ con $v' \in \delta C \cap \ol C$ y ambos caminos están contenidos en $N^{l}(C) \cap \ol C$.
 	Por la elección de $l$ tenemos que $v$ y $v'$ están conectados en $N^l(C) \cap \ol C$ probando así que es conexo.
 	
-	
-%	
-%	Para empezar sea $v \in \delta C \cap \ol C$ 
-%	
-%	
-%	
-%	y consideremos $n = \max  \{d(v,w) \ | \ w \in \delta C\}$.
-%	Como $\ol C$ es conexo tenemos que $N^{n+1}(C) \cap \ol C$ resulta ser conexo.
-%	Esto porque si $w,w' \in N^{n+1}(C) \cap \ol C$ luego su distancia a $C$ está acotada por $n+1$ por lo tanto existe un camino que lo une con $C$ menor a esa longitud.
-%	Si ambos pasan por $u,u' \in \delta C \cap \ol C$ vértices que estén en el borde luego por nuestra elección de $n$ tenemos que $d(u,v) \le n$ y que $d(u',v) \le n$ concluyendo así que $N^{n+1}(C) \cap \ol C$ es conexo.
-	
+
 	Para finalizar la demostración observemos que por el lema anterior \ref{lema_finitas_orbitas} tenemos finitas órbitas de la acción de $\aut(\Gamma)$ sobre los cortes óptimos.
 	Para cada representante de órbita $C_i \in \copt$ donde $i=1,\dots,n$ podemos tomar $l_i \in \NN$ de manera que $ N^{l_{i}}(C_{\textit{}}) \cap \ol C_{i} $ sea conexo. 
 	Si tomamos $l = \underset{{i=1,\dots,n}}{\max} l_i$ vemos que nos sirve para todos los representantes de órbitas y así para todos los cortes óptimos.
@@ -999,7 +1070,6 @@ Estos bloques aparte cumplen que son conexos.
 	g\cdot v \in \bigcap_{C \sim D}   N^l(D) = B([C]),
 	\]
 	tal como queríamos ver.
-%	 $g \cdot C \sim C$ luego si $D \sim C$ obtenemos que dado que la acción de $G$ está bien definida sobre $T(\copt)$ que $g\cdot D \sim g\cdot C \sim C$ tal como queríamos ver.		
 	
 \end{proof}
 
@@ -1008,6 +1078,7 @@ Estos bloques aparte cumplen que son conexos.
 	Entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
 \end{lema}
 \begin{proof}
+	\todo{Desarmar esta demo en 2 o 3 lemas.}
 	Podemos ver que $G_{[C]}$ actúa sobre $[C]$ si restringimos la acción de $G$ al subgrupo $G_{[C]}$.
 	Como $G$ actúa con finitas órbitas tenemos que existen finitos cortes $D_{1}, \dots, D_{k} \in [C]$ de manera que las órbitas ${\cal O}(D_{i})$ sean distintas para todo $1 \le i \le k$.
 	Sea $D \in [C]$ entonces existe $g \in G$ y $D_{i}$ tal que $D = gD_{i}$ y como $D \sim gD_{i} \sim C$ esto dice que $gC \sim C$ lo que implica que 
@@ -1113,7 +1184,7 @@ Estos bloques aparte cumplen que son conexos.
 	siempre y cuando $(v_{-n-1},\dots, v_0,\dots,v_{n+1})$ siga siendo una geodésica con $v_0$ su punto medio.
 	Dado que el grafo $\Gamma$ es localmente finito por suposición tenemos que $T$ también lo va a ser.
 	
-	Finalmente para encontrar la geodésica infinita lo que hacemos es usar el lema de König \ref{lema_Konig} en $T$ para obtener un rayo en $T$, que se corresponde justamente con una geodésica bi-infinita en $\Gamma$ tal como buscábamos.
+	Finalmente para encontrar la geodésica infinita lo que hacemos es usar el lema de König \ref{lema_Konig} en $T$ para obtener un rayo en $T$, que se corresponde justamente con una geodésica infinita en $\Gamma$ tal como buscábamos.
 	
 \end{proof}
 
@@ -1126,9 +1197,11 @@ Estos bloques aparte cumplen que son conexos.
 	Consideremos $m = \max \{  d(u,v) : u,v \in \beta C \cap \ol C \}$ para todo $C \in \copt$.
 	Esto lo podemos considerar porque por el lema \ref{lema_finitas_orbitas} tenemos que $\aut(\Gamma)$ actúa con finitas órbitas sobre $\copt$.
 	
-	Sea $\alpha = \dots v_{-n}, \dots, v_{0}, \dots, v_{n} \dots$ una geodésica bi-infinita como en el lema \ref{lema_geodesica_biinfinita}.
-	Usando \ref{lema_corte_treewidth} tenemos que debe existir un $k$-corte $C$ de manera que $d(v_{0}, \ol C) > m$ y tal que $|\alpha \cap \ol C|=\infty$.
-	Como suponemos que el grafo no tiene más de un end entonces ${\cal{C}}_{\alpha} \emptyset$, veamos que esto nos da una contradicción.
+	Supongamos que $\Gamma$ no tiene más de un end.
+	Sea $\alpha = (\dots v_{-n}, \dots, v_{0}, \dots, v_{n} \dots)$ una geodésica infinita como en el lema \ref{lema_geodesica_biinfinita}.
+	Usando \ref{lema_corte_treewidth} tenemos que debe existir un $k$-corte $C$ de manera que $d(v_{0}, \ol C) > m$, $v_{0} \in C$ y tal que $|\alpha \cap \ol C|=\infty$.
+	Como suponemos que el grafo no tiene más de un end entonces necesariamente vale que ${\cal{C}}_{\alpha} = \emptyset$. 
+	Veamos que esto nos da una contradicción.
 	
 	Como $|\alpha \cap C| < \infty$ debe existir $i,j \in \NN$ de manera que $v_{-i} \in \beta C \cap \ol C$ y $v_{j} \in \beta C \cap \ol C$.
 	Dado que $\alpha$ es geodésico tenemos que
@@ -1142,9 +1215,28 @@ Estos bloques aparte cumplen que son conexos.
 
 Consideremos $\cG$ una clase de grupos tal que es cerrada por subgrupos de índice finito.
 En nuestro caso en particular nos va a interesar la clase de grupos finitos pero otras clases interesantes que cumplen esta propiedad son la de los grupos virtualmente libres.
+Recordemos que un grupo $G$ es virtualmente $\cG$ si existe $H$ subgrupo de $G$ de índice finito tal que $H \in \cG$.
+
+\begin{lema}\label{lema_accion_virtualmente_g}
+	Sea $\Gamma$ un grafo conexo, localmente finito, accesible tal que $\aut(\Gamma)$ actúa con finitas órbitas y sea $G$ grupo que actúa en $\Gamma$ por automorfismos.
+	Consideremos que para todo vértice $v \in V(\Gamma)$ tenemos que $G_{v} \in \cG$.
+	Entonces dado $U \subseteq V(\Gamma)$ finito tenemos que $G_{U} = \{ g \in G \mid g \cdot { U} \subset { U} \}$ es virtualmente $\cG$.
+\end{lema}
+
+\begin{proof}
+	Tenemos el morfismo $G_{U} \to \Sy(U)$ que tiene como núcleo al subgrupo $\bigcap_{u \in U} G_u$ de índice finito en $G_U$.
+	Veamos que esta intersección es un grupo que está en $\cG$.
+	
+	Para todo $k \in \NN$ tenemos que $G_{v}$ actúa sobre $B_{k}(v) = \{ w \in V(\Gamma) : d(w,v) \le k  \}$.
+	Elegimos $k$ de manera que ${\cal U} \subset B_{k}(v)$.
+	Dado que $\Gamma$ es localmente finito tenemos que $B_{k}(v)$ es finito y así que si $N$ es el núcleo de la acción $G_{v} \to B_{k}(v)$ entonces $N$ tiene índice finito y por lo tanto $N$ está en $\cG$.
+	Como $[G_{v} : N] < \infty$ esto implica que $ [\bigcap_{u \in U} G_{u} : N] < \infty$
+	y esto implica que $ \bigcap_{u \in U} G_{u}$ está en $\cG$ y por lo tanto $G_{\cal U}$ es virtualmente $\cG$.
+\end{proof}
+
 
 \begin{prop}\label{prop_clase_grupos_accion}
-	Sea $\Gamma$ un grafo conexo, localmente finito, accesible y tal que $\aut(\Gamma)$ actúa con finitas órbitas.
+	Sea $\Gamma$ un grafo conexo, localmente finito, accesible tal que $\aut(\Gamma)$ actúa con finitas órbitas y sea $G$ grupo que actúa en $\Gamma$ por automorfismos.
 	Consideremos que para todo vértice $v \in V(\Gamma)$ tenemos que $G_{v} \in \cG$.
 	Entonces:
 	\begin{enumerate}
@@ -1154,22 +1246,19 @@ En nuestro caso en particular nos va a interesar la clase de grupos finitos pero
 \end{prop}
 
 \begin{proof}
-	Primero veamos que dado $U \subseteq V(\Gamma)$ finito tenemos que $G_{U}$ es virtualmente $\cG$.
-	Tenemos el morfismo $G_{U} \to \Sy(U)$ que tiene como núcleo al subgrupo $\bigcap_{u \in U} G_u$ de índice finito en $G_U$.
-	Veamos que esta intersección es un grupo que está en $\cG$.
-	
-	Si tomamos $k \in \NN$ tenemos que $G_{v}$ actúa sobre $B_{k}(v) = \{ w \in V(\Gamma) : d(w,v) \le k  \}$.
-	Dado que $\Gamma$ es localmente finito tenemos que $B_{k}(v)$ es finito y así que si $N$ es el núcleo de $G_{v} \to B_{k}(v)$ entonces tiene índice finito y por lo tanto $N$ está en $\cG$.
-	Como $N \le \bigcap_{u \in U} G_{u}$ luego tenemos así que $\bigcap_{u \in U} G_{u}$ está en $\cG$.
-
 	Probemos \textbf{1}.
-	Tenemos que si $g \in G_{(C),(\ol C)}$ luego como el grupo $G$ actúa con finitas órbitas y $\beta C$ es finito debe ser que existe $U \in V(\Gamma)$ de manera que $g \in G_{U}$.
-	Como $N \le G_{([C],[\ol C])}$ luego tenemos que $G_{([C],[\ol C])}$ es virtualmente $\cG$.
+	Tenemos que si $g \in G_{\{C,\ol C\}}$ luego esto nos dice que $g \cdot C = C $ y que $g \cdot \ol C = \ol C$. 
+	En particular obtenemos que $g \cdot \beta C \subset \beta C$.
+	Esto nos dice que $g \in G_{\beta C}$ y como $|\beta C| < \infty$ entonces por el lema \ref{lema_accion_virtualmente_g} obtenemos que $G_{\{C,\ol C\}}$ es virtualmente $\cG$ tal como queríamos ver.
+	
+	como el grupo $G$ actúa con finitas órbitas y $\beta C$ es finito debe ser que existe $U \in V(\Gamma)$ de manera que $g \in G_{U}$.
+	Como $N \le G_{\{[C],[\ol C]\}}$ luego tenemos que $G_{\{[C],[\ol C]\}}$ es virtualmente $\cG$.
 	%Acá esto sale con la cuenta de los índices si quiero escribir más detalladamente.
 	
 	Probemos que vale \textbf{2}.
 	Por el lema \ref{lema_accion_b(C)} tenemos que si $B([C])$ es finito entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
-	Por el mismo razonamiento de antes llegamos a que los estabilizadores son virtualmente $\cG$ en los vértices de $T(\copt)$ tal como queríamos ver.
+	En particular tenemos que si $g \in G_{[C]}$ luego $g \in G_{B([C])}$ y como $|B([C])| < \infty$ esto nos dice que por el lema \ref{lema_accion_virtualmente_g} que $G_{[C]}$ es virtualmente $\cG$ tal como queríamos ver.
+	
 \end{proof}
 
 
@@ -1190,6 +1279,7 @@ En nuestro caso en particular nos va a interesar la clase de grupos finitos pero
 	De esta manera descartamos que $B([C])$ es infinito y por lo tanto es finito.
 	Ahora para finalizar usamos el resultado \ref{prop_clase_grupos_accion} para la clase $\cG$ de los grupos finitos.
 \end{proof}
+
 
 
 \begin{coro}
