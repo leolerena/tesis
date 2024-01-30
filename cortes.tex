@@ -7,15 +7,35 @@
 	
 \chapter{Cortes de grafos y árboles de estructura.}
 
-En este capítulo vamos a probar que todo grupo que tiene treewidth finito resulta ser el grupo fundamental de un grafo de grupos finitos, de esta manera terminando de probar la equivalencia de todas las definiciones de los grupos virtualmente libres.
-El objetivo es partir de un grupo con treewidth finito y ver qué actúa sobre un cierto árbol por lo tanto por la teoría de Bass--Serre culminamos la demostración.
-El árbol que vamos a construir es el árbol de estructura del grafo.
-Vamos a ver en qué caso se puede construir y cómo se construye a partir de cortes del grafo. 
-La notación y el orden presentado sigue el del trabajo \cite{diekert2013context}, completando algunos detalles que ahí se omiten.
-\todo{Agregaría una introducción como la de los otros caps}
+Las principales referencias de este capítulo son \cite{diekert2013context}, \cite{thomassen1993vertex} y \cite{kron2010cutting}.
+En la primera sección \ref{secc_cortes_grafos} damos varias definiciones básicas que usaremos en el capítulo. 
 
-De ahora en más consideraremos que $\Gamma$ es un grafo conexo, infinito y localmente finito salvo que se mencione lo contrario.
-En particular estos grafos incluyen a los grafos de Cayley de grupos finitamente generados.
+En la segunda sección \ref{secc_grafos_accesibles} definimos una familia de grafos que denominamos grafos accesibles.
+Esta definición de un grafo accesible generaliza la idea de los grafos de Cayley de grupos accesibles.
+En el teorema \ref{teo_treewidth_fin_accesible} probamos que los grupos que tienen treewidth finito son accesibles. 
+
+En la tercera sección \ref{secc_copt} definimos los cortes óptimos que son una familia de cortes que tienen la propiedad de estar siempre anidados entre sí.
+El resultado principal de esta sección es el teorema \ref{teo_copt_anidados}.
+
+En la cuarta sección \ref{secc_arbol_estr} dado un grafo accesible y localmente finito definimos un árbol que denominamos el árbol de estructura a partir de los cortes óptimos del grafo.
+
+En la quinta sección \ref{secc_accion_arbol_estr} construimos una acción del grupo de automorfismos de un grafo accesible y localmente finito sobre su árbol de estructura.
+El resultado central es \ref{coro_tw_finito_implica_pi1} que dice que los grupos con treewidth finito son el grupo fundamental de un grafo finitos de grupos con grupos finitos.
+
+
+
+%En este capítulo vamos a probar que todo grupo que tiene treewidth finito resulta ser el grupo fundamental de un grafo de grupos finitos, de esta manera terminando de probar la equivalencia de todas las definiciones de los grupos virtualmente libres.
+%El objetivo es partir de un grupo con treewidth finito y ver qué actúa sobre un cierto árbol por lo tanto por la teoría de Bass--Serre culminamos la demostración.
+%El árbol que vamos a construir es el árbol de estructura del grafo.
+%Vamos a ver en qué caso se puede construir y cómo se construye a partir de cortes del grafo. 
+%La notación y el orden presentado sigue el del trabajo \cite{diekert2013context}, completando algunos detalles que ahí se omiten.
+%\todo{Agregaría una introducción como la de los otros caps}
+%
+%De ahora en más consideraremos que $\Gamma$ es un grafo conexo, infinito y localmente finito salvo que se mencione lo contrario.
+%En particular estos grafos incluyen a los grafos de Cayley de grupos finitamente generados.
+
+\section{Cortes de grafos.}\label{secc_cortes_grafos}
+
 \begin{deff}
 	Sea $\Gamma$ un grafo no dirigido.
 	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones:
@@ -80,6 +100,7 @@ Equivalentemente un subconjunto de vértices $C$ es un corte si $\Gamma \setminu
 		\draw   (bbabb)  edge[-] (bbab);
 		\draw   (bbabb)  edge[-] (bab);
 		\draw   (bbabb)  edge[-] (bab);
+		\draw   (abbab)  edge[-] (ababb);
 		
 		
 		\draw [ultra thick,cadmiumred, label=above:$A$] (5.25,-5) to[out=45,in=-15] (5.25,-2);
@@ -226,7 +247,7 @@ Este lema nos garantiza la buena definición del siguiente número natural.
 
 
 
-\section{Grafos accesibles.}
+\section{Grafos accesibles.}\label{secc_grafos_accesibles}
 
 \begin{deff}
 	Dado $\Gamma$ un grafo no dirigido conexo diremos que un camino simple $r$ es un \emph{rayo} si es un camino indexado por los naturales,
@@ -475,7 +496,7 @@ Ahora sí con este resultado podemos probar que los grafos con treewidth finito 
 \end{proof}
 
 
-\section{Cortes óptimos.}
+\section{Cortes óptimos.}\label{secc_copt}
 
 \begin{deff}
 	Dado $\Gamma$ grafo conexo y localmente finito, $C$ un corte y $k \in \NN$ constante definimos
@@ -504,9 +525,6 @@ En este caso notaremos para cada corte $C$ el siguiente valor
 m(C) = m_k(C).
 \]
 
-
-
-\todo[inline]{Hacer un ejemplo.}
 
 \begin{deff}
 	Dado $\alpha$ camino infinito sea
@@ -702,7 +720,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estricta y por lo tanto llegamos a una contradicción (que alguno de los dos cortes $C$ o $D$ no son óptimos) de suponer que los cortes $C,D$ no están anidados.
 \end{proof}
 
-\section{Árbol de estructura.}
+\section{Árbol de estructura.}\label{secc_arbol_estr}
 
 
 Los árboles de estructura fueron introducidos y demostradas todas las propiedades que describimos en esta sección en los trabajos de Dunwoody \cite{dunwoody1979accessibility} y \cite{dunwoody1982cutting}.
@@ -795,6 +813,79 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	\end{itemize}
 \end{proof}
 
+\begin{ej}
+	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ con presentación $G \simeq \langle a,b \mid a^2, b^3 \rangle$.
+	Sea el grafo de Cayley  $\text{Cay}(G, \{a,b,b^2\})$.
+	
+	Notemos que toda arista de la pinta $\{g,ga\} \in E(\Gamma)$ define un corte con $\delta C = \{g,ga\}$.
+	Es decir todas las aristas con etiqueta $a$ nos definen un $1$-corte.
+	Este corte naturalmente es minimal porque no podría ser que $\delta C$ sea menor, de esta manera vale que 
+	\[
+	\cmin = \{ C \ \text{corte}  \mid \exists g \in G, \ \delta C = \{g,ga\}  \}. 
+	\]
+	Notemos que dado $C \in \cmin$ luego necesariamente tenemos que $m(C) = 0$. 
+	Esto se debe a que si $D \in \cmin$ luego si $\delta D \in C$ esto nos dice que $D \subseteq C$ o bien que $\ol D \subseteq C$.
+	Esto nos dice que $\cmin = \copt$.
+	
+	Veamos ahora si fijamos $C \in \copt$ como es $[C]$.
+	Para esto notemos que $|[C]| = 3.$
+	Esto se debe a que si $\delta C = \{ g,ga \}$ entonces necesariamente los siguientes cortes $D,E \in \copt$ son tales que $C \sim D \sim E$.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			[scale=0.8, V/.style = {circle, draw,align= center, minimum size=0.25cm,
+				minimum size=0.75em,inner sep=0.75,
+				fill=carrotorange!15,font=\scriptsize	},fill fraction/.style={path picture={
+					\fill[#1] 
+					(path picture bounding box.south) rectangle
+					(path picture bounding box.north west);
+			}},
+			fill fraction/.default=astral!90
+			]
+			
+			\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+				\node (1) at (0,0) {};
+				\node (2) at (2,0)  {};
+				\node (3) at (-2,2)     {};
+				\node (4) at (-2,-2)    {};
+				\node (5) at (-3,-3)      {};
+				\node (6) at (-3,3)     {};
+				
+				
+			\end{scope}
+			
+			\node[right=.1cm of 2] {$\dots$};
+			\node[left=.1cm of 6] {$\dots$};
+			\node[left=.1cm of 5] {$\dots$};
+			%			\node[left=.1cm of babb] {$\dots$};
+			%			\node[left=.1cm of bbabb] {$\dots$};
+			%			\node[left=.1cm of bbab] {$\dots$};
+			%			\node[right=.1cm of abab] {$\dots$};
+			%			\node[right=.1cm of ababb] {$\dots$};
+			
+			
+			\draw   (1)  edge[-] (2);
+			\draw   (1)  edge[-] (3);
+			\draw   (1)  edge[-] (4);
+			\draw   (3)  edge[-] (6);
+			\draw   (3)  edge[-] (4);
+			\draw   (4)  edge[-] (5);
+			
+			\draw [ultra thick, cadmiumred, bend left=20] (5.25,-3) to (5.25,-5);
+			\node at (4.85,-3) {$C$};
+			
+			\draw [ultra thick, cadmiumred, bend left=10] (1.5,-2.5) to (1.5+1.5,-2.5+1.5);
+			\node at (1.95,-2.75) {$D$};
+			
+			\draw [ultra thick, cadmiumred, bend left=10] (3.5-0.4,-7-0.4) to (1.75-0.4,-5.65-0.4);
+			\node at (3.5-0.7,-7+0.4) {$E$};
+			
+		\end{tikzpicture}
+		\caption{Los tres cortes $C,D,E$ están en la misma clase de equivalencia.}
+	\end{figure}
+\end{ej}
+
 \begin{deff}
 	Sea $\Gamma$ un grafo conexo, accesible y localmente finito y sea $\copt$ el conjunto de sus cortes óptimos.
 	El \emph{árbol de estructura} $T(\copt)$ de un grafo $\Gamma$ es el siguiente grafo dirido:
@@ -855,7 +946,7 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 
 
 
-\section{Acciones sobre el árbol de estructura.}
+\section{Acciones sobre el árbol de estructura.}\label{secc_accion_arbol_estr}
 
 En esta sección vamos a ver que los cortes óptimos no solamente están anidados entre sí sino que si $G$ actúa sobre el grafo $\Gamma$ luego actúa sobre estos cortes óptimos.
 Esta acción se traslada naturalmente a una acción sobre el árbol de estructura.
@@ -1004,6 +1095,9 @@ Veamos que estos bloques no son vacíos.
 		terminando de probar esta inclusión y así obteniendo la igualdad de conjuntos.
 	\end{itemize}
 \end{proof}
+
+
+
 
 Estos bloques aparte cumplen que son conexos.
 
@@ -1265,10 +1359,10 @@ Recordemos que un grupo $G$ es virtualmente $\cG$ si existe $H$ subgrupo de $G$ 
 	Veamos que esta intersección es un grupo que está en $\cG$.
 	
 	Para todo $k \in \NN$ tenemos que $G_{v}$ actúa sobre $B_{k}(v) = \{ w \in V(\Gamma) : d(w,v) \le k  \}$.
-	Elegimos $k$ de manera que ${\cal U} \subset B_{k}(v)$.
+	Elegimos $k$ de manera que ${ U} \subset B_{k}(v)$.
 	Dado que $\Gamma$ es localmente finito tenemos que $B_{k}(v)$ es finito y así que si $N$ es el núcleo de la acción $G_{v} \to B_{k}(v)$ entonces $N$ tiene índice finito y por lo tanto $N$ está en $\cG$.
 	Como $[G_{v} : N] < \infty$ esto implica que $ [\bigcap_{u \in U} G_{u} : N] < \infty$
-	y esto implica que $ \bigcap_{u \in U} G_{u}$ está en $\cG$ y por lo tanto $G_{\cal U}$ es virtualmente $\cG$.
+	y esto implica que $ \bigcap_{u \in U} G_{u}$ está en $\cG$ y por lo tanto $G_{ U}$ es virtualmente $\cG$.
 \end{proof}
 
 
@@ -1319,7 +1413,7 @@ Recordemos que un grupo $G$ es virtualmente $\cG$ si existe $H$ subgrupo de $G$ 
 
 
 
-\begin{coro}
+\begin{coro}\label{coro_tw_finito_implica_pi1}
 	Si $G$ es un grupo con treewidth finito entonces $G$ es el grupo fundamental de un grafo de grupos con grupos finitos en sus vértices y aristas.
 \end{coro}
 \begin{proof}
