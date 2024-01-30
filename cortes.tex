@@ -312,17 +312,17 @@ Esto nos lleva a dar la siguiente definición.
 		
 		\draw [very thick, cadmiumred, <-, label=l:r] (10,1) to (3.5,3.25);
 		\draw [very thick, cadmiumred, ->] (1.5,1)[bend right=10] to (5,2.5) to[bend right=8] (10,0.65);
-		\draw [very thick, carrotorange, ->] (1.75,1.25) to (4.5,3.25) to[bend left=8] (1.5,4.75);
+		\draw [very thick, astral, ->] (1.75,1.25) to (4.5,3.25) to[bend left=8] (1.5,4.75);
 		\draw [very thick, applegreen, ->] (5,2.95) to[bend right=10] (1,0);
 		
-		\draw [ultra thick, carrotorange, densely dotted,bend right=10] (1,3.5) to (5.5,4);
+		\draw [ultra thick, astral, densely dotted,bend right=10] (1,3.5) to (5.5,4);
 		\draw [ultra thick, applegreen, densely dotted,bend left=10] (0,0.75) to (3.5,0.75);
 		\draw [ultra thick, cadmiumred, densely dotted,bend left=10] (8-0.5,0.75-0.5) to (9.75,2.75);
 		
 		\node[label=right:{\Large{$\Gamma$}}] at (8,4.5) {};
 		
 	\end{tikzpicture}
-	\caption{El grafo $\Gamma$ tiene tres ends. Estos son $\textcolor{cadmiumred}{\omega_{1}}, \textcolor{carrotorange}{\omega_{2}}$ y $\textcolor{applegreen}{\omega_{3}}$.}
+	\caption{El grafo $\Gamma$ tiene tres ends. Estos son $\textcolor{cadmiumred}{\omega_{1}}, \textcolor{astral}{\omega_{2}}$ y $\textcolor{applegreen}{\omega_{3}}$.}
 \end{figure}
 
 
@@ -371,6 +371,8 @@ Para probar esto vamos a probar un lema un poco más técnico que generaliza est
 	Repetimos este procedimiento para llegar a un rayo sobre el árbol
 	$(t_0,t_1, \dots t_n \dots)$ y una sucesión de componentes conexas correspondientes $(C_{t_0,r}, C_{t_1,r}, \dots, C_{t_n, r}, \dots)$.
 	
+	
+	
 	Sea $n \in \NN$ arbitrario luego si elegimos $l \in \NN$ suficientemente grande podemos garantizar que
 	\[
 	f({t_l}) \cap B_n(v_0) = \emptyset.
@@ -378,6 +380,42 @@ Para probar esto vamos a probar un lema un poco más técnico que generaliza est
 	Esto porque por la proposición \ref{prop_tw_finitos_bolsones} tenemos que la descomposición se puede tomar de manera que cada vértice aparezca en finitos bolsones.
 	Por otro lado como $\Gamma$ es localmente finito esto nos dice que la bola $|B_n(v_0)|$ es finita por lo tanto hay finitos bolsones en los cuales pueden aparecer los vértices de $B_{n}(v_{0})$.
 	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}[scale=0.85]
+			%		\draw[step=2.0,black,thin] (0,0) grid (4,4);
+			\draw [ultra thick, label=above:$A$] (0,0)[bend right=8] to (3,3) to[bend right=8] (1,4);
+			\draw [ultra thick, label=above:$A$] (2,-1)[] to (3.1,0.35) to  (5,2)  to[bend right=8] (10,0);		
+			\draw [ultra thick, label=above:$A$] (10,2) to[bend left=20] (3.5,4.5);
+			
+			\draw [very thick, cadmiumred, <-, label=l:r] (10,1) to (3.5,3.25);
+			%			\draw [very thick, cadmiumred, ->] (1.5,1)[bend right=10] to (5,2.5) to[bend right=8] (10,0.65);
+			%			\draw [very thick, carrotorange, ->] (1.75,1.25) to (4.5,3.25) to[bend left=8] (1.5,4.75);
+			%			\draw [very thick, applegreen, ->] (5,2.95) to[bend right=10] (1,0);
+			
+			%			\draw [ultra thick, carrotorange, densely dotted,bend right=10] (1,3.5) to (5.5,4);
+			
+			%			\draw [ultra thick, cadmiumred, densely dotted,bend left=10] (8-0.5,0.75-0.5) to (9.75,2.75);
+			
+			\node[circle,fill = black,,minimum size=.1cm, inner sep=0pt,label= left:$v_{0}$] at (2.65,1.5) {};
+			\node[circle,fill = black,,minimum size=.1cm, inner sep=0pt,] at (4.05,2.5) {};
+			\node[circle,fill = black,,minimum size=.1cm, inner sep=0pt,] at (4.05-0.2,2.5-0.2) {};
+			\node[circle,fill = black,,minimum size=.1cm, inner sep=0pt,] at (4.05-0.4,2.5-0.4) {};
+			\node[label=right:{{$f(t_{0})$}}] at (3.35,0.5) {};
+			
+			
+			\draw [very thick, bend right=10] (1.70,1.60) to (3.1,0.35);
+			\draw [very thick, bend right=10] (1.70+1,1.58+1.2) to (3.2+0.75,0.35+0.75);
+			
+			\draw [very thick, bend right=10] (5.5,1.65) to (5.75,3);
+			\draw [very thick, bend right=10] (5.95,1.35) to (6.35,2.75);
+			\node[label=right:{{$f(t_{l})$}}] at (5.65,3.25) {};
+			
+			\node[label=right:{\Large{$ C_{t_l, r} $}}] at (7.05,1.25) {};
+			\node[cadmiumred, label=right:{\Large{\textcolor{cadmiumred}{$r$}}}] at (9.25,1.55) {};
+		\end{tikzpicture}
+		\caption{Tenemos que $f(t_{l})$ está lo suficientemente lejos de $v_{0}$.}
+	\end{figure}
 	
 	Ahora vamos a buscar el corte $D$ que nos cumpla lo pedido.
 	Para eso vamos a necesitar un conjunto conexo con complemento conexo y no vacío tal que su borde sea finito.
@@ -543,6 +581,67 @@ En la derecha tenemos que nos alcanza con tomar $E = \ol C \cap \ol D$ y $E' = C
 En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
 \end{figure}
 
+\begin{prop}\label{prop_esquinas_minimales}
+	Sea $\Gamma$ un grafo infinito, conexo, localmente finito y accesible.
+	Entonces para todo par de cortes minimales $C,D \in \cmin$ existen dos esquinas opuestas $E,E'$ tales que $E,E' \in \cmin$.
+\end{prop}
+
+\begin{proof}
+	Sea $C \in \cmin(\alpha)$ y $D \in \cmin(\beta)$ luego por el lema \ref{lema_esquinas_caminos} podemos separar en dos casos.
+	\begin{enumerate}
+		\item Si $C \in {\cal C}(\beta)$ y $D \in {\cal C}(\alpha)$ entonces esto nos dice que $|\delta C| = |\delta D|$ dado que ambos cortes son minimales.
+		Esto implica que $D \in \cam$. 
+		En este caso simplemente nos olvidamos del camino $\beta$ y consideramos $C,D \in \cam$.
+		Luego tenemos que existen dos esquinas opuestas $E,E'$ tales que $|E \cap \alpha| = \infty$ y $|E' \cap \alpha| = \infty$.
+		\item Existen esquinas $E,E'$ tales que $|E \cap \alpha| = \infty = |E' \cap \beta|$.
+	\end{enumerate}	
+	
+	Si es necesario renombramos a los cortes para que $E = C \cap D$ y $E' = \ol C \cap \ol D$.
+	
+		
+	Debemos ver que estas esquinas nos sirven pero en principio no sabemos si son cortes siquiera.
+	Sea $F$ componente conexa de $E$ tal que $|F \cap \alpha| = \infty$.
+	Notemos que $\ol C \cup \ol D \subseteq \ol F$ por lo tanto tenemos que $|\ol F \cap \alpha|=\infty$.
+	Más aún podemos ver que $\ol F$ es conexo.
+	Para eso consideremos $v,w \in \ol F$.
+	Si tanto $v,w \in \ol C \cup \ol D$ entonces como este conjunto es un conexo y está contenido en $\ol F$ no hay nada para hacer.
+	En el caso que $v \in (C \cap D) \setminus F$ luego consideramos $\gamma$ un camino en $\Gamma$ tal que los una.
+	Sea $u$ el primer vértice tal que $u \notin C \cap D$ entonces necesariamente el camino $(v, \dots, u)$ está contenido en la componente conexa de $v$ en $C \cap D$ y esta componente conexa no es $F$. 
+	Como $u \in \ol C \cup \ol D$ luego tenemos un camino entre $u$ y $w$ contenido en $\ol F$ y así cerramos nuestra demostración.
+	Similarmente encontramos un conjunto de vértices $F'$ que cumple esto para $\beta$.
+	Notemos que $|\delta F| < \infty$, esto se debe a que si $\{ v,w \} \in \delta F$ luego necesariamente $\{v,w\} \in \delta E$.
+	Por otro lado $\delta E = \delta (C \cap D)  \subseteq \delta C \cup \delta D$ y $|\delta C| + |\delta D| < \infty$. 
+	Con esto probamos que $F \in {\cal C}(\alpha)$ y que $F' \in {\cal C}(\beta)$.
+	
+	%	Si ambos vértices están en un mismo corte ya está porque es conexo por lo tanto tenemos un camino que los une y no toca a $F$.
+	%	Si no están en un mismo corte, como podría ser que $v \in C \cap \ol D$ y $w \in \ol C \cap D$ luego usando la conexión de $\ol D$ y de $\ol C$ podemos unir ambos con algún vértice en $\ol C \cap \ol D$ y así vemos que es conexo.
+	%	Con esto concluimos que $F$ es un corte que separa en dos partes a $\alpha$.
+	%	Hacemos algo similar para construirnos un corte $F' \subseteq E'$ que separe en dos partes a $\beta$.
+	
+	Veamos ahora que $F$ y que $F'$ son cortes minimales.
+	Consideremos las siguientes desigualdades:
+	\begin{align*}
+		|\delta E \cup \delta E'| & \le |\delta C \cup \delta D| \\
+		|\delta E| + |\delta E'| - |\delta (E \cap E')| & \le |\delta C| + |\delta D| - |\delta (C \cap D)|
+	\end{align*}
+	entonces:
+	\[
+	|\delta E| + |\delta E'| \le |\delta C| + |\delta D|.
+	\]	
+	Por otro lado como $F$ y $F'$ son cortes tales que $|\delta F| \le |\delta E|$ y $|\delta F'| \le |\delta E'|$ luego obtenemos que
+	\[
+	|\delta F| + |\delta F'| \le |\delta C| + |\delta D|
+	\] 
+	y dado que $C,D$ son cortes minimales obtenemos así que $|\delta C| \le |\delta F|$ y que $|\delta D| \le |\delta F'|$ concluyendo que $|\delta F | = |\delta C|, |\delta F'| = |\delta D|$ y por lo tanto que $F,F'$ son cortes minimales.
+	Por el mismo razonamiento obtenemos que $|\delta E| = |\delta C|$ y que $|\delta E'| = |\delta D|$.
+	
+	Probemos ahora que $E=F$, equivalentemente que $E$ es conexo y que por lo tanto esto implicaría que $E \in \cam$.
+	Para esto notemos que si $v \in E \setminus F$ luego necesariamente por el mismo argumento anterior que usamos para probar que $\ol F$ es conexo tenemos que debe existir $u$ tal que $u \in \ol C \cup \ol D$ y conectado con $v' \in E \setminus F$.
+	Si existiera esta arista $\{v',u \}$ luego esto nos diría que $\{v',u \} \in \delta E \setminus \delta F$ lo que contradice que $|\delta E| = |\delta F| = |\delta C|$.
+	Similarmente podemos probar que $E' = F'$.
+\end{proof}
+
+
 El siguiente es el resultado central y más importante de los cortes óptimos.
 
 \begin{teo}\label{teo_copt_anidados}
@@ -560,88 +659,8 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	\]   
 	La validez de esta desigualdad nos diría que alguno de los dos cortes $C,D$ no es óptimo tal como supusimos.
 	
-	Por el lema \ref{lema_esquinas_caminos} podemos separar en dos casos.
-	\begin{enumerate}
-		\item Si $C \in {\cal C}(\beta)$ y $D \in {\cal C}(\alpha)$ entonces esto nos dice que $|\delta C| = |\delta D|$ dado que ambos cortes son minimales.
-		Esto implica que $D \in \cam$ por lo tanto $m_{\alpha} = m_{\beta}$ por lo tanto $D \in \copta$. 
-		En este caso simplemente nos olvidamos del camino $\beta$ y consideramos $C,D \in \copta$.
-		Luego tenemos que existen dos esquinas opuestas $E,E'$ tales que $|E \cap \alpha| = \infty$ y $|E' \cap \alpha| = \infty$.
-		\item Existen esquinas $E,E'$ tales que $|E \cap \alpha| = \infty = |E' \cap \beta|$.
-	\end{enumerate}	
-	
+	Por la proposición \ref{prop_esquinas_minimales} tenemos que existen dos esquinas opuestas $ E, E' $ tales que son minimales.	
 	Si es necesario renombramos a los cortes para que $E = C \cap D$ y $E' = \ol C \cap \ol D$.
-	
-	
-	
-%	
-%	Esta suposición nos dice que en el caso que $D \in {\cal C}_{\text{min}}(\alpha)$ luego por ser un corte óptimo para $\beta$ resulta que $D \in \copt(\alpha)$.
-%	Esto fuerza a que $m_{\alpha} = m_{\beta}$, por lo tanto tenemos que en este caso en particular podemos considerar simplemente el camino $\alpha$ y olvidarnos de $\beta$.
-%	
-	
-	
-%	Consideremos el caso que $\alpha = \beta$.
-%	Afirmamos que hay dos esquinas de $C,D$ tales que contienen infinitos vértices de $\alpha$.
-%	Caso contrario si solamente alguna de las esquinas, supongamos $C \cap D$ tiene infinitos vértices entonces tendríamos que $|\alpha \cap \ol C| < \infty$ negando que $C \in {\cal C}(\alpha)$.
-%	Cambiando los nombres a los cortes, sean estas esquinas $E = C \cap D$ y $E' = \ol C \cap \ol D$.
-%	
-%	Consideremos ahora el caso que $\alpha$ y $\beta$ son caminos distintos.
-%	Afirmamos que hay una esquina $K$ de los cortes $C$ y $D$ 
-%	tal que $|K \cap \alpha| < \infty$ y tal que $|K \cap \beta| < \infty$.
-%	Caso contrario tendríamos que $D \cap \alpha = D \cap C \cap \alpha  \cup D \cap \ol C \cap \alpha$ e idénticamente para $\ol D$, obteniendo así que $D \in \copt(\alpha)$.
-%	Por la primera observación esto nos diría que $\alpha = \beta$ así que este caso queda descartado.
-%	Consideremos las esquinas $E,E'$ que son adyacentes a $K$.
-%	Notemos que estas esquinas cumplen que $|E \cap \alpha| = \infty$ y que $|E' \cap \beta| = \infty$ caso contrario negaríamos que estos cortes separan en dos a los caminos.
-%	Sin pérdida de generalidad supongamos que $E = C \cap D$ y que $E' = \ol C \cap \ol D$.
-	
-	Nuestros posibles candidatos a cortes óptimos son $E,E'$ pero en principio no sabemos si son cortes siquiera.
-	Sea $F$ componente conexa de $E$ tal que $|F \cap \alpha| = \infty$.
-	Notemos que $\ol C \cup \ol D \subseteq \ol F$ por lo tanto tenemos que $|\ol F \cap \alpha|=\infty$.
-	Más aún podemos ver que $\ol F$ es conexo.
-	Para eso consideremos $v,w \in \ol F$.
-	Si tanto $v,w \in \ol C \cup \ol D$ entonces como este conjunto es un conexo y está contenido en $\ol F$ no hay nada para hacer.
-	En el caso que $v \in (C \cap D) \setminus F$ luego consideramos $\gamma$ un camino en $\Gamma$ tal que los una.
-	Sea $u$ el primer vértice tal que $u \notin C \cap D$ entonces necesariamente el camino $(v, \dots, u)$ está contenido en la componente conexa de $v$ en $C \cap D$ y esta componente conexa no es $F$. 
-	Como $u \in \ol C \cup \ol D$ luego tenemos un camino entre $u$ y $w$ contenido en $\ol F$ y así cerramos nuestra demostración.
-	Similarmente encontramos un conjunto de vértices $F'$ que cumple esto para $\beta$.
-	Notemos que $|\delta F| < \infty$, esto se debe a que si $\{ v,w \} \in \delta F$ luego necesariamente $\{v,w\} \in \delta E$.
-	Por otro lado $\delta E = \delta (C \cap D)  \subseteq \delta C \cup \delta D$ y $|\delta C| + |\delta D| < \infty$. 
-	Con esto probamos que $F \in {\cal C}(\alpha)$ y que $F' \in {\cal C}(\beta)$.
-	
-%	Si ambos vértices están en un mismo corte ya está porque es conexo por lo tanto tenemos un camino que los une y no toca a $F$.
-%	Si no están en un mismo corte, como podría ser que $v \in C \cap \ol D$ y $w \in \ol C \cap D$ luego usando la conexión de $\ol D$ y de $\ol C$ podemos unir ambos con algún vértice en $\ol C \cap \ol D$ y así vemos que es conexo.
-%	Con esto concluimos que $F$ es un corte que separa en dos partes a $\alpha$.
-%	Hacemos algo similar para construirnos un corte $F' \subseteq E'$ que separe en dos partes a $\beta$.
-	
-	Veamos ahora que $F$ y que $F'$ son cortes minimales.
-	Consideremos las siguientes desigualdades:
-	\begin{align*}
-		|\delta E \cup \delta E'| & \le |\delta C \cup \delta D| \\
-		|\delta E| + |\delta E'| - |\delta (E \cap E')| & \le |\delta C| + |\delta D| - |\delta (C \cap D)|
-	\end{align*}
-	entonces:
-	\[
-		|\delta E| + |\delta E'| \le |\delta C| + |\delta D|.
-	\]	
-	Por otro lado como $F$ y $F'$ son cortes tales que $|\delta F| \le |\delta E|$ y $|\delta F'| \le |\delta E'|$ luego obtenemos que
-	\[
-		|\delta F| + |\delta F'| \le |\delta C| + |\delta D|
-	\] 
-	y dado que $C,D$ son cortes minimales obtenemos así que $|\delta C| \le |\delta F|$ y que $|\delta D| \le |\delta F'|$ concluyendo que $|\delta F | = |\delta C|, |\delta F'| = |\delta D|$ y por lo tanto que $F,F'$ son cortes minimales.
-	Por el mismo razonamiento obtenemos que $|\delta E| = |\delta C|$ y que $|\delta E'| = |\delta D|$.
-	
-	Probemos ahora que $E=F$, equivalentemente que $E$ es conexo y que por lo tanto esto implicaría que $E \in \cam$.
-	Para esto notemos que si $v \in E \setminus F$ luego necesariamente por el mismo argumento anterior que usamos para probar que $\ol F$ es conexo tenemos que debe existir $u$ tal que $u \in \ol C \cup \ol D$ y conectado con $v' \in E \setminus F$.
-	Si existiera esta arista $\{v',u \}$ luego esto nos diría que $\{v',u \} \in \delta E \setminus \delta F$ lo que contradice que $|\delta E| = |\delta F| = |\delta C|$.
-	Similarmente podemos probar que $E' = F'$.
-	
-	
-%	es una componente conexa de $E$ tenemos que $\delta F \subseteq \delta E$ y similarmente para el caso de $F'$ dentro de $E'$.
-%	Esto nos dice que en definitiva tenemos estas desigualdades,
-%	\[
-%		|\delta F| \le  |\delta E|, \ |\delta F'| \le |\delta E'| 
-%	\]
-%	y como $F$ es un corte en ${\cal C}(\alpha)$ y $F'$ es un corte en ${\cal C}(\beta)$ obtenemos finalmente que $|\delta F| = |\delta E|$ y que $|\delta F'| = |\delta E'|$ concluyendo así que $E=F$ y que $E'=F'$.
-%	Así vimos que tanto $E$ como $E'$ son cortes mínimos.
 	Queremos ver ahora que son $E,E'$ son cortes óptimos.	
 	Para esto probaremos primero que si $F$ es un corte anidado con $C$ o con $D$ entonces está anidado con $E$ o con $E'$.
 	Separamos en dos casos que son simétricos.
@@ -651,13 +670,17 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 	
 	Por ahora tenemos la siguiente desigualdad de conjuntos
 	\[
-		|\{ F : F \ \text{no está anidado con} \ E \lor E' \}| \le |\{ F : F \  \text{no está anidado con} \ C \lor D \}|
+		|\{ F : F \ \text{no está anidado con} \ E \ \text{o con} \  E' \}| \le |\{ F : F \  \text{no está anidado con} \ C \ \text{o con} \ D \}|
 	\]
-	notemos que esta desigualdad la podemos escribir como
+	notemos que esta desigualdad la podemos escribir como:
+	\begin{align*}
+		m(E) + m(E') - &|\{ F : F \ \text{no está anidado con} \ E \ \text{ni con} \ E' \}| \le \\
+		&m(C) + m(D) - |\{ F : F \ \text{no está anidado con} \ C \ \text{ni con} \ D \}|.
+	\end{align*}
+	Ahora vamos a probar que 
 	\[
-		m(E) + m(E') - |\{ F : F \ \text{no está anidado con} \ E \land E' \}| \le m(C) + m(D) - |\{ F : F \ \text{no está anidado con} \ C \land D \}|.
-	\] 
-	Ahora vamos a probar que $|\{ F : F \ \text{no está anidado con} \ E \land E' \}| \le |\{ F : F \ \text{no está anidado con} \ C \land D \}|$.
+		|\{ F : F \ \text{no está anidado con} \ E \ \text{ni con} \ E' \}| \le |\{ F : F \ \text{no está anidado con} \ C \ \text{ni con} \ D \}|.
+	\]
 	Tenemos cuatro casos a analizar.
 	\begin{enumerate}
 		\item $C \subseteq F$ y $D \subseteq \ol F$.
@@ -669,7 +692,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 		\item $ C \subseteq F$ y $D \subseteq \ol F$.
 		Esto nos dice que $E \subseteq F$ y que $E' \subseteq \ol F$.
 	\end{enumerate}
-	Por lo tanto $|\{ F : F \ \text{no está anidado con} \ E \land E' \}| \le |\{ F : F \ \text{no está anidado con} \ C \land D \}|$ y esto nos dice que:
+	Por lo tanto $|\{ F : F \ \text{no está anidado con} \ E \ \text{ni con} \ E' \}| \le |\{ F : F \ \text{no está anidado con} \ C \ \text{ni con} \ D \}|$ y esto nos dice que:
 	\[
 		m(E) + m(E') \le m(C) + m(D)
 	\]
@@ -704,8 +727,6 @@ Para esto lo primero que vamos a ver es que los cortes óptimos forman un poset 
 	Si ahora usamos el lema \ref{lema_finitos_kcortes} con el conjunto finito $\gamma$ esto nos dice que solo existen finitos cortes $E$ que cumplen lo pedido.
 \end{proof}
 
-\todo{Agregar lema que el maximal respecto a la inclusión está en la clase de equivalencia de $C$.}
-
 
 Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 
@@ -720,7 +741,11 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	Sean $C,D \in \copt$ cortes óptimos tales que $C \subseteq D$ y $C \sim D$ entonces necesariamente $C = D$.
 \end{obs}
 
-\todo{Escribir interpretación de esta relación como contenciones y etc..}
+\begin{obs}\label{obs_cortes_maximal}
+	Dados cortes $C,D \in \copt$ tales que $C \subsetneq D$ luego por el lema \ref{lema_intermedios} debe existir corte $E$ tal que $C \subseteq E \subsetneq D$ y maximal con respecto a esta propiedad. 
+	Esto implica que en particular vale que $\ol E \sim D$.
+\end{obs}
+
 \begin{prop}
 	La relación $(\copt, \sim)$ es de equivalencia.
 \end{prop}
@@ -802,7 +827,7 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 	
 	De esta manera tenemos una cadena de inclusiones
 	\begin{equation}\label{eq:inclusiones}
-			C_0 \subsetneq C_1 \subsetneq \dots C_{n-1}
+			C_0 \subsetneq C_1 \subsetneq \dots  \subsetneq C_{n-1}
 	\end{equation}
 	tal que $\ol{ C_{n-1}} \sim C_0$.
 	Veamos que no puede haber una arista $\{[\ol{ C_{n-1}}], [C_0]\}$.
@@ -821,7 +846,7 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 	Por el lema \ref{lema_intermedios} sabemos que hay finitos cortes $E$ intermedios.
 	Tomemos entonces una sucesión creciente no refinable de cortes de manera que  
 	\[
-		C=C_0 \subsetneq C_1 \subsetneq \dots C_n = D
+		C=C_0 \subsetneq C_1 \subsetneq \dots \subsetneq C_n = D
 	\]
 	luego por como tomamos estos cortes obtenemos que $\ol C_i \sim C_{i+1}$ por lo tanto obtenemos el siguiente camino $[C],[C_1], \dots, [C_{n-1}],[D]$ en el grafo $T(\copt)$ probando así que es conexo.	
 \end{proof}
@@ -1073,34 +1098,25 @@ Estos bloques aparte cumplen que son conexos.
 	
 \end{proof}
 
-\begin{lema}\label{lema_accion_b(C)}
+\begin{lema}\label{lema_gC_actua_C}
 	Sea $\Gamma$ un grafo conexo, localmente finito y accesible tal que $G$ actúa sobre $\Gamma$ con finitas órbitas.
-	Entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
+	Entonces $G_{[C]}$ actúa con finitas órbitas sobre $[C]$.
 \end{lema}
 \begin{proof}
-	\todo{Desarmar esta demo en 2 o 3 lemas.}
 	Podemos ver que $G_{[C]}$ actúa sobre $[C]$ si restringimos la acción de $G$ al subgrupo $G_{[C]}$.
 	Como $G$ actúa con finitas órbitas tenemos que existen finitos cortes $D_{1}, \dots, D_{k} \in [C]$ de manera que las órbitas ${\cal O}(D_{i})$ sean distintas para todo $1 \le i \le k$.
 	Sea $D \in [C]$ entonces existe $g \in G$ y $D_{i}$ tal que $D = gD_{i}$ y como $D \sim gD_{i} \sim C$ esto dice que $gC \sim C$ lo que implica que 
 	$g \in G_{[C]}$.
 	De esta manera tenemos que $G_{[C]}$ también actúa con finitas órbitas sobre $[C]$. 
+\end{proof}
 
-	Como $G$ actúa con finitas órbitas sobre $\copt$ en particular lo hace sobre el subconjunto $\bigcup_{D \sim C} \beta D$.
-	Por el mismo razonamiento que usamos para ver que $G_{[C]}$ actúa con finitas órbitas en $[C]$ vemos que $G_{[C]}$ actúa con finitas órbitas en el conjunto $ \bigcup_{D \sim C} \beta D $.
-	
-	Por el lema previo \ref{lema_g_actua_b(C)} vimos que $G_{[C]}$ actúa sobre $B([C])$.
-	Queremos ver que lo hace con finitas órbitas.
-	Para eso vamos a ver que existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D \in [C]$ que cumple que
+
+\begin{lema}\label{lema_existe_m_borde_corte}
+	Sea $\Gamma$ un grafo conexo, localmente finito y accesible tal que $G$ actúa sobre $\Gamma$ con finitas órbitas.
+	Entonces existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D \in [C]$ que cumple que
 	$d(v,\beta D) \le m$.
-	
-	Notemos que de probar esto nos alcanza para ver que $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
-	Esto porque porque podríamos armarnos un dominio fundamental finito de la siguiente manera.
-	Dado que existen finitos $v_{1}, \dots, v_{n}$ tales que $v_{i} \in \beta D_{i}$ para algún $D_{i} \in [C]$ tales que son dominio fundamental de la acción de $G_{[C]}$ en $\bigcup_{D \sim C} \beta D$ podemos considerar el conjunto 
-	$A  = \bigcup_{i=1 \dots n} N^m(v_{i})$. 
-	Luego este conjunto es un dominio fundamental de la acción de $G_{[C]}$ en $B([C])$ y es finito porque $\Gamma$ es localmente finito.
-	
-	
-	
+\end{lema}
+\begin{proof}
 	Probemos entonces que existe tal corte $D$.
 	Sea $v \in B([C])$ luego tenemos que si $v \in N^l(D) \cap \ol D$ ya está porque podemos tomar $m=l$.
 	Entonces nos interesa el caso que $v \in D$ para todo $D \sim C$.
@@ -1109,7 +1125,7 @@ Estos bloques aparte cumplen que son conexos.
 	Dado que $U$ es finito tenemos que debe existir $m \ge 1$ tal que $d(u,\beta C) \le m$ para todo $u \in U$.
 	Esto nos dice que usando el lema \ref{lema_accion_vecinos} luego
 	\[
-		d(g \cdot u, \beta (g \cdot C)) \le m,
+	d(g \cdot u, \beta (g \cdot C)) \le m,
 	\]
 	por lo tanto $v \in B([C])$ está en una bola de radio $m$ de $\beta (g \cdot C)$.
 	Si vemos que hay finitas órbitas de la acción de $G_{[C]}$ sobre $\bigcup_{D \sim C} \beta (g \cdot C)$ entonces dado que el grafo es localmente finito, por el mismo argumento de antes tendríamos que hay finitas posibles órbitas.
@@ -1125,14 +1141,35 @@ Estos bloques aparte cumplen que son conexos.
 	Como suponemos que $v \in C$ luego esto nos dice que $v \in \beta \ol C = \beta C$ tal como queríamos ver.
 	
 	Consideremos ahora el caso que ${\ol{ g \cdot C}} \subsetneq C$.
-	Por el lema \ref{lema_intermedios} tenemos que existen finitos cortes intermedios y debe existir $D \in \copt$ tal que 
+	Por la obs \ref{obs_cortes_maximal} tenemos que existen finitos cortes intermedios y debe existir $D \in \copt$ tal que 
 	$\ol{g \cdot C}  \subsetneq \ol D \subsetneq C$ y resulta maximal respecto a la inclusión y así por definición $D \sim C$.
 	Como $v \in B([C]) = \bigcap_{C \sim D} D $ luego tenemos que $v \in D \cap \beta (g \cdot C)$.
 	Como tenemos la siguiente contención $\beta (g \cdot C) \subseteq \beta D \cup \ol D$ obtenemos que
 	\[
-		v \in D \cap (\beta D \cup \ol D) \implies v \in \beta D
+	v \in D \cap (\beta D \cup \ol D) \implies v \in \beta D
 	\]
-	tal como queríamos ver. 
+	tal como queríamos ver.
+\end{proof}
+
+
+\begin{lema}\label{lema_accion_b(C)}
+	Sea $\Gamma$ un grafo conexo, localmente finito y accesible tal que $G$ actúa sobre $\Gamma$ con finitas órbitas.
+	Entonces $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
+\end{lema}
+\begin{proof}
+	Como $G$ actúa con finitas órbitas sobre $\copt$ en particular lo hace sobre el subconjunto $\bigcup_{D \sim C} \beta D$.
+	Como corolario de \ref{lema_gC_actua_C} vemos que $G_{[C]}$ actúa con finitas órbitas en el conjunto $ \bigcup_{D \sim C} \beta D $.
+	
+	Por el lema previo \ref{lema_g_actua_b(C)} vimos que $G_{[C]}$ actúa sobre $B([C])$.
+	Queremos ver que lo hace con finitas órbitas.
+	Para eso sabemos que existe $m \in \NN$ tal que para todo $v \in B([C])$ existe un corte $D \in [C]$ que cumple que
+	$d(v,\beta D) \le m$ gracias al lema \ref{lema_existe_m_borde_corte}.
+	
+	Con esto nos alcanza para ver que $G_{[C]}$ actúa con finitas órbitas sobre $B([C])$.
+	Nos armarnos un dominio fundamental finito de la acción de $G_{[C]}$ en $B([C])$ de la siguiente manera.
+	Dado que existen finitos $v_{1}, \dots, v_{n}$ tales que $v_{i} \in \beta D_{i}$ para algún $D_{i} \in [C]$ tales que son dominio fundamental de la acción de $G_{[C]}$ en $\bigcup_{D \sim C} \beta D$ podemos considerar el conjunto 
+	$A  = \bigcup_{i=1 \dots n} N^m(v_{i})$. 
+	Luego este conjunto es un dominio fundamental de la acción de $G_{[C]}$ en $B([C])$ y es finito porque $\Gamma$ es localmente finito.
 \end{proof}
 
 \begin{lema}\label{lema_bloques_1_end}
@@ -1158,7 +1195,7 @@ Estos bloques aparte cumplen que son conexos.
 	Dos posibilidades están descartadas. 
 	Es imposible que $E \subseteq \ol C$ o bien $\ol E \subseteq \ol C$ porque en ambos casos contradecimos que $E \in {\cal C}_{\alpha}$.
 	Nos queda considerar los otros dos casos que son $E \subsetneq C$ o bien $\ol E \subsetneq C$, ambos casos los tratamos análogamente.
-	Por el lema \ref{lema_intermedios} tenemos que tiene que existir $D \in [C]$ tal que 
+	Por la observación \ref{obs_cortes_maximal} tenemos existe $D \in [C]$ tal que 
 	\[
 		E \subseteq \ol D \subsetneq C
 	\]
