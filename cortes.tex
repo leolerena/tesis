@@ -12,15 +12,16 @@ En la primera sección \ref{secc_cortes_grafos} damos varias definiciones básic
 
 En la segunda sección \ref{secc_grafos_accesibles} definimos una familia de grafos que denominamos grafos accesibles.
 Esta definición de un grafo accesible generaliza la idea de los grafos de Cayley de grupos accesibles.
-En el teorema \ref{teo_treewidth_fin_accesible} probamos que los grupos que tienen treewidth finito son accesibles. 
+En el teorema \ref{teo_treewidth_fin_accesible} probamos que los grupos que tienen treewidth finito tienen grafos de Cayley accesibles. 
 
 En la tercera sección \ref{secc_copt} definimos los cortes óptimos que son una familia de cortes que tienen la propiedad de estar siempre anidados entre sí.
 El resultado principal de esta sección es el teorema \ref{teo_copt_anidados}.
 
-En la cuarta sección \ref{secc_arbol_estr} dado un grafo accesible y localmente finito definimos un árbol que denominamos el árbol de estructura a partir de los cortes óptimos del grafo.
+En la cuarta sección \ref{secc_arbol_estr} dado un grafo accesible y localmente finito definimos un árbol que denominamos el árbol de estructura.
+Este árbol lo definimos a partir de los cortes óptimos del grafo.
 
 En la quinta sección \ref{secc_accion_arbol_estr} construimos una acción del grupo de automorfismos de un grafo accesible y localmente finito sobre su árbol de estructura.
-El resultado central es \ref{coro_tw_finito_implica_pi1} que dice que los grupos con treewidth finito son el grupo fundamental de un grafo finitos de grupos con grupos finitos.
+El resultado central es \ref{coro_tw_finito_implica_pi1} que dice que los grupos con treewidth finito son el grupo fundamental de un grafo de grupos con grupos finitos.
 
 
 
@@ -41,9 +42,9 @@ El resultado central es \ref{coro_tw_finito_implica_pi1} que dice que los grupos
 	Dado $C \subset V(\Gamma)$ diremos que es un \emph{corte} si cumple las siguientes condiciones:
 	\begin{itemize}
 		\item $C$ y $\ol C$ son conexos y no vacíos.
-		\item $|\delta C| \le \infty$.
+		\item $|\delta C| < \infty$.
 	\end{itemize}
-	Si $|\delta C| = k$ diremos que $C$ es un \emph{$k$-corte}.
+	Si $|\delta C| \le k$ diremos que $C$ es un \emph{$k$-corte}.
 \end{deff}	
 
 Equivalentemente un subconjunto de vértices $C$ es un corte si $\Gamma \setminus \delta C$ tiene dos componentes conexas no vacías.
@@ -114,56 +115,60 @@ La siguiente observación elemental va a ser fundamental a los argumentos de est
 
 \begin{obs}\label{obs_camino_corte}
 	Si $\Gamma$ es un grafo conexo, $C$ un corte de $\Gamma$, $x \in C$ e $y \in \ol C$ y 
-	$\alpha$ un camino que una $x$ con $y$ 
+	$\alpha$ un camino que une $x$ con $y$ 
 	entonces tenemos que debe existir $v \in \delta C$ tal que $v$ pertenece al camino $\alpha$.
 \end{obs} 
 
 
-En particular nos van a interesar los cortes para separar caminos en grafos y en cierta manera poder distinguirlos.
+En particular nos van a interesar los cortes para separar caminos en grafos y en cierta manera usar los cortes para distinguir caminos infinitos.
 Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
 
 \begin{ej}
 	Consideremos $\ZZ \times \ZZ = \langle a,b \mid aba^{-1}b^{-1} \rangle$ y 
 	$\Gamma = \text{Cay}(\ZZ^2, \{ a, b,a^{-1},b^{-1} \})$ su grafo de Cayley.
 	
-	Este grafo cumple que todo conjunto $C \subseteq V(\Gamma)$ es tal que $C$ es finito o bien $\ol C$ es finito.
+	Este grafo cumple que todo conjunto $C \subseteq V(\Gamma)$ conexo tal que $|\delta C| < \infty$ es tal que $C$ es finito o bien $\ol C$ es finito.
 	Para probar esto sea $v \in \delta C$ tal que
 	maximice $\underset{w \in \delta C}{\max} \ d(1,w)$.
 	Si consideramos una bola $B$ centrada en $1$ de radio mayor a esta distancia entonces tenemos que $C \subseteq B$ o bien $\ol C \subseteq B$ dado que, en caso contrario como $\ol B$ es conexo entonces usando la observación \ref{obs_camino_corte} tendríamos que habría algún $v' \in \ol B$ tal que $v' \in \beta C$ contradiciendo la elección del radio de $B$.
-	Como $|B| < \infty$ obtenemos que $|C| < \infty$ o bien que $|\ol C| < \infty$.
+	Dado que $\Gamma$ tiene el grado acotado uniformemente obtenemos que  $|B| < \infty$ lo que implica que $|C| < \infty$ o bien que $|\ol C| < \infty$.
 \end{ej}
 
 Una propiedad fundamental de los cortes es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
-Más aún podemos probar la siguiente generalización de esta afirmación.
+Dado un grafo $\Gamma$ y $\{x,y\} \in E(\Gamma)$  usaremos la notación $\Gamma \setminus \{ x,y \}$ para referirnos al grafo no dirigido definido por $V(\Gamma \setminus \{ x,y \}) = V(\Gamma)$ y $E(\Gamma \setminus \{ x,y \}) = E(\Gamma) \setminus \{x,y\}$.
+
 \begin{lema}\label{obs_kCorte_restriccion}
 	Sea $\Gamma$ un grafo conexo infinito y $k \ge 2$.
 	Si $C$ es un $k$-corte en $\Gamma$ y $\{ x,y  \} \in \delta C$ entonces $C$ es un $(k-1)$-corte en $ \Gamma \setminus \{ x,y \} $.
 \end{lema}
 
 \begin{proof}
-	Para ver esto notemos que $\Gamma \setminus \{ x,y \}$ es tal que si restringimos $C$ a este grafo nos queda que $|\delta C| = k-1$.
-	Por otro lado $C$ y $\ol C$ siguen siendo conexos y no vacíos porque no los modificamos.
+%	Para ver esto notemos que $\Gamma \setminus \{ x,y \}$ es tal que si restringimos $C$ a este grafo nos queda que $|\delta C| = k-1$.
+	Los conjuntos de vértices $C$ y $\ol C$ siguen siendo conexos y no vacíos si los miramos en $\Gamma \setminus \{ x,y \}$.
+	Por otro lado tenemos que su borde de aristas en el grafo $\Gamma \setminus \{x,y\}$ es $\delta C \setminus \{x,y\}$, por lo tanto $C$ resulta ser un $(k-1)$-corte de $\Gamma \setminus \{x,y\}$.
 \end{proof}
 
 \begin{lema}\label{lema_corte_disconexo_vertices}
-	Sea $\Gamma$ un grafo conexo y localmente finito.
+	Sea $\Gamma$ un grafo conexo.
 	Sea $Y \subseteq E(\Gamma)$ un subconjunto finito de manera que $\Gamma \setminus Y$ resulta ser disconexo.
-	Entonces todo corte $C$ tal que $Y \subseteq \delta C$ es tal que $Y = \delta C$.
+	Entonces si existe un corte $C$ tal que $Y \subseteq \delta C$ luego tiene que valer que $Y = \delta C$.
 \end{lema}
 
 \begin{proof}
 	Si $\Gamma \setminus Y$ resulta ser disconexo entonces para que exista algún corte $C$ con $Y \subseteq \delta C$ es necesario que $\Gamma \setminus Y$ tenga exactamente dos componentes conexas.
-	Si tuviera más de una componente conexa entonces tendríamos que, de existir $C$ corte, valdría que $\Gamma \setminus \delta C$ tiene más de dos componentes conexas.	
+	Si tuviera más de una componente conexa y existiera un corte $C$ que cumpla que $Y \subseteq \delta C$ entonces $\Gamma \setminus \delta C$ tendría más de dos componentes conexas, negando que $C$ es un corte.	
 	
 	Llamemos a las dos componentes conexas de $\Gamma \setminus Y$ como $D$ y  $\ol D$.
 	Supongamos que $C$ es un corte tal que $Y \subseteq \delta C$. 
-	En este caso tenemos que necesariamente $C \cap \ol C = \emptyset$ en $\Gamma \setminus Y$.
+	Notemos que $C$ y $\ol C$ son conexos si los vemos en $\Gamma \setminus Y$.
+	En este caso tenemos que necesariamente $C \cap  D = \emptyset$ o $C \cap \ol D = \emptyset$ en $\Gamma \setminus Y$.
 	Caso contrario como $C \cup \ol C = V(\Gamma)$ entonces negaríamos que $D$ y $\ol D$ desconectan a $\Gamma \setminus Y$.
 	Concluimos que necesariamente $C = D$ o bien $C = \ol D$ y así que $\delta C = Y$ tal como queríamos ver.
+	
 \end{proof}
 
 \begin{prop}\label{lema_aristas_finitos_kcortes}
-	Sea $\Gamma$ un grafo conexo y sea $\{x,y\} \in E(\Gamma)$ entonces existen finitos $k$-cortes $C$ tales que $\{x,y\} \in \delta C$.
+	Sea $\Gamma$ un grafo conexo y sea $\{x,y\} \in E(\Gamma)$ entonces para todo $k \in \NN$ existen finitos $k$-cortes $C$ tales que $\{x,y\} \in \delta C$.
 \end{prop}
 
 \begin{proof}
@@ -173,8 +178,8 @@ Más aún podemos probar la siguiente generalización de esta afirmación.
 	Si $\Gamma \setminus \{x,y\}$ es disconexo y separa al grafo en dos componentes conexas no vacías entonces tenemos un $1$-corte. 
 	Caso contrario no existe un $1$-corte $C$ tal que $\delta C = \{x,y\}$.
 	
-	Para el paso inductivo supongamos que vale para $k-1$ cortes y veamos que vale para $k$-cortes.
-	Sea $C$ un $k$-corte sobre $\Gamma$, por la observación \ref{obs_kCorte_restriccion} tenemos que $C$ es un $k-1$-corte para el grafo $\Gamma \setminus \{x,y\}$.
+	Para el paso inductivo supongamos que vale para $(k-1)$-cortes y veamos que vale para $k$-cortes.
+	Sea $C$ un $k$-corte sobre $\Gamma$, por la observación \ref{obs_kCorte_restriccion} tenemos que $C$ es un $(k-1)$-corte para el grafo $\Gamma \setminus \{x,y\}$.
 	Como suponemos que $k \ge 2$ entonces por el lema \ref{lema_corte_disconexo_vertices} el grafo $\Gamma \setminus \{x,y\}$ tiene que ser conexo caso contrario no existiría tal corte $C$.
 	Esto nos dice que debe existir un camino $\alpha$ tal que $\alpha = (x_{0}, \dots, x_{n})$ con $x_{0} = x$ y $x_{n} = y$.
 	Por la observación \ref{obs_camino_corte} tenemos que alguna de las aristas $\{x_{i},x_{i+1}\}$ es tal que pertenece a $\delta C$.
@@ -228,7 +233,6 @@ Más aún podemos probar la siguiente generalización de esta afirmación.
 	
 \end{proof}
 
-De este último lema se desprende que en esta situación particular los cortes $C,D$ están anidados.
 
 \begin{lema}
 	Dado $C$ corte y $k \in \NN$ tenemos que 
@@ -237,14 +241,10 @@ De este último lema se desprende que en esta situación particular los cortes $
 	\]
 \end{lema}
 \begin{proof}
-	Por el lema \ref{lema_corte_borde_anidado} no pueden haber cortes anidados $D$ tales que $\beta C \subseteq D$.
+	Por el lema \ref{lema_corte_borde_anidado} no pueden haber cortes que no estén anidados $D$ tales que $\beta C \subseteq D$.
 	Por el lema \ref{lema_finitos_kcortes} concluimos que hay finitos $k$-cortes $D$ tales que $\beta C \cap \beta D \neq \emptyset$ dado que $\beta C$ es un conjunto finito.
 				
 \end{proof}
-
-Este lema nos garantiza la buena definición del siguiente número natural.
-
-
 
 
 \section{Grafos accesibles.}\label{secc_grafos_accesibles}
@@ -349,7 +349,7 @@ Esto nos lleva a dar la siguiente definición.
 
 Por resultados anteriores \ref{lema_camino_infinito_cortado} tenemos que un grafo $\Gamma$ conexo y localmente finito tiene más de un end si y solo sí existe un camino infinito $\alpha$ tal que ${\cal C}_{\alpha} \neq \emptyset$.
 
-Equivalentemente diremos que un \emph{grafo $\Gamma$ tiene más de un end} si existe un conjunto finito $S$ de vértices de manera que $\Gamma \setminus S$ tiene más de dos componentes conexas infinitas.
+Equivalentemente diremos que un grafo $\Gamma$ localmente finito y conexo \emph{tiene más de un end} si existe un conjunto finito $S$ de vértices de manera que $\Gamma \setminus S$ tiene más de dos componentes conexas infinitas.
 
 Un dato importante es que en el contexto de los grupos la cantidad de ends de sus grafos de Cayley resulta ser un invariante del grupo.
 En \cite{stallings1971group} Stallings probó que dado un \fg con más de un end entonces se parte como el producto amalgamado o producto HNN sobre un subgrupo finito no trivial.
@@ -360,17 +360,18 @@ En esta sección vamos a introducir la definición de los grafos accesibles que 
 Esta noción fue originalmente introducida en el trabajo \cite{thomassen1993vertex}.
 En ese trabajo prueban que un grupo es accesible siguiendo la definición clásica si y solo sí todo grafo de Cayley de este grupo resulta ser accesible.
 \begin{deff}
-	Un grafo $\Gamma$ es \emph{accesible} si existe $k \in \NN$ de manera que todo camino infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
+	Un grafo $\Gamma$ infinito y conexo es \emph{accesible} si existe $k \in \NN$ de manera que todo camino infinito $\alpha$ cumple que ${\cal C}(\alpha) = \emptyset$ o bien ${\cal C}(\alpha)$ contiene un $k$-corte.
 \end{deff}
-Equivalentemente un grafo es accesible si existe $k \in \NN$ tal que para todo par de ends $\omega_1, \omega_2$ resulta que existe un k-corte $C$ de manera que separa a ambos ends.
+En particular de la definición obtenemos que los grafos accesibles tienen más de un end.
+Equivalentemente podemos definir a un grafo como accesible si existe $k \in \NN$ tal que para todo par de ends distintos $\omega_1, \omega_2$ existe un k-corte $C$ de manera que separa a ambos ends.
 
 
 Veamos que bajo esta definición los grafos con treewidth finito son accesibles.
-Esto no nos va a asegurar en principio que ser accesible en este sentido signifique que es una propiedad intrínseca de un grupo.
+Esto no nos va a asegurar que ser accesible en este sentido es una propiedad intrínseca de un grupo.
 Para probar esto vamos a probar un lema un poco más técnico que generaliza esta afirmación.
 
 \begin{lema}\label{lema_corte_treewidth}
-	Sea $\Gamma$ un grafo de treewidth finito y grado uniformemente acotado.
+	Sea $\Gamma$ un grafo infinito y conexo con treewidth finito y grado uniformemente acotado.
 	Entonces existe $k \in \NN$ tal que:
 	para todo $r$ rayo, todo $v_0 \in V(\Gamma)$ y todo $n \in \NN$ debe existir un $k-$corte $D$ que cumple las siguientes propiedades: $d(v_0,\ol D) \ge n, v_0 \in D, |\ol D \cap r| = \infty$. 
 \end{lema}
@@ -448,7 +449,7 @@ Para probar esto vamos a probar un lema un poco más técnico que generaliza est
 		Para ver esto notemos que $C_{t_{l},r} \subseteq \ol D$. 
 		Si tenemos un elemento $u_1 \in \ol D$ tiene que estar conectado en $\Gamma$ con algún vértice de $C_{t_l, r}$.
 		Esto se debe a que el grafo $\Gamma$ es conexo por lo que $u_{1}$ tiene al menos un camino que lo conecta con el conjunto de vértices $C_{t_{l},r}$.
-		Si este camino interseca a $D$ tendríamos que $u_{1} \in D$ porque sería la misma componente conexa de $\ol{ C_{t_l, r}}$ que $D$ llegando a una contradicción.
+		Si este camino interseca a $D$ tendríamos que $u_{1} \in D$ porque sería la misma componente conexa de $\ol{ C_{t_l, r}}$.
 		De esta manera vimos que todo elemento de $\ol D$ está conectado con  $C_{t_l, r}$, que es conexo, evitando pasar por $D$ y así concluimos que $\ol D$ es conexo.
 		\item 
 		Tanto $D$ como $\ol D$ son no vacíos porque $C_{t_l, r}$ es infinito y está contenido en $\ol D$ y por otro lado porque $v_0 \in D$.
@@ -459,7 +460,7 @@ Para probar esto vamos a probar un lema un poco más técnico que generaliza est
 		
 		Por lo visto anteriormente todo camino que va de $\ol D$ a $D$ tiene que pasar necesariamente por $C_{t_l, r}$. 
 		Entonces tenemos que $u \in C_{t_l, r}$.
-		En este caso notemos que $v \in f{(t_l)}$ caso contrario tendríamos que $v \in C_{t_l, r}$ dado que esta es una de las componentes conexas de $\Gamma \setminus f{(t_l)}$.
+		En este caso notemos que $v \in f{(t_l)}$ caso contrario tendríamos que $v \in C_{t_l, r}$ dado que esta es una de las componentes conexas de $\Gamma \setminus f{(t_l)}$ y asumimos que $v \in D \subseteq \ol{C_{t_{l},r}}$.
 		De esta manera vimos que $\beta D \cap D \subseteq f{(t_l)}$.
 		Como toda arista $\delta D$ tiene uno de sus vértices en $f(t_{l})$ y el grafo tiene grado acotado uniformemente esto nos dice que $|\delta D| \le dm = k$ tal como queríamos ver. 
 		
@@ -473,30 +474,36 @@ Como $|r \cap C_{t_{l},r}| = \infty$ y $C_{t_{l},r} \subseteq \ol D$ obtenemos l
 	
 \end{proof}
 
+\begin{obs}\label{obs_corte_tw}
+	En particular notemos que el resultado del lema anterior \ref{lema_corte_treewidth} sigue siendo válido si reemplazamos a $r$ el rayo por $\alpha$ un camino infinito.
+	Esto porque a partir de un camino infinito podemos armarnos un rayo.
+\end{obs}
+
 Ahora sí con este resultado podemos probar que los grafos con treewidth finito y grado uniformemente acotado son accesibles.
 
 \begin{teo}\label{teo_treewidth_fin_accesible}
-	Sea $\Gamma$ un grafo no dirigido con treewidth finito y con grado uniformemente acotado.
+	Sea $\Gamma$ un grafo no dirigido infinito y conexo con treewidth finito y con grado uniformemente acotado.
 	Entonces $\Gamma$ es accesible.
 \end{teo}
 \begin{proof}
 	Tomemos $\alpha$ un camino infinito tal que ${\cal C}(\alpha) \neq \emptyset$ y $C \in {\cal C}(\alpha)$.
 	Veamos de construirnos un $k$-corte $D$ de manera que $D \in {\cal C}(\alpha)$.
-	Denotemos al rayo $\gamma = \alpha \cap C$.
 	
 	Fijemos $v_0  \in \beta C$ y consideremos el siguiente número natural
 	\[
 	n = \max \{ d(v_0,w) : w \in \beta C  \}.
 	\]
-	Por el lema anterior \ref{lema_corte_treewidth} podemos ver que existe un $k$-corte $D$ de manera que $v_{0} \in D$, $d(v_0, \ol D) \ge n+1$ y que cumple que $|\ol D \cap \gamma| = \infty$.
+	Por el lema anterior \ref{lema_corte_treewidth} y la observación \ref{obs_corte_tw} podemos ver que existe un $k$-corte $D$ de manera que $v_{0} \in D$, $d(v_0, \ol D) \ge n+1$ y que cumple que $|\ol D \cap \alpha| = \infty$.
 	Por como tomamos a este corte $D$ cumple que $\beta C \subset D$ y así por el lema \ref{lema_corte_borde_anidado} tenemos que el corte $C$ cumple que 
-	$C \subseteq D$ o bien $C \subseteq \ol D$.
+	$C \subseteq D$ o bien $\ol C \subseteq D$.
 	En cualquiera de estos dos casos como $|\alpha \cap C| = |\alpha \cap \ol  C| = \infty$ obtenemos así que $|D \cap \alpha|=\infty$ y así que $D \in {\cal C}(\alpha)$ tal como queríamos ver. 
 	
 \end{proof}
 
 
 \section{Cortes óptimos.}\label{secc_copt}
+
+Por el lema \ref{lema_corte_borde_anidado} tenemos que el siguiente número natural está bien definido.
 
 \begin{deff}
 	Dado $\Gamma$ grafo conexo y localmente finito, $C$ un corte y $k \in \NN$ constante definimos
@@ -518,32 +525,11 @@ Ahora sí con este resultado podemos probar que los grafos con treewidth finito 
 \end{deff}
 
 
-Así como definimos cortes mínimos ahora vamos a definir cortes óptimos que serán un subconjunto de ellos.
-Consideremos ahora que el grafo $\Gamma$ es accesible y su constante es $k$.
-En este caso notaremos para cada corte $C$ el siguiente valor
-\[
-m(C) = m_k(C).
-\]
 
-
-\begin{deff}
-	Dado $\alpha$ camino infinito sea
-	\[
-		m_\alpha = \min \{ m(C) : C \in \cam \}.
-	\]
-	De esta manera los cortes óptimos del camino $\alpha$ serán
-	\[
-		\copta = \{ C \in \cam : m(C) = m_\alpha  \}
-	\]
-	y el conjunto de los cortes óptimos análogamente será el conjunto que contenga a todos ellos
-	\[
-		\copt = \bigcup \ \{ \copta : \alpha \ \text{es un camino infinito}  \}.
-	\]
-\end{deff}
 
 \begin{lema}\label{lema_esquinas_caminos}
 	
-	Sea $\Gamma$ un grafo infinito y conexo y sean $C,D \in \copt$ cortes tales que $C \in {\cal C}(\alpha)$ y $D \in {\cal C}(\beta)$ para $\alpha$ y $\beta$ caminos infinitos.
+	Sea $\Gamma$ un grafo infinito y conexo y sean $C,D$ cortes tales que $C \in {\cal C}(\alpha)$ y $D \in {\cal C}(\beta)$ para $\alpha$ y $\beta$ caminos infinitos.
 	Entonces sucede alguno de estos dos casos:
 	\begin{enumerate}
 		\item $C \in {\cal C}(\beta)$ y $D \in {\cal C}(\alpha)$ y existen esquinas opuestas $E, E'$ tales que $|E \cap \alpha| = \infty = |E' \cap \alpha|.$
@@ -560,7 +546,7 @@ m(C) = m_k(C).
 	Por otro lado deben existir al menos dos esquinas tales que intersecan infinitamente a $\alpha$ y otras dos tales que intersecan infinitamente a $\beta$. 
 	
 	Estas restricciones nos dejan en dos casos posibles.
-	El primer caso que consideramos es el que tenemos dos esquinas $E, E'$ tales que $|E \cap \alpha| = |\ol{E} \cap \alpha| = \infty$ y $|E' \cap \alpha| = |\ol{E'} \cap \alpha|=\infty$.
+	El primer caso que consideramos es el que tenemos dos esquinas $E, E'$ tales que $|E \cap \alpha| = |\ol{E} \cap \alpha| = \infty$ y $|E' \cap \beta| = |\ol{E'} \cap \beta|=\infty$.
 	Esto nos dice que $C \in {\cal C}(\beta)$ y que $D \in {\cal C}(\alpha)$.
 	En cualquier otro caso obtenemos que existen $E,E'$ esquinas opuestas de manera que $|E \cap \alpha| = |E' \cap \beta | = \infty$.
 	
@@ -568,36 +554,37 @@ m(C) = m_k(C).
 
 \begin{figure}[H]
 	
-\centering
-\begin{tikzpicture}[scale=0.85]
-	\draw[step=2.0,black,thin] (0,0) grid (4,4);
-	\draw [ultra thick,cadmiumred, label=above:$A$] (0,0) to[out=45,in=115] (1,1) to[out=-180+115,in=10] (1,4);
-	\draw [ultra thick,astral] (2.2,0) to[out=105,in=15] (2,2) to[out=+105,in=-100] (4,4);
-	
-	\draw[step=2.0,black,thin] (8,0) grid (12,4);
-	\draw [ultra thick,cadmiumred, label=above:$A$] (8,0) to[out=45,in=115] (9,1) to[out=-180+115,in=120] (12,3);
-	\draw [ultra thick,astral, label=above:$A$] (8,0.75) to[out=45,in=115] (10,1) to[out=-180+115,in=-120] (11,4);
-	
-	\node (1) at (3.5,4.25)  {$C \cap D$};
-	\node (2) at (3.5+8,4.25)  {$C \cap D$};
-	\node (3) at (0.5,4.25)  {$\ol C \cap D$};
-	\node (4) at (0.5+8,4.25)  {$\ol C \cap D$};
-	\node (5) at (0.5,-0.25)  {$\ol C \cap \ol D$};
-	\node (6) at (0.5+8,-0.25)  {$\ol C \cap \ol D$};
-	\node (7) at (3.5,-0.25)  {$C \cap \ol D$};
-	\node (8) at (3.5+8,-0.25)  {$ C \cap \ol D$};
-	
-	\node (9) at (1.25,3.5) {\textcolor{cadmiumred}{$\alpha$}};
-	\node (9) at (11.75,2.75) {\textcolor{cadmiumred}{$\alpha$}};
-	
-	\node (9) at (3.25,3.5) {\textcolor{astral}{$\beta$}};
-	\node (9) at (3.25+7.25,3.5) {\textcolor{astral}{$\beta$}};
-
-\end{tikzpicture}
-\caption{\small{En la izquierda tenemos que si tomamos $E = \ol C \cap D$ y $E' = C \cap \ol D$ estas esquinas cumplen que $|E \cap \alpha| = \infty$ y que $|E' \cap \beta | = \infty$.
-En la derecha tenemos que nos alcanza con tomar $E = \ol C \cap \ol D$ y $E' = C \cap D$.
-En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
+	\centering
+	\begin{tikzpicture}[scale=0.85]
+		\draw[step=2.0,black,thin] (0,0) grid (4,4);
+		\draw [ultra thick,cadmiumred, label=above:$A$] (0,0) to[out=45,in=115] (1,1) to[out=-180+115,in=10] (1,4);
+		\draw [ultra thick,astral] (2.2,0) to[out=105,in=15] (2,2) to[out=+105,in=-100] (4,4);
+		
+		\draw[step=2.0,black,thin] (8,0) grid (12,4);
+		\draw [ultra thick,cadmiumred, label=above:$A$] (8,0) to[out=45,in=115] (9,1) to[out=-180+115,in=120] (12,3);
+		\draw [ultra thick,astral, label=above:$A$] (8,0.75) to[out=45,in=115] (10,1) to[out=-180+115,in=-120] (11,4);
+		
+		\node (1) at (3.5,4.25)  {$C \cap D$};
+		\node (2) at (3.5+8,4.25)  {$C \cap D$};
+		\node (3) at (0.5,4.25)  {$\ol C \cap D$};
+		\node (4) at (0.5+8,4.25)  {$\ol C \cap D$};
+		\node (5) at (0.5,-0.25)  {$\ol C \cap \ol D$};
+		\node (6) at (0.5+8,-0.25)  {$\ol C \cap \ol D$};
+		\node (7) at (3.5,-0.25)  {$C \cap \ol D$};
+		\node (8) at (3.5+8,-0.25)  {$ C \cap \ol D$};
+		
+		\node (9) at (1.25,3.5) {\textcolor{cadmiumred}{$\alpha$}};
+		\node (9) at (11.75,2.75) {\textcolor{cadmiumred}{$\alpha$}};
+		
+		\node (9) at (3.25,3.5) {\textcolor{astral}{$\beta$}};
+		\node (9) at (3.25+7.25,3.5) {\textcolor{astral}{$\beta$}};
+		
+	\end{tikzpicture}
+	\caption{\small{En la izquierda tenemos que si tomamos $E = \ol C \cap D$ y $E' = C \cap \ol D$ estas esquinas cumplen que $|E \cap \alpha| = \infty$ y que $|E' \cap \beta | = \infty$.
+			En la derecha tenemos que nos alcanza con tomar $E = \ol C \cap \ol D$ y $E' = C \cap D$.
+			En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
 \end{figure}
+
 
 \begin{prop}\label{prop_esquinas_minimales}
 	Sea $\Gamma$ un grafo infinito, conexo, localmente finito y accesible.
@@ -616,7 +603,7 @@ En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
 	
 	Si es necesario renombramos a los cortes para que $E = C \cap D$ y $E' = \ol C \cap \ol D$.
 	
-		
+	
 	Debemos ver que estas esquinas nos sirven pero en principio no sabemos si son cortes siquiera.
 	Sea $F$ componente conexa de $E$ tal que $|F \cap \alpha| = \infty$.
 	Notemos que $\ol C \cup \ol D \subseteq \ol F$ por lo tanto tenemos que $|\ol F \cap \alpha|=\infty$.
@@ -624,8 +611,9 @@ En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
 	Para eso consideremos $v,w \in \ol F$.
 	Si tanto $v,w \in \ol C \cup \ol D$ entonces como este conjunto es un conexo y está contenido en $\ol F$ no hay nada para hacer.
 	En el caso que $v \in (C \cap D) \setminus F$ luego consideramos $\gamma$ un camino en $\Gamma$ tal que los una.
-	Sea $u$ el primer vértice tal que $u \notin C \cap D$ entonces necesariamente el camino $(v, \dots, u)$ está contenido en la componente conexa de $v$ en $C \cap D$ y esta componente conexa no es $F$. 
-	Como $u \in \ol C \cup \ol D$ luego tenemos un camino entre $u$ y $w$ contenido en $\ol F$ y así cerramos nuestra demostración.
+	Sea $u$ el primer vértice tal que $u \in E \cap \delta E$ entonces necesariamente el camino $(v, \dots, u)$ está contenido en la componente conexa de $v$ en $E$ y esta componente conexa no es $F$. 
+	Como $u \in \delta E$ luego existe $u' \in \ol C \cup \ol D$ tal que $u'$ es adyacente a $u$. 
+	Luego como $\ol C \cup \ol D$ es conexo tenemos un camino entre $u'$ y $w$ contenido en $\ol F$ y así cerramos nuestra demostración.
 	Similarmente encontramos un conjunto de vértices $F'$ que cumple esto para $\beta$.
 	Notemos que $|\delta F| < \infty$, esto se debe a que si $\{ v,w \} \in \delta F$ luego necesariamente $\{v,w\} \in \delta E$.
 	Por otro lado $\delta E = \delta (C \cap D)  \subseteq \delta C \cup \delta D$ y $|\delta C| + |\delta D| < \infty$. 
@@ -637,12 +625,14 @@ En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
 	%	Hacemos algo similar para construirnos un corte $F' \subseteq E'$ que separe en dos partes a $\beta$.
 	
 	Veamos ahora que $F$ y que $F'$ son cortes minimales.
-	Consideremos las siguientes desigualdades:
+	Como $\delta E \subseteq \delta C \cup \delta D$ y $\delta E' \subseteq \delta C \cup \delta D$ entonces $\delta E \cup \delta E' \subseteq \delta C \cup \delta D$.
+	Consideramos las siguientes desigualdades:
 	\begin{align*}
 		|\delta E \cup \delta E'| & \le |\delta C \cup \delta D| \\
-		|\delta E| + |\delta E'| - |\delta (E \cap E')| & \le |\delta C| + |\delta D| - |\delta (C \cap D)|
+		|\delta E| + |\delta E'| - |\delta (E) \cap \delta (E')| & \le |\delta C| + |\delta D| - |\delta C \cap \delta D|
 	\end{align*}
-	entonces:
+	si $\{x,y\} \in \delta E \cap \delta E'$ esto nos dice que $x \in E$ e $y \in \delta E'$ por lo que $x \in C \cap D$ e $y \in \ol C \cap \ol D$ lo que implica que $\{x,y\} \in \delta C \cap \delta D$.
+	Entonces tenemos que $|\delta (E) \cap \delta (E')| \le |\delta C \cap \delta D|$ por lo tanto vale la siguiente desigualdad
 	\[
 	|\delta E| + |\delta E'| \le |\delta C| + |\delta D|.
 	\]	
@@ -657,7 +647,39 @@ En este caso $C \in {\cal{C}}(\beta)$ y $D \in {\cal{C}}(\alpha)$.}}
 	Para esto notemos que si $v \in E \setminus F$ luego necesariamente por el mismo argumento anterior que usamos para probar que $\ol F$ es conexo tenemos que debe existir $u$ tal que $u \in \ol C \cup \ol D$ y conectado con $v' \in E \setminus F$.
 	Si existiera esta arista $\{v',u \}$ luego esto nos diría que $\{v',u \} \in \delta E \setminus \delta F$ lo que contradice que $|\delta E| = |\delta F| = |\delta C|$.
 	Similarmente podemos probar que $E' = F'$.
+	Concluimos así que $E, E' \in \cmin$.
 \end{proof}
+
+
+
+Así como definimos cortes mínimos ahora vamos a definir cortes óptimos que serán un subconjunto de ellos.
+Consideremos ahora que el grafo $\Gamma$ es accesible y su constante es $k$.
+En este caso notaremos para cada corte $C$ el siguiente valor
+\[
+m(C) = m_k(C).
+\]
+
+
+\begin{deff}
+	Dado $\Gamma$ grafo infinito, conexo, localmente finito y accesible y $\alpha$ camino infinito en $\Gamma$ sea
+	\[
+		m_\alpha = \min \{ m(C) : C \in \cam \}.
+	\]
+	De esta manera los \emph{cortes óptimos} del camino $\alpha$ serán
+	\[
+		\copta = \{ C \in \cam : m(C) = m_\alpha  \}
+	\]
+	y el \emph{conjunto de los cortes óptimos} análogamente será el conjunto que contenga a todos ellos
+	\[
+		\copt = \bigcup \ \{ \copta : \alpha \ \text{es un camino infinito}  \}.
+	\]
+\end{deff}
+
+
+
+
+
+
 
 
 El siguiente es el resultado central y más importante de los cortes óptimos.
@@ -715,7 +737,7 @@ El siguiente es el resultado central y más importante de los cortes óptimos.
 		m(E) + m(E') \le m(C) + m(D)
 	\]
 	pero nosotros queremos ver que es estricta para terminar de probar este teorema.
-	Para eso notemos que $C$ está anidado con $E$ puesto que $\ol C \cap E = \ol C \cap C \cap D = \emptyset$.
+	Para eso notemos que $C$ está anidado con $E$ puesto que $\ol C \cap E = \ol C \cap (C \cap D) = \emptyset$.
 	Idénticamente vemos que está anidado con $E'$.
 	Pero por suposición tenemos que $C$ y $D$ no están anidados así que tenemos una desigualdad estricta y por lo tanto llegamos a una contradicción (que alguno de los dos cortes $C$ o $D$ no son óptimos) de suponer que los cortes $C,D$ no están anidados.
 \end{proof}
@@ -728,7 +750,7 @@ La teoría se profundizó enormemente en \cite{dicks1989groups} codificando la c
 
 Así como en la sección anterior, todos los grafos que vamos a considerar a partir de ahora son accesibles.
 Vamos a construir un árbol a partir de los cortes óptimos.
-Para esto lo primero que vamos a ver es que los cortes óptimos forman un poset discreto respecto a la inclusión.
+Para esto lo primero que vamos a ver es que los cortes óptimos forman un poset localmente finito respecto a la inclusión.
 
 \begin{lema}\label{lema_intermedios}
 	Sea $\Gamma$ un grafo infinito, conexo, localmente finito y accesible.
@@ -819,17 +841,17 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 	
 	Notemos que toda arista de la pinta $\{g,ga\} \in E(\Gamma)$ define un corte con $\delta C = \{g,ga\}$.
 	Es decir todas las aristas con etiqueta $a$ nos definen un $1$-corte.
-	Este corte naturalmente es minimal porque no podría ser que $\delta C$ sea menor, de esta manera vale que 
+	Este corte naturalmente es minimal porque no podría ser que $\delta C$ sea menor. Vale la siguiente igualdad:
 	\[
 	\cmin = \{ C \ \text{corte}  \mid \exists g \in G, \ \delta C = \{g,ga\}  \}. 
 	\]
 	Notemos que dado $C \in \cmin$ luego necesariamente tenemos que $m(C) = 0$. 
-	Esto se debe a que si $D \in \cmin$ luego si $\delta D \in C$ esto nos dice que $D \subseteq C$ o bien que $\ol D \subseteq C$.
-	Esto nos dice que $\cmin = \copt$.
+	Esto se debe a que si $D \in \cmin$ luego $\delta D \in C$ o bien $\delta D \in \ol C$ esto nos dice que $D \subseteq C$ o bien que $\ol D \subseteq C$ y así que $C$ y $D$ están anidados.
+	Concluimos que $\cmin = \copt$.
 	
-	Veamos ahora si fijamos $C \in \copt$ como es $[C]$.
+	Veamos ahora si fijamos $C \in \copt$ como es la clase de equivalencia $[C]$.
 	Para esto notemos que $|[C]| = 3.$
-	Esto se debe a que si $\delta C = \{ g,ga \}$ entonces necesariamente los siguientes cortes $D,E \in \copt$ son tales que $C \sim D \sim E$.
+	Esto se debe a que si $\delta C = \{ g,ga \}$ entonces los siguientes cortes $D,E \in \copt$ son tales que $C \sim D \sim E$.
 	
 	\begin{figure}[H]
 		\centering
@@ -882,13 +904,15 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 			\node at (3.5-0.7,-7+0.4) {$E$};
 			
 		\end{tikzpicture}
-		\caption{Los tres cortes $C,D,E$ están en la misma clase de equivalencia.}
+		\caption{\small{Los tres cortes $C,D,E$ están en la misma clase de equivalencia.}}
 	\end{figure}
+
+	Si $F$ es otro corte tal que $\ol F \subsetneq C$ tenemos que necesariamente vale que $\ol F \subsetneq \ol D$ o bien $\ol F \subsetneq \ol E$.
 \end{ej}
 
 \begin{deff}
 	Sea $\Gamma$ un grafo conexo, accesible y localmente finito y sea $\copt$ el conjunto de sus cortes óptimos.
-	El \emph{árbol de estructura} $T(\copt)$ de un grafo $\Gamma$ es el siguiente grafo dirido:
+	El \emph{árbol de estructura} $T(\copt)$ de un grafo $\Gamma$ es el siguiente grafo dirigido:
 	\begin{align*}
 		V(T(\copt)) &= \{ [C] : C \in \copt \} \\
 		E(T(\copt)) &= \{ \{ [C], [\ol C] \} : C \in \copt   \}
@@ -897,16 +921,18 @@ Ahora vamos a definir la siguiente relación sobre los cortes óptimos.
 
 En particular notemos que está bien definido como grafo no dirigido dado que para todo $C \in \copt$ tenemos que $C \nsim \ol C$ por lo que no tiene bucles.
 Por otro lado si $C \sim D$ entonces no puede pasar que $\ol C \sim \ol D$ caso contrario obtendríamos que $\ol C \subsetneq D$ y que $D \subsetneq \ol C$ por lo tanto $\ol C \subsetneq \ol C$ y esto es una contradicción.
-Por nuestra construcción el árbol de estructura no tiene porqué ser localmente finito.
-El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de la clase de equivalencia de $C$ y éste podría ser infinito.
+
+\begin{obs}
+	Por nuestra construcción el árbol de estructura no tiene porqué ser localmente finito.
+	El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de la clase de equivalencia de $C$ y éste podría ser infinito.
+\end{obs}
+
 
 \begin{prop}
 	El grafo $T(\copt)$ es un árbol.
 \end{prop}
 
 \begin{proof}
-	Debemos ver que es acíclico y conexo.
-	
 	Primero veamos que no tiene ciclos.
 	Supongamos que $\gamma$	es un ciclo
 	\[
@@ -914,17 +940,19 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 	\]
 	donde $\ol C_{i} \sim C_{i+1}$ para todo $i=1 \dots n-1$.
 	Notemos que $\ol C_{i-1} \neq C_{i}$ para todo $i=1 \dots n-1$ sino tendríamos que $C_{i-1} = \ol{ C_{i}}$ y esto implicaría que $C_{i-1} = \ol{C_{i}} \sim C_{i-1}$
-	y esto contradice que el camino $\gamma$ no es simple.
+	y esto diría que el camino $\gamma$ no es simple.
 	
 	De esta manera tenemos una cadena de inclusiones
 	\begin{equation}\label{eq:inclusiones}
 			C_0 \subsetneq C_1 \subsetneq \dots  \subsetneq C_{n-1}
 	\end{equation}
 	tal que $\ol{ C_{n-1}} \sim C_0$.
-	Veamos que no puede haber una arista $\{[\ol{ C_{n-1}}], [C_0]\}$.
+	Veamos que no puede haber una arista $\{[{ C_{n-1}}], [C_0]\}$.
 	Si la hubiera tendría que valer alguna de estas dos condiciones:
 	\begin{enumerate}
-		\item $C_{n-1} = C_{0}$ y nuevamente obtenemos un absurdo porque en este caso tenemos que dado que $n \ge 3$ entonces por \ref{eq:inclusiones} llegamos a que $C_{0} \subsetneq C_{0}$ y esto es un absurdo.
+		\item $\ol{C_{n-1}} = C_{0}$. 
+		Esto contradice lo visto en \ref{eq:inclusiones} dado que en tal caso
+		 llegamos a que $\ol{C_{n-1}} \subsetneq C_{n-1}$.
 		
 		\item ${C_{n-1}} \subsetneq C_{0}$ pero esto nos da un absurdo porque en tal caso por \ref{eq:inclusiones} obtenemos que $C_{0} \subsetneq C_{0}$.
 	\end{enumerate}
@@ -939,7 +967,7 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 	\[
 		C=C_0 \subsetneq C_1 \subsetneq \dots \subsetneq C_n = D
 	\]
-	luego por como tomamos estos cortes obtenemos que $\ol C_i \sim C_{i+1}$ por lo tanto obtenemos el siguiente camino $[C],[C_1], \dots, [C_{n-1}],[D]$ en el grafo $T(\copt)$ probando así que es conexo.	
+	luego por como tomamos estos cortes obtenemos que $\ol C_i \sim C_{i+1}$ por lo tanto obtenemos el siguiente camino $\gamma = ([C],[C_1], \dots, [C_{n-1}],[D])$ en el grafo $T(\copt)$ probando así que es conexo.	
 \end{proof}
 
 
@@ -948,7 +976,7 @@ El grado de cada vértice $[C] \in V(T(\copt))$ está acotado por el órden de l
 
 \section{Acciones sobre el árbol de estructura.}\label{secc_accion_arbol_estr}
 
-En esta sección vamos a ver que los cortes óptimos no solamente están anidados entre sí sino que si $G$ actúa sobre el grafo $\Gamma$ luego actúa sobre estos cortes óptimos.
+En esta sección vamos a ver que los cortes óptimos no solamente están anidados entre sí sino que si un grupo $G$ actúa sobre el grafo $\Gamma$ luego actúa sobre estos cortes óptimos.
 Esta acción se traslada naturalmente a una acción sobre el árbol de estructura.
 
 
@@ -965,8 +993,9 @@ Esta acción se traslada naturalmente a una acción sobre el árbol de estructur
 	
 	
 	Veamos que manda un corte minimal en uno minimal. 
-	Para eso si $C \in {{\cal C}}_{\text{min}}(\alpha)$ para cierto camino infinito $\alpha$ luego notemos que $\varphi(\alpha)$ es otro camino infinito y por ser un automorfismo obtenemos que $\varphi(C) \in {\cal C}({\varphi(\alpha)})$.
-	Por otro lado es un camino minimal porque si $D \in {\cal C}(\varphi(\alpha))$ obtenemos que $\varphi^{-1}(D) \in \ca$ lo que implica que $|\delta D| \ge |\delta C|$ dado que $C \in \cam$.
+	Para eso si $C \in {{\cal C}}_{\text{min}}(\alpha)$ para cierto camino infinito $\alpha$ luego notemos que $\varphi(\alpha)$ es otro camino infinito y por ser un automorfismo obtenemos que $\varphi(C) \in {\cal C}({\varphi(\alpha)})$ y que $|\delta(\varphi(C))| = |\delta C|$.
+	De esta manera $C \in \cam \iff \varphi(C) \in \cmin(\varphi(\alpha))$.
+	
 	
 	Veamos ahora que manda cortes óptimos en cortes óptimos.
 	Sean $C,D \in {\cal C}_{\text{min}}$ cortes que no están anidados luego necesariamente $\varphi(C)$ y $\varphi(D)$ no están anidados tampoco.
@@ -994,10 +1023,10 @@ Más aún podemos extender esta acción al árbol de estructura.
 	Esto nos dice que la acción dada por $\varphi([C]) = [\varphi (C)]$ está bien definida y por lo tanto actúa sobre los vértices de $T(\copt)$.
 	Para ver que actúa sobre el árbol notemos que 
 	\[
-		\varphi([C],[\ol C]) = ([\varphi (C)], [\varphi (\ol C)]) = ([\varphi (C)], [\ol{\varphi (C)}])
+		\varphi(\{[C],[\ol C]\}) = (\{[\varphi (C)], [\varphi (\ol C)]\}) = (\{[\varphi (C)], [\ol{\varphi (C)}]\})
 	\]
 	donde usamos que $\varphi(\ol{C}) = \ol{\varphi(C)}$ dado que $\varphi \in \aut(\Gamma)$.
-	
+	De esta manera vimos que $\aut(\Gamma)$ actúa sobre $T(\copt)$.
 \end{proof}
 
 
@@ -1037,7 +1066,8 @@ Lo primero que vamos a buscar entender es cómo son los estabilizadores de esta 
 	Primero consideremos algún $C \in \copt$ y después veamos de extender este resultado para todos los cortes óptimos.
 	
 	Dado que $\ol C$ es conexo tenemos que para todo par de vértices $v,w \in \delta C \cap \ol C$ existe un camino $\alpha_{vw}$ tal que $\alpha_{vw} \subset \ol C$ y es de longitud minimal.
-	Sea $l \in \NN$ tal que $l \ge \sup_{v,w \in \delta C \cap \ol C} d(C,\alpha_{vw})$ dado que existen finitos pares de vértices que cumplen esta propiedad.
+	Sea $l \in \NN$ tal que $l \ge \sup_{v,w \in \delta C \cap \ol C} d(C,\alpha_{vw})$ que está bien definido dado que existen finitos pares de vértices $v,w \in \delta C \cap \ol C$.
+	
 	Afirmamos que $N^{l}(C) \cap \ol C$ es conexo.
 	Para eso sean $w,w' \in N^{l}(C) \cap \ol C$ luego tenemos que existe un camino tal que conecta a $w$ con $v  \in \delta C \cap \ol C$ y un camino que conecta a $w'$ con $v' \in \delta C \cap \ol C$ y ambos caminos están contenidos en $N^{l}(C) \cap \ol C$.
 	Por la elección de $l$ tenemos que $v$ y $v'$ están conectados en $N^l(C) \cap \ol C$ probando así que es conexo.
@@ -1124,13 +1154,13 @@ Estos bloques aparte cumplen que son conexos.
 	Consideremos ahora el primer vértice $v_n$ de $\gamma$ con $n > m$ tal que $v_n \in N^l(D)$.
 	Por ser el primer vértice que aparece en el camino después de $v_{m}$ y por el lema \ref{lema_bloques_def_equiv} tiene que valer que $v_n \in N^l(D) \cap \ol D$.
 	
-	Dado que $N^l(D) \cap \ol D$ es conexo tenemos un camino que une $v_{m-1}$ con $v_n$ tal que está contenido en $N^l(D) \cap \ol D$ y en particular por el lema \ref{lema_bloques_def_equiv} está contenido en $B([C])$.
+	Dado que $N^l(D) \cap \ol D$ es conexo tenemos un camino de longitud minimal que une $v_{m-1}$ con $v_n$ tal que está contenido en $N^l(D) \cap \ol D$ y en particular por el lema \ref{lema_bloques_def_equiv} está contenido en $B([C])$.
 	
 	Este camino evita $S$ porque para todo $w$ en el camino vale que 
 	\[
 		d(v_{n},w) \le d(v_{n},v_{m-1}) \le \kappa
 	\]
-	dado que $v_{n}, v_{m-1} \in \delta D \cap \ol D$.
+	dado que $v_{n}, v_{m-1} \in \delta D \cap \ol D$ y dado que el camino tiene longitud mínima.
 	Luego si algún $w$ del camino estuviera en $S$ tendríamos que 
 	$d(v_n,S) \le \kappa$ contradiciendo que partimos de un camino $\gamma$ que está contenido en $\Gamma \setminus N^{\kappa}(S)$.	
 	
@@ -1169,6 +1199,8 @@ Estos bloques aparte cumplen que son conexos.
 	\end{itemize}
 \end{proof}
 
+Dado $C \in \copt$ definimos el estabilizador $G_{[C]} = \{ g \in G \mid g \cdot [C] \subseteq [C]  \}$.
+
 \begin{lema}\label{lema_g_actua_b(C)}
 	Sea $\Gamma$ grafo accesible, infinito, conexo, localmente finito tal que $G$ actúa con finitas órbitas sobre $\Gamma$, $D$ corte y $g \in G$ tal que $g \in G_{[C]}$ luego tenemos que 
 	$g \cdot B([C]) = B([C])$.
@@ -1193,12 +1225,12 @@ Estos bloques aparte cumplen que son conexos.
 \end{proof}
 
 \begin{lema}\label{lema_gC_actua_C}
-	Sea $\Gamma$ un grafo conexo, localmente finito y accesible tal que $G$ actúa sobre $\Gamma$ con finitas órbitas.
+	Sea $\Gamma$ un grafo conexo, localmente finito y accesible tal que $G$ actúa sobre $\Gamma$ con finitas órbitas y sea $C \in \copt$.
 	Entonces $G_{[C]}$ actúa con finitas órbitas sobre $[C]$.
 \end{lema}
 \begin{proof}
 	Podemos ver que $G_{[C]}$ actúa sobre $[C]$ si restringimos la acción de $G$ al subgrupo $G_{[C]}$.
-	Como $G$ actúa con finitas órbitas tenemos que existen finitos cortes $D_{1}, \dots, D_{k} \in [C]$ de manera que las órbitas ${\cal O}(D_{i})$ sean distintas para todo $1 \le i \le k$.
+	Como $G$ actúa con finitas órbitas tenemos que existen finitos cortes $D_{1}, \dots, D_{k} \in [C]$ de manera que las órbitas ${\cal O}(D_{i})$ son distintas para todo $1 \le i \le k$.
 	Sea $D \in [C]$ entonces existe $g \in G$ y $D_{i}$ tal que $D = gD_{i}$ y como $D \sim gD_{i} \sim C$ esto dice que $gC \sim C$ lo que implica que 
 	$g \in G_{[C]}$.
 	De esta manera tenemos que $G_{[C]}$ también actúa con finitas órbitas sobre $[C]$. 
@@ -1212,7 +1244,7 @@ Estos bloques aparte cumplen que son conexos.
 \end{lema}
 \begin{proof}
 	Probemos entonces que existe tal corte $D$.
-	Sea $v \in B([C])$ luego tenemos que si $v \in N^l(D) \cap \ol D$ ya está porque podemos tomar $m=l$.
+	Sea $v \in B([C])$ luego tenemos que si existe un corte $D \in [C]$ tal que  $v \in N^l(D) \cap \ol D$ ya está porque podemos tomar $m=l$.
 	Entonces nos interesa el caso que $v \in D$ para todo $D \sim C$.
 	Sabemos que $G$ actúa con finitas órbitas sobre el grafo $\Gamma$ por lo tanto debe existir $U \subseteq V(\Gamma)$ finito tal que $B([C]) \subseteq G \cdot U$.
 	Esto nos dice que $v = g \cdot u$ con $u \in U$.
@@ -1222,25 +1254,28 @@ Estos bloques aparte cumplen que son conexos.
 	d(g \cdot u, \beta (g \cdot C)) \le m,
 	\]
 	por lo tanto $v \in B([C])$ está en una bola de radio $m$ de $\beta (g \cdot C)$.
-	Si vemos que hay finitas órbitas de la acción de $G_{[C]}$ sobre $\bigcup_{D \sim C} \beta (g \cdot C)$ entonces dado que el grafo es localmente finito, por el mismo argumento de antes tendríamos que hay finitas posibles órbitas.
+	Sea $w \in \beta (g \cdot C)$ tal que $d(v,w) \le m$.
+%	Si vemos que hay finitas órbitas de la acción de $G_{[C]}$ sobre $\bigcup_{D \sim C} \beta (g \cdot C)$ entonces dado que el grafo es localmente finito, por el mismo argumento de antes tendríamos que hay finitas posibles órbitas.
+	
+	Podemos suponer que $w \in \beta (g \cdot C) \cap B([C])$, caso contrario tendríamos que $w \in \beta (g \cdot C)$ y para todo $D \sim C$ tendríamos que $w \in \ol D$ lo que implicaría  que $d(v,\beta D) \le m$ y en este caso no quedaría nada para probar dado que habríamos encontrado al corte $D \in [C]$ que cumple que $d(v, \beta D) \le m$. 
 	
 	Probemos que $\beta (g \cdot C) \subseteq \bigcup_{D \sim C} \beta D$.
-	Esto nos dice que en particular podemos suponer que $v \in \beta (g \cdot C) \cap B([C])$, caso contrario tendríamos que existe $w \in \beta (g \cdot C)$ y para todo $D \sim C$ tendríamos que $w \in \ol D$ lo que implicaría  que $d(v,\beta D) \le m$ y en este caso no quedaría nada para probar.
-	Entonces supongamos que $ v \in \beta (g \cdot C) \cap B([C])$ y más aún nos queda considerar el caso que $v \in D$ para todo $D \sim C$ y $v \in \beta (g \cdot C)$.
+	Entonces supongamos que $w \in \beta (g \cdot C) \cap B([C])$ y más aún nos queda considerar el caso que $w \in D$ para todo $D \sim C$ y $w \in \beta (g \cdot C)$. 
 	
 	Por la proposición \ref{teo_copt_anidados} tenemos que $g \cdot C$ y $C$ están anidados.
 	Renombrando a $g \cdot C$ de ser necesario obtenemos dos casos en particular, $\ol{ g \cdot C} \subsetneq C$ y $C \subseteq \ol {g \cdot C}$.
 	
 	El caso que $C \subseteq \ol{ g \cdot C}$ tenemos que $ g \cdot C \subseteq \ol C$ lo que nos dice que $\beta (g \cdot C) \subseteq \beta \ol C \cup \ol C$.
-	Como suponemos que $v \in C$ luego esto nos dice que $v \in \beta \ol C = \beta C$ tal como queríamos ver.
+	Como suponemos que $w \in C$ luego esto nos dice que $w \in \beta \ol C = \beta C$ tal como queríamos ver.
 	
 	Consideremos ahora el caso que ${\ol{ g \cdot C}} \subsetneq C$.
 	Por la obs \ref{obs_cortes_maximal} tenemos que existen finitos cortes intermedios y debe existir $D \in \copt$ tal que 
-	$\ol{g \cdot C}  \subsetneq \ol D \subsetneq C$ y resulta maximal respecto a la inclusión y así por definición $D \sim C$.
-	Como $v \in B([C]) = \bigcap_{C \sim D} D $ luego tenemos que $v \in D \cap \beta (g \cdot C)$.
+	$\ol{g \cdot C}  \subseteq \ol D \subsetneq C$ y resulta maximal respecto a la inclusión y así por definición $D \sim C$.
+	Como $w \in \bigcap_{C \sim D} D  \subseteq B([C])$ luego tenemos que 
+	$w \in D \cap \beta (g \cdot C)$.
 	Como tenemos la siguiente contención $\beta (g \cdot C) \subseteq \beta D \cup \ol D$ obtenemos que
 	\[
-	v \in D \cap (\beta D \cup \ol D) \implies v \in \beta D
+	w \in D \cap (\beta D \cup \ol D) \implies w \in \beta D
 	\]
 	tal como queríamos ver.
 \end{proof}
@@ -1267,6 +1302,7 @@ Estos bloques aparte cumplen que son conexos.
 \end{proof}
 
 \begin{lema}\label{lema_bloques_1_end}
+	Sea $\Gamma$ un grafo infinito, conexo, localmente finito y accesible.
 	Los bloques $B([C])$ tienen a lo sumo un solo end.
 \end{lema}
 \begin{proof}
@@ -1276,10 +1312,10 @@ Estos bloques aparte cumplen que son conexos.
 	
 	% por el lema anterior tenemos al menos un corte que lo parte
 	El conjunto $N^l(S)$ sigue siendo finito por lo tanto tenemos que $\alpha$ tiene infinitos vértices en $\Gamma \setminus N^l(S)$.
-	Por el lema \ref{lema_conexion_B(C)} tenemos que dados dos vértices de $B[C]$ luego todo camino en $\Gamma \setminus N^l(S)$ que los conecte se puede tomar para que esté dentro de $B([C]) \setminus S$, de esta manera tienen que existir dos componentes conexas de $\Gamma \setminus N^l(S)$ tales que tengan infinitos vértices de $\alpha$. 
+	Por el lema \ref{lema_conexion_B(C)} tenemos que dados dos vértices de $B[C]$ luego todo camino en $\Gamma \setminus N^l(S)$ que los conecte se puede tomar para que esté dentro de $B([C]) \setminus S$. 
+	De esta manera tienen que existir dos componentes conexas de $\Gamma \setminus N^l(S)$ tales que tengan infinitos vértices de $\alpha$. 
 	Caso contrario negaríamos que existen dos componentes conexas de $B([C]) \setminus S$ que tienen infinitos vértices de $\alpha$.
 	Esto nos dice que ${\cal C}_{\alpha} \neq \emptyset$.
-	\todo{Comentar mejor como ir de sacarle S a $\ca$.}
 	Como el conjunto de cortes es no vacío debe existir $E \in \copt \cap {\cal C}_{\alpha}$.
 	Como $E \in {\cal C}_{\alpha}$ luego tenemos que $|\alpha \cap E| = \infty = |\alpha \cap \ol E|$.
 	Nuestro objetivo es llegar a una contradicción de suponer la existencia de este corte. 	
@@ -1345,7 +1381,7 @@ Estos bloques aparte cumplen que son conexos.
 \end{proof}
 
 Consideremos $\cG$ una clase de grupos tal que es cerrada por subgrupos de índice finito.
-En nuestro caso en particular nos va a interesar la clase de grupos finitos pero otras clases interesantes que cumplen esta propiedad son la de los grupos virtualmente libres.
+En nuestro caso en particular nos va a interesar la clase de grupos finitos pero otras clases interesantes que cumplen esta propiedad son la de los grupos virtualmente libres por lo visto en la proposición \ref{prop_vls}.
 Recordemos que un grupo $G$ es virtualmente $\cG$ si existe $H$ subgrupo de $G$ de índice finito tal que $H \in \cG$.
 
 \begin{lema}\label{lema_accion_virtualmente_g}
