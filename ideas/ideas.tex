@@ -2,107 +2,7 @@
 \usepackage{geometry}\geometry{top=5cm,bottom=2cm,left=3cm,right=3cm}
 \usepackage[utf8]{inputenc}
 \usepackage[spanish]{babel}
-\usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools,sectsty}
-\pagenumbering{gobble}
-\usepackage{subcaption}
-%\usepackage{graphicx}
-%\usepackage[pdftex,dvipsnames]{xcolor}
-\usepackage{cancel}
-\usepackage{graphicx}
-\usepackage{marginnote}
 
-% Tikz y las librerías para automátas
-\usepackage{tikz-cd}
-\usepackage{tikz}
-\usetikzlibrary{arrows,automata}
-\usetikzlibrary{babel} %para evitar que se jodan los automatas de tikz
-
-%Referencias; me gustaría que backref funcione pero no es importante tampoco.
-\usepackage[pagebackref]{hyperref}
-% Para modificar el estilo de las referencias
-\hypersetup{
-	colorlinks,
-	linkcolor={astral},
-	citecolor={blue!30!black},
-	urlcolor={blue!80!black}
-}
-\definecolor{astral}{RGB}{46,116,181}
-\colorlet{chulo}{blue!70!purple}
-\colorlet{rojo}{purple!65!black}
-
-
-\paragraphfont{\color{astral!70!black}}
-\chapterfont{\color{astral!40!black}}
-\subsectionfont{\color{astral!60!black} }
-\sectionfont{\color{astral!50!black} }
-\usepackage{mathpazo}
-\usepackage{amssymb}
-\usepackage{eufrak}
-%\usepackage{thmtools}
-
-%Esto sirve para armar grafos de Cayley de una manera más copada.
-\usetikzlibrary{lindenmayersystems,arrows.meta}
-\newcount\quadrant
-\pgfdeclarelindenmayersystem{cayley}{
-	\rule{A -> B [ R [A] [+A] [-A] ]}
-	\symbol{R}{ \pgflsystemstep=0.5\pgflsystemstep } 
-	\symbol{-}{
-		\pgfmathsetcount\quadrant{Mod(\quadrant+1,4)}
-		\tikzset{rotate=90}
-	}
-	\symbol{+}{
-		\pgfmathsetcount\quadrant{Mod(\quadrant-1,4)}
-		\tikzset{rotate=-90}
-	}
-	\symbol{B}{
-		\draw [dot-cayley] (0,0) -- (\pgflsystemstep,0) 
-		node [font=\footnotesize, midway, 
-		anchor={270-mod(\the\quadrant,2)*90}, inner sep=.5ex] 
-		{\ifcase\quadrant$a$\or$b$\or$a^{-1}$\or$b^{-1}$\fi};
-		\tikzset{xshift=\pgflsystemstep}
-	}
-}
-\tikzset{
-	dot/.tip={Circle[sep=-1.5pt,length=3pt]}, cayley/.tip={Stealth[]dot[]}
-}
-
-%%%%%%%%%%%%%  TEOREMAS  %%%%%%%%%%%%%%%%%
-\theoremstyle{plain} %% el estilo clásico
-\newtheorem{teo}{\color{rojo} Teorema}[section]
-\newtheorem{prop}[teo]{\color{rojo} Proposición}
-\newtheorem{lema}[teo]{\color{rojo} Lema}
-\newtheorem{coro}[teo]{\color{rojo} Corolario}
-\newtheorem{preg}[teo]{\color{rojo} Pregunta}
-% Si pongo [theorem] siguen la numeración de los teoremas. 
-% e.j. Teo 1, Lema 2, Teo 3, Teo 4 ...
-\theoremstyle{definition}
-\newtheorem{deff}{\color{orange!80!black} Definición}[section] 
-\newtheorem{ej}{\color{orange!80!black} Ejemplo}[section]
-
-% Remarks
-\theoremstyle{remark}
-\newtheorem{obs}{\color{orange!85!white} Observación}[section]
-
-
-
-%Comandos útiles.
-\newcommand\RP{\mathbb{RP}}
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-\newcommand{\ti}{\tilde}
-\newcommand{\RR}{\mathbb R}
-\newcommand{\CC}{\mathbb C}
-\newcommand{\NN}{\mathbb N}
-\newcommand{\ZZ}{\mathbb Z}
-\newcommand{\Om}{\Omega}
-\newcommand{\A}{\mathcal A}
-\newcommand\ol{\overline}
-\newcommand{\blue}{\textcolor{chulo}}
-\newcommand{\red}{\textcolor{rojo}}
-\newcommand{\Gg}{\mathfrak g}
-\newcommand{\SL}{SL_2(\mathbb Z)}
-\newcommand{\stab}{\text{Stab}}
-
-%%%%%%%%%%%%%%  PAGE SETUP %%%%%%%%%%%%%%%%%
 
 
 %opening
@@ -114,7 +14,7 @@
 \usepackage{subfiles} % mejor ponerlos al final
 \title{Ideas sueltas.}
 \date{}
-
+\input{macros}
 \begin{document}
 	
 	
@@ -137,25 +37,27 @@ entonces podemos definirnos una relación $R \subset V(T) \times V(X)$ por medio
 A partir del teorema de Dowker nos podemos construir complejos simpliciales $K_X$ y $K_T$ tales que resultan homotópicos entre sí.
 
 
-Una observación de esto es que 
-\begin{obs}
+Una afirmacionervación de esto es que 
+\begin{afirmacion}
 	Si $X$ es un árbol entonces es isomorfo como grafo a su complejo de Dowker. 
 	Esto es que $X \simeq K_X$.
-\end{obs}
+\end{afirmacion}
 
 En particular 
 
-\begin{obs}
+\begin{afirmacion}
 	$T$ siempre resulta ser un spanning tree del complejo $K_T$.
-\end{obs}
+\end{afirmacion}
 	
-\section{Otra construcción para que el treewidth sea conexo.}	
+\section{Otra construcción para que el treewidth sea conexo.}
+
+	
 
 Me gustaría probar el siguiente resultado o al menos ver dónde se rompe.
 
-\begin{preg}
+\begin{afirmacion}
 	Todo grupo fundamental de un grafo de grupos finito con grupos finitos tiene treewidth conexo finito.
-\end{preg}
+\end{afirmacion}
 
 Lo bueno de esto sería dar una descomposición de un árbol distinta a la que aparece en \cite{diekert_contextfree_2017} tal que sea conexa.
 
@@ -197,40 +99,78 @@ Esta misma idea creo que se puede extender fácilmente para obtener una descompo
 	
 Quedaría ver entonces el siguiente resultado.
 
-\begin{preg}
+\begin{afirmacion}
 	Un grupo amalgamado $G \ast_{K} H$	de grupos finitos tiene treewidth conexo finito.
-\end{preg}	
+\end{afirmacion}	
 	
 No me queda claro que la idea de antes pueda andar en este caso. 
 
 	
+
+
+
+
+
+\section{Grupos independiente de contextos actúan sobre un árbol.}
+
+Sea $G$ un grupo \ic{} entonces busco un árbol $T$ de manera que $G$ actúa sobre $T$ sin inversión de aristas.
+
+\subsection{Idea 1.}
+Como $G$ es determinístico \ic{} entonces si consideramos el conjunto 
+\[
+	\text{Config}({\cal M}) = \{ \confguno \in Q \times \Sigma^* \times \Gamma \}.
+\]
+si definimos las aristas para que 
+\[
+	\{ \confguno, \confgdos  \} \iff \delta(q,w_{1},\gamma_{1}) = (p, \theta').
+\]
+
+\begin{afirmacion}
+	$T$ definido como $V(T) = \text{Config}({\cal M})$ y con las aristas tal como hice arriba resulta que no tiene ciclos.
+	Como $\cal M$ es determinístico esta razón nos dice que el grafo no debería tener ciclos. 
+\end{afirmacion}
+
+
+\begin{afirmacion}
+	El grafo no es conexo.
+	De hecho es un bosque porque podemos encontrarnos configuraciones distintas tales que no están conectadas en el grafo.
+\end{afirmacion}
+
+No es un árbol pero es un bosque.
+¿Cómo sería una acción de $G$ sobre este bosque?
+
+\begin{afirmacion}
+	Podríamos definir para que 
+	\[
+		g \cdot \confguno = \confgdos
+	\]
+	si $\vectres{q}{g}{\gamma} = \confgdos$.
 	
-\begin{tikzpicture}[
-	vertex/.style={draw,circle,fill=white,inner sep=0pt,minimum size=6mm},
-	edge/.style={->,shorten >=1pt,>=stealth',semithick}
-	]
+	\red{Todo: Chequear que está bien definida esta acción.}
+\end{afirmacion}
+
+\subsection{Idea 2.}
+	Consideramos el siguiente grafo que por construcción es isomorfo al grafo de Cayley.
+	Sea $\Gamma$ el grafo definido como:
+	\begin{equation}
+		V(\Gamma) = \{ \confguno \mid \exists u \land w \in \text{Pos}(u), \vectres{q_{0}}{u}{\$} \vdash^{*} \confguno \} 
+	\end{equation}
+	Esto básicamente nos dice que estamos mirando las configuraciones alcanzables del autómata.
 	
-	% Define the vertices
-	\node[vertex] (1) at (0,0) {$1$};
-	\node[vertex] (2) at (2,0) {$2$};
+	Podría considerar palabras $u$ tales que $u$ es una forma normal.
 	
-	% Draw the edges
-	\draw[edge] (1) to[bend left] (2);
-	\draw[edge,color=red] (1) to[bend right] (2);
-	
-\end{tikzpicture}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-\bibliography{bibliografia}
-\bibliographystyle{alpha}	
+	\begin{afirmacion}
+		Tenemos una acción de $G$ en este conjunto dada por 
+		\[
+			g \cdot \confguno = \confgdos 
+		\]
+	si $\vectres{q}{g}{\gamma} \vdash^{*} \vectres{p}{\epsilon}{\theta}$.
+	\end{afirmacion}
+
+
+\subsection{Idea 3.}
+	Encontrar un árbol a partir del sistema de reescritura que nos surge del \APND.
+
+\subsection{Idea 4.}
+	Encontrar un árbol a partir de la gramática del lenguaje del problema de la palabra.
 \end{document}

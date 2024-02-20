@@ -1,0 +1,130 @@
+\usepackage{xcolor}
+\usepackage{amssymb}
+\usepackage{pifont}
+\usepackage{amsmath,amsfonts,amsthm,amssymb,mathtools,sectsty}
+\pagenumbering{gobble}
+\usepackage{subcaption}
+%\usepackage{graphicx}
+%\usepackage[pdftex,dvipsnames]{xcolor}
+\usepackage{cancel}
+\usepackage{graphicx}
+\usepackage{marginnote}
+
+% Tikz y las librerías para automátas
+\usepackage{tikz-cd}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usetikzlibrary{babel} %para evitar que se jodan los automatas de tikz
+
+%Referencias; me gustaría que backref funcione pero no es importante tampoco.
+\usepackage[pagebackref]{hyperref}
+% Para modificar el estilo de las referencias
+\hypersetup{
+	colorlinks,
+	linkcolor={astral},
+	citecolor={blue!30!black},
+	urlcolor={blue!80!black}
+}
+\definecolor{astral}{RGB}{46,116,181}
+\colorlet{chulo}{blue!70!purple}
+\colorlet{rojo}{purple!65!black}
+
+
+\paragraphfont{\color{astral!70!black}}
+\chapterfont{\color{astral!40!black}}
+\subsectionfont{\color{astral!60!black} }
+\sectionfont{\color{astral!50!black} }
+\usepackage{mathpazo}
+\usepackage{amssymb}
+\usepackage{eufrak}
+%\usepackage{thmtools}
+
+
+
+
+\usepackage[framemethod=tikz]{mdframed}
+
+%%%%%%%%%%%%%  TEOREMAS  %%%%%%%%%%%%%%%%%
+\theoremstyle{plain} %% el estilo clásico
+\newtheorem{teo}{\color{rojo}{ \textsc{ Teorema}}}[section]
+\newtheorem{prop}[teo]{\color{rojo} \textsc{Proposición}}
+\newtheorem{lema}[teo]{\color{rojo} \textsc{Lema}}
+\newtheorem{coro}[teo]{\color{rojo} \textsc{Corolario}}
+% Si pongo [theorem] siguen la numeración de los teoremas. 
+% e.j. Teo 1, Lema 2, Teo 3, Teo 4 ...
+\theoremstyle{definition}
+\newtheorem{deff}[teo]{\textsc{ Definición}}{\smallskip}
+\newtheorem{ej}[teo]{\textsc{Ejemplo}}{\smallskip}
+
+% Remarks
+\theoremstyle{remark}
+\newtheorem{obs}[teo]{ \textsc{Observación}}{\smallskip}
+\newtheorem{afirmacion}[teo]{ \textsc{Afirmación}}{\smallskip}
+
+% DEMOS EN NEGRITA.
+\renewenvironment{proof}{{\textbf{Demostración.}}}{ \hfill $\blacksquare$ \medskip}
+
+%COLORES
+
+\definecolor{astral}{RGB}{46,116,181}
+\colorlet{chulo}{blue!70!purple}
+\colorlet{rojo}{purple!45!black}
+\definecolor{carrotorange}{rgb}{0.93, 0.57, 0.13}
+\definecolor{brightcerulean}{rgb}{0.11, 0.67, 0.84}
+\definecolor{brightube}{rgb}{0.82, 0.62, 0.91}
+\definecolor{cadmiumred}{rgb}{0.89, 0.0, 0.13}
+\definecolor{applegreen}{rgb}{0.55, 0.71, 0.0}
+\definecolor{aurometalsaurus}{rgb}{0.43, 0.5, 0.5}
+
+%%%%%%%%%%%%%%%%%%%%% ENUMERAR CON COSAS QUE NO SEAN SOLO NÚMEROS %%%%%%%%%%
+%\usepackage[shortlabels]{enumitem}
+%\setlist[enumerate]{font=\bfseries}
+
+
+\newcommand\RP{\mathbb{RP}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\Om}{\Omega}
+\newcommand{\A}{\mathcal A}
+\newcommand\ol{\overline}
+\newcommand{\blue}{\textcolor{chulo}}
+\newcommand{\red}{\textcolor{rojo}}
+\newcommand{\Gg}{\mathfrak g}
+\newcommand{\SL}{SL_2(\mathbb Z)}
+\newcommand{\stab}{\text{Stab}}
+\newcommand{\ic}{independiente de contexto}
+\newcommand{\APND}{automáta de pila no determinístico}
+\newcommand{\APD}{automáta de pila determinístico }
+\newcommand{\gramatica}{{\cal G} = (V, \Sigma, P, S)}
+\newcommand{\deriva}{\overset{*}{\to_{\cal G}}}
+\newcommand{\lengderivado}{L({\cal G})}
+\newcommand{\fg}{finitamente generado }
+%\newcommand{\ol}{\overline{}}
+
+\newcommand{\fp}{finitamente presentado }
+\newcommand{\vl}{virtualmente libre}
+\newcommand{\vls}{virtualmente libres}
+\newcommand{\WP}[2]{\text{WP}(#1, #2)}
+
+\newcommand{\cG}{ {\cal G} }
+\newcommand{\cGg}{{\cal G} = (V, \Sigma, P, S)}
+\newcommand{\cH}{ {\cal H} }
+\newcommand{\Xm}{\widetilde X}
+%\newcommand{\ol}{\overline{}}
+
+\newcommand{\vectres}[3]{(#1,#2,#3)}
+\newcommand{\confgin}{(q_{0}, w, \$)}
+\newcommand{\confguno}{(q, w, \gamma)}
+\newcommand{\confgdos}{(p,u,\theta)}
+
+\newcommand{\cay}[2]{\text{Cay}(#1,#2)}
+
+\newcommand{\ca}[1]{{\cal C}(#1)}
+\newcommand{\cmin}[1]{{\cal C}_{\text{min}}(#1)}
+%\newcommand{\cam}{{\cal C}_{\text{min}}(\alpha)}
+\newcommand{\copt}[1]{{\cal C}_{\text{opt}}(#1)}
+%\newcommand{\copt}{{\cal C}_{\text{opt}}}
+\newcommand*{\rows}{6}
