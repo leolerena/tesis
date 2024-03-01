@@ -15,18 +15,6 @@
 	\maketitle
 
 	
-	\begin{frame}[fragile]{Teoría de lenguajes.}
-		Dado un conjunto finito $A$ notaremos por $A^*$ al monoide libre sobre $A$.
-		
-		\begin{deff}
-			Un lenguaje $L$ sobre un alfabeto $A$ es un subconjunto de $A^*$.
-		\end{deff}	
-		
-		Podemos clasificar los lenguajes de acuerdo a qué tipo de máquina las acepta.
-		
-		Un lenguaje \ic{} es un lenguaje aceptado por un \APND.
-			
-	\end{frame}
 	
 	
 	\begin{frame}[fragile]{Problema de la palabra.}
@@ -43,9 +31,20 @@
 		\end{itemize}
 		
 		Existe un grupo $G$ \fg tal que su problema de la palabra no es decidible.
+	\end{frame}
+	
+
+	\begin{frame}[fragile]{Teoría de lenguajes.}
+		Dado un conjunto finito $A$ notaremos por $A^*$ al monoide libre sobre $A$.
 		
+		\begin{deff}
+			Un lenguaje $L$ sobre un alfabeto $A$ es un subconjunto de $A^*$.
+		\end{deff}	
 		
+		Podemos clasificar los lenguajes de acuerdo a qué tipo de máquina las acepta.
 		
+		Un lenguaje \ic{} es un lenguaje aceptado por un \APND.
+			
 	\end{frame}
 	
 	
@@ -69,209 +68,8 @@
 		\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Teo Muller--Schupp}
-		
-		\begin{teo}[Muller--Schupp 1983]
-			Un grupo es \ic \ si y solo sí  es virtualmente libre.
-		\end{teo}
-		
-		\begin{center}
-			\includegraphics[scale = 0.65]{MSch_1983.jpg}
-		\end{center}
-	
-		
-	\end{frame}
 	
 	
-	\begin{frame}[fragile]{Teorema de Muller-Schupp.}
-		\begin{itemize}
-			\item 
-				Esta no es la única caracterización que tienen los grupos \vl. 
-				(Araujo, Silva - 2018).
-		\end{itemize}
-		
-		
-		\begin{center}
-			\includegraphics[scale = 0.35]{equivalencias_vl.jpg}
-		\end{center}		
-	
-	\end{frame}	
-	
-	\begin{frame}[fragile]{Equivalencias.}
-		En este trabajo probamos las siguientes equivalencias.
-		
-		\[	
-		\begin{tikzpicture}[scale=0.8]
-			\path 
-			(0,0) node(a) [rectangle,draw] {Grupo fundamental de un grafo de grupos finito}
-			(5,-3) node(b) [rectangle,draw] {Treewidth finito}
-			(0,-6) node(c) [rectangle,draw] {Independiente de contexto}
-			(-5,-3) node (d) [rectangle,draw] {Virtualmente libre};
-			\draw   
-			(d) edge[<-,line width=1.0pt] (a) 
-			(c) edge[<-,line width=1.0pt] (d)
-			(b) edge[<-,line width=1.0pt] (c)
-			(a)  edge[<-,line width=1.0pt] (b);
-		\end{tikzpicture}
-		\]
-	\end{frame}
-	
-	
-	
-	\begin{frame}[fragile]{Treewidth}
-		
-		Dado un grafo $\Gamma$ no dirigido una descomposición en un árbol es un par $(T,f)$ tal que cumple las siguientes propiedades.
-		
-			\begin{enumerate}
-				\item[\textbf{T1.}]
-				 	Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. 
-				\item[\textbf{T2.}]
-					Para toda arista $\{v,w\} \in E(\Gamma)$ 
-					debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
-				\item[\textbf{T3.}] 
-					Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$ dentro de $T$.  
-			\end{enumerate}
-		
-		Un grafo $\Gamma$ tienen \emph{treewidth finito} si existe una constante $k \in \NN$ y una descomposición en un árbol $(T,f)$ para $\Gamma$ de manera que:
-		\[
-			\sup_{t \in V(T)} |f(t)| - 1 \le k.
-		\]
-		
-		
-	\end{frame}
-	
-	\begin{frame}[fragile]{Propiedades del treewidth.}
-		\begin{itemize}
-			\item 
-				Sea $\Gamma$ un grafo no dirigido y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \emph{vecinos de $C$} por medio de 
-				\[
-				N(C) = \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.
-				\]
-			
-			\item 
-				Dado un grafo no dirigido $\Gamma$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como
-				\[
-				\beta C =  N(C) \cap N(\ol{ C}).
-				\] 
-		\end{itemize}
-		
-		
-		
-
-	\end{frame}
-	
-	\begin{frame}[fragile]{Descomposición para un grafo de Cayley pt 1.}
-		Sea $G$ un grupo \fg por $A$ y $\Gamma = \cay{G}{A}$ el respectivo grafo de Cayley de $G$.
-		
-		Sea $V_l = \Gamma \setminus N^l(\{1\}) $ tal que $V_0 = \Gamma \setminus \{1\}$.  	
-		
-		Definimos un grafo $T$ de la siguiente manera:
-		\begin{itemize}
-			\item 
-				Los \textbf{vértices}.
-				\[
-				V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \} \cup \{ 1 \}.
-				\]
-			
-			\item 
-				Las \textbf{aristas}.
-				\[
-				E(T) = \{ \{ \beta C, \beta D \} : \exists l \in \NN / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}  \} \cup \{  \{1,\beta C\} : C \subseteq V_0  \}
-				\]
-		\end{itemize}
-	\end{frame}
-
-	\begin{frame}[fragile]{Descomposición para un grafo de Cayley pt 2.}
-		\begin{prop}
-			$T$ es un árbol.
-		\end{prop}		
-	
-		\begin{proof}
-			\begin{itemize}
-				\item 
-				\textbf{T es acíclico.}
-					\red{Todo}
-				\item 
-				\textbf{T es conexo.}
-				\red{Todo}
-			\end{itemize}
-		\end{proof}
-	\end{frame}
-
-	\begin{frame}[fragile]{Descomposición para un grafo de Cayley pt 3.}
-		Sea entonces $f: V(T) \to 2^{V(\Gamma)}$ la función definida por $f(\beta C) = \beta C$	.
-		
-		\begin{prop}
-			$(T,f)$ es una descomposición en un árbol para $\cay{G}{A}$.
-		\end{prop}
-		
-		\begin{proof}
-			\red{Todo.}
-		\end{proof}
-	
-	\end{frame}
-
-	\begin{frame}[fragile]{Descomposición para un grafo de Cayley pt 4.}
-		
-		\red{Agregar dibujo del ejemplo que hice en la tesis.}	
-		
-	\end{frame}
-	
-	\begin{frame}[fragile]{IC implica TW finito pt 1.}
-		
-		\begin{prop}
-			El treewidth finito es un invariante por cuasisometría.
-		\end{prop}
-		
-		Un \emph{grupo $G$ \fg tiene treewidth finito} si para algún conjunto de generadores $A$ vale que $\text{Cay}(G,A)$ tiene treewidth finito.
-			
-	\end{frame}
-
-	\begin{frame}[fragile]{IC implica TW finito pt 2.}
-		\begin{teo} 
-			Sea $G$ un grupo \fg por $A$ entonces si $G$ es \ic{} luego $G$ tiene treewidth finito.
-		\end{teo}
-		
-		\begin{proof}
-			\begin{itemize}
-				\item 
-					Vamos a probar que la descomposición anteriormente construida para $\cay{G}{A}$ tiene treewidth finito.
-					
-				\item 
-					Veamos que $\text{diam}(\beta C) < \infty$ para todo $\beta C \in V(T) $.
-					
-				\item 
-					Como $G$ es \ic{} entonces el lenguaje $\WP{G}{A \cup A^{-1}}$ es generado por una gramática $\gramatica$ que podemos considerar que está en forma normal de Chomsky.
-					
-				
-			\end{itemize}
-		\end{proof}
-	\end{frame}
-
-	\begin{frame}[fragile]{IC implica TW finito pt 3.}
-		\begin{itemize}
-			\item 
-				Para cada variable $A \in V$ de la gramática consideramos el lenguaje 
-				\[
-				L_A = \{ w \in \Sigma^* : A \deriva w  \}.
-				\]
-				Consideramos $k_A \in \NN$ definido por $k_A = {\min}_{w \in L_A} |w|$ y así definimos $k = \max_{A \in V} k_A$.
-				
-			\item  
-				Vamos a probar que $\text{diam}(\beta C) \le 3k$ para todo $\beta C \in V(T)$.
-				
-			\item 
-				Sean $g,h \in \beta C$, vamos a acotar $d(g,h)$. 
-				Consideremos una geodésica $\alpha$ que una $1$ con $g$, $\gamma$ geodésica que una $h$ con $1$ y como $C \cup \beta C$ es conexo podemos tomar un camino $\tau$ que una $g$ con $h$ dentro de $C$ exceptuando sus extremos. 
-				Las etiquetas del ciclo $\alpha \tau \gamma$ forman una palabra $ uvw \in \WP{G}{A \cup A^{-1}}$.
-			
-			\item 
-				Tenemos una derivación $S \deriva uvw$.
-				
-				
-				\red{Completar esta demo.}
-		\end{itemize}
-	\end{frame}
 	
 	
 	
