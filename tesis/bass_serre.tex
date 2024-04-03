@@ -453,9 +453,10 @@ Nos interesan las sucesiones reducidas porque principalmente es una manera fáci
 	Ver \cite[p.182]{lyndon1977combinatorial}.
 \end{proof}
 
-Si elegimos conjuntos transversales de $G_{y}$ y de $G_{\ol y}$ vamos a poder 
-quedarnos con algunas de las sucesiones reducidas que llamaremos las formas normales.
-Estas caracterizan unívocamente a los elementos de una extensión HNN.
+% Si elegimos conjuntos transversales de $G_{y}$ y de $G_{\ol y}$ nos podemos  
+% quedar con algunas de las sucesiones reducidas.
+% Estas sucesiones reducidas las llamaremos formas normales.
+
 
 \begin{deff}
 	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y $T$ conjunto transversal a izquierda de $G_{\ol y}$ en $G_P$. 
@@ -472,7 +473,7 @@ Estas caracterizan unívocamente a los elementos de una extensión HNN.
 	\end{enumerate}
 \end{deff}
 
-Podemos probar que todo elemento de una extensión HNN puede ser escrita en forma normal y más aún esta escritura es única.
+Las formas normales caracterizan unívocamente a los elementos de una extensión HNN esto es que todo elemento de una extensión HNN puede ser escrita en forma normal y más aún esta escritura es única.
  
 \begin{teo}
 	Para todo $g \in G_P^{\ast G_y}$ existe una única forma normal 
@@ -548,8 +549,8 @@ Más específicamente queremos probar que definen elementos diferentes de la ide
 	Sea $Y$ grafo conexo y finito, $\cG$ un grafo de grupos sobre $Y$ y $F(\cG)$ el grupo universal de este grafo de grupos.
 	Sean:
 	\begin{enumerate}[i)]
-		\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos aristas $P,Q \in V$;
-		\item $\mu = (r_0, \dots r_n)$ una sucesión tomados de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
+		\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos vértices $P,Q \in V$;
+		\item $\mu = (r_0, \dots r_n)$ una sucesión tomada de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
 	\end{enumerate}
 	De esta manera denotaremos por el par $(c, \mu)$ a la palabra en el grupo $\underset{P \in V}{\Asterisk} G_P \Asterisk F_E$:
 	\[
@@ -573,14 +574,16 @@ Denotaremos por $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ esto es
 A partir de esta definición podemos ver inmediatamente las siguientes dos observaciones.
 \begin{enumerate}[1.]
 	\item Sea $c=(y_1, \dots, y_n)$ un camino que no tiene backtracking: esto es que no existe $1 \le i  < n$ tal que $\ol {y_{i+1}} = y_{i}$.
-	Entonces toda palabra de tipo $c$ va a estar en forma normal porque cumple \textbf{R2}.
+	Entonces toda palabra de tipo $c$ va a ser reducida porque cumple \textbf{R2}.
 	
 	\item Esta definición de forma normal generaliza las definiciones que dimos para grafos con una única arista en \ref{deff_hnn_fn} y \ref{deff_amalgamado_fn}.
 \end{enumerate}
 
 
+Enunciamos el siguiente resultado que probaremos más en adelante en esta misma sección. 
+
 \begin{teo}\label{teo_pal_red}
-	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego toda palabra $(c, \mu)$ en forma normal es tal que $|c,\mu| \neq 1$.
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego toda palabra $(c, \mu)$ reducida es tal que $|c,\mu| \neq 1$.
 \end{teo}
 
 En particular de este resultado se desprenden corolarios importantes para entender la estructura de los grupos fundamentales de grafos de grupos finitos.
@@ -592,7 +595,7 @@ En particular de este resultado se desprenden corolarios importantes para entend
 	Para todo $P \in V$ tenemos que $G_P$ es un subgrupo de $\ast_{P \in V} G_P \ast F_E$.
 	Sea  $g \in G_{P} \setminus \{ 1 \}$ entonces $(c, \mu) = g$ donde $c = ()$ es el camino constante en $P$ y $\mu = (g)$.
 	Es una palabra reducida por cumplir la propiedad \textbf{R1}.
-	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ por lo que  la proyección a $F(\cG)$ nos da un isomorfismo restringida a $G_P$ y así a $G_P$ lo podemos considerar un subgrupo de $F(\cG)$.
+	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ por lo que  la proyección a $F(\cG)$ nos da un monomorfismo restringida a $G_P$ y así a $G_P$ lo podemos considerar un subgrupo de $F(\cG)$.
 \end{proof}
 
 \begin{coro}\label{coro_pal_red_2}
@@ -617,14 +620,14 @@ Sea $\pi: F(\cG) \to \pi_1(\cG,T)$ la proyección.
 \begin{proof}
 	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ en el grupo $F(\cG)$.
 	A su vez por como elegimos a $(c, \mu)$ tenemos que es un elemento del grupo fundamental $\pi_1(\cG, P)$.
-	Por el teorema \ref{teo_grp_fund_iso} tenemos que este grupo es isomorfo con el grupo fundamental $\pi_1(\cG, T)$ por medio de la proyección $\pi$ entonces esto termina de probar el resultado.
+	Por el teorema \ref{teo_grp_fund_iso} tenemos que este grupo es isomorfo a el grupo fundamental $\pi_1(\cG, T)$ por medio de la proyección $\pi$ entonces esto termina de probar el resultado.
 \end{proof}
 
 
 
 
 
-Primero vamos a dar una definición estándar que es la del cociente de un grafo no dirigido que va a ser la herramienta principal para poder reducir el tamaño de un grafo.
+Primero vamos a dar una definición estándar que es la del cociente de un grafo no dirigido que es nuestra herramienta principal para poder reducir el tamaño de un grafo.
 
 \begin{deff}
 	Sea $Y$ un grafo conexo y sea $Y'$ un subgrafo conexo de $Y$ entonces
@@ -651,7 +654,7 @@ Primero vamos a dar una definición estándar que es la del cociente de un grafo
 			[Y'] & \text{caso contrario}
 		\end{cases}
 	\end{equation*}
-	Si las aristas no empiezan ni terminaban en $Y'$ dentro del grafo $Y$ al contraer el subgrafo siguen idénticas. 
+	Si las aristas no comienzan ni terminan en $Y'$ dentro del grafo $Y$ al contraer el subgrafo no las modificamos. 
 	En el otro caso las definimos para que terminen (o empiecen) en $[Y']$. 
 	
 \end{deff}
@@ -693,11 +696,11 @@ Un ejemplo particular de cómo es el grafo cociente
 		\begin{scope}[nodes=V, xshift=4.5cm, yshift=-1cm]
 			\node (1) {$P_1$};
 			\node (2) [above right=of 1, fill=orange] {$[Y']$};
-			\node (3) [right=of 2, fill=orange] {$P_3$};
 		\end{scope}	
-		\draw   (1)  edge[->,"$y_1$"] (2)
+		\draw   
+		(1)  edge[->,bend right=45, "$y_1$"] (2)
 		(2)  edge[->,"$y_7$", loop]  (2)
-		(2)  edge[->,"$y_2$",orange] (3);
+		(2)  edge[->,"$y_6$",orange, bend right = 45] (1);
 		
 	\end{tikzpicture}
 \end{center}
@@ -845,7 +848,9 @@ donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la
 				\node (7) [right=of 2]          {$P_7$};
 				\node (8) [right=of 7]          {$P_8$};
 			\end{scope}
-			\draw   (1)  edge[->,line width=1.3pt,"$y_1$"] (2)
+			\draw   
+					(1)  edge[->,line width=1.3pt,"$y_1$", bend right = 45] (2)
+					(2)  edge[->,"$y_6$", bend right = 45] (1)
 					(2)  edge[->,"$y_9$", loop]  (2)
 					(2)  edge[->,"$y_7$",line width=1.3pt] (7)
 					(7)  edge[->,"$y_8$",line width=1.3pt] (8);
@@ -896,106 +901,102 @@ Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida q
 	\end{enumerate}	
 \end{proof}
 
-Como último resultado previo veamos un lema que nos dice qué pasa cuando contraemos un subárbol de un árbol $Y$.
-
-\begin{lema}\label{lema_subarbol_conexo}
-	Si $Y$ es un árbol finito e $Y'$ es un subárbol de $Y$ entonces $W=Y/Y'$ es un árbol. 
-\end{lema} 
-\begin{proof}
-	Debemos ver que $W$ no tiene ciclos dado que todo cociente de un grafo conexo sigue siendo conexo.
-	Para cada vértice $P' \in V(W)$ consideremos $P$ su levantado en $Y$ tal que para el caso particular de $[Y']$ consideramos algún vértice $P \in V(Y')$ arbitrario.
-	En el caso de las aristas cada arista $w \in E(W)$ se corresponde con una única arista $y \in E(Y)$.
-	Para ver que no tiene ciclos supongamos que $c'$ es un ciclo de $W$.
-	Este ciclo tiene que pasar por $[Y']$ caso contrario tomando levantados de aristas y vértices conseguiríamos un ciclo en $Y$, consideremos que este ciclo $c'$ pasa solamente al comienzo y al final por $[Y']$.
-	Si levantamos este ciclo nos queda un camino $c$ en $Y$ tal que comienza y termina en $Y'$ y aparte cumple que ninguna de las aristas está en $E(Y')$.
-	Por hipótesis tenemos que $Y'$ es conexo por lo tanto debe existir un camino $d$ con aristas contenidas en $Y'$ tal que une los extremos de $c$. 
-	Concantenando $c$ con $d$ obtenemos un ciclo de $Y$ pero esto contradice que $Y$ es un árbol.
-	
-\end{proof}
-
-
 Finalmente estamos en condiciones de probar el resultado central de esta sección. 
 
 
 \paragraph{Demostración de \ref{teo_pal_red}.}
-Separamos en casos dependiendo cómo es el grafo $Y$.
-	\begin{enumerate}
-		\item El caso que $Y$ es un segmento que representaremos de la siguiente manera:
-		
-		\begin{center}
-			\begin{tikzpicture}[
-			node distance = 25mm and 25mm, 
-			V/.style = {circle, draw, fill=gray!20},
-			every edge quotes/.style = {auto, font=\footnotesize, sloped}
-			]
-			\begin{scope}[nodes=V]
-				\node (1)  [minimum size=1.2cm] {$P_{-1}$};
-				\node (2) [right=of 1,minimum size=1.2cm]    {$P_1$};
-			\end{scope}
-			\draw   (1)  edge[->,"$y$"] (2);
-		\end{tikzpicture}
-		\end{center}
-		Sea $\cG$ un grafo de grupos sobre este grafo.		
-		Si $(c, \mu)$ es una palabra de tipo $c$ entonces el elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
-		Donde $e_{i} = -e_{i+1}$ para todo $i=1 \dots n$ y los elementos cumplen que $r_0 \in G_{P_{-e_1}}$ y $r_i \in G_{P_{e_i}} \setminus G_{y^{e_i}}$ dado que $(c, \mu)$ es una palabra reducida.
-		El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
-		
-		Para el otro caso en el cual  el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente $\pi_1(\cG,T)$ donde $T=Y$ es el mismo segmento.
-		Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
-		
-		Consideramos el morfismo sobreyectivo $\pi$ que es la proyección del grupo universal al grupo fundamental
-		\[
-		\pi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
-		\]
-		tenemos que
-		\[
-			\pi(|c, \mu|) = r_0r_1 \dots r_n
-		\]
-		tal que para todo $0 \le i \le n$ vale que 
-		$r_i \in G_{P_{e_i}} \setminus G_{y_{e_i}}$.
-		Esto es equivalente a que $\phi(|c, \mu|)$ sea reducida para el grupo amalgamado $G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
-		Por el resultado \ref{prop_amalgamado_formanormal} tenemos que $\phi(|c,\mu|) \neq 1$ y así concluimos que $|c, \mu| \neq 1$ no es la identidad.
-		
-		
-		\item El caso que $Y$ es un árbol. 
-		
-		Lo probamos usando inducción en la cantidad de aristas $|E(Y)| = m$.
-		El caso base es $m=1$ lo que implica que $Y$ es un segmento y esto lo probamos en el caso anterior de la demostración de este teorema.
-		Para el paso inductivo nos basta tomar $Y'$ algún segmento de $Y$.
-		Por el lema \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que $|E(W)| < m$. 
-		De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ 
-		sobre $W$  entonces vale que $|c',\mu'| \neq 1$.
-		Por el isomorfismo $\alpha$ definido en \ref{lema_reduc_isomorfismo_beta} 
-		y por el lema \ref{lema_pal_red_iso} terminamos de ver que $|c, \mu| \neq 1$.
-		
-		\item El caso que $Y$ es un bucle.
-	\begin{center}
-			\begin{tikzpicture}[
-				node distance = 15mm and 15mm,
-				V/.style = {circle, draw, fill=gray!30},
+Vamos a probar este resultado haciendo inducción en $|E(Y)|$.
+Consideramos dos casos bases para nuestra inducción.
+
+
+En el primer caso base $|E(Y)| = 0$.
+En este caso como el grafo subyacente $Y$ es conexo y finito entonces tiene la siguiente pinta $Y = (\{ P \}, \emptyset)$ donde $P$ es el único vértice de $Y$.
+El grupo universal del grafo de grupos asociado a este grafo es tal que 
+$F(\cG) = G_{P}$. 
+Entonces dada una palabra reducida $(c, \mu)$ en $F(\cG)$ tenemos que necesariamente la longitud de $c$ es $0$ por lo tanto $(c,\mu)$ cumple \textbf{R1} y esto es lo mismo que $|c,\mu| \neq 1$ en $F(\cG)$ tal como queríamos ver.
+
+
+
+Para el otro caso base supongamos que $\cG$ es un grafo de grupos sobre un grafo $Y$ de manera que $|E(Y)| = 1$.
+Si $Y$ es un grafo conexo con una única arista entonces tenemos solamente dos posibilidades.
+
+\begin{enumerate}
+			\item El caso que $Y$ es un segmento que representaremos de la siguiente manera:
+			
+			\begin{center}
+				\begin{tikzpicture}[
+				node distance = 25mm and 25mm, 
+				V/.style = {circle, draw, fill=gray!20},
 				every edge quotes/.style = {auto, font=\footnotesize, sloped}
 				]
 				\begin{scope}[nodes=V]
-					\node (1)   {$P$};
+					\node (1)  [minimum size=1.2cm] {$P_{-1}$};
+					\node (2) [right=of 1,minimum size=1.2cm]    {$P_1$};
 				\end{scope}
-				\draw 
-				(1)  edge[->,"$y$", loop]  (1);
+				\draw   (1)  edge[->,"$y$"] (2);
 			\end{tikzpicture}
-	\end{center}
+			\end{center}
+			Sea $\cG$ un grafo de grupos sobre este grafo.		
+			Si $(c, \mu)$ es una palabra de tipo $c$ entonces el elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
+			Donde $e_{i} = -e_{i+1}$ para todo $i=1 \dots n$ y los elementos cumplen que $r_0 \in G_{P_{-e_1}}$ y $r_i \in G_{P_{e_i}} \setminus G_{y^{e_i}}$ dado que $(c, \mu)$ es una palabra reducida.
+			El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
+			
+			Para el otro caso en el cual  el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente $\pi_1(\cG,T)$ donde $T=Y$ es el mismo segmento.
+			Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
+			
+			Consideramos el morfismo sobreyectivo $\pi$ que es la proyección del grupo universal al grupo fundamental
+			\[
+			\pi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
+			\]
+			tenemos que
+			\[
+				\pi(|c, \mu|) = r_0r_1 \dots r_n
+			\]
+			tal que para todo $0 \le i \le n$ vale que 
+			$r_i \in G_{P_{e_i}} \setminus G_{y_{e_i}}$.
+			Esto es equivalente a que $\phi(|c, \mu|)$ sea reducida para el grupo amalgamado $G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
+			Por el resultado \ref{prop_amalgamado_formanormal} tenemos que $\phi(|c,\mu|) \neq 1$ y así concluimos que $|c, \mu| \neq 1$ no es la identidad.
+
+
+			\item El caso que $Y$ es un bucle.
+				\begin{center}
+						\begin{tikzpicture}[
+							node distance = 15mm and 15mm,
+							V/.style = {circle, draw, fill=gray!30},
+							every edge quotes/.style = {auto, font=\footnotesize, sloped}
+							]
+							\begin{scope}[nodes=V]
+								\node (1)   {$P$};
+							\end{scope}
+							\draw 
+							(1)  edge[->,"$y$", loop]  (1);
+						\end{tikzpicture}
+				\end{center}
 		Sea $\cG$ una estructura de grafo de grupos sobre entonces en este caso el grupo universal resulta $F(\cG) \simeq G_P^{\ast G_y}$.
 		Por ser $(c, \mu)$ una palabra reducida para $F(\cG)$ vemos que esta condición en este caso coincide con la definición de una palabra reducida para una extensión HNN.		
 		Bajo estas condiciones podemos aplicar el lema de Britton \ref{teo_britton} que nos garantiza que $|c, \mu| \neq 1$ en el grupo $F(\cG)$ tal como queríamos ver.
+\end{enumerate}
 		
-		\item El caso general. 
-		Sea $Y = (V,E)$ un grafo finito conexo arbitrario.
-		Lo probamos por inducción en $m = |E|$.
-		El caso base $m=1$ se corresponde con un bucle o bien con un segmento ambos casos ya probados en la demostración de este teorema.
-		Para el paso inductivo sea $Y'$ subgrafo de $Y$ que podría ser un segmento o bien un bucle. 
-		Aplicamos el resultado a $W=Y/Y'$ tal que $|E(W)| < m$.
-		A $W$ le damos la estructura de grafo de grupos $\cH$.
-		Por inducción vale en $\cH$ 
-		entonces usando el lema \ref{lema_pal_red_iso} terminamos de probarlo para un grafo $Y$ conexo y finito arbitrario.
-	\end{enumerate}
+		
+		% \item El caso que $Y$ es un árbol. 
+		
+		% Lo probamos usando inducción en la cantidad de aristas $|E(Y)| = m$.
+		% El caso base es $m=1$ lo que implica que $Y$ es un segmento y esto lo probamos en el caso anterior de la demostración de este teorema.
+		% Para el paso inductivo nos basta tomar $Y'$ algún segmento de $Y$.
+		% Por el lema \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que $|E(W)| < m$. 
+		% De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ 
+		% sobre $W$  entonces vale que $|c',\mu'| \neq 1$.
+		% Por el isomorfismo $\alpha$ definido en \ref{lema_reduc_isomorfismo_beta} 
+		% y por el lema \ref{lema_pal_red_iso} terminamos de ver que $|c, \mu| \neq 1$.
+		Para el paso inductivo nuestra hipótesis es que para todo grafo de grupos $\cH$ sobre un grafo conexo y finito $W$ de manera que $|E(W)| < |E(Y)|$ vale que 
+		toda palabra reducida $(c',\mu')$ de $\cH$ es tal que $|c',\mu'| \neq 1$ en $F(\cH)$.
+
+		Si $Y = (V,E)$ es un grafo finito conexo tal que $|E(Y)| \ge 2$ luego existe $Y'$ subgrafo conexo con una única arista donde $Y'$ podría ser un bucle o un segmento.
+		Consideramos el grafo finito $W=Y/Y'$ tal que $|E(W)| < |E(Y)|$.
+		A $W$ le damos la estructura de grafo de grupos $\cH$ tal como hicimos en \ref{}.
+		Si $(c, \mu)$ es una palabra reducida en $F(\cG)$ luego por el lema \ref{lema_pal_red_iso} la palabra reducida asociada $(c',\mu')$ es reducida para $\cH$.
+		Por hipótesis inductiva tenemos que $|(c',\mu')| \neq 1$ en $F(\cH)$ entonces por el lema \ref{lema_reduc_isomorfismo_beta} concluimos que $|(c,\mu)| \neq 1$ tal como queríamos ver.
+	
 
 
 \section{Árbol de Bass--Serre.}\label{secc_arb_BS}
@@ -1623,7 +1624,7 @@ Primero una observación sobre uniones de árboles.
 En esta subsección mantenemos los nombres que elegimos en la anterior sección: $X$ es un grafo en el cual actúa un grupo $G$, $Y = X/G$ es el cociente por esta acción y $\cG$ es un grafo de grupos sobre $Y$ construido tal como lo hicimos anteriormente.
 
 Sea $\Xm$ el árbol de Serre del grafo de grupos $\cG$.
-Nuestro objetivo es dar un epimorfismo de grafos $\psi:\Xm \to X$ que en nuestro contexto de la teoría de Bass--Serre va a ser equivalente a decir que $\Xm$ junto con este morfismo es un revestimiento de $X$.
+Nuestro objetivo es dar un epimorfismo de grafos $\psi:\Xm \to X$ que en nuestro contexto de la teoría de Bass--Serre resulta equivalente a decir que $\Xm$ junto con este morfismo es un revestimiento de $X$.
 
 
 Definimos entonces $\psi: \Xm \to X$ dada por: 
