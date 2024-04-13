@@ -44,33 +44,14 @@ En especial nos interesa un teorema que se desprende de este resultado que nos d
 
 \begin{deff}
 	Dados conjuntos $V$ y $E$ un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ junto con funciones
-	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$ y que $\ol{\ol y} = y$.
+	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, que $\ol{\ol y} = y$ y que $\ol{y} \neq y$.
 	Esto implica que vale la siguiente propiedad $t(\ol y) = s(y)$.
 	
 	Al conjunto $V$ lo nombramos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
 	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
 	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
 	
-	
-	 
-	
-%	Primero debemos ver una definición equivalente de un grafo de Cayley. 
-%	En la sección \ref{secc_graf_nd} los definimos como grafos no dirigidos pero se puede dar una definición como grafo dirigido.
-%	
-%	\begin{deff}
-%		Dado $G$ un grupo finitamente generado por $A$ tal que $1 \notin A$ sea $\Gamma = Cay(G,A)$ el grafo de Cayley no dirigido.
-%		Definimos \emph{el grafo de Cayley dirigido} $X = \text{Cay}(G,A)$ como $V(X) = G$ y $E(X) = E(\Gamma) \times \{ -1,1 \} $.
-%		De manera que si $(e,i) \in E(X)$ entonces $e=\{ g,h \}$ de manera que $g = ha$ para $a\in A$ entonces:
-%		\begin{itemize}
-%			\item $s(e,1) = g$ mientras que $s(e,-1)= h$.
-%			\item $t(e,i) = h $ mientras que $t(e,-1)= g$.
-%			\item $\ol {(e,1)} = (e,-1)$ y $\ol{(e,-1)} = (e,1)$.
-%		\end{itemize}
-%	\end{deff}
-%	
 
-	
-	
 	
 	A continuación damos varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
 	\begin{itemize}
@@ -700,7 +681,7 @@ Un ejemplo particular de cómo es el grafo cociente
 		\draw   
 		(1)  edge[->,bend right=45, "$y_1$"] (2)
 		(2)  edge[->,"$y_7$", loop]  (2)
-		(2)  edge[->,"$y_6$",orange, bend right = 45] (1);
+		(2)  edge[->,"$y_6$", bend right = 45] (1);
 		
 	\end{tikzpicture}
 \end{center}
@@ -721,16 +702,19 @@ Queremos probar que toda palabra de tipo $c$ cumple que es distinta de la identi
 Para esto siguiendo a Serre en \cite{serre2002trees} vamos a emplear un argumento de \emph{dévissage} qué consiste en reducir el problema que queremos probar para grafos de grupos arbitrarios a casos más pequeños. 
 Más específicamente queremos reducir este problema a los casos que los grafos de grupos están dados sobre grafos con una única arista como ya hicimos anteriormente en las subsecciones \ref{subsub_bucle} y \ref{subsub_segmento}.
 
-Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$ finito y conexo. 
-Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
-El grupo de este grafo de grupos restringido al subgrafo $Y'$ lo denotaremos $F(\cG | Y')$.
-Supongamos que $F(\cG | Y')$ tiene la propiedad del teorema \ref{teo_pal_red}.
-Entonces definamos el grafo de grupos $\cal H$ sobre el grafo conexo $W=Y/Y'$ de la siguiente manera.
-\begin{itemize}
-	\item Si $P \in V(Y) \setminus V(Y')$, tomamos $H_P = G_P$;
-	\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$;
-	\item Si $y \in E(W)$ ponemos $H_y = G_y$ tal que como suponemos válido el resultado \ref{teo_pal_red} para $Y'$ tenemos que es un subgrupo.
-\end{itemize}
+
+\begin{deff}
+	\label{deff:grafo_grupos_cociente}
+	Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$ conexo. 
+	Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
+	El grupo universal de este grafo de grupos restringido al subgrafo $Y'$ lo denotaremos $F(\cG | Y')$.
+	Definimos el grafo de grupos $\cal H$ sobre el grafo conexo $W=Y/Y'$ de la siguiente manera.
+	\begin{itemize}
+		\item Si $P \in V(Y) \setminus V(Y')$, tomamos $H_P = G_P$;
+		\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$;
+		\item Si $y \in E(W)$ ponemos $H_y = G_y$ tal que como suponemos válido el resultado \ref{teo_pal_red} para $Y'$ tenemos que es un subgrupo.
+	\end{itemize}
+\end{deff}
 
 Construyamos un morfismo de grupos $\beta:F(\cG) \to F(\cH)$.
 Para eso primero lo definimos sobre los generadores.
@@ -755,10 +739,10 @@ De manera que así como está definida cumple las relaciones de $F(\cG)$ porque 
 Obtenemos así que $\beta$ está bien definida.
 
 \begin{lema}\label{lema_reduc_isomorfismo_beta}
-	El morfismo de grupos $\beta:F(\cG) \to F(\cH)$ es un isomorfismo. 
+	Dado $\cG$ un grafo de grupos sobre un grafo conexo $Y$, $Y'$ un subgrafo conexo de $Y$ luego si consideramos $\cH$ el grafo de grupos sobre $W = Y/Y'$ tal como en la definición \ref{deff:grafo_grupos_cociente} vale que el morfismo de grupos $\beta:F(\cG) \to F(\cH)$ es un isomorfismo. 
 \end{lema}
 \begin{proof}
-	Podemos construirnos un morfismo $\alpha:F(\cH) \to F(\cG)$ tal que sea su inversa.
+	Para ver que es un isomorfismo vamos a construirnos una inversa $\alpha:F(\cH) \to F(\cG)$.
 	La construcción es análoga a la construcción que hicimos para $\beta$ definiendola sobre sus generadores.
 	
 	Para todo $g \in H_P$ con $P \in V(W) \setminus [Y'] $ definimos,
@@ -783,7 +767,7 @@ Obtenemos así que $\beta$ está bien definida.
 
 La moraleja de este lema es que podemos tomar el grupo $F(\cG | Y')$ para un subgrafo $Y'$ conexo y después tomar el grupo $F(\cH)$ para el grafo resultante $Y / Y'$ y es exactamente lo mismo que tomar $F(\cG)$ en el comienzo con la ventaja que el grafo es más chico ahora.
 
-Para cada palabra $(c, \mu)$ del grafo de grupos $F(\cG)$ le vamos a asociar una palabra $(c', \mu')$ de $\cH$ tal que $\beta (|c,\mu|) = |c',\mu'|$.
+A cada palabra $(c, \mu)$ del grafo de grupos $F(\cG)$ le asociamos una palabra $(c', \mu')$ de $\cH$ tal que $\beta (|c,\mu|) = |c',\mu'|$.
 La idea es reemplazar las partes de la palabra que involucren a $Y'$ con las respectivas en $F(\cG | Y')$.
 Dados $ 1 \le i \le j \le n$ llamemos $c_{ij}$ al camino 
 $(y_i \dots y_{j})$ y $\mu_{ij}$ a los elementos $(r_i, \dots, r_j)$.
@@ -832,7 +816,7 @@ donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la
 		\end{tikzpicture}
 	\end{center}
 	
-	En este caso consideramos que el subgrafo conexo $Y'$ es el que está pintado de color \textcolor{carrotorange}{naranja}.
+	En este caso el subgrafo conexo $Y'$ es el que está pintado de color \textcolor{carrotorange}{naranja}.
 	Consideremos $\cG$ una estructura de grafo de grupos sobre $Y$.
 	Sea $c = (y_1, y_2, y_3, y_7, y_8)$ resaltado en negrita en la figura un camino en el grafo $Y$ y sea $\mu = (r_0, r_1, \dots, r_8)$ una sucesión de elementos de manera que $(c, \mu)$ es una palabra de tipo $c$.
 	Si contraemos el subgrafo $Y'$ nos queda el grafo $W=Y/Y'$ que representamos de la siguiente manera,
@@ -865,6 +849,8 @@ Veamos ahora que $\beta$ preserva las palabras reducidas.
 Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida que vayamos contrayendo subgrafos conexos.
 
 \begin{prop}\label{lema_pal_red_iso}
+	Dado $\cG$ un grafo de grupos sobre un grafo conexo $Y$, $Y'$ un subgrafo conexo de $Y$.
+	Sea $\cH$ el grafo de grupos sobre $W = Y/Y'$ tal como en la definición \ref{deff:grafo_grupos_cociente}.
 	Si $(c, \mu)$ es una palabra reducida para $F(\cG)$ entonces $(c', \mu')$ es reducida para $F(\cH)$.
 \end{prop}
 \begin{proof}
@@ -930,30 +916,35 @@ Si $Y$ es un grafo conexo con una única arista entonces tenemos solamente dos p
 				every edge quotes/.style = {auto, font=\footnotesize, sloped}
 				]
 				\begin{scope}[nodes=V]
-					\node (1)  [minimum size=1.2cm] {$P_{-1}$};
-					\node (2) [right=of 1,minimum size=1.2cm]    {$P_1$};
+					\node (1)  [minimum size=1.2cm] {$P$};
+					\node (2) [right=of 1,minimum size=1.2cm]    {$Q$};
 				\end{scope}
 				\draw   (1)  edge[->,"$y$"] (2);
 			\end{tikzpicture}
 			\end{center}
 			Sea $\cG$ un grafo de grupos sobre este grafo.		
 			Si $(c, \mu)$ es una palabra de tipo $c$ entonces el elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
-			Donde $e_{i} = -e_{i+1}$ para todo $i=1 \dots n$ y los elementos cumplen que $r_0 \in G_{P_{-e_1}}$ y $r_i \in G_{P_{e_i}} \setminus G_{y^{e_i}}$ dado que $(c, \mu)$ es una palabra reducida.
+			Dado que $(c, \mu)$ es una palabra reducida vale lo siguiente:
+			\begin{itemize}
+				\item Para todo $i=1 \dots n$ vale que $e_{i} = -e_{i+1}$.
+				\item Para todo $i=0 \dots n$ vale que $r_{i} \in G_{P}$ o $r_i \in G_Q$.
+				\item Para todo $i=0 \dots n-1$ no puede valer que $r_i,r_{i+1} \in G_P$ o que $r_i,r_{i+1} \in G_Q$
+			\end{itemize}
 			El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
 			
 			Para el otro caso en el cual  el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente $\pi_1(\cG,T)$ donde $T=Y$ es el mismo segmento.
-			Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
+			Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P} \ast_{G_y} G_{Q}$. 
 			
 			Consideramos el morfismo sobreyectivo $\pi$ que es la proyección del grupo universal al grupo fundamental
 			\[
-			\pi: F(\cG) \to G_{P_{-1}} \underset{G_y}{\Asterisk} G_{P_1}
+			\pi: F(\cG) \to G_{P} \underset{G_y}{\Asterisk} G_{Q}
 			\]
 			tenemos que
 			\[
 				\pi(|c, \mu|) = r_0r_1 \dots r_n
 			\]
 			tal que para todo $0 \le i \le n$ vale que 
-			$r_i \in G_{P_{e_i}} \setminus G_{y_{e_i}}$.
+			$r_i \in G_{P} \setminus G_{y}$ o bien $r_{i} \in G_{Q} \setminus G_{y}$.
 			Esto es equivalente a que $\phi(|c, \mu|)$ sea reducida para el grupo amalgamado $G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
 			Por el resultado \ref{prop_amalgamado_formanormal} tenemos que $\phi(|c,\mu|) \neq 1$ y así concluimos que $|c, \mu| \neq 1$ no es la identidad.
 
@@ -978,22 +969,13 @@ Si $Y$ es un grafo conexo con una única arista entonces tenemos solamente dos p
 \end{enumerate}
 		
 		
-		% \item El caso que $Y$ es un árbol. 
-		
-		% Lo probamos usando inducción en la cantidad de aristas $|E(Y)| = m$.
-		% El caso base es $m=1$ lo que implica que $Y$ es un segmento y esto lo probamos en el caso anterior de la demostración de este teorema.
-		% Para el paso inductivo nos basta tomar $Y'$ algún segmento de $Y$.
-		% Por el lema \ref{lema_subarbol_conexo} vemos que el grafo $W = Y / Y'$ resulta ser un árbol y más aún podemos aplicarle la hipótesis inductiva dado que $|E(W)| < m$. 
-		% De esta manera aplicando el paso inductivo obtenemos que vale este resultado para el grafo de grupos $\cH$ 
-		% sobre $W$  entonces vale que $|c',\mu'| \neq 1$.
-		% Por el isomorfismo $\alpha$ definido en \ref{lema_reduc_isomorfismo_beta} 
-		% y por el lema \ref{lema_pal_red_iso} terminamos de ver que $|c, \mu| \neq 1$.
+	
 		Para el paso inductivo nuestra hipótesis es que para todo grafo de grupos $\cH$ sobre un grafo conexo y finito $W$ de manera que $|E(W)| < |E(Y)|$ vale que 
 		toda palabra reducida $(c',\mu')$ de $\cH$ es tal que $|c',\mu'| \neq 1$ en $F(\cH)$.
 
 		Si $Y = (V,E)$ es un grafo finito conexo tal que $|E(Y)| \ge 2$ luego existe $Y'$ subgrafo conexo con una única arista donde $Y'$ podría ser un bucle o un segmento.
 		Consideramos el grafo finito $W=Y/Y'$ tal que $|E(W)| < |E(Y)|$.
-		A $W$ le damos la estructura de grafo de grupos $\cH$ tal como hicimos en \ref{}.
+		A $W$ le damos la estructura de grafo de grupos $\cH$ tal como hicimos en \ref{deff:grafo_grupos_cociente}.
 		Si $(c, \mu)$ es una palabra reducida en $F(\cG)$ luego por el lema \ref{lema_pal_red_iso} la palabra reducida asociada $(c',\mu')$ es reducida para $\cH$.
 		Por hipótesis inductiva tenemos que $|(c',\mu')| \neq 1$ en $F(\cH)$ entonces por el lema \ref{lema_reduc_isomorfismo_beta} concluimos que $|(c,\mu)| \neq 1$ tal como queríamos ver.
 	
@@ -1012,24 +994,24 @@ Sea $T$ un árbol generador del grafo $Y$ luego llamemos $G = \pi_1(\cG,T)$.
 Queremos construirnos los siguientes objetos:
 
 \begin{enumerate}[]
-	\item Un grafo dirigido $\Xm$.
+	\item Un árbol $\Xm$.
 	\item Una acción de $G$ en $\Xm$ sin inversiones de aristas de manera que $\Xm / G \simeq Y$.
-	\item Una sección $Y \to \Xm$ tal que
-	para todo vértice $P \in V(Y)$ denotaremos $\tilde P \in V(\Xm)$ a su imagen y similarmente para toda arista $y \in E(Y)$ denotaremos $\tilde y \in E(\Xm)$ a su imagen.
+	\item Una sección $Y \to \Xm$ de manera que para todo vértice $P \in V(Y)$ denotaremos $\tilde P \in V(\Xm)$ a su imagen y similarmente para toda arista $y \in E(Y)$ denotaremos $\tilde y \in E(\Xm)$ a su imagen.
 \end{enumerate}
 
 Para construir este grafo vamos a partir de la siguiente observación.
 Si $\Xm$ fuera un grafo tal que $G$ actúa sobre él e 
 $Y = \Xm / G$ entonces tendríamos que vale lo siguiente:
-para todo vértice $\widetilde{ P} \in V(\Xm)$ por el teorema de órbitas estabilizador existe una biyección entre la órbita $G \widetilde{P} $ y los cosets del estabilizador $G / G_{\widetilde P}$.
-De esta manera vamos a construir a los vértices para que valga esta propiedad:
+para todo vértice $\widetilde{ P} \in V(\Xm)$ por el teorema de órbitas estabilizador existe una biyección entre la órbita $G \widetilde{P} $ y el conjunto de los cosets del estabilizador $G / G_{\widetilde P}$.
+De esta manera vamos a construir al conjunto de los vértices para que valga esta propiedad:
 \[
-V(\Xm) = \bigsqcup_{v \in V(Y)} G/G_{v}
+V(\Xm) = \bigsqcup_{v \in V(Y)} G/G_{v} \times \{v\}
 \]
 mientras que para las aristas por un razonamiento idéntico llegamos a que: 
 \[
-E(\Xm) = \bigsqcup_{y \in E(Y)} G/G_{y}.
+E(\Xm) = \bigsqcup_{y \in E(Y)} G/G_{y} \times \{y\}.
 \]
+Por claridad omitimos escribir $(gG_{P}, P)$ y simplemente notaremos $gG_{P}$ y similarmente para las aristas.
 
 Ya habiendo definido el conjunto de vértices y de aristas del grafo $\Xm$
 vamos a definir la arista con orientación opuesta y los inicios y finales de las aristas.
@@ -1063,7 +1045,7 @@ A su vez por una cuenta similar vemos que $\ol{\ol{gG_{y}}} = gG_{y}$.
 
 De esta manera ya tenemos definido el grafo dirigido $\Xm$.
 Por como construimos a $\Xm$ nos aseguramos que $G$ actúa en $\Xm$ y que $\Xm / G \simeq Y$.
-A su vez esta acción es sin inversión de aristas por que para todo $g \in G$ y toda arista $hG_{y} \in E(\Xm)$ tenemos que
+A su vez esta acción es sin inversión de aristas porque para todo $g \in G$ y toda arista $hG_{y} \in E(\Xm)$ tenemos que
 \[
 g (hG_{y}) \neq hg_{y}G_{\ol{y}}
 \]
@@ -1078,6 +1060,7 @@ Este epimorfismo de grafos está definido por
 $q(gG_{P}) = P$ para todo $P \in V$ y 
 $q(gG_{y}) = y$ para toda $y \in E$.
 
+
 \begin{deff}
 	Dado un grafo $Y$, $C \subseteq V(Y)$ un conjunto de vértices entonces diremos que el \emph{subgrafo generado por $C$} es el siguiente grafo $W$:
 	\[
@@ -1088,10 +1071,10 @@ $q(gG_{y}) = y$ para toda $y \in E$.
 
 \begin{obs}\label{obs_subgrafo_dom_fund}
 	El subgrafo $W \subseteq \Xm$ generado por el siguiente conjunto de vértices
-\[
-V(W) = \{ G_{P} \mid \forall P \in V(Y) \} \cup \{ g_{y}G_{Q} : \forall y \in E(Y), Q \in V(Y) / \ t(y) = Q  \}
-\]
-es tal que resulta ser un dominio fundamental de la acción de $G$ en $\Xm$.
+		\[
+		C = \{ G_{P} \mid \forall P \in V(Y) \} \cup \{ g_{y}G_{Q} : \forall y \in E(Y), Q \in V(Y) / \ t(y) = Q  \}
+		\]
+	es tal que $G \cdot W = \Xm$.
 
 \end{obs}
 
@@ -1100,26 +1083,25 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 
 
 \begin{obs}\label{obs_levantado_arbol}
-	En particular podemos definir $\widetilde {T}$ subárbol de $\Xm$ de manera que está generado por el siguiente conjunto de vértices:
+	Definimos $\iota: T \to \widetilde{X}$ como $\iota(P) = G_{P}$ y $\iota(y) = G_{y}$.
+	Llamamos $\iota(T) = \widetilde{T}$ y este es un árbol definido a partir del siguiente conjunto de vértices:
 	\[
 	V(\widetilde T) = \{ G_P \mid P \in V(Y) \}
 	\]
 	y que tiene como aristas a
 	\[
-	E(\widetilde T) = \{ G_{y} \mid y \in E(Y) \}.	
+	E(\widetilde T) = \{ G_{y} \mid y \in E(Y) \},	
 	\]
-	Donde usamos que $g_{y} = 1$ para toda $y \in E(T)$.
-	De esta manera nuestra sección $\iota:\widetilde T \to \Xm$ está definida por 
-	$\iota(P) =  G_P$ y $\iota(y) = G_y$.
-	Tal que $q \circ \iota:\widetilde T \to \widetilde{T}$ es la identidad. 
+	donde usamos que $g_{y} = 1$ para toda $y \in E(T)$.
+	Notemos que $q \circ \iota: T \to Y$ es la identidad si la restringimos a la imagen $q(\iota(T)) = q(\widetilde{T})$. 
 \end{obs}
 
 Antes de probar el resultado central de esta sección vamos a enunciar un lema que usaremos fuertemente en la demostración.
 
 \begin{lema}\label{lema_union_conexos_es_conexo}
-	Sean $\{X_{i}\}_{i \in \NN}$ grafos conexos de manera que para todo $i \in \NN$ vale que	
+	Sea $X$ un grafo conexo y sean $\{X_{i}\}_{i \in \NN}$ subgrafos conexos de manera que para todo $i \in \NN$ vale que	
 	$X_{i} \cap X_{i+1} \neq \emptyset$ 
-	entonces $\bigcup_{i \in \NN} X_{i}$ es un grafo conexo.
+	entonces $\bigcup_{i \in \NN} X_{i}$ es un subgrafo conexo de $X$.
 \end{lema}
 
 \begin{teo}[Serre]
@@ -1133,7 +1115,7 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 		$\Xm$ es conexo.
 		
 		
-		El subgrafo $W$ definido en la observación \ref{obs_subgrafo_dom_fund} es un dominio fundamental para la acción de $G$ en $\Xm$ esto quiere decir que $G \cdot W = \Xm$ por lo que 
+		El subgrafo $W$ definido en la observación \ref{obs_subgrafo_dom_fund} cumple que $G \cdot W = \Xm$ por lo que 
 		\[
 		\widetilde X = \bigcup_{g \in G} gW
 		\]
@@ -1203,9 +1185,9 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 		
 		\item 
 		Veamos ahora que no tiene ciclos.
-		Probaremos la proposición equivalente: para todo $n \in \NN$ no existe camino cerrado de longitud $n$ sin backtracking.
+		Probaremos la proposición equivalente: para todo $n \in \NN$ todo camino cerrado de longitud $n$ tiene backtracking.
 		
-		El caso que $n=0,1$ es claro porque no existen caminos con estas longitudes de manera que tengan backtracking.
+		El caso que $n=0,1$ es claro porque no existen caminos con estas longitudes de manera que no tengan backtracking.
 		
 		Supongamos entonces que $n \ge 2$.
 		Sea $\widetilde c$ un camino sobre $\widetilde X$ cerrado de longitud $n$ y sin backtracking.
@@ -1274,7 +1256,7 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 
 \begin{deff}
 	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y$ y sea $T$ un árbol generador de $Y$.	
-	El grafo $\widetilde{ X} = \widetilde{ X} (T, \cG)$ lo llamamos el \emph{árbol de Bass--Serre} de $\cG$.
+	El árbol $\widetilde{ X} = \widetilde{ X} (T, \cG)$ es el \emph{árbol de Bass--Serre} de $\cG$.
 \end{deff}
 
 
@@ -1282,8 +1264,8 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 \section{Acciones de grupos sobre árboles.}\label{secc_acciones_arboles}
 
 Sea $X$ un grafo conexo finito y sea $G$ un grupo finitamente generado que actúa sobre $X$.
-Llamemos $Y = G / X$ y $T$ árbol generador de $Y$.
-Nuestro objetivo es construir un grafo de grupos $\cG$ sobre $Y$ de manera que se corresponda a esta acción y $\pi_1(\cG,T) \simeq G$.
+Llamemos $Y = X / G$ y $T$ árbol generador de $Y$.
+Nuestro objetivo es construir un grafo de grupos $\cG$ sobre $Y$ de manera que se corresponda a esta acción.
  
 Sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
 Este grafo está dado por el conjunto de vértices
@@ -1319,13 +1301,11 @@ Para las aristas con la orientación opuesta tendremos algún $g_{\ol y} \in G$ 
 Como la acción de $G$ sobre $X$ es por morfismos de grafos tenemos que $\ol {g y} = g \ol y$ y por lo tanto podemos elegir $g_{\ol y} = g_{y}^{-1}$.
 El caso particular que $\ol{\iota (y)} = \iota (\ol y)$ definiremos que $g_y = 1 = g_{\ol y}$.
 
-Veamos un ejemplo de cómo sería construir esta sección en una acción de un grupo particular en un grafo sencillo.
+Veamos un ejemplo de esta construcción.
 
 \begin{ej}
-	Veamos cómo construir esta sección  a partir de una acción de un grupo en un grafo dirigido.
-	
 	Sea $G = \langle a \mid a^2 \rangle$ el grupo cíclico de orden $2$.
-	Sea $X$ el siguiente grafo dirigido.
+	Sea $X$ el siguiente grafo dirigido:
 	\begin{center}
 		\begin{tikzpicture}[
 			node distance = 10mm and 10mm, 
@@ -1350,7 +1330,6 @@ Veamos un ejemplo de cómo sería construir esta sección en una acción de un g
 	Para eso definimos $a \cdot X$ de la siguiente manera:
 	
 	\begin{center}
-		$a \cdot X = $ \quad 
 		\begin{tikzpicture}[
 			node distance = 10mm and 10mm, 
 			V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
@@ -1403,11 +1382,11 @@ Veamos un ejemplo de cómo sería construir esta sección en una acción de un g
 	\]
 	Notemos que si definimos $g_{Gy_1} = a$ luego 
 	\[
-	a \ol{\iota(Gy_1)} = a\ol{\ol{ y_4}} = ay_4 = \ol{ y_1} = \iota{\ol Gy_1}. 
+	a \ol{\iota(Gy_1)} = a\ol{\ol{ y_4}} = ay_4 = \ol{ y_1} = \iota({\ol{ Gy_1}}). 
 	\] 
 	Por otro lado tenemos que si definimos $g_{Gy_2} = 1$ entonces
 	\[
-	1 \ol{\iota(Gy_2)} = \ol{y_2} = \iota{\ol Gy_2}. 
+	1 \ol{\iota(Gy_2)} = \ol{y_2} = \iota({\ol{Gy_2}}). 
 	\]
 	
 	
@@ -1417,7 +1396,7 @@ Veamos un ejemplo de cómo sería construir esta sección en una acción de un g
 	Más en adelante probaremos que no importa qué sección tomemos el grafo de grupos que vamos a construir va a tener el mismo grupo fundamental.
 \end{ej}
 
-
+\bigskip
 Vamos a construir $\cG$ un grafo de grupos sobre el grafo $Y$.
 Consideremos para $P \in V(Y), y \in E(Y)$ los siguientes grupos,
 \[
