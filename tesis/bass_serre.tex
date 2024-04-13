@@ -98,27 +98,11 @@ En especial nos interesa un teorema que se desprende de este resultado que nos d
 \end{deff}	
 
 En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los no dirigidos pueden tener más de una arista entre dos vértices y pueden tener bucles.
-%Dado un grafo no dirigido $\Gamma$ lo podemos considerar como un grafo dirigido $Y$ por medio de la siguiente construcción.
-%Definimos 
-%\[
-%V(Y) = V(\Gamma), \ \ \ E(Y) = E(\Gamma) \times \{ -1,1 \}.
-%\]
-%de manera tal que $ s(\{x,y\},1) = x $, $t(\{ x,y \}, -1) = y$ y tal que $\ol{(\{x,y\}, 1)} = (\{x,y\}, -1)$.
-%
-%Podemos ver que si $\Gamma$ cumplía cierta propiedad como grafo no dirigido también la va a seguir cumpliendo el grafo dirigido $Y$.
-%En nuestro caso en particular nos va a interesar el caso de la definición del grafo de Cayley dada en \ref{secc_graf_nd}, que bajo esta traducción lo podemos ver como un grafo dirigido también que sigue manteniendo las mismas propiedades.
-%Más aún si $G$ es un grupo libre entonces podemos tomar su grafo de Cayley dirigido para que sea un árbol.
 
 Si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
 \[
 V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
 \]
-
-
-%Estas dos construcciones son inversas y así podemos ver que valen los resultados enunciados para árboles no dirigidos en el contexto de los grafos dirigidos.
-
-
-
 
 \begin{deff}
 	Sean $Y, Y'$ grafos dirigidos. 
@@ -1326,9 +1310,21 @@ Veamos un ejemplo de esta construcción.
 		\end{tikzpicture}
 	\end{center}
 	
-	entonces para definir una acción de $G$ en $X$ nos basta definir un morfismo idempotente sobre este grafo.
-	Para eso definimos $a \cdot X$ de la siguiente manera:
-	
+	Definimos una acción $\psi: G \to \textrm{Aut}(X)$, 
+	de manera que $\psi(a)$ es un automorfismo idempotente definido de la siguiente manera:
+	$\psi(a)(P_1) = P_5,
+	\psi(a)(P_2) = P_4, 
+	\psi(a)(P_3) = P_3, 
+	\psi(a)(P_4) = P_2$ y  
+	$\psi(a)(P_5) = P_1$.
+	Sobre las aristas queda definido de la siguiente manera 
+	$\psi(a)(y_{1}) = \ol{y_{4}},
+	\psi(a)(y_{2}) = \ol{y_{3}},
+	\psi(a)(y_{3}) = \ol{y_{2}}$ y 
+	$\psi(a)(y_{4}) = \ol{y_{1}}.$
+	Chequeamos que $(\psi(a))^{2} = I$ por lo tanto la acción está bien definida.
+
+	Gráficamente representamos al automorfismo de la siguiente manera.
 	\begin{center}
 		\begin{tikzpicture}[
 			node distance = 10mm and 10mm, 
@@ -1348,10 +1344,10 @@ Veamos un ejemplo de esta construcción.
 			\draw   (4)  edge[->,"$y_4$"] (5);
 		\end{tikzpicture}
 	\end{center}
-	Este morfismo de grafos es tal que $a(a X) = X$.
+	
 	
 	De esta manera tenemos definida una acción de $G$ sobre el grafo dirigido $X$.
-	Sea $Y=X/G$ el grafo dirigido definido de la siguiente manera:
+	Sea $Y=X/G$ el grafo dirigido cociente de esta acción:
 	\begin{center}
 		\begin{tikzpicture}[
 			node distance = 10mm and 10mm, 
@@ -1367,14 +1363,14 @@ Veamos un ejemplo de esta construcción.
 			\draw   (2)  edge[->,"$Gy_2$"] (3);
 		\end{tikzpicture}
 	\end{center}
-	donde los vértices están dados por las órbitas de la acción de $G$ en $X$  por lo que $GP_1 = \{ P_1, P_5 \}, GP_2 = \{ P_2, P_4  \}$ y $GP_3 = \{ P_3 \}$. Para las aristas tenemos que $Gy_1 = \{ y_1, \ol{y_4} \}$, $ {G\ol{y_1}} = \{ \ol{y_1}, y_4 \}$, $Gy_2 = \{ y_2, \ol{y_3} \}$ y ${G\ol{y_2}} = \{ \ol{y_2}, {y_3} \}$.
+	donde los vértices están dados por las órbitas de la acción de $G$ en $X$  por lo que $GP_1 = \{ P_1, P_5 \}, GP_2 = \{ P_2, P_4  \}$ y $GP_3 = \{ P_3 \}$. Para las aristas tenemos que $Gy_1 = \{ y_1, \ol{y_4} \}$, $ {G \ol{y_1}} = \{ \ol{y_1}, y_4 \}$, $Gy_2 = \{ y_2, \ol{y_3} \}$ y ${G \ol{y_2}} = \{ \ol{y_2}, {y_3} \}$.
 	
 	Ahora vamos a definirnos una sección $\iota: Y \to X$ de la misma manera que la hicimos anteriormente.
 	Para eso definimos $\iota(GP_3) = P_3$, $\iota(GP_2) = P_2$ y $\iota(GP_1) = P_5$.
 	Para definir la sección sobre las aristas recordamos que para la arista que esté en la imagen por la sección tiene que ser tal que su comienzo sea uno de los vértices que estaban en la imagen en la sección.
 	De esta manera podemos definir así:
 	$\iota(Gy_1) = \ol{y_4}, \iota(\ol{Gy_1}) = \ol{y_1}, \iota(Gy_2) = y_2, \iota(\ol{Gy_2}) = \ol{y_2}$.
-	Tal que $\iota: Y \to X$ así definida es una sección tal como queríamos construir.
+	
 	
 	Ahora procedemos a definir para cada arista de $y \in E(Y)$ algún elemento $g_{y} \in G$ de manera que:
 	\[
@@ -1720,7 +1716,7 @@ Así como el revestimiento de un grafo es un epimorfismo de grafos localmente in
 El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea un isomorfismo de grafos pidiéndole a $X$ ser un árbol.
 
 \begin{prop}\label{prop_loc_iny}
-	Sea $T$ un árbol y sea $Y$ un grafo conexo entonces todo morfismo de grafos $\psi:Y \to T$ localmente inyectivo es un monomorfismo de grafos.    
+	Sea $T$ un árbol y sea $Y$ un grafo conexo entonces todo morfismo de grafos $\psi:Y \to T$ localmente inyectivo es inyectivo.    
 \end{prop}
 \begin{proof}
 	Notemos que el grafo $Y$ es conexo por hipótesis entonces para todo par de vértices existe un camino que los une.
@@ -1803,7 +1799,7 @@ Como corolario directo obtenemos una caracterización para los grupos libres.
 	Si $G$ es libre  y generado por un conjunto finito $A$ entonces $Cay(G,A)$ es un árbol y $G$ actúa libremente sobre su grafo de Cayley y sin invertir aristas.
 	
 	Si $G$ actúa libremente sobre un árbol sin inversiones entonces usando \ref{teo_Serre} obtenemos que $G$ es isomorfo a $\pi_1(\cG, T)$.
-	Este grupo es libre por ser el grupo fundamental de un grafo en el cual los grupos correspondientes a las aristas y a los vértices son triviales dado que la acción de $G$ es libre.
+	Este grupo es libre por ser el grupo fundamental de un grafo de grupos en el cual los grupos correspondientes a las aristas y a los vértices son triviales dado que la acción de $G$ es libre.
 	
 \end{proof}
 
@@ -1890,20 +1886,20 @@ Como corolario directo obtenemos una caracterización para los grupos libres.
 Estamos en condiciones de probar el resultado central del capítulo, que es que todo grupo fundamental de un grafo de grupos finito es un grupo virtualmente libre.
 Primero debemos ver unos lemas de acciones de grupos finitos.
 
-\begin{lema}\label{lema_accion_orden}
-	Sea $G$ un grupo finito y $X$ conjunto finito tal que $|G| \mid |X|$ luego existe $\alpha: G \to S(X)$ acción libre de $G$ en $X$.
-\end{lema}
+% \begin{lema}\label{lema_accion_orden}
+% 	Sea $G$ un grupo finito y $X$ conjunto finito tal que $|G| \mid |X|$ luego existe $\alpha: G \to S(X)$ acción libre de $G$ en $X$.
+% \end{lema}
 
-\begin{proof}
-	Sea $|G|=k$ y sea $|X|=mk$ luego como queremos que la acción de $G$ sea libre designamos nuestros candidatos a órbitas $X_{i}$ $i=1, \dots k$ donde $X_{i} \subseteq {\cal P}(X)$, $|X_{i}|=m$ y $X_{i} \cap X_{j} = \emptyset$ para todo $i \neq j$.
-	Les asignamos índices a todos los elementos de $X_{i}$ para todo $ 1 \le i \le k$ y los denotamos $x_{i}^j$ para el $j$-ésimo elemento de $X_{i}$ donde $1 \le j \le m$.
-	Similarmente como $G$ es finito luego $G = \{ g_{1}, \dots g_{k} \}$.
-	Luego definimos $\alpha:G \to S(X)$ de la siguiente manera si $g_{l} g_{i} = g_{h}$ entonces
-	\[
-		\alpha(g_{l})(x_{i}^j) = x_{h}^j.
-	\] 
-	Chequeamos que es una acción y a su vez $\alpha(g)(x_{i}^j) = x_{i}^j$ si y solamente si $g g_{i} = g_{i}$ lo que implica que $g = 1$ y así vemos que la acción $\alpha$ resulta ser libre tal como buscábamos.
-\end{proof}
+% \begin{proof}
+% 	Sea $|G|=k$ y sea $|X|=mk$ luego como queremos que la acción de $G$ sea libre designamos nuestros candidatos a órbitas $X_{i}$ $i=1, \dots k$ donde $X_{i} \subseteq {\cal P}(X)$, $|X_{i}|=m$ y $X_{i} \cap X_{j} = \emptyset$ para todo $i \neq j$.
+% 	Les asignamos índices a todos los elementos de $X_{i}$ para todo $ 1 \le i \le k$ y los denotamos $x_{i}^j$ para el $j$-ésimo elemento de $X_{i}$ donde $1 \le j \le m$.
+% 	Similarmente como $G$ es finito luego $G = \{ g_{1}, \dots g_{k} \}$.
+% 	Luego definimos $\alpha:G \to S(X)$ de la siguiente manera si $g_{l} g_{i} = g_{h}$ entonces
+% 	\[
+% 		\alpha(g_{l})(x_{i}^j) = x_{h}^j.
+% 	\] 
+% 	Chequeamos que es una acción y a su vez $\alpha(g)(x_{i}^j) = x_{i}^j$ si y solamente si $g g_{i} = g_{i}$ lo que implica que $g = 1$ y así vemos que la acción $\alpha$ resulta ser libre tal como buscábamos.
+% \end{proof}
 
 
 
@@ -1937,6 +1933,21 @@ Primero debemos ver unos lemas de acciones de grupos finitos.
 \end{proof}
 
 
+\begin{teo}
+	\label{teo:subgrupo_normal_pi1_libre}
+	Dado $\cG$ un grafo de grupos finito sobre un grafo conexo $Y$ y dado $T$ árbol generador de $Y$.
+	Si existe un subgrupo normal $F$ de $\pi_{1}(\cG,T)$ que cumple que $F \cap G_{P} = 1$ para todo $P \in V(Y)$ entonces $F$ es un grupo libre.
+\end{teo}
+\begin{proof}
+	Dado $T$ árbol generador de $Y$ tenemos que $\pi_1(\cG, T)$ actúa sin inversiones de aristas sobre $\Xm$ el árbol de Bass--Serre de $\cG$.
+	De esta manera como $F \le \pi_1(\cG,T)$ luego tenemos que $F$ actúa sobre $\Xm$.
+
+	Si $h \in G_v$ para $v \in V(\widetilde{X})$ luego $v = gG_{P}$ para cierto $P \in V(Y)$ entonces 
+	$hgG_{P} = gG_{P} \implies h \in gG_{P}g^{-1}$.
+	Si a su vez asumimos que $h \in G_{v} \cap F$ luego como $F$ es normal esto nos diría que $g^{-1}hg \in F \cap G_{P}$ por lo que $h = 1$.
+	Con esto concluimos que $F \cap G_{v} = 1$ para todo $v \in V(\widetilde{X})$. 
+	Entonces como $F$ actúa libremente sobre el árbol $\widetilde{X}$ luego esto nos dice que por el lema \ref{coro_libre_sii_actua_arbol} luego $F$ es un grupo libre tal como queríamos ver.
+\end{proof}
 
 
 \begin{teo}\cite{karrass1973finite}\label{teo_karrass_solitar}
@@ -1949,7 +1960,7 @@ Primero debemos ver unos lemas de acciones de grupos finitos.
 		|X| = \prod_{P \in V} |G_P|.
 	\] 
 	
-	Para cada $P \in V$ podemos construir una acción libre de $G_P$ en $X$ usando el lema \ref{lema_accion_orden}.
+	Para cada $P \in V$ podemos construir una acción libre de $G_P$ en $X$ usando el teorema de Cayley.
 	Al ser acciones libres obtenemos monomorfismos $\tau: G_P \to S(X)$ para cada $P \in V$.
 	Para cada arista $y \in E$ obtenemos una acción libre de $G_{y}$ sobre $X$ restringiendo la acción que conseguimos para $G_{s(y)}$.
 	Por otro lado $G_{y}$ es isomorfo como grupo a $G_{\ol y}$ y este es un subgrupo de $G_{t(y)}$ por lo tanto obtenemos otra acción libre de $G_{y}$ sobre $X$ si identificamos a $G_{y}$ con $G_{\ol y}$ y después restringimos la acción que conseguimos para $G_{t(y)}$.
@@ -1973,19 +1984,14 @@ Primero debemos ver unos lemas de acciones de grupos finitos.
 		h(y) = \varphi_{y} & \ \ \ \ \ \ \text{si} \ y \in F_{E}
 	\end{align*}
 	
-	Por como tomamos a $\varphi_{\ol y}$ tenemos que $h$ respeta las relaciones de $F(\cG)$ y así tenemos un morfismo $h:F(\cG) \to S(X)$.
-	Si fijamos $P \in V$, como $\pi_1(\cG,P)$ es un subgrupo de $F(\cG)$ podemos restringir $h$ y así considerar el subgrupo normal de $\pi_1(\cG, P)$ 
+	Por como tomamos a $\varphi_{\ol y}$ tenemos que $h$ respeta las relaciones de $F(\cG)$ y así obtenemos un morfismo $\ol{h}:F(\cG) \to S(X)$.
+	Si fijamos $P \in V$, como $\pi_1(\cG,P)$ es un subgrupo de $F(\cG)$ podemos restringir $\ol{h}$ y así considerar el subgrupo normal de $\pi_1(\cG, P)$ 
 	\[
-	F = \{  g \in \pi_1(G,P) \ | \ h(g) = 1  \}
+	F = \{  g \in \pi_1(G,P) \ | \ \ol{h}(g) = 1  \}
 	\]
-	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$ porque la restricción de $h$ a $G_Q$ es inyectiva para todo $Q \in V$.
-	
-	Recordemos que dado $T$ árbol generador de $Y$ tenemos que $\pi_1(\cG, T)$ actúa sin inversiones de aristas sobre $\Xm$ el árbol de Bass--Serre de $\cG$.
-	Por el teorema \ref{teo_grp_fund_iso} tenemos que podemos identificar $\pi_1(\cG,P)$ con $\pi_1(\cG,T)$ y de esta manera como $F \le \pi_1(\cG,P)$ luego tenemos que $F$ actúa sobre $\Xm$.
-	Como los estabilizadores de la acción sobre $\Xm$ son los grupos $G_{P}$ para todo $P \in V$,	esto nos dice que el grupo $F$ actúa libremente sobre el árbol de Bass--Serre de nuestro grafo de grupos $\cG$.
-	Estamos en condiciones de usar el teorema de Serre \ref{teo_Serre} dado $F$ actúa libremente sobre el árbol $\Xm$ por lo tanto $F$ debe ser un grupo libre. 
-	
-	Tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$, que es un grupo finitamente generado, y queremos ver que $F$ tiene índice finito para probar que $\pi_1(\cG,P)$ es virtualmente libre.
+	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$ porque la restricción de $\ol{h}$ a $G_Q$ es inyectiva para todo $Q \in V$.
+
+	Por el resultado \ref{teo:subgrupo_normal_pi1_libre} tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$, que es un grupo finitamente generado, y queremos ver que $F$ tiene índice finito para probar que $\pi_1(\cG,P)$ es virtualmente libre.
 	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$ y como $S(X) \simeq \pi_1(\cG, P) / F$, por la propiedad universal del cociente, entonces $(\pi_1(\cG, P) : F) < \infty$ tal como queríamos ver.
 	
 \end{proof}
