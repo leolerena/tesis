@@ -1,0 +1,2043 @@
+
+\documentclass[tesis.tex]{subfiles}
+\def\acts{\curvearrowright}
+
+
+%\newcommand{\ol}{\overline{}}
+%\newcommand{\ic}{independiente de contexto }
+%\newcommand{\APND}{automáta de pila no determinístico }
+%\newcommand{\APD}{automáta de pila determinístico }
+%\newcommand{\fg}{grupo finitamente generado }
+%\newcommand{\fp}{grupo finitamente presentado }
+%\newcommand{\vl}{virtualmente libre}
+%\newcommand{\WP}{\text{WP}(G, \Sigma)}
+%\newcommand{\deriva}{\overset{*}{\Rightarrow_{\cal G}}}
+%\newcommand{\cG}{ {\cal G} }
+%\newcommand{\cH}{ {\cal H} }
+%\newcommand{\Xm}{\widetilde X}
+
+
+\begin{document}
+
+\chapter{Teoría de Bass--Serre.}\label{cap_BS}
+
+La mayoría de las construcciones de esta sección siguen la exposición de \cite{serre2002trees} aunque empleamos una notación diferente. 
+También se usó como referencia los trabajos \cite{scott1979topological}, \cite{diekert2017context} y \cite{dicks1989groups}.
+
+En la primera sección damos varias definiciones básicas que empleamos en el capítulo. 
+Muchas se corresponden con las vistas en la sección \ref{secc_graf_nd} sobre grafos no dirigidos.
+Introduciremos los grafos de grupos que son el objeto central de la teoría de Bass--Serre y los resultados estándares acerca de sus grupos fundamentales.
+
+En la sección \ref{secc_palab_reds} generalizaremos la noción de palabras reducidas que vimos para grupos libres al contexto más general de los grupos fundamentales de grafos de grupos.
+
+En la sección \ref{secc_arb_BS} damos la construcción del árbol de Bass--Serre que en cierta manera generaliza la idea del revestimiento de un grafo en este contexto.
+Para su construcción emplearemos fuertemente las propiedades sintácticas de los grupos fundamentales de grafos de grupos probados en la sección anterior.
+
+Finalmente en la sección \ref{secc_acciones_arboles} mostramos cómo se consigue un grafo de grupos a partir de una acción de un grupo sobre un árbol.
+En esta sección probaremos el teorema central de Serre \ref{teo_Serre} que nos caracteriza a los grupos que son grupos fundamentales de grafos de grupos como grupos que actúan en árboles de cierta manera.
+En especial nos interesa un teorema que se desprende de este resultado que nos dice que los grupos fundamentales de grafos de grupos finitos resultan ser virtualmente libres. 
+
+
+
+\section{Definiciones básicas.}\label{secc_defs_basicas}
+
+
+\begin{deff}
+	Dados conjuntos $V$ y $E$ un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ junto con funciones
+	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, que $\ol{\ol y} = y$ y que $\ol{y} \neq y$.
+	Esto implica que vale la siguiente propiedad $t(\ol y) = s(y)$.
+	
+	Al conjunto $V$ lo nombramos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
+	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
+	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
+	
+
+	
+	A continuación damos varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
+	\begin{itemize}
+
+		\item Dado un grafo dirigido $Y=(V,E)$ con funciones $s,t, \ol{(.)}$ diremos que $Y'=(V',E')$ con funciones $s',t',\ol{()}'$ es un \emph{subgrafo} de $Y$ si $V' \subseteq V$, $E' \subseteq E$ y si $s'=\left. s \right|_{E'}, t' = \left. s \right|_{E'}$ y $\ol{(.)}' = \left. \ol{(.)} \right|_{E'}$ .
+		
+		\item Decimos que $Y$ es \emph{finito} si $|V| < \infty$ y $|E| < \infty$.	
+		
+		\item Dado un grafo dirigido $Y$ una \emph{orientación} de sus aristas es un subconjunto $A \subset E$ que cumple que para cada arista $y \in E$ tenemos que $y \in A \iff \overline y \notin A$.	
+		
+		\item Dado un vértice $P \in V(Y)$ podemos definir su \emph{star} como el siguiente conjunto de aristas,
+		\[
+		st(P) = \{  y \in E(Y) : s(y) = P  \}
+		\]
+		
+		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k-1$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
+		Por cada camino $c = (y_0, \dots, y_k)$ podemos tomarnos una sucesión de vértices $(s(y_{0}), \dots, s(y_{n}))$, que observamos que no necesariamente determinan al camino.
+		Un camino es \emph{cerrado} si $P = Q$.
+		La \emph{longitud} del camino $l(c) = k$ es la cantidad de aristas que lo componen.
+		
+		\item Dado un grafo dirigido $Y$ y un vértice $P \in V$ notaremos $()$ al \emph{camino constante} en $P$. 
+		En particular los caminos constantes son los únicos caminos que cumplen que tienen longitud igual a $0$.
+
+		\item Un camino $c= (y_0, \dots y_n)$ tiene \emph{backtracking} si existe $ 0 < i \le n$ tal que $y_i = \ol{y_{i-1}}$.		
+		
+		\item Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $c = (y_0, \dots y_n)$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $d = (z_0, \dots, z_m)$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $l(d) \ge l(c)$.
+		Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $(y_0, \dots, y_k)$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
+		
+		\item 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
+		Un grafo es \emph{únicamente geodésico} si para todo par de vértices $P,Q \in V$ existe una única geodésica entre ellos.
+		
+		
+		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todas los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
+		
+				
+		\item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
+		Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
+		Todo árbol $T$ es un únicamente geodésico.
+		
+		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
+		
+		
+	\end{itemize}
+\end{deff}	
+
+En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los no dirigidos pueden tener más de una arista entre dos vértices y pueden tener bucles.
+
+Si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
+\[
+V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
+\]
+
+\begin{deff}
+	Sean $Y, Y'$ grafos dirigidos. 
+	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
+	\begin{itemize}
+		\item Para toda $y \in E(Y)$ vale que $\ol{\phi_{E}(y)} = \phi_{E}(\ol y)$;
+		\item Para toda $y \in E(Y)$ vale que $\phi_{V}(s(y)) = s(\phi_{E}(y))$;
+	\end{itemize}   
+	En particular de esta definición que dimos se desprende que para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$ usando que $s(\ol y) = t(y)$.
+\end{deff}
+
+
+Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera  y para todo vértice $P \in V(X)$:
+\begin{align*}
+	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \  \ \text{para toda arista} \ y \in E(X) \\
+	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)) \  \ \text{para todo vértice} \ P \in V(X). 
+\end{align*}
+En el caso especial de los morfismos de grafos $\phi: Y \to Y$ consideramos la identidad $I: Y \to Y$ como el morfismo que manda toda arista a sí misma y todo vértice a sí mismo.
+Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I$ y $\phi^{-1} \circ \phi = I$.
+Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$ donde la identidad $I$ es el elemento neutro.
+
+Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
+\begin{deff}
+	Sea $G$ un grupo y sea $Y$ un grafo dirigido una \emph{acción} de $G$ sobre $Y$ es un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
+	
+\end{deff}
+
+Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
+Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $g \cdot y \neq \ol y$.
+
+
+Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
+
+\begin{deff}
+	Dado un grafo dirigido $Y$.
+	Un \emph{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
+	\begin{enumerate}
+		\item Para cada vértice $P \in V$ tenemos un grupo $G_P$.
+		\item  Para cada arista $y \in E$ tenemos un subgrupo $G_y$ de $G_{s(y)}$.
+		\item Para todo $y \in E$ tenemos un isomorfismo de $G_y$ a $G_{\overline y}$ que denotaremos por $a \mapsto a^{\overline y} $ tal que $(a^{\overline y})^y  = a$ para todo $a \in G_y$.
+	\end{enumerate}
+\end{deff}
+
+Dado un grafo $Y = (V, E)$ sea $F_{E}$ el grupo libre generado por los elementos del conjunto de aristas del grafo.
+
+\begin{deff}
+	Dado un grafo de grupos $\cal G$ sobre un grafo $Y = (V, E)$ consideremos el siguiente grupo: 
+	\begin{equation*}
+		F({\cal G}) = (\underset{P \in V}{\Asterisk} G_P \Asterisk F_{E}) / \langle \langle  R \rangle \rangle
+	\end{equation*}
+	donde el conjunto de relaciones por las que dividimos es 
+	\[
+		R = \{  \ol y a y = a^{\overline y}   \ \text{para toda $y \in E$ y todo \  $a \in G_y$} \}
+	\]
+	A este grupo lo denotaremos el \emph{grupo universal} del grafo de grupos $\cG$.
+\end{deff}
+
+Si tomamos $1 \in G_{y}$ tenemos que para toda $y \in E(Y)$ vale que $\ol{y}y=1$. 
+El grupo que más nos interesa es un cociente de $F(\cG)$ que llamamos el grupo fundamental del grafo de grupos.
+
+\begin{deff} \label{def_pi1_arbol}
+	Sea un grafo de grupos $\cal G$ sobre $Y$.
+	Consideremos $T$ un árbol generador del grafo $Y$.
+	El \emph{grupo fundamental del grafo de grupos} es
+	\begin{equation*}
+		\pi_1({\cal G}, T) = F({\cal G}) / \{ y \  | \ y \in E(T)  \}.
+	\end{equation*}
+\end{deff}
+
+\begin{obs}
+	Para cada arista $y \in E(Y)$ notamos por $g_{y}$ a la imagen de $y \in F(\cG)$ en el cociente $\pi_1(\cG,T)$.
+\end{obs}
+
+Veamos en el siguiente ejemplo que nuestra construcción de un grupo fundamental generaliza la definición topológica del grupo fundamental.
+
+\begin{ej}
+	Sea un grafo de grupos $\cal G$ sobre un grafo $Y$ tal que $G_y = \{ 1 \}$ para todo $y \in E(Y)$.
+	En este caso en particular tenemos que 	$F(\cG) \simeq (\underset{P \in V}{\Asterisk} G_P \Asterisk F_{E}) / \langle \langle  R \rangle \rangle$
+	donde $R = \{ \ol{y}y = 1 \ \text{para toda} \ y \in E \}$.
+	Consideremos una orientación $A$ para las aristas del grafo.
+	Dado que las relaciones $R$ involucran exclusivamente a los generadores de $F_{E}$ podemos ver que $F(\cG) \simeq \underset{P \in V}{\Asterisk} G_P \Asterisk {F_{A}}$ donde usamos que $F_{E}/\langle \langle  R \rangle \rangle \simeq F_{A}$.
+	
+	Sea $T$ un árbol generador de $Y$ entonces consideremos una orientación $A$ de las aristas de $Y$ de manera que para toda $y \in E(T)$ vale que $y \in A$.	
+	Calculamos el grupo fundamental de este grafo de grupos.
+	Por definición este resulta ser $F(\cG) / \{  y : y \in E(T) \}$.
+	Por el mismo razonamiento que usamos para calcular el grupo $F(\cG)$ obtenemos el siguiente isomorfismo
+	\[
+		\pi({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{A \setminus (E(T) \cap A)}
+	\]
+	
+	Si reescribimos esto recordando que el grupo fundamental de un grafo como espacio topólogico $\pi_1(Y)$ es isomorfo al grupo libre generado por las aristas que no pertenecen a un árbol generador nos queda que: 
+	\[
+		\pi_1({\cal G}, T) \simeq \underset{P \in V(Y)}{\Asterisk} G_P  \Asterisk \pi_1(Y). 
+	\]
+\end{ej}
+
+\begin{ej}\label{ej_pi1_bucle}
+	Si $Y$ es un bucle. 
+	Es decir si $Y = (\{P\}, \{y,\ol y \})$ de manera que $s(y)=P=s(\ol y)$ y $t(y) = P = t(\ol y)$ entonces este grafo tiene como único árbol generador al vértice $P$.
+	Consideremos $\cG$ un grafo de grupos sobre este grafo.
+\begin{center}
+		\begin{tikzpicture}
+		[node distance = 25mm and 25mm, 
+		V/.style = {circle, draw, fill=gray!20},
+		every edge quotes/.style = {auto, font=\footnotesize, sloped}
+		]
+		\node[align=center] at (-1.5, 0) {$\cG=$};
+		\begin{scope}[nodes=V]
+			\node (1)  [minimum size=0.25cm] {$G_P$};
+		\end{scope}
+		\draw   (1)  edge[->,"$G_y$", loop] (1);
+	\end{tikzpicture}
+\end{center}
+	
+	Por la definición del grupo fundamental del grafo de grupos obtenemos el siguiente isomorfismo. 
+	\[
+		\pi_1(\cG,T) \simeq F(\cG).
+	\]
+	Si $a$ es algún elemento de $G_y$ entonces notaremos por $a^{\ol y}$ a la imagen de $a$ por el isomorfismo con el grupo $G_{\ol y}$.
+	Sea $y$ el generador de $F_{E}$ correspondiente a la arista $y$.
+		 
+	En este caso las relaciones que tenemos en nuestro grupo son las siguientes
+	\[
+	y^{-1}ay = a^{\ol y}  \  \ \ \text{para todo} \ a \in G_y.
+	\]   
+	De esta manera tenemos que una presentación de nuestro grupo fundamental es la siguiente
+	\[
+	\pi_1(\cG) = \langle G_P, y \ | \ y^{-1}ay = \ol{a}, \ \forall a \in G_y \rangle
+	\]
+	es decir el grupo fundamental de este grafo de grupos resulta ser por definición una extensión HNN del grupo correspondiente al vértice que denotaremos $G_P^{\ast G_y}$.
+	Notemos que esta extensión depende de la elección del isomorfismo entre los grupos de las aristas aunque en el caso de este capítulo siempre va a quedar claro a qué isomorfismo nos referimos.
+	
+\end{ej}
+
+\begin{ej}\label{ej_pi1_segmento}
+	
+	Si el grafo $Y$ es un segmento entonces $Y = (\{ P,Q \}, \{ y, \ol y\})$ tal que $s(y) = P$ y $t(y) = Q$.
+	El árbol generador resulta ser el mismo grafo $Y$ en este caso.
+	Consideremos $\cG$ un grafo de grupos sobre este grafo.
+	\begin{center}
+		\begin{tikzpicture}
+			[node distance = 25mm and 25mm, 
+			V/.style = {circle, draw, fill=gray!20},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\node[align=center] at (-1.5, 0) {$\cG=$};
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=1cm] {$G_P$};
+				\node (2) [right=of 1,minimum size=1cm]    {$G_Q$};
+			\end{scope}
+			\draw   (1)  edge[->,"$G_y$"] (2);
+		\end{tikzpicture}
+	\end{center}
+	Dado $a \in G_{y}$ denotaremos $a^{\ol y}$ la imagen por el isomorfismo entre $G_{y}$ y $G_{\ol y}$ de $a$.
+	
+	Entonces el grupo fundamental de este grafo de grupos resulta ser 
+	\[
+		\pi_1({\cal G}, Y) =  F(\cG) / \langle a = a^{\ol y}, \quad \forall a \in G_{y} \rangle
+	\]
+	Esto por definición el grupo que buscábamos resulta ser el producto amalgamado
+	\[
+	\pi_1({\cal G}, Y) = G_P \underset{G_{y}}{\Asterisk} G_Q.
+	\]
+\end{ej}
+
+Nuestro foco ahora es dar una definición equivalente de grupo fundamental pero esta vez usando caminos así como lo hacemos para el grupo fundamental usual de un espacio topológico.
+
+\medskip
+Dados dos vértices $P,Q \in V$ denotaremos por $\Pi(P,Q)$ el conjunto de caminos de $P$ a $Q$.
+De esta manera nos queda definido
+\[
+\Pi(P,Q) = \{  (y_1, \dots, y_k) \ | \ y_{i} \in E, \ s(y_1)=P, \ t(y_k) = Q, \ t(y_i) = s(y_{i+1})  \ \text{para} \ 1 \le i \le k \}
+\]
+Todo camino $(y_1, \dots, y_k) \in \Pi(P,Q)$ lo podemos pensar como la palabra $y_1 \dots y_k$ en el grupo libre $F_E$ y similarmente podemos mirar la clase de $y_1\dots y_k$ en el cociente $F(\cG)$.  
+
+\begin{deff}
+	Dado $\cG$ grafo de grupos sobre $Y$ grafo conexo y $P,Q \in V$ dos vértices de $Y$ definimos el siguiente subconjunto de $F(\cG)$,
+	\begin{equation*}
+		\pi(\cG, P, Q) = \{  g_0y_1g_1 \dots g_{k-1}y_kg_k : (y_1,\dots, y_k) \in \Pi(P,Q), \ \ 
+		 \forall i, \ 0 \le i < k, g_i \in G_{s(y_{i+1})}, \ \ g_k \in G_Q \}	
+	\end{equation*}
+\end{deff}
+ 
+\begin{prop}
+	Para todo $P \in V$ tenemos que $\pi(\cG,P,P)$ es un subgrupo de $F(\cG)$.
+\end{prop}
+\begin{proof}
+	Debemos ver que tiene a la identidad del grupo, que es cerrado por el producto y que todo elemento tiene un inverso.
+
+	Si consideramos el camino constante en $P$ y $g_0 = 1$ luego obtenemos que $1 \in \pi(\cG, P , P)$.
+	Para ver que es cerrado por el producto notemos que 
+	\begin{equation*}
+		(g_0y_1g_1 \dots g_{k-1}y_kg_k ) \circ ( g'_0y'_1g'_1 \dots g'_{k-1}y'_kg'_k) =  g_0y_1g_1 \dots g_{k-1}y_k(g_kg'_0)y'_1g'_1 \dots g'_{k-1}y'_kg'_k
+	\end{equation*}
+	donde $g_kg'_0 \in G_P$ por lo tanto su producto está bien definido y en definitiva nos queda otro elemento de $\pi(\cG, P, P)$ tal como queríamos ver.
+	Finalmente vemos que es cerrado por inversos porque si tomamos el elemento $g_0y_1\dots y_{k} g_k$ su inverso resulta ser ${g_k}^{-1} \ol{y_k} \dots \ol{y_1}{g_0}^{-1} \in \pi(\cG,P,P)$.
+\end{proof}
+
+\begin{deff}
+	\emph{El grupo fundamental de $\cG$ respecto a un punto base $P$} se define como $\pi_1(\cG, P) = \pi(\cG,P,P)$.
+\end{deff}
+
+Notemos que en particular para esta construcción obtuvimos un subgrupo del grupo $F(\cal G)$ mientras que en el caso de la definición anterior del grupo fundamental \ref{def_pi1_arbol} obtuvimos un cociente.
+Podemos ver que ambas definiciones son equivalentes porque tenemos un isomorfismo como grupos.
+
+\begin{teo}\label{teo_grp_fund_iso}
+	Sea $\cG$ un grafo de grupos sobre un grafo conexo finito $Y = (V,E)$, sea $P \in V$ un vértice y sea $T$ un árbol generador de $Y$ entonces $\pi_1({\cal G}, P)$ es isomorfo a $\pi_1({\cal G}, T)$.
+\end{teo}
+\begin{proof}
+	Dados $P,Q \in V$ consideremos la geodésica $\alpha$ que los une sobre $T$.
+	Si leemos la sucesión de aristas que recorre esta geodésica tenemos una palabra $T[P,Q] \in F_{E}$. 
+	Consideramos a $T[P,Q]$ como un elemento en el grupo $F(\cG)$.
+	Observemos que $T[P,Q] = T[Q,P]^{-1}$ porque el árbol es únicamente geodésico.
+	
+	Ahora definamos el siguiente morfismo (que depende del árbol de expansión que tomamos) sobre los generadores del producto libre:
+	
+	\begin{align*}
+		\tau: & \underset{P \in V}{\Asterisk} G_P \Asterisk F_{E} \to \pi_1(\cG,P)  \\
+		 \tau(y) &= T[P,s(y)]yT[t(y),P] \ \ \text{para } \ y\in E(Y) \\
+		\tau(g) &= T[P,Q] g T[Q,P] \ \  \text{para} \ Q \in V(Y), \ g \in G_Q
+	\end{align*}
+	Tal que lo único que debemos chequear es que $\tau(gh) = \tau(g) \tau (h)$ para $g,h \in G_{Q}$.
+	Para eso notemos que 
+	\[
+		\tau(gh) = T[P,Q] gh T[Q,P] = T[P,Q] g T[Q,P] \  T[P,Q] h T[Q,P] = \tau(g)\tau(h).
+	\]
+	Notemos que por como definimos a este morfismo tenemos que $\tau(y) \in \pi_1(\cG,P)$ y que similarmente $\tau(g) \in \pi_1(\cG,P)$.
+	
+
+	Veamos que $\tau$ pasa al cociente $F(\cG)$.
+	Debemos ver que cumple la relación $\tau(\overline y a y) = \tau (a^{\overline y})$ para toda arista $y \in E(Y)$ y todo $a \in G_y$.
+	Esto vale porque justamente 
+	\begin{align*}
+		\tau(\overline y a y) & = T[P,s(\overline y)]\ol yT[t(\ol y),P] T[P,s(y)] a T[t(y),P] T[P,s(\overline y)]yT[t( y),P] \\
+		& = T[P,s(\overline y)]  \ol y a y T[t( y),P] \\
+		& = \tau (a^{\ol y}).
+	\end{align*}
+	donde usamos que $\ol y a y = a^{\ol y}$ en $\pi_1(\cG,P)$.
+	Sea $\ol{\tau}: F(\cG) \to \pi_1(\cG, P)$ este morfismo que definimos.
+	Por como está definido $\tau$ tenemos que si lo restringimos al subgrupo  $\pi_1(\cG,P)$ resulta ser la identidad y en particular tenemos que $\tau$ es un epimorfismo.
+	
+	Veamos que $\ol{\tau}$ baja al cociente $\pi_1(\cG, T)$.
+	Sea $y \in E(T)$ luego $\tau(y) = T[P,s(y)]yT[t(y), P]$ donde $T[t(y), P] = \ol y T[s(y), P]$ y de esta manera $\tau(y) = 1$ para todo $y \in E(T)$.
+	Por esta razón $\tau$ pasa al cociente y existe $\ol{\ol{\tau}}: \pi_{1}(\cG, T) \to \pi_1 (\cG, P)$ epimorfismo tal que hace conmutar el siguiente diagrama,
+	
+	\begin{center}
+		\begin{tikzcd}
+			F(\cal{G}) \arrow[rr, "\ol{\tau}"] \arrow[dd, "\pi"']             &  & {\pi_1({\cal G}, P)} \\
+			&  &                      \\
+			{\pi_1({\cal G}, T)} \arrow[rruu, "\ol{\ol{\tau}}"', dashed] &  &                     
+		\end{tikzcd}
+	\end{center}
+	
+	Para terminar la demostración probemos que $\ol{\ol{\tau}}$ es un monomorfismo.
+	Para eso consideramos $\nu = \pi \circ \iota$ donde $\iota: \pi_1(\cG,P) \to F(\cG)$ es la inclusión como subgrupo y probemos que $\nu \circ \ol \tau$ nos queda la identidad.
+	Si hacemos $\nu \circ {\ol \tau}$ notemos que si $g \in G_Q$ con $Q \in V$ luego
+	\begin{align*}
+		\nu \circ \ol{\ol{ \tau}} (\pi (g)) & = \nu (T[P,Q]gT[Q,P]) \\
+					&= \pi(T[P,Q]gT[Q,P]) \\
+					&= \pi(T[P,Q]) \pi (g) \pi (T[Q,P]) \\
+					&= \pi(g).
+	\end{align*}
+	Donde usamos que $T[P,Q]$ es un camino de aristas en el árbol de expansión y por lo tanto $\pi(T[P,Q]) = 1$. 
+	Similarmente podemos ver que para toda $y \in E$ tenemos que $\nu \circ \ol {\ol \tau} (\pi(y)) = \pi(y)$.
+	De esta manera vimos que $\ol{\ol \tau} : \pi_{1}(\cG,T) \to \pi_{1}(\cG,P)$ es un isomorfismo de grupos.
+	
+\end{proof}
+
+\begin{coro}
+	Sea $\cG$ grafo de grupos sobre un grafo conexo y finito $Y$.
+	Sean $T, T'$ árboles generadores de $Y$ luego tenemos que $\pi_1(\cG,T) \simeq \pi_1(\cG,T')$.
+\end{coro}
+\begin{proof}
+	Sea $P \in V$ entonces por el resultado anterior \ref{teo_grp_fund_iso} que vale que $\pi_1(\cG,P) \simeq \pi_1(\cG,T)$ para cualquier $T$ árbol generador por lo tanto obtenemos que $\pi_1(\cG, T) \simeq \pi_1(\cG,T')$ volviendo a usar este resultado para $T'$.
+	
+\end{proof}
+
+\section{Palabras reducidas.}\label{secc_palab_reds}
+
+En esta sección probaremos que todo elemento del grupo fundamental de un grafo de grupos puede ser llevado a una forma reducida.
+
+\subsection{Casos particulares.}
+
+En esta subsección vamos a caracterizar las palabras reducidas de los grupos fundamentales de algunos grafos de grupos donde los grafos resultan ser más sencillos.
+El objetivo aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos de grupos arbitrarios a grafos de grupos donde sus grafos sean de estas formas.
+
+\subsubsection{Bucles.}\label{subsub_bucle}
+Por lo visto en el ejemplo \ref{ej_pi1_bucle} tenemos que dado $Y = (\{P\}, \{y,\ol y\})$ un bucle, entonces entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento 
+hace que el grupo fundamental sea isomorfo a un producto HNN, es decir que $\pi_1(\cG) = G_P^{\ast G_y}$. 
+
+\begin{deff}\label{deff_hnn_fn}
+	Dado $G_P^{\ast G_y}$ extensión HNN diremos que una sucesión
+	\[
+		(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+	\]
+	donde para todo $0 \le i \le n$ tenemos que $x_{i} \in G_{P}$ y $\epsilon_{i} \in \{ -1,1 \}$
+	es una \emph{sucesión reducida} si no tiene subsucesiones 
+	$y^{-1}x_iy$ con $x \in G_{y}$ o bien $yx_iy^{-1}$ con $x \in G_{\ol y}$.	
+\end{deff}
+
+Nos interesan las sucesiones reducidas porque principalmente es una manera fácil de chequear cuándo algún elemento no es la identidad en el grupo.
+
+\begin{prop}[Lema de Britton]\label{teo_britton}
+	Sea $G_P^{\ast G_y}$ una extensión HNN.
+	Para todo sucesión reducida
+	\[
+	(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+	\]
+	tal que $n \ge 0$
+	vale que $x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1} \neq 1$.
+\end{prop}
+\begin{proof}
+	Ver \cite[p.182]{lyndon1977combinatorial}.
+\end{proof}
+
+% Si elegimos conjuntos transversales de $G_{y}$ y de $G_{\ol y}$ nos podemos  
+% quedar con algunas de las sucesiones reducidas.
+% Estas sucesiones reducidas las llamaremos formas normales.
+
+
+\begin{deff}
+	Sea $G_P^{\ast G_y}$ una extensión HNN  y sean $S$ conjunto transversal a izquierda de $G_y$ en $G_P$ y $T$ conjunto transversal a izquierda de $G_{\ol y}$ en $G_P$. 
+	Tomamos ambos transversales de manera que $1 \in S$ y $1 \in T$.
+	Una \emph{forma normal para una extensión HNN} es una sucesión
+	\[
+	(x_{0},y^{\epsilon_0},x_{1},g^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+	\]
+	donde para todo $0 \le i \le n$ tenemos que $x_{i} \in G_{P}$ y $\epsilon_{i} \in \{ -1,1 \}$ y cumple las siguientes propiedades:
+	\begin{enumerate}
+		\item $x_0 \in G_P$.
+		\item En el caso que $\epsilon_{i} = 1$ entonces $x_i \in S \setminus \{ 1\}$ mientras que en el caso que $\epsilon_{i} = -1$ tenemos que $x_{i} \in T \setminus \{ 1 \}$.
+		\item No tiene la subsucesión $y^{\epsilon}1y^{-\epsilon}$.
+	\end{enumerate}
+\end{deff}
+
+Las formas normales caracterizan unívocamente a los elementos de una extensión HNN esto es que todo elemento de una extensión HNN puede ser escrita en forma normal y más aún esta escritura es única.
+ 
+\begin{teo}
+	Para todo $g \in G_P^{\ast G_y}$ existe una única forma normal 
+	\[
+	(x_{0},y^{\epsilon_0},x_{1},y^{\epsilon_1}, \dots, x_{n},y^{\epsilon_n},x_{n+1})
+	\]
+	tal que $g = x_{0}y^{\epsilon_0}x_{1}y^{\epsilon_1} \dots x_{n},y^{\epsilon_n}x_{n+1}$.
+\end{teo}
+\begin{proof}
+	Ver \cite[p.182]{lyndon1977combinatorial}.
+\end{proof}
+
+
+\subsubsection{Segmentos.}\label{subsub_segmento}
+
+En el ejemplo \ref{ej_pi1_segmento} vimos que dado un segmento $Y = (\{P,Q\}, \{y, \ol y\}  )$ entonces para toda estructura de grafo de grupos $\cG$ que le demos a este segmento
+resulta que el grupo fundamental es isomorfo a un producto amalgamado, es decir que $\pi_1(\cG) = G_P \ast_{G_y} G_Q$. 
+
+En esta subsección vamos a repetir los resultados y definiciones que vimos para las extensiones HNN y definir sucesiones reducidas y formas normales.
+
+\begin{deff}\label{deff_amalgamado_fn}
+	Dado $G_P \ast_{G_y} G_Q$ producto amalgamado diremos que una sucesión
+	\[
+	(x_0,x_1,\dots, x_n)
+	\]
+	es una \emph{sucesión reducida} si valen las siguientes condiciones:
+	\begin{enumerate}
+		\item Para todo $0 \le i \le n$ vale que $x_{i} \in G_{P}$ o $x_i \in G_Q$
+		\item Para todo $0 \le i < n$ no puede valer que $x_i,x_{i+1} \in G_P$ o que $x_i,x_{i+1} \in G_Q$.
+		\item Si $n > 0$ entonces $x_i \notin G_y$.
+		\item Si $n = 0$ entonces $x_0 \neq 1$.
+	\end{enumerate}
+\end{deff}
+
+
+\begin{teo}\label{coro_amalgamado_neq_1}
+	Sea $G_P \ast_{G_y} G_Q$ grupo amalgamado entonces si $(x_0,x_1,\dots,x_n)$ es una sucesión reducida y $n \ge 0$ entonces tenemos que $1 \neq x_0x_1\dots x_n$.
+\end{teo}
+\begin{proof}
+	Ver \cite[pp.187-188]{lyndon1977combinatorial}.
+\end{proof}
+
+Analogamente al caso de las extensiones HNN podemos definir una forma normal para un producto amalgamado.
+
+\begin{deff}
+	Sea $G_P \ast_{G_y} G_Q$ un producto amalgamado.
+	Sean $S$ transversal a izquierda de $G_{y}$ en $G_P$ y $T$ transversal a izquierda de $G_{\ol y}$ en $G_{Q}$.
+	Tomamos ambos transversales de manera que $1 \in S$ y $1 \in T$.
+	
+	Una \emph{forma normal para un producto amalgamado} es una sucesión
+	$(a,x_0,x_1,\dots, x_n)$ tal que $a \in G_{y}$ y para todo $0\le  i \le n$ tenemos que $x_{i} \in S \setminus \{ 1 \}$ o bien $x_{i} \in T \setminus \{ 1 \}$ y no 
+	existe $ 0 \le i  < n$ tal que  $x_{i}, x_{i+1} \in T$ o $x_{i}, x_{i+1} \in S$ .	
+\end{deff}
+
+\begin{prop}\label{prop_amalgamado_formanormal}
+	Dado un grupo amalgamado $G_P \ast_{G_y} G_Q$
+	vale que para todo $g \in G_P \ast_{G_y} G_Q$ 
+	existe una única forma normal $(a,x_0,x_1,\dots,x_n)$ de manera que $g= ax_0x_1\dots x_n$.
+\end{prop}
+\begin{proof}
+	Ver \cite[p.187]{lyndon1977combinatorial}.
+\end{proof}
+
+\subsection{ Caso general.}
+
+En el contexto de esta sección $\cG$ denota un grafo de grupos sobre un grafo conexo y finito $Y$.
+Nuestro objetivo es probar que en el grupo universal del grafo de grupos $F(\cG)$ ciertas sucesiones que resultan asociadas a caminos son reducidas.
+Más específicamente queremos probar que definen elementos diferentes de la identidad del grupo tal como hicimos en los resultados \ref{teo_britton} y \ref{coro_amalgamado_neq_1}.
+
+
+
+\begin{deff}
+	Sea $Y$ grafo conexo y finito, $\cG$ un grafo de grupos sobre $Y$ y $F(\cG)$ el grupo universal de este grafo de grupos.
+	Sean:
+	\begin{enumerate}[i)]
+		\item $c=(y_1, \dots, y_n) \in \Pi(P,Q)$ algún camino entre dos vértices $P,Q \in V$;
+		\item $\mu = (r_0, \dots r_n)$ una sucesión tomada de manera que $r_0 \in G_P$ y para todo $ 1 \le i \le n $ vale que $r_i \in G_{t(y_i)}$.
+	\end{enumerate}
+	De esta manera denotaremos por el par $(c, \mu)$ a la palabra en el grupo $\underset{P \in V}{\Asterisk} G_P \Asterisk F_E$:
+	\[
+	(c,\mu) = r_0 y_1 r_1 y_2 \dots r_n.
+	\]
+	Diremos que $(c, \mu)$ es una \emph{palabra de tipo $c$}.
+\end{deff}
+ 
+Denotaremos por $|c,\mu|$ la imagen de esta palabra en el grupo $F(\cG)$ esto es que
+\[
+|c,\mu| = [r_0 y_1 r_1 y_2 \dots r_n]_{F(\cG)}.
+\]
+
+\begin{deff}
+	Una palabra $(c, \mu)=r_0 y_1 r_1 y_2 \dots r_n$ de tipo $c$ está \emph{reducida} si satisface:
+	\begin{enumerate}[R1.]
+		\item Si la longitud de $c$ es $0$ entonces $r_0 \neq 1$.
+		\item Si la longitud de $c$ es positiva entonces $r_i \notin G_{\ol y_{i}}$ para todo $i$ tal que $y_{i+1} = \ol y_{i}$.
+	\end{enumerate}
+\end{deff}
+A partir de esta definición podemos ver inmediatamente las siguientes dos observaciones.
+\begin{enumerate}[1.]
+	\item Sea $c=(y_1, \dots, y_n)$ un camino que no tiene backtracking: esto es que no existe $1 \le i  < n$ tal que $\ol {y_{i+1}} = y_{i}$.
+	Entonces toda palabra de tipo $c$ va a ser reducida porque cumple \textbf{R2}.
+	
+	\item Esta definición de forma normal generaliza las definiciones que dimos para grafos con una única arista en \ref{deff_hnn_fn} y \ref{deff_amalgamado_fn}.
+\end{enumerate}
+
+
+Enunciamos el siguiente resultado que probaremos más en adelante en esta misma sección. 
+
+\begin{teo}\label{teo_pal_red}
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego toda palabra $(c, \mu)$ reducida es tal que $|c,\mu| \neq 1$.
+\end{teo}
+
+En particular de este resultado se desprenden corolarios importantes para entender la estructura de los grupos fundamentales de grafos de grupos finitos.
+
+\begin{coro}\label{coro_pal_red_1}
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$ luego para todo $P \in V$ vale que $G_P$ es un subgrupo de $F(\cG)$.
+\end{coro}
+\begin{proof}
+	Para todo $P \in V$ tenemos que $G_P$ es un subgrupo de $\ast_{P \in V} G_P \ast F_E$.
+	Sea  $g \in G_{P} \setminus \{ 1 \}$ entonces $(c, \mu) = g$ donde $c = ()$ es el camino constante en $P$ y $\mu = (g)$.
+	Es una palabra reducida por cumplir la propiedad \textbf{R1}.
+	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ por lo que  la proyección a $F(\cG)$ nos da un monomorfismo restringida a $G_P$ y así a $G_P$ lo podemos considerar un subgrupo de $F(\cG)$.
+\end{proof}
+
+\begin{coro}\label{coro_pal_red_2}
+	Sea $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, sea $c = y_0 \dots y_n$ un camino no constante y $(c, \mu)$ una palabra reducida entonces $|c, \mu| \notin G_{s(y_0)}$.
+\end{coro}
+\begin{proof}
+	Vamos a suponer que esto no es cierto y contradecir el teorema \ref{teo_pal_red}.
+	Sea $(c, \mu) = r_0y_1r_1\dots r_n$.
+	Si no fuera cierto tendríamos que $|c,\mu| = x \in G_{s(y_0)}$. 
+	Consideremos entonces otra palabra $(c,\mu')$ tal que $\mu' = (x^{-1}r_0, \dots, r_n)$ de manera que por como la tomamos $|c,\mu'| = 1$.
+	Es una palabra reducida porque por suposición tenemos que $c$ no es el camino constante y aparte $\mu'$ es idéntica a $\mu$ salvo en la primera posición que no afecta la condición \textbf{R2}.
+	Esto contradice \ref{teo_pal_red} por lo tanto $|c, \mu| \notin G_{s(y_0)}$.
+\end{proof}
+
+El siguiente corolario va resultarnos el de mayor utilidad porque en general vamos a trabajar con el grupo fundamental de un grafo de grupos.
+El grupo fundamental de un grafo de grupos con respecto a un árbol generador $T$ es un cociente de $F(\cG)$. 
+Sea $\pi: F(\cG) \to \pi_1(\cG,T)$ la proyección.
+
+\begin{coro}\label{coro_pal_red_3}
+	Sean $\cG$ un grafo de grupos sobre un grafo finito y conexo $Y$, $c$ un camino cerrado en $Y$, $T$ un árbol generador de $Y$ y $(c, \mu)$ una palabra reducida entonces $\pi(|c,\mu|) \neq 1$ en $\pi_1(\cG, T)$. 
+\end{coro}
+\begin{proof}
+	Por el teorema \ref{teo_pal_red} tenemos que $|c,\mu| \neq 1$ en el grupo $F(\cG)$.
+	A su vez por como elegimos a $(c, \mu)$ tenemos que es un elemento del grupo fundamental $\pi_1(\cG, P)$.
+	Por el teorema \ref{teo_grp_fund_iso} tenemos que este grupo es isomorfo a el grupo fundamental $\pi_1(\cG, T)$ por medio de la proyección $\pi$ entonces esto termina de probar el resultado.
+\end{proof}
+
+
+
+
+
+Primero vamos a dar una definición estándar que es la del cociente de un grafo no dirigido que es nuestra herramienta principal para poder reducir el tamaño de un grafo.
+
+\begin{deff}
+	Sea $Y$ un grafo conexo y sea $Y'$ un subgrafo conexo de $Y$ entonces
+	el grafo dirigido $W = Y/Y'$ \emph{cociente de $Y$ por $Y'$} es el grafo dado por los siguientes conjuntos de aristas y vértices:
+	
+	\begin{enumerate}
+		\item Los vértices son $V(W)= V(Y) \setminus V(Y') \cup \{ [Y'] \}$.
+		\item Las aristas son $E(W) = E(Y) \setminus E(Y')$.
+	\end{enumerate}
+	Donde el vértice correspondiente a $Y'$ lo denotamos $[Y']$. 
+	Sea $y \in E(W)$ entonces:
+	\begin{equation*}
+		s(y) = 
+		\begin{cases}
+			s(y)  & \text{si} \ s(y) \notin V(Y') \\ 
+			[Y'] & \text{caso contrario}
+		\end{cases}
+	\end{equation*}
+	y análogamente,
+	\begin{equation*}
+		t(y) = 
+		\begin{cases}
+			t(y)  & \text{si} \ t(y) \notin V(Y') \\ 
+			[Y'] & \text{caso contrario}
+		\end{cases}
+	\end{equation*}
+	Si las aristas no comienzan ni terminan en $Y'$ dentro del grafo $Y$ al contraer el subgrafo no las modificamos. 
+	En el otro caso las definimos para que terminen (o empiecen) en $[Y']$. 
+	
+\end{deff}
+
+Una observación directa de esta definición es que si los grafos $Y$ e $Y'$ son conexos entonces el grafo $W$ también resulta serlo.
+
+\begin{ej}
+	
+Un ejemplo particular de cómo es el grafo cociente
+
+\begin{center}
+	\begin{tikzpicture}[
+		node distance = 15mm and 15mm,
+		V/.style = {circle, draw, fill=gray!30, minimum size=1.5em},
+		every edge quotes/.style = {auto, font=\footnotesize, sloped},
+		]
+		
+		% First graph
+		\node[align=center] at (-4.5, 3) {Grafo \textbf{$Y$}};
+		\begin{scope}[nodes=V, xshift=-4.5cm]
+			\node (1) {$P_1$};
+			\node (2) [above right=of 1, fill=orange] {$P_2$};
+			\node (3) [right=of 2, fill=orange] {$P_3$};
+			\node (4) [below right=of 3, fill=orange] {$P_4$};
+			\node (5) [below left=of 4, fill=orange] {$P_5$};
+			\node (6) [left= of 5, fill=orange] {$P_6$};
+		\end{scope}
+		\draw   (1)  edge[->,"$y_1$"] (2)
+		(2)  edge[->,"$y_2$",orange] (3)
+		(3)  edge[->,"$y_3$",orange] (4)
+		(4)  edge[->,"$y_4$",orange] (5)
+		(5)  edge[->,"$y_5$",orange] (6)
+		(6)  edge[->,"$y_6$"] (1)
+		(5)  edge[->,"$y_7$"]  (2);
+		
+		
+		% Second graph
+		\node[align=center] at (8.5, 3) {Grafo \textbf{$W$}};
+		\begin{scope}[nodes=V, xshift=4.5cm, yshift=-1cm]
+			\node (1) {$P_1$};
+			\node (2) [above right=of 1, fill=orange] {$[Y']$};
+		\end{scope}	
+		\draw   
+		(1)  edge[->,bend right=45, "$y_1$"] (2)
+		(2)  edge[->,"$y_7$", loop]  (2)
+		(2)  edge[->,"$y_6$", bend right = 45] (1);
+		
+	\end{tikzpicture}
+\end{center}
+
+Donde en este ejemplo distinguimos al subgrafo $Y'$ conexo con este \textcolor{rgb,255:red,214;green,153;blue,92}{color}.
+
+
+
+
+
+\end{ej}
+
+
+\subsubsection{Argumento dévissage.}
+
+
+Queremos probar que toda palabra de tipo $c$ cumple que es distinta de la identidad en $F(\cG)$. 
+Para esto siguiendo a Serre en \cite{serre2002trees} vamos a emplear un argumento de \emph{dévissage} qué consiste en reducir el problema que queremos probar para grafos de grupos arbitrarios a casos más pequeños. 
+Más específicamente queremos reducir este problema a los casos que los grafos de grupos están dados sobre grafos con una única arista como ya hicimos anteriormente en las subsecciones \ref{subsub_bucle} y \ref{subsub_segmento}.
+
+
+\begin{deff}
+	\label{deff:grafo_grupos_cociente}
+	Consideremos un grafo de grupos $\cG$ sobre un grafo $Y$ conexo. 
+	Tomemos $Y'$ un subgrafo conexo de $Y$ y restrinjamos el grafo de grupos $\cG$ a $Y'$. 
+	El grupo universal de este grafo de grupos restringido al subgrafo $Y'$ lo denotaremos $F(\cG | Y')$.
+	Definimos el grafo de grupos $\cal H$ sobre el grafo conexo $W=Y/Y'$ de la siguiente manera.
+	\begin{itemize}
+		\item Si $P \in V(Y) \setminus V(Y')$, tomamos $H_P = G_P$;
+		\item Si $P = [Y']$ entonces tomamos $H_P = F(\cG | Y')$;
+		\item Si $y \in E(W)$ ponemos $H_y = G_y$ tal que como suponemos válido el resultado \ref{teo_pal_red} para $Y'$ tenemos que es un subgrupo.
+	\end{itemize}
+\end{deff}
+
+Construyamos un morfismo de grupos $\beta:F(\cG) \to F(\cH)$.
+Para eso primero lo definimos sobre los generadores.
+Para todo $g \in G_P$ con $P \in V(Y)$ definimos
+\begin{equation*}
+	\beta(g) = 
+	\begin{cases}
+		[g] \in H_P & \text{si} \ P \notin Y' \\
+		[g] \in F(\cG | Y') & \text{si} \ P \in Y'  \\ 
+	\end{cases}
+\end{equation*}
+y para toda arista $ y \in E(Y)$ definimos
+\begin{equation*}
+	\beta(y) = 
+	\begin{cases}
+		y  & \text{si} \ y \notin E(Y') \\
+		[y] \in F(\cG | Y') & \text{si} \ y \in E(Y').  \\ 
+	\end{cases}
+\end{equation*}
+
+De manera que así como está definida cumple las relaciones de $F(\cG)$ porque en particular el grupo $F(\cH)$ también las cumple.
+Obtenemos así que $\beta$ está bien definida.
+
+\begin{lema}\label{lema_reduc_isomorfismo_beta}
+	Dado $\cG$ un grafo de grupos sobre un grafo conexo $Y$, $Y'$ un subgrafo conexo de $Y$ luego si consideramos $\cH$ el grafo de grupos sobre $W = Y/Y'$ tal como en la definición \ref{deff:grafo_grupos_cociente} vale que el morfismo de grupos $\beta:F(\cG) \to F(\cH)$ es un isomorfismo. 
+\end{lema}
+\begin{proof}
+	Para ver que es un isomorfismo vamos a construirnos una inversa $\alpha:F(\cH) \to F(\cG)$.
+	La construcción es análoga a la construcción que hicimos para $\beta$ definiendola sobre sus generadores.
+	
+	Para todo $g \in H_P$ con $P \in V(W) \setminus [Y'] $ definimos,
+	\begin{equation*}
+		\alpha(g) = [g]  \ \ 
+	\end{equation*}
+	y para toda arista $ y \in E(W)$ tal que no empiece ni termine en $[Y']$ definimos,
+	\begin{equation*}
+		\alpha(y) = [y].  \ \ \ 
+	\end{equation*}
+	En el caso de $F(\cG | Y')$ usamos que este grupo está generado por $y \in E(Y')$ y por $g \in G_{P}$ tales que $P \in Y'$.
+	Sobre $F(\cG | Y')$ definimos 
+	\begin{equation*}
+		\alpha([g]) = [g]  \ \ 
+	\end{equation*}
+	para $g \in G_P$ si $P \in V(Y')$ e idénticamente para todas las aristas definimos
+	\begin{equation*}
+		\alpha([y]) = [y]  \ \ 
+	\end{equation*}
+	Vemos que bajo esta definición sobre los generadores de $F(\cH)$ y que respeta las relaciones del grupo entonces tenemos que define un morfismo $\alpha:F(\cH) \to F(\cG)$ tal que por construcción es la inversa de $\beta$.
+\end{proof}
+
+La moraleja de este lema es que podemos tomar el grupo $F(\cG | Y')$ para un subgrafo $Y'$ conexo y después tomar el grupo $F(\cH)$ para el grafo resultante $Y / Y'$ y es exactamente lo mismo que tomar $F(\cG)$ en el comienzo con la ventaja que el grafo es más chico ahora.
+
+A cada palabra $(c, \mu)$ del grafo de grupos $F(\cG)$ le asociamos una palabra $(c', \mu')$ de $\cH$ tal que $\beta (|c,\mu|) = |c',\mu'|$.
+La idea es reemplazar las partes de la palabra que involucren a $Y'$ con las respectivas en $F(\cG | Y')$.
+Dados $ 1 \le i \le j \le n$ llamemos $c_{ij}$ al camino 
+$(y_i \dots y_{j})$ y $\mu_{ij}$ a los elementos $(r_i, \dots, r_j)$.
+Si $c_{ij}$ está contenida en $Y'$ denotaremos por $r_{ij}$ al elemento correspondiente visto en $F(\cG | Y')$.
+De esta manera lo que haremos es pensar en todos los subintervalos $[i_a,j_a]$  tales que el camino $c$ está dentro del subgrafo $Y'$.
+Así tenemos subdividido al intervalo $[1,n]$ de la siguiente manera,
+\[
+	1\le i_1 \le j_1 < i_2 \le j_2 < \dots i_m \le j_m \le n.
+\]
+Donde en particular si miramos la palabra $c_{j_{a-1}i_a}$ notemos que es un camino por fuera de $Y'$ exceptuando su comienzo y su final.
+
+Definimos la palabra $(c', \mu')$ sobre los generadores de $F(\cH)$ como:
+\begin{enumerate}[1.]
+	\item $c' = (c_{j_1i_2} \dots, c_{j_{a-1}i_a},c_{j_{a}i_{a+1}} \dots, c_{j_{m-1}i_{m}})$
+	\item $\mu' = (\mu_{1i_1}, r_{i_1j_2}, \dots, r_{i_mj_m}, \mu_{j_m n} )  $
+\end{enumerate}
+donde tomamos la convención que $\mu_{1i_1}$ o bien $\mu_{j_m n}$ pueden ser la identidad si $i_1=1$ o bien si $j_m = n$.
+
+\begin{ej}
+	Sea $Y = (V,E)$ grafo finito que representamos de la siguiente manera.	
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 15mm and 15mm,
+			V/.style = {circle, draw, fill=gray!30},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)   {$P_1$};
+				\node (2) [above right=of 1,fill=carrotorange]    {$P_2$};
+				\node (3) [right=of 2,fill=carrotorange]          {$P_3$};
+				\node (4) [below right=of 3,fill=carrotorange]    {$P_4$};
+				\node (5) [below  left=of 4,fill=carrotorange]    {$P_5$};
+				\node (6) [left= of 5,fill=carrotorange]          {$P_6$};
+				\node (7) [right=of 4]          {$P_7$};
+				\node (8) [right=of 7]          {$P_8$};
+			\end{scope}
+			\draw   (1)  edge[->,line width=1.3pt,"$y_1$"] (2)
+			(2)  edge[->,"$y_2$",carrotorange,line width=1.3pt] (3)
+			(3)  edge[->,"$y_3$",carrotorange,line width=1.3pt] (4)
+			(4)  edge[->,"$y_4$",carrotorange] (5)
+			(5)  edge[->,"$y_5$",carrotorange] (6)
+			(6)  edge[->,"$y_6$"] (1)
+			(5)  edge[->,"$y_9$"]  (2)
+			(4)  edge[->,"$y_7$",line width=1.3pt] (7)
+			(7)  edge[->,"$y_8$",line width=1.3pt] (8);
+		\end{tikzpicture}
+	\end{center}
+	
+	En este caso el subgrafo conexo $Y'$ es el que está pintado de color \textcolor{carrotorange}{naranja}.
+	Consideremos $\cG$ una estructura de grafo de grupos sobre $Y$.
+	Sea $c = (y_1, y_2, y_3, y_7, y_8)$ resaltado en negrita en la figura un camino en el grafo $Y$ y sea $\mu = (r_0, r_1, \dots, r_8)$ una sucesión de elementos de manera que $(c, \mu)$ es una palabra de tipo $c$.
+	Si contraemos el subgrafo $Y'$ nos queda el grafo $W=Y/Y'$ que representamos de la siguiente manera,
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 15mm and 15mm,
+			V/.style = {circle, draw, fill=gray!30},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)   {$P_1$};
+				\node (2) [above right=of 1,fill={carrotorange}]    {$[Y']$};
+				\node (7) [right=of 2]          {$P_7$};
+				\node (8) [right=of 7]          {$P_8$};
+			\end{scope}
+			\draw   
+					(1)  edge[->,line width=1.3pt,"$y_1$", bend right = 45] (2)
+					(2)  edge[->,"$y_6$", bend right = 45] (1)
+					(2)  edge[->,"$y_9$", loop]  (2)
+					(2)  edge[->,"$y_7$",line width=1.3pt] (7)
+					(7)  edge[->,"$y_8$",line width=1.3pt] (8);
+		\end{tikzpicture}
+	\end{center}
+	tal que si $\cH$ es la estructura de grafo de grupos que construimos sobre el grafo $W$ entonces tenemos definida $(c', \mu')$ una palabra de tipo $c'$ donde
+	 $c' = (y_1,y_7,y_8)$ y donde $\mu'=(r_0,r_1y_2r_2y_3r_3,r_7,r_8)$ con $r_1y_2r_2y_3r_3 \in H_{[Y']} = F(\cG \mid Y')$.
+\end{ej}
+
+Por como las construimos nos queda que $\beta(|c,\mu|) = |c',\mu'|$ tal como queríamos ver.
+Veamos ahora que $\beta$ preserva las palabras reducidas. 
+Esto nos permitirá trabajar en grafos de grupos cada vez más chicos a medida que vayamos contrayendo subgrafos conexos.
+
+\begin{prop}\label{lema_pal_red_iso}
+	Dado $\cG$ un grafo de grupos sobre un grafo conexo $Y$, $Y'$ un subgrafo conexo de $Y$.
+	Sea $\cH$ el grafo de grupos sobre $W = Y/Y'$ tal como en la definición \ref{deff:grafo_grupos_cociente}.
+	Si $(c, \mu)$ es una palabra reducida para $F(\cG)$ entonces $(c', \mu')$ es reducida para $F(\cH)$.
+\end{prop}
+\begin{proof}
+	Dividimos en dos casos dependiendo la longitud de $c'$.
+	
+	Si la longitud de $c'$ es  $0$ entonces es un camino constante en algún vértice $P' \in V(W)$. 
+	En tal caso $\mu' = r'_0$.
+	Si $P' \in V(W) \setminus [Y']$ entonces por como construimos al grafo de grupos $\cal H$ tenemos que $H_P = G_P$ y al ser $(c, \mu)$ una palabra reducida para $\cG$ obtenemos que $r_0 \neq 1$ visto en $H_P$.
+	En el caso que $P' = [Y']$ nos queda que $r_0 \in F(\cG | Y')$ y por lo tanto es reducida usando el teorema \ref{teo_pal_red} inductivamente en el grafo $Y'$.
+	
+	Supongamos ahora que la longitud de $c'$ es al menos $1$, entonces si queremos ver que  $(c',\mu')$ es reducida debemos garantizar que cumpla \textbf{R2}.
+	Sean $c = (y_{1} \dots y_{m})$, $\mu = (r_{0} \dots r_{m})$ y sean
+	$c' = (w_1 \dots w_{n})$, $\mu' = (r'_0, \dots, r'_n)$.
+	Queremos ver que si existe $1 \le k \le n$ tal que  $w_{k+1} = \ol{w_k}$ entonces $r'_k \notin H_{w_k}$.		
+	El caso particular que $t(w_k) \neq [Y']$ tenemos que $(c', \mu')$ es reducida porque justamente $(c, \mu)$ lo es y por lo tanto cumple \textbf{R2}.
+	Si $t(w_k) = [Y']$ vamos a distinguir dos casos.
+	
+	\begin{enumerate}[i)]
+		\item En el primer caso tenemos que proviene de backtracking de $c$.
+		Esto es que para cierto $i$ vale que $w_{k} = y_i$ y  $w_{k+1} = \ol y_i$.
+		Por como definimos a $(c', \mu')$ tenemos que $r'_k = r_i$ bajo esta hipótesis.
+		Queremos ver que $r'_k \notin H_{\ol{w_k}}$.
+		El grupo $H_{\ol{w_k}}$ es isomorfo a $G_{\ol{y_i}}$ aunque la diferencia es que el primero es un subgrupo de $H_{[Y]}$ mientras que el segundo es un subgrupo de $G_{t(y_i)}$.
+		Por ser $(c, \mu)$ reducida tenemos que $r_i \notin G_{\ol{y_i}}$.
+		Por el corolario \ref{coro_pal_red_1} tenemos que $G_{\ol{y_i}}$ es un subgrupo de $H_{[Y']} = F(\cG | Y')$ entonces $r'_k \notin H_{[Y']}$.
+		
+		\item En el segundo caso tenemos que proviene de un ciclo no constante de $c$ sobre $Y'$. 
+		Siguiendo la notación introducida anteriormente tenemos que para cierto $a$ vale que $w_k = y_{i_a}, r'_k = r_{i_aj_a}$ y que $w_{k+1} = y_{j_{a+1}}$ donde bajo nuestras suposiciones tenemos que $w_{k+1} = \ol{w_{k}}$ por lo tanto $ y_{j_{a+1}} = \ol{y_{i_a}}$.
+		
+		Nuevamente queremos ver que se cumple \textbf{R2}. 
+		Esto es que $r'_k \notin H_{\ol{w_k}}$.		
+		Dado que el camino $c_{i_aj_a}$ no es constante, podemos aplicar el resultado \ref{coro_pal_red_2} al grafo de grupos $\cG$ restringido al subgrafo $Y'$ y obtenemos así que $r_{i_aj_a} \notin G_{t(y_{i_a})}$.
+		Esto nos dice que en el grupo $F(\cH)$ tenemos que $r'_{k} = r_{i_aj_a} \notin H_{\ol{w_k}}$ dado que $H_{\ol{w_k}}$ es un subgrupo de $G_{t(y_{i_a})}$ si lo miramos dentro de $F(\cG, Y')$. 
+	\end{enumerate}	
+\end{proof}
+
+Finalmente estamos en condiciones de probar el resultado central de esta sección. 
+
+
+\paragraph{Demostración de \ref{teo_pal_red}.}
+Vamos a probar este resultado haciendo inducción en $|E(Y)|$.
+Consideramos dos casos bases para nuestra inducción.
+
+
+En el primer caso base $|E(Y)| = 0$.
+En este caso como el grafo subyacente $Y$ es conexo y finito entonces tiene la siguiente pinta $Y = (\{ P \}, \emptyset)$ donde $P$ es el único vértice de $Y$.
+El grupo universal del grafo de grupos asociado a este grafo es tal que 
+$F(\cG) = G_{P}$. 
+Entonces dada una palabra reducida $(c, \mu)$ en $F(\cG)$ tenemos que necesariamente la longitud de $c$ es $0$ por lo tanto $(c,\mu)$ cumple \textbf{R1} y esto es lo mismo que $|c,\mu| \neq 1$ en $F(\cG)$ tal como queríamos ver.
+
+
+
+Para el otro caso base supongamos que $\cG$ es un grafo de grupos sobre un grafo $Y$ de manera que $|E(Y)| = 1$.
+Si $Y$ es un grafo conexo con una única arista entonces tenemos solamente dos posibilidades.
+
+\begin{enumerate}
+			\item El caso que $Y$ es un segmento que representaremos de la siguiente manera:
+			
+			\begin{center}
+				\begin{tikzpicture}[
+				node distance = 25mm and 25mm, 
+				V/.style = {circle, draw, fill=gray!20},
+				every edge quotes/.style = {auto, font=\footnotesize, sloped}
+				]
+				\begin{scope}[nodes=V]
+					\node (1)  [minimum size=1.2cm] {$P$};
+					\node (2) [right=of 1,minimum size=1.2cm]    {$Q$};
+				\end{scope}
+				\draw   (1)  edge[->,"$y$"] (2);
+			\end{tikzpicture}
+			\end{center}
+			Sea $\cG$ un grafo de grupos sobre este grafo.		
+			Si $(c, \mu)$ es una palabra de tipo $c$ entonces el elemento $|c, \mu|$ es de la pinta $r_0y^{e_1}r_1y^{e_2}\dots y^{e_n}r_n$.
+			Dado que $(c, \mu)$ es una palabra reducida vale lo siguiente:
+			\begin{itemize}
+				\item Para todo $i=1 \dots n$ vale que $e_{i} = -e_{i+1}$.
+				\item Para todo $i=0 \dots n$ vale que $r_{i} \in G_{P}$ o $r_i \in G_Q$.
+				\item Para todo $i=0 \dots n-1$ no puede valer que $r_i,r_{i+1} \in G_P$ o que $r_i,r_{i+1} \in G_Q$
+			\end{itemize}
+			El caso particular que nuestro camino es constante tenemos que $r_0 \neq 1$ porque vale \textbf{R1}.
+			
+			Para el otro caso en el cual  el camino $c$ no es constante consideremos el morfismo sobreyectivo al cociente $\pi_1(\cG,T)$ donde $T=Y$ es el mismo segmento.
+			Por lo visto en el ejemplo \ref{ej_pi1_segmento} tenemos un isomorfismo $\pi_1(\cG, T) \simeq G_{P} \ast_{G_y} G_{Q}$. 
+			
+			Consideramos el morfismo sobreyectivo $\pi$ que es la proyección del grupo universal al grupo fundamental
+			\[
+			\pi: F(\cG) \to G_{P} \underset{G_y}{\Asterisk} G_{Q}
+			\]
+			tenemos que
+			\[
+				\pi(|c, \mu|) = r_0r_1 \dots r_n
+			\]
+			tal que para todo $0 \le i \le n$ vale que 
+			$r_i \in G_{P} \setminus G_{y}$ o bien $r_{i} \in G_{Q} \setminus G_{y}$.
+			Esto es equivalente a que $\phi(|c, \mu|)$ sea reducida para el grupo amalgamado $G_{P_{-1}} \ast_{G_y} G_{P_1}$. 
+			Por el resultado \ref{prop_amalgamado_formanormal} tenemos que $\phi(|c,\mu|) \neq 1$ y así concluimos que $|c, \mu| \neq 1$ no es la identidad.
+
+
+			\item El caso que $Y$ es un bucle.
+				\begin{center}
+						\begin{tikzpicture}[
+							node distance = 15mm and 15mm,
+							V/.style = {circle, draw, fill=gray!30},
+							every edge quotes/.style = {auto, font=\footnotesize, sloped}
+							]
+							\begin{scope}[nodes=V]
+								\node (1)   {$P$};
+							\end{scope}
+							\draw 
+							(1)  edge[->,"$y$", loop]  (1);
+						\end{tikzpicture}
+				\end{center}
+		Sea $\cG$ una estructura de grafo de grupos sobre entonces en este caso el grupo universal resulta $F(\cG) \simeq G_P^{\ast G_y}$.
+		Por ser $(c, \mu)$ una palabra reducida para $F(\cG)$ vemos que esta condición en este caso coincide con la definición de una palabra reducida para una extensión HNN.		
+		Bajo estas condiciones podemos aplicar el lema de Britton \ref{teo_britton} que nos garantiza que $|c, \mu| \neq 1$ en el grupo $F(\cG)$ tal como queríamos ver.
+\end{enumerate}
+		
+		
+	
+		Para el paso inductivo nuestra hipótesis es que para todo grafo de grupos $\cH$ sobre un grafo conexo y finito $W$ de manera que $|E(W)| < |E(Y)|$ vale que 
+		toda palabra reducida $(c',\mu')$ de $\cH$ es tal que $|c',\mu'| \neq 1$ en $F(\cH)$.
+
+		Si $Y = (V,E)$ es un grafo finito conexo tal que $|E(Y)| \ge 2$ luego existe $Y'$ subgrafo conexo con una única arista donde $Y'$ podría ser un bucle o un segmento.
+		Consideramos el grafo finito $W=Y/Y'$ tal que $|E(W)| < |E(Y)|$.
+		A $W$ le damos la estructura de grafo de grupos $\cH$ tal como hicimos en \ref{deff:grafo_grupos_cociente}.
+		Si $(c, \mu)$ es una palabra reducida en $F(\cG)$ luego por el lema \ref{lema_pal_red_iso} la palabra reducida asociada $(c',\mu')$ es reducida para $\cH$.
+		Por hipótesis inductiva tenemos que $|(c',\mu')| \neq 1$ en $F(\cH)$ entonces por el lema \ref{lema_reduc_isomorfismo_beta} concluimos que $|(c,\mu)| \neq 1$ tal como queríamos ver.
+	
+
+
+\section{Árbol de Bass--Serre.}\label{secc_arb_BS}
+
+Vamos a definir el árbol de Bass--Serre que resulta ser en nuestro contexto el revestimiento universal de un grafo de grupos.
+Presentamos una construcción un poco más concisa que la que aparece en \cite{serre2002trees} si bien la idea es prácticamente la misma.
+Otra construcción posible del árbol de Bass--Serre se puede ver en el trabajo \cite{diekert2017context} donde los autores construyen este árbol de una manera sintáctica usando sistemas de reescritura.
+
+\subsection{Construcción de $\Xm$.}
+
+Sea  $Y$ un grafo dirigido conexo y sea $\cG$ un grafo de grupos sobre este grafo.
+Sea $T$ un árbol generador del grafo $Y$ luego llamemos $G = \pi_1(\cG,T)$.
+Queremos construirnos los siguientes objetos:
+
+\begin{enumerate}[]
+	\item Un árbol $\Xm$.
+	\item Una acción de $G$ en $\Xm$ sin inversiones de aristas de manera que $\Xm / G \simeq Y$.
+	\item Una sección $Y \to \Xm$ de manera que para todo vértice $P \in V(Y)$ denotaremos $\tilde P \in V(\Xm)$ a su imagen y similarmente para toda arista $y \in E(Y)$ denotaremos $\tilde y \in E(\Xm)$ a su imagen.
+\end{enumerate}
+
+Para construir este grafo vamos a partir de la siguiente observación.
+Si $\Xm$ fuera un grafo tal que $G$ actúa sobre él e 
+$Y = \Xm / G$ entonces tendríamos que vale lo siguiente:
+para todo vértice $\widetilde{ P} \in V(\Xm)$ por el teorema de órbitas estabilizador existe una biyección entre la órbita $G \widetilde{P} $ y el conjunto de los cosets del estabilizador $G / G_{\widetilde P}$.
+De esta manera vamos a construir al conjunto de los vértices para que valga esta propiedad:
+\[
+V(\Xm) = \bigsqcup_{v \in V(Y)} G/G_{v} \times \{v\}
+\]
+mientras que para las aristas por un razonamiento idéntico llegamos a que: 
+\[
+E(\Xm) = \bigsqcup_{y \in E(Y)} G/G_{y} \times \{y\}.
+\]
+Por claridad omitimos escribir $(gG_{P}, P)$ y simplemente notaremos $gG_{P}$ y similarmente para las aristas.
+
+Ya habiendo definido el conjunto de vértices y de aristas del grafo $\Xm$
+vamos a definir la arista con orientación opuesta y los inicios y finales de las aristas.
+
+El comienzo de una arista $s:E(\Xm) \to V(\Xm)$ va a estar definida como:
+\[
+s(gG_{y}) = gG_{s(y)}.
+\]
+Probemos que esta definición no depende de los representantes elegidos.
+Si tenemos que $gG_{y} = hG_{y}$ esto nos dice que $h^{-1}gG_{y} = G_{y}$.
+Como $G_{y}$ es un subgrupo de $G_{s(y)}$ entonces si $h^{-1}g \in G_y$ esto nos dice que $h^{-1}g \in G_{s(y)}$.
+De esta manera $hG_{s(y)} = gG_{s(y)}$ tal como queríamos ver y por lo tanto el origen de una arista no depende de la elección del representante.
+
+
+Ahora vamos a ver la definición del fin de una arista $t:E(\Xm) \to V(\Xm)$ que está dada por:
+\[
+t(gG_{y}) = gg_{y}G_{t(y)}
+\]
+Probemos que esta definición no depende de los representantes elegidos.
+Si tenemos que $hG_{y} = gG_{y}$ luego queremos ver que $hg_{y}G_{t(y)} = gg_{y}G_{t(y)}$y esto ocurre si y solo sí $g^{-1}_y h^{-1}g g_{y} G_{t(y)} = G_{t(y)}$.
+Usando una de las relaciones del grupo tenemos que $g_{y}^{-1} G_{y} g_{y} \subseteq G_{\ol y}$ y como $h^{-1}g \in G_{y}$ luego obtenemos que $g^{-1}_y h^{-1}g g_{y} \in G_{\ol y}$.
+Por como definimos a los grafos de grupos tenemos que $G_{\ol y}$ es un subgrupo $G_{s(\ol y)}$ y como $s(\ol y) = t(y)$ terminamos de probar que $g^{-1}_y h^{-1}g g_{y} \in G_{t(y)}$ tal como queríamos ver.
+
+
+Usando estas dos definiciones tenemos que la arista inversa $\ol{(.)}:E(\Xm) \to E(\Xm)$ tiene que ser:
+\[
+\ol{gG_{y}} = gg_{y} G_{\ol y}.
+\]
+tal que $s(gg_{y}G_{\ol y}) = gg_{y}G_{t(y)}$ y $t(gg_{y}G_{\ol y}) = gg_{y}g_{\ol y}G_{s(y)}$ y como $g_{y}g_{\ol y} = 1$ obtenemos así que $t(gg_{y}G_{\ol y}) = gG_{s(y)}$.
+A su vez por una cuenta similar vemos que $\ol{\ol{gG_{y}}} = gG_{y}$.
+
+De esta manera ya tenemos definido el grafo dirigido $\Xm$.
+Por como construimos a $\Xm$ nos aseguramos que $G$ actúa en $\Xm$ y que $\Xm / G \simeq Y$.
+A su vez esta acción es sin inversión de aristas porque para todo $g \in G$ y toda arista $hG_{y} \in E(\Xm)$ tenemos que
+\[
+g (hG_{y}) \neq hg_{y}G_{\ol{y}}
+\]
+dado que son cosets correspondientes a aristas diferentes.
+
+\subsection{Teorema de Serre.}
+
+
+
+Llamemos $q:\Xm \to Y$ a la proyección de $\Xm$ en $\Xm / G \simeq Y$.
+Este epimorfismo de grafos está definido por 
+$q(gG_{P}) = P$ para todo $P \in V$ y 
+$q(gG_{y}) = y$ para toda $y \in E$.
+
+
+\begin{deff}
+	Dado un grafo $Y$, $C \subseteq V(Y)$ un conjunto de vértices entonces diremos que el \emph{subgrafo generado por $C$} es el siguiente grafo $W$:
+	\[
+		V(W) = C, \quad E(W) = \{ y \in E(Y) \mid s(y), t(y) \in C \}.
+	\]
+	Donde las definiciones de $s:E(W) \to V(W), t:E(W) \to V(W)$ y de $\ol{(.)}:E(W) \to E(W)$ son las restricciones de las de $Y$.
+\end{deff}
+
+\begin{obs}\label{obs_subgrafo_dom_fund}
+	El subgrafo $W \subseteq \Xm$ generado por el siguiente conjunto de vértices
+		\[
+		C = \{ G_{P} \mid \forall P \in V(Y) \} \cup \{ g_{y}G_{Q} : \forall y \in E(Y), Q \in V(Y) / \ t(y) = Q  \}
+		\]
+	es tal que $G \cdot W = \Xm$.
+
+\end{obs}
+
+Sea $T$ el árbol generador de $Y$ que fijamos en el comienzo de la sección.
+Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
+
+
+\begin{obs}\label{obs_levantado_arbol}
+	Definimos $\iota: T \to \widetilde{X}$ como $\iota(P) = G_{P}$ y $\iota(y) = G_{y}$.
+	Llamamos $\iota(T) = \widetilde{T}$ y este es un árbol definido a partir del siguiente conjunto de vértices:
+	\[
+	V(\widetilde T) = \{ G_P \mid P \in V(Y) \}
+	\]
+	y que tiene como aristas a
+	\[
+	E(\widetilde T) = \{ G_{y} \mid y \in E(Y) \},	
+	\]
+	donde usamos que $g_{y} = 1$ para toda $y \in E(T)$.
+	Notemos que $q \circ \iota: T \to Y$ es la identidad si la restringimos a la imagen $q(\iota(T)) = q(\widetilde{T})$. 
+\end{obs}
+
+Antes de probar el resultado central de esta sección vamos a enunciar un lema que usaremos fuertemente en la demostración.
+
+\begin{lema}\label{lema_union_conexos_es_conexo}
+	Sea $X$ un grafo conexo y sean $\{X_{i}\}_{i \in \NN}$ subgrafos conexos de manera que para todo $i \in \NN$ vale que	
+	$X_{i} \cap X_{i+1} \neq \emptyset$ 
+	entonces $\bigcup_{i \in \NN} X_{i}$ es un subgrafo conexo de $X$.
+\end{lema}
+
+\begin{teo}[Serre]
+	El grafo $\Xm$ es un árbol.
+\end{teo}
+\begin{proof}
+	Debemos ver dos cosas: que es conexo y que no tiene ciclos.
+	
+	\begin{itemize}
+		\item 
+		$\Xm$ es conexo.
+		
+		
+		El subgrafo $W$ definido en la observación \ref{obs_subgrafo_dom_fund} cumple que $G \cdot W = \Xm$ por lo que 
+		\[
+		\widetilde X = \bigcup_{g \in G} gW
+		\]
+		donde $gW$ es conexo para todo $g \in G$ dado que $W$ lo es.
+		
+		Si $S$ es un conjunto finito de generadores de $G$ entonces todo $g \in G$ lo podemos escribir como $g = s_{i_1} \dots s_{i_n}$ para $s_{i_j} \in S$.
+		Si fijamos $g \in G$ podemos definir el siguiente grafo:
+		\[
+		W_{g} = W \cup \bigcup_{j=1}^{n} s_{i_{j}}\dots s_{i_{n}}W.
+		\]
+		Entonces al grafo $\Xm$ lo podemos reescribir de la siguiente manera:
+		\[
+		\Xm =  \bigcup_{g \in G} W_{g}.
+		\]
+		
+		
+		Fijamos un conjunto finito de generadores de $G$: 
+		\[
+		S = \bigcup_{P \in V(Y)} G_{P} \cup \{ g_y \ : \ y \in E \setminus E(T) \}.   
+		\] 
+		
+		Con este conjunto de generadores vamos a probar que para todo $g \in G$ resulta que $W_{g}$ es conexo.
+		Si probamos esto como $\Xm$ es unión de $W_{g}$ y 
+		para todo $g, h \in G$
+		tenemos que $W \subseteq W_{g} \cap W_{h}$ con $W \neq \emptyset$ luego por el lema \ref{lema_union_conexos_es_conexo} tendremos que $\Xm$ es conexo tal como queríamos ver.
+
+		
+		
+		Dado $g \in G$ nos alcanza con probar que $W_{g}$ es conexo.
+		Para esto lo vamos a probar por inducción en la longitud de $g$ visto como palabra en los generadores $S$.
+		
+		Para el caso base tenemos que $g = s$ para $s \in S$.
+		Queremos ver que $W_{s} = W \cup sW$ es conexo.
+		Debemos ver dos casos dependiendo como sea el generador que estemos tomando.
+		\begin{enumerate}
+			\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego tenemos que $g_yG_y \in g_{y}W$.
+			Queremos ver que $g_{y}G_{y} \in W$.
+			Para esto debemos ver que el comienzo y el final de la arista pertenecen al grafo $W$.
+			Por la definición tenemos que $s(gG_{y}) = G_{s(y)} \in V(W)$ y similarmente $t(gG_{y}) = g_{y}G_{t(y)} \in V(W)$.
+			De esta manera $g_yW \cap W \neq \emptyset$ y por lo tanto la unión es conexa.		
+			
+			\item Si $s \in G_P$ para algún $P \in V$ entonces $s G_P = G_P \in V(sW) \cap V(W)$ por lo tanto $sW \cap W \neq \emptyset$ y así la unión es conexa.
+		\end{enumerate} 
+		
+		Ahora para el paso inductivo supongamos que $W_{g}$ es conexo para todo $g$ tal que puede ser escrito como una palabra de $n-1$ letras en $S$. 
+		Queremos verlo para $g = s_1\dots s_n$ y esto lo podemos hacer notando que		
+		\[
+			s_{n} W \cup W
+		\]
+		es conexo por lo tanto si multiplicamos a izquierda por $s_{1} \dots s_{n-1}$ va a seguir siendo conexo y no vacío
+		
+		\begin{equation}\label{eq_snW_cup_W}
+			s_{1} \dots s_{n-1} (W \cup s_{n} W) = s_{1} \dots s_{n-1} W \cup s_{1} \dots s_{n}W
+		\end{equation}
+		
+		De esta manera si llamamos $g' = s_{1} \dots s_{n-1}$ entonces
+		\[
+		W_{g} = W_{g'} \cup s_{1}\dots s_{n}W.
+		\]
+		Por hipótesis inductiva tenemos que $W_{g'}$ es conexo y como por \ref{eq_snW_cup_W} vimos que $s_{1} \dots s_{n-1} W \cap s_{1} \dots s_{n}W \neq \emptyset$  
+		y $s_{1} \dots s_{n-1} W \subseteq W_{g'}$ entonces probamos que $W_{g}$ es conexo tal como queríamos ver.
+		
+		
+		
+		Vimos así que el grafo $\Xm$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
+		
+		
+		\item 
+		Veamos ahora que no tiene ciclos.
+		Probaremos la proposición equivalente: para todo $n \in \NN$ todo camino cerrado de longitud $n$ tiene backtracking.
+		
+		El caso que $n=0,1$ es claro porque no existen caminos con estas longitudes de manera que no tengan backtracking.
+		
+		Supongamos entonces que $n \ge 2$.
+		Sea $\widetilde c$ un camino sobre $\widetilde X$ cerrado de longitud $n$ y sin backtracking.
+		Queremos llegar a un absurdo.
+		Sea este camino $\widetilde c = (h_1G_{y_1}, h_2 G_{y_2}, \dots, h_n G_{y_n})$.
+		Introduciremos las siguientes notaciones.
+		Para todo $1 \le i \le n$ llamemos $P_{i} = s(y_i)$ y llamaremos $g_i = g_{y_i}$.
+		Al ser $\widetilde c$ un camino cerrado valen las siguientes igualdades:
+		\begin{align*}
+			t(h_n{G_y}_n) &= h_ng_nG_{P_0} = h_1G_{P_0} = s(h_1G_{ y_1}) \\ 
+			\vdots \ \ \  &= \ \ \ \ \    \vdots\ \ \ \ \ \ \ \ \ \ \ \ \ \    \vdots \\
+			t(h_{n-1}G_{y_{n-1}}) &= h_{n-1}g_{n-1}G_{P_{n-1}} = h_{n}G_{P_{n-1}} = s(h_nG_{P_{n-1}} )  
+		\end{align*}
+		de manera que para todo $1 \le i \le n$ existe $r_i \in G_{P_i}$ tal que $h_ig_ir_i = h_{i+1}$. 	
+		
+		Podemos reescribir las igualdades anteriormente obtenidas de la siguiente manera:
+		\begin{align*}
+			h_1 &= h_{n}g_{n}r_{n} \\
+			h_2 &= h_1g_1r_1 \\
+			\vdots & \ \ \ \vdots \\
+			h_n &= h_{n-1}g_{n-1}r_{n-1} 
+		\end{align*}
+		Más aún usando cada ecuación para reescribirla en la anterior obtenemos que multiplicando todo de forma telescópica nos termina quedando lo siguiente,
+		\begin{equation}\label{eq_cmu_1}
+			g_1r_1\dots g_nr_n = 1.
+		\end{equation} 
+		
+		
+		Sea la palabra $(c, \mu)$ de tipo $c$ dada por el camino $c= q(\tilde c)$ y la sucesión $\mu = (1,r_1, \dots, r_n)$.
+		Sea $\pi:F(\cG) \to \pi_1(\cG,T)$ la proyección al cociente.
+		En la ecuación \ref{eq_cmu_1} vimos que $\pi(|c, \mu|) = g_1r_1\dots g_nr_n = 1$.
+		Veamos que $(c, \mu)$ es una palabra reducida.
+		Si probamos esto, entonces $(c, \mu)$ cumple las hipótesis del resultado \ref{coro_pal_red_3} dado que $c$ es un camino cerrado no trivial y es una palabra reducida por lo tanto $\pi(|c, \mu|) \neq 1$ y así llegaríamos a una contradicción.
+		
+		Para eso debemos chequear que se cumpla la condición \textbf{R2} de la definición de las palabras reducidas, ya que suponemos que $\widetilde c$ es un camino cerrado con longitud al menos $2$.
+		
+		Para ver que $(c, \mu)$ es reducida debemos ver que si
+		existe $ 1 \le i \le n$ tal que $y_{i+1} = \ol{y_i}$ entonces para ese mismo $i$ vale que $r_i \notin G_{\ol{y_{i}}}$.
+		
+		
+		Consideramos la ecuación que teníamos anteriormente
+		\[
+		h_ig_ir_i = h_{i+1}
+		\]
+		de manera que si despejamos a $r_{i}$ obtenemos que
+		\[
+		r_i =   g_i^{-1}(h_i^{-1} h_{i+1} ).
+		\]
+		Supongamos que $r_{i} \in G_{\ol y_{i}}$, en tal caso tendríamos que 
+		\[
+		 h_ig_ir_i G_{\ol{y_i}} = h_ig_i G_{\ol{y_i}} = h_{i+1}G_{\ol{y_i}}.
+		\] 
+		Esto nos dice que vale la siguiente igualdad 
+		\[
+		h_{i+1}G_{\ol y_{i}} = \ol{h_{i}G_{y_i}}
+		\]
+		pero esto es una contradicción porque al camino original $\tilde c$ lo habíamos tomado sin backtracking. 
+		Por lo tanto $r_{i} \notin G_{\ol{y_{i}}}$ y así vemos que $(c, \mu)$ era reducida tal como queríamos ver.
+	\end{itemize}
+	
+	
+	
+	
+	
+\end{proof}
+
+\begin{deff}
+	Sea $\cG$ un grafo de grupos sobre un grafo conexo $Y$ y sea $T$ un árbol generador de $Y$.	
+	El árbol $\widetilde{ X} = \widetilde{ X} (T, \cG)$ es el \emph{árbol de Bass--Serre} de $\cG$.
+\end{deff}
+
+
+
+\section{Acciones de grupos sobre árboles.}\label{secc_acciones_arboles}
+
+Sea $X$ un grafo conexo finito y sea $G$ un grupo finitamente generado que actúa sobre $X$.
+Llamemos $Y = X / G$ y $T$ árbol generador de $Y$.
+Nuestro objetivo es construir un grafo de grupos $\cG$ sobre $Y$ de manera que se corresponda a esta acción.
+ 
+Sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
+Este grafo está dado por el conjunto de vértices
+\[
+	V(Y) = \{ G P :  P \in V(X)    \}
+\]
+y las  aristas 
+\[
+	E(Y) = \{  Gy  : y \in E(X)  \}.
+\]
+
+En particular como el grafo $X$ es conexo tenemos que $Y$ también lo es.
+Consideremos $\iota: Y \to X$ una sección como conjuntos que la armamos con los siguientes dos pasos.
+\begin{enumerate}
+	\item Para cada vértice $P \in V(Y)$ elegimos $\iota (P) = P' \in V(X)$ tal que $\pi(P') = P$.
+	\item Para cada arista $y \in E(Y)$ elegimos $\iota(y) = y' \in E(X)$ de manera que $s(\iota(y)) = \iota (s(y))$. 
+	Esto lo podemos hacer para cada arista por separado.
+\end{enumerate}
+
+
+Por como hicimos esta construcción nos garantizamos que el comienzo de cada arista cuando la miramos en $X$ sea uno de los vértices que tomamos como representantes de vértices de $Y$ en $X$.
+En principio no sabemos que el vértice del final de la arista de $y$ coincida con el de comienzo de $y$. 
+Lo que sabemos es que existe $g_y \in G$ tal que 
+\[
+	g_y \ol{\iota (y)} = \iota (\ol y)
+\]
+porque ambas aristas en la misma órbita por la acción de $G$.
+Si fijamos una orientación de aristas para el grafo $X$ luego podemos elegir para cada arista de la orientación algún $g_y \in G$ tal que $g_y \ol{\iota (y)} = \iota (\ol y)$.
+Para las aristas con la orientación opuesta tendremos algún $g_{\ol y} \in G$ tal que 
+\[
+	g_{\ol y} \ol{\iota(\ol y)} = \iota(y).
+\]
+Como la acción de $G$ sobre $X$ es por morfismos de grafos tenemos que $\ol {g y} = g \ol y$ y por lo tanto podemos elegir $g_{\ol y} = g_{y}^{-1}$.
+El caso particular que $\ol{\iota (y)} = \iota (\ol y)$ definiremos que $g_y = 1 = g_{\ol y}$.
+
+Veamos un ejemplo de esta construcción.
+
+\begin{ej}
+	Sea $G = \langle a \mid a^2 \rangle$ el grupo cíclico de orden $2$.
+	Sea $X$ el siguiente grafo dirigido:
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 10mm and 10mm, 
+			V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=0.75cm] {$P_{1}$};
+				\node (2) [right=of 1,minimum size=0.75cm]    {$P_{2}$};
+				\node (3) [right=of 2,minimum size=0.75cm]    {$P_{3}$};
+				\node (4) [right=of 3,minimum size=0.75cm]    {$P_{4}$};
+				\node (5) [right=of 4,minimum size=0.75cm]    {$P_{5}$};
+			\end{scope}
+			\draw   (1)  edge[->,"$y_1$"] (2);
+			\draw   (2)  edge[->,"$y_2$"] (3);
+			\draw   (3)  edge[->,"$y_3$"] (4);
+			\draw   (4)  edge[->,"$y_4$"] (5);
+		\end{tikzpicture}
+	\end{center}
+	
+	Definimos una acción $\psi: G \to \textrm{Aut}(X)$, 
+	de manera que $\psi(a)$ es un automorfismo idempotente definido de la siguiente manera:
+	$\psi(a)(P_1) = P_5,
+	\psi(a)(P_2) = P_4, 
+	\psi(a)(P_3) = P_3, 
+	\psi(a)(P_4) = P_2$ y  
+	$\psi(a)(P_5) = P_1$.
+	Sobre las aristas queda definido de la siguiente manera 
+	$\psi(a)(y_{1}) = \ol{y_{4}},
+	\psi(a)(y_{2}) = \ol{y_{3}},
+	\psi(a)(y_{3}) = \ol{y_{2}}$ y 
+	$\psi(a)(y_{4}) = \ol{y_{1}}.$
+	Chequeamos que $(\psi(a))^{2} = I$ por lo tanto la acción está bien definida.
+
+	Gráficamente representamos al automorfismo de la siguiente manera.
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 10mm and 10mm, 
+			V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=0.75cm] {$P_{1}$};
+				\node (2) [left=of 1,minimum size=0.75cm]    {$P_{2}$};
+				\node (3) [left=of 2,minimum size=0.75cm]    {$P_{3}$};
+				\node (4) [left=of 3,minimum size=0.75cm]    {$P_{4}$};
+				\node (5) [left=of 4,minimum size=0.75cm]    {$P_{5}$};
+			\end{scope}
+			\draw   (1)  edge[->,"$y_1$"] (2);
+			\draw   (2)  edge[->,"$y_2$"] (3);
+			\draw   (3)  edge[->,"$y_3$"] (4);
+			\draw   (4)  edge[->,"$y_4$"] (5);
+		\end{tikzpicture}
+	\end{center}
+	
+	
+	De esta manera tenemos definida una acción de $G$ sobre el grafo dirigido $X$.
+	Sea $Y=X/G$ el grafo dirigido cociente de esta acción:
+	\begin{center}
+		\begin{tikzpicture}[
+			node distance = 10mm and 10mm, 
+			V/.style = {circle, draw, fill=gray!15,font=\footnotesize},
+			every edge quotes/.style = {auto, font=\footnotesize, sloped}
+			]
+			\begin{scope}[nodes=V]
+				\node (1)  [minimum size=0.85cm] {$GP_{1}$};
+				\node (2) [right=of 1,minimum size=0.85cm]    {$GP_{2}$};
+				\node (3) [right=of 2,minimum size=0.85cm]    {$GP_{3}$};
+			\end{scope}
+			\draw   (1)  edge[->,"$Gy_1$ "] (2);
+			\draw   (2)  edge[->,"$Gy_2$"] (3);
+		\end{tikzpicture}
+	\end{center}
+	donde los vértices están dados por las órbitas de la acción de $G$ en $X$  por lo que $GP_1 = \{ P_1, P_5 \}, GP_2 = \{ P_2, P_4  \}$ y $GP_3 = \{ P_3 \}$. Para las aristas tenemos que $Gy_1 = \{ y_1, \ol{y_4} \}$, $ {G \ol{y_1}} = \{ \ol{y_1}, y_4 \}$, $Gy_2 = \{ y_2, \ol{y_3} \}$ y ${G \ol{y_2}} = \{ \ol{y_2}, {y_3} \}$.
+	
+	Ahora vamos a definirnos una sección $\iota: Y \to X$ de la misma manera que la hicimos anteriormente.
+	Para eso definimos $\iota(GP_3) = P_3$, $\iota(GP_2) = P_2$ y $\iota(GP_1) = P_5$.
+	Para definir la sección sobre las aristas recordamos que para la arista que esté en la imagen por la sección tiene que ser tal que su comienzo sea uno de los vértices que estaban en la imagen en la sección.
+	De esta manera podemos definir así:
+	$\iota(Gy_1) = \ol{y_4}, \iota(\ol{Gy_1}) = \ol{y_1}, \iota(Gy_2) = y_2, \iota(\ol{Gy_2}) = \ol{y_2}$.
+	
+	
+	Ahora procedemos a definir para cada arista de $y \in E(Y)$ algún elemento $g_{y} \in G$ de manera que:
+	\[
+	g_y \ol{\iota(y)} = \iota(\ol y).
+	\]
+	Notemos que si definimos $g_{Gy_1} = a$ luego 
+	\[
+	a \ol{\iota(Gy_1)} = a\ol{\ol{ y_4}} = ay_4 = \ol{ y_1} = \iota({\ol{ Gy_1}}). 
+	\] 
+	Por otro lado tenemos que si definimos $g_{Gy_2} = 1$ entonces
+	\[
+	1 \ol{\iota(Gy_2)} = \ol{y_2} = \iota({\ol{Gy_2}}). 
+	\]
+	
+	
+	Un comentario importante es que podríamos haber tomado varias secciones $\iota: Y \to X$. 
+	En particular usando la proposición \ref{prop_levantado_accion_arbol} como el grafo $Y$ es un árbol podríamos haber tomado una sección $\iota$ de manera que $\iota(Y)$ sea un subárbol de $X$.
+	En tal caso tendríamos que $g_y = 1$ para todo $y \in E(Y)$.
+	Más en adelante probaremos que no importa qué sección tomemos el grafo de grupos que vamos a construir va a tener el mismo grupo fundamental.
+\end{ej}
+
+\bigskip
+Vamos a construir $\cG$ un grafo de grupos sobre el grafo $Y$.
+Consideremos para $P \in V(Y), y \in E(Y)$ los siguientes grupos,
+\[
+	G_P = G_{\iota (P)}, \ G_y = G_{\iota(y)}
+\]
+donde estamos mirando los estabilizadores de la acción de $G$ sobre $X$.
+Por como elegimos a la sección tenemos que $G_{\iota(y)} \subset G_{s(\iota y)}$.
+Si no hubiéramos definido a la sección $\iota$ para que $\iota(y)$ cumpla que $s(\iota (y)) = \iota(s(y))$ no podríamos habernos asegurado que se cumpla que $G_{y} \subseteq G_{s(y)}$ para todo $y \in E(Y)$ como requerimos para la definición de un grafo de grupos.
+
+Queremos ver que $G_{y} \simeq G_{\ol y}$ para garantizar que $\cG$ sea un grafo de grupos.
+Consideremos el siguiente morfismo de grupos;
+\begin{align*}
+	\phi: G_{\ol y} &\to G_{y} \\
+	a &\mapsto g_{y}^{-1}ag_{y}
+\end{align*}
+Veamos que está bien definido. 
+Para eso veamos que $g_{y}^{-1}ag_{y} \iota(y) = \iota(y)$.
+Como $g_y \iota(y) = \ol{\iota(\ol y)}$ dado que $g_y \ol{\iota(y)} = \iota (\ol y)$ por como lo elegimos a $g_y$ y porque $\ol{gw} = g \ol w$ para toda $w \in E(X)$.
+Ahora usamos que si $a \in G_{\iota({\ol y})}$ luego $a \in G_{\ol{\iota(\ol y)}}$ por lo tanto $a \ol{\iota(\ol y)} = \ol{\iota(\ol y)} $.
+Finalmente como $ g_{y}^{-1} \ol {\iota (\ol y) } = \iota (y)$ tal como queríamos ver.
+Este morfismo tiene un inverso $\phi^{-1}: G_{y} \to G_{\ol y}$ definido por $\phi^{-1}(b) = g_{y}bg_{y}^{-1}$ por lo tanto $\phi$ es un isomorfismo tal como queríamos ver.
+
+
+
+
+Definimos el siguiente morfismo del producto libre de los estabilizadores de los vértices y el grupo libre en las aristas del grafo al grupo $G$.
+\begin{align*}
+	\varphi: \underset{P \in V(Y)}{\Asterisk} G_P \Asterisk F_{E(Y)} &\to G	\\
+	g \mapsto g \\
+	y \mapsto g_y \\
+\end{align*}
+Probemos que este morfismo baja a $F(\cG)$. 
+Para eso veamos que cumple las relaciones que definen a este cociente.
+\begin{enumerate}
+	\item $g_y g_{\ol y} = 1$ para todo $y \in E(Y)$ porque justamente elegimos a $g_{\ol y}$ de esta manera;
+	\item $\ol y a y = a^{\ol y}$ para todo $y \in E(Y), a \in G_y$ porque justamente vimos que 
+	\[
+		\varphi(\ol y) \varphi (a) \varphi(y) = g_y^{-1}ag_y = a^{\ol y}
+	\]
+\end{enumerate}
+
+De esta manera tenemos definido un morfismo de grupos $\varphi: F(\cG) \to G$.
+Nuestro objetivo ahora es ver que este morfismo baja al grupo fundamental del grafo de grupos sobre un árbol generador.
+
+\begin{lema}\label{lema_morfismo_pi1_inyectivo}
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
+	El morfismo $\varphi:F(\cG) \to G$ es tal que $\varphi(g) = g$ para todo $g \in G_{P}$.
+\end{lema}
+
+\begin{proof}
+	Por el corolario \ref{coro_pal_red_1} tenemos que $G_{P}$ es un subgrupo de $F(\cG)$ por lo tanto por nuestra definición tenemos que $\varphi(g) = g$ para todo $g \in G_{P}$.
+\end{proof}
+
+En particular si consideramos que para toda arista $y \in E(X)$ el grupo $G_y$ es subgrupo de $G_{s(y)}$ luego $\varphi(a) = a$ para todo $a \in G_{y}$.
+
+\begin{prop}\label{prop_morf_grp_restr_sobre}
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
+	El morfismo de grupos $\varphi: F(\cG) \to G$ restringido al subgrupo $\pi_1(\cG, P)$ es sobreyectivo.
+\end{prop}
+
+\begin{proof}
+	Dado $g \in G$ queremos ver que $g \in \varphi(\pi_1(\cG, P))$.
+	
+	Sea $P \in \iota(V(Y))$ un vértice.
+	Consideremos $gP \in V(X)$, como el grafo es conexo tenemos un camino que une a $P$ con $gP$. 
+	Sea este camino $(e_{0}\iota(y_{1}), \dots, e_{k-1}\iota(y_{k}))$ donde $e_{i} \in G$ para todo $0 \le i \le k-1$ y $(y_{1}, \dots, y_{k})$ es un camino en el grafo $Y$.
+	Si miramos los vértices que aparecen en este camino tenemos:	
+	\begin{center}
+		\begin{tikzcd}
+			e_0P_0 \arrow[r, "e_0 \iota(y_1)", bend left] & e_1 P_1 \arrow[r, "e_1\iota (y_2)", bend left] & \dots \arrow[r, bend left] & e_{k-1}P_{k-1} \arrow[r, "e_{k-1} \iota(y_k)", bend left] & e_kP_k
+		\end{tikzcd}
+	\end{center}
+
+
+	de manera que $P_i \in V(\iota (Y))$.
+	En particular $P_0 = P$ y  $P_k = P$ y así $s(\iota (y_i)) = P_{i-1}$ por como tomamos las levantadas de las aristas.
+	Los elementos $e_i$ son tales que $e_i t(\iota (y_{i+1})) = e_{i+1}P_{i+1}$.	
+	
+	
+	Una primera observación que podemos hacer es que $g e_k^{-1} \in G_P$ dado que  $e_k P = g P$.
+	Por el lema \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi(h) = h $ para todo $h \in G_P$ por lo tanto $\varphi(ge_{k}^{-1}) = ge_{k}^{-1}$.
+	Esto nos dice que si escribimos a $g$ de la siguiente manera,
+	\[
+	g = (ge_k^{-1}) e_k
+	\]
+	entonces como $ge_k^{-1} \in G_P$ tenemos que usando el resultado \ref{coro_pal_red_1} que vale lo siguiente: $ge_k^{-1} \in \pi_1(\cG,P)$.
+	Como $ \varphi(ge_{k}^{-1}) = ge_{k}^{-1}$ obtenemos que  $ge_{k}^{-1} \le \varphi(\pi_1(\cG, P))$.  
+	Si vemos que $e_k \in \varphi(\pi_1(\cG, P))$ probaríamos que $g \in \varphi (\pi_1(\cG,P))$ tal como queríamos ver.
+		
+	Probaremos por inducción en el camino que tomamos anteriormente que $e_i \in \varphi(\Pi_1(\cG, P, P_i))$ para todo $i = 0 \dots n$.
+	
+	El caso base consiste en ver que $e_0 \in \varphi(\pi_1(\cG, P))$.
+	Esto es cierto porque justamente tenemos que $e_0 \in G_P$ dado que $e_{0}P = P$ y por el lema anterior \ref{lema_morfismo_pi1_inyectivo} tenemos que $\varphi$ es la identidad cuando la restringimos a $G_P$.
+	
+	Para el paso inductivo supongamos que $e_{i-1} \in \varphi(\pi_1(\cG, P, P_{i-1}))$ y queremos ver que $e_i \in \varphi(\pi_1(\cG, P, P_{i}))$.
+	Antes de probar esto veamos de reescribir a $e_i$ en términos de $e_{i-1}$.
+	Observemos que por como tomamos el camino tenemos que
+	\[
+		e_{i-1} t(\iota (y_i)) = e_i P_i 
+	\]
+	y así $t(\iota (y_i)) = e_{i-1}^{-1} e_i P_i$ y como $t(\iota (y_i)) = s(\ol{\iota(y_i)})$ luego obtenemos que $s(\ol{\iota(y_i)}) = e_{i-1}^{-1} e_i P_i$.
+	Por como definimos al elemento del grupo $g_{y_i} \in G$ tenemos que $g_{y_i} \iota (\ol y_i) = \ol{\iota (y_i)}$ por lo tanto obtenemos que 
+	\[
+		s(g_{y_i} \iota (\ol{y_i})) = g_{y_i} P_i = e_{i-1}^{-1} e_i P_i = s(\ol{\iota (y_i)})
+	\]
+	de esta manera llegamos a la siguiente escritura para $e_i$,
+	\begin{equation*}
+		e_i  = e_{i-1}g_{y_i} h_i 
+	\end{equation*}
+	donde $h_i \in G_{P_i}$. 
+	
+	Ahora podemos usar nuestra hipótesis inductiva para obtener un camino 
+	\[
+		h_0y_0 \dots y_{i-1}h_{i-1} \in \Pi_1(\cG, P, P_i)
+	\]
+	de manera que $e_{i-1} =  \varphi(h_0y_0 \dots y_{i-1}h_{i-1})$. 
+	Recordemos que $\varphi(y_i) = g_{y_i}$ por la definición de nuestro morfismo $\varphi$ y por otro lado tenemos que $\varphi(h_i) = h_i$ porque $\varphi$ fija a los grupos $G_{P_i}$ por \ref{lema_morfismo_pi1_inyectivo}.
+	Con esto concluímos la siguiente igualdad,
+	\[
+		e_i = \varphi(h_0y_0 \dots y_{i-1}h_{i-1} y_i h_i)
+	\]
+	y como $h_0y_0 \dots y_{i-1}h_{i-1} y_i h_i \in \Pi_1(\cG, P, P_i)$ terminamos de probar que $e_{i} \in \varphi(\Pi_1(\cG, P, P_i))$ tal como queríamos ver. 
+	En particular con esto probamos que $e_k \in \varphi(\cG, P)$ y esto implica que $g \in \varphi(\cG, P)$ tal como queríamos ver.
+	De esta manera la restricción de $\varphi$ al subgrupo $\pi_1(\cG, P)$ es sobreyectiva.
+\end{proof}
+
+Ahora vamos a probar que este morfismo $\varphi$ se factoriza por el cociente $\pi_1(\cG, T)$.
+
+Primero una observación sobre uniones de árboles.
+\begin{obs}\label{lema_union_arboles}
+	Dada una sucesión de árboles $\{T_{i}\}_{i\in \NN}$ tales que para todo $i \in \NN$ vale que $T_{i} \subseteq T_{i+1}$ entonces 
+	\[
+	T = \bigcup_{i=1}^{\infty} T_{i}
+	\]
+	es un árbol.
+	Esto se debe a que la unión de conexos sigue siendo conexo y si tuviera un ciclo entonces existiría $N$ suficientemente grande tal que $T_{N}$ tendría un ciclo y esto contradice que es un árbol.
+\end{obs}
+
+
+\begin{prop}\label{prop_levantado_accion_arbol}
+	Sea $X$ grafo conexo no vacío, $G$ grupo que actúa sin inversiones sobre $X$.
+	Sea $Y= X / G$ y sea $\pi:X \to Y$ la proyección. 
+	Sea $T$ árbol generador de $Y$.
+	Entonces podemos tomar $\iota:V(Y) \to V(X)$ sección a $\pi$ tal que si nombramos $T' = \iota(T)$ resulta ser un subgrafo de $X$.
+\end{prop}
+
+\begin{proof}
+	Vamos a usar el Lema de Zorn.
+	Sea el siguiente conjunto
+	\[
+	\Omega = \{ (S, \iota)	  \ | \   S \ \text{subárbol de} \ T, \ \iota \ \text{es sección de} \ \pi, \ \iota (S) \ \text{subárbol de} \ X  \}
+	\]
+	tal que si consideramos el siguiente orden
+	\[
+	(S,\iota) \le (S', j) \iff (S \subseteq S' \implies \iota(S) \subseteq j(S') \land \left. j \right|_{S} = \iota)
+	\]
+	donde miramos la inclusión como grafos en ambas coordenadas.
+	
+	Observemos que si tomamos una arista $y \in E(Y)$ luego como $G$ actúa sin inversiones de aristas tenemos que para todo $g,h \in G$ y para toda $y \in E(Y)$ vale lo siguiente $g \cdot y \neq h \cdot \ol{y}$ en $X$. 
+	Esto nos dice que es posible definir secciones a la proyección $\pi:X \to Y$.
+	
+	\begin{itemize}
+		\item Veamos que $\Omega$ es no vacío.
+		Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
+		Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
+		De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
+		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
+		Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
+		\begin{equation*}
+			S = \bigcup_{i \in \NN} S_{i}.
+		\end{equation*}
+		Similarmente tomamos la unión de todas las secciones,
+		\[
+		\iota = \bigcup_{i = 0}^{k} \iota_i
+		\]
+		donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
+		Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por la observación \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
+		El supremo para esta cadena resulta ser $(S, \iota) \in \Omega$.
+	\end{itemize}
+	
+	
+	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
+	Veamos que $(\pi \circ j)(M) = T$.
+	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
+	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
+	Concluimos así que $M = T$ tal como queríamos ver.	
+\end{proof}
+
+
+\begin{coro}
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
+	Sea $T$ un árbol generador de $Y$.
+	Entonces la restricción del morfismo $\varphi: \pi_1(\cG, P)$ se factoriza por $\pi_1(\cG, T)$.
+\end{coro}
+\begin{proof}
+	Por la proposición anterior \ref{prop_levantado_accion_arbol} tenemos que
+	podemos construirnos una sección $\iota:Y \to X$ de manera que el levantado $\iota(T) \subseteq X$ lo podemos tomar para que sea un subárbol de $X$.
+	Al ser un subgrafo tenemos que $\iota(\ol y) = \ol {\iota (y)}$ y equivalentemente que $g_{y}=1$ y esto nos dice que $\varphi(\iota(y)) = 1$.
+	Como $\pi_1(\cG,T) = F(\cG) / \langle \langle R \rangle \rangle$ donde $R = \{ y \in E(T) \}$ luego tenemos que $\varphi$ define un morfismo $\ol \varphi: \pi_1(\cG, T) \to G$ tal como queríamos ver.
+\end{proof}
+
+\subsubsection{Morfismo de grafos $\psi$.}
+
+En esta subsección mantenemos los nombres que elegimos en la anterior sección: $X$ es un grafo en el cual actúa un grupo $G$, $Y = X/G$ es el cociente por esta acción y $\cG$ es un grafo de grupos sobre $Y$ construido tal como lo hicimos anteriormente.
+
+Sea $\Xm$ el árbol de Serre del grafo de grupos $\cG$.
+Nuestro objetivo es dar un epimorfismo de grafos $\psi:\Xm \to X$ que en nuestro contexto de la teoría de Bass--Serre resulta equivalente a decir que $\Xm$ junto con este morfismo es un revestimiento de $X$.
+
+
+Definimos entonces $\psi: \Xm \to X$ dada por: 
+\begin{align*}
+	\psi(g G_P ) = \varphi(g) \cdot P \ \ \text{para todo} \ g \in G, P \in V(Y) \\
+	\psi(g G_y ) = \varphi(g) \cdot \iota(y) \ \text{para todo} \ g \in G, y \in V(Y)
+\end{align*}
+
+Veamos que la definición de $\psi$ no depende del representante y por lo tanto que está bien definida.
+Sean dos representantes del mismo coset, $gG_{P} = hG_{P}$, queremos ver que $\varphi(g) \cdot P = \varphi(h) \cdot P$.
+Dado que $h^{-1}g \in G_P$ luego tenemos que $\varphi(h^{-1}g) = h^{-1}g$ porque $\varphi$ restringida a $G_P$ es la identidad por el resultado \ref{lema_morfismo_pi1_inyectivo}.
+Esto nos dice que 
+\begin{align*}
+		\varphi(h) \varphi(h^{-1}g) &= \varphi(g) \\
+		\varphi(h) (h^{-1}g) & = \varphi(g) \\
+		\implies \varphi(h) \cdot P &= \varphi(g) \cdot P.
+\end{align*}
+por lo tanto $\psi$ está bien definida para todo coset de vértices.
+Similarmente por un razonamiento idéntico podemos ver que $\psi$ está bien definida para todo coset de aristas y así vemos que $\psi$ es una función bien definida.
+
+\begin{lema}
+	La función $\psi: \Xm \to X$ resulta ser un morfismo de grafos.
+\end{lema}
+
+\begin{proof}
+Para ver que es un morfismo de grafos nos basta ver que manda vértices en vértices, aristas en aristas y respeta comienzo de aristas y la asignación de las aristas opuestas.
+Por como lo definimos está claro que manda vértices en vértices y aristas en aristas.
+
+Veamos que respeta el comienzo de las aristas.
+Sea una arista $gG_y \in V(\Xm)$ luego tenemos que:
+\begin{align*}
+s(\psi(gG_y  )) &= s (\varphi(g) \cdot \iota(y)) =  \varphi(g) \cdot  s(\iota(y)) 	\\ 
+\psi(s(gG_y ))  &= \psi(gG_{s(y)} ) = \varphi(g) \cdot {s(\iota(y))} \\
+\end{align*}	
+
+Finalmente veamos que respeta la asignación de las aristas opuestas.	
+Dada una arista $g G_y \in E(\Xm)$ tenemos que ver que $\psi(\ol{g G_y }) = \ol{\psi(g G_y )}$.	
+Primero usamos que $\ol{g G_y } = (gy)G_{\ol y}$ por lo tanto tenemos que 
+
+\[
+	\psi(\ol{gG_y  }) = \psi(gyG_{\ol y}) = \varphi(gy) \cdot \iota(\ol y)  = \varphi(g)\varphi(y) \cdot \iota(\ol y) = \varphi(g)\varphi(y) \cdot \iota(\ol y)      	
+\]
+por nuestra definición de $\varphi$ tenemos que $\varphi(y) = g_{y}$, así obtenemos
+\[
+	\psi(\ol{gG_y  }) =  \varphi(g) g_y \cdot \iota(\ol y). 
+\]
+Por otro lado tenemos que como $\ol{\iota(y)} = g_{y}\iota(y)$ entonces
+\[
+	\ol{\psi(gG_y )} = \ol{ \varphi(g) \cdot  y } = \varphi(g) \cdot  \ol{\iota( y)} = \varphi(g)g_{y} \cdot \iota(\ol y) 
+\]
+Probando así que $ \ol{g G_y } = (gy)G_{\ol y} $.
+Con esto terminamos de probar que $\psi$ es un morfismo de grafos.
+
+\end{proof}
+
+
+\begin{deff}
+	Un morfismo de grafos $\psi:X \to Y$ se dice \emph{localmente inyectivo} si para todo vértice $P \in V(X)$ resulta que la restricción $\psi: st(P) \to E(Y)$ es inyectiva. 
+\end{deff}
+
+Así como el revestimiento de un grafo es un epimorfismo de grafos localmente inyectivo vamos a probar que en el contexto de la teoría de Bass--Serre el morfismo $\psi$ también tiene estas propiedades.
+
+\begin{prop}\label{prop_psi_sobre}
+	El morfismo $\psi: \Xm \to X$ es sobreyectivo.
+\end{prop}
+\begin{proof}
+	Sea $g \cdot P \in V(X)$ vértice arbitrario, queremos ver que existe $g' G_{Q} \in V(\Xm)$ de manera que $\psi(g' G_{Q}) = g \cdot P$.
+	
+	Por el resultado \ref{prop_morf_grp_restr_sobre} el morfismo de grupos $\varphi$ resulta ser sobreyectivo.
+	De esta manera tenemos que existe $h \in \pi_1(\cG,P)$ tal que $\varphi(h) = g$. 
+	Luego alcanza con tomar como vértice a $h G_P \in V(\Xm) $ de manera que 
+	\[
+	\psi(h G_P ) = \varphi(h) \cdot P = g \cdot P 
+	\]
+	tal como queríamos ver.
+	Una cuenta idéntica prueba que toda arista $g \cdot \iota(y) \in E(X)$ está en la imagen de $\psi$. 
+	
+\end{proof}
+
+
+\begin{prop}\label{prop_psi_loc_iny}
+	El morfismo $\psi:\Xm \to X$ es localmente inyectivo.
+\end{prop}
+	
+\begin{proof}
+	Sea $gG_{P} \in V(\Xm)$ vértice y sean $aG_{y},bG_{y' }\in E(\Xm)$ aristas distintas tales que $s(aG_{y}) = gG_{P} = s(bG_{y'})$.
+	Queremos probar que $\psi(aG_{y}) \neq \psi(bG_{y'})$.
+	Consideraremos dos casos dependiendo si las aristas correspondientes en el grafo $Y$ son idénticas o no lo son.
+	
+	\begin{enumerate}
+		\item Supongamos primero que $y \neq y'$.
+		En este caso tenemos que $\psi(aG_{y}) = \varphi(a) \cdot \iota (y)$ mientras que $\psi(bG_{y'}) = \varphi(b) \cdot \iota (y')$.
+		Como son elementos de órbitas distintas no pueden ser el mismo elemento y de esta manera concluimos que $\psi(aG_{y}) \neq \psi(bG_{y'}).$
+		
+		\item El otro caso es que $y=y'$. 
+		Veamos que por una cadena de equivalencias que la función $\psi$ coincide en estas aristas si y solo sí son idénticas.
+		Esto nos dice que
+		\[
+		\psi(aG_{y}) = \psi(bG_{y}) \iff \varphi(a) \cdot  \iota(y) = \varphi(b)\cdot \iota(y)
+		\]
+		y esto es equivalente a $\varphi(a^{-1}b) \in G_{y}$.
+		Por el resultado \ref{prop_morf_grp_restr_sobre} tenemos que $\varphi$ es la identidad restringida a $G_{y}$.
+		De esta manera tenemos que
+		\[
+			\varphi(a) \cdot  \iota(y) = \varphi(b)\cdot \iota(y) \iff  a^{-1}b \in G_{y} \iff aG_{y} = bG_{y}
+		\]
+		y así terminamos de probar que $\psi$ es localmente inyectivo.
+		
+	\end{enumerate}
+\end{proof}	
+	
+
+
+El siguiente resultado nos va a garantizar que el morfismo $\psi: \Xm \to X$ sea un isomorfismo de grafos pidiéndole a $X$ ser un árbol.
+
+\begin{prop}\label{prop_loc_iny}
+	Sea $T$ un árbol y sea $Y$ un grafo conexo entonces todo morfismo de grafos $\psi:Y \to T$ localmente inyectivo es inyectivo.    
+\end{prop}
+\begin{proof}
+	Notemos que el grafo $Y$ es conexo por hipótesis entonces para todo par de vértices existe un camino que los une.
+	Vamos a probar la siguiente afirmación equivalente a que $\psi$ es un monomorfismo. 
+	Para todo todo $n \in \NN$ y para todo par de vértices distintos $P,Q \in V(Y)$  tales que existe una geodésica $\alpha$ que une $P$ con $Q$ y que cumple que $l(\alpha) = n$ entonces  $\psi(P) \neq \psi(Q)$.	
+		
+	
+	El caso base es que la longitud de la geodésica sea exactamente $1$.
+	En este caso nuestra geodésica es el camino $\alpha = (y)$ donde denotamos $s(y)= P$ y $t(y) = Q$.
+	Supongamos que $\psi(P) = \psi(Q)$. 
+	Al ser $\psi$ un morfismo de grafos tenemos que $\psi(y) \in E(T)$ y cumple que: 
+	\begin{equation*}
+		s(\psi(y)) = \psi(P) = \psi(Q) = t(\psi(y))
+	\end{equation*}
+	por lo tanto $\psi(y)$ es un bucle y esto contradice que $T$ es un árbol por lo tanto $\psi(P) \neq \psi(Q)$ tal como queríamos ver.
+	
+	
+	El paso inductivo tenemos que existe una geodésica $\alpha= (y_1, \dots, y_n)$ entre $P$ y $Q$ de manera que $l(\alpha) = n$ y suponemos que $\psi(P) = \psi(Q)$.
+	Tenemos que $\psi(\alpha)$ es un camino en $T$ tal que comienza y termina en un mismo vértice.
+	Como estamos en un árbol no puede haber ciclos, de esta manera tiene que ser que $\psi(y_k) = \ol{\psi (y_{k+1})}$ para cierto $1 \le k \le n$.
+	Como $\psi$ es un morfismo de grafos cumple que $\ol {\psi(y)} = \psi(\ol y)$ para todo $y \in E(Y)$ y así de esta manera obtenemos que $\psi(y_k) =  \psi(\ol{y_{k+1})}$.
+	Consideremos las aristas $\psi(\ol y_{k})$ y $\psi(y_{k+1})$ tales que comienzan en el mismo vértice, entonces como el morfismo $\psi$ es localmente inyectivo vale que $y_{k+1} = \ol{y_k}$. 
+	Esto es una contradicción porque asumimos que $\alpha$ es una geodésica y como tal no puede tener backtracking.    
+	
+\end{proof}
+
+El siguiente resultado nos da la estructura de un grupo que actúa sobre un grafo conexo sin inversiones de aristas. 
+Es el resultado central de la teoría de Bass--Serre.
+
+\begin{teo}[\cite{serre2002trees}]\label{teo_Serre}
+	Sea $G$ un grupo que actúa en un grafo conexo $X$ sin inversiones de aristas y sea $\cG$ el grafo de grupos asociado sobre $Y = X / G$.
+	Consideremos $T$ un árbol generador de $Y$ y los morfismos $\psi: \Xm \to X$ y $\varphi: \pi_1({\cal G}, T) \to G$.
+	Luego las siguientes afirmaciones son equivalentes.
+	\begin{enumerate}[(a)]
+		\item el grafo $X$ es un árbol;
+		\item el morfismo $\psi: \Xm \to X$ es un isomorfismo de grafos;
+		\item el morfismo $\varphi:\pi_1({\cal G}, T) \to G$ es un isomorfismo de grupos.
+	\end{enumerate}
+\end{teo}
+
+\begin{proof}	
+		 La implicación \textbf{a $\Rightarrow$ b} la hacemos usando la proposición \ref{prop_loc_iny} dado que $\psi$ es localmente inyectivo por la proposición \ref{prop_psi_loc_iny}.
+		 Para ver \textbf{b $\Rightarrow$ a} usamos que $\Xm$ es un árbol por lo tanto $X$ al ser isomorfo también es un árbol.
+		 
+		 Probemos \textbf{b $\Rightarrow$ c}. 
+		 Para eso notemos que al ser $\varphi$ sobreyectivo por la proposición \ref{prop_morf_grp_restr_sobre} nos alcanza con ver que es inyectivo.
+		 Si $g \in \pi_1({\cal G}, T)$ y $g \neq 1$ tal que $\varphi(g)= 1$ entonces necesariamente $g \notin G_P$ por el lema \ref{lema_morfismo_pi1_inyectivo} dado que la restricción a estos subgrupos es la identidad.
+		 Esto nos dice que $g G_P \neq G_P $.
+		 Por como definimos a $\psi$ tenemos que 
+		 \[
+		 \psi (gG_P ) = \varphi(g) \cdot P  = P = \psi(G_P )
+		 \] 
+		 pero esto contradice que $\psi$ sea un isomorfismo.
+		 
+		 
+		 Finalmente probemos \textbf{c $\Rightarrow$ b}. 
+		 Para esto como $\psi$ es sobreyectivo por \ref{prop_psi_sobre} nos alcanza con ver que es inyectivo.
+		 Sean $gG_P, hG_Q \in V(\Xm)$ tales que $\psi(gG_P) = \psi(hG_Q)$.
+		 Por la definición del morfismo $\psi$ obtenemos que 
+		 \[
+		 \varphi(g)\cdot P = \varphi(h)\cdot Q
+		 \]
+		 pero esto nos diría que $P = Q$ caso contrario estarían en órbitas distintas. 
+		 Por otro lado obtenemos que $\varphi(g h^{-1}) \cdot P  =  P$ y así $\varphi(gh^{-1}) \in G_P$. 
+		 Usando que $\varphi$ es un isomorfismo y la proposición \ref{prop_morf_grp_restr_sobre} deducimos que $\varphi^{-1} (\varphi gh^{-1}) = gh^{-1} \in G_P$.
+		 Por lo tanto $gG_P  = hG_Q$ y de esta manera probamos que $\psi$ es inyectiva.
+\end{proof}
+
+De este teorema se desprende una caracterización importante que es que dado un grupo $G$ si encontramos un árbol $X$ donde actúe sin inversiones obtenemos que este grupo es el grupo fundamental del grafo de grupos que armamos sobre el grafo $X/G$.
+Como corolario directo obtenemos una caracterización para los grupos libres.
+
+
+
+
+\begin{coro}\label{coro_libre_sii_actua_arbol}
+	Un grupo $G$ es libre si y solo sí $G$ actúa libremente sobre un árbol sin inversiones de aristas. 
+\end{coro}
+
+\begin{proof}
+	Si $G$ es libre  y generado por un conjunto finito $A$ entonces $Cay(G,A)$ es un árbol y $G$ actúa libremente sobre su grafo de Cayley y sin invertir aristas.
+	
+	Si $G$ actúa libremente sobre un árbol sin inversiones entonces usando \ref{teo_Serre} obtenemos que $G$ es isomorfo a $\pi_1(\cG, T)$.
+	Este grupo es libre por ser el grupo fundamental de un grafo de grupos en el cual los grupos correspondientes a las aristas y a los vértices son triviales dado que la acción de $G$ es libre.
+	
+\end{proof}
+
+\begin{coro}[Nielsen--Schreier]\label{coro_niels_sch}
+	Sea $G$ un grupo libre entonces todo subgrupo $H$ de $G$ resulta ser libre.
+\end{coro}
+\begin{proof} 
+	Veamos que $H$ actúa libremente y sin inversiones de aristas sobre un árbol por lo tanto por el corolario \ref{coro_libre_sii_actua_arbol} tendríamos que $H$ es libre.
+	Como $G$ es libre entonces por este mismo corolario tenemos que $G$ actúa libremente sobre un árbol sin inversiones de aristas.
+	En particular si restringimos esta acción de $G$ a una del subgrupo $H$ obtenemos que $H$ actúa sobre este mismo árbol libremente y sin inversiones de aristas. 
+	
+\end{proof}
+
+%Otra consecuencia de este teorema de Serre es un resultado obtenido por Karass, Pietrowski y Solitar que nos da una cota de qué tan grande puede ser un subgrupo libre dentro de un grupo fundamental de un grafo finito de grupos finitos.
+%Este resultado generaliza la fórmula de Schreier para subgrupos libres.
+%
+%
+%Primero probamos el siguiente lema sobre grupos libres que nos va a ayudar en la demostración de esta fórmula.
+%
+%\begin{lema}\label{lema_libre_torsion}
+%	Todo \fg libre no tiene torsión.
+%\end{lema}
+%\begin{proof}
+%	El grafo de Cayley de un grupo libre se puede tomar para que sea un árbol.
+%	Si tuviera torsión tendría un ciclo contradiciendo que es un árbol.
+%\end{proof}
+
+%\todo[inline]{Agregar definición de rango de un grupo libre.}
+%\begin{prop}\cite{karrass1973finite}\label{prop_karrass_formula}
+%	Sea $\cal G$ un grafo de grupos finito tal que los grupos de los vértices y aristas también son finitos.
+%	Sea $G = \pi_1 ({\cal G}, T)$ y sea $F$ un subgrupo libre de $G$ de índice finito con rango $r(F)$.
+%	Luego la siguiente fórmula vale:
+%	
+%	\begin{equation*}
+%		\frac{r(F) - 1}{(G:F)} = \sum_{y \in E(Y)} \frac{1}{2 \cdot |G_y|} - \sum_{P \in V(Y)} \frac{1}{|G_P|}.
+%	\end{equation*}
+%\end{prop}
+%\begin{proof}
+%	Sea $\tilde X$ el árbol de Bass--Serre para este grafo de grupos $\cG$.
+%	Por la construcción del árbol de Bass--Serre tenemos que $G$ actúa sobre $\Xm$ sin inversiones de aristas entonces en particular $F$ que es un subgrupo de $G$ también actúa sobre $\Xm$ sin inversiones de aristas.
+%	Sea $\cal H$ el grafo de grupos sobre $\Xm/F$ construido a partir de la restricción de la acción de $G$ al subgrupo $F$.
+%	Sea $T'$ un árbol generador del grafo $\Xm/F$ entonces como $\tilde X$ es un árbol estamos en las hipótesis para usar \ref{teo_Serre} y de esta manera obtenemos que $F \simeq \pi_1 (\cH, T')$.
+%	
+%	Notemos que $F$ no interseca a ningún subgrupo de $G$ que sea isomorfo a $G_P$ para ningún $P \in V(Y)$. 
+%	Esto porque el grupo $F$ es libre y $G_P$ es finito por lo tanto la intersección tendría torsión pero por el lema \ref{lema_libre_torsion} ningún grupo libre tiene torsión.	
+%	Queremos calcular el rango $r(F)$ contando todas las aristas que no pertenezcan al árbol $T'$.
+%	Al ser $T'$ un árbol generador tenemos que $\tfrac{1}{2}|E(T')| = |V(\Xm / F)| - 1$. 
+%	De esta manera dado que los estabilizadores por la acción de $F$ son triviales tenemos el siguiente isomorfismo $\pi_1(\cH, T') \simeq F_{\Sigma}$ donde $\Sigma$ es un conjunto finito que resulta tener el siguiente orden 
+%	\[
+%		|\Sigma| = \dfrac{|E(\Xm/F) \ \setminus \ E(T')|}{2},
+%	\]
+%	multiplicamos por $\tfrac{1}{2}$ porque todas las aristas las contamos una vez por cada una de las dos orientaciones que tienen.
+%	Por lo tanto como dos grupos libres isomorfos tienen el mismo rango
+%	entonces $r(F) = | \Sigma |$ y por lo tanto:
+%	
+%	\begin{align*}
+%		r(F) &= \frac{1}{2} (|E(\Xm / F)| - |E(T')|) \\
+%		&= \frac{1}{2} (|E(\Xm / F)|) - (|V(\Xm / F) | - 1)
+%	\end{align*}
+%	
+%	Finalmente para obtener la fórmula que queremos probar tenemos que usar la construcción del árbol de Bass--Serre $\Xm$.
+%	\begin{equation*}
+%		|V(\Xm / F)| = \sum_{P \in V(X)} |F  \ \backslash (G/G_P)|
+%	\end{equation*}
+%	donde usamos que $F$ actúa sobre los cosets $G/G_{P}$ por multiplicación a izquierda.
+%	El conjunto de cosets $F \ (\backslash G /G_P)$ está en biyección con el conjunto de cosets $(F \ \backslash G) /G_P$ donde este segundo es finito porque por hipótesis $F$ tienen índice finito en $G$.
+%	De esta manera obtenemos que: 
+%	\begin{equation*}
+%		|V(\Xm / F)| = \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|}.
+%	\end{equation*}
+%	Por el mismo razonamiento obtenemos la siguiente expresión,
+%	\[
+%		|E(F \backslash \Xm)| =  \sum_{y \in E(X))} \dfrac{(G:F)}{|G_y|}.
+%	\]
+%	Y así obtenemos finalmente que
+%	\begin{align*}
+%		r(F) =& \sum_{y \in E(X))} \dfrac{(G:F)}{2|G_y|} + \sum_{P \in V(X)} \dfrac{(G:F)}{|G_P|} + 1 \\
+%		\dfrac{r(F) - 1}{(G:F)} =& \sum_{y \in E(X))} \dfrac{1}{2|G_y|} + \sum_{P \in V(X)} \dfrac{1}{|G_P|}.
+%	\end{align*}
+%	Tal como queríamos probar.
+%\end{proof}
+
+
+Estamos en condiciones de probar el resultado central del capítulo, que es que todo grupo fundamental de un grafo de grupos finito es un grupo virtualmente libre.
+Primero debemos ver unos lemas de acciones de grupos finitos.
+
+% \begin{lema}\label{lema_accion_orden}
+% 	Sea $G$ un grupo finito y $X$ conjunto finito tal que $|G| \mid |X|$ luego existe $\alpha: G \to S(X)$ acción libre de $G$ en $X$.
+% \end{lema}
+
+% \begin{proof}
+% 	Sea $|G|=k$ y sea $|X|=mk$ luego como queremos que la acción de $G$ sea libre designamos nuestros candidatos a órbitas $X_{i}$ $i=1, \dots k$ donde $X_{i} \subseteq {\cal P}(X)$, $|X_{i}|=m$ y $X_{i} \cap X_{j} = \emptyset$ para todo $i \neq j$.
+% 	Les asignamos índices a todos los elementos de $X_{i}$ para todo $ 1 \le i \le k$ y los denotamos $x_{i}^j$ para el $j$-ésimo elemento de $X_{i}$ donde $1 \le j \le m$.
+% 	Similarmente como $G$ es finito luego $G = \{ g_{1}, \dots g_{k} \}$.
+% 	Luego definimos $\alpha:G \to S(X)$ de la siguiente manera si $g_{l} g_{i} = g_{h}$ entonces
+% 	\[
+% 		\alpha(g_{l})(x_{i}^j) = x_{h}^j.
+% 	\] 
+% 	Chequeamos que es una acción y a su vez $\alpha(g)(x_{i}^j) = x_{i}^j$ si y solamente si $g g_{i} = g_{i}$ lo que implica que $g = 1$ y así vemos que la acción $\alpha$ resulta ser libre tal como buscábamos.
+% \end{proof}
+
+
+
+
+\begin{lema}\label{lema_acciones_finitas}
+	Sea $G$ un grupo finito y $X$ un conjunto finito tal que $\alpha, \beta : G \to S(X)$ son dos acciones libres de $G$ sobre $X$. 
+	Entonces debe existir $\varphi \in S(X)$ tal que para todo $g \in G$ valga que 
+	\[
+	\alpha (g) = \varphi^{-1} \circ \beta(g) \circ \varphi.
+	\]
+\end{lema}
+\begin{proof}
+	Denotaremos a la órbita de un elemento $x \in X$ por medio de la acción $\alpha:G \to S(X)$ de la siguiente manera:
+	\[
+		\alpha(G)(x) = \bigcup_{g \in G} \alpha(g) (x).
+	\]
+	
+	Sean ahora $R \subseteq X$ conjunto de representantes para la acción $\alpha$ y $S \subseteq X$ para la acción $\beta$, entonces tenemos que
+	\[
+		X = \bigsqcup_{r \in R} \alpha(G) (r) = \bigsqcup_{s \in S} \beta(G) (s)
+	\]
+	donde la unión es disjunta porque son órbitas. 
+	Como ambas acciones son libres resulta que $\alpha(G)(r)$ y $\beta(G)(s)$ tienen cardinal exactamente $|G|$.
+	Como $X$ es finito si usamos el teorema de órbitas y estabilizadores vemos que $|R| = |X| / |G| = |S|$ por lo tanto existe una biyección $\varphi: R \to S$ entre ambos conjuntos.
+	Si $\varphi(r) = s$ entonces la extendemos a todo $X$ de la siguiente manera,
+	\[
+		\varphi (\alpha(g) r) = \beta(g)  s
+	\]
+	Esta biyección cumple todo lo que queríamos.
+	
+\end{proof}
+
+
+\begin{teo}
+	\label{teo:subgrupo_normal_pi1_libre}
+	Dado $\cG$ un grafo de grupos finito sobre un grafo conexo $Y$ y dado $T$ árbol generador de $Y$.
+	Si existe un subgrupo normal $F$ de $\pi_{1}(\cG,T)$ que cumple que $F \cap G_{P} = 1$ para todo $P \in V(Y)$ entonces $F$ es un grupo libre.
+\end{teo}
+\begin{proof}
+	Dado $T$ árbol generador de $Y$ tenemos que $\pi_1(\cG, T)$ actúa sin inversiones de aristas sobre $\Xm$ el árbol de Bass--Serre de $\cG$.
+	De esta manera como $F \le \pi_1(\cG,T)$ luego tenemos que $F$ actúa sobre $\Xm$.
+
+	Si $h \in G_v$ para $v \in V(\widetilde{X})$ luego $v = gG_{P}$ para cierto $P \in V(Y)$ entonces 
+	$hgG_{P} = gG_{P} \implies h \in gG_{P}g^{-1}$.
+	Si a su vez asumimos que $h \in G_{v} \cap F$ luego como $F$ es normal esto nos diría que $g^{-1}hg \in F \cap G_{P}$ por lo que $h = 1$.
+	Con esto concluimos que $F \cap G_{v} = 1$ para todo $v \in V(\widetilde{X})$. 
+	Entonces como $F$ actúa libremente sobre el árbol $\widetilde{X}$ luego esto nos dice que por el lema \ref{coro_libre_sii_actua_arbol} luego $F$ es un grupo libre tal como queríamos ver.
+\end{proof}
+
+
+\begin{teo}\cite{karrass1973finite}\label{teo_karrass_solitar}
+	Sea $\cal G$ un grafo de grupos sobre un grafo $Y$ finito y conexo tal que para todo $P \in V$ vale que $|G_{P}| < \infty$.
+	Entonces $\pi_1({\cal G}, P)$ es un grupo virtualmente libre.
+\end{teo}
+\begin{proof}
+	Dado que el grafo $Y$ es finito y para todo $P \in V$ los grupos $G_P$ también son finitos entonces podemos tomarnos $X$ un conjunto finito de manera que
+	\[
+		|X| = \prod_{P \in V} |G_P|.
+	\] 
+	
+	Para cada $P \in V$ podemos construir una acción libre de $G_P$ en $X$ usando el teorema de Cayley.
+	Al ser acciones libres obtenemos monomorfismos $\tau: G_P \to S(X)$ para cada $P \in V$.
+	Para cada arista $y \in E$ obtenemos una acción libre de $G_{y}$ sobre $X$ restringiendo la acción que conseguimos para $G_{s(y)}$.
+	Por otro lado $G_{y}$ es isomorfo como grupo a $G_{\ol y}$ y este es un subgrupo de $G_{t(y)}$ por lo tanto obtenemos otra acción libre de $G_{y}$ sobre $X$ si identificamos a $G_{y}$ con $G_{\ol y}$ y después restringimos la acción que conseguimos para $G_{t(y)}$.
+	Como tenemos dos acciones libres de $G_{y}$ sobre un conjunto finito podemos usar el lema \ref{lema_acciones_finitas} de manera que existe $\phi_y: S(X) \to S(X)$ tal que hace conmutar al siguiente diagrama
+	\[\begin{tikzcd}
+		& {G_{s(y)}} && {S(X)} \\
+		{G_y} \\
+		& {G_{t(y)}} && {S(X)}
+		\arrow["\sigma", from=1-2, to=1-4]
+		\arrow["\tau", from=3-2, to=3-4]
+		\arrow[hook, from=2-1, to=1-2]
+		\arrow[hook', from=2-1, to=3-2]
+		\arrow["\phi_y", from=1-4, to=3-4]
+	\end{tikzcd}\]
+	y está definida como $\phi_{y}(\psi) = \varphi_{y}^{-1} \circ \psi \circ \varphi_{y}$ donde $\varphi_{y} \in S(X)$ que existe por el lema.
+	Para la arista con orientación opuesta tenemos un diagrama casi idéntico y notamos que si definimos $\phi_{\ol y}(\psi) = \varphi_{y} \circ \psi \circ \varphi_{y}^{-1}$ luego ese diagrama conmuta.
+	
+	Definimos un morfismo de grupos $h: \underset{P \in V}{\Asterisk \ G_{P}} \Asterisk F_{E} \to S(X)$ de la siguiente manera,
+	\begin{align*}
+		 h(g) = \tau(g) & \ \ \  \ \ \  \text{si} \ g \in G_{P}, \ \tau:G_{P} \to S(X) \ \text{acción libre} \\
+		h(y) = \varphi_{y} & \ \ \ \ \ \ \text{si} \ y \in F_{E}
+	\end{align*}
+	
+	Por como tomamos a $\varphi_{\ol y}$ tenemos que $h$ respeta las relaciones de $F(\cG)$ y así obtenemos un morfismo $\ol{h}:F(\cG) \to S(X)$.
+	Si fijamos $P \in V$, como $\pi_1(\cG,P)$ es un subgrupo de $F(\cG)$ podemos restringir $\ol{h}$ y así considerar el subgrupo normal de $\pi_1(\cG, P)$ 
+	\[
+	F = \{  g \in \pi_1(G,P) \ | \ \ol{h}(g) = 1  \}
+	\]
+	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$ porque la restricción de $\ol{h}$ a $G_Q$ es inyectiva para todo $Q \in V$.
+
+	Por el resultado \ref{teo:subgrupo_normal_pi1_libre} tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$, que es un grupo finitamente generado, y queremos ver que $F$ tiene índice finito para probar que $\pi_1(\cG,P)$ es virtualmente libre.
+	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$ y como $S(X) \simeq \pi_1(\cG, P) / F$, por la propiedad universal del cociente, entonces $(\pi_1(\cG, P) : F) < \infty$ tal como queríamos ver.
+	
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
