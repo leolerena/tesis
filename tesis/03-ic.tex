@@ -501,88 +501,89 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 	\[
 		[G:F \cap H] = [G : H][H : F \cap H] < \infty	
 	\]
-	y así concluimos que $F \cap H$ tiene índice finito en $H$ y por lo tanto $H$ es un grupo \vl.
+	y así concluimos que $F \cap H$ tiene índice finito en $H$ y por lo tanto $H$ es un grupo virtualmente libre.
+	
 \end{proof}
 
+	\begin{prop}
+		\label{prop:presentacion_vl}
+		Sea  
+		\begin{center}
+			\begin{tikzcd}
+				1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & H \arrow[r] & 1
+			\end{tikzcd}
+		\end{center}
+		sucesión exacta corta con $F$ un grupo libre de rango $n$ y $H$ grupo finito de orden $m$.
+		Sea $\{ q_{1}, \dots, q_{m} \}$ los elementos de $H$ y $T = \{ t_{1},\dots, t_{m} \}$ una transversal a derecha de $F$ en $G$ elegido de manera que $\pi(t_{i}) = q_{i}$ para todo $i=1, \dots,m$ y de manera que $t_{1} = 1$.
+		Sea $A = \{ a_{1}, \dots, a_{n} \}$ un conjunto minimal de generadores para $F$.
+		Entonces para todo $a_l \in A \cup A^{-1}$, $t_i,t_j,t_k \in T$ y $q_{i},q_{j},q_{k} \in H$ existen $u_{il} \in F$ y $z_{ijk} \in F$ de manera que:
+		\begin{enumerate}
+			\item  $t_ia_{l}t_i^{-1} = u_{il}$.
+			\item  $t_it_j = z_{ij}t_k$.
+		\end{enumerate}
+		Y más aún si
+			\[
+				W = A \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}.
+			\]
+		Entonces  $\langle W \mid R \rangle$ es una presentación de $G$.
+	\end{prop}
+	
+	
+	\begin{proof}
+		Probamos \textbf{1}.
+		Dado que $F$ es un subgrupo normal de $G$ tenemos que para todo $a_{l} \in A \cup A^{-1}$ y para todo $t_{i} \in T$ vale que $t_{i}a_{l}t_{i}^{-1} \in F$ por lo tanto debe existir $u_{il} \in F$ de manera que $u_{il} = t_{i}a_{l}t_{i}^{-1}$.
 
-\begin{obs}\label{obs_presentacion_vl}
-	Dado $G$ \vl vamos a construirnos una presentación en particular.
-	Como es un grupo \vl tenemos $F$ subgrupo libre que podemos tomarlo normal por \ref{prop_vls} y $G/F$ grupo finito de manera que podemos escribir a $G$ como una extensión de estos dos grupos de la siguiente forma
-	\begin{center}
-		\begin{tikzcd}
-			1 \arrow[r] & F \arrow[r, "\iota"] & G \arrow[r, "\pi"] & G/F \arrow[r] & 1
-		\end{tikzcd}
-	\end{center}
-	donde $\iota: F \to G$ es la inclusión como subgrupo y $\pi: G \to G/F$ es la proyección.
+		Ahora probamos \textbf{2}.
+		Sean $t_{i},t_{j} \in T$ luego tienen que exisitir $t_{k} \in T$ y $z_{ijk} \in F$ de manera que $t_{i}t_{j} = z_{ijk}t_{k}$ dado que $T$ es un transversal a derecha de $F$ en $G$.
 
-	
-	Consideremos que $F$ es libre generado por $A = \{ a_i : 1 \le i \le n \}$ bajo la suposición que $1 \notin A$.
-	Por otro lado el cociente $G/F$ resulta ser finito entonces $G/F = \{ q_i : 1 \le i \le m \}$.
-	Elegimos un transversal a derecha $T = \{ t_1, \dots, t_m \}$ de manera que $\pi(t_i)= q_i$ y fijamos para que $t_1 = 1$.
-	
-	Observamos que se deben cumplir las siguientes dos relaciones para todo $a_l \in A$, $t_i,t_j,t_k \in T$ y $q_{i},q_{j},q_{k} \in G/F$. 
-	\begin{enumerate}
-		\item  $F$ es normal por lo tanto para todo $1 \le i \le m$ y todo $1 \le l \le n$ debe existir $u_{il} \in F$ de manera que 
-		$t_ia_{l}t_i^{-1} = u_{il}$.
-		\item $T$ es un transversal a derecha entonces si tenemos que $q_iq_j = q_k$ entonces necesariamente vale la siguiente igualdad 
-		$(Ft_{i}) (Ft_{j}) = Ft_{k}$,
-		de la cual se desprende que debe existir $z_{ij} \in F$ tal que 
-		 $t_it_j = z_{ij}t_k$.
-	\end{enumerate}
-	Sean
-	\[
-		W = A \cup A^{-1} \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}.
-	\]
-	Vamos a probar que $G \equiv \langle W \mid R \rangle$. 
-	Denotamos a este grupo presentado como $H = \langle W \mid R \rangle$ y sea $F_{W}$ el grupo libre sobre sus generadores.
-	
-	Notemos que $W$ genera a $G$ porque
-	dado $g \in G$ luego existe $a \in F$ y $t \in T$ de manera que $g = at$.
-	Como $F$ es libre generado por $A \subseteq W$ y por otro lado $T \subseteq W$ entonces $g$ está generado por $W$. 
-	Esto nos dice que tenemos un epimorfismo de grupos $\varphi: F_{W} \to G$.
-	
-	Por como elegimos las relaciones $r \in R$ de $H$ tenemos que el grupo $G$ las cumple.
-	De esta manera por la propiedad universal del cociente tenemos un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama	
-	\begin{center}
-		\begin{tikzcd}
-			F_{W} \arrow[dd] \arrow[rr, "\varphi"]          &  & G \\
-			&  &   \\
-			H \arrow[rruu, "\overline \varphi"', dashed] &  &  
-		\end{tikzcd}
-	\end{center}
-	
-	Vimos que $\ol \varphi$ es un epimorfismo, veamos ahora que es un monomorfismo.
-	Sea $w \in H$ luego queremos ver que $\ol \varphi(w) = 1 \iff w = 1$.
-	Por un procedimiento similar al que hicimos en la demostración del lema \ref{lema_subg_fg} 
-	tenemos que podemos llevar a $w$ (vista como una palabra en $W^*$) a que sea de la siguiente pinta
-	\[
-		w = st
-	\]
-	donde $s \in F$ reducida y $t \in T$.
-	
-	Especificamos como funciona este procedimiento.
-	Dada $w \in W^*$ supongamos que $|w| \ge 2$ caso contrario no tenemos nada para hacer.
-	Sea entonces $w = w_{1}w_{2}w'$ con $w_{1}, w_{2} \in W$ y $w' \in W^*$.
-	Separamos en casos.
-	\begin{itemize}
-		\item Si $w_{1}, w_{2} \in A \cup A^{-1}$ no hacemos nada.
-		\item Si $w_{1}, w_{2} \in T$ luego si $w_{1} = t_{i}$ y $w_{2} = t_{j}$ cambiamos a $t_{i}t_{j}$ por $z_{ijk}t_{k}$.
-		\item Si $w_{1}\in T$ y $ w_{2} \in A \cup A^{-1}$ luego si $w_{1} = t_{i}$ y $w_{2} = a_{l}$ cambiamos a $t_{i}a_{l}$ por $u_{il}t_{i}$.
-		\item Si $ w_{1} \in A \cup A^{-1}$ y $w_{2} \in T$ no hacemos nada.
-	\end{itemize}
-	Hacemos este procedimiento inductivamente empezando desde la izquierda y como la longitud $|w|$ es finita eventualmente llevamos a una palabra de la pinta $w = s't$ con $t \in T$ y $s' \in A \cup A^{-1}$.
-	Para terminar reducimos la palabra $s' \in A \cup A^{-1}$ a una palabra reducida en el grupo libre $F$.
-	
-	
-	
-	
-	Por lo tanto $\ol \varphi (w) = \ol \varphi(st) = st$.
-	Entonces $st = 1$ si y solamente si $s=1$ y $t=1$. 
-	Esto nos dice que $\ol \varphi(w) = 1$ si y solamente si $w=1$. 
-	Concluimos así que $\ol \varphi$ es un isomorfismo de grupos tal como queríamos ver y por lo tanto  $\langle W \mid R \rangle$ resultó ser una presentación de $G$.
-\end{obs}
-	\medskip
-	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{obs_presentacion_vl} respetando la misma notación que introducimos en esta observación.
+		Probemos ahora que $\langle W \mid R \rangle \simeq G$.
+		Sea $F_{W}$ el grupo libre sobre $W$ luego tenemos un epimorfismo $\phi:F_{W} \to G$ dado que $W$ genera a $G$.
+		Por otro lado por como elegimos a las relaciones $R$ tenemos que $G$ las satisface.
+		De esta manera por el teorema universal del cociente existe un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama	
+		\begin{center}
+			\begin{tikzcd}
+				F_{W} \arrow[dd] \arrow[rr, "\varphi"]          &  & G \\
+				&  &   \\
+				H \arrow[rruu, "\overline \varphi"', dashed] &  &  
+			\end{tikzcd}
+		\end{center}
+		
+		Vimos que $\ol \varphi$ es un epimorfismo entonces veamos ahora que es un monomorfismo, esto es que dado $g' \in \langle W \mid R \rangle$ vale que $\ol{\varphi}(g') = 1 \iff g' = 1$.
+		Para probar esto vamos a definir una forma normal para los elementos del grupo $\langle W \mid R \rangle$.
+		Más específicamente, dada $w \in W \cup W^{-1}$ vamos a ver que $w$ queda representada únicamente por un palabra de la pinta $st$ donde $s \in A \cup A^{-1}$ es reducida y $t \in T$. 
+		
+		Un primer comentario es que dada una palabra $w \in W \cup W^{-1}$ podemos considerar una palabra $w' \in W \cup A^{-1}$ donde por cada aparición de $t_{i}^{-1}$ en $ w$ la modificamos por $v_{i}t_{k} = t_{i}^{-1}$ de manera que $v_{i} \in (A \cup A^{-1})^{*}$ y $t_{k} \in T$ usando que $T$ es un transversal a derecha de $F$ en $G$.
+		Dicho de otra manera tenemos que $W \cup A^{-1}$ es un conjunto de generadores de $\langle W \mid R \rangle$ visto como un monoide.
+
+		Vamos a probar que todo elemento $g' \in \langle W \mid R \rangle$ puede ser representado como una palabra de la pinta $st$ donde $s \in (A \cup A^{-1})^{*}$ reducida y $t \in T$.
+		% Para esto definimos el siguiente procedimiento que dada $w \in (W \cup A^{-1})^{*}$ una palabra que representa a $g'$ la modificamos para obtener otra palabra $w' \in (W \cup A^{-1})^{-1}$ que representa a $g'$.
+		% Esta procedimiento sobre palabras en $W \cup A^{-1}$ lo representamos de la siguiente manera: $w \to w'$.
+
+		Sea $w \in (W \cup A^{-1})^{*}$ luego si $w \in (A \cup A^{-1})^{*}$ entonces no hay nada para hacer porque en ese caso nuestra escritura es $w = w \cdot 1$ donde tomamos $1 \in T$.
+		En otro caso $w = ut_{i}v$ donde $u \in (A \cup A^{-1})^{*}$, $t_{i}$ es la primer letra de $T$ que aparece en $w$ y $v \in (W \cup A^{-1})^{*}$.
+		Notemos que si $v = \epsilon$ entonces ya tenemos nuestra escritura $w = ut_{i}$.
+		Supongamos entonces que la longitud de $v$ es al menos $1$.
+		En este caso separamos en dos casos posibles.
+		\begin{itemize}
+			\item Si $v = a_{l} v'$ con $a_{l} \in A \cup A^{-1}$ y $v' \in (W \cup A^{-1})^{*}$ entonces consideramos la palabra $w' = uu_{il}t_{i}v'$ de manera que $w'$ representa al mismo elemento del grupo que $w$.
+			\item Si $v = t_{j} v'$ con $t_{l} \in T$ y $v' \in (W \cup A^{-1})^{*}$ entonces consideramos la palabra $w' = uz_{ijk}t_{k}v'$ de manera que $w'$ representa al mismo elemento del grupo que $w$.
+		\end{itemize} 
+		En ambos casos notemos que la palabra $w'$ es tal que la longitud del sufijo que le sigue posterior a la primera aparición de una letra de $T$ se reduce en tamaño.
+		Esto es que si $w = ut_{i}v$ y $w' = u't_{j}v'$ con $u,u' \in (A \cup A^{-1})^{*}, t_{i}, t_{j} \in T, v,v' \in (W \cup A^{-1})^{*}$ luego 
+		$|v| > |v'|$.
+		Entonces como la longitud de $w$ es finita este procedimiento eventualmente termina y en tal caso obtenemos una palabra $st$ tal que representa el mismo elemento en el grupo que $w$ y que cumple que $s \in (A \cup A^{-1})^{*}$ y $t \in T$.
+
+		Finalmente notemos que podemos reducir la palabra $s \in (A \cup A^{-1})^{*}$ para que nos quede una palabra reducida en los generadores del grupo libre $F$.
+		De esta manera todo elemento $g' \in \langle W \mid R\rangle$ puede ser representado por $st$ con $s \in (A \cup A^{-1})^{*}$ reducida y $t \in T$. 
+		
+
+		Para probar que $\ol{ \varphi}$ es inyectiva notemos que si $g' \in \langle W \mid R \rangle$ luego es representada únicamente por una palabra del tipo $st$ y tenemos que $\ol{\varphi}(st) = st$ por lo tanto si $\ol{\varphi}(g') = 1$ entonces $g' = 1 \cdot 1$ lo que nos dice que $g' = 1$ tal como queríamos ver.
+
+	\end{proof}
+
+
+
+	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{prop:presentacion_vl} respetando la misma notación que introducimos en esta observación.
 	
 	Por nuestra definición del conjunto de relaciones $R$ teníamos que para todo $t_{i}, t_{j}, t_{k} \in T, a_{l} \in A$ existían $u_{il}, z_{ijk} \in F$ de manera que 
 	$t_j a_l = u_{il} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
@@ -693,7 +694,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 	\end{proof}
 	
 	
-	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la observación \ref{obs_presentacion_vl} para transformar una palabra $w \in W^*$ en $w = st$ con $s \in F, t \in T$.
+	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la observación \ref{prop:presentacion_vl} para transformar una palabra $w \in W^*$ en $w = st$ con $s \in F, t \in T$.
 	
 	Ya estamos en condiciones de probar el resultado central de este capítulo.
 
