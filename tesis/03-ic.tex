@@ -515,7 +515,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 		\end{center}
 		sucesión exacta corta con $F$ un grupo libre de rango $n$ y $H$ grupo finito de orden $m$.
 		Sea $\{ q_{1}, \dots, q_{m} \}$ los elementos de $H$ y $T = \{ t_{1},\dots, t_{m} \}$ una transversal a derecha de $F$ en $G$ elegido de manera que $\pi(t_{i}) = q_{i}$ para todo $i=1, \dots,m$ y de manera que $t_{1} = 1$.
-		Sea $A = \{ a_{1}, \dots, a_{n} \}$ un conjunto minimal de generadores para $F$.
+		Sea $A$ un conjunto minimal de generadores para $F$ y sea $A \cup A^{-1} =  \{ a_{1}, \dots, a_{n} \}$ el conjunto simétrico de generadores.
 		Entonces para todo $a_l \in A \cup A^{-1}$, $t_i,t_j,t_k \in T$ y $q_{i},q_{j},q_{k} \in H$ existen $u_{il} \in F$ y $z_{ijk} \in F$ de manera que:
 		\begin{enumerate}
 			\item  $t_ia_{l}t_i^{-1} = u_{il}$.
@@ -523,7 +523,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 		\end{enumerate}
 		Y más aún si
 			\[
-				W = A \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}.
+				W = A \cup A^{-1} \cup T, \quad R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}.
 			\]
 		Entonces  $\langle W \mid R \rangle$ es una presentación de $G$.
 	\end{prop}
@@ -531,13 +531,15 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 	
 	\begin{proof}
 		Probamos \textbf{1}.
-		Dado que $F$ es un subgrupo normal de $G$ tenemos que para todo $a_{l} \in A \cup A^{-1}$ y para todo $t_{i} \in T$ vale que $t_{i}a_{l}t_{i}^{-1} \in F$ por lo tanto debe existir $u_{il} \in F$ de manera que $u_{il} = t_{i}a_{l}t_{i}^{-1}$.
+		Dado que $F$ es un subgrupo normal de $G$ tenemos que para todo $a_{l} \in A \cup A^{-1}$ y para todo $t_{i} \in T$ vale que $t_{i}a_{l}t_{i}^{-1} \in F$ por lo tanto existe $u_{il} \in F$ de manera que $u_{il} = t_{i}a_{l}t_{i}^{-1}$.
 
 		Ahora probamos \textbf{2}.
-		Sean $t_{i},t_{j} \in T$ luego tienen que exisitir $t_{k} \in T$ y $z_{ijk} \in F$ de manera que $t_{i}t_{j} = z_{ijk}t_{k}$ dado que $T$ es un transversal a derecha de $F$ en $G$.
+		Sean $t_{i},t_{j} \in T$ luego tiene que existir $t_{k} \in T$ de manera $(t_{i}F)(t_{j}F) = t_{k} F$ dado que $T$ es un transversal a derecha de $F$ en $G$, por lo tanto existe $z_{ijk} \in F$ de manera que $t_{i}t_{j} = z_{ijk}t_{k}$.
 
 		Probemos ahora que $\langle W \mid R \rangle \simeq G$.
 		Sea $F_{W}$ el grupo libre sobre $W$ luego tenemos un epimorfismo $\phi:F_{W} \to G$ dado que $W$ genera a $G$.
+		Notemos que más aún por como elegimos a $W$ que resulta ser un conjunto de generadores como monoide del grupo $G$. 
+
 		Por otro lado por como elegimos a las relaciones $R$ tenemos que $G$ las satisface.
 		De esta manera por el teorema universal del cociente existe un epimorfismo de grupos $\ol \varphi$ tal que hace conmutar al siguiente diagrama	
 		\begin{center}
@@ -550,26 +552,25 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 		
 		Vimos que $\ol \varphi$ es un epimorfismo entonces veamos ahora que es un monomorfismo, esto es que dado $g' \in \langle W \mid R \rangle$ vale que $\ol{\varphi}(g') = 1 \iff g' = 1$.
 		Para probar esto vamos a definir una forma normal para los elementos del grupo $\langle W \mid R \rangle$.
-		Más específicamente, dada $w \in W \cup W^{-1}$ vamos a ver que $w$ queda representada únicamente por un palabra de la pinta $st$ donde $s \in A \cup A^{-1}$ es reducida y $t \in T$. 
+		Más específicamente, dada $w \in W^{*}$ vamos a ver que $w$ queda representada únicamente por un palabra de la pinta $st$ donde $s \in A \cup A^{-1}$ es reducida y $t \in T$. 
 		
-		Un primer comentario es que dada una palabra $w \in W \cup W^{-1}$ podemos considerar una palabra $w' \in W \cup A^{-1}$ donde por cada aparición de $t_{i}^{-1}$ en $ w$ la modificamos por $v_{i}t_{k} = t_{i}^{-1}$ de manera que $v_{i} \in (A \cup A^{-1})^{*}$ y $t_{k} \in T$ usando que $T$ es un transversal a derecha de $F$ en $G$.
-		Dicho de otra manera tenemos que $W \cup A^{-1}$ es un conjunto de generadores de $\langle W \mid R \rangle$ visto como un monoide.
+		% Un primer comentario es que dada una palabra $w \in W \cup W^{-1}$ podemos considerar una palabra $w' \in W \cup A^{-1}$ donde por cada aparición de $t_{i}^{-1}$ en $ w$ la modificamos por $v_{i}t_{k} = t_{i}^{-1}$ de manera que $v_{i} \in (A \cup A^{-1})^{*}$ y $t_{k} \in T$ usando que $T$ es un transversal a derecha de $F$ en $G$.
+		% Dicho de otra manera tenemos que $W \cup A^{-1}$ es un conjunto de generadores de $\langle W \mid R \rangle$ visto como un monoide.
 
-		Vamos a probar que todo elemento $g' \in \langle W \mid R \rangle$ puede ser representado como una palabra de la pinta $st$ donde $s \in (A \cup A^{-1})^{*}$ reducida y $t \in T$.
-		% Para esto definimos el siguiente procedimiento que dada $w \in (W \cup A^{-1})^{*}$ una palabra que representa a $g'$ la modificamos para obtener otra palabra $w' \in (W \cup A^{-1})^{-1}$ que representa a $g'$.
-		% Esta procedimiento sobre palabras en $W \cup A^{-1}$ lo representamos de la siguiente manera: $w \to w'$.
+		% Vamos a probar que todo elemento $g' \in \langle W \mid R \rangle$ puede ser representado como una palabra de la pinta $st$ donde $s \in (A \cup A^{-1})^{*}$ reducida y $t \in T$.
+		
 
-		Sea $w \in (W \cup A^{-1})^{*}$ luego si $w \in (A \cup A^{-1})^{*}$ entonces no hay nada para hacer porque en ese caso nuestra escritura es $w = w \cdot 1$ donde tomamos $1 \in T$.
-		En otro caso $w = ut_{i}v$ donde $u \in (A \cup A^{-1})^{*}$, $t_{i}$ es la primer letra de $T$ que aparece en $w$ y $v \in (W \cup A^{-1})^{*}$.
+		Sea $w \in W^{*}$ luego si $w \in (A \cup A^{-1})^{*}$ entonces no hay nada para hacer porque en ese caso nuestra escritura es $w = w \cdot 1$ donde tomamos $1 \in T$.
+		En otro caso $w = ut_{i}v$ donde $u \in (A \cup A^{-1})^{*}$, $t_{i}$ es la primer letra de $T$ que aparece en $w$ y $v \in W^{*}$.
 		Notemos que si $v = \epsilon$ entonces ya tenemos nuestra escritura $w = ut_{i}$.
 		Supongamos entonces que la longitud de $v$ es al menos $1$.
 		En este caso separamos en dos casos posibles.
 		\begin{itemize}
-			\item Si $v = a_{l} v'$ con $a_{l} \in A \cup A^{-1}$ y $v' \in (W \cup A^{-1})^{*}$ entonces consideramos la palabra $w' = uu_{il}t_{i}v'$ de manera que $w'$ representa al mismo elemento del grupo que $w$.
-			\item Si $v = t_{j} v'$ con $t_{l} \in T$ y $v' \in (W \cup A^{-1})^{*}$ entonces consideramos la palabra $w' = uz_{ijk}t_{k}v'$ de manera que $w'$ representa al mismo elemento del grupo que $w$.
+			\item Si $v = a_{l} v'$ con $a_{l} \in A \cup A^{-1}$ y $v' \in W^{*}$ entonces consideramos la palabra $w' = uu_{il}t_{i}v'$ de manera que $w'$ representa al mismo elemento del grupo que $w$.
+			\item Si $v = t_{j} v'$ con $t_{l} \in T$ y $v' \in W^{*}$ entonces consideramos la palabra $w' = uz_{ijk}t_{k}v'$ de manera que $w'$ representa al mismo elemento del grupo que $w$.
 		\end{itemize} 
 		En ambos casos notemos que la palabra $w'$ es tal que la longitud del sufijo que le sigue posterior a la primera aparición de una letra de $T$ se reduce en tamaño.
-		Esto es que si $w = ut_{i}v$ y $w' = u't_{j}v'$ con $u,u' \in (A \cup A^{-1})^{*}, t_{i}, t_{j} \in T, v,v' \in (W \cup A^{-1})^{*}$ luego 
+		Esto es que si $w = ut_{i}v$ y $w' = u't_{j}v'$ con $u,u' \in (A \cup A^{-1})^{*}, t_{i}, t_{j} \in T, v,v' \in W^{*}$ luego 
 		$|v| > |v'|$.
 		Entonces como la longitud de $w$ es finita este procedimiento eventualmente termina y en tal caso obtenemos una palabra $st$ tal que representa el mismo elemento en el grupo que $w$ y que cumple que $s \in (A \cup A^{-1})^{*}$ y $t \in T$.
 
@@ -583,21 +584,20 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 
 
 
-	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{prop:presentacion_vl} respetando la misma notación que introducimos en esta observación.
+	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{prop:presentacion_vl} respetando la misma notación que introducimos en esta proposición.
 	
-	Por nuestra definición del conjunto de relaciones $R$ teníamos que para todo $t_{i}, t_{j}, t_{k} \in T, a_{l} \in A$ existían $u_{il}, z_{ijk} \in F$ de manera que 
-	$t_j a_l = u_{il} t_j $ y que $ t_it_j = z_{ijk}t_k $. 
+	Por nuestra definición del conjunto de relaciones $R$ tenemos que $R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}$. 
 	Sea entonces el conjunto finito 
 	\[
 	{\cal U} =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
 	\]
-	donde tomamos la escritura de todas las palabras en $U$ para que sean reducidas.
+	donde tomamos la escritura de todas las palabras en $\cal{U}$ para que sean reducidas.
 	Consideremos 
 	$\text{Suf}({\cal U})$
 	el conjunto de los sufijos de las palabras en $\cal U$, tal que es un conjunto finito también.
 	El \emph{\APD de Muller--Schupp } está definido por 
 	\[
-	{\cal M }= (Q, W , A \cup A^{-1} \cup \{ 1 \}, \delta, (1,1,1), 1 ,\{(1,1,1)\}).
+	{\cal M }= (Q, W , A \cup A^{-1} \cup \{ 1 \}, \delta, (1,1,1), \{(1,1,1)\}, 1).
 	\]
 	Donde $Q = T \times (T \cup A \cup A^{-1}) \times \text{Suf}(\cal U)$.
 	El alfabeto de entrada es $W$ que es el conjunto de generadores del grupo.
@@ -612,8 +612,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 		((t_j,a_i,u_{ij}), s) \quad \text{si} \ w_{i}=a_{i} \\
 		((t_k,t_i,z_{ijk}), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
 	\end{cases}\]
-%	Ahora en esta instancia lo que vamos a hacer es la reducción, una letra a la vez, del producto de $u_{ij} \cdot v$ en el caso del estado $(t_j,a_i,1)$ o bien el de $z_{ijk} \cdot v$ en el caso del estado $(t_k,t_i,1)$.
-%	Sea entonces $v \in U$ la palabra correspondiente al estado $(t_{j},w_{i},1)$, es decir que si $w_{i} = a_{i}$ entonces $v = u_{ij}$ mientras que si $w_{i} = t_{i}$ entonces $v = z_{ijk}$. 
+
 
 	Sea $u \in \text{Suf}({\cal U})$ tal que $u \neq 1$ luego si $u = a_{i}v $ donde $v \in \text{Suf}(\cal U)$ y $a_{i} \in A \cup A^{-1}$ 
 	en este caso definimos 
@@ -628,21 +627,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 		\delta(\epsilon, (t_{j},w_{i},1), s) = ((t_{j},1,1),s).
 	\]
 
-	
-%	\begin{lema}
-%		Las configuraciones finales del \APD de Muller-Schupp resultan ser $(\epsilon, (t_{j},1,1),s)$ para $t_{j} \in T, s \in (A \cup A^{-1})^*$.
-%		
-%		Toda palabra $w \in W^*$ es tal que 
-%		\[
-%			(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{j},1,1),s)
-%		\]
-%		para cierto $t_{j} \in T$ y $s \in (A \cup A^{-1})^*$.
-%	\end{lema}
-%	\begin{proof}
-%		Primero notamos que para 
-%	\end{proof}
-	
-	
+
 	\begin{lema}\label{lema_MuSc_invariante}
 	Sea $\cal M$ el \APD de Muller--Schupp, $w \in W^*$ tal que $ w = uv $ entonces  
 		\[
@@ -694,7 +679,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 	\end{proof}
 	
 	
-	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la observación \ref{prop:presentacion_vl} para transformar una palabra $w \in W^*$ en $w = st$ con $s \in F, t \in T$.
+	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la proposición \ref{prop:presentacion_vl} para transformar una palabra $w \in W^*$ en $w = st$ con $s \in (A \cup A^{-1})^{*}$ reducida y $t \in T$.
 	
 	Ya estamos en condiciones de probar el resultado central de este capítulo.
 
@@ -713,7 +698,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 	
 	Si $w \in L(\cal M)$ entonces $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (1,1,1), 1)$ y por lo tanto por el lema \ref{lema_MuSc_invariante} obtenemos que $w = 1$ y así que $w \in \text{WP}(G,W)$.
 	
-	Si $w \in \text{WP}(G,W)$ entonces $w = 1$ en $G$ por lo que nuevamente usando el lema \ref{lema_MuSc_invariante} obtenemos que $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{i},1,1), s)$
+	Si $w \in \text{WP}(G,W)$ entonces $w = 1$ en $G$ por lo que nuevamente usando el lema \ref{lema_MuSc_invariante} obtenemos que $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{i},1,1), s)^{R}$
 	y esto implica que $st_{i} = 1$ por lo que $t_{i} = 1, s =1$ y así $w \in L(\cal M)$.
 	
 	

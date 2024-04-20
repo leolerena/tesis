@@ -74,12 +74,12 @@ Si $w = vu$ entonces $v$ es un \emph{prefijo} de $w$ y $u$ es un \emph{sufijo} d
 \end{deff}
 Destacamos el caso particular que $L_{1} = \{w\}$ un lenguaje formado con una única palabra y que $L_{2} = \Sigma^*$.
 En este caso tenemos que $L_{1}/\Sigma^* = \{  x \in \Sigma^*  \mid x \ \text{es prefijo de} \ w  \}$.
-Usaremos para este caso especial la notación $ \text{Pre}(w) = \{w\}/\Sigma^*$.
-Análogamente el caso $L_{1} \backslash \Sigma^{*} = = \{  x \in \Sigma^*  \mid x \ \text{es posfijo de} \ w  \}$.
-Usaremos para este caso especial la notación $ \text{Pos}(w) = \{w\} \backslash \Sigma^*$.
+Usaremos para este caso especial la notación $ \textrm{Pre}(w) = \{w\}/\Sigma^*$.
+Análogamente el caso $L_{1} \backslash \Sigma^{*} = \{  x \in \Sigma^*  \mid x \ \text{es sufijo de} \ w  \}$.
+Usaremos para este caso especial la notación $ \textrm{Pos}(w) = \{w\} \backslash \Sigma^*$.
 
 
-Un \emph{prefijo propio} de $w$ es un prefijo $u$ tal que $u \neq w$ y $u \neq \epsilon$ y definimos similarmente un \emph{posfijo propio} como un posfijo $u$ tal que $u \neq w$ y $u \neq \epsilon$.
+Un \emph{prefijo propio} de $w$ es un prefijo $u$ tal que $u \neq w$ y $u \neq \epsilon$ y definimos similarmente un \emph{sufijo propio} como un sufijo $u$ tal que $u \neq w$ y $u \neq \epsilon$.
 
 
 \begin{deff}\label{deff_pal_reversa}
@@ -362,7 +362,7 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 		\item $Q$ es un conjunto finito denominado los \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
 		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
-		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times (\Sigma \cup \{ \epsilon \}) \times \Gamma \to {\cal P}( Q  \times \Gamma^*)$;
+		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times (\Sigma \cup \{ \epsilon \}) \times \Gamma \to {\cal P}_{\textrm{fin}}( Q  \times \Gamma^*)$;
 		\item $q_0 \in Q$ es el \emph{estado inicial};
 		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
 		\item $\$ \in \Gamma$ es el \emph{símbolo inicial} de la pila
@@ -501,14 +501,14 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 	
 	Esto es que tenemos una sucesión de configuraciones $(q_{0},w,\$) \vdash \dots \vdash (q_{2},\epsilon,\gamma)$.
 	Por como es nuestro autómata tiene que existir una única transición de una configuración con estado $q_{0}$ a una configuración con estado $q_{1}$.		
-	Esto nos dice que debe existir $u$ prefijo de $w$, $v$ postfijo de $w$ y $c \in \Sigma \cup \{ \epsilon \}$ tal que $w = ucv$ y cumple que usando la definición de las transiciones del caso $I$ que:
+	Esto nos dice que debe existir $u$ prefijo de $w$, $v$ sufijo de $w$ y $c \in \Sigma \cup \{ \epsilon \}$ tal que $w = ucv$ y cumple que usando la definición de las transiciones del caso $I$ que:
 	\[
 		(q_{0}, ucv, \$) \vdash^{*} (q_{0}, cv, u^R \$) \vdash (q_{1}, v, u^R \$).
 	\]
 	
 	Por el caso $IV$ la única manera de transicionar del estado $q_{1}$ al estado $q_{2}$ es que el tope de la pila sea exactamente $ \$ $. 
 	Por como son las transiciones del caso $III$ tenemos que la palabra en la pila en cada derivación de una configuración con estado $q_{1}$ se achica. 
-	A su vez tendríamos que haber leído todo el posfijo $v$ y éste debería haber coincidido con $u^R$. 
+	A su vez tendríamos que haber leído todo el sufijo $v$ y éste debería haber coincidido con $u^R$. 
 	Esto nos dice que: 
 	\[
 		(q_{1}, v, u^R\$) \vdash^* (q_{1},\epsilon, \$).
