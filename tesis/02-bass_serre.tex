@@ -1056,9 +1056,9 @@ $q(gG_{y}) = y$ para toda $y \in E$.
 \begin{obs}\label{obs_subgrafo_dom_fund}
 	El subgrafo $W \subseteq \Xm$ generado por el siguiente conjunto de vértices
 		\[
-		C = \{ G_{P} \mid \forall P \in V(Y) \} \cup \{ g_{y}G_{Q} : \forall y \in E(Y), Q \in V(Y) / \ t(y) = Q  \}
+		C = \{ G_{P} \mid \forall P \in V(Y) \} 
 		\]
-	es tal que $G \cdot W = \Xm$.
+	es conexo y cumple que $G \cdot W = \Xm$.
 
 \end{obs}
 
@@ -1082,11 +1082,11 @@ Veamos que en estas circunstancias podemos definir un levantado de $T$ en $\Xm$.
 
 Antes de probar el resultado central de esta sección vamos a enunciar un lema que usaremos fuertemente en la demostración.
 
-\begin{lema}\label{lema_union_conexos_es_conexo}
-	Sea $X$ un grafo conexo y sean $\{X_{i}\}_{i \in \NN}$ subgrafos conexos de manera que para todo $i \in \NN$ vale que	
-	$X_{i} \cap X_{i+1} \neq \emptyset$ 
-	entonces $\bigcup_{i \in \NN} X_{i}$ es un subgrafo conexo de $X$.
-\end{lema}
+% \begin{lema}\label{lema_union_conexos_es_conexo}
+% 	Sea $X$ un grafo conexo y sean $\{X_{i}\}_{i \in \NN}$ subgrafos conexos de manera que para todo $i \in \NN$ vale que	
+% 	$X_{i} \cap X_{i+1} \neq \emptyset$ 
+% 	entonces $\bigcup_{i \in \NN} X_{i}$ es un subgrafo conexo de $X$.
+% \end{lema}
 
 \begin{teo}[Serre]
 	El grafo $\Xm$ es un árbol.
@@ -1106,14 +1106,14 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 		donde $gW$ es conexo para todo $g \in G$ dado que $W$ lo es.
 		
 		Si $S$ es un conjunto finito de generadores de $G$ entonces todo $g \in G$ lo podemos escribir como $g = s_{i_1} \dots s_{i_n}$ para $s_{i_j} \in S$.
-		Si fijamos $g \in G$ podemos definir el siguiente grafo:
-		\[
-		W_{g} = W \cup \bigcup_{j=1}^{n} s_{i_{j}}\dots s_{i_{n}}W.
-		\]
-		Entonces al grafo $\Xm$ lo podemos reescribir de la siguiente manera:
-		\[
-		\Xm =  \bigcup_{g \in G} W_{g}.
-		\]
+		% Si fijamos $g \in G$ podemos definir el siguiente grafo:
+		% \[
+		% W_{g} = W \cup \bigcup_{j=1}^{n} s_{i_{j}}\dots s_{i_{n}}W.
+		% \]
+		% Entonces al grafo $\Xm$ lo podemos reescribir de la siguiente manera:
+		% \[
+		% \Xm =  \bigcup_{g \in G} W_{g}.
+		% \]
 		
 		
 		Fijamos un conjunto finito de generadores de $G$: 
@@ -1121,50 +1121,67 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 		S = \bigcup_{P \in V(Y)} G_{P} \cup \{ g_y \ : \ y \in E \setminus E(T) \}.   
 		\] 
 		
-		Con este conjunto de generadores vamos a probar que para todo $g \in G$ resulta que $W_{g}$ es conexo.
-		Si probamos esto como $\Xm$ es unión de $W_{g}$ y 
-		para todo $g, h \in G$
-		tenemos que $W \subseteq W_{g} \cap W_{h}$ con $W \neq \emptyset$ luego por el lema \ref{lema_union_conexos_es_conexo} tendremos que $\Xm$ es conexo tal como queríamos ver.
+		Con este conjunto de generadores vamos a probar que $W$ y $gW$ están en la misma componente conexa para todo $g \in G$.
+		Para probarlo hacemos inducción en la longitud de la escritura de $g$ con los generadores de $S$.
+
+
+		Para el caso base tenemos que $g = s$ para $s \in S$.
+		Queremos ver que $W$ y $sW$ están en la misma componente conexa.
+		Debemos ver dos casos dependiendo como es el generador que estemos considerando.
+		\begin{enumerate}
+			\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego consideramos la arista $G_{y} \in E(\widetilde{X})$ tal que $s(G_{y}) = G_{s(y)} \in W$ y $t(G_{y}) = g_{y}G_{t(y)} \in g_{y}W$.
+			De esta manera como tanto $W$ como $g_{y}W$ son conexos obtenemos que están en la misma componente conexa.
+			
+			\item Si $s \in G_P$ para algún $P \in V$ entonces $s G_P = G_P \in V(sW) \cap V(W)$ por lo tanto $sW \cap W \neq \emptyset$ y así como ambos son conexos entonces están en la misma componente conexa de $\widetilde{X}$.
+		\end{enumerate} 
+
+		Para el paso inductivo sea $g = s_{1}s_{2}\dots s_{n}$ luego queremos ver que $W$ y $gW$ están en la misma componente conexa.
+		Por inducción tenemos que $s_{2}\dots s_{n}W$ y $W$ están en la misma componente conexa y por un argumento análogo al del caso base vemos que $s_{2}\dots s_{n}W$ y $s_{1}s_{2}\dots s_{n}W$ están en la misma componente conexa, concluyendo así que para todo $g \in G$ vale que $gW$ está en la misma componente conexa que $W$ y así $\widetilde{X}$ es conexo tal como queríamos ver.
+
+		% Con este conjunto de generadores vamos a probar que para todo $g \in G$ resulta que $W_{g}$ es conexo.
+		% Si probamos esto como $\Xm$ es unión de $W_{g}$ y 
+		% para todo $g, h \in G$
+		% tenemos que $W \subseteq W_{g} \cap W_{h}$ con $W \neq \emptyset$ luego por el lema \ref{lema_union_conexos_es_conexo} tendremos que $\Xm$ es conexo tal como queríamos ver.
 
 		
 		
-		Dado $g \in G$ nos alcanza con probar que $W_{g}$ es conexo.
-		Para esto lo vamos a probar por inducción en la longitud de $g$ visto como palabra en los generadores $S$.
+		% Dado $g \in G$ nos alcanza con probar que $W_{g}$ es conexo.
+		% Para esto lo vamos a probar por inducción en la longitud de $g$ visto como palabra en los generadores $S$.
 		
-		Para el caso base tenemos que $g = s$ para $s \in S$.
-		Queremos ver que $W_{s} = W \cup sW$ es conexo.
-		Debemos ver dos casos dependiendo como sea el generador que estemos tomando.
-		\begin{enumerate}
-			\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego tenemos que $g_yG_y \in g_{y}W$.
-			Queremos ver que $g_{y}G_{y} \in W$.
-			Para esto debemos ver que el comienzo y el final de la arista pertenecen al grafo $W$.
-			Por la definición tenemos que $s(gG_{y}) = G_{s(y)} \in V(W)$ y similarmente $t(gG_{y}) = g_{y}G_{t(y)} \in V(W)$.
-			De esta manera $g_yW \cap W \neq \emptyset$ y por lo tanto la unión es conexa.		
+		% Para el caso base tenemos que $g = s$ para $s \in S$.
+		% Queremos ver que $W_{s} = W \cup sW$ es conexo.
+		% Debemos ver dos casos dependiendo como sea el generador que estemos tomando.
+		% \begin{enumerate}
+		% 	\item Si $s=g_y$ para alguna arista $y \in E(Y)$ luego tenemos que $g_yG_y \in g_{y}W$.
+		% 	Queremos ver que $g_{y}G_{y} \in W$.
+		% 	Para esto debemos ver que el comienzo y el final de la arista pertenecen al grafo $W$.
+		% 	Por la definición tenemos que $s(gG_{y}) = G_{s(y)} \in V(W)$ y similarmente $t(gG_{y}) = g_{y}G_{t(y)} \in V(W)$.
+		% 	De esta manera $g_yW \cap W \neq \emptyset$ y por lo tanto la unión es conexa.		
 			
-			\item Si $s \in G_P$ para algún $P \in V$ entonces $s G_P = G_P \in V(sW) \cap V(W)$ por lo tanto $sW \cap W \neq \emptyset$ y así la unión es conexa.
-		\end{enumerate} 
+		% 	\item Si $s \in G_P$ para algún $P \in V$ entonces $s G_P = G_P \in V(sW) \cap V(W)$ por lo tanto $sW \cap W \neq \emptyset$ y así la unión es conexa.
+		% \end{enumerate} 
 		
-		Ahora para el paso inductivo supongamos que $W_{g}$ es conexo para todo $g$ tal que puede ser escrito como una palabra de $n-1$ letras en $S$. 
-		Queremos verlo para $g = s_1\dots s_n$ y esto lo podemos hacer notando que		
-		\[
-			s_{n} W \cup W
-		\]
-		es conexo por lo tanto si multiplicamos a izquierda por $s_{1} \dots s_{n-1}$ va a seguir siendo conexo y no vacío
+		% Ahora para el paso inductivo supongamos que $W_{g}$ es conexo para todo $g$ tal que puede ser escrito como una palabra de $n-1$ letras en $S$. 
+		% Queremos verlo para $g = s_1\dots s_n$ y esto lo podemos hacer notando que		
+		% \[
+		% 	s_{n} W \cup W
+		% \]
+		% es conexo por lo tanto si multiplicamos a izquierda por $s_{1} \dots s_{n-1}$ va a seguir siendo conexo y no vacío
 		
-		\begin{equation}\label{eq_snW_cup_W}
-			s_{1} \dots s_{n-1} (W \cup s_{n} W) = s_{1} \dots s_{n-1} W \cup s_{1} \dots s_{n}W
-		\end{equation}
+		% \begin{equation}\label{eq_snW_cup_W}
+		% 	s_{1} \dots s_{n-1} (W \cup s_{n} W) = s_{1} \dots s_{n-1} W \cup s_{1} \dots s_{n}W
+		% \end{equation}
 		
-		De esta manera si llamamos $g' = s_{1} \dots s_{n-1}$ entonces
-		\[
-		W_{g} = W_{g'} \cup s_{1}\dots s_{n}W.
-		\]
-		Por hipótesis inductiva tenemos que $W_{g'}$ es conexo y como por \ref{eq_snW_cup_W} vimos que $s_{1} \dots s_{n-1} W \cap s_{1} \dots s_{n}W \neq \emptyset$  
-		y $s_{1} \dots s_{n-1} W \subseteq W_{g'}$ entonces probamos que $W_{g}$ es conexo tal como queríamos ver.
+		% De esta manera si llamamos $g' = s_{1} \dots s_{n-1}$ entonces
+		% \[
+		% W_{g} = W_{g'} \cup s_{1}\dots s_{n}W.
+		% \]
+		% Por hipótesis inductiva tenemos que $W_{g'}$ es conexo y como por \ref{eq_snW_cup_W} vimos que $s_{1} \dots s_{n-1} W \cap s_{1} \dots s_{n}W \neq \emptyset$  
+		% y $s_{1} \dots s_{n-1} W \subseteq W_{g'}$ entonces probamos que $W_{g}$ es conexo tal como queríamos ver.
 		
 		
 		
-		Vimos así que el grafo $\Xm$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
+		% Vimos así que el grafo $\Xm$ es conexo porque lo escribimos como unión de conexos que se intersecan de a pares.
 		
 		
 		\item 
