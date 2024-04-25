@@ -84,7 +84,7 @@ En especial nos interesa un teorema que se desprende de este resultado que nos d
 		Un grafo es \emph{únicamente geodésico} si para todo par de vértices $P,Q \in V$ existe una única geodésica entre ellos.
 		
 		
-		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todas los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
+		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todos los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
 		
 				
 		\item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
@@ -1170,10 +1170,9 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 		\item 
 		Veamos ahora que no tiene ciclos.
 		Probaremos la proposición equivalente: para todo $n \in \NN$ todo camino cerrado de longitud $n$ tiene backtracking.
+		Notemos que si $c$ es un camino cerrado con backtracking necesariamente la longitud de $c$ es al menos 2.
 		
-		El caso que $n=0,1$ es claro porque no existen caminos con estas longitudes de manera que no tengan backtracking.
-		
-		Supongamos entonces que $n \ge 2$.
+		Consideremos entonces que $n \ge 2$.
 		Sea $\widetilde c$ un camino sobre $\widetilde X$ cerrado de longitud $n$ y sin backtracking.
 		Queremos llegar a un absurdo.
 		Sea este camino $\widetilde c = (h_1G_{y_1}, h_2 G_{y_2}, \dots, h_n G_{y_n})$.
@@ -1935,7 +1934,7 @@ Primero debemos ver unos lemas de acciones de grupos finitos.
 
 \begin{teo}
 	\label{teo:subgrupo_normal_pi1_libre}
-	Dado $\cG$ un grafo de grupos finito sobre un grafo conexo $Y$ y dado $T$ árbol generador de $Y$.
+	Sea $\cG$ un grafo de grupos finito sobre un grafo conexo $Y$ y $T$ árbol generador de $Y$.
 	Si existe un subgrupo normal $F$ de $\pi_{1}(\cG,T)$ que cumple que $F \cap G_{P} = 1$ para todo $P \in V(Y)$ entonces $F$ es un grupo libre.
 \end{teo}
 \begin{proof}
@@ -1991,7 +1990,8 @@ Primero debemos ver unos lemas de acciones de grupos finitos.
 	\]
 	entonces por como lo consideramos tenemos que $F \cap G_Q = \{ 1 \}$ para todo $Q \in V(Y)$ porque la restricción de $\ol{h}$ a $G_Q$ es inyectiva para todo $Q \in V$.
 
-	Por el resultado \ref{teo:subgrupo_normal_pi1_libre} tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$, que es un grupo finitamente generado, y queremos ver que $F$ tiene índice finito para probar que $\pi_1(\cG,P)$ es virtualmente libre.
+	Por el resultado \ref{teo:subgrupo_normal_pi1_libre} tenemos que $F$ es un subgrupo libre de $\pi_1(\cG, P)$.
+	Por otro lado tenemos que $\pi_{1}(\cG, P)$ es un grupo finitamente generado, y queremos ver que $F$ tiene índice finito para probar que $\pi_1(\cG,P)$ es virtualmente libre.
 	Para eso notemos que al ser $|X| < \infty$ entonces $|S(X)| < \infty$ y como $S(X) \simeq \pi_1(\cG, P) / F$, por la propiedad universal del cociente, entonces $(\pi_1(\cG, P) : F) < \infty$ tal como queríamos ver.
 	
 \end{proof}
