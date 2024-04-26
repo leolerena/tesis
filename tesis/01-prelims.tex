@@ -515,13 +515,6 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 	\]
 	De esta manera obtuvimos que $w = ucu^R$ para $u \in \Sigma^*$ y $c \in \Sigma \cup \{\epsilon\}$ y así probamos que $w$ es un palíndromo por lo que $w \in L_{\text{PAL}}$ tal como queríamos ver.
 	
-	
-	
-	
-%	Para esto notemos que tiene que existir alguna $u \in \Sigma^*$ y alguna $v \in \Sigma^{*}$ tal que $(q_{0}, w, \$) \overset{*}{\vdash} (q_{1},v,u^R\$)$.
-%	Una vez que llegamos al estado $q_{1}$ la única manera de aceptar una palabra es que podamos consumir $v$ y esto ocurre si y solamente sí $v = u^R$.
-%	De esta manera obtenemos que $w$ tiene que ser un palíndromo, por lo tanto $w \in L$.
-%	
 \end{proof}
 
 
@@ -810,73 +803,62 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 \end{proof}
 
 
+\begin{deff}
+	Sea $k \in \NN$ luego un \emph{k-autómata de pila finito no determinístico} es una tupla 
+	\[
+	{\cal N } = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)
+	\]
+	donde 
+	\begin{itemize}
+		\item $Q$ es un conjunto finito denominado los \emph{estados};
+		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
+		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
+		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times (\Sigma \cup \{ \epsilon \}) \times \Gamma^{k} \to {\cal P}_{\textrm{fin}}( Q  \times \Gamma^*)$;
+		\item $q_0 \in Q$ es el \emph{estado inicial};
+		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
+		\item $\$ \in \Gamma$ es el \emph{símbolo inicial} de la pila
+	\end{itemize}
+\end{deff}
 
-%\begin{prop}\label{prop_apd_pila_prefijo}
-%	Sea ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ \APD tal que $L = N(\cal M)$ entonces $L$ es libre de prefijos.
-%\end{prop}
-%\begin{proof}
-%	Sea $w \in L$ tal que $w \in N(\cal M)$ luego si $u$ es un prefijo de $w$ entonces por el lema \ref{lema_configuracion_prefijo} tenemos que $(q_{0},u,\$) \vdash^* (q,\epsilon, \gamma)$ con $q \in Q$ y $\gamma \in \Gamma^*$ tal que $\gamma \neq \epsilon$.
-%	Esto en definitiva dice que $u \notin L$ tal como queríamos ver.
-%\end{proof}
+\smallskip
+\begin{obs}
+	Los autómatas de pila finitos no determinísticos son $1$-autómatas de pila finitos no determinísticos bajo esta definición.
+\end{obs}
 
-%\begin{prop}\label{prop_leng_APD_pila_vs_estado}
-%	Existe $L$ lenguaje tal que existe $\cal M$ \APD de manera que $L({\cal M}) = L$ pero no existe ningún ${\cal M}'$ tal que $L = N({\cal M}')$.
-%\end{prop}
-%\begin{proof}
-%	Consideremos el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$.
-%	
-%	Primero veamos que es aceptado por un \APD por estado final.
-%	Sea 
-%	\[
-%	{\cal M} = (\{q_0,q_1,q_2\}, \{q_0\}, \{a,b\}, \{a,b,\$\}, \$, q_2), 
-%	\] 
-%	introducimos la siguiente notación estándar para representar la función de transición en un gráfico.
-%	Si tenemos una flecha de un estado $q \in Q$ a otro estado $p \in Q$ tal que tiene como etiqueta $b, a | \gamma$
-%	entonces esto quiere decir que $\delta(q,b,a) = (p,\gamma)$.
-%	
-%	Entonces podemos representar gráficamente al \APD de la siguiente manera, donde usamos que $Z \in \{a,b,\$\}$ es cualquier letra del alfabeto de la pila,	
-%	\begin{center}
-%		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
-%			scale = 1,transform shape]
-%			
-%			\node[state,initial] (q_0) {$q_0$};
-%			\node[state] (q_1) [right of=q_0] {$q_1$};
-%			\node[state,accepting] (q_2) [right of=q_1] {$q_2$};
-%			
-%			\path (q_0) edge    [bend right]          node {$b, a | \epsilon$ \ } (q_1)
-%			(q_0) edge    [loop above]          node {$a, Z | aZ$} (q_0)
-%			(q_1) edge      [bend right]      node {$\epsilon, Z | Z$}   (q_2)
-%			(q_1) edge    [loop above]           node {$b, a | \epsilon$} (q_1);
-%			
-%		\end{tikzpicture}
-%	\end{center}
-%	Podemos ver de manera directa que $L = L(\cal M)$.
-%	Para esto notemos que si $w \in L(\cal M)$ entonces
-%	\[
-%	(q_{0},w,\$) \overset{*}{\vdash} (q_{0},bw',a^m\$)
-%	\]
-%	donde $a^mbw' = w$ y $m \ge 1$.
-%	Entonces para pasar al estado $q_{1}$ necesitamos leer una $b$ por lo que
-%	\[
-%	(q_{0},bw',a^m\$) \vdash (q_{1},w',a^{m-1}\$) \overset{*}{\vdash} (q_{2},\epsilon, a^{m-1-n}\$)
-%	\]
-%	donde $0 \le n \le m-1$.
-%	Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
-%	Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
-%	
-%	Para ver que no es aceptado por un \APD por pila vacía basta ver por el lema \ref{prop_apd_pila_prefijo} que $L$ tiene la propiedad de los prefijos.
-%	Es decir que existe una palabra $w \in L$ tal que $u$ es un prefijo propio de $w$ y $u \in L$.
-%	Por ejemplo consideremos:
-%	\[
-%	u = a^m b^i, \ w = a^m b^j \ \
-%	\text{para}  \
-%	m \ge 2,  \ i < j \le m
-%	\] 
-%	entonces $u,w \in L$.
-%\end{proof}	
+Todas las definiciones que dimos para los autómatas de pila no determinísticos las podemos adaptar fácilmente al caso de un k-autómata de pila no determinístico.
 
 
+\begin{prop}
+	\label{prop:equiv_kapnd_apnd}
+	Sea $L \subseteq \Sigma^{*}$ y $k \in \NN$ entonces existe $\cal M$ \APND tal que $L({\cal M}) =  L$ si y solo si existe ${\cal N}$ k-\APND tal que $L({\cal N}) = L$. 
+\end{prop}
+\begin{proof}
+	Si existe ${\cal M} = (Q, \Sigma, \Gamma, \delta_{\cal M}, q_0, F, \$)$ \APND tal que $L({\cal M}) = L$ vamos a construir $\cal N$ un k-\APND tal que $L({\cal N}) = L$.
+	Sea ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ donde  $(p,\gamma) \in \delta_{\cal M}(q,a,z) \iff (p, \gamma \beta) \in \delta_{\cal N}(q,a,z\beta)$ para toda $\beta \in \Gamma^{k-1}$.
+	Por como lo definimos obtenemos que $L({\cal M}) = L({\cal N})$.
+	
 
+	Si existe ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ k-\APND tal que $L({\cal N}) = L$ luego sea ${\cal M} = (Q \times (\Sigma \cup \{ \epsilon \} \times \Gamma^{k}), \Sigma, \Gamma, \delta_{\cal M}, (q_0, \epsilon, \epsilon), F, \$)$ un \APND que queda definido de la siguiente manera si $q \in Q, a \in \Sigma \cup \{ \epsilon \}, z \in \Gamma$:
+	\begin{align*}
+		\delta_{\cal M} ((q,\epsilon,\epsilon),a,z) &= \{ ((q,z,a),\epsilon) \} 
+		& \\
+		\delta_{\cal M} ((q,a,z_{1}\dots z_{i}),\epsilon,z) 
+		&= \{((q,z_{1}\dots z_{i}z,a),\epsilon)\} 
+		& \text{si} \ i < k \\
+		\delta_{\cal M} ((q,a,z_{1} \dots z_{k}),\epsilon,z) & \ni ((p,\epsilon,\epsilon),\beta z)
+		&\text{si} \  (p,\beta) \in \delta_{\cal N}(q,a,z_{1}\dots z_{k}) 
+	\end{align*}
+	Por como lo definimos obtenemos que para todo 
+	$q \in Q, a \in \Sigma \cup \{ \epsilon \}, \gamma = \gamma_{1} \dots \gamma_{k} \in \Gamma^{k}, w \in \Sigma^{*}$
+	vale que 
+	\[ 
+		(q,aw,\gamma \alpha) \underset{\cal N}{\vdash} (p,w,\beta \alpha) 
+		\iff
+		((q,\epsilon,\epsilon), aw, \gamma_{1}\gamma_{2}\dots \gamma_{k}\alpha) \underset{\cal M}{\vdash^{k+1}} 
+		((p,\epsilon,\epsilon), w, \beta \alpha) 	
+	\]
+	por lo tanto $L({\cal M}) = L({\cal N})$.
+\end{proof}
 
 \section{Teoría de grupos.}\label{secc_teo_grp}
 

@@ -592,118 +592,199 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 	{\cal U} =  \{u_{il} : 1 \le i \le m, \ 1 \le l \le n \}  \cup  \{z_{ijk} : 1 \le i,j,k \le m\} 
 	\]
 	donde tomamos la escritura de todas las palabras en $\cal{U}$ para que sean reducidas.
-	Consideremos 
-	$\text{Suf}({\cal U})$
-	el conjunto de los sufijos de las palabras en $\cal U$, tal que es un conjunto finito también.
-	El \emph{\APD de Muller--Schupp } está definido por 
+	Sea $k = \max \{ |u| \mid u \in \cal U \}$ 
+	% Consideremos 
+	% $\text{Suf}({\cal U})$
+	% el conjunto de los sufijos de las palabras en $\cal U$, tal que es un conjunto finito también.
+	El \emph{k-\APD de Muller--Schupp } está definido por 
 	\[
-	{\cal M }= (Q, W , A \cup A^{-1} \cup \{ 1 \}, \delta, (1,1,1), \{(1,1,1)\}, 1).
+	{\cal M }= (T, W , A \cup A^{-1} \cup \{ 1 \}, \delta, 1, \{1\}, 1).
 	\]
-	Donde $Q = T \times (T \cup A \cup A^{-1}) \times \text{Suf}(\cal U)$.
-	El alfabeto de entrada es $W$ que es el conjunto de generadores del grupo.
-	El alfabeto de la pila es $A \cup A^{-1} \cup 1$ que es el conjunto simétrico de generadores del subgrupo libre $F$ y agregamos a $1$ como símbolo inicial para la pila.
-	Nuestro estado inicial que también es el final corresponde a la terna $(1,1,1)$.
+	Donde el alfabeto de la pila es $A \cup A^{-1} \cup 1$ que es el conjunto simétrico de generadores del subgrupo libre $F$ y agregamos a $1$ como símbolo inicial para la pila.
+	Nuestro estado inicial que también es el final corresponde a $1 \in T$.
+
+	Para este autómata por comodidad vamos a escribir los elementos de la pila en el orden reverso. 
+	Esto es que si $(t_{i},w,\gamma)$ una configuración de $\cal M$ entonces si $\gamma = \gamma' z$ con $z \in \Gamma$ y $\gamma' \in \Gamma^{*}$ entonces diremos que $z$ es el tope de la pila de esta configuración.
+
 
 	Ahora podemos definir la función de transición. 
-	Sea $w_i \in W$ algún generador del grupo luego tenemos que
+	Sea $w_{j} \in W$ algún generador del grupo, $s \in (A \cup A^{-1})^{*}$ luego tenemos que
 	\[
-	\delta(w_i,(t_j,1,1), s) =
+	\delta(w_j,t_i, s) =
 	\begin{cases}
-		((t_j,a_i,u_{ij}), s) \quad \text{si} \ w_{i}=a_{i} \\
-		((t_k,t_i,z_{ijk}), s) \quad \text{si} \ w_{i}=t_{i} \ \text{y} \ t_{j}t_{i} = t_{k}
+		(t_{i}, s \cdot u_{ij}) \quad 
+		&\text{si} \ w_{j}=a_{j} \\
+		(t_{k}, s \cdot z_{ijk} ) \quad 
+		&\text{si} \ w_{i}=t_{i} \ \text{y} \ t_{i}t_{j} = t_{k}
 	\end{cases}\]
-
-
-	Sea $u \in \text{Suf}({\cal U})$ tal que $u \neq 1$ luego si $u = a_{i}v $ donde $v \in \text{Suf}(\cal U)$ y $a_{i} \in A \cup A^{-1}$ 
-	en este caso definimos 
-	\begin{equation*}
-		\delta(\epsilon,(t_j,w_i,a_{i}v), s) = ((t_j,w_i,v), a_{i} \cdot s).
-	\end{equation*}
-	La notación $v \cdot a_{i}$ representa el producto en el grupo libre $F$ de $v \in F$ con $a_{i}$ un generador en $F$.
-	Notemos que para cada configuración del tipo $(w,(t_{j}, w_{i}, u),s)$ existe una única transición posible dado que fijamos de antemano alguna escritura única en los generadores $A$ para cada palabra $u \in \cal U$.
-	
-	Finalmente definimos la función de transición de la siguiente manera para todo $w_{i} \in W$ y $t_{j} \in T$,
-	\[
-		\delta(\epsilon, (t_{j},w_{i},1), s) = ((t_{j},1,1),s).
-	\]
-
+	donde $s \cdot u_{ij}$ y $s \cdot z_{ijk}$ denota el producto en el grupo libre $F$.
+	Por como definimos a $\cal M$ es necesariamente determínistico.
 
 	\begin{lema}\label{lema_MuSc_invariante}
-	Sea $\cal M$ el \APD de Muller--Schupp, $w \in W^*$ tal que $ w = uv $ entonces  
-		\[
-			(uv,(1,1,1), 1) \overset{*}{\vdash} (v, (t_{k},1,1), s^R)
-		\]
-		si y solo sí $u = st_{k}$.
+		Sean $\cal M$ el k-\APD de Muller--Schupp y $w \in W^*$ 
+		Si  
+			\[
+				(w,1, 1) \overset{*}{\vdash} (w', t_{j}, s)
+			\]
+		entonces $w = st_{j}w'$ vistos como elementos de $G$.
 	\end{lema}
 	
 	\begin{proof}
-		Probamos ambas implicaciones a la vez usando inducción en la longitud de $u$.
-		El caso base es que $|u| = 1$.
-		Separamos en dos subcasos. 
-		En el primer subcaso $u = a_{i} \in B$.
-		\[
-		(a_{i}v, ( 1,1,1), 1 ) \vdash (v, (1,a_{i},a_{i}),1) \vdash (v,(1,a_{i},1),a_{i}) \vdash (v, (1,1,1), a_{i})
-		\]
-		tal que $1 \cdot a_{i} = a_{i}$ así como queríamos ver.
-		El otro subcaso corresponde a que $u = t_{j} \in T$.
-		\[
-		(t_{i}v, (1,1,1), 1) \vdash (v, (t_{i},t_{i},t_{i}),1) \vdash (v,(t_{i},t_{i},1),1) \vdash (v, (t_{i},1,1), 1)
-		\]
-		donde usamos que $z_{1i1} = 1$ y cumple que $t_{i} \cdot 1 = t_{i}$ tal como queríamos ver.
-		De manera idéntica vemos que vale la vuelta.
-		
-		Para el paso inductivo sea $u = u'w_{i}$ donde $u' \in \text{Pre(w)}$ y $w_{i} \in W$.
+		Probamos ambas implicaciones a la vez usando inducción en la cantidad $k$ de pasos de la relación $\vdash$ que utilizamos.
 
-		Tenemos que por hipótesis inductiva
+		El caso base es que $k = 1$.
+		Esto quiere decir que $(w,1, 1) \overset{}{\vdash} (w', t_{j}, s)$
+		entonces separamos en dos subcasos. 
+		En el primer subcaso $w = a_{i}w', \ a_{i} \in A \cup A^{-1}$.
 		\[
-		(u'a_{i}v, ( 1,1,1), 1 ) \overset{*}{\vdash} (a_{i}v, (t_{k},1,1), s^R)
+		(a_{i}w', 1, 1 ) \vdash (w',1,a_{i})
 		\]
-		de manera que $st_{k} = u'$.
+		donde usamos que $u_{1i} = a_{i}$ y vale que  $a_{i} \cdot 1 \cdot w' = w$ así como queríamos ver.
+		El otro subcaso corresponde a que $w = t_{j}w', \  t_{j} \in T$.
+		\[
+		(t_{i}w', 1, 1) \vdash (v, 1,1)
+		\]
+		donde usamos que $z_{1i1} = 1$ y vale que $1 \cdot t_{i} \cdot w' = t_{i} \cdot w'$ tal como queríamos ver.
 		
-		Nuevamente separamos en casos.
-		En el caso que $w_{i} = a_{i} \in A \cup A^{-1}$	
-		si usamos la definición del autómata obtenemos que  
-		\[
-			(a_{i}v, (t_{k},1,1), s^R) {\vdash} 
-			(v, (t_{k},a_{i},u_{ki}), s^R ) \overset{*}{\vdash }
-			(v, (t_{k}, 1,1), u_{ki}^R \cdot s^R)
-		\]
-		si y solo si $st_{k}a_{i} = su_{ik}t_{k}$.
-		Para el caso que $w_{i} = t_{i} \in T$ similarmente si $t_{k}t_{i} = z_{kij} t_{j}$ luego
-		\[
-		(t_{i}v, (t_{k},1,1), s^R) {\vdash} 
-		(v, (t_{j},t_{j},z_{kij}), s^R ) \overset{*}{\vdash }
-		(v, (t_{k}, 1,1), z_{kij}^R \cdot s^R)
-		\]
-		si y solo si $st_{k}t_{i} = sz_{kij}t_{j}$.
+		Para el paso inductivo sea $w = uw_{i}w'$ donde $u \in \text{Pre(w)}$, $|u| = k-1$ y $w_{i} \in W$.
+		Por hipótesis inductiva sabemos que 
+		$(w,1,1) \overset{k-1}{\vdash} (w_{i}w',t_{j},s)$ de manera que $w = st_{j}w_{i}w'$.
+		Nuevamente separamos en dos casos.
+
+
+		En el primer caso $w_{i} = a_{i} \in A \cup A^{-1}$ entonces 
+		$(w_{i}w', t_{j},s) \vdash (w',t_{j} , s \cdot u_{ij})$. 
+		En particular notemos que dado que $t_{j}a_{i} = u_{ij}t_{j}$ por como definimos a $u_{ij} \in \cal U$ entonces necesariamente $w = st_{j}u_{ij}w'$.
+		En el segundo caso $w_{i} = t_{i} \in T$ entonces 
+		$(w_{i}w', t_{j},s) \vdash (w',t_{k} , s \cdot z_{ijk})$.
+		En particular notemos que dado que $t_{j}t_{i} = z_{ijk}t_{k}$ por como definimos a $z_{ijk} \in \cal U$ entonces necesariamente $w = st_{k}z_{ijk}w'$.
 	\end{proof}
-	
-	
+
+	\begin{obs}
+		\label{obs:conf_pal_reducida}
+		Dado que todas las palabras $u \in \cal U$ las tomamos reducidas y que la función de transición de $\cal M$ realiza el producto en el grupo de la palabra que aparece en la pila con alguna palabra de $\cal U$ entonces podemos ver que en todo configuración alcanzable $(t_{j},w,s)$ con $t_{j} \in T, w \in W^{*}, s \in (A \cup A^{-1})^{*}$ vale que $s$ está reducida.
+	\end{obs}
+
 	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la proposición \ref{prop:presentacion_vl} para transformar una palabra $w \in W^*$ en $w = st$ con $s \in (A \cup A^{-1})^{*}$ reducida y $t \in T$.
 	
 	Ya estamos en condiciones de probar el resultado central de este capítulo.
 
 \begin{teo}\label{teo_Muller_Schupp}\cite{muller1983groups}
-	Todo grupo virtualmente libre es independiente de contexto.
+	Todo grupo $G$ virtualmente libre es independiente de contexto.
 \end{teo}
 
 \begin{proof}
-	Para probar que es \ic vamos a probar que el \APD de Muller--Schupp $\cal M$ cumple que $L({\cal M})= \text{WP}(G,W)$.
+	Consideramos una presentación $\langle W \mid R \rangle$ tal como la de la proposición \ref{prop:presentacion_vl}.
+	Para probar que $G$ es \ic vamos a probar que el \APD de Muller--Schupp $\cal M$ cumple que $L({\cal M})= \text{WP}(G,W)$.
 	Consideremos ahora el lenguaje aceptado por estado final y por palabra en la pila $1$:
 	\[
-	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), 1)  \}.
+	{L }({\cal M}, 1) = \{  w \in W^* \mid (w,1,1)   \vdash^*  (\epsilon, 1, 1)  \}.
 	\]
 	Debemos ver que el autómata acepta justamente al lenguaje que queremos. 
 	Esto es que $ {\cal L }(M) = \text{WP}(G,W) $ 
 	
-	Si $w \in L(\cal M)$ entonces $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (1,1,1), 1)$ y por lo tanto por el lema \ref{lema_MuSc_invariante} obtenemos que $w = 1$ y así que $w \in \text{WP}(G,W)$.
+	Si $w \in L({\cal M},1)$ entonces $(w, 1, 1) \overset{*}{\vdash} (\epsilon, 1, 1)$ y por lo tanto por el lema \ref{lema_MuSc_invariante} obtenemos que $w = 1$ y así que $w \in \text{WP}(G,W)$.
 	
-	Si $w \in \text{WP}(G,W)$ entonces $w = 1$ en $G$ por lo que nuevamente usando el lema \ref{lema_MuSc_invariante} obtenemos que $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{i},1,1), s)^{R}$
-	y esto implica que $st_{i} = 1$ por lo que $t_{i} = 1, s =1$ y así $w \in L(\cal M)$.
+	Si $w \in \text{WP}(G,W)$ entonces $w = 1$ en $G$ por lo que nuevamente usando el lema \ref{lema_MuSc_invariante} obtenemos que $(w, 1, 1) \overset{*}{\vdash} (\epsilon, 1, s)$
+	tal que $w = s \cdot 1$ y por la observación \ref{obs:conf_pal_reducida} concluimos que $s = 1$ y así $w \in L({\cal M},1)$.
 	
 	
-	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
+	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{prop:equiv_kapnd_apnd}.
 	
 \end{proof}
+
+
+
+% 	Sea $u \in \text{Suf}({\cal U})$ tal que $u \neq 1$ luego si $u = a_{i}v $ donde $v \in \text{Suf}(\cal U)$ y $a_{i} \in A \cup A^{-1}$ 
+% 	en este caso definimos 
+% 	\begin{equation*}
+% 		\delta(\epsilon,(t_j,w_i,a_{i}v), s) = ((t_j,w_i,v), a_{i} \cdot s).
+% 	\end{equation*}
+% 	La notación $v \cdot a_{i}$ representa el producto en el grupo libre $F$ de $v \in F$ con $a_{i}$ un generador en $F$.
+% 	Notemos que para cada configuración del tipo $(w,(t_{j}, w_{i}, u),s)$ existe una única transición posible dado que fijamos de antemano alguna escritura única en los generadores $A$ para cada palabra $u \in \cal U$.
+	
+% 	Finalmente definimos la función de transición de la siguiente manera para todo $w_{i} \in W$ y $t_{j} \in T$,
+% 	\[
+% 		\delta(\epsilon, (t_{j},w_{i},1), s) = ((t_{j},1,1),s).
+% 	\]
+
+
+% 	\begin{lema}\label{lema_MuSc_invariante}
+% 	Sea $\cal M$ el \APD de Muller--Schupp, $w \in W^*$ tal que $ w = uv $ entonces  
+% 		\[
+% 			(uv,(1,1,1), 1) \overset{*}{\vdash} (v, (t_{k},1,1), s^R)
+% 		\]
+% 		si y solo sí $u = st_{k}$.
+% 	\end{lema}
+	
+% 	\begin{proof}
+% 		Probamos ambas implicaciones a la vez usando inducción en la longitud de $u$.
+% 		El caso base es que $|u| = 1$.
+% 		Separamos en dos subcasos. 
+% 		En el primer subcaso $u = a_{i} \in B$.
+% 		\[
+% 		(a_{i}v, ( 1,1,1), 1 ) \vdash (v, (1,a_{i},a_{i}),1) \vdash (v,(1,a_{i},1),a_{i}) \vdash (v, (1,1,1), a_{i})
+% 		\]
+% 		tal que $1 \cdot a_{i} = a_{i}$ así como queríamos ver.
+% 		El otro subcaso corresponde a que $u = t_{j} \in T$.
+% 		\[
+% 		(t_{i}v, (1,1,1), 1) \vdash (v, (t_{i},t_{i},t_{i}),1) \vdash (v,(t_{i},t_{i},1),1) \vdash (v, (t_{i},1,1), 1)
+% 		\]
+% 		donde usamos que $z_{1i1} = 1$ y cumple que $t_{i} \cdot 1 = t_{i}$ tal como queríamos ver.
+% 		De manera idéntica vemos que vale la vuelta.
+		
+% 		Para el paso inductivo sea $u = u'w_{i}$ donde $u' \in \text{Pre(w)}$ y $w_{i} \in W$.
+
+% 		Tenemos que por hipótesis inductiva
+% 		\[
+% 		(u'a_{i}v, ( 1,1,1), 1 ) \overset{*}{\vdash} (a_{i}v, (t_{k},1,1), s^R)
+% 		\]
+% 		de manera que $st_{k} = u'$.
+		
+% 		Nuevamente separamos en casos.
+% 		En el caso que $w_{i} = a_{i} \in A \cup A^{-1}$	
+% 		si usamos la definición del autómata obtenemos que  
+% 		\[
+% 			(a_{i}v, (t_{k},1,1), s^R) {\vdash} 
+% 			(v, (t_{k},a_{i},u_{ki}), s^R ) \overset{*}{\vdash }
+% 			(v, (t_{k}, 1,1), u_{ki}^R \cdot s^R)
+% 		\]
+% 		si y solo si $st_{k}a_{i} = su_{ik}t_{k}$.
+% 		Para el caso que $w_{i} = t_{i} \in T$ similarmente si $t_{k}t_{i} = z_{kij} t_{j}$ luego
+% 		\[
+% 		(t_{i}v, (t_{k},1,1), s^R) {\vdash} 
+% 		(v, (t_{j},t_{j},z_{kij}), s^R ) \overset{*}{\vdash }
+% 		(v, (t_{k}, 1,1), z_{kij}^R \cdot s^R)
+% 		\]
+% 		si y solo si $st_{k}t_{i} = sz_{kij}t_{j}$.
+% 	\end{proof}
+	
+	
+% 	Intuitivamente el autómata de Muller--Schupp formaliza el procedimiento que empleamos en la proposición \ref{prop:presentacion_vl} para transformar una palabra $w \in W^*$ en $w = st$ con $s \in (A \cup A^{-1})^{*}$ reducida y $t \in T$.
+	
+% 	Ya estamos en condiciones de probar el resultado central de este capítulo.
+
+% \begin{teo}\label{teo_Muller_Schupp}\cite{muller1983groups}
+% 	Todo grupo virtualmente libre es independiente de contexto.
+% \end{teo}
+
+% \begin{proof}
+% 	Para probar que es \ic vamos a probar que el \APD de Muller--Schupp $\cal M$ cumple que $L({\cal M})= \text{WP}(G,W)$.
+% 	Consideremos ahora el lenguaje aceptado por estado final y por palabra en la pila $1$:
+% 	\[
+% 	{\cal L }(M) = \{  w \in W^* \mid (w,(1,1,1),1)   \vdash^*  (\epsilon, (1,1,1), 1)  \}.
+% 	\]
+% 	Debemos ver que el autómata acepta justamente al lenguaje que queremos. 
+% 	Esto es que $ {\cal L }(M) = \text{WP}(G,W) $ 
+	
+% 	Si $w \in L(\cal M)$ entonces $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (1,1,1), 1)$ y por lo tanto por el lema \ref{lema_MuSc_invariante} obtenemos que $w = 1$ y así que $w \in \text{WP}(G,W)$.
+	
+% 	Si $w \in \text{WP}(G,W)$ entonces $w = 1$ en $G$ por lo que nuevamente usando el lema \ref{lema_MuSc_invariante} obtenemos que $(w, (1,1,1), 1) \overset{*}{\vdash} (\epsilon, (t_{i},1,1), s)^{R}$
+% 	y esto implica que $st_{i} = 1$ por lo que $t_{i} = 1, s =1$ y así $w \in L(\cal M)$.
+	
+	
+% 	Con esto probamos que los grupos virtualmente libres son \ic usando la equivalencia \ref{teo_ic_apnd}.
+	
+% \end{proof}
 \end{document}
 
