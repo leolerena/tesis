@@ -694,33 +694,54 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 	Todo lenguaje $L$ \ic determinístico especial es \ic determinístico.
 \end{prop}
 \begin{proof}
-	Como $L$ es un lenguaje \ic determinístico especial entonces existe ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{*}$ tal que $L({\cal M}, \gamma) = L$.
+	Como $L$ es un lenguaje \ic determinístico especial entonces existe ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{*}$ tal que $L({\cal M}, \gamma) = L$
+	Vamos a construir un automata de pila determinístico $\cal{M'}$ tal que $L({\cal{M}}') = L({\cal{M}},\gamma)$.
+	Sea
+	$A = {0, 1, ... |\gamma|, \bot}$,
+	$Q' = Q \times \{0,1\}$,
+	$\Gamma' = \Gamma \times A$,
+	$q0' = (q_{0},0)$,
+	$F' = F \times {1}$
+
+	Queremos definir 
+	$\delta' : Q' \times (\Sigma \cup {\epsilon}) \times \Gamma' \to {\cal P}( Q' \times \Gamma'* )$
+
+	Tenemos que decir quien es $\delta'( (q,i), a, (z,j) )$. 
+	Si $\delta(q,a,z) = \emptyset$, entonces definimos $\delta'( (q,i), a, (z,j) ) = \emptyset$.
+	Si $\delta(q,a,z) = {(p,t)}$, con $t = t_k ... t_2 t_0$, vamos a definir recursivamente una sucesión $s_0, s_2, ... s_k \in A$.
+	$s_0 = j$,
+	$s_{l+1} = s_{l}+1 \ \text{si} \ s_l \neq \bot \ \text{y} \ s_{l+1} \le n \ \text{y} \ t_l = \gamma_{j+l} y s_{l+1} = \bot \ \text{en caso contrario}$.
+	Definimos $t' = (t_k, s_k)...(t_1,s_1)(t_0,s_0)$ y sea $i' = 1 \ \text{si} \ s_k=n \ \text{y} \ t_k=\gamma_n, \ \text{y} \ 0 \ \text{en caso contrario}$.
+	Finalmente $\delta'((q,i), a, (z,j)) = {((p,i'),t')}$.
+
+
+	Sea ${\cal{M'}} = (Q', \Sigma, \Gamma', \delta', (q_{0},0), F', (\$,0))$.
 	
-	Construimos $\cal M'$ un \APD que lo acepte por estado final.
-	Para eso definimos ${\cal M}' = (Q',\Sigma, \Gamma', \delta', (q_0,0), F', (\$,1))$
-	donde $Q' = Q \times \{ 0,1\}$, $\Gamma' = \Gamma \times \{ \bot ,1, \dots, |\gamma|  \}$, $q'_{0} = (q_{0, 0})$,$F = \{ (q,1) \mid q \in F \}$ y la función de transición la definimos de la siguiente manera si $\delta(q,a,Z) = (p, \theta)$ y $\theta = \theta_{1}\dots \theta_{k}$ entonces si usamos la convención que $l = \bot$ si $l>|\gamma|$ luego
+	% Construimos $\cal M'$ un \APD que lo acepte por estado final.
+	% Para eso definimos ${\cal M}' = (Q',\Sigma, \Gamma', \delta', (q_0,0), F', (\$,1))$
+	% donde $Q' = Q \times \{ 0,1\}$, $\Gamma' = \Gamma \times \{ \bot ,1, \dots, |\gamma|  \}$, $q'_{0} = (q_{0, 0})$,$F = \{ (q,1) \mid q \in F \}$ y la función de transición la definimos de la siguiente manera si $\delta(q,a,Z) = (p, \theta)$ y $\theta = \theta_{1}\dots \theta_{k}$ entonces si usamos la convención que $l = \bot$ si $l>|\gamma|$ luego
 
 	
-	\[
-	\delta'((q,i),a,(z,j)) = \left\{\begin{array}{lr}
-		((p,1), (\theta_{1},j+k)\dots(\theta_{k},j)) , & \text{si } j+k = n\\
-		((p,0), (\theta_{1},j+k)\dots(\theta_{k},j)) , & \text{si } j+k \neq |\gamma| \\
-	\end{array}\right\}
-	\]
-	Este automáta es determinístico y de su definición se sigue que vale la siguiente equivalencia:
-	\[
-		(q, w, \theta) \overset{*}{\vdash} (p,u,\phi) \iff 
-		((q,i), w, (\theta_{1}, |\theta|)\dots (\theta_{|\theta|}, 1)) \overset{*}{\vdash} ((p,j),u,(\phi_{1},|\phi|) \dots (\phi_{|\phi|}, 1)). 
-	\]
-	donde $j = 1$ si $|\phi| =|\gamma|$ e $i = 1$ si $|\theta| = |\gamma|$.
+	% \[
+	% \delta'((q,i),a,(z,j)) = \left\{\begin{array}{lr}
+	% 	((p,1), (\theta_{1},j+k)\dots(\theta_{k},j)) , & \text{si } j+k = n\\
+	% 	((p,0), (\theta_{1},j+k)\dots(\theta_{k},j)) , & \text{si } j+k \neq |\gamma| \\
+	% \end{array}\right\}
+	% \]
+	% Este automáta es determinístico y de su definición se sigue que vale la siguiente equivalencia:
+	% \[
+	% 	(q, w, \theta) \overset{*}{\vdash} (p,u,\phi) \iff 
+	% 	((q,i), w, (\theta_{1}, |\theta|)\dots (\theta_{|\theta|}, 1)) \overset{*}{\vdash} ((p,j),u,(\phi_{1},|\phi|) \dots (\phi_{|\phi|}, 1)). 
+	% \]
+	% donde $j = 1$ si $|\phi| =|\gamma|$ e $i = 1$ si $|\theta| = |\gamma|$.
 	
 	
-	Con esto podemos probar que $L ({\cal M}, \gamma) = L(\cal M')$.
-	Para esto usamos que si $(q_{0},w, \$) \overset{*}{\vdash} (q,\epsilon, \gamma)$ entonces esto sucede si y solo sí
-	$((q_{0},0), w, (\$,1)) \overset{*}{\vdash} 
-	((q,1), \epsilon, (\gamma_1,|\gamma|) \dots (\gamma_{|\gamma|}, 1))$ lo que dice que $w \in L(\cal M')$ si y solo sí $w \in L({\cal M}, \gamma)$.
+	% Con esto podemos probar que $L ({\cal M}, \gamma) = L(\cal M')$.
+	% Para esto usamos que si $(q_{0},w, \$) \overset{*}{\vdash} (q,\epsilon, \gamma)$ entonces esto sucede si y solo sí
+	% $((q_{0},0), w, (\$,1)) \overset{*}{\vdash} 
+	% ((q,1), \epsilon, (\gamma_1,|\gamma|) \dots (\gamma_{|\gamma|}, 1))$ lo que dice que $w \in L(\cal M')$ si y solo sí $w \in L({\cal M}, \gamma)$.
 	
-	Con esto concluimos que $\cal M'$ acepta a $L({\cal M}, \gamma)$ y así que los lenguajes \ic determinísticos especiales resultan ser \ic determinísticos.
+	% Con esto concluimos que $\cal M'$ acepta a $L({\cal M}, \gamma)$ y así que los lenguajes \ic determinísticos especiales resultan ser \ic determinísticos.
 	
 	
 \end{proof}
