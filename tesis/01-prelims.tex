@@ -893,7 +893,7 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 %		Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
 		
 		Para ver que no es aceptado por un \APD por estado final y una palabra $\gamma$ en la pila consideremos que ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{+}$ tal que $L({\cal M}, \gamma) = L$.
-		En este caso sea $m > |Q|$ luego si consideramos las palabras de la pinta $\{ a^mb, \dots, a^mb^m  \} \subseteq L$ por el principio del palomar tiene que existir $1 \le i < j \le m$ tales que $(q_{0},a^mb^i, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ y $(q_{0},a^mb^j, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ para un mismo estado final $q \in F$.
+		En este caso sea $m > |Q|$ luego si consideramos las palabras de la pinta $\{ a^mb, \dots, a^mb^m  \} \subseteq L$ por el principio del palomar tienen que existir $1 \le i < j \le m$ tales que $(q_{0},a^mb^i, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ y $(q_{0},a^mb^j, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ para un mismo estado final $q \in F$.
 		Entonces notemos que necesariamente $m - i > 0$ y que $m-i+j > m$ por lo que
 		\[
 			(q_{0},a^mb^{i+m-i}, \$) \overset{*}{\vdash} (p,\epsilon,\gamma)
@@ -906,9 +906,11 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 	
 \end{proof}
 
+Dado $\Gamma$ conjunto finito y $k \in \NN$ 
+definimos $\Gamma^{\le k} = \{ \gamma \in \Gamma^{*} \mid |\gamma| \le k \}$.
 
 \begin{deff}
-	Sea $k \in \NN$ luego un \emph{k-autómata de pila finito no determinístico} es una tupla 
+	Sea $k \in \NN_{\ge 1}$ luego un \emph{k-autómata de pila finito determinístico} es una tupla 
 	\[
 	{\cal N } = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)
 	\]
@@ -917,7 +919,8 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 		\item $Q$ es un conjunto finito denominado los \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
 		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
-		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times (\Sigma \cup \{ \epsilon \}) \times \Gamma^{k} \to {\cal P}_{\textrm{fin}}( Q  \times \Gamma^*)$;
+		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times (\Sigma \cup \{ \epsilon \}) \times \Gamma^{\le k} \to {\cal P}_( Q  \times \Gamma^*)$
+		tal que para todo $q \in Q, a \in \Sigma \cup \{\epsilon\}, \gamma \in \Gamma^{\le k}$ vale que $|\delta(q,a,\gamma)| \le 1$ y que si $|\delta(q,a,\gamma)| = 1$ entonces $\delta(q,a,\beta) = \emptyset$ para toda $\beta \in \Gamma^{\le k}$ tal que $\gamma \in \text{Pre}(\beta)$;
 		\item $q_0 \in Q$ es el \emph{estado inicial};
 		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
 		\item $\$ \in \Gamma$ es el \emph{símbolo inicial} de la pila
@@ -926,43 +929,75 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 
 \smallskip
 \begin{obs}
-	Los autómatas de pila finitos no determinísticos son $1$-autómatas de pila finitos no determinísticos bajo esta definición.
+	Un \APD es un $1$-\APD bajo esta definición.
 \end{obs}
 
-Todas las definiciones que dimos para los autómatas de pila no determinísticos las podemos adaptar fácilmente al caso de un k-autómata de pila no determinístico.
+Todas las definiciones que dimos para los autómatas de pila determinísticos las podemos adaptar fácilmente al caso de un k-autómata de pila determinístico.
 
-\TODO{Escribir una prop más general para ver que un L aceptado por un APD es aceptado por un k-APD y viceversa. En definitiva necesito el caso de $L({\cal M}, \gamma)$.}
 \begin{prop}
 	\label{prop:equiv_kapnd_apnd}
-	Sea $L \subseteq \Sigma^{*}$ y $k \in \NN$ entonces existe $\cal M$ \APND tal que $L({\cal M}) =  L$ si y solo si existe ${\cal N}$ k-\APND tal que $L({\cal N}) = L$. 
+	Sea $L \subseteq \Sigma^{*}$ y $k \in \NN$ entonces existe $\cal M$ \APD tal que $L({\cal M}) =  L$ si y solo si existe ${\cal N}$ k-\APD tal que $L({\cal N}) = L$. 
 \end{prop}
 \begin{proof}
-	Si existe ${\cal M} = (Q, \Sigma, \Gamma, \delta_{\cal M}, q_0, F, \$)$ \APND tal que $L({\cal M}) = L$ vamos a construir $\cal N$ un k-\APND tal que $L({\cal N}) = L$.
-	Sea ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ donde  $(p,\gamma) \in \delta_{\cal M}(q,a,z) \iff (p, \gamma \beta) \in \delta_{\cal N}(q,a,z\beta)$ para toda $\beta \in \Gamma^{k-1}$.
-	Por como lo definimos obtenemos que $L({\cal M}) = L({\cal N})$.
+	\TODO{Revisar demo y refactorizar.}
+	Si existe ${\cal M} = (Q, \Sigma, \Gamma, \delta_{\cal M}, q_0, F, \$)$ \APND tal que $L({\cal M}) = L$ luego $\cal M$ es un $k$-\APD por lo tanto nos basta con tomar ${\cal N}={\cal M}$. 
+	% vamos a construir $\cal N$ un k-\APND tal que $L({\cal N}) = L$.
+	% Sea ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ donde  $\delta_{\cal M}(q,a,z) = (p,\gamma) \iff  \delta_{\cal N}(q,a,z\beta)  =(p, \gamma)$.
+	% Por como lo definimos obtenemos que $L({\cal M}) = L({\cal N})$.
 	
 
-	Si existe ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ k-\APND tal que $L({\cal N}) = L$ luego sea ${\cal M} = (Q \times (\Sigma \cup \{ \epsilon \} \times \Gamma^{k}), \Sigma, \Gamma, \delta_{\cal M}, (q_0, \epsilon, \epsilon), F, \$)$ un \APND que queda definido de la siguiente manera si $q \in Q, a \in \Sigma \cup \{ \epsilon \}, z \in \Gamma$:
+	Si existe ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ k-\APND tal que $L({\cal N}) = L$ luego sean:
+	${\cal U} = \{ \gamma \in \Gamma^{\le k} \mid \exists q \in Q, a \in \Sigma \cup \{\epsilon\}, \ |\delta(q,a,\gamma)| = 1 \}$,
+	$Q' =  Q \times (\Sigma \cup \{\epsilon\}) \times \text{Pre}({\cal U})$,
+	$q_{0}' = (q_{0}, \epsilon, \epsilon)$, 
+	$F' = F \times \{\epsilon\} \times \{\epsilon\}$
+	y $\delta': Q' \times \Sigma  \cup \{ \epsilon\} \times \Gamma \to {\cal P}(Q \times \Gamma^{*})$.
+	Definimos $\delta'$ de la siguiente manera dados
+	$q \in Q, a \in \Sigma \cup \{ \epsilon \}, z \in \Gamma$:
 	\begin{align*}
-		\delta_{\cal M} ((q,\epsilon,\epsilon),a,z) &= \{ ((q,z,a),\epsilon) \} 
+		\delta' ((q,\epsilon,\epsilon),a,z) &= \{ ((q,a,z),\epsilon) \} 
 		& \\
-		\delta_{\cal M} ((q,a,z_{1}\dots z_{i}),\epsilon,z) 
-		&= \{((q,z_{1}\dots z_{i}z,a),\epsilon)\} 
-		& \text{si} \ i < k \\
-		\delta_{\cal M} ((q,a,z_{1} \dots z_{k}),\epsilon,z) & \ni ((p,\epsilon,\epsilon),\beta z)
-		&\text{si} \  (p,\beta) \in \delta_{\cal N}(q,a,z_{1}\dots z_{k}) 
+		\delta' ((q,a,\beta),\epsilon,z) 
+		&= \{((q,a,\beta z),\epsilon)\} 
+		& \text{si} \ \beta z \in \text{Pre}({\cal U}) \\
+		\delta' ((q,a,\gamma),\epsilon,z) &= \{((p,\epsilon,\epsilon),\beta z)\}
+		& \text{si} \  (p,\beta) \in \delta(q,a,\gamma) 
 	\end{align*}
-	Por como lo definimos obtenemos que para todo 
-	$q \in Q, a \in \Sigma \cup \{ \epsilon \}, \gamma = \gamma_{1} \dots \gamma_{k} \in \Gamma^{k}, w \in \Sigma^{*}$
-	vale que 
+	Sea ${\cal M} = (Q', \Sigma, \Gamma, \delta', q_{0}', F', \$)$ autómata de pila tal que por como lo definimos es un autómata de pila determinístico.
+	\begin{aff}
+	Sean $q \in Q, a \in \Sigma \cup \{ \epsilon \}, \gamma = \gamma_{1} \dots \gamma_{i} \in \Gamma^{\le k}, w \in \Sigma^{*}$
+	entonces  
 	\[ 
 		(q,aw,\gamma \alpha) \underset{\cal N}{\vdash} (p,w,\beta \alpha) 
-		\iff
-		((q,\epsilon,\epsilon), aw, \gamma_{1}\gamma_{2}\dots \gamma_{k}\alpha) \underset{\cal M}{\vdash^{k+1}} 
+		\implies
+		((q,\epsilon,\epsilon), aw, \gamma_{1}\gamma_{2}\dots \gamma_{i}\alpha) \underset{\cal M}{\vdash^{*}} 
 		((p,\epsilon,\epsilon), w, \beta \alpha) 	
-	\]
-	por lo tanto $L({\cal M}) = L({\cal N})$.
+	\]	
+	\end{aff}
+	\TODO{Escribir esta demostración.}
+
+	Sea $w \in L({\cal N})$ luego $(q_{0},w,\$) \overset{*}{\vdash} 
+	(q,\epsilon, \gamma)$ para ciertos $q \in F$ y $\gamma \in \Gamma^{*}$.
+	Por la afirmación obtenemos que $((q_{0},\epsilon, \epsilon),w,\$) \overset{*}{\vdash} ((q,\epsilon,\epsilon),\epsilon,\gamma)$ por lo tanto $w \in L({\cal M})$.
+
+	Sea $w \notin L({\cal N})$ luego $(q_{0},w,\$) \overset{*}{\vdash} 
+	(p,u, \gamma)$ para ciertos $p \in Q$, $\gamma \in \Gamma^{*}$ y $u \in \Sigma^{*}$.
+	Por la afirmación obtenemos que $((q_{0},\epsilon, \epsilon),w,\$) \overset{*}{\vdash} ((p,\epsilon,\epsilon),u,\gamma)$ por lo tanto $w \notin L({\cal M})$.
+
+	Concluimos que $L({\cal M}) = L({\cal N})$ tal como queríamos ver.
 \end{proof}
+
+\begin{coro}
+	\label{coro:equiv_kapnd_apnd_esp}
+	Sea $L \subseteq \Sigma^{*}$ y $k \in \NN$ entonces existe 
+	${\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ 
+	\APD y $\gamma \in \Gamma^{+}$ tal que $L({\cal M}, \gamma) =  L$ 
+	si y solo si existe ${\cal N} = (Q', \Sigma, \Gamma, \delta', q_0', F', \$)$ k-\APD tal que $L({\cal N},\gamma) = L$.
+\end{coro}
+\begin{proof}
+	La misma construcción de la proposición \ref{prop:equiv_kapnd_apnd} nos sirve.
+\end{proof}
+
 
 \section{Teoría de grupos.}\label{secc_teo_grp}
 

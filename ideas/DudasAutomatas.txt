@@ -1,0 +1,8 @@
+1) ¿Cómo es la def de k-APD determinístico? La función de transición debería ser tal que si está definida para un (q,a,gamma) entonces no está definida para (q,a,gamma beta). Chequear que así esté en el teorema de MS.
+	rta: Así lo definí y no lo chequeé aún para el teo de MS.
+	
+2) ¿Los lenguajes que son aceptados por un k-APD son cerrados por imágenes de morfismos de monoides?
+
+3) ¿Todo lenguaje L tal que L = L(M, gamma) puede ser considerado como L(N, $)? ¿Hay una inclusión? ¿Qué relación existe entre estos lenguajes?
+
+4) ¿Todo L tal que L = L(M, gamma) cumple que  L = L(N, eps) para N APD? Si es así, ¿cómo se puede adaptar la demo para ver que es aceptado por un APD normal?
