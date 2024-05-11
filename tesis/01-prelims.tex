@@ -791,9 +791,26 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 	donde $q \in F$.
 	Por la afirmación obtenemos que $((q_0,0), w, (\$,0)) \overset{*}{\vdash} ((q,1), \epsilon, (\gamma_{n-1}, n-1)\dots (\gamma_0,0))$ y así vemos que $w \in L({\cal M}')$.
 
-	Si $w \notin L({\cal M}, \gamma)$ entonces $(q_{0}, w, \$) \overset{*}{\vdash} (q, u, \beta_k \dots \beta_0)$ donde necesariamente una de estas tres opciones ocurren: $u \neq \epsilon$, $q \notin F$ o $\beta_{k} \dots \beta_{0} \neq \gamma_{n-1} \dots \gamma_{0}$.
-	En estos tres casos podemos ver que esto implica que $w \notin L({\cal M}')$. 
-	\TODO{Acá no estoy siendo explícito pero sale directo usando que son autómatas determinísticos y de la afirmación. Si es necesario escribo los tres casos.}
+	Si $w \notin L({\cal M}, \gamma)$ entonces $(q_{0}, w, \$) \overset{*}{\vdash} (q, u, \beta_k \dots \beta_0)$ donde $(q, u, \beta_k \dots \beta_0)$ es una configuración irreducible.
+	Necesariamente una de estas tres opciones ocurren: 
+	$u \neq \epsilon$, $q \notin F$ o $\beta_{k} \dots \beta_{0} \neq \gamma_{n-1} \dots \gamma_{0}$.
+
+	Si $u \neq \epsilon$ entonces $u = au'$ con 
+	$a \in \Sigma \cup \{ \epsilon \}, u \in \Sigma^{*}$. 
+	Dado que $(q, au', \beta_k \dots \beta_0)$ es irreducible esto dice que $\delta(q,a,\beta_{k}) = \emptyset$.
+	Entonces por la afirmación 
+	$((q_0,c), w, (\$,0)) \overset{*}{\vdash} ((q,i), u, (\beta_k, t_k)\dots (\beta_0,t_0))$ y luego por la definición de $\delta'$ obtenemos que $((q,i), u, (\beta_k, t_k)\dots (\beta_0,t_0))$ también es irreducible por lo tanto $w \notin L({\cal M}')$.
+
+	Si $q \notin F$ entonces por la afirmación $((q_0,c), w, (\$,0)) \overset{*}{\vdash} ((q,i), \epsilon, (\beta_k, t_k)\dots (\beta_0,t_0))$ donde $(q,i) \in Q \setminus F \times \{ 0,1 \}$ lo que implica que $(q,i) \notin F'$ por lo tanto $w \notin L({\cal M}')$.
+
+	Si $\beta_{k} \dots \beta_{0} \neq \gamma_{n-1} \dots \gamma_{0}$ entonces por la afirmación $((q_0,c), w, (\$,0)) \overset{*}{\vdash} ((q,i), \epsilon, (\beta_k, t_k)\dots (\beta_0,t_0))$ donde necesariamente sucede uno de estos dos subcasos: si $|\gamma| = |\beta|$ entonces 
+	existe $j \in \{ 0, \dots n-1 \}$ de manera que $\beta_j \neq \gamma_{j}$
+	o bien $|\beta| \neq |\gamma|$.
+	En ambos subcasos obtenemos que $t_{k} \neq n-1$ luego 
+	$i \neq 1$ por lo tanto $w \notin L({\cal M}')$.
+
+	% En estos tres casos podemos ver que esto implica que $w \notin L({\cal M}')$. 
+	
 
 	De esta manera concluimos que $L({\cal M}, \gamma) = L(\cal M ')$.
 	
@@ -919,7 +936,7 @@ definimos $\Gamma^{\le k} = \{ \gamma \in \Gamma^{*} \mid |\gamma| \le k \}$.
 		\item $Q$ es un conjunto finito denominado los \emph{estados};
 		\item $\Sigma$ es un conjunto finito que denominamos el \emph{alfabeto del lenguaje};
 		\item $\Gamma$ es un conjunto finito que denominamos el \emph{alfabeto de la pila};
-		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times (\Sigma \cup \{ \epsilon \}) \times \Gamma^{\le k} \to {\cal P}_( Q  \times \Gamma^*)$
+		\item $\delta$ es la \emph{función de transición} donde $\delta: Q  \times (\Sigma \cup \{ \epsilon \}) \times \Gamma^{\le k} \to {\cal P}(Q \times \Gamma^*)$
 		tal que para todo $q \in Q, a \in \Sigma \cup \{\epsilon\}, \gamma \in \Gamma^{\le k}$ vale que $|\delta(q,a,\gamma)| \le 1$ y que si $|\delta(q,a,\gamma)| = 1$ entonces $\delta(q,a,\beta) = \emptyset$ para toda $\beta \in \Gamma^{\le k}$ tal que $\gamma \in \text{Pre}(\beta)$;
 		\item $q_0 \in Q$ es el \emph{estado inicial};
 		\item $F \subseteq Q$ es el conjunto de \emph{estados finales};
@@ -939,8 +956,9 @@ Todas las definiciones que dimos para los autómatas de pila determinísticos la
 	Sea $L \subseteq \Sigma^{*}$ y $k \in \NN$ entonces existe $\cal M$ \APD tal que $L({\cal M}) =  L$ si y solo si existe ${\cal N}$ k-\APD tal que $L({\cal N}) = L$. 
 \end{prop}
 \begin{proof}
-	\TODO{Revisar demo y refactorizar.}
-	Si existe ${\cal M} = (Q, \Sigma, \Gamma, \delta_{\cal M}, q_0, F, \$)$ \APND tal que $L({\cal M}) = L$ luego $\cal M$ es un $k$-\APD por lo tanto nos basta con tomar ${\cal N}={\cal M}$. 
+	Si existe ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ \APD tal que $L({\cal M}) = L$ luego $\cal N = (Q, \Sigma, \Gamma, \delta', q_0, F, \$)$ es un $k$-\APD con función de transición $\delta'(q,a,z) = \delta(q,a,z)$ para toda 
+	$q \in Q, a \in \Sigma \cup \{\epsilon\}, z \in \Gamma$ y tal que $\delta(q,a,\gamma) = \emptyset$ para toda otra $\gamma \in \Gamma^{\le k}$.
+	Con esta definicón vemos que $L({\cal M}) = L({\cal N})$.	
 	% vamos a construir $\cal N$ un k-\APND tal que $L({\cal N}) = L$.
 	% Sea ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ donde  $\delta_{\cal M}(q,a,z) = (p,\gamma) \iff  \delta_{\cal N}(q,a,z\beta)  =(p, \gamma)$.
 	% Por como lo definimos obtenemos que $L({\cal M}) = L({\cal N})$.
@@ -968,21 +986,50 @@ Todas las definiciones que dimos para los autómatas de pila determinísticos la
 	Sean $q \in Q, a \in \Sigma \cup \{ \epsilon \}, \gamma = \gamma_{1} \dots \gamma_{i} \in \Gamma^{\le k}, w \in \Sigma^{*}$
 	entonces  
 	\[ 
-		(q,aw,\gamma \alpha) \underset{\cal N}{\vdash} (p,w,\beta \alpha) 
+		(q_{0},w,\$) \overset{*}{\vdash} (q,u,\beta) 
 		\implies
-		((q,\epsilon,\epsilon), aw, \gamma_{1}\gamma_{2}\dots \gamma_{i}\alpha) \underset{\cal M}{\vdash^{*}} 
-		((p,\epsilon,\epsilon), w, \beta \alpha) 	
+		((q_{0},\epsilon,\epsilon), w, \$) \overset{*}{\vdash} 
+		((q,\epsilon,\epsilon), u, \beta) 	
 	\]	
 	\end{aff}
-	\TODO{Escribir esta demostración.}
+	Dado que $\overset{*}{\vdash} \ = \underset{l \in \NN}{\bigcup} \overset{l}{\vdash}$.
+	Vamos a probar esta afirmación por inducción en la longitud de la derivación $(q_{0},w,\$) \overset{l}{\vdash} (q,u,\beta)$.
+
+	Caso base tenemos que $l=0$ y no tenemos nada para probar. 
+
+	Para el paso inductivo tenemos que si $u = au'$ con $a \in \Sigma \cup \{ \epsilon \}$, $u' \in \Sigma^{*}$ y $\gamma = \gamma_{0}\dots \gamma_{j} \in \Gamma^{\le k}$ entonces:
+	\[
+		(q_{0},w,\$) \overset{l}{\vdash} (q,u, \gamma \beta) 
+		\vdash (p,u',\alpha \beta)	
+	\] 
+	y por la hipótesis inductiva 
+	$((q_{0},\epsilon,\epsilon), w, \$) \overset{*}{\vdash} 
+	((q,\epsilon,\epsilon), u, \beta)$.
+	Debemos ver que $((q,\epsilon,\epsilon), au', \gamma \beta) 
+	\overset{*}{\vdash} ((p,\epsilon,\epsilon),u',\alpha\beta)$.
+	Como $(q,u, \beta) \vdash (p,u',\alpha)$ esto quiere decir que 
+	$\delta(q,a,\gamma) = (p,\alpha)$ y como $\gamma \in {\cal U}$ entonces tenemos la siguiente derivación
+	\[
+		((q,\epsilon,\epsilon), au', \gamma_{0} \dots \gamma_{j}\beta) \vdash ((q,a,\gamma_{0}),u',\gamma_{1} \dots \gamma_{j}\beta) \overset{*}{\vdash} ((q,a,\gamma),u',\beta) 
+		\vdash 	((p,\epsilon,\epsilon),u',\alpha \beta).
+	\]
+	terminando así de probar la afirmación.
 
 	Sea $w \in L({\cal N})$ luego $(q_{0},w,\$) \overset{*}{\vdash} 
 	(q,\epsilon, \gamma)$ para ciertos $q \in F$ y $\gamma \in \Gamma^{*}$.
 	Por la afirmación obtenemos que $((q_{0},\epsilon, \epsilon),w,\$) \overset{*}{\vdash} ((q,\epsilon,\epsilon),\epsilon,\gamma)$ por lo tanto $w \in L({\cal M})$.
 
 	Sea $w \notin L({\cal N})$ luego $(q_{0},w,\$) \overset{*}{\vdash} 
-	(p,u, \gamma)$ para ciertos $p \in Q$, $\gamma \in \Gamma^{*}$ y $u \in \Sigma^{*}$.
-	Por la afirmación obtenemos que $((q_{0},\epsilon, \epsilon),w,\$) \overset{*}{\vdash} ((p,\epsilon,\epsilon),u,\gamma)$ por lo tanto $w \notin L({\cal M})$.
+	(q,u, \beta)$ para ciertos $q \in Q$, $\beta \in \Gamma^{*}$ y $u \in \Sigma^{*}$ tal que $(q,u, \beta)$ es una configuración irreducible tal que cumple alguna de las siguientes dos condiciones: 
+	$u \neq \epsilon$ o $q \notin F$.
+	Por la afirmación obtenemos que $((q_{0},\epsilon, \epsilon),w,\$) \overset{*}{\vdash} ((q,\epsilon,\epsilon),u,\beta)$.
+
+
+	Si $u \neq \epsilon$ entonces tenemos que 
+	$u = a u'$ con $a \in \Sigma \cup \{ \epsilon	\}$, $u' \in \Sigma^{*}$ 
+	por lo tanto $\delta(q,a,\gamma) = \emptyset$ para toda $\gamma \in \text{Pre}(\beta)$ por lo tanto si $\beta = z \beta'$ con $z \in \Gamma, \beta' \in \Gamma^{*}$ entonces $\delta'(q,a,z) = \emptyset$.
+	Así $w \notin L({\cal M})$.
+	Si $q \notin F$ entonces $(q,\epsilon,\epsilon) \notin F'$ y así $w \notin L({\cal M})$.
 
 	Concluimos que $L({\cal M}) = L({\cal N})$ tal como queríamos ver.
 \end{proof}
