@@ -696,7 +696,6 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 	Todo lenguaje $L$ \ic determinístico especial es \ic determinístico.
 \end{prop}
 \begin{proof}
-	\TODO{Creo que esta demo puede verse como un caso de una demo de "simulación", voy a ver si encuentro una manera más compacta de escribirla.}
 	Como $L$ es un lenguaje \ic determinístico especial entonces existe ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{+}$ tal que $L({\cal M}, \gamma) = L$.
 	Sea $n = |\gamma|$ de manera que $\gamma = \gamma_{n-1} \dots \gamma_{0}$.
 	Vamos a construir un automata de pila determinístico $\cal{M'}$ tal que $L({\cal{M}}') = L({\cal{M}},\gamma)$.
@@ -964,7 +963,7 @@ Todas las definiciones que dimos para los autómatas de pila determinísticos la
 	% Por como lo definimos obtenemos que $L({\cal M}) = L({\cal N})$.
 	
 
-	Si existe ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ k-\APND tal que $L({\cal N}) = L$ luego sean:
+	Si existe ${\cal N} = (Q, \Sigma, \Gamma, \delta_{\cal N}, q_0, F, \$)$ k-\APD tal que $L({\cal N}) = L$ luego sean:
 	${\cal U} = \{ \gamma \in \Gamma^{\le k} \mid \exists q \in Q, a \in \Sigma \cup \{\epsilon\}, \ |\delta(q,a,\gamma)| = 1 \}$,
 	$Q' =  Q \times (\Sigma \cup \{\epsilon\}) \times \text{Pre}({\cal U})$,
 	$q_{0}' = (q_{0}, \epsilon, \epsilon)$, 
