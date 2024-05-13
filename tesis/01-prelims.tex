@@ -955,7 +955,7 @@ Todas las definiciones que dimos para los autómatas de pila determinísticos la
 	Sea $L \subseteq \Sigma^{*}$ y $k \in \NN$ entonces existe $\cal M$ \APD tal que $L({\cal M}) =  L$ si y solo si existe ${\cal N}$ k-\APD tal que $L({\cal N}) = L$. 
 \end{prop}
 \begin{proof}
-	Si existe ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ \APD tal que $L({\cal M}) = L$ luego $\cal N = (Q, \Sigma, \Gamma, \delta', q_0, F, \$)$ es un $k$-\APD con función de transición $\delta'(q,a,z) = \delta(q,a,z)$ para toda 
+	Si existe ${\cal M} = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ \APD tal que $L({\cal M}) = L$ luego ${\cal N} = (Q, \Sigma, \Gamma, \delta', q_0, F, \$)$ es un $k$-\APD con función de transición $\delta'(q,a,z) = \delta(q,a,z)$ para toda 
 	$q \in Q, a \in \Sigma \cup \{\epsilon\}, z \in \Gamma$ y tal que $\delta(q,a,\gamma) = \emptyset$ para toda otra $\gamma \in \Gamma^{\le k}$.
 	Con esta definicón vemos que $L({\cal M}) = L({\cal N})$.	
 	% vamos a construir $\cal N$ un k-\APND tal que $L({\cal N}) = L$.
@@ -1182,11 +1182,6 @@ Notemos en particular que un grupo virtualmente libre cumple que es finitamente 
 		
 	\end{enumerate}
 \end{ej}
-
-
-
-
-
 
 
 \section{Grafos no dirigidos.}\label{secc_graf_nd}
