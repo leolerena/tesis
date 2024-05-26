@@ -676,7 +676,7 @@ El mismo ejemplo del lenguaje de los palíndromos nos sirve como contraejemplo.
 %
 %Primero veamos una propiedad necesaria para que un lenguaje sea aceptado por un autómata determinístico por pila vacía. 
 
-Dado $A$ un conjunto definimos $A^{+} = A^{*} \setminus \{ \epsilon \}$.
+%Dado $A$ un conjunto definimos $A^{+} = A^{*} \setminus \{ \epsilon \}$.
 
 \begin{deff}
 	Sea ${\cal {M}} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ un autómata de pila determinístico. 
@@ -684,7 +684,7 @@ Dado $A$ un conjunto definimos $A^{+} = A^{*} \setminus \{ \epsilon \}$.
 	\[
 		L({\cal M}, \gamma) = \{ w \in \Sigma^{*} \mid (q_{0},w,\$) \overset{*}{\vdash} (q, \epsilon, \gamma), \ q \in F  \}
 	\]
-	tal que lo llamaremos el lenguaje aceptado por estado final y palabra $\gamma \in \Gamma^{+}$ en la pila.
+	tal que lo llamaremos el lenguaje aceptado por estado final y palabra $\gamma \in \Gamma^{*} \setminus \{ \epsilon \}$ en la pila.
 	Si $L = L({\cal M}, \gamma)$ para cierto $\cal M$ \APD entonces diremos que $L$ es un \emph{lenguaje \ic determinístico especial}. 
 \end{deff}
 
@@ -692,11 +692,18 @@ En nuestro caso en particular nos va a interesar más que nada el caso que $\gam
 Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 
 
-\begin{prop}
+\begin{prop}\cite{CSSE2024DW}.
 	Todo lenguaje $L$ \ic determinístico especial es \ic determinístico.
 \end{prop}
 \begin{proof}
-	Como $L$ es un lenguaje \ic determinístico especial entonces existe ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{+}$ tal que $L({\cal M}, \gamma) = L$.
+	Dado que la demostración es bastante técnica explicamos primero la intuición detrás de la construcción. 
+	Dados $\cal M$ y $\gamma$ tales que  $L = L({\cal{M}},\gamma)$, vamos a construir un autómata de pila determinístico donde el alfabeto de pila es el alfabeto de pila de $\cal M$ con una coordenada extra que lleva la cuenta del tamaño actual de la pila, con la salvedad de que cuando la primera coordenada de la palabra apilada no es un prefijo de $\gamma$ la segunda coordenada pasa a indicar un estado de error en vez del tamaño. 
+	De esta manera la segunda coordenada nos permite saber si al terminar de consumir una palabra la primera coordenada de la pila es la palabra $\gamma$. 
+	La clave para que esto funcione es que al aplicar una transición, alcanza con ver el tope de la pila para computar la segunda coordenada de la palabra que debemos apilar.
+
+
+
+	Como $L$ es un lenguaje \ic determinístico especial entonces existe ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{*} \setminus \{ \epsilon \}$ tal que $L({\cal M}, \gamma) = L$.
 	Sea $n = |\gamma|$ de manera que $\gamma = \gamma_{n-1} \dots \gamma_{0}$.
 	Vamos a construir un automata de pila determinístico $\cal{M'}$ tal que $L({\cal{M}}') = L({\cal{M}},\gamma)$.
 	Sea
@@ -736,7 +743,7 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 	\begin{aff}
 		Si $w,u \in \Sigma^{*}$ y 	 
 	\[
-		(q_{0}, w, \$) \overset{*}{\vdash} (q, u, \beta_k ... \beta_0)
+		(q_{0}, w, \$) \overset{*}{\vdash} (q, u, \beta_k \dots  \beta_0)
 	\]
 		\quad \quad entonces
 	\[
@@ -744,7 +751,7 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 	\] 
 
 	Donde $t_0 = 0$ y 
-	$t_j = j \ \text{si} \ j \le n, \ \ \beta_{j-1}...\beta_0 = \gamma_{j-1}... .\gamma_0,$ y $t_{j} = \bot$ en caso contrario y donde $i = 1$ si $t_{k} = n-1$ y $\beta_{k} = \gamma_{n-1}$ e $i=0$ en caso contrario.
+	$t_j = j \ \text{si} \ j \le n, \ \ \beta_{j-1}\dots \beta_0 = \gamma_{j-1}\dots  .\gamma_0,$ y $t_{j} = \bot$ en caso contrario y donde $i = 1$ si $t_{k} = n-1$ y $\beta_{k} = \gamma_{n-1}$ e $i=0$ en caso contrario.
 	\end{aff}	
 	
 
@@ -753,20 +760,20 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 	\[
 		\overset{*}{\vdash} \ = \underset{l \in \NN}{\bigcup} \overset{l}{\vdash}.
 	\]
-	Entonces nos alcanza con probarlo por inducción en $l \in \NN$ de manera que $(q_{0}, w, \$) \overset{l}{\vdash} (q, u, \beta_k ... \beta_0)$.
+	Entonces nos alcanza con probarlo por inducción en $l \in \NN$ de manera que $(q_{0}, w, \$) \overset{l}{\vdash} (q, u, \beta_k \dots  \beta_0)$.
 
 	Para el caso base sea $l = 0$ entonces 
 	$((q_{0},c), w, (\$,0)) \overset{0}{\vdash} ((q_{0},c), w, (\$,0))$ 
 	y en este caso cumple con lo pedido.
 
-	Para el paso inductivo sabemos que si $(q_{0}, w, \$) \overset{l-1}{\vdash} (q, u, \beta_k ... \beta_0)$ entonces
+	Para el paso inductivo sabemos que si $(q_{0}, w, \$) \overset{l-1}{\vdash} (q, u, \beta_k \dots  \beta_0)$ entonces
 	\[
 		((q_0,c), w, (\$,0)) \overset{*}{\vdash} ((q,i), u, (\beta_k, t_k)\dots (\beta_0,t_0))	
 	\]
 	tal que $t_{0}, \dots t_{k}$ e $i$ cumplen las condiciones que aparecen en la afirmación.
 	Entonces si
 	\[
-		(q_{0}, w, \$) \overset{l-1}{\vdash} (q, u, \beta_k ... \beta_0) \vdash (p,u',\alpha_{m} \dots \alpha_{0}\beta_{k-1} \dots \beta_{0})	
+		(q_{0}, w, \$) \overset{l-1}{\vdash} (q, u, \beta_k \dots  \beta_0) \vdash (p,u',\alpha_{m} \dots \alpha_{0}\beta_{k-1} \dots \beta_{0})	
 	\]
 	notemos que por la definición del \APD ${\cal M}$ que $u = a u'$ con $a \in \Sigma \cup \{\epsilon\}$ y que $\delta(q,a,\beta_{k}) = \{ (p, \alpha_{m} \dots \alpha_{0}) \}$.
 	Usando la definición del \APD $\cal M'$ vemos que
@@ -780,7 +787,7 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 	\[
 		((q_0,c), w, (\$,0))  \overset{*}{\vdash} ((q,i), u, (\beta_k, t_k)\dots (\beta_0,t_0))	\vdash 	((p,i'),u',(\alpha_{m}, t_{m+k}) \dots (\alpha_{0}, t_{k}) (\beta_{k-1}, t_{k-1}) \dots (\beta_{0}, t_{0}))
 	\]
-	de manera tal que se cumplen las condiciones que aparecen en la afirmación. 
+	de manera tal que se cumplen las condiciones y así queda probada la afirmación. \qed
 	\smallskip
 
 	Si $w \in L({\cal M}, \gamma)$ entonces
@@ -847,12 +854,10 @@ Primero debemos ver que esta familia de lenguajes son \ic determinísticos.
 
 Ahora probemos que la familia de los lenguajes \ic determinísticos especiales están contenidos estrictamente en la familia de los lenguajes \ic determinísticos.
 
-\begin{prop}
+\begin{ej}
 	Existen lenguajes \ic determinísticos que no son \ic determinísticos especiales.
-\end{prop}
 
-\begin{proof}
-		Consideremos el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$.
+	Consideremos el lenguaje $L = \{ a^m b^n  : m \ge n \ge 1 \}$.
 		
 		Primero veamos que es aceptado por el siguiente \APD por estado final:
 		\[
@@ -908,7 +913,7 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 %		Similarmente usando las mismas configuraciones podemos ver que si $w \in L$ entonces $w \in L(\cal M)$.
 %		Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
 		
-		Para ver que no es aceptado por un \APD por estado final y una palabra $\gamma$ en la pila consideremos que ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{+}$ tal que $L({\cal M}, \gamma) = L$.
+		Para ver que no es aceptado por un \APD por estado final y una palabra $\gamma$ en la pila consideremos que ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{*} \setminus \{ \epsilon \}$ tal que $L({\cal M}, \gamma) = L$.
 		En este caso sea $m > |Q|$ luego si consideramos las palabras de la pinta $\{ a^mb, \dots, a^mb^m  \} \subseteq L$ por el principio del palomar tienen que existir $1 \le i < j \le m$ tales que $(q_{0},a^mb^i, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ y $(q_{0},a^mb^j, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ para un mismo estado final $q \in F$.
 		Entonces notemos que necesariamente $m - i > 0$ y que $m-i+j > m$ por lo que
 		\[
@@ -919,8 +924,9 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 		(q_{0},a^mb^{j+m-i}, \$) \overset{*}{\vdash} (p,\epsilon,\gamma)
 		\]
 		contradiciendo que $j+m-i \le m$ y así obtuvimos una contradicción que vino de suponer que el lenguaje $L$ era aceptado por estado final y por palabra $\gamma$ en la pila.
-	
-\end{proof}
+\end{ej}
+
+\bigskip		
 
 Dado $\Gamma$ conjunto finito y $k \in \NN$ 
 definimos $\Gamma^{\le k} = \{ \gamma \in \Gamma^{*} \mid |\gamma| \le k \}$.
@@ -949,6 +955,17 @@ definimos $\Gamma^{\le k} = \{ \gamma \in \Gamma^{*} \mid |\gamma| \le k \}$.
 \end{obs}
 
 Todas las definiciones que dimos para los autómatas de pila determinísticos las podemos adaptar fácilmente al caso de un k-autómata de pila determinístico.
+
+
+Un \emph{configuración} es un triple $(q,w,\gamma) \in Q \times \Sigma^{*} \times \Gamma^{*}$. 
+Si $\gamma \neq \epsilon$ luego 
+$\gamma = \beta \gamma'$ donde 
+$\beta \in \Gamma^{\le k}, \gamma' \in \Gamma^{*}$. 
+Diremos que $\beta$ es el tope de la pila en este caso.
+Sea una configuración $(q,w,\gamma)$ tal que $\beta$ es el tope de la pila de esta configuración por lo tanto $\gamma = \beta \gamma'$ y $w = aw'$ con $a \in \Sigma \cup \{\epsilon\}$ 
+entonces si $(p,\theta) \in \delta(q,a,\beta)$ luego denotaremos $(q,aw', \alpha\gamma') \vdash (p,w',\theta\gamma')$ y diremos que la configuración $(q,w,\gamma)$ \emph{deriva} en la configuración $(p,w',\theta\gamma')$.
+Una configuración $(q,w,\gamma)$ es \emph{irreducible} si no existe ninguna otra configuración $(p,u,\theta)$ de manera que $(q,w,\gamma) \vdash (p,u,\theta)$.
+
 
 \begin{prop}
 	\label{prop:equiv_kapnd_apnd}
@@ -1012,7 +1029,7 @@ Todas las definiciones que dimos para los autómatas de pila determinísticos la
 		((q,\epsilon,\epsilon), au', \gamma_{0} \dots \gamma_{j}\beta) \vdash ((q,a,\gamma_{0}),u',\gamma_{1} \dots \gamma_{j}\beta) \overset{*}{\vdash} ((q,a,\gamma),u',\beta) 
 		\vdash 	((p,\epsilon,\epsilon),u',\alpha \beta).
 	\]
-	terminando así de probar la afirmación.
+	terminando así de probar la afirmación. \qed
 
 	Sea $w \in L({\cal N})$ luego $(q_{0},w,\$) \overset{*}{\vdash} 
 	(q,\epsilon, \gamma)$ para ciertos $q \in F$ y $\gamma \in \Gamma^{*}$.
@@ -1037,11 +1054,16 @@ Todas las definiciones que dimos para los autómatas de pila determinísticos la
 	\label{coro:equiv_kapnd_apnd_esp}
 	Sea $L \subseteq \Sigma^{*}$ y $k \in \NN$ entonces existe 
 	${\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)$ 
-	\APD y $\gamma \in \Gamma^{+}$ tal que $L({\cal M}, \gamma) =  L$ 
+	\APD y $\gamma \in \Gamma^{*} \setminus \{ \epsilon \}$ tal que $L({\cal M}, \gamma) =  L$ 
 	si y solo si existe ${\cal N} = (Q', \Sigma, \Gamma, \delta', q_0', F', \$)$ k-\APD tal que $L({\cal N},\gamma) = L$.
 \end{coro}
 \begin{proof}
-	La misma construcción de la proposición \ref{prop:equiv_kapnd_apnd} nos sirve.
+	Tomamos $\cal N$ el automata construido en la demo de \ref{prop:equiv_kapnd_apnd}.
+	Luego $L({\cal M})=L({\cal N})$. 
+	Sea $w$ una palabra aceptada por $\cal M$ (y por $\cal N$). 
+	Entonces por la afirmación que probamos en la demo de \ref{prop:equiv_kapnd_apnd} vale que la palabra que queda en la pila al consumir la palabra $w$ es la misma para $\cal M$ y para $\cal N$. 
+	Esto prueba el corolario.
+
 \end{proof}
 
 
@@ -1061,13 +1083,14 @@ Enunciamos y damos definiciones estándares de la teoría de grupos que usaremos
 			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
 		\end{tikzcd}
 	\end{center}
-	
+	En este diremos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
 \end{deff}
 
 \begin{obs}
 	Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
 	En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
 	Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $A$ tal que $|A| = k$.
+	En particular si $F$ es un grupo libre tal que $F \simeq F_{\{ 1, \dots, k \}}$ luego diremos que $k$ es el \emph{rango} de $F$.
 \end{obs}
 
 Todo grupo en particular es un monoide.
