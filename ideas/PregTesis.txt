@@ -1,0 +1,15 @@
+1) ¿Los lenguajes IC especiales a qué gramática corresponden?
+
+2) ¿Los lenguajes IC especiales forman un cono?
+
+3) Si X es un grafo de Cayley tal que tiene treewidth finito entonces X tiene treewidth conexo finito.
+
+4) Si X tiene una desc tal que al tomarle la clausura conexa deja de tener tw finito se podría conseguir otra tal que cumpla esta propiedad? Cómo interactua esta propiedad de manera algorítmica?
+
+5) ¿En qué casos podemos tomar el árbol de la descomposición para que sea el árbol de Bass-Serre?
+
+6) Se podrá entender el treewidth como si fuera armar un rompecabezas. Pienso en el ejemplo de un producto libre de ciclicos. En ese caso el grafo de Cayley pareciera ser que está armado a partir de los grafos de estos grupos cíclicos que tienen treewidth finito y se pegan bien(?). No sé si un argumento así se puede usar para probar que tienen tw finito.
+
+7) En qué casos podría ver que el árbol de la desc. es tal que el grupo G actúa sobre él. En cierta manera estaría bueno que G actúa sobre los bolsones (es lo que sucede con los bloques del grafo en el capítulo 5).
+
+8) Si tuviera una manera de acotar uniformemente d(v,w) para v,w in beta C ent podría concluir que la descomposición es tal que los bolsones son conexos también. ¿Puedo acotar uniformemente d(v,w) para v,w in beta C?
