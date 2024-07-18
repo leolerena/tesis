@@ -4,7 +4,7 @@
 	
 \chapter{Grafos de Cayley.} \label{seccion_treewidth}
 
-Las principales referencias de este capítulo son \cite{diekert2017context}, \cite{kuske2005logical} y \cite{diestel2005graph}.
+Las principales referencias de este capítulo son los trabajos de Diekert y Weiss \cite{diekert2017context}, Kuske y Lohrey \cite{kuske2005logical} y el libro de texto de Diestel \cite{diestel2005graph}.
 
 En la primer sección \ref{secc_tw} introducimos las descomposiciones en árboles para grafos no dirigidos y la definición del treewidth finito.
 El ejemplo \ref{desc-grafo-cayley} de la descomposición en un árbol para el grafo de Cayley de un grupo finitamente generado va a ser crucial en la demostración del teorema principal de este capítulo.
@@ -27,21 +27,40 @@ Vamos a dar una primera definición que nos permite formalizar esta idea de que 
 	Una \emph{descomposición en un árbol} de un grafo $\Gamma$ es un par $(T,f)$ donde
 	$T$ es un árbol y $f$ un mapa 
 	\[
-	f: V(T) \to 2^{V(\Gamma)}
+	f: V(T) \to \partes{V(\Gamma)}
 	\]
 	Que cumple las siguientes condiciones:
 	\begin{enumerate}
 		\item[\textbf{T1.}] Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. 
 		\item[\textbf{T2.}] Para toda arista $\{v,w\} \in E(\Gamma)$ 
 		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
-		\item[\textbf{T3.}] Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$ dentro de $T$.  
+		\item[\textbf{T3.}] Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
 	\end{enumerate}
 	Dado $t \in V(T)$ llamaremos a $f(t) \in 2^{V(\Gamma)}$ un \emph{bolsón}.
 	 
 \end{deff}
 Notemos que la tercer condición \textbf{T3} se puede reescribir de la siguiente manera:
-dado $v \in V(\Gamma)$ entonces el conjunto $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ forma un subárbol de $T$.
+dado $v \in V(\Gamma)$ entonces el conjunto $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ forma un subgrafo conexo de $T$.
 \smallskip
+De esta manera tenemos la siguiente definición equivalente.
+
+
+\begin{prop}
+	Sea $\Gamma$ un grafo no dirigido y $T$ un árbol.
+	Sea $f:V(T) \to \partes{V(\Gamma)}$ entonces $(T,f)$ es una descomposición en un árbol si y solamente si:
+	\begin{enumerate}
+		\item[\textbf{T'1.}] Para todo $v \in V(\Gamma)$ el subgrafo $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ es un subgrafo conexo y no vacío de $T$.
+		\item[\textbf{T'2.}] Si $\{ v,w \} \in E(\Gamma)$ es una arista entonces $T_{v} \cap T_{w} \neq \emptyset$.
+	\end{enumerate} 
+\end{prop}
+\begin{proof}
+	Si $(T,f)$ es una descomposición en un árbol luego por las propiedades \textbf{T1} y \textbf{T3} podemos ver que esto implica que cumple la propiedad \textbf{T'1}.
+	Similarmente por la propiedad \textbf{T2} vemos que se cumple \textbf{T'2}.
+
+	Si $(T,f)$ cumple las condiciones \textbf{T'1} y \textbf{T'2} luego análogamente al caso anterior vemos que \textbf{T'1} implica que se cumple \textbf{T1} y \textbf{T3}.
+	Por otro lado \textbf{T'2} implica \textbf{T2}.
+\end{proof}
+
 
 Si queremos que una descomposición en un árbol de un grafo modele la idea que el grafo se parece a un árbol entonces vamos a requerir que los 
 bolsones no tengan muchos vértices. 
@@ -52,7 +71,7 @@ Esto nos conduce a la siguiente definición.
 \begin{deff}
 	Dado $\Gamma$ un grafo no dirigido y $(T,f)$ una descomposición en un árbol de $\Gamma$ el \emph{bagsize} de esta descomposición es el siguiente valor:
 	\begin{equation*}
-		bs(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1
+		bs(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
 	\end{equation*}
 	Un grafo $\Gamma$ tiene \emph{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
 \end{deff}
@@ -108,9 +127,14 @@ Esto nos conduce a la siguiente definición.
 	Por como lo construimos tenemos que $bs(\Gamma, T, f) = 3$.
 \end{ej}
 
-\begin{obs}
+\begin{lema}
 	Si $\Gamma$ es un grafo finito entonces $\Gamma$ tiene treewidth finito. 
-\end{obs}
+\end{lema}
+\begin{proof}
+	Sea $T$ un árbol con un único elemento definido de la siguiente manera $V(T) = \{ t \}$ y $E(T) = \emptyset$.
+	Luego definimos $f: V(T) \to \partes{V(\Gamma)}$ por $f(t) = V(\Gamma)$.
+	Notemos que $(T,f)$ es una descomposición en un árbol para $\Gamma$ con bagsize $|V(\Gamma)| - 1$.	
+\end{proof}
 
 
 \begin{deff}
@@ -180,66 +204,82 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 	El caso base es que $|\gamma| = 0$ por lo tanto $v=w$. 
 	En este caso por ser $(T,f)$ una descomposición en un árbol tenemos que usando \textbf{T3} vale que $\{  t \in V(T) \mid v \in f(t) \}$ es un subárbol, por lo que $v \in f(t_{3})$.
 	
+	Si $|\gamma| = 1$ luego $\gamma = v_{0}v_{1}$.
+	Por la propiedad \textbf{T2} tenemos que necesariamente debe existir $t' \in V(T)$ tal que 
+	$v_{0}, v_{1} \in f(t')$.
+	Esto nos dice que $t' \in T_{v_{0}}$ y $t' \in T_{v_{1}}$. 
+	Como $T_{v_{0}}, T_{v_{1}}$ son subárboles de $T$ entonces 
+	$[t_{1}, t'] \in T_{v_{0}}$ y $[t', t_{2}] \in T_{v_{1}}$ por la propiedad \textbf{T3}.
+	Para finalizar notemos que necesariamente $t_{3} \in [t_{1},t']$ o bien $t_{3} \in [t',t_{2}]$.
+	En el primer caso obtenemos que $t_{3} \in T_{v_{0}}$ por lo tanto $v_{0} \in f(t_{3})$ y en el otro caso $t_{3} \in T_{v_{1}}$ por lo tanto $v_{1} \in f(t_{3})$.
+
+
 	Para el paso inductivo supongamos que vale para caminos de longitud $n$.
 	Sea $t' \in V(T)$ de manera que $v_{0}, v_{1} \in f(t')$ que existe por la propiedad \textbf{T2}.
-	Dado que 
-	$[t_{1}, t_{2}] = [t_{1}, t'][t',t_{2}]$
-	luego $t_{3}$ está en alguna de las dos geodésicas: $[t_{1},t']$ o bien en  $[t',t_{2}]$.
+	El vértice $t_{3}$ está en alguna de las dos geodésicas: $[t_{1},t']$ o bien en $[t',t_{2}]$.
 	
-	Si $t_{3}$ está en la primera geodésica entonces $t' = t_{3}$ y ya está porque nos alcanza con tomar $i=1$ de manera que $v_1 \in f(t_{3})$.
-	En el otro caso consideramos el camino de longitud $n$ dado por $(v_1, v_2, \dots v_n)$ y usando la hipótesis inductiva llegamos al resultado.	
+	Si $t_{3}$ está en la geodesica $[t_{1},t']$ luego $v_{0} \in f(t') \cap f(t_{1})$ entonces por la propiedad \textbf{T3} obtenemos que $v_{0} \in f(t_{3})$. 
+
+	Si $t_{3}$ está em la geodésica $[t_{2},t']$ luego el camino de longitud $n$ dado por $(v_1, v_2, \dots v_n)$ es tal que $v_{1} \in f(t')$ y $v_{n} \in f(t_{2})$ por lo tanto por la hipótesis inductiva obtenemos que existe $1 \le i \le n$ tal que $v_{i} \in f(t_{3})$.
+
 \end{proof}
 
 \begin{prop}\label{prop_tw_finitos_bolsones}
-	Sea $\Gamma$ un grafo no dirigido localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol $(T,f')$ de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
+	Sea $\Gamma$ un grafo no dirigido localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol $(T,f)$ de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
 	\[
 	|T_{v}| = | \{  t \in V(T) : \ v \in f'(t)  \} | < \infty.
 	\]
 \end{prop}
 \begin{proof}
-	Sea $(T,f)$ una descomposición en un árbol de $\Gamma$ tal que tiene bagsize finito.
+	Sea $(T,f')$ una descomposición en un árbol de $\Gamma$ de bagsize finito.
 	Por la propiedad \textbf{T2} tenemos que para cada arista 
-	$\{u,v\} \in E(\Gamma)$ existe al menos un vértice $t_{uv} \in V(T)$ de manera que $u,v \in f(t_{uv})$.
+	$\{u,v\} \in E(\Gamma)$ existe al menos un vértice $t_{\{u,v\}} \in V(T)$ de manera que $u,v \in f'(t_{\{u,v\}})$.
 	
-	Fijamos $v \in V(\Gamma)$ un vértice  de $\Gamma$.
+	Sea $v \in V(\Gamma)$ un vértice  de $\Gamma$.
 	Consideremos el siguiente conjunto de vértices de $T$
 	\[
-		\{  t_{uv} \in V(T) \mid \exists u \in V(\Gamma). \ \{ u,v \} \in f(t_{uv})  \}.
+		S_{v} =  \left\{  t_{\{u,v\}} \in V(T) \mid \{u,v\} \in E(v)  \right\}.
 	\]
-	Notemos que es un conjunto finito porque por hipótesis $\Gamma$ es un grafo localmente finito.
-	Sea $T'$ el subárbol finito de $T$ generado a partir de estos finitos vértices.
-	
-	Vamos a definir una descomposición en un árbol de $\Gamma$ usando este subárbol de manera que $|T_{v}| < \infty$.
-	Nuestra descomposición resulta ser $(T,f_{v})$ con $f_{v}$ definida de la siguiente manera
+	Observemos que $|S_{v}| < \infty$ porque $\Gamma$ es un grafo localmente finito por hipótesis.
+
+	Sea $T'$ el subárbol finito de $T$ generado a partir de los elementos de $S_{v}$.
+	% Vamos a definir una descomposición en un árbol de $\Gamma$ usando este subárbol de manera que $|T_{v}| < \infty$.
+	Definimos una descomposición en un árbol $(T,f_{v})$ con $f_{v}$ definida de la siguiente manera
 	
 	\[
 	f_{v}(t) = 
 	\begin{cases}
-		f(t)  \ \  &\text{si} \ \  t \in V(T') \\
-		f(t) \setminus \{  v \} \ \  &\text{si} \ \  t \notin V(T')
+		f'(t)  \ \  &\text{si} \ \  t \in V(T') \\
+		f'(t) \setminus \{  v \} \ \  &\text{si} \ \  t \notin V(T')
 	\end{cases}
 	\]
 	
 	
 	Chequeamos que sea trata de una descomposición en un árbol.
-	Las primeras dos condiciones \textbf{T1} y \textbf{T2} se siguen cumpliendo.
-	La condición \textbf{T3} es válida porque si tomamos $w \in V(\Gamma)$, tal que $w \neq v$, por nuestra construcción $T_{w}$ era un subárbol de $T$ y similarmente para el vértice $v$ tenemos que 
-	\[
-		\{ t' \in V(T') \mid v \in f_{v}(t') \}
-	\]	
-	es un subárbol generado a partir de una cantidad finita de vértices por lo tanto $T_{v}$ también es un árbol.
-	Con esto probamos que $(T,f_{v})$ es una descomposición en un árbol y como $|f_{v}(t)| \le |f(t)|$ para todo $t \in V(T)$ luego obtenemos que el bagsize de $(T,f_{v})$ también es finito.
+	Las primeras dos propiedadades \textbf{T1} y \textbf{T2} se siguen cumpliendo.
+	La propiedad \textbf{T3} requiere que para todo $w \in V(\Gamma)$ ver que $T_{w}$ es un subárbol de $T$.
+	Separamos en dos casos.
+	\begin{itemize}
+		\item Si $w \neq v$. 
+			En este caso $T_{w}$ es un subárbol porque $(T,f')$ es una descomposición en un árbol de $\Gamma$.
+
+		\item Si $w = v$.
+			En este caso $T_{v} = T'$ y éste es un subárbol de $T$ por construcción.
+	\end{itemize}
+	
+	Con esto probamos que $(T,f_{v})$ es una descomposición en un árbol y como $|f_{v}(t)| \le |f'(t)|$ para todo $t \in V(T)$ luego obtenemos que el bagsize de $(T,f_{v})$ también es finito.
 	
 	Hacemos este procedimiento para cada vértice $v \in V(\Gamma)$ de manera iterativa para obtener la descomposición en un árbol que buscábamos.
 	
 \end{proof}
 
 \begin{deff}
-	Sea $\Gamma$ un grafo no dirigido y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos los \emph{vecinos de $C$} por medio de 
+	Sea $\Gamma$ un grafo no dirigido y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos la \emph{vecindad de $C$} es una función 
+	$N: \partes{V(\Gamma)} \to \partes{V(\Gamma)}$ definida por medio de:
 	\[
-	N(C) = \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.
+	N(C) = C \cup \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.
 	\]
-	De esta manera dado $l \ge 2$ podemos definir recursivamente los \emph{l-ésimos vecinos} por medio de $N^l(C) = N(N^{l-1}(C))$.
+	Observemos que dado $l \ge 1$ entonces queda definida la \emph{l-ésima vecindad} por medio de $N^l(C) = N(N^{l-1}(C))$.
 \end{deff}
 
 
@@ -252,22 +292,37 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 
 \begin{prop}\label{prop-vecinos-desc}
 	Sea $\Gamma$ un grafo no dirigido y sea $(T,f)$ una descomposición en un árbol para $\Gamma$.
-	Dado $l \in \NN$ consideramos $(T,g)$ tal que $g(t) = N^l(f(t))$ entonces $(T,g)$ resulta ser una descomposición en un árbol para $\Gamma$.
+	Dado $l \in \NN$ consideramos $(T,g)$ tal que $g(t) = N^l(f(t))$. Entonces $(T,g)$ resulta ser una descomposición en un árbol para $\Gamma$.
 \end{prop}
 \begin{proof}
 	Probemos este resultado haciendo inducción en $l$.
-	
-	Consideremos el caso base $l=1$.
+	Notemos que, por inducción, alcanza con probarlo para $l =1$.
 	En este caso, las dos primeras condiciones de la descomposición en un árbol \textbf{T1} y \textbf{T2} se siguen cumpliendo porque no hicimos más que agrandar los bolsones. 
 	Esto es que $f(t) \subseteq g(t)$.
 	
 	Debemos ver que $(T,g)$ cumple \textbf{T3}.
 	Queremos ver que si fijamos $v \in V(\Gamma)$ el conjunto 
 	\[
-		T_{v} = \{ t \in V(T) \mid v \in g(t)  \}
+		T_{v}(g) = \{ t \in V(T) \mid v \in g(t)  \}
 	\]
 	forma un subárbol de $T$. 
-	Para ver esto nos basta con ver que $T_{v}$ es conexo.
+	Para ver esto nos basta con ver que $T_{v}(g)$ es conexo.
+
+	% Primero notamos que, recordando que $N({v}) = \{v\} \cup E(v)$, tenemos la siguiente igualdad de conjuntos:
+	% \[
+	% 	T_{v}(g) =  \bigcup_{w \in N(\{v\})} T_{w}(f).
+	% \]
+	% Probamos las dos contenciones.
+	% \begin{itemize}
+	% 	\item $\subseteq$.
+	% 		Si $t \in V(T)$ es tal que $v \in g(t)$ luego tenemos dos casos.
+	% 		Si $v \in f(t)$ entonces $v \in T_{v}(f)$ y por otro lado si $v \in N(f(t)) \setminus f(t)$ luego $v$
+
+	% 	\item $\supseteq$.
+
+	% \end{itemize}
+
+
 	Como los árboles son únicamente geodésicos podemos ver equivalentemente lo siguiente:
 	dados $t_{1}, t_{2} \in T_{v}$ entonces para todo $t_{3}$ que esté en la geodésica $[t_{1}, t_{2}]$ vale que $t_{3} \in T_{v}$. 
 	
@@ -277,9 +332,11 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 	Consideramos el camino de tres vértices $\gamma = (w,v,u)$ y usamos la proposición \ref{prop-camino-desc} para concluir que, sin pérdida de generalidad, $v \in f(t_{3})$.
 	De esta manera vemos que necesariamente $v \in g(t_{3})$ tal como queríamos ver.
 		
-	El paso inductivo se sigue directamente del caso base.
-	Esto se debe a que si sabemos que $(T,g)$ con $g(t) = N^{l-1}(f(t))$ forma una descomposición de un árbol entonces podemos usar el caso base para ver que los vecinos de esta descomposición siguen siendo otra descomposición en un árbol y con esto terminamos de probarlo porque $N^l(f(t)) = N (N^{l-1}(f(t)))$.
 \end{proof}
+
+\TODO{Comentarle a Iván: Me parece que su propuesta para esta demo no funciona.
+Creo que no vale decir que $T_{v}(g) =  \bigcup_{w \in N(\{v\})} T_{w}(f).$ porque no vale la contención del lado izq. en el lado der.}
+
 \medskip
 
 \begin{coro}\label{coro_vecinos_bagsize_grado}
@@ -288,7 +345,7 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 \begin{proof}
 	Para ver esto basta notar que si existe $k \in \NN$ de manera que  $|f(t)| \le k$ para todo $t \in V(T)$ entonces como $\Gamma$ tiene grado acotado uniformemente por $n \in \NN$ luego para todo $t \in V(T)$ vale que
 	\[
-		|N^{l} (f(t))| \le kn < \infty.
+		|N^{l} (f(t))| \le kn^{l} < \infty.
 	\]
 	
 \end{proof}
@@ -296,71 +353,134 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 \begin{deff}
 	Dado un grafo no dirigido $\Gamma$ y un conjunto de vértices $C \subseteq V(\Gamma)$ definimos el \emph{borde de vértices} de $C$ como
 	\[
-	\beta C =  N(C) \cap N(\ol{ C}).
+	\beta C =  N(C) \cap N({ C^{c}}).
 	\] 
 	El \emph{borde de aristas} de $C \subseteq V(\Gamma)$ se define como
 	\[
-	\delta C = \{  \{v,w \} \in E(\Gamma) \mid v \in C, w \in \ol C    \}.
+	\delta C = \{  \{v,w \} \in E(\Gamma) \mid v \in C, w \in  C^{c}    \}.
 	\]
 \end{deff}
+\begin{obs}
+	\label{obs:beta_separa_componentes}
+	Sea $\Gamma$ grafo no dirigido tal que $C \subseteq V(\Gamma)$ luego si  $C = \bigcup_{i \in I} C_{i}$ donde $C_{i} \cap C_{j} = \emptyset$ para todo par $(i,j) \in I \times I$ tales que $i \neq j$ entonces $\beta C = \bigcup_{i \in I} \beta(C_{i})$.
+\end{obs}
+
+Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
+Primero probamos un lema auxiliar.
+\newpage
+\begin{lema}
+	\label{lemma:grado_arbol}
+	Sea $\Gamma = (V,E)$ un grafo no dirigido y sea $\rho:V(\Gamma) \to \NN_{0}$ función tal que cumple las siguientes propiedades.
+	\begin{enumerate}
+		\item Existe un único $v_{0} \in V$ tal que $\rho(v_{0}) = 0$;
+		\item Para cada arista $\{v,w\} \in E$ vale que $|\rho(v) - \rho(w)|  = 1$;
+		\item Para todo $v \in V \setminus \{v_{0}\}$ existe un único $w \in V$ de manera tal que $\{v,w\} \in E$ y $\rho(w) = \rho(v) - 1$.
+	\end{enumerate}
+	Entonces $\Gamma$ es un árbol.
+\end{lema}
+\begin{proof}
+	Para ver que es un árbol debemos ver que es conexo y sin ciclos.
+	Dado $v \in V \setminus \{v_{0}\}$ definimos $s(v) = w \in V$ si $w$ satisface la propiedad \textbf{3}.
+	\begin{itemize}
+		\item \textbf{$\Gamma$ es conexo.}
+			Dado $v \in V \setminus \{v_{0}\}$ vamos a ver que hay un camino que une a $v$ con $v_{0}$.
+			El camino que tomamos es $(v, s(v), p^{2}(v), \dots, p^{\rho(v)}(v))$.
+			Tal que está bien definido porque $\{v,s(v)\}$ es una arista para todo $v \in V \setminus \{v_{0}\}$ y como $\rho(s(v)) = \rho(v) - 1$ luego necesariamente $s^{\rho(v)}(v) = v_{0}$.
 
 
-\begin{obs}\label{desc-grafo-cayley}%[Descomposición válida para todo grupo finitamente generado].
+		\item \textbf{$\Gamma$ es acíclico.}
+			Sea $\gamma = (v_{0}, \dots, v_{k})$ un camino cerrado luego sea $v_{i}$ el vértice en el camino tal que $\rho(v_{i})$ es maximal dentro de todos los vértices de $\gamma$.
+			Consideramos $v_{i-1}, v_{i+1}$ (podemos asumir que $i \neq 0$ y que $i \neq k$ por ser un camino cerrado) tales que por la propiedad \textbf{2} y por la elección de $v_{i}$ tenemos que
+			$\rho(v_{i}) = \rho(v_{i-1}) + 1 = \rho(v_{i+1}) + 1$.
+			Por la propiedad \textbf{3} concluimos que $v_{i-1} = v_{i+1}$ y así probamos que el camino no es simple.
+
+	\end{itemize}
+\end{proof}
+
+\begin{deff}
+	\label{desc-grafo-cayley}
+	%[Descomposición válida para todo grupo finitamente generado].
 	
-	Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
 	Sea $G$ un grupo finitamente generado por $A$ y $\Gamma = \text{Cay}(G,A)$ el respectivo grafo de Cayley de $G$. 
 	
 	
-	Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
+	Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ para todo $l \ge -1$ donde $N^{-1}(\{-1\}) = \emptyset$ por lo tanto $V_{-1} = \Gamma \setminus \emptyset = \Gamma$. 
 	Los vértices del árbol $T$ van a estar dados por los siguientes conjuntos:
 	\[
-	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \} \cup \{ 1 \}.
+	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \}.
 	\]
-	estamos tomando todos los posibles bordes de vértices 
+	Como $\Gamma$ es conexo entonces es la única componente conexa de $V_{-1}$ y así $\beta \Gamma = \emptyset$. 
+	Estamos tomando todos los posibles bordes de vértices 
 	de todas las componentes conexas de todos los $V_l$ con $l \in \NN$.
 	 
 	Antes de definir las aristas notemos lo siguiente.
 	Si $C$ es una componente conexa de $V_{l+1}$ entonces tiene que existir $D$ componente conexa de $V_{l}$ de manera tal que $C \subseteq D$.
 	Esto se debe a que $V_{l+1} \subseteq V_{l}$ y a su vez como $C$ es conexo si interseca a una componente conexa necesariamente tiene que estar incluido en esta componente.
 	Las aristas van a estar dadas por lo siguiente:
-	\[
-	E(T) = \{ \{ \beta C, \beta D \} : \exists l \in \NN / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}  \} \cup \{  \{1,\beta C\} : C \subseteq V_0  \}
-	\]
 	
+	\begin{align*}
+		E(T) &= \{ \  \{ \beta C, \beta D \} : 
+		\exists l \in \ZZ_{\ge -1} / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}, \\ 
+		& \text{C componente conexa de $V_{l+1}$ y D componente conexa de $V_{l}$}   \} \\
+	\end{align*}
 	Probemos que el grafo $T$ resulta ser un árbol. 
 	
-	\begin{enumerate}[$\bullet$]
-		\item \textbf{$T$ es conexo.}
-		Probaremos la siguiente afirmación que va a implicar la conectividad de $T$:
-		Para todo $\beta C \in V(T)$ existe un camino que lo conecte con $1$.
-		Lo probaremos por inducción en $l$ siendo $l \in \NN$ tal que $C$ es una componente conexa de $V_{l}$.
-		
-		El caso base es $l = 0$ y en este caso tenemos que $\{ 1, \beta C  \}$ para toda componente conexa $C \in V_{0}$ por definición de las aristas de $T$.
-		
-		Para el paso inductivo suponemos que todo $\beta D$ para $D$ componente conexa de $V_{l}$ está conectado con $1$.
-		Sea entonces $C$ componente conexa de $V_{l+1}$ entonces necesariamente tiene que existir $D$ componente conexa de $V_{l}$ tal que $C \subseteq D$ dado que $C$ es conexo y $V_{l+1} \subseteq V_{l}$.
-		Esto nos dice que $\{ \beta C, \beta D \} \in V(\Gamma)$ y así como $\beta D$ está conectado con $1$ vimos que $\beta C$ también lo está.
-		
-		\item \textbf{$T$ es acíclico.}
-		Probemos que todo camino cerrado en $T$ no es simple.
-		Para eso sea $\gamma$ un camino cerrado (no constante sino no hay nada que probar) en $T$ tal que empieza y termina en $\beta E$ donde $E$ es alguna componente conexa para algún $V_{k}$.
-		Sea $C$ tal que $\beta C$ es uno de los vértices del camino $\gamma$ y es componente conexa de $V_{l}$ con $l$ maximal en el camino.
-		Supongamos sin pérdida de generalidad que $E$ es distinto de $C$ porque sino podemos modificar el comienzo y final del camino porque es un camino cerrado.
-		Necesariamente tenemos que si $\{ \beta D, \beta C \}$ es una arista del camino entonces $D$ es componente conexa de $V_{l-1}$.
-		Esto nos dice que el camino $\gamma$ tiene la siguiente pinta
-		\[
-			\gamma = (\beta E, \dots, \beta D, \beta C, \beta D, \dots, \beta E)
-		\]
-		por lo que el camino no es simple dado que tiene dos veces a la misma arista $\{ \beta C, \beta D \}$.
-		
+	Sea $\rho:V(T) \to \NN_{0}$ definida por
+	\[
+	\rho(t) = 	l+1  \ \  \text{si} \ \  t = \beta C \ \text{y}  \ C \ \text{componente conexa de $V_{l}$} \\
+	\]
+	Probamos que $\rho$ cumple las tres propiedades del lema \ref{lemma:grado_arbol}.
+	\begin{enumerate}
+		\item El único $t \in V(T)$ que cumple que $\rho(t) = 0$ es $t = \emptyset$.
+		\item 
+			Si $\{t,s\} \in E(T)$ luego $t = \beta C$ tal que $C$ es componente conexa de $V_{l}$ por lo que $\rho(\beta C) = l$. 
+			Por otro lado $s = \beta D$ para $D$ componente conexa de $V_{l-1}$ o $V_{l+1}$ y así $\rho(\beta D) = l-1$ o $\rho(\beta D) = l+1$ y vemos que $|\rho(\beta C) - \rho(\beta D)| = 1$ tal como queríamos.
+			
+		\item 
+			Sea $t \in V(T) \setminus \{\emptyset \}$ luego $t = \beta C$ para $C$ una componente conexa de $V_{l}$ para cierto $l \ge 0$. Entonces necesariamente por ser conexo debe existir una única $D$ componente conexa de $V_{l-1}$ tal que $C \subseteq D$. 
 	\end{enumerate}
+	
+	% \begin{enumerate}[$\bullet$]
+	% 	\item \textbf{$T$ es conexo.}
+	% 	Probaremos la siguiente afirmación que va a implicar la conectividad de $T$:
+	% 	Para todo $\beta C \in V(T)$ existe un camino que lo conecte con $1$.
+	% 	Lo probaremos por inducción en $l$ siendo $l \in \NN$ tal que $C$ es una componente conexa de $V_{l}$.
+		
+	% 	El caso base es $l = 0$ y en este caso tenemos que $\{ 1, \beta C  \}$ para toda componente conexa $C \in V_{0}$ por definición de las aristas de $T$.
+		
+	% 	Para el paso inductivo suponemos que todo $\beta D$ para $D$ componente conexa de $V_{l}$ está conectado con $1$.
+	% 	Sea entonces $C$ componente conexa de $V_{l+1}$ entonces necesariamente tiene que existir $D$ componente conexa de $V_{l}$ tal que $C \subseteq D$ dado que $C$ es conexo y $V_{l+1} \subseteq V_{l}$.
+	% 	Esto nos dice que $\{ \beta C, \beta D \} \in V(\Gamma)$ y así como $\beta D$ está conectado con $1$ vimos que $\beta C$ también lo está.
+		
+	% 	\item \textbf{$T$ es acíclico.}
+	% 	Probemos que todo camino cerrado en $T$ no es simple.
+	% 	Para eso sea $\gamma$ un camino cerrado (no constante sino no hay nada que probar) en $T$ tal que empieza y termina en $\beta E$ donde $E$ es alguna componente conexa para algún $V_{k}$.
+	% 	Sea $C$ tal que $\beta C$ es uno de los vértices del camino $\gamma$ y es componente conexa de $V_{l}$ con $l$ maximal en el camino.
+	% 	Supongamos sin pérdida de generalidad que $E$ es distinto de $C$ porque sino podemos modificar el comienzo y final del camino porque es un camino cerrado.
+	% 	Necesariamente tenemos que si $\{ \beta D, \beta C \}$ es una arista del camino entonces $D$ es componente conexa de $V_{l-1}$.
+	% 	Esto nos dice que el camino $\gamma$ tiene la siguiente pinta
+	% 	\[
+	% 		\gamma = (\beta E, \dots, \beta D, \beta C, \beta D, \dots, \beta E)
+	% 	\]
+	% 	por lo que el camino no es simple dado que tiene dos veces a la misma arista $\{ \beta C, \beta D \}$.
+		
+	% \end{enumerate}
 	  
-	Sea entonces $f: V(T) \to 2^{V(\Gamma)}$ la función definida por $f(\beta C) = \beta C$ donde en el lado izquierdo lo miramos como un vértice del árbol $T$ y en el lado derecho como un conjunto de vértices de $\Gamma$.
+	Sea entonces $f: V(T) \to \partes{V(\Gamma)}$ la función definida por 
+	\[
+		f(\beta C) =
+		\begin{cases}
+			\beta C & \text{si $\beta C \neq \emptyset$} \\
+			\{1\}       & \text{si $\beta C = \emptyset$   } \\
+		\end{cases}
+	\]
+	 donde en el lado izquierdo lo miramos como un vértice del árbol $T$ y en el lado derecho como un conjunto de vértices de $\Gamma$.
 	Afirmamos que $(T,f)$ es una descomposición en un árbol para el grafo de Cayley $\Gamma$.
 	Para verlo debemos ver que cumple las tres condiciones \ref{desc-arbol} de la definición. 
 	\begin{enumerate}
 		\item[\textbf{T1.}] Sea $g \in V(\Gamma)$ luego si $d(1,g) = l$
-		tenemos que $g \in C \subseteq V_{l-1}$ para cierta $C$ componente conexa de $V_{l-1}$ y en particular $g \in \beta C$.		 
+		tenemos que $g \in \beta C$ para cierta $C$ componente conexa de 
+		$V_{l-1}$.		 
 		
 		
 		\item[\textbf{T2.}] Sea una arista $\{g,h\} \in E(\Gamma)$. 
@@ -372,9 +492,7 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 			d(g,1)= l = d(h,1)
 		\] 
 		luego tiene que existir $C$ componente conexa de $V_{l-1}$ 
-		tal que $g,h \in C$ dado que ambos vértices están conectados.
-		Tenemos en particular que $g,h \in \beta C$.
-		
+		tal que $g,h \in \beta C$ dado que ambos vértices están conectados.
 		
 		El otro caso es que las distancias al vértice $1$ son distintas aunque necesariamente están restringidas a que sean del tipo
 		\[
@@ -383,15 +501,19 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 		y en este caso resulta que $g,h \in \beta C$ si $C$ es la componente conexa que contiene a $h$ en $V_l$.
 		
 		\item[\textbf{T3.}] Queremos ver que si fijamos $g \in V(\Gamma)$ entonces el subgrafo $T_{g} = \{ t \in V(T) \mid g \in f(t) \} $ es un subárbol de $T$.
-		Para eso notemos que si $d(g,1) = l$ luego $g \in \beta V_{l-1}$ y $g \in \beta V_{l}$ y para cualquier otro valor $j$ no vale que $g \in \beta V_{j}$.
+		Si $d(g,1) = l$ luego $g \in \beta V_{l-1}$ y $g \in \beta V_{l}$ y para cualquier otro valor $j$ no vale que $g \in \beta V_{j}$.
 		
-		Existe una única componente conexa $D \in V_{l-1}$ de manera que $g \in \beta D$. 
+		Por la observación \ref{obs:beta_separa_componentes} tenemos que:
+		\[
+			\beta V_{l} = \underset{\text{\scriptsize $C_{i}$ componente conexa de $V_{l}$}}{\bigcup} \beta(C_{i}).
+		\]
+		Entonces existe una única componente conexa $D \in V_{l-1}$ de manera que $g \in \beta D$. 
 		Por otro lado como el grafo de Cayley de un \fg es localmente finito entonces existen finitas componentes conexas $C_{1}, \dots, C_{k}$ de $V_{l}$ de manera que $g \in \beta C_{1}, \dots, g \in \beta C_{k}$.
 
 		Notemos que $T_{g}$ es conexo porque para todo $\beta C_{i}$ vale que $\{ \beta D, \beta C_{i} \} \in E(T)$ por lo que $T_{g}$ resulta ser un subárbol de $T$ tal como queríamos ver.
 		 
 	\end{enumerate}
-\end{obs}
+\end{deff}
 
 \begin{ej}\label{ej_tw_c2c3}
 	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ tal que tiene la siguiente presentación $G \simeq \langle a,b \mid a^2, b^3 \rangle$.
