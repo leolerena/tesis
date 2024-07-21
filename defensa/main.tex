@@ -6,8 +6,10 @@
 
 \title{El problema de la palabra de los grupos virtualmente libres.}
 \subtitle{Defensa de tesis de licenciatura.}
-\date{? de marzo de 2024.}
-\author{Leopoldo Lerena}
+\date{??.}
+\author{Leopoldo Lerena \\
+		Director: Iván Sadofschi Costa				
+		}
 \institute{Universidad de Buenos Aires}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
@@ -30,9 +32,36 @@
 				\textbf{Pregunta}: Decidir si vale $w=1$ en $G$.
 		\end{itemize}
 		
-		Existe un grupo $G$ \fg tal que su problema de la palabra no es decidible.
+		\alert{El problema de la palabra no es decidible.}
+	\end{frame}
+
+	\begin{frame}[fragile]{Grafo de Cayley.}
+		Dado un grupo $G$ finitamente generado por $A$ podemos considerar un grafo $\Gamma =\cay{G}{A}$ que es el grafo de Cayley.
+
+		Está definido de manera que 
+		\[
+			V(\Gamma) = G,   \ \ \ E(\Gamma) = \{ \{ g,ga \}  \mid g \in G, a \in A \cup A^{-1}  \}. 	
+		\]
 	\end{frame}
 	
+	\begin{frame}[fragile]{Grupos libres.}
+		Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función  $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
+	Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
+	Equivalentemente el siguiente diagrama conmuta,
+	\begin{center}
+		\begin{tikzcd}
+			F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
+			&  &   \\
+			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
+		\end{tikzcd}
+	\end{center}
+	En este diremos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
+	\end{frame}
+
+	\begin{frame}[fragile]{Grupos virtualmente libres.}
+		Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y si
+	tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.
+	\end{frame}
 
 	\begin{frame}[fragile]{Teoría de lenguajes.}
 		Dado un conjunto finito $A$ notaremos por $A^*$ al monoide libre sobre $A$.
@@ -41,38 +70,192 @@
 			Un lenguaje $L$ sobre un alfabeto $A$ es un subconjunto de $A^*$.
 		\end{deff}	
 		
-		Podemos clasificar los lenguajes de acuerdo a qué tipo de máquina las acepta.
-		
-		Un lenguaje \ic{} es un lenguaje aceptado por un \APND.
-			
+		\alert{Ejemplo.}
+			Dado un grupo $G$ finitamente generado por $A$ consideramos el lenguaje $\WP{G}{A} = \{ w \in (A \cup A^{-1})^{*} \mid w = 1 \ \text{en $G$} \}$.
+
 	\end{frame}
 	
+	\begin{frame}[fragile]{Gramáticas.}
+		\begin{deff}
+			Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
+			\begin{itemize}
+				\item $V$ es un conjunto finito denominado las \emph{variables};
+				\item $S \in V$ es el \emph{símbolo inicial};
+				\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
+				\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
+			\end{itemize}
+		\end{deff}
+
+		Las producciones $(\gamma, \nu) \in P$, las vamos a denotar por medio de la siguiente notación $\gamma \to \nu$.
+
+
+		\begin{deff}
+			Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
+			\[
+			L({\cal G}) = \{ w \in \Sigma^* \ | \ S \deriva w   \}.
+			\]
+		\end{deff}
+	\end{frame}
 	
-	
+	\begin{frame}{Gramáticas regulares.}
+		\begin{deff}
+			Decimos que una gramática $\gramatica$ es \emph{regular} si las producciones son del estilo
+	\begin{enumerate}
+		\item $A \to \epsilon$
+		\item $A \to a$
+		\item $A \to a B$
+	\end{enumerate}
+	donde $A, B \in V$, $a \in \Sigma$ y $\epsilon$ es la palabra vacía. 
+	Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \emph{lenguaje regular}.
+		\end{deff}
+	\end{frame}
+
+	\begin{frame}{Gramáticas independiente de contexto.}
+		\begin{deff}
+			Una gramática $\gramatica $ es \emph{independiente de contexto} si las producciones tienen la siguiente forma:
+			\begin{equation*}
+				A \to w
+			\end{equation*}
+			donde $A \in V, w \in (\Sigma \cup V)^*$.  
+			Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.
+		\end{deff}
+		
+	\end{frame}
+
+	\begin{frame}{Jerarquía de Chomsky.}
+		Tenemos la siguiente relación entre los lenguajes independiente de contexto y lenguajes regulares.
+
+
+			\centering
+			\includegraphics[scale = 0.65]{Chomsky-hierarchy.png}
+		
+	\end{frame}
+
+	\begin{frame}[fragile]{Clasificación del problema de la palabra.}
+		
+		\begin{teo}[Animisov--1971]
+			Sea $G$ un grupo entonces $\WP{G}{A}$ es regular si y solo si $G$ es finito.
+		\end{teo}
+
+		\begin{alertblock}{Pregunta natural.}
+			¿Cómo podemos caracterizar a los grupos cuyo lenguaje del problema de la palabra es independiente de contexto?
+		\end{alertblock}
+	\end{frame}
 	
 	\begin{frame}[fragile]{Teorema de Muller-Schupp.}
 		
-		
-		El problema de la palabra lo podemos considerar como un lenguaje formal:
-		\[
-		\WP{G}{A \cup A^{-1}} = \{ w \in (A \cup A^{-1})^* \mid w = 1 \}
+		\[	
+			\begin{tikzpicture}{scale = 0.75}
+				\path 
+				(0,0) node(a) [rectangle,draw] {Grupo fundamental de un grafo de grupos finito}
+				(5,-3) node(b) [rectangle,draw] {Treewidth finito}
+				(0,-6) node(c) [rectangle,draw] {Independiente de contexto}
+				(-5,-3) node (d) [rectangle,draw] {Virtualmente libre};
+				\draw   
+				(d) edge[<-,line width=1.0pt,"Teorema \ref{teo_karrass_solitar}"] (a) 
+				(c) edge[<-,line width=1.0pt,"Teorema \ref{teo_Muller_Schupp}"] (d)
+				(b) edge[<-,line width=1.0pt,"Teorema \ref{teo_ic_implica_tw}"] (c)
+				(a)  edge[<-,line width=1.0pt,"Teorema \ref{coro_tw_finito_implica_pi1}"] (b);
+			\end{tikzpicture}
 		\]
+	\end{frame}
+
+	\begin{frame}[fragile]{Forma normal de Chomsky.}
+		\begin{deff}
+			Una gramática $\gramatica$ independiente de contexto está en \emph{forma normal de Chomsky} si las producciones son de este tipo:
+			\begin{enumerate}
+				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.
+				\item $A \to a$ donde $A \in V, a \in \Sigma$.
+				\item $S \to \epsilon$ 
+			\end{enumerate}
+		\end{deff}
+	\end{frame}
+
+	\begin{frame}[fragile]{Un lema para forma normal de Chomsky pt 1.}
 		
-		\begin{itemize}
-			\item 
-				Un grupo $G$ \fg es \emph{\ic} si existe un conjunto finito de generadores $A$ tal que $\WP{G}{A \cup A^{-1}}$ es \ic.
-				
-			\item 
-				Un grupo \fg $G$ es \emph{\vl} si existe $F$ subgrupo libre de índice finito.
-				
-		\end{itemize}
+		\begin{columns}
+			
+			\begin{column}{0.5\textwidth}
+				Sea la gramática $\gramatica$ definida por:
+				\begin{itemize}
+					\item $V = \{ S,A,B,C,D \}$;
+					\item $\Sigma = \{ a,b,c \}$;
+					\item 
+						\[
+						P = \begin{cases}
+								S \to AB \mid CD \mid a \mid b \mid c \\
+								A \to CD \mid a \mid b \mid c	\\
+								B \to BB \mid a \mid b \mid c	\\
+								C \to AB \mid a \mid b \mid c	\\
+								D \to DD \mid a \mid b \mid c
+						\end{cases}	
+						\]
+				\end{itemize}
+			\end{column}
+
+			\begin{column}{0.5 \textwidth}
+				Sea la siguiente derivación de la palabra $w = caabccab$
+				\begin{align*}
+					S &\to AB \to CDB \to CDBB \to^{*} CDab \to \\
+					ABDab & \to  AbDab   \to AbDDab  \to CDbDDab   \to\\
+					CDbccab & \to CDDbccab \to Caabccab \to caabccab \\
+				\end{align*}
+			\end{column}
+		\end{columns}
 	\end{frame}
 
 	
+	\begin{frame}{Ejemplo forma normal de Chomsky pt.2}
+		Consideremos la subpalabra $u  = aabcc$ de $w = caabccab$.
+		Si consideramos el árbol de derivación obtenemos que... 
+		\TODO{Agregar dibujito}. 
+		
+	\end{frame}
+
+	\begin{frame}[fragile]{Un lema para forma normal de Chomsky pt 2.}
+		En general vale el siguiente enunciado.
+
+		\begin{lemma}
+			Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
+			Sea $w \in L(\cG)$ tal que $w = tuv$ con $t,u,v \in \Sigma^{*}$. 
+			Si fijamos una derivación $S \to^{*} w$ entonces existe un único vértice en el árbol de derivación con la propiedad de ser el más bajo entre aquellos de los que deriva una subpalabra que contiene a $u$.
+		\end{lemma}
+
+	\end{frame}
 	
+	\begin{frame}{Descomposición en un árbol y treewidth de un grafo.}
+	Una \emph{descomposición en un árbol} de un grafo $\Gamma$ es un par $(T,f)$ donde
+	$T$ es un árbol y $f$ una función 
+	\[
+	f: V(T) \to \partes{V(\Gamma)}
+	\]
+	Que cumple las siguientes condiciones:
+	\begin{enumerate}
+		\item Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. 
+		\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
+		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
+		\item Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
+	\end{enumerate}
+	\end{frame}
 	
+	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
+		\TODO{}
+	\end{frame}
+
+	\begin{frame}{Descomponiendo el grafo de Cayley en un árbol (ejemplo).}
+		\TODO{AAA}
+	\end{frame}	
 	
-	
-	
-	
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (lemas previos).}
+		\TODO{}
+	\end{frame}
+
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt. 1).}
+		\TODO{}
+	\end{frame}
+
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt. 2).}
+		\TODO{}
+	\end{frame}
+
 \end{document}
