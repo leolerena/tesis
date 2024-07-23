@@ -308,34 +308,37 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 	forma un subárbol de $T$. 
 	Para ver esto nos basta con ver que $T_{v}(g)$ es conexo.
 
-	% Primero notamos que, recordando que $N({v}) = \{v\} \cup E(v)$, tenemos la siguiente igualdad de conjuntos:
-	% \[
-	% 	T_{v}(g) =  \bigcup_{w \in N(\{v\})} T_{w}(f).
-	% \]
-	% Probamos las dos contenciones.
-	% \begin{itemize}
-	% 	\item $\subseteq$.
-	% 		Si $t \in V(T)$ es tal que $v \in g(t)$ luego tenemos dos casos.
-	% 		Si $v \in f(t)$ entonces $v \in T_{v}(f)$ y por otro lado si $v \in N(f(t)) \setminus f(t)$ luego $v$
+	Primero notamos que, recordando que $N({v}) = \{v\} \cup E(v)$, tenemos la siguiente igualdad de conjuntos:
+	\[
+		T_{v}(g) =  \bigcup_{w \in N(\{v\})} T_{w}(f).
+	\]
+	Probamos las dos contenciones.
+	\begin{itemize}
+		\item $\subseteq$.
+			Si $t \in V(T)$ es tal que $v \in g(t)$ luego tenemos dos casos.
+			Si $v \in f(t)$ entonces $v \in T_{v}(f)$ y por otro lado si $v \in N(f(t)) \setminus f(t)$ luego existe $w \in N(\{v\})$ tal que $w \in f(t)$. 
 
-	% 	\item $\supseteq$.
+		\item $\supseteq$. 
+			Si $t \in V(T)$ tal que $w \in f(t)$ con $w \in N(\{v\})$ luego necesariamente $v \in N(f(t))$ lo que termina de probar la afirmación.
+	\end{itemize}
 
-	% \end{itemize}
+	Ahora vamos a probar que $\bigcup_{w \in N(\{v\})} T_{w}(f)$ es conexo.
+	Para esto notemos que si consideramos $T_{w}(f)$ con $w \in N(\{v\})$ luego este es conexo dado que $(T,f)$ es una descomposición en un árbol.
+	Sean entonces $T_{w}(f)$ y $T_{v}(f)$ luego notemos que por \textbf{T2} existe $t' \in V(T)$ tal que $t' \in T_{w}(f) \cap T_{v}(f)$ lo que implica que $\bigcup_{w \in N(\{v\})} T_{w}(f)$ es conexo tal como queríamos ver.
 
 
-	Como los árboles son únicamente geodésicos podemos ver equivalentemente lo siguiente:
-	dados $t_{1}, t_{2} \in T_{v}$ entonces para todo $t_{3}$ que esté en la geodésica $[t_{1}, t_{2}]$ vale que $t_{3} \in T_{v}$. 
+
+	% Como los árboles son únicamente geodésicos podemos ver equivalentemente lo siguiente:
+	% dados $t_{1}, t_{2} \in T_{v}$ entonces para todo $t_{3}$ que esté en la geodésica $[t_{1}, t_{2}]$ vale que $t_{3} \in T_{v}$. 
 	
-	Como $v \in g(t_{1})$ entonces existe $w \in f(t_{1})$ adyacente (o bien podría ser exactamente $v$) a $v$.
-	Similamente existe $u \in f(t_{2})$ adyacente (o bien podría ser exactamente $v$) a $v$.
+	% Como $v \in g(t_{1})$ entonces existe $w \in f(t_{1})$ adyacente (o bien podría ser exactamente $v$) a $v$.
+	% Similamente existe $u \in f(t_{2})$ adyacente (o bien podría ser exactamente $v$) a $v$.
 	
-	Consideramos el camino de tres vértices $\gamma = (w,v,u)$ y usamos la proposición \ref{prop-camino-desc} para concluir que, sin pérdida de generalidad, $v \in f(t_{3})$.
-	De esta manera vemos que necesariamente $v \in g(t_{3})$ tal como queríamos ver.
+	% Consideramos el camino de tres vértices $\gamma = (w,v,u)$ y usamos la proposición \ref{prop-camino-desc} para concluir que, sin pérdida de generalidad, $v \in f(t_{3})$.
+	% De esta manera vemos que necesariamente $v \in g(t_{3})$ tal como queríamos ver.
 		
 \end{proof}
 
-\TODO{Comentarle a Iván: Me parece que su propuesta para esta demo no funciona.
-Creo que no vale decir que $T_{v}(g) =  \bigcup_{w \in N(\{v\})} T_{w}(f).$ porque no vale la contención del lado izq. en el lado der.}
 
 \medskip
 
@@ -362,7 +365,7 @@ Creo que no vale decir que $T_{v}(g) =  \bigcup_{w \in N(\{v\})} T_{w}(f).$ porq
 \end{deff}
 \begin{obs}
 	\label{obs:beta_separa_componentes}
-	Sea $\Gamma$ grafo no dirigido tal que $C \subseteq V(\Gamma)$ luego si  $C = \bigcup_{i \in I} C_{i}$ donde $C_{i} \cap C_{j} = \emptyset$ para todo par $(i,j) \in I \times I$ tales que $i \neq j$ entonces $\beta C = \bigcup_{i \in I} \beta(C_{i})$.
+	Sea $\Gamma$ grafo no dirigido tal que $C \subseteq V(\Gamma)$ luego si  $C = \bigcup_{i \in I} C_{i}$ donde $C_{i} \cap C_{j} = \emptyset$ para todos $i,j \in I$ tales que $i \neq j$ entonces $\beta C = \bigcup_{i \in I} \beta(C_{i})$.
 \end{obs}
 
 Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
@@ -403,27 +406,43 @@ Primero probamos un lema auxiliar.
 	
 	Sea $G$ un grupo finitamente generado por $A$ y $\Gamma = \text{Cay}(G,A)$ el respectivo grafo de Cayley de $G$. 
 	
-	
-	Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ para todo $l \ge -1$ donde $N^{-1}(\{-1\}) = \emptyset$ por lo tanto $V_{-1} = \Gamma \setminus \emptyset = \Gamma$. 
+
+	Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
 	Los vértices del árbol $T$ van a estar dados por los siguientes conjuntos:
 	\[
-	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \}.
+	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \} \cup \{ 1 \}.
 	\]
-	Como $\Gamma$ es conexo entonces es la única componente conexa de $V_{-1}$ y así $\beta \Gamma = \emptyset$. 
-	Estamos tomando todos los posibles bordes de vértices 
+	estamos tomando todos los posibles bordes de vértices 
 	de todas las componentes conexas de todos los $V_l$ con $l \in \NN$.
 	 
 	Antes de definir las aristas notemos lo siguiente.
 	Si $C$ es una componente conexa de $V_{l+1}$ entonces tiene que existir $D$ componente conexa de $V_{l}$ de manera tal que $C \subseteq D$.
 	Esto se debe a que $V_{l+1} \subseteq V_{l}$ y a su vez como $C$ es conexo si interseca a una componente conexa necesariamente tiene que estar incluido en esta componente.
 	Las aristas van a estar dadas por lo siguiente:
+	\[
+	E(T) = \{ \{ \beta C, \beta D \} : \exists l \in \NN / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}  \} \cup \{  \{1,\beta C\} : C \subseteq V_0  \}
+	\]
 	
-	\begin{align*}
-		E(T) &= \{ \  \{ \beta C, \beta D \} : 
-		\exists l \in \ZZ_{\ge -1} / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}, \\ 
-		& \text{C componente conexa de $V_{l+1}$ y D componente conexa de $V_{l}$}   \} \\
-	\end{align*}
-	Probemos que el grafo $T$ resulta ser un árbol. 
+	% Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ para todo $l \ge -1$ donde $N^{-1}(\{1\}) = \emptyset$ por lo tanto $V_{-1} = \Gamma \setminus \emptyset = \Gamma$. 
+	% Los vértices del árbol $T$ van a estar dados por los siguientes conjuntos:
+	% \[
+	% V(T) = \{  \beta C : \exists l \in \NN_{\ge -1} / C \subseteq V_l \ \text{componente conexa} \}.
+	% \]
+	% Como $\Gamma$ es conexo entonces es la única componente conexa de $V_{-1}$ y así $\beta \Gamma = \emptyset$. 
+	% Estamos tomando todos los posibles bordes de vértices 
+	% de todas las componentes conexas de todos los $V_l$ con $l \in \NN$.
+	 
+	% Antes de definir las aristas notemos lo siguiente.
+	% Si $C$ es una componente conexa de $V_{l+1}$ entonces tiene que existir $D$ componente conexa de $V_{l}$ de manera tal que $C \subseteq D$.
+	% Esto se debe a que $V_{l+1} \subseteq V_{l}$ y a su vez como $C$ es conexo si interseca a una componente conexa necesariamente tiene que estar incluido en esta componente.
+	% Las aristas van a estar dadas por lo siguiente:
+	
+	% \begin{align*}
+	% 	E(T) &= \{ \  \{ \beta C, \beta D \} : 
+	% 	\exists l \in \ZZ_{\ge -1} / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}, \\ 
+	% 	& \text{C componente conexa de $V_{l+1}$ y D componente conexa de $V_{l}$}   \} \\
+	% \end{align*}
+	% Probemos que el grafo $T$ resulta ser un árbol. 
 	
 	Sea $\rho:V(T) \to \NN_{0}$ definida por
 	\[
@@ -470,8 +489,8 @@ Primero probamos un lema auxiliar.
 	\[
 		f(\beta C) =
 		\begin{cases}
-			\beta C & \text{si $\beta C \neq \emptyset$} \\
-			\{1\}       & \text{si $\beta C = \emptyset$   } \\
+			\beta C & \text{si $t = \beta C$} \\
+			\{1\}       & \text{si $t = 1$   } \\
 		\end{cases}
 	\]
 	 donde en el lado izquierdo lo miramos como un vértice del árbol $T$ y en el lado derecho como un conjunto de vértices de $\Gamma$.
@@ -777,14 +796,14 @@ Cada vértice $t \in V(T)$ es el bolsón correspondiente para la descomposición
 \end{ej}
 
 
-\section{Cuasisometrías.}\label{secc_qi}
+\section{Cuasi-isometrías.}\label{secc_qi}
 
-Nuestro objetivo es introducir las cuasisometrías para garantizar que la propiedad de tener treewidth finito no dependa de los generadores elegidos.
+Vamos a usar resultados de cuasi-isometrías para probar que la propiedad de tener treewidth finito no dependa de los generadores elegidos.
 Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017geometric}.
 
 \begin{deff}
 	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
-	Una \emph{cuasisometría} es una función $\phi:X \to Y$ tal que:
+	Una \emph{cuasi-isometría} es una función $\phi:X \to Y$ tal que:
 	\begin{itemize}
 		\item[\textbf{Q1.}] Existe constante $A > 0$ tal que para todo par de puntos $x_1,x_2 \in X$ hace valer la siguientes desigualdades
 		\[
@@ -797,13 +816,13 @@ Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017
 	\end{itemize}
 \end{deff}
 
-Intuitivamente una cuasisometría entre espacios métricos nos dice que estos resultan ser globalmente similares y las diferencias que tienen localmente están uniformemente acotadas. 
+Intuitivamente una cuasi-isometría entre espacios métricos nos dice que estos resultan ser globalmente similares y las diferencias que tienen localmente están uniformemente acotadas. 
 
 \medskip
 \begin{prop}\label{prop_qi_simetrica}
 	Sean $(X,d_X),(Y,d_Y)$ espacios métricos. 
-	Una función $\phi:X \to Y$ es una cuasisometría si y solo sí existe 
-	$\psi:Y \to X$ cuasisometría y constantes positivas $C,D \in \RR$ tales que:
+	Una función $\phi:X \to Y$ es una cuasi-isometría si y solo sí existe 
+	$\psi:Y \to X$ cuasi-isometría y constantes positivas $C,D \in \RR$ tales que:
 	\begin{itemize}
 		\item $d(\psi \circ \phi (x), x) < C$ para todo $x \in X$.
 		\item $d(\phi \circ \psi (y), y) < D$ para todo $y \in Y$. 
@@ -814,8 +833,8 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 \end{proof}
 
 \begin{prop}\label{prop_qi_transitiva}
-	Sean $(X,d_X),(Y,d_Y), (Z, d_{Z})$ espacios métricos y sean $\phi:X \to Y$ y $\psi:Y \to Z$ cuasisometrías,
-	 entonces $\psi \circ \phi: X \to Z$ es una cuasisometría.
+	Sean $(X,d_X),(Y,d_Y), (Z, d_{Z})$ espacios métricos y sean $\phi:X \to Y$ y $\psi:Y \to Z$ cuasi-isometrías,
+	 entonces $\psi \circ \phi: X \to Z$ es una cuasi-isometría.
 \end{prop}
 \begin{proof}
 	Ver \cite[p.86]{loh2017geometric}.
@@ -824,13 +843,13 @@ Intuitivamente una cuasisometría entre espacios métricos nos dice que estos re
 
 
 
-La relación de cuasisometría es reflexiva.
-La proposición \ref{prop_qi_simetrica} nos dice que la relación de cuasisometría entre espacios métricos es simétrica.
+La relación de cuasi-isometría es reflexiva.
+La proposición \ref{prop_qi_simetrica} nos dice que la relación de cuasi-isometría entre espacios métricos es simétrica.
 Por la proposición \ref{prop_qi_transitiva} tenemos que esta relación es transitiva también. 
-Esto nos dice que la relación de cuasisometría es una relación de equivalencia entre los espacios métricos.
+Esto nos dice que la relación de cuasi-isometría es una relación de equivalencia entre los espacios métricos.
 \begin{deff}
-	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos diremos que son espacios métricos \emph{cuasisométricos} si existe $\phi:X \to Y$ cuasisometría. 
-	%	y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasisometría entre espacios métricos.
+	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos diremos que son espacios métricos \emph{cuasisométricos} si existe $\phi:X \to Y$ cuasi-isometría. 
+	%	y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasi-isometría entre espacios métricos.
 \end{deff}
 
 
@@ -849,7 +868,7 @@ El siguiente resultado que enunciamos sin demostración nos garantiza que todos 
 Este resultado deja de ser cierto en el contexto que tomamos un conjunto de generadores que no es finito.
 
 
-Si el grafo de Cayley de un grupo para cierto conjunto de generadores tiene una propiedad $P$ y queremos ver que esta propiedad $P$ es intrínseca al grupo, es decir que no depende del conjunto de generadores que tomemos, nos alcanza con probar que esta propiedad $P$ se preserva por cuasisometrías.
+Si el grafo de Cayley de un grupo para cierto conjunto de generadores tiene una propiedad $P$ y queremos ver que esta propiedad $P$ es intrínseca al grupo, es decir que no depende del conjunto de generadores que tomemos, nos alcanza con probar que esta propiedad $P$ se preserva por cuasi-isometrías.
 En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de tener treewidth finito.
 
 
@@ -859,7 +878,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 \end{prop}
 %
 %\begin{proof}
-%	Sea $\phi:\Gamma_{1} \to \Gamma_{2}$ una cuasisometría entonces existe una constante $A > 0$ de manera que para todo par $v_{1}, v_{2} \in \Gamma_{1}$ tenemos que
+%	Sea $\phi:\Gamma_{1} \to \Gamma_{2}$ una cuasi-isometría entonces existe una constante $A > 0$ de manera que para todo par $v_{1}, v_{2} \in \Gamma_{1}$ tenemos que
 %	\[
 %	\frac{1}{A} d_X(v_1,v_2) - A \le d_Y(\phi(v_1),\phi(v_2)) \le A d_X(v_1,v_2) + A
 %	\]
@@ -882,7 +901,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 %	
 %	Para ver esto debemos ver que cumple las tres condiciones que definen a una descomposición en un árbol.
 %	\begin{enumerate}[T1.]
-%		\item Sea $w \in V(\Gamma_{2})$ luego por la definición de cuasisometría existe $v \in V(\Gamma_{1})$ tal que $d(w, \phi(v)) \le C$.
+%		\item Sea $w \in V(\Gamma_{2})$ luego por la definición de cuasi-isometría existe $v \in V(\Gamma_{1})$ tal que $d(w, \phi(v)) \le C$.
 %		En particular tenemos que si $w \in g(t)$ para $t \in V(T)$ luego  $w \in N^{C+1}(\phi(g(t))) = h(t)$ tal como queríamos ver.
 %		
 %		\item Sea $\{w,w'\} \in E(\Gamma_{2})$ luego si $v \in V(\Gamma_{1})$ es tal que $d(\phi(v),w) \le C$ entonces $d(\phi(v),w') \le C+1$.
@@ -898,7 +917,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 %		Como $w \in h(t)$ entonces existe $v \in g(t)$ de manera que $d(\phi(v),w) \le C$ y similarmente existe $v' \in g(s)$ de manera que $d(\phi(v'),w) \le C$.
 %		Esto nos dice que 
 %		$ d(\phi(v), \phi(v')) \le 2C$
-%		y así usando que $\phi$ es una cuasisometría tenemos la siguiente cota
+%		y así usando que $\phi$ es una cuasi-isometría tenemos la siguiente cota
 %		\[
 %			d(v,v') \le A(2C)+A
 %		\]
@@ -913,8 +932,8 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 %\end{proof}
 
 \begin{proof}
-	Sea $\phi:\Gamma_1 \to \Gamma_2$ cuasisometría y sea $k \in \NN$ el treewidth de $\Gamma_2$.
-	Al ser $\phi$ una cuasisometría tenemos que existe $A > 0$ tal que para todo par $v,v' \in V(\Gamma_{1})$ vale que
+	Sea $\phi:\Gamma_1 \to \Gamma_2$ cuasi-isometría y sea $k \in \NN$ el treewidth de $\Gamma_2$.
+	Al ser $\phi$ una cuasi-isometría tenemos que existe $A > 0$ tal que para todo par $v,v' \in V(\Gamma_{1})$ vale que
 	\[
 	\frac{1}{A} d_{1}(v,v') - A \le d_{2}(\phi(v),\phi(v')) \le A d_{1}(v,v') + A.
 	\]
@@ -922,7 +941,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 	Probemos que $\Gamma_1$ tiene treewidth finito también.
 	
 	Consideremos $l$ tal que $d(\phi(v),\phi(w)) \le l$ para vértices $v,w \in V(\Gamma_1)$ que estén conectados por una arista.
-	Esto lo podemos tomar porque al ser una cuasisometría 
+	Esto lo podemos tomar porque al ser una cuasi-isometría 
 	\[
 	d_{2}(\phi(v),\phi(v')) \le A d_{1}(v,v') + A  \le 2A
 	\]
@@ -961,7 +980,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 	\[
 	\exists N \in \NN, \forall t \in V(T). \  |N^l(f(t))| \le N.
 	\]
-	Finalmente notemos que al ser $\phi$ una cuasisometría tenemos que existe $B > 0$ tal que para todo $v \in V(\Gamma_2)$ vale que $|\phi^{-1}(v)| \le B$.
+	Finalmente notemos que al ser $\phi$ una cuasi-isometría tenemos que existe $B > 0$ tal que para todo $v \in V(\Gamma_2)$ vale que $|\phi^{-1}(v)| \le B$.
 	Esto lo podemos ver porque si $\phi(x) = v = \phi(y)$ entonces
 	\[
 	\frac{1}{A}d_{1}(x,y) - A \le d_{2}(\phi(x), \phi(y) ) = 0 \implies d_{1}(x,y) \le A^2 < \infty

@@ -5,11 +5,10 @@
 
 
 \title{El problema de la palabra de los grupos virtualmente libres.}
-\subtitle{Defensa de tesis de licenciatura.}
+\subtitle{\textbf{Leopoldo Lerena} \\
+		Defensa de tesis de licenciatura.}
 \date{??.}
-\author{Leopoldo Lerena \\
-		Director: Iván Sadofschi Costa				
-		}
+\author{Director: Iván Sadofschi Costa}
 \institute{Universidad de Buenos Aires}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
 
@@ -33,6 +32,8 @@
 		\end{itemize}
 		
 		\alert{El problema de la palabra no es decidible.}
+
+		\TODO{Decir qué es decidible.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Grafo de Cayley.}
@@ -42,25 +43,36 @@
 		\[
 			V(\Gamma) = G,   \ \ \ E(\Gamma) = \{ \{ g,ga \}  \mid g \in G, a \in A \cup A^{-1}  \}. 	
 		\]
+
+		\TODO{Agregar el dibujo del grafo de Cayley de un grupo.}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Grupos libres.}
-		Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función  $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
-	Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
-	Equivalentemente el siguiente diagrama conmuta,
-	\begin{center}
-		\begin{tikzcd}
-			F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
-			&  &   \\
-			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
-		\end{tikzcd}
-	\end{center}
-	En este diremos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
+		Dado un conjunto $A$ notamos $F_{A}$ al \emph{grupo libre} generado por los elementos de $A$. 
+
+		\onslide<2->
+		El grupo $F_{A}$ viene con una función $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
+		Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
+		\begin{center}
+			\begin{tikzcd}
+				F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
+				&  &   \\
+				A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
+			\end{tikzcd}
+		\end{center}
+
+		\onslide<3->
+		Decimos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
+
+		\onslide<4->
+		Podemos identificar los elementos de $F_{A}$ con las palabras reducidas en $A \cup A^{-1}$.
 	\end{frame}
 
 	\begin{frame}[fragile]{Grupos virtualmente libres.}
 		Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y si
 	tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.
+
+	\TODO{Agregar ejemplos. Libres, finitos y productos semi directos.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Teoría de lenguajes.}
@@ -71,10 +83,20 @@
 		\end{deff}	
 		
 		\alert{Ejemplo.}
+			Dado $\Sigma = \{a,b\}$ consideramos el lenguaje de los palíndromos
+			\[
+				L = \{ w \in \Sigma^{*} \mid w = w^{R}  \}
+			\]
+
+		\alert{Ejemplo.}
 			Dado un grupo $G$ finitamente generado por $A$ consideramos el lenguaje $\WP{G}{A} = \{ w \in (A \cup A^{-1})^{*} \mid w = 1 \ \text{en $G$} \}$.
 
 	\end{frame}
 	
+	\begin{frame}[fragile]{Ejemplo de gramática.}
+		\TODO{Agregar un ejemplo de una gramática (que no sea un ejemplo "fácil").}
+	\end{frame}
+
 	\begin{frame}[fragile]{Gramáticas.}
 		\begin{deff}
 			Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
@@ -118,6 +140,8 @@
 			\end{equation*}
 			donde $A \in V, w \in (\Sigma \cup V)^*$.  
 			Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.
+
+			\TODO{Comentar porqué se llama independiente de contexto.}
 		\end{deff}
 		
 	\end{frame}
@@ -134,11 +158,14 @@
 	\begin{frame}[fragile]{Clasificación del problema de la palabra.}
 		
 		\begin{teo}[Animisov--1971]
-			Sea $G$ un grupo entonces $\WP{G}{A}$ es regular si y solo si $G$ es finito.
+			Sea $G$ un grupo finitamente generado por $A$. 
+			Entonces $\WP{G}{A}$ es regular si y solo si $G$ es finito.
 		\end{teo}
+		
+		\TODO{Agregar dibujito de automáta y decir que es lo mismo que el grafo de Cayley en el caso finito.}
 
 		\begin{alertblock}{Pregunta natural.}
-			¿Cómo podemos caracterizar a los grupos cuyo lenguaje del problema de la palabra es independiente de contexto?
+			¿Es posible caracterizar a los grupos cuyo lenguaje del problema de la palabra es independiente de contexto?
 		\end{alertblock}
 	\end{frame}
 	
@@ -169,6 +196,8 @@
 				\item $S \to \epsilon$ 
 			\end{enumerate}
 		\end{deff}
+		
+		\TODO{Agregar intuición de la longitud de la derivación y su relación con la longitud de la palabra.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky pt 1.}
@@ -177,24 +206,25 @@
 			
 			\begin{column}{0.5\textwidth}
 				Sea la gramática $\gramatica$ definida por:
-				\begin{itemize}
-					\item $V = \{ S,A,B,C,D \}$;
-					\item $\Sigma = \{ a,b,c \}$;
-					\item 
-						\[
-						P = \begin{cases}
+				
+					 $V = \{ S,A,B,C,D \}$;
+
+					 $\Sigma = \{ a,b,c \}$;
+					 
+						
+						$P = \begin{cases}
 								S \to AB \mid CD \mid a \mid b \mid c \\
 								A \to CD \mid a \mid b \mid c	\\
 								B \to BB \mid a \mid b \mid c	\\
 								C \to AB \mid a \mid b \mid c	\\
 								D \to DD \mid a \mid b \mid c
-						\end{cases}	
-						\]
-				\end{itemize}
+						\end{cases}$
+						
+				
 			\end{column}
 
 			\begin{column}{0.5 \textwidth}
-				Sea la siguiente derivación de la palabra $w = caabccab$
+				Podemos derivar la palabra $w = caabccab$ del siguiente modo:
 				\begin{align*}
 					S &\to AB \to CDB \to CDBB \to^{*} CDab \to \\
 					ABDab & \to  AbDab   \to AbDDab  \to CDbDDab   \to\\
@@ -207,8 +237,8 @@
 	
 	\begin{frame}{Ejemplo forma normal de Chomsky pt.2}
 		Consideremos la subpalabra $u  = aabcc$ de $w = caabccab$.
-		Si consideramos el árbol de derivación obtenemos que... 
-		\TODO{Agregar dibujito}. 
+		Consideremos el \textit{árbol de derivación}.
+		\TODO{Agregar dibujito y decir que el nodo tal es el más chico que deriva la subpalabra $u$}. 
 		
 	\end{frame}
 
@@ -218,13 +248,33 @@
 		\begin{lemma}
 			Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
 			Sea $w \in L(\cG)$ tal que $w = tuv$ con $t,u,v \in \Sigma^{*}$. 
-			Si fijamos una derivación $S \to^{*} w$ entonces existe un único vértice en el árbol de derivación con la propiedad de ser el más bajo entre aquellos de los que deriva una subpalabra que contiene a $u$.
+			Si fijamos una derivación $S \to^{*} w$ entonces existe un único vértice en el árbol de derivación con la propiedad de ser el más bajo entre aquellos de los que deriva una subpalabra que da lugar a $u$.
 		\end{lemma}
 
+		\TODO{Agregar oralmente detalles sobre "da lugar a $u$".}
 	\end{frame}
 	
+	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
+		\TODO{Detallar más cada uno de estos nodos.}
+		\[	
+			\begin{tikzpicture}{scale = 0.75}
+				\path 
+				(0,0) node(a) [rectangle,draw] {Grupo fundamental de un grafo de grupos finito}
+				(5,-3) node(b) [rectangle,draw] {Treewidth finito}
+				(0,-6) node(c) [rectangle,draw] {Independiente de contexto}
+				(-5,-3) node (d) [rectangle,draw] {Virtualmente libre};
+				\draw   
+				(d) edge[<-,line width=1.0pt,"Teorema \ref{teo_karrass_solitar}"] (a) 
+				(c) edge[<-,line width=1.0pt,"Teorema \ref{teo_Muller_Schupp}"] (d)
+				(b) edge[<-,line width=1.0pt,"Teorema \ref{teo_ic_implica_tw}"] (c)
+				(a)  edge[<-,line width=1.0pt,"Teorema \ref{coro_tw_finito_implica_pi1}"] (b);
+			\end{tikzpicture}
+		\]
+	\end{frame}
+
 	\begin{frame}{Descomposición en un árbol y treewidth de un grafo.}
-	Una \emph{descomposición en un árbol} de un grafo $\Gamma$ es un par $(T,f)$ donde
+	Sea $\Gamma$ un grafo no dirigido.
+	Una \emph{descomposición en un árbol} de $\Gamma$ es un par $(T,f)$ donde
 	$T$ es un árbol y $f$ una función 
 	\[
 	f: V(T) \to \partes{V(\Gamma)}
