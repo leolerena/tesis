@@ -23,17 +23,22 @@
 		tal que $G$ es isomorfo a $\langle A \mid R \rangle$ para un conjunto de relaciones $R \subseteq (A \cup A^{-1})^*$.
 		
 		El \emph{problema de la palabra} consiste en el siguiente problema:
+	
+		\begin{itemize}
+					\item 
+						\textbf{Entrada}: Una palabra $w \in (A \cup A^{-1})^*$.
+					
+					\item 
+						\textbf{Pregunta}: Decidir si vale $w=1$ en $G$.
+		\end{itemize}
+
+		El problema de la palabra no es un problema \alert{decidible}.
 		\begin{itemize}
 			\item 
-				\textbf{Entrada}: Una palabra $w \in (A \cup A^{-1})^*$.
-			
-			\item 
-				\textbf{Pregunta}: Decidir si vale $w=1$ en $G$.
+				Existen grupos tales que resulta imposible construir un algoritmo que decida si una palabra representa la identidad o no.
 		\end{itemize}
 		
-		\alert{El problema de la palabra no es decidible.}
 
-		\TODO{Decir qué es decidible.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Grafo de Cayley.}
@@ -50,7 +55,7 @@
 	\begin{frame}[fragile]{Grupos libres.}
 		Dado un conjunto $A$ notamos $F_{A}$ al \emph{grupo libre} generado por los elementos de $A$. 
 
-		\onslide<2->
+		% \onslide<2->
 		El grupo $F_{A}$ viene con una función $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
 		Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
 		\begin{center}
@@ -61,18 +66,25 @@
 			\end{tikzcd}
 		\end{center}
 
-		\onslide<3->
+		% \onslide<3->
 		Decimos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
 
-		\onslide<4->
+		% \onslide<4->
 		Podemos identificar los elementos de $F_{A}$ con las palabras reducidas en $A \cup A^{-1}$.
 	\end{frame}
 
 	\begin{frame}[fragile]{Grupos virtualmente libres.}
 		Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y si
-	tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.
+		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.
 
-	\TODO{Agregar ejemplos. Libres, finitos y productos semi directos.}
+		\begin{alertblock}{Ejemplos.}
+			\begin{itemize}
+				\item Los grupos finitos.
+				\item Los grupos libres.
+				\item El producto semidirecto de un grupo libre con un grupo finito.
+				\item El producto libre de dos grupos finitos.
+			\end{itemize}
+		\end{alertblock}
 	\end{frame}
 
 	\begin{frame}[fragile]{Teoría de lenguajes.}
@@ -82,43 +94,60 @@
 			Un lenguaje $L$ sobre un alfabeto $A$ es un subconjunto de $A^*$.
 		\end{deff}	
 		
-		\alert{Ejemplo.}
-			Dado $\Sigma = \{a,b\}$ consideramos el lenguaje de los palíndromos
-			\[
-				L = \{ w \in \Sigma^{*} \mid w = w^{R}  \}
-			\]
-
-		\alert{Ejemplo.}
-			Dado un grupo $G$ finitamente generado por $A$ consideramos el lenguaje $\WP{G}{A} = \{ w \in (A \cup A^{-1})^{*} \mid w = 1 \ \text{en $G$} \}$.
-
+		\begin{alertblock}{Ejemplos.}
+			\begin{itemize}
+				\item 
+					Dado $\Sigma = \{a,b\}$ consideramos el lenguaje de los palíndromos
+					\[
+						L = \{ w \in \Sigma^{*} \mid w = w^{R}  \}.
+					\]
+				\item 
+					Dado un grupo $G$ finitamente generado por $A$ consideramos el lenguaje
+					\[
+						\WP{G}{A} = \{ w \in (A \cup A^{-1})^{*} \mid w = 1 \ \text{en $G$} \}.	
+					\]
+			\end{itemize}
+		\end{alertblock}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Ejemplo de gramática.}
-		\TODO{Agregar un ejemplo de una gramática (que no sea un ejemplo "fácil").}
+		Consideramos las siguientes reglas.
+		\begin{align*}
+			S  & \to aAS \mid b \\
+			A  & \to baAb \\
+			aA & \to bbb
+		\end{align*}
+		Entonces aplicamos estas reglas para generar la siguiente palabra.
+		\[
+			S \to aAS \to abaAbS \to abaAbb \to abbbbbb	
+		\]
 	\end{frame}
 
-	\begin{frame}[fragile]{Gramáticas.}
+	\begin{frame}[fragile]{Gramáticas (pt.1).}
 		\begin{deff}
 			Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
-			\begin{itemize}
-				\item $V$ es un conjunto finito denominado las \emph{variables};
-				\item $S \in V$ es el \emph{símbolo inicial};
-				\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
-				\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
-			\end{itemize}
+				\begin{itemize}
+					\item $V$ es un conjunto finito denominado las \emph{variables};
+					\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
+					\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
+					
+					Las producciones $(\gamma, \nu) \in P$, las denotamos por medio de la siguiente notación $\gamma \to \nu$.
+					\item $S \in V$ es el \emph{símbolo inicial};
+				\end{itemize}
 		\end{deff}
-
-		Las producciones $(\gamma, \nu) \in P$, las vamos a denotar por medio de la siguiente notación $\gamma \to \nu$.
-
+	\end{frame}
+	
+	\begin{frame}[fragile]{Gramáticas (pt.2).}
+		Una sucesión de producciones $\gamma_{1} \to \gamma_{2} \to \dots \gamma_{n}$ la denotamos $\gamma_{1} \to^{*} \gamma_{n}$ y diremos que es un \emph{derivación}.
 
 		\begin{deff}
 			Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
 			\[
 			L({\cal G}) = \{ w \in \Sigma^* \ | \ S \deriva w   \}.
 			\]
-		\end{deff}
+		\end{deff}		
 	\end{frame}
-	
+
 	\begin{frame}{Gramáticas regulares.}
 		\begin{deff}
 			Decimos que una gramática $\gramatica$ es \emph{regular} si las producciones son del estilo
@@ -128,6 +157,7 @@
 		\item $A \to a B$
 	\end{enumerate}
 	donde $A, B \in V$, $a \in \Sigma$ y $\epsilon$ es la palabra vacía. 
+
 	Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \emph{lenguaje regular}.
 		\end{deff}
 	\end{frame}
@@ -139,6 +169,7 @@
 				A \to w
 			\end{equation*}
 			donde $A \in V, w \in (\Sigma \cup V)^*$.  
+			
 			Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.
 
 			\TODO{Comentar porqué se llama independiente de contexto.}
@@ -147,8 +178,6 @@
 	\end{frame}
 
 	\begin{frame}{Jerarquía de Chomsky.}
-		Tenemos la siguiente relación entre los lenguajes independiente de contexto y lenguajes regulares.
-
 
 			\centering
 			\includegraphics[scale = 0.65]{Chomsky-hierarchy.png}
@@ -158,11 +187,27 @@
 	\begin{frame}[fragile]{Clasificación del problema de la palabra.}
 		
 		\begin{teo}[Animisov--1971]
-			Sea $G$ un grupo finitamente generado por $A$. 
-			Entonces $\WP{G}{A}$ es regular si y solo si $G$ es finito.
+			Un grupo $G$ es finito si y solo sí $\WP{G}{A}$ es regular.
 		\end{teo}
 		
-		\TODO{Agregar dibujito de automáta y decir que es lo mismo que el grafo de Cayley en el caso finito.}
+		\[
+			\begin{tikzpicture}[scale=0.7,->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+				scale = 1,transform shape]
+				\node[state,initial,accepting] (1) [] {$1$};
+				\node[state] (a) [above right of=1] {$a$};
+				\node[state] (b) [below right of=1] {$b$};
+				\node[state] (ab) [below right of=a] {$ab$};
+
+					\path (1) edge    [bend left]          node {$a$ \ } (a);
+					\path (a) edge    [bend left,swap]          node {$a^{-1}$ \ } (1);
+					\path (1) edge    [bend left]          node {$b$ \ } (b);
+					\path (b) edge    [bend left, swap]          node {$b^{-1}$ \ } (1);
+					\path (a) edge    [bend left]          node {$b$ \ } (ab);
+					\path (ab) edge   [bend left, swap]          node {$b^{-1}$} (a);
+					\path (b) edge    [bend left]          node {$a$ \ } (ab);
+					\path (ab) edge   [bend left, swap]          node {$a^{-1}$ \ } (b);
+			\end{tikzpicture}	
+		\]
 
 		\begin{alertblock}{Pregunta natural.}
 			¿Es posible caracterizar a los grupos cuyo lenguaje del problema de la palabra es independiente de contexto?
@@ -174,10 +219,10 @@
 		\[	
 			\begin{tikzpicture}{scale = 0.75}
 				\path 
-				(0,0) node(a) [rectangle,draw] {Grupo fundamental de un grafo de grupos finito}
-				(5,-3) node(b) [rectangle,draw] {Treewidth finito}
-				(0,-6) node(c) [rectangle,draw] {Independiente de contexto}
-				(-5,-3) node (d) [rectangle,draw] {Virtualmente libre};
+				(0,0) node(a) [rectangle,draw] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
+				(5,-3) node(b) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
+				(0,-6) node(c) [rectangle,draw] {$\WP{G}{A}$ es un lenguaje independiente de contexto}
+				(-5,-3) node (d) [rectangle,draw] {$G$ es virtualmente libre};
 				\draw   
 				(d) edge[<-,line width=1.0pt,"Teorema \ref{teo_karrass_solitar}"] (a) 
 				(c) edge[<-,line width=1.0pt,"Teorema \ref{teo_Muller_Schupp}"] (d)
@@ -196,8 +241,9 @@
 				\item $S \to \epsilon$ 
 			\end{enumerate}
 		\end{deff}
-		
-		\TODO{Agregar intuición de la longitud de la derivación y su relación con la longitud de la palabra.}
+		\begin{alertblock}{Ventaja.}
+			Si queremos saber si una palabra $w \in \Sigma^{*}$ con longitud $|w| = n$ es tal que $w \in L(\cG)$ entonces nos basta con mirar todas las derivaciones de longitud al menos $2n-1$.
+		\end{alertblock}
 	\end{frame}
 
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky pt 1.}
@@ -226,9 +272,9 @@
 			\begin{column}{0.5 \textwidth}
 				Podemos derivar la palabra $w = caabccab$ del siguiente modo:
 				\begin{align*}
-					S &\to AB \to CDB \to CDBB \to^{*} CDab \to \\
-					ABDab & \to  AbDab   \to AbDDab  \to CDbDDab   \to\\
-					CDbccab & \to CDDbccab \to Caabccab \to caabccab \\
+					&S \to AB \to CDB \to CDBB \to CDBb \to CDab \to \\
+					&ABDab  \to  AbDab   \to AbDDab  \to CDbDDab   \to\\
+					&CDbccab  \to CDDbccab \to Caabccab \to caabccab \\
 				\end{align*}
 			\end{column}
 		\end{columns}
@@ -245,24 +291,23 @@
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky pt 2.}
 		En general vale el siguiente enunciado.
 
-		\begin{lemma}
+		\begin{lema}
 			Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
 			Sea $w \in L(\cG)$ tal que $w = tuv$ con $t,u,v \in \Sigma^{*}$. 
 			Si fijamos una derivación $S \to^{*} w$ entonces existe un único vértice en el árbol de derivación con la propiedad de ser el más bajo entre aquellos de los que deriva una subpalabra que da lugar a $u$.
-		\end{lemma}
+		\end{lema}
 
 		\TODO{Agregar oralmente detalles sobre "da lugar a $u$".}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
-		\TODO{Detallar más cada uno de estos nodos.}
 		\[	
 			\begin{tikzpicture}{scale = 0.75}
 				\path 
-				(0,0) node(a) [rectangle,draw] {Grupo fundamental de un grafo de grupos finito}
-				(5,-3) node(b) [rectangle,draw] {Treewidth finito}
-				(0,-6) node(c) [rectangle,draw] {Independiente de contexto}
-				(-5,-3) node (d) [rectangle,draw] {Virtualmente libre};
+				(0,0) node(a) [rectangle,draw] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
+				(5,-3) node(b) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
+				(0,-6) node(c) [rectangle,draw] {$\WP{G}{A}$ es un lenguaje independiente de contexto}
+				(-5,-3) node (d) [rectangle,draw] {$G$ es virtualmente libre};
 				\draw   
 				(d) edge[<-,line width=1.0pt,"Teorema \ref{teo_karrass_solitar}"] (a) 
 				(c) edge[<-,line width=1.0pt,"Teorema \ref{teo_Muller_Schupp}"] (d)
@@ -289,23 +334,335 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
-		\TODO{}
+		Dado $\Gamma = \cay{G}{A}$ donde $G$ es finitamente generado por $A$.
+
+		Sea $C \subseteq V(\Gamma)$ definimos:
+		\begin{itemize}
+			\item  
+				La \textit{vecindad de $C$} es el siguiente conjunto:
+
+				$N(C) = C \cup \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.$
+
+			\item 
+				El \textit{borde de $C$} es el siguiente conjunto: 
+
+				$\beta C =  N(C) \cap N(C^{c})$.
+		\end{itemize} 
 	\end{frame}
 
-	\begin{frame}{Descomponiendo el grafo de Cayley en un árbol (ejemplo).}
-		\TODO{AAA}
-	\end{frame}	
+	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol pt.2}
+		Para cada $n \in \NN_{0}$ consideramos:
+		\[
+			V_{n} = V(\Gamma \setminus B_{n}(1))	
+		\]
+
+		Consideramos el siguiente árbol $T$ con raíz $1$:
+		\begin{align*}
+			V(T)  & = \{ \beta C \mid C \in V_{n} \ \text{componente conexa} \}  \cup \{ 1 \} \\
+			E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
+			& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
+			& \cup \{ \{1, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
+		\end{align*}
+		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(\beta C) = \beta C$.
+		\begin{lema}
+			El par $(T,f)$ es una descomposición en un árbol para el grafo $\Gamma$.
+		\end{lema}
+	\end{frame}
+
+	\begin{frame}{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 1).}
+	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ presentado por 
+	$G \simeq \langle a,b \mid a^2, b^3 \rangle$.
+
+	El grafo $\cay{G}{\{ a,b,b^{-1} \}}$ lo representamos de la siguiente manera:
+	
+	% 	\[
+	% 		\begin{tikzpicture}
+	% 		[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
+	% 				minimum size=2em,inner sep=2,
+	% 				 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
+	% 						\fill[#1] 
+	% 						(path picture bounding box.south) rectangle
+	% 						(path picture bounding box.north west);
+	% 				}},
+	% 		fill fraction/.default=astral!90
+	% 		]
+	
+	% 		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+	% 				 \node (1) at (0,0) {$1$};
+	% 				\node (a) at (2,0)  {$a$};
+	% 				 \node (b) at (-2,2)     {$b$};
+	% 				\node (bb) at (-2,-2)    {$b^2$};
+	% 				\node (ab) at (4,2)      {$ab$};
+	% 				 \node (abb) at (4,-2)     {$ab^2$};
+	% 				\node (ba) at (-4,2)     {$ba$};
+	% 				\node (bba) at (-4,-2)     {$b^2a$};
+	% 				\node (aba) at (6,2)    {$aba$};
+	% 				\node (abba) at (6,-2)    {$ab^2a$};
+	% 				\node (bab) at (-6,3)    {$bab$};
+	% 				\node (babb) at (-6,1)     {$bab^2$};
+	% 				\node (bbab) at (-6,-3)     {$b^2ab$};
+	% 				\node (bbabb) at (-6,-1)    {$b^2ab^2$};
+	% 				\node (abab) at (8,3)    {$abab$};
+	% 				\node (ababb) at (8,1)    {$abab^2$};
+					
+	% 				\node (abbab) at (8,-1)     {$ab^2ab$};
+	% 				\node (abbabb) at (8,-3)  {$ab^2ab^2$};
+					
+	% 			\end{scope}
+			
+	% 		\draw   (1)  edge[-] (a);
+	% 		\draw   (1)  edge[-] (b);
+	% 		\draw   (1)  edge[-] (bb);
+	% 		\draw   (b)  edge[-] (bb);
+	% 		\draw   (b)  edge[-] (ba);
+	% 		\draw   (bb)  edge[-] (bba);
+	% 		\draw   (a)  edge[-] (ab);
+	% 		\draw   (abb)  edge[-] (a);
+	% 		\draw   (ab)  edge[-] (abb);
+	% 		\draw   (ab)  edge[-] (aba);
+	% 		\draw   (aba)  edge[-] (abab);
+	% 		\draw   (ababb)  edge[-] (aba);
+	% 		\draw   (ababb)  edge[-] (abab);
+	% 		\draw   (abb)  edge[-] (abba);
+	% 		\draw   (abba)  edge[-] (abbab);
+	% 		\draw   (abba)  edge[-] (abbabb);
+	% 		\draw   (bba)  edge[-] (bbabb);
+	% 		\draw   (bba)  edge[-] (bbab);
+	% 		\draw   (ba)  edge[-] (bab);
+	% 		\draw   (babb)  edge[-] (bab);
+	% 		\draw   (abbab)  edge[-] (abbabb);
+	% 		\draw   (ba)  edge[-] (babb);
+	% 		\draw   (bbabb)  edge[-] (bbab);
+	% 		\draw   (abbab)  edge[-] (abbabb);
+	% \end{tikzpicture}
+	% \]
+	\TODO{Latex no le gusta este dibujo en tikz por algún motivo pero igual compila.}
+	\end{frame}
+	
+	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 2).}
+		El árbol $T$ de la descomposición lo representamos de la siguiente manera:
+
+	\[
+			\begin{tikzpicture}[scale=0.8, V/.style = {circle, draw,align= center, minimum size=0.5cm,
+			minimum size=3em,inner sep=2,
+			fill=applegreen!15,font=\scriptsize	},fill fraction/.style={path picture={
+				\fill[#1] 
+				(path picture bounding box.south) rectangle
+				(path picture bounding box.north west);
+		}},
+		fill fraction/.default=gray!50
+		]
+		\node[align=center] at (2, -6) {};
+		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+			\node (1) at (0,0)  {$\{ b,b^2,1 \}$};
+			\node (2) at (2,0)  {$1$};
+			\node (3) at (4,0)  {$\{ 1,a \}$};
+			\node (4) at (-2,3)     {$\{ b,ba \}$};
+			\node (5) at (-2,-3)   {$\{b^2,b^2a\}$};
+			\node (6) at (6,0)  {$\{ a,ab,ab^2 \}$};
+			
+			\node (9) at (8,3)  {$\{ab,aba\}$};
+			\node (10) at (8,-3)  {$\{ ab^2, ab^2a \}$};
+			
+		\end{scope}
+		
+		
+		\draw (1) edge[-] (2);
+		\draw (2) edge[-] (3);
+		\draw (1) edge[-] (5);
+		\draw (1) edge[-] (4);
+		\draw (3) edge[-] (6);
+		\draw (6) edge[-] (9);
+		\draw (6) edge[-] (10);
+	\end{tikzpicture}
+	\]
+	\end{frame}
+
 	
 	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (lemas previos).}
-		\TODO{}
+		\begin{lema}[1]
+			Sea $G$ un grupo \ic con gramática $\gramatica$ de manera que $L(\cG) = WP(G,\Sigma)$.
+			Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
+			\[
+			L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
+			\]
+			Sea $\pi:\Sigma^* \to G$ la proyección del monoide libre al grupo.
+			Entonces vale el siguiente resultado:
+			dadas palabras $v,v' \in L_{A}$ luego $\pi(v) = \pi(v')$.
+		\end{lema}
+
+		\begin{lema}[2]
+			Sea $\Gamma$ un grafo de grado acotado uniformemente y 
+			$(T,f)$ una descomposición en un árbol para $\Gamma$ de manera que existe $M \in \NN$ tal que para todo $t \in V(T)$ tenemos la siguiente cota
+			\[
+				  \diam{f(t)} < M
+			\]   
+			entonces la descomposición $(T,f)$ tiene bagsize finito.
+		\end{lema}
 	\end{frame}
 
-	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt. 1).}
-		\TODO{}
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.1).}
+		\begin{teo}
+			Sea $G$ un grupo tal que $\WP{G}{\Sigma}$ es un lenguaje \ic{} entonces $\cay{G}{\Sigma}$ tiene treewidth finito.
+		\end{teo}
+		\textbf{Demostración.}
+
+			\begin{itemize}
+				\item 
+					Consideramos $(T,f)$  descomposición en un árbol anteriormente construida para $\cay{G}{\Sigma}$.
+				\item 
+					Por el \textbf{lema  1} nos alcanza con ver que existe $M \in \NN$ tal que para todo $t \in V(T)$ vale que $\diam{f(t)} \le M$.
+				\item 
+					Sea $\gramatica$ grámatica \ic{} en forma normal de Chomsky tal que $L(\cG) = \WP{G}{\Sigma}$.
+			\end{itemize}
 	\end{frame}
 
-	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt. 2).}
-		\TODO{}
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.2).}
+		
+		\begin{itemize}
+			\item 
+				Para cada $A \in V$ consideramos 
+				\[
+					L_{A} = \{ w \in \Sigma^{*} \mid A \deriva w \}
+				\]
+				Definimos $k_{A} = \{ |w| \mid w \in L_{A} \}$.
+				
+			\item 
+				Definimos 
+				\[
+					k = \max_{A \in V} k_{A}	
+				\]
+				Vamos a probar que para todo $t \in V(T)$ tenemos que $\diam{f(t)} \le 3k$.
+		\end{itemize}
 	\end{frame}
 
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.3).}
+
+		\begin{itemize}
+			\item
+				Dado que $f(t) = \beta C$ para $C$ componente conexa de $V(\Gamma \setminus B_{n}(1))$ queremos acotar la distancia 
+				\[
+					d(g,h) \le 3k	
+				\]
+				para $g,h \in C$ componente conexa de $V(\Gamma \setminus B_{n}(1))$.
+
+			\item 
+				Consideramos: 
+				\begin{itemize}
+					\item $\alpha$ geodésica de $1$ a $g$ con etiqueta $u$.
+					\item $\tau$ camino de $g$ a $h$ contenido en $C \cup \beta C$ con etiqueta $v$.
+					\item $\beta$ geodésica de $h$ a $1$ con etiqueta $w$.
+				\end{itemize}
+			\item 
+				Notemos que la palabra 	$uvw$ es la etiqueta de un ciclo en el grafo de Cayley por lo tanto $uvw \in \WP{G}{\Sigma}$.
+				
+				Entonces existe derivación
+				\[
+					S \deriva uvw	
+				\]
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.4).}
+		\begin{itemize}
+			\item 
+				Por el \textbf{lema de la forma normal de Chomsky} tenemos que existe una variable $A \in V$ de manera tal que tiene la propiedad de ser la última variable que deriva a $v$ como subpalabra.
+
+			\item 
+				Como la gramática está en forma normal de Chomsky y podemos asumir que $|v| \ge 2$ entonces tenemos que la derivación tiene la siguiente pinta:
+				\begin{equation*}
+					S \deriva u'Aw' \to_{\cal G} u'BC w' \deriva u'v'v''w'
+				\end{equation*}
+				donde $B,C$ son otras variables 
+				\begin{itemize}
+					\item $v$ es una subpalabra de $v'v''$;
+					\item $u'$ es un prefijo de $u$;
+					\item $w'$ es un posfijo de $w$;
+				\end{itemize}
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.5).}
+		\begin{itemize}
+			\item 
+				Si consideramos la geodésica $\alpha$ tenemos que al haber leído la etiqueta $u'$ llegamos a un \textbf{vértice $x$} y por estar sobre la geodésica cumple la siguiente igualdad:
+				\begin{equation*}
+					d(x,g) = d(1,g) - d(1,x).
+				\end{equation*}
+			
+			\item 
+				Si consideramos la geodésica $\beta$ tenemos que al haber leído la etiqueta $(w')^{-1}$ llegamos a un \textbf{vértice $z$} y por estar sobre la geodésica cumple la siguiente igualdad:
+				\begin{equation*}
+					d(z,h)  = d(1,h) - d(1,z).
+				\end{equation*}
+
+			\item 
+				Consideremos el \textbf{vértice $y$} al que llegamos después de leer $u'v'$.
+				Este vértice está en el camino $\tau$ y usando que $y \in \tau \subseteq C \cup \beta C $ tenemos que
+					\[
+						d(1,y) \ge n+1 = d(1,g)	
+					\]
+				por ser $C$ una componente conexa de $V(\Gamma \setminus B_{n}(1))$.
+			
+		\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.6).}
+		\begin{itemize}
+			\item 
+				Por el \textbf{lema 2} notemos que si reemplazamos $v'$ por una palabra de menor tamaño del lenguaje $L_B$ seguimos teniendo un ciclo pero de longitud idéntica o más chica.
+				Similarmente si reemplazamos $v''$ por una palabra de menor tamaño de $L_{C}$ y $v'v''$ por una de menor tamaño de $L_{A}$. 
+				
+			\item
+				La palabra $v'$ la leemos cuando vamos del vértice $x$ al vértice $y$.
+
+				Como $v' \in L_{B}$ luego 
+				\[
+					d(x,y) \le k_{B} \le k.	
+				\]
+
+			\item 
+				La palabra $v'v''$ la leemos cuando vamos del vértice $x$ al vértice $z$.
+
+				Como $v'v'' \in L_{A}$ luego 
+				\[
+					d(x,z) \le k_{A} \le k	
+				\]
+
+			\item 
+				La palabra $v''$ la leemos cuando vamos del vértice $y$ al vértice $z$.
+
+				Como $v'' \in L_{C}$ luego 
+				\[
+					d(y,z) \le k_{C} \le k	
+				\] 
+				% La palabra $v'$ la leemos cuando vamos del vértice $x$ al vértice $y$, así la distancia  $d(x,y)$ está acotada por la palabras que pueden derivarse de $B$ de menor longitud. 
+				% Idénticamente hacemos esto para las variables $A$ y $C$.
+
+			% \item	
+			% 	Por como definimos a $k$ tenemos las siguientes cotas: 
+			% 	\[
+			% 		d(x,y), d(y,z), d(x,z) \le k	
+			% 	\]
+		\end{itemize}
+	\end{frame}
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.7).}
+		\begin{itemize}
+			\item 
+				Dado que $d(1,y) \ge n+1 \ge d(1,g)$ 
+				\begin{align*}
+					d(x,g) &= d(1,g) - d(1,x)  \le d(1,y) - d(1,x) = d(x,y) \\
+					d(z,h) &= d(1,h) - d(1,z)  \le d(1,y) - d(1,z) = d(z,y)
+				\end{align*}
+			\item 
+				Terminamos de probar que $d(g,h) \le 3k$. 
+				
+				Usamos la desigualdad triangular tres veces:
+				\begin{align*}
+					d(g,h) & \le d(g,x) + d(x,z) + d(h,z) \\
+					& \le d(x,y) + d(x,z) + d(y,z) \le 3k
+				\end{align*}
+		\end{itemize}
+		\qed
+	\end{frame}
 \end{document}

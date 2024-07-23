@@ -7,6 +7,11 @@
 \usepackage{hyperref}
 \usepackage{eufrak}
 \usepackage{tikz-cd}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+\usetikzlibrary{babel} %para evitar que se jodan los automatas de tikz
+\usetikzlibrary{graphs} 
+\usetikzlibrary{calc}
 \usepackage{tcolorbox}
 \usepackage{enumitem}% http://ctan.org/pkg/enumitem
 \definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
@@ -28,7 +33,7 @@
 %\usepackage[noend]{algpseudocode}  % "noend" es para no mostrar los endfor, endif
 
 % PARA PODER HACER EL FLOW CHART
-\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{shapes}
 
 \usepackage{pgfplots}
 %\usepgfplotslibrary{dateplot}
@@ -120,13 +125,15 @@
 \newcommand{\fg}{finitamente generado }
 %\newcommand{\ol}{\overline{}}
 
-\newcommand*{\cay}[2]{\textrm{Cay}(#1, #2)}
+\newcommand*{\cay}[2]{\text{Cay}(#1, #2)}
 \newcommand*{\partes}[1]{{\cal{P}}(#1)}
 
 \newcommand{\fp}{finitamente presentado }
 \newcommand{\vl}{virtualmente libre}
 \newcommand{\vls}{virtualmente libres}
 \newcommand{\WP}[2]{\text{WP}(#1, #2)}
+
+\newcommand*{\diam}[1]{\text{diam}\ (#1)}
 
 \newcommand{\cG}{ {\cal G} }
 \newcommand{\cGg}{{\cal G} = (V, \Sigma, P, S)}
