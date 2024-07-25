@@ -17,8 +17,7 @@
 \usetikzlibrary{babel} %para evitar que se jodan los automatas de tikz
 \usetikzlibrary{graphs} 
 \usetikzlibrary{calc}
-\pgfmathsetmacro{\xcoord}{cos(60)}
-\pgfmathsetmacro{\ycoord}{sin(60)}
+\usetikzlibrary{positioning}
 %\usetikzlibrary{shapes.geometric}  % for [ellipse], [diamond], etc
 
 %\usepackage[backend=biber,...]{biblatex} 
@@ -189,6 +188,7 @@ bottomline=false,topline=false,rightline=false]{coro}
 \newcommand{\APD}{automáta de pila determinístico }
 \newcommand{\gramatica}{{\cal G} = (V, \Sigma, P, S)}
 \newcommand{\deriva}{\overset{*}{\to_{\cal G}}}
+\newcommand{\tto}{\overset{*}{\to}}
 \newcommand{\lengderivado}{L({\cal G})}
 \newcommand{\fg}{grupo finitamente generado }
 %\newcommand{\ol}{\overline{}}

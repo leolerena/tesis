@@ -20,13 +20,13 @@
 	
 	\begin{frame}[fragile]{Problema de la palabra.}
 		Sea $G$ un grupo \fg por un conjunto finito $A$; 
-		tal que $G$ es isomorfo a $\langle A \mid R \rangle$ para un conjunto de relaciones $R \subseteq (A \cup A^{-1})^*$.
+		tal que $G$ es isomorfo a $\langle A \mid R \rangle$ para un conjunto de relaciones $R$.
 		
 		El \emph{problema de la palabra} consiste en el siguiente problema:
 	
 		\begin{itemize}
 					\item 
-						\textbf{Entrada}: Una palabra $w \in (A \cup A^{-1})^*$.
+						\textbf{Entrada}: Una palabra $w$ en $A \cup A^{-1}$.
 					
 					\item 
 						\textbf{Pregunta}: Decidir si vale $w=1$ en $G$.
@@ -49,8 +49,44 @@
 			V(\Gamma) = G,   \ \ \ E(\Gamma) = \{ \{ g,ga \}  \mid g \in G, a \in A \cup A^{-1}  \}. 	
 		\]
 
-		\TODO{Agregar el dibujo del grafo de Cayley de un grupo.}
-	\end{frame}
+\begin{alertblock}{Ejemplo.}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
+			$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo.
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\[
+				\begin{tikzpicture}
+				[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
+					minimum size=2em,inner sep=2,
+					 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
+							\fill[#1] 
+							(path picture bounding box.south) rectangle
+							(path picture bounding box.north west);
+					}},
+					fill fraction/.default=astral!90
+					]
+			\node[align=center] at (2, -6) {};
+				\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+						\node (1) at (0,0) {$1$};
+						\node (a) at (2,2)  {$a$};
+						\node (b) at (2,-2)     {$b$};
+						\node (ab) at (4,0)    {$ab$};
+				\end{scope}
+				
+				\draw   (1)  edge[-] (a);
+				\draw   (1)  edge[-] (b);
+				\draw   (a)  edge[-] (ab);
+				\draw   (b)  edge[-] (ab);
+		\end{tikzpicture}
+		\]
+		\end{column}
+	\end{columns}
+	
+			
+	 \end{alertblock}
+\end{frame}
 	
 	\begin{frame}[fragile]{Grupos libres.}
 		Dado un conjunto $A$ notamos $F_{A}$ al \emph{grupo libre} generado por los elementos de $A$. 
@@ -88,10 +124,10 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Teoría de lenguajes.}
-		Dado un conjunto finito $A$ notaremos por $A^*$ al monoide libre sobre $A$.
+		Dado un conjunto finito $\Sigma$ notaremos por $\Sigma^*$ al monoide libre sobre $\Sigma$.
 		
 		\begin{deff}
-			Un lenguaje $L$ sobre un alfabeto $A$ es un subconjunto de $A^*$.
+			Un lenguaje $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
 		\end{deff}	
 		
 		\begin{alertblock}{Ejemplos.}
@@ -113,7 +149,8 @@
 	\begin{frame}[fragile]{Ejemplo de gramática.}
 		Consideramos las siguientes reglas.
 		\begin{align*}
-			S  & \to aAS \mid b \\
+			S  & \to aAS  \\
+			S  & \to b    \\
 			A  & \to baAb \\
 			aA & \to bbb
 		\end{align*}
@@ -138,12 +175,14 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]{Gramáticas (pt.2).}
-		Una sucesión de producciones $\gamma_{1} \to \gamma_{2} \to \dots \gamma_{n}$ la denotamos $\gamma_{1} \to^{*} \gamma_{n}$ y diremos que es un \emph{derivación}.
+		Una sucesión de producciones $\gamma_{1} \to \gamma_{2} \to \dots \to \gamma_{n}$ la denotamos $\gamma_{1} \tto \gamma_{n}$ y diremos que es un \emph{derivación}.
+
+
 
 		\begin{deff}
 			Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
 			\[
-			L({\cal G}) = \{ w \in \Sigma^* \ | \ S \deriva w   \}.
+			L({\cal G}) = \{ w \in \Sigma^* \ | \ S \tto w   \}.
 			\]
 		\end{deff}		
 	\end{frame}
@@ -172,7 +211,6 @@
 			
 			Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.
 
-			\TODO{Comentar porqué se llama independiente de contexto.}
 		\end{deff}
 		
 	\end{frame}
@@ -185,13 +223,15 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Clasificación del problema de la palabra.}
-		
-		\begin{teo}[Animisov--1971]
-			Un grupo $G$ es finito si y solo sí $\WP{G}{A}$ es regular.
-		\end{teo}
-		
-		\[
-			\begin{tikzpicture}[scale=0.7,->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
+		\begin{columns}
+			\begin{column}{0.3\textwidth}
+				\begin{teo}[Animisov]
+					Un grupo $G$ es finito si y solo sí $\WP{G}{A}$ es regular.
+				\end{teo}
+			\end{column}
+			\begin{column}{0.7\textwidth}
+			\[
+			\begin{tikzpicture}[scale=0.9,->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
 				scale = 1,transform shape]
 				\node[state,initial,accepting] (1) [] {$1$};
 				\node[state] (a) [above right of=1] {$a$};
@@ -207,7 +247,10 @@
 					\path (b) edge    [bend left]          node {$a$ \ } (ab);
 					\path (ab) edge   [bend left, swap]          node {$a^{-1}$ \ } (b);
 			\end{tikzpicture}	
-		\]
+		\]		
+			\end{column}
+		\end{columns}
+		
 
 		\begin{alertblock}{Pregunta natural.}
 			¿Es posible caracterizar a los grupos cuyo lenguaje del problema de la palabra es independiente de contexto?
@@ -224,12 +267,176 @@
 				(0,-6) node(c) [rectangle,draw] {$\WP{G}{A}$ es un lenguaje independiente de contexto}
 				(-5,-3) node (d) [rectangle,draw] {$G$ es virtualmente libre};
 				\draw   
-				(d) edge[<-,line width=1.0pt,"Teorema \ref{teo_karrass_solitar}"] (a) 
-				(c) edge[<-,line width=1.0pt,"Teorema \ref{teo_Muller_Schupp}"] (d)
-				(b) edge[<-,line width=1.0pt,"Teorema \ref{teo_ic_implica_tw}"] (c)
-				(a)  edge[<-,line width=1.0pt,"Teorema \ref{coro_tw_finito_implica_pi1}"] (b);
+				(d) edge[<-,line width=1.0pt,"Capítulo 2"] (a) 
+				(c) edge[<-,line width=1.0pt,"Capítulo 3"] (d)
+				(b) edge[<-,line width=1.0pt,"Capítulo 4"] (c)
+				(a)  edge[<-,line width=1.0pt,"Capítulo 5"] (b);
 			\end{tikzpicture}
 		\]
+	\end{frame}
+
+	
+
+	\begin{frame}{Descomposición en un árbol y treewidth de un grafo.}
+	Sea $\Gamma$ un grafo no dirigido.
+	Una \textbf{descomposición en un árbol} de $\Gamma$ es un par $(T,f)$ donde
+	$T$ es un árbol y $f$ una función 
+	\[
+	f: V(T) \to \partes{V(\Gamma)}
+	\]
+	Que cumple las siguientes condiciones:
+	\begin{enumerate}
+		\item Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. 
+		\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
+		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
+		\item Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
+	\end{enumerate}
+	El \textbf{bagsize} de esta descomposición es el siguiente valor:
+	\begin{equation*}
+		bs(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
+	\end{equation*}
+	Un grafo $\Gamma$ tiene \textbf{treewidth finito} si existe $(T,f)$ tal que $bs(\Gamma,T,f) < \infty$.
+	\end{frame}
+	
+	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
+		Dado $\Gamma = \cay{G}{A}$ donde $G$ es finitamente generado por $A$.
+
+		Sea $C \subseteq V(\Gamma)$ definimos:
+		\begin{itemize}
+			\item  
+				La \textbf{vecindad} de $C$ es el siguiente conjunto:
+
+				$N(C) = C \cup \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.$
+
+			\item 
+				El \textbf{borde} de $C$ es el siguiente conjunto: 
+
+				$\beta C =  N(C) \cap N(C^{c})$.
+		\end{itemize} 
+	\end{frame}
+
+	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol pt.2}
+		Para cada $n \in \NN_{0}$ consideramos:
+		\[
+			V_{n} = V(\Gamma \setminus B_{n}(1))	
+		\]
+
+		Consideramos el siguiente árbol $T$ con raíz $1$:
+		\begin{align*}
+			V(T)  & = \{ \beta C \mid C \in V_{n} \ \text{componente conexa} \}  \cup \{ 1 \} \\
+			E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
+			& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
+			& \cup \{ \{1, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
+		\end{align*}
+		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(\beta C) = \beta C$.
+		\begin{lema}
+			El par $(T,f)$ es una descomposición en un árbol para el grafo $\Gamma$.
+		\end{lema}
+	\end{frame}
+
+	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 1).}
+	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ presentado por 
+	$G \simeq \langle a,b \mid a^2, b^3 \rangle$.
+
+	El grafo $\cay{G}{\{ a,b,b^{-1} \}}$ lo representamos de la siguiente manera:
+	
+		\[
+			\begin{tikzpicture}
+			[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
+				minimum size=2em,inner sep=2,
+				 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
+						\fill[#1] 
+						(path picture bounding box.south) rectangle
+						(path picture bounding box.north west);
+				}},
+				fill fraction/.default=astral!90
+				]
+		\node[align=center] at (2, -6) {};
+			\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+					\node (1) at (0,0) {$1$};
+					\node (a) at (2,0)  {$a$};
+					\node (b) at (-2,2)     {$b$};
+					\node (bb) at (-2,-2)    {$b^2$};
+					\node (ab) at (4,2)      {$ab$};
+					\node (abb) at (4,-2)     {$ab^2$};
+					\node (ba) at (-4,2)     {$ba$};
+					\node (bba) at (-4,-2)     {$b^2a$};
+					\node (aba) at (6,2)    {$aba$};
+					\node (abba) at (6,-2)    {$ab^2a$};
+					\node (bab) at (-6,3)    {$bab$};
+					\node (babb) at (-6,1)     {$bab^2$};
+					\node (bbab) at (-6,-3)     {$b^2ab$};
+					\node (bbabb) at (-6,-1)    {$b^2ab^2$};
+					\node (abab) at (8,3)    {$abab$};
+					\node (ababb) at (8,1)    {$abab^2$};
+					\node (abbab) at (8,-1)     {$ab^2ab$};
+					\node (abbabb) at (8,-3)  {$ab^2ab^2$};
+			\end{scope}
+			
+			\draw   (1)  edge[-] (a);
+			\draw   (1)  edge[-] (b);
+			\draw   (1)  edge[-] (bb);
+			\draw   (b)  edge[-] (bb);
+			\draw   (b)  edge[-] (ba);
+			\draw   (bb)  edge[-] (bba);
+			\draw   (a)  edge[-] (ab);
+			\draw   (abb)  edge[-] (a);
+			\draw   (ab)  edge[-] (abb);
+			\draw   (ab)  edge[-] (aba);
+			\draw   (aba)  edge[-] (abab);
+			\draw   (ababb)  edge[-] (aba);
+			\draw   (ababb)  edge[-] (abab);
+			\draw   (abb)  edge[-] (abba);
+			\draw   (abba)  edge[-] (abbab);
+			\draw   (abba)  edge[-] (abbabb);
+			\draw   (bba)  edge[-] (bbabb);
+			\draw   (bba)  edge[-] (bbab);
+			\draw   (ba)  edge[-] (bab);
+			\draw   (babb)  edge[-] (bab);
+			\draw   (abbab)  edge[-] (abbabb);
+			\draw   (ba)  edge[-] (babb);
+			\draw   (bbabb)  edge[-] (bbab);
+			\draw   (abbab)  edge[-] (abbabb);
+	\end{tikzpicture}
+	\]
+	\end{frame}
+	
+	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 2).}
+		El árbol $T$ de la descomposición lo representamos de la siguiente manera:
+
+	\[
+			\begin{tikzpicture}[scale=0.8, V/.style = {circle, draw,align= center, minimum size=0.5cm,
+			minimum size=3em,inner sep=2,
+			fill=applegreen!15,font=\scriptsize	},fill fraction/.style={path picture={
+				\fill[#1] 
+				(path picture bounding box.south) rectangle
+				(path picture bounding box.north west);
+		}},
+		fill fraction/.default=gray!50
+		]
+		\node[align=center] at (2, -6) {};
+		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+			\node (1) at (0,0)  {$\{ b,b^2,1 \}$};
+			\node (2) at (2,0)  {$1$};
+			\node (3) at (4,0)  {$\{ 1,a \}$};
+			\node (4) at (-2,3)     {$\{ b,ba \}$};
+			\node (5) at (-2,-3)   {$\{b^2,b^2a\}$};
+			\node (6) at (6,0)  {$\{ a,ab,ab^2 \}$};
+			
+			\node (9) at (8,3)  {$\{ab,aba\}$};
+			\node (10) at (8,-3)  {$\{ ab^2, ab^2a \}$};
+		\end{scope}
+		
+		
+		\draw (1) edge[-] (2);
+		\draw (2) edge[-] (3);
+		\draw (1) edge[-] (5);
+		\draw (1) edge[-] (4);
+		\draw (3) edge[-] (6);
+		\draw (6) edge[-] (9);
+		\draw (6) edge[-] (10);
+	\end{tikzpicture}
+	\]
 	\end{frame}
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
@@ -241,12 +448,16 @@
 				\item $S \to \epsilon$ 
 			\end{enumerate}
 		\end{deff}
+		\begin{teo}
+			Sea $\cG$ una gramática \ic{} entonces existe una gramática \ic{} en forma normal de Chosmky $\cG'$ tal que $L(\cG) = L(\cG')$.
+		\end{teo}
+
 		\begin{alertblock}{Ventaja.}
 			Si queremos saber si una palabra $w \in \Sigma^{*}$ con longitud $|w| = n$ es tal que $w \in L(\cG)$ entonces nos basta con mirar todas las derivaciones de longitud al menos $2n-1$.
 		\end{alertblock}
 	\end{frame}
 
-	\begin{frame}[fragile]{Un lema para forma normal de Chomsky pt 1.}
+	\begin{frame}[fragile]{Un lema para forma normal de Chomsky (pt. 1.)}
 		
 		\begin{columns}
 			
@@ -281,214 +492,96 @@
 	\end{frame}
 
 	
-	\begin{frame}{Ejemplo forma normal de Chomsky pt.2}
-		Consideremos la subpalabra $u  = aabcc$ de $w = caabccab$.
-		Consideremos el \textit{árbol de derivación}.
-		\TODO{Agregar dibujito y decir que el nodo tal es el más chico que deriva la subpalabra $u$}. 
+	\begin{frame}[fragile]{Un lema para forma normal de Chomsky (pt.2).}
+		Consideremos la subpalabra $u  = aabcc$ de $w = caabccab$ y el \textit{árbol de derivación} de la derivación para $w$.
+		\[
+			\begin{tikzpicture}[node distance=0.4cm]
+				\node (s) {$S$};
+				\node[below left=0.5cm and 2cm of  s] (a1) {$A$};
+				\node[below left=0.5cm and 2cm of a1] (c2) {$C$};
+				\node[below left=of c2] (a3) {$A$};
+				\node[below left=0.5cm and 1cm of a3] (c4) {$C$};
+				\node[below right=0.5cm and 0.1cm of a3] (d4) {$D$};
+				\node[below left=of d4] (d51) {$D$};
+				\node[below right=of d4] (d52) {$D$};
+				\node[below right=0.5cm and 2cm of c2] (b3) {$B$};
+				\node[below right=0.5cm and 2cm of a1] (d2) {$D$};
+				\node[below left=of d2] (d31) {$D$};
+				\node[below right=of d2] (d32) {$D$};
+				\node[below right=0.5cm and 2cm of s] (b1) {$B$};
+				\node[below left=of b1] (b21) {$B$};
+				\node[below right=of b1] (b22) {$B$};
+				\node[below =of d51] (d62) {$a$};
+				\node[left =0.9cm of d62] (c61) {$c$};
+				\node[below =of d52] (d63) {$a$};
+				\node[right =1.4cm of d63] (b64) {$b$};
+				\node[right =1.2cm of b64] (c65) {$c$};
+				\node[right =1.2cm of c65] (c66) {$c$};
+				\node[right =0.4cm of c66] (a67) {$a$};
+				\node[right =1.3cm of a67] (b68) {$b$};
+				\draw (b1) -- (s);
+				\draw (a1) -- (s);
+				\draw (b1) -- (b21);
+				\draw (b1) -- (b22);
+				\draw (a1) -- (c2);
+				\draw (a1) -- (d2);
+				\draw (d2) -- (d31);
+				\draw (d2) -- (d32);
+				\draw (c2) -- (a3);
+				\draw (c2) -- (b3);
+				\draw (a3) -- (c4);
+				\draw (a3) -- (d4);
+				\draw (d51) -- (d4);
+				\draw (d52) -- (d4);
+				\draw (d51) -- (d62);
+				\draw (d52) -- (d63);
+				\draw (c4) -- (c61);
+				\draw (b3) -- (b64);
+				\draw (d31) -- (c65);
+				\draw (d32) -- (c66);
+				\draw (b21) -- (a67);
+				\draw (b22) -- (b68);
+			\end{tikzpicture}
+		\]
 		
 	\end{frame}
 
-	\begin{frame}[fragile]{Un lema para forma normal de Chomsky pt 2.}
+	\begin{frame}[fragile]{Un lema para forma normal de Chomsky (pt. 3).}
 		En general vale el siguiente enunciado.
 
 		\begin{lema}
 			Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
 			Sea $w \in L(\cG)$ tal que $w = tuv$ con $t,u,v \in \Sigma^{*}$. 
-			Si fijamos una derivación $S \to^{*} w$ entonces existe un único vértice en el árbol de derivación con la propiedad de ser el más bajo entre aquellos de los que deriva una subpalabra que da lugar a $u$.
-		\end{lema}
-
-		\TODO{Agregar oralmente detalles sobre "da lugar a $u$".}
-	\end{frame}
-	
-	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
-		\[	
-			\begin{tikzpicture}{scale = 0.75}
-				\path 
-				(0,0) node(a) [rectangle,draw] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
-				(5,-3) node(b) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
-				(0,-6) node(c) [rectangle,draw] {$\WP{G}{A}$ es un lenguaje independiente de contexto}
-				(-5,-3) node (d) [rectangle,draw] {$G$ es virtualmente libre};
-				\draw   
-				(d) edge[<-,line width=1.0pt,"Teorema \ref{teo_karrass_solitar}"] (a) 
-				(c) edge[<-,line width=1.0pt,"Teorema \ref{teo_Muller_Schupp}"] (d)
-				(b) edge[<-,line width=1.0pt,"Teorema \ref{teo_ic_implica_tw}"] (c)
-				(a)  edge[<-,line width=1.0pt,"Teorema \ref{coro_tw_finito_implica_pi1}"] (b);
-			\end{tikzpicture}
-		\]
-	\end{frame}
-
-	\begin{frame}{Descomposición en un árbol y treewidth de un grafo.}
-	Sea $\Gamma$ un grafo no dirigido.
-	Una \emph{descomposición en un árbol} de $\Gamma$ es un par $(T,f)$ donde
-	$T$ es un árbol y $f$ una función 
-	\[
-	f: V(T) \to \partes{V(\Gamma)}
-	\]
-	Que cumple las siguientes condiciones:
-	\begin{enumerate}
-		\item Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. 
-		\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
-		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
-		\item Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
-	\end{enumerate}
-	\end{frame}
-	
-	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
-		Dado $\Gamma = \cay{G}{A}$ donde $G$ es finitamente generado por $A$.
-
-		Sea $C \subseteq V(\Gamma)$ definimos:
-		\begin{itemize}
-			\item  
-				La \textit{vecindad de $C$} es el siguiente conjunto:
-
-				$N(C) = C \cup \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.$
-
-			\item 
-				El \textit{borde de $C$} es el siguiente conjunto: 
-
-				$\beta C =  N(C) \cap N(C^{c})$.
-		\end{itemize} 
-	\end{frame}
-
-	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol pt.2}
-		Para cada $n \in \NN_{0}$ consideramos:
-		\[
-			V_{n} = V(\Gamma \setminus B_{n}(1))	
-		\]
-
-		Consideramos el siguiente árbol $T$ con raíz $1$:
-		\begin{align*}
-			V(T)  & = \{ \beta C \mid C \in V_{n} \ \text{componente conexa} \}  \cup \{ 1 \} \\
-			E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
-			& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
-			& \cup \{ \{1, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
-		\end{align*}
-		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(\beta C) = \beta C$.
-		\begin{lema}
-			El par $(T,f)$ es una descomposición en un árbol para el grafo $\Gamma$.
+			Si fijamos una derivación $S \tto w$ entonces existe un único vértice en el árbol de derivación con la propiedad de ser el más bajo entre aquellos de los que deriva una subpalabra que da lugar a $u$.
 		\end{lema}
 	\end{frame}
-
-	\begin{frame}{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 1).}
-	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ presentado por 
-	$G \simeq \langle a,b \mid a^2, b^3 \rangle$.
-
-	El grafo $\cay{G}{\{ a,b,b^{-1} \}}$ lo representamos de la siguiente manera:
 	
-	% 	\[
-	% 		\begin{tikzpicture}
-	% 		[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
-	% 				minimum size=2em,inner sep=2,
-	% 				 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
-	% 						\fill[#1] 
-	% 						(path picture bounding box.south) rectangle
-	% 						(path picture bounding box.north west);
-	% 				}},
-	% 		fill fraction/.default=astral!90
-	% 		]
-	
-	% 		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
-	% 				 \node (1) at (0,0) {$1$};
-	% 				\node (a) at (2,0)  {$a$};
-	% 				 \node (b) at (-2,2)     {$b$};
-	% 				\node (bb) at (-2,-2)    {$b^2$};
-	% 				\node (ab) at (4,2)      {$ab$};
-	% 				 \node (abb) at (4,-2)     {$ab^2$};
-	% 				\node (ba) at (-4,2)     {$ba$};
-	% 				\node (bba) at (-4,-2)     {$b^2a$};
-	% 				\node (aba) at (6,2)    {$aba$};
-	% 				\node (abba) at (6,-2)    {$ab^2a$};
-	% 				\node (bab) at (-6,3)    {$bab$};
-	% 				\node (babb) at (-6,1)     {$bab^2$};
-	% 				\node (bbab) at (-6,-3)     {$b^2ab$};
-	% 				\node (bbabb) at (-6,-1)    {$b^2ab^2$};
-	% 				\node (abab) at (8,3)    {$abab$};
-	% 				\node (ababb) at (8,1)    {$abab^2$};
-					
-	% 				\node (abbab) at (8,-1)     {$ab^2ab$};
-	% 				\node (abbabb) at (8,-3)  {$ab^2ab^2$};
-					
-	% 			\end{scope}
-			
-	% 		\draw   (1)  edge[-] (a);
-	% 		\draw   (1)  edge[-] (b);
-	% 		\draw   (1)  edge[-] (bb);
-	% 		\draw   (b)  edge[-] (bb);
-	% 		\draw   (b)  edge[-] (ba);
-	% 		\draw   (bb)  edge[-] (bba);
-	% 		\draw   (a)  edge[-] (ab);
-	% 		\draw   (abb)  edge[-] (a);
-	% 		\draw   (ab)  edge[-] (abb);
-	% 		\draw   (ab)  edge[-] (aba);
-	% 		\draw   (aba)  edge[-] (abab);
-	% 		\draw   (ababb)  edge[-] (aba);
-	% 		\draw   (ababb)  edge[-] (abab);
-	% 		\draw   (abb)  edge[-] (abba);
-	% 		\draw   (abba)  edge[-] (abbab);
-	% 		\draw   (abba)  edge[-] (abbabb);
-	% 		\draw   (bba)  edge[-] (bbabb);
-	% 		\draw   (bba)  edge[-] (bbab);
-	% 		\draw   (ba)  edge[-] (bab);
-	% 		\draw   (babb)  edge[-] (bab);
-	% 		\draw   (abbab)  edge[-] (abbabb);
-	% 		\draw   (ba)  edge[-] (babb);
-	% 		\draw   (bbabb)  edge[-] (bbab);
-	% 		\draw   (abbab)  edge[-] (abbabb);
-	% \end{tikzpicture}
-	% \]
-	\TODO{Latex no le gusta este dibujo en tikz por algún motivo pero igual compila.}
-	\end{frame}
-	
-	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 2).}
-		El árbol $T$ de la descomposición lo representamos de la siguiente manera:
-
-	\[
-			\begin{tikzpicture}[scale=0.8, V/.style = {circle, draw,align= center, minimum size=0.5cm,
-			minimum size=3em,inner sep=2,
-			fill=applegreen!15,font=\scriptsize	},fill fraction/.style={path picture={
-				\fill[#1] 
-				(path picture bounding box.south) rectangle
-				(path picture bounding box.north west);
-		}},
-		fill fraction/.default=gray!50
-		]
-		\node[align=center] at (2, -6) {};
-		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
-			\node (1) at (0,0)  {$\{ b,b^2,1 \}$};
-			\node (2) at (2,0)  {$1$};
-			\node (3) at (4,0)  {$\{ 1,a \}$};
-			\node (4) at (-2,3)     {$\{ b,ba \}$};
-			\node (5) at (-2,-3)   {$\{b^2,b^2a\}$};
-			\node (6) at (6,0)  {$\{ a,ab,ab^2 \}$};
-			
-			\node (9) at (8,3)  {$\{ab,aba\}$};
-			\node (10) at (8,-3)  {$\{ ab^2, ab^2a \}$};
-			
-		\end{scope}
-		
-		
-		\draw (1) edge[-] (2);
-		\draw (2) edge[-] (3);
-		\draw (1) edge[-] (5);
-		\draw (1) edge[-] (4);
-		\draw (3) edge[-] (6);
-		\draw (6) edge[-] (9);
-		\draw (6) edge[-] (10);
-	\end{tikzpicture}
-	\]
-	\end{frame}
-
+	% \begin{frame}[fragile]{Teorema de Muller--Schupp.}
+	% 	\[	
+	% 		\begin{tikzpicture}{scale = 0.75}
+	% 			\path 
+	% 			(0,0) node(a) [rectangle,draw] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
+	% 			(5,-3) node(b) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
+	% 			(0,-6) node(c) [rectangle,draw] {$\WP{G}{A}$ es un lenguaje independiente de contexto}
+	% 			(-5,-3) node (d) [rectangle,draw] {$G$ es virtualmente libre};
+	% 			\draw   
+	% 			(d) edge[<-,line width=1.0pt,"Teorema \ref{teo_karrass_solitar}"] (a) 
+	% 			(c) edge[<-,line width=1.0pt,"Teorema \ref{teo_Muller_Schupp}"] (d)
+	% 			(b) edge[<-,line width=1.0pt,"Teorema \ref{teo_ic_implica_tw}"] (c)
+	% 			(a)  edge[<-,line width=1.0pt,"Teorema \ref{coro_tw_finito_implica_pi1}"] (b);
+	% 		\end{tikzpicture}
+	% 	\]
+	% \end{frame}
 	
 	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (lemas previos).}
 		\begin{lema}[1]
-			Sea $G$ un grupo \ic con gramática $\gramatica$ de manera que $L(\cG) = WP(G,\Sigma)$.
+			Sea $G$ un grupo \ic{} y $\gramatica$ gramática \ic{}  de manera que $L(\cG) = WP(G,\Sigma)$.
 			Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
 			\[
-			L_A = \{ w \in \Sigma^*  \ | \ A \deriva w  \}.
+			L_A = \{ w \in \Sigma^*  \ | \ A \tto w  \}.
 			\]
-			Sea $\pi:\Sigma^* \to G$ la proyección del monoide libre al grupo.
 			Entonces vale el siguiente resultado:
-			dadas palabras $v,v' \in L_{A}$ luego $\pi(v) = \pi(v')$.
+			dadas palabras $v,v' \in L_{A}$ luego $v = v'$ en $G$.
 		\end{lema}
 
 		\begin{lema}[2]
@@ -523,9 +616,9 @@
 			\item 
 				Para cada $A \in V$ consideramos 
 				\[
-					L_{A} = \{ w \in \Sigma^{*} \mid A \deriva w \}
+					L_{A} = \{ w \in \Sigma^{*} \mid A \tto w \}
 				\]
-				Definimos $k_{A} = \{ |w| \mid w \in L_{A} \}$.
+				Definimos $k_{A} = \min \{ |w| \mid w \in L_{A} \}$.
 				
 			\item 
 				Definimos 
@@ -544,7 +637,7 @@
 				\[
 					d(g,h) \le 3k	
 				\]
-				para $g,h \in C$ componente conexa de $V(\Gamma \setminus B_{n}(1))$.
+				para $g,h \in \beta C$ componente conexa de $V(\Gamma \setminus B_{n}(1))$.
 
 			\item 
 				Consideramos: 
@@ -558,7 +651,7 @@
 				
 				Entonces existe derivación
 				\[
-					S \deriva uvw	
+					S \tto uvw	
 				\]
 		\end{itemize}
 	\end{frame}
@@ -571,7 +664,7 @@
 			\item 
 				Como la gramática está en forma normal de Chomsky y podemos asumir que $|v| \ge 2$ entonces tenemos que la derivación tiene la siguiente pinta:
 				\begin{equation*}
-					S \deriva u'Aw' \to_{\cal G} u'BC w' \deriva u'v'v''w'
+					S \tto u'Aw' \to_{\cal G} u'BC w' \tto u'v'v''w'
 				\end{equation*}
 				donde $B,C$ son otras variables 
 				\begin{itemize}
@@ -585,19 +678,19 @@
 	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.5).}
 		\begin{itemize}
 			\item 
-				Si consideramos la geodésica $\alpha$ tenemos que al haber leído la etiqueta $u'$ llegamos a un \textbf{vértice $x$} y por estar sobre la geodésica cumple la siguiente igualdad:
+				Si consideramos la geodésica $\alpha$ tenemos que al haber leído la etiqueta $u'$ llegamos a un vértice $x$ y por estar sobre la geodésica cumple la siguiente igualdad:
 				\begin{equation*}
 					d(x,g) = d(1,g) - d(1,x).
 				\end{equation*}
 			
 			\item 
-				Si consideramos la geodésica $\beta$ tenemos que al haber leído la etiqueta $(w')^{-1}$ llegamos a un \textbf{vértice $z$} y por estar sobre la geodésica cumple la siguiente igualdad:
+				Si consideramos la geodésica $\beta$ tenemos que al haber leído la etiqueta $(w')^{-1}$ llegamos a un vértice $z$ y por estar sobre la geodésica cumple la siguiente igualdad:
 				\begin{equation*}
 					d(z,h)  = d(1,h) - d(1,z).
 				\end{equation*}
 
 			\item 
-				Consideremos el \textbf{vértice $y$} al que llegamos después de leer $u'v'$.
+				Consideremos el vértice $y$ al que llegamos después de leer $u'v'$.
 				Este vértice está en el camino $\tau$ y usando que $y \in \tau \subseteq C \cup \beta C $ tenemos que
 					\[
 						d(1,y) \ge n+1 = d(1,g)	
@@ -664,5 +757,13 @@
 				\end{align*}
 		\end{itemize}
 		\qed
+	\end{frame}
+
+	\begin{frame}
+		\TODO{Decidir si poner los nombres de los objetos que defino en itálica o en negrita.}
+
+		\TODO{El lema que digo vale para forma normal de Chomsky creo que vale en general...}
+
+		\TODO{}
 	\end{frame}
 \end{document}
