@@ -19,7 +19,7 @@
 	
 	
 	\begin{frame}[fragile]{Problema de la palabra.}
-		Sea $G$ un grupo \fg por un conjunto finito $A$; 
+		Sea $G$ un grupo \fg por un conjunto $A$; 
 		tal que $G$ es isomorfo a $\langle A \mid R \rangle$ para un conjunto de relaciones $R$.
 		
 		El \emph{problema de la palabra} consiste en el siguiente problema:
@@ -49,11 +49,15 @@
 			V(\Gamma) = G,   \ \ \ E(\Gamma) = \{ \{ g,ga \}  \mid g \in G, a \in A \cup A^{-1}  \}. 	
 		\]
 
-\begin{alertblock}{Ejemplo.}
+
 	\begin{columns}
 		\begin{column}{0.4\textwidth}
-			Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
-			$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo.
+			\begin{alertblock}{Ejemplo.}
+
+				\TODO{Indentado.}
+				Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
+				$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo.
+			\end{alertblock}
 		\end{column}
 		\begin{column}{0.6\textwidth}
 			\[
@@ -85,7 +89,7 @@
 	\end{columns}
 	
 			
-	 \end{alertblock}
+	
 \end{frame}
 	
 	\begin{frame}[fragile]{Grupos libres.}
@@ -147,6 +151,8 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]{Ejemplo de gramática.}
+		Consideremos las variables $V =\{ S,A \}$ y el alfabeto $\Sigma = \{ a,b \}$.
+
 		Consideramos las siguientes reglas.
 		\begin{align*}
 			S  & \to aAS  \\
@@ -154,7 +160,10 @@
 			A  & \to baAb \\
 			aA & \to bbb
 		\end{align*}
-		Entonces aplicamos estas reglas para generar la siguiente palabra.
+
+		El lenguaje generado por esta gramática es el conjunto de las palabras $w \in \Sigma^{*}$ que podemos obtener a partir de $S$ aplicando las reglas.
+
+		Ejemplo: podemos \emph{derivar} la palabra $abbbbbb$ de la siguiente manera.  
 		\[
 			S \to aAS \to abaAbS \to abaAbb \to abbbbbb	
 		\]
@@ -166,11 +175,12 @@
 				\begin{itemize}
 					\item $V$ es un conjunto finito denominado las \emph{variables};
 					\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
-					\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
+					\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
 					
-					Las producciones $(\gamma, \nu) \in P$, las denotamos por medio de la siguiente notación $\gamma \to \nu$.
+					% Las producciones $(\gamma, \nu) \in P$, las denotamos por medio de la siguiente notación $\gamma \to \nu$.
 					\item $S \in V$ es el \emph{símbolo inicial};
 				\end{itemize}
+				Es usual escribir las producciones $(\gamma, \nu) \in P$ como $\gamma \to \nu$. 
 		\end{deff}
 	\end{frame}
 	
@@ -219,6 +229,7 @@
 
 			\centering
 			\includegraphics[scale = 0.65]{Chomsky-hierarchy.png}
+			\TODO{ Saco esto y digo ante que regular implica reg}
 		
 	\end{frame}
 
@@ -257,6 +268,12 @@
 		\end{alertblock}
 	\end{frame}
 	
+	\begin{frame}[fragile]{Teorema de Muller--Shupp}
+		\begin{teo}
+			Un grupo $G$ es \vl{} si y solo si $\WP{G}{A}$ es un lenguaje \ic.
+		\end{teo}
+	\end{frame}
+
 	\begin{frame}[fragile]{Teorema de Muller-Schupp.}
 		
 		\[	
@@ -273,6 +290,7 @@
 				(a)  edge[<-,line width=1.0pt,"Capítulo 5"] (b);
 			\end{tikzpicture}
 		\]
+		\TODO{Cambiar el orden del diagrama.}
 	\end{frame}
 
 	
@@ -323,10 +341,10 @@
 
 		Consideramos el siguiente árbol $T$ con raíz $1$:
 		\begin{align*}
-			V(T)  & = \{ \beta C \mid C \in V_{n} \ \text{componente conexa} \}  \cup \{ 1 \} \\
+			V(T)  & = \{ \beta C \mid C \in V_{n} \ \text{componente conexa} \}  \cup \{ \{1\} \} \\
 			E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
 			& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
-			& \cup \{ \{1, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
+			& \cup \{ \{\{1\}, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
 		\end{align*}
 		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(\beta C) = \beta C$.
 		\begin{lema}
@@ -452,9 +470,9 @@
 			Sea $\cG$ una gramática \ic{} entonces existe una gramática \ic{} en forma normal de Chosmky $\cG'$ tal que $L(\cG) = L(\cG')$.
 		\end{teo}
 
-		\begin{alertblock}{Ventaja.}
-			Si queremos saber si una palabra $w \in \Sigma^{*}$ con longitud $|w| = n$ es tal que $w \in L(\cG)$ entonces nos basta con mirar todas las derivaciones de longitud al menos $2n-1$.
-		\end{alertblock}
+		% \begin{alertblock}{Ventaja.}
+		% 	Si queremos saber si una palabra $w \in \Sigma^{*}$ con longitud $|w| = n$ es tal que $w \in L(\cG)$ entonces nos basta con mirar todas las derivaciones de longitud al menos $2n-1$.
+		% \end{alertblock}
 	\end{frame}
 
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky (pt. 1.)}
