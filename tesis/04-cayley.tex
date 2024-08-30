@@ -1008,7 +1008,74 @@ De esta manera podemos definir el treewidth finito como un invariante para grupo
 En esta sección probaremos un resultado que fue originalmente probado por Muller--Schupp en \cite{muller1985theory}.
 En ese trabajo usan una definición que resultó ser equivalente al treewidth que es la de ser $k$-triangulable.
 La demostración que presentamos sigue la exposición del trabajo \cite{diekert2017context}.
-Primero unos lemas sobre el lenguaje del problema de la palabra de un grupo independiente de contexto.
+
+
+\begin{leoenv}
+	\begin{deff}
+		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky y sea $\deri = S \deriva w$ una derivación luego vamos a definir recursivamente un grafo binario. 
+		Este grafo lo vamos a construir de manera tal que cada arista tenga una única orientación, de manera tal que dado un vértice distinguimos su hijo izquierdo de su hijo derecho y tal que todo vértice tiene una etiqueta.
+		El grafo lo armamos a partir de esta derivación.
+		Para eso, sea una producción $A \to u$ de la gramática $\cG$ luego por ser una gramática en forma normal de Chomsky esta producción tiene tres formas posibles:
+		\begin{enumerate}
+			\item $S \to \epsilon$.
+				En este caso consideramos el grafo que tiene como raíz un vértice con etiqueta $S$ y que tiene como único hijo un vértice con etiqueta $\epsilon$.
+			
+			\item $A \to BC$.
+				En este caso consideramos un grafo que tiene como raíz un vértice con etiqueta $A$ y que tiene un hijo a la izquierda con etiqueta $B$ y otro hijo a la derecha con etiqueta $C$.
+	
+			\item $A \to a$.
+				En este caso consideramos un grafo que tiene como raíz un vértice con etiqueta $A$ y que tiene como hijo a un vértice con etiqueta $a$.
+		\end{enumerate} 
+	
+		Aplicando este procedimiento recursivamente a todas las producciones que aparecen en la derivación $\deri$ obtenemos un árbol binario que denominamos el \emph{árbol de derivación} $T(\deri)$. 
+	\end{deff}
+	
+
+
+	Notemos que este árbol tiene las siguientes propiedades.
+	\begin{itemize}
+		\item Su raíz tiene como etiqueta a $S$ y de hecho por ser un gramática \ic en forma normal de Chomsky es el único vértice que tiene esta etiqueta.
+		\item Los vértices del árbol se corresponden con ocurrencias de las letras que aparecen en la palabra $w$ y con ocurrencias de variables que aparecen en esta derivación $\deri$.
+		\item Los hijos del árbol son los vértices que tienen como etiqueta las letras de $w$ en el orden adecuado.
+		\item Los vértices internos del árbol son los vértices que tienen como etiqueta una ocurrencia de una variable.
+	\end{itemize}
+	
+	\begin{deff}
+		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky y sea $\deri = S \deriva w$ una derivación y $T(\deri)$ el correspondiente árbol de derivación luego para todo vértice interno $t \in V(T(\deri))$ podemos considerar el subárbol $T(\deri, t)$ que tiene como raíz al vértice $t$.
+		Para este subárbol podemos considerar sus hijos que por lo visto forman una subpalabra $u$ de $w$.
+		De esta manera diremos que el vértice $t$ (que se corresponde a una ocurrencia de una variable $A$ en la derivación) \emph{produce} a la subpalabra $u$.
+	\end{deff}
+
+	\begin{obs}
+		Sea $\deri = S \deriva w$ un derivación luego la raíz del árbol $T(\deri)$, que tiene etiqueta $S$, produce la palabra $w$.
+	\end{obs}
+
+	\begin{deff}
+		Sea $\cG$ una gramática independiente de contexto y en forma normal de Chomsky.
+		Sea $\deri$ un derivación en esta gramática luego si $T(\deri)$ es un árbol de derivación luego podemos dar un orden a los vértices internos de la siguiente manera:
+		\[
+			t \preceq s \iff t \in V(T(\deri,s)).	
+		\]
+	\end{deff}
+
+	\begin{lema}
+		\color{brightcerulean}
+		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky y sea $\deri = S \deriva w$ una derivación luego para toda ocurrencia de una subpalabra $u$ de $w$, es decir, $w = u_{1}uu_{2}$ con $u_{1}, u_{2} \in \Sigma^{*}$,  
+		existe un vértice interno $t \in V(T(\deri))$ minimal con respecto al orden $\preceq$ con la siguiente propiedad $P$:
+		\begin{itemize}
+			\item El vértice $t$ es tal que produce una subpalabra $v$ de manera que $w = v_{1}vv_{2}$ con $v_{1}, v_{2} \in \Sigma^{*}$ que cumple que $v$ tiene como subpalabra la ocurrencia de $u$, es decir que, 
+			$v = v_{1}'uv_{2}'$ con $v'_{1},v'_{2}$.
+		\end{itemize}
+	\end{lema}
+	\begin{proof}
+		Consideramos el siguiente conjunto 
+		\[
+			\Omega = \{  t \in T(\deri) \mid t \ \text{es interno y satisface} \ P  \}	
+		\]
+		luego como los vértices internos forman un conjunto finito y parcialmente ordenado con respecto al orden $\preceq$ y $\Omega$ es no vacío dado que la raíz de $T(\deri)$ pertenece a $\Omega$ 
+		luego debe existir un elemento minimal con respecto al orden $\preceq$, probando así este lema. 
+	\end{proof}
+\end{leoenv}
 
 
 \begin{lema}\label{palabras-wp}
