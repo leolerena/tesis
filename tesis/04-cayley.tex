@@ -371,34 +371,7 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
 Primero probamos un lema auxiliar.
 \newpage
-\begin{lema}
-	\label{lemma:grado_arbol}
-	Sea $\Gamma = (V,E)$ un grafo no dirigido y sea $\rho:V(\Gamma) \to \NN_{0}$ función tal que cumple las siguientes propiedades.
-	\begin{enumerate}
-		\item Existe un único $v_{0} \in V$ tal que $\rho(v_{0}) = 0$;
-		\item Para cada arista $\{v,w\} \in E$ vale que $|\rho(v) - \rho(w)|  = 1$;
-		\item Para todo $v \in V \setminus \{v_{0}\}$ existe un único $w \in V$ de manera tal que $\{v,w\} \in E$ y $\rho(w) = \rho(v) - 1$.
-	\end{enumerate}
-	Entonces $\Gamma$ es un árbol.
-\end{lema}
-\begin{proof}
-	Para ver que es un árbol debemos ver que es conexo y sin ciclos.
-	Dado $v \in V \setminus \{v_{0}\}$ definimos $s(v) = w \in V$ si $w$ satisface la propiedad \textbf{3}.
-	\begin{itemize}
-		\item \textbf{$\Gamma$ es conexo.}
-			Dado $v \in V \setminus \{v_{0}\}$ vamos a ver que hay un camino que une a $v$ con $v_{0}$.
-			El camino que tomamos es $(v, s(v), p^{2}(v), \dots, p^{\rho(v)}(v))$.
-			Tal que está bien definido porque $\{v,s(v)\}$ es una arista para todo $v \in V \setminus \{v_{0}\}$ y como $\rho(s(v)) = \rho(v) - 1$ luego necesariamente $s^{\rho(v)}(v) = v_{0}$.
 
-
-		\item \textbf{$\Gamma$ es acíclico.}
-			Sea $\gamma = (v_{0}, \dots, v_{k})$ un camino cerrado luego sea $v_{i}$ el vértice en el camino tal que $\rho(v_{i})$ es maximal dentro de todos los vértices de $\gamma$.
-			Consideramos $v_{i-1}, v_{i+1}$ (podemos asumir que $i \neq 0$ y que $i \neq k$ por ser un camino cerrado) tales que por la propiedad \textbf{2} y por la elección de $v_{i}$ tenemos que
-			$\rho(v_{i}) = \rho(v_{i-1}) + 1 = \rho(v_{i+1}) + 1$.
-			Por la propiedad \textbf{3} concluimos que $v_{i-1} = v_{i+1}$ y así probamos que el camino no es simple.
-
-	\end{itemize}
-\end{proof}
 
 \begin{deff}
 	\label{desc-grafo-cayley}

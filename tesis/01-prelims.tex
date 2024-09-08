@@ -1209,7 +1209,9 @@ Notemos en particular que un grupo virtualmente libre cumple que es finitamente 
 \end{ej}
 
 
-\section{Grafos no dirigidos.}\label{secc_graf_nd}
+\section{Grafos.}
+
+\subsection{Grafos no dirigidos.}\label{secc_graf_nd}
 
 Sea $V$ un conjunto y $k \in \NN$ entonces introducimos la siguiente notación:
 \[
@@ -1217,7 +1219,7 @@ Sea $V$ un conjunto y $k \in \NN$ entonces introducimos la siguiente notación:
 \]
 
 \begin{deff}
-	Un \emph{grafo no dirigido} $\Gamma$ es un par $(V,E)$ de conjuntos disjuntos que satisfacen que
+	Un \emph{grafo no dirigido simple} $\Gamma$ es un par $(V,E)$ de conjuntos disjuntos que satisfacen que
 	$E \subseteq {\cal P}_{2}(V)$.
 	Los elementos de $V$ serán denominados \emph{vértices} mientras que los elementos de $E$ serán denominados \emph{aristas}.
 	El conjunto de vértices de un grafo $\Gamma$ se escribe $V(\Gamma)$ y el de aristas se escribe $E(\Gamma)$.
@@ -1256,6 +1258,36 @@ Es \emph{simple} si $v_{i} \neq v_{j}$ para todo $0 \le i < j \le n$.
 Un camino $c$ es un \emph{ciclo} si es un camino simple cerrado tal que $|c| \ge 3$.
 Un grafo conexo y sin ciclos es un \emph{árbol}.
 
+Equivalentemente tenemos la siguiente caracterización de los árboles.
+
+\begin{lema}
+	\label{lemma:grado_arbol}
+	Sea $\Gamma = (V,E)$ un grafo no dirigido y sea $\rho:V(\Gamma) \to \NN_{0}$ función tal que cumple las siguientes propiedades.
+	\begin{enumerate}
+		\item Existe un único $v_{0} \in V$ tal que $\rho(v_{0}) = 0$;
+		\item Para cada arista $\{v,w\} \in E$ vale que $|\rho(v) - \rho(w)|  = 1$;
+		\item Para todo $v \in V \setminus \{v_{0}\}$ existe un único $w \in V$ de manera tal que $\{v,w\} \in E$ y $\rho(w) = \rho(v) - 1$.
+	\end{enumerate}
+	Entonces $\Gamma$ es un árbol.
+\end{lema}
+\begin{proof}
+	Para ver que es un árbol debemos ver que es conexo y sin ciclos.
+	Dado $v \in V \setminus \{v_{0}\}$ definimos $s(v) = w \in V$ si $w$ satisface la propiedad \textbf{3}.
+	\begin{itemize}
+		\item \textbf{$\Gamma$ es conexo.}
+			Dado $v \in V \setminus \{v_{0}\}$ vamos a ver que hay un camino que une a $v$ con $v_{0}$.
+			El camino que tomamos es $(v, s(v), p^{2}(v), \dots, p^{\rho(v)}(v))$.
+			Tal que está bien definido porque $\{v,s(v)\}$ es una arista para todo $v \in V \setminus \{v_{0}\}$ y como $\rho(s(v)) = \rho(v) - 1$ luego necesariamente $s^{\rho(v)}(v) = v_{0}$.
+
+
+		\item \textbf{$\Gamma$ es acíclico.}
+			Sea $\gamma = (v_{0}, \dots, v_{k})$ un camino cerrado luego sea $v_{i}$ el vértice en el camino tal que $\rho(v_{i})$ es maximal dentro de todos los vértices de $\gamma$.
+			Consideramos $v_{i-1}, v_{i+1}$ (podemos asumir que $i \neq 0$ y que $i \neq k$ por ser un camino cerrado) tales que por la propiedad \textbf{2} y por la elección de $v_{i}$ tenemos que
+			$\rho(v_{i}) = \rho(v_{i-1}) + 1 = \rho(v_{i+1}) + 1$.
+			Por la propiedad \textbf{3} concluimos que $v_{i-1} = v_{i+1}$ y así probamos que el camino no es simple.
+
+	\end{itemize}
+\end{proof}
 
 
 \begin{deff}
@@ -1265,7 +1297,11 @@ Un grafo conexo y sin ciclos es un \emph{árbol}.
 \end{deff}
 
 Dado un grafo $\Gamma$ sus automorfismos forman un grupo con la composición.
-Esto es que si $\text{Aut}(\Gamma) = \{ \varphi: \Gamma \to \Gamma  \mid \varphi \ \text{es un automorfismo} \  \}$ luego si miramos este conjunto con la composición de morfismos $\circ$ tenemos que $(\text{Aut}(\Gamma), \circ)$ es un grupo.
+Esto es que el conjunto
+\[
+	\text{Aut}(\Gamma) = \{ \varphi: \Gamma \to \Gamma  \mid \varphi \ \text{es un automorfismo} \  \}
+\]
+con la composición de morfismos $(\text{Aut}(\Gamma), \circ)$ es un grupo.
 
 Una vez que tenemos definido el grupo de automorfismos de un grafo podemos hablar de acciones de grupos.
 
@@ -1277,7 +1313,7 @@ Una vez que tenemos definido el grupo de automorfismos de un grafo podemos habla
 
 
 
-Definimos ahora el tipo de grafos que utilizamos mayoritariamente en este trabajo.
+Definimos ahora el tipo de grafos no dirigidos que utilizamos mayoritariamente en este trabajo.
 Estos grafos conectan la teoría de grupos con la teoría de grafos no dirigidos.
 Primero una definición útil en este contexto.
 
@@ -1396,12 +1432,230 @@ Dado un grupo finitamente generado por $A$ un conjunto simétrico notaremos $(\t
 
 Utilizaremos en varias ocasiones las siguientes dos observaciones:
 
-\begin{enumerate}[1-]
+\begin{enumerate}
 	\item Si $\alpha = (v_{0}, \dots, v_{n})$ es una geodésica entonces para todo $0 \le i,j \le n$ vale que  $d(v_{i}, v_{j}) = |j-i|$.
 	\item Si $T$ es un árbol entonces es \emph{únicamente geodésico}.
 	Esto es que para todo par de vértices $t,s \in V(T)$ existe una única geodésica $\alpha$ que comienza en $s$ y termina en $t$.
 \end{enumerate}
 
+\begin{leoenv}
 
+\subsection{Grafos dirigidos.}
+
+\begin{deff}
+	Un \emph{grafo dirigido} $Y$ es una tupla $Y = (V,E,s,t)$ donde: 
+	$V$ es un conjunto de \emph{vértices}, 
+	$E$ es un conjunto de \emph{aristas},
+	$s,t:E \to V$ son funciones denominadas el \emph{comienzo} y el \emph{fin} de una arista.
+
+	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
+	A continuación damos varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
+	\begin{itemize}
+
+		\item Dado un grafo dirigido $Y=(V,E)$ con funciones $s,t, \ol{(.)}$ diremos que $Y'=(V',E')$ con funciones $s',t',\ol{()}'$ es un \emph{subgrafo} de $Y$ si $V' \subseteq V$, $E' \subseteq E$ y si $s'=\left. s \right|_{E'}, t' = \left. s \right|_{E'}$ 
+		%y $\ol{(.)}' = \left. \ol{(.)} \right|_{E'}$ .
+		
+		\item Decimos que $Y$ es \emph{finito} si $|V| < \infty$ y $|E| < \infty$.	
+		
+		\item Dado un vértice $P \in V(Y)$ podemos definir su \emph{star} como el siguiente conjunto de aristas,
+		\[
+		st(P) = \{  y \in E(Y) : s(y) = P \lor t(y) = P \}
+		\]
+		y los star orientados resultan ser:
+		\[
+			st^{+}(P) = \{  y \in E(Y) : s(y) = P \}
+		\]
+		y 
+		\[
+			st^{-}(P) = \{  y \in E(Y) : t(y) = P \}
+		\]
+		
+		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k-1$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
+		Por cada camino $c = (y_0, \dots, y_k)$ podemos tomarnos una sucesión de vértices $(s(y_{0}), \dots, s(y_{n}))$, que observamos que no necesariamente determinan al camino.
+		Un camino es \emph{cerrado} si $P = Q$.
+		La \emph{longitud} del camino $l(c) = k$ es la cantidad de aristas que lo componen.
+		
+		\item Dado un grafo dirigido $Y$ y un vértice $P \in V$ notaremos $()$ al \emph{camino constante} en $P$. 
+		En particular los caminos constantes son los únicos caminos que cumplen que tienen longitud igual a $0$.
+
+		\item Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $c = (y_0, \dots y_n)$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $d = (z_0, \dots, z_m)$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $l(d) \ge l(c)$.
+		Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $(y_0, \dots, y_k)$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
+		
+		\item 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
+		Un grafo es \emph{únicamente geodésico} si para todo par de vértices $P,Q \in V$ existe una única geodésica entre ellos.
+		
+		
+		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todos los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
+		
+				
+		\item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
+		Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
+		Todo árbol $T$ es un únicamente geodésico.
+		
+		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
+		
+	\end{itemize}
+\end{deff}
+
+En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los grafos no dirigidos simples pueden tener más de una arista entre dos vértices y pueden tener bucles.
+
+Si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
+\[
+V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
+\]
+
+\begin{deff}
+	Dado un grafo dirigido $X = (V,E,s,t)$, un vértice $a \in V$ es una \emph{raíz} si y solo sí para todo vértice $v \in V$ existe un camino de $a$ a $v$.
+	Un \emph{árbol con raíz} es un grafo dirigido tal que cumple las siguientes dos condiciones:
+	\begin{enumerate}
+		\item $|V| \ge 2$.
+		\item Tiene un raíz $a$.
+		\item Visto como grafo no dirigido es un árbol.
+	\end{enumerate}
+	A continuación damos algunas definiciones para árboles con raíces.
+	\begin{itemize}
+		\item Dado un vértice $v \in V$ luego definimos \emph{la altura de $v$} por medio de 
+		$h(v) = |c|$ si $c$ es el camino que une a la raíz $a$ con $v$.
+
+		\item Una \emph{hoja} $v$ es un vértice tal que $st^{+}(v) = \emptyset$.
+		
+		\item Dado vértices $v,w \in V$ tales que existe $y \in E$ de manera tal que 
+		$s(y) = v$ y $t(y) = w$ luego diremos que $w$ es un \emph{hijo} de $v$.
+
+		\item Dado un vértice $v \in V$ cualquier vértice $w$ que aparece en el camino de la raíz a $v$ es un \emph{ancestro} de $v$. 
+		Dualmente diremos que $v$ es un descendiente de $w$.
+
+	\end{itemize}
+\end{deff}
+
+
+\begin{deff}
+	Un \emph{árbol binario} $T$ está dado por una tupla $(D,L,l)$ donde:
+	\begin{itemize}
+		\item $D \subseteq \{0,1\}^{*}$ es un lenguaje finito cerrado por prefijos.
+		\item $L$ es un conjunto finito de etiquetas.
+		\item $l:D \to L$ es una asignación de etiquetas.
+	\end{itemize}
+	Luego el grafo dirigido se define de la siguiente manera:
+	\begin{itemize}
+		\item $V(T) = \{(d,l(d)) \mid d \in D \}$.
+		\item $E(T) = \{ ((d,l(d)),(di,l(di))) \mid i \in \{0,1\}, \ di \in D \}$.
+	\end{itemize}
+	donde $s(((d,l(d)),(di,l(di)))) = (d,l(d))$ y $t(((d,l(d)),(di,l(di)))) = (di,l(di))$.
+\end{deff}
+
+\begin{prop}
+	Todo árbol binario con más de dos vértices es un árbol con raíz.
+\end{prop}
+
+\begin{proof}
+	Por la definición tenemos que si $T$ es un árbol binario luego resulta ser un grafo simple y más aún un árbol binario $T$ es un árbol con raíz.
+	
+	La raíz es el vértice $(\epsilon, l(\epsilon))$ y para ver que el grafo no dirigido correspondiente es un árbol nos alcanza con aplicar el lema \ref{lemma:grado_arbol} con la función de la altura $h$.
+	Notemos que esta función cumple las tres condiciones:
+	\begin{enumerate}
+		\item $h(\epsilon,l(\epsilon)) = 0$.
+		\item Sea $((d,l(d)),(di,l(di))) \in E$ una arista, donde $i \in \{0,1\}$, 
+		luego $h((d,l(d)))+1 = h(di,l(di))$.
+		\item Para cada $d \in D$ exceptuando la palabra vacía tenemos que se puede escribir como $d = d'i$ con $i \in \{0,1\}$ y esta escritura es única. 
+		Como $D$ es cerrado por prefijos luego $d' \in D$ y así $((d',l(d')),(d,(l(d)))) \in E$.
+	\end{enumerate}
+\end{proof}
+
+\begin{obs}
+	En el caso que tenga un solo vértice luego resulta que necesariamente $D = \emptyset$.
+\end{obs}
+
+En el caso de los árboles binarios podemos reescribir las definiciones que dimos para árboles con raíces de las siguiente manera.
+Dado $T$ un árbol binario y $v = (d,l(d)) \in V$ algún vértice de este grafo luego:
+\begin{itemize}
+	\item La altura la podemos calcular como $h(v) = |d|$.
+	\item Una hoja es un vértice $v = (d,s(d))$ tal que $d$ no es el prefijo de ninguna palabra $d'$ tal que $d' \in D$.
+	\item Un vértice $w = (d',l(d'))$ es un ancestro de $v = (d,l(d))$ si $d'$ es un prefijo de $d$.
+	\item Un \emph{vértice interior} es un vértice tal que no es una hoja.
+\end{itemize}
+
+En particular notemos que bajo esta definición podemos darle un orden a los vértices de la siguiente manera.
+Dadas palabras $d,e \in \{0,1\}^{*}$ notaremos por $d \preceq e$ si y solo si $d$ es un prefijo de $e$.
+
+Algunas observaciones que se despredenden inmediatamente de esta definición.
+\begin{itemize}
+	\item La raíz es un elemento minimal respecto al orden $\preceq$.
+	\item Las hojas son elementos maximales respecto al orden $\preceq$.
+\end{itemize}
+
+Este orden lo podemos extender naturalmente a un orden para los vértices de un árbol binario. 
+Dados vértices $v =(d,l(d))$ y $w = (e,l(e))$ luego $v \preceq w$ si y solo sí $d \preceq e$.
+
+\begin{lema}
+	Dado un árbol binario $T$ sea $\{ v_{1}, \dots, v_{n} \}$ para $n \ge 1$ un conjunto de hojas del árbol entonces existe $w$ vértice interno tal que $w \preceq v_{i}$ para todo $i=1, \dots, n$ y es minimal con esta propiedad.
+\end{lema}
+\begin{proof}
+	Consideremos que $v_{i} = (d_{i}, l(d_{i}))$ con $d_{i} \in D$ para todo $1 \le i \le n$ luego nos alcanza con tomar $d$ prefijo en común de todas estas palabras (posiblemente $d = \epsilon$) de manera tal que $w = (d,l(d))$ cumple lo pedido.
+
+\end{proof}
+
+\TODO{Escribir sobre árboles de derivación y traducir bien los resultados que necesito.}
+
+%Un grafo dirigido es finito si el conjunto de vértices y el conjunto de aristas es finito.
+
+\subsection{Grafos dirigidos según Serre.}
+\TODO{Terminar de revisar esta sección y pasarla al siguiente capítulo.}
+\begin{deff}
+	Un grafo dirigido $X = (V,E,s,t,\ol{(.)})$ según Serre es un grafo dirigido con una asignación $\ol{(.)}:E \to E$ tal que para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, que $\ol{\ol y} = y$ y que $\ol{y} \neq y$.
+	Esto implica que vale la siguiente propiedad $t(\ol y) = s(y)$.
+
+	% Dados conjuntos $V$ y $E$ un \emph{grafo dirigido según Serre} es un par ordenado $Y= (V,E)$ junto con funciones
+	% $s:E \to V$, $t:E \to V$ y 
+	
+	
+	Al conjunto $V$ lo nombramos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
+	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
+	
+	
+	A continuación damos varias definiciones estándares para este tipo de grafos.
+
+	\begin{itemize}
+		\item Dado un grafo dirigido $Y$ según Serre una \emph{orientación} de sus aristas es un subconjunto $A \subset E$ que cumple que para cada arista $y \in E$ tenemos que $y \in A \iff \overline y \notin A$.	
+
+		\item Un camino $c= (y_0, \dots y_n)$ tiene \emph{backtracking} si existe $ 0 < i \le n$ tal que $y_i = \ol{y_{i-1}}$.	
+	\end{itemize}
+	
+	
+\end{deff}	
+
+
+\begin{deff}
+	Sean $Y, Y'$ grafos dirigidos. 
+	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
+	\begin{itemize}
+		\item Para toda $y \in E(Y)$ vale que $\ol{\phi_{E}(y)} = \phi_{E}(\ol y)$;
+		\item Para toda $y \in E(Y)$ vale que $\phi_{V}(s(y)) = s(\phi_{E}(y))$;
+	\end{itemize}   
+	En particular de esta definición que dimos se desprende que para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$ usando que $s(\ol y) = t(y)$.
+\end{deff}
+
+
+Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera  y para todo vértice $P \in V(X)$:
+\begin{align*}
+	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \  \ \text{para toda arista} \ y \in E(X) \\
+	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)) \  \ \text{para todo vértice} \ P \in V(X). 
+\end{align*}
+En el caso especial de los morfismos de grafos $\phi: Y \to Y$ consideramos la identidad $I: Y \to Y$ como el morfismo que manda toda arista a sí misma y todo vértice a sí mismo.
+Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I$ y $\phi^{-1} \circ \phi = I$.
+Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$ donde la identidad $I$ es el elemento neutro.
+
+Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
+\begin{deff}
+	Sea $G$ un grupo y sea $Y$ un grafo dirigido una \emph{acción} de $G$ sobre $Y$ es un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
+	
+\end{deff}
+
+Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
+Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $g \cdot y \neq \ol y$.
+
+
+
+\end{leoenv}
 
 \end{document}

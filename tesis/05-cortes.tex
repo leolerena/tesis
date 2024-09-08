@@ -6,20 +6,20 @@
 	
 \chapter{Cortes de grafos y árboles de estructura.}
 
-Las principales referencias de este capítulo son \cite{diekert2013context}, \cite{thomassen1993vertex} y \cite{kron2010cutting}.
-En la primera sección \ref{secc_cortes_grafos} damos varias definiciones básicas que usaremos en el capítulo. 
+Las principales referencias de este capítulo son Diekert \cite{diekert2013context}, Thomassen \cite{thomassen1993vertex} y Krön \cite{kron2010cutting}.
+En la sección \ref{secc_cortes_grafos} damos varias definiciones básicas que usaremos en el capítulo. 
 
-En la segunda sección \ref{secc_grafos_accesibles} definimos una familia de grafos que denominamos grafos accesibles.
+En la sección \ref{secc_grafos_accesibles} definimos una familia de grafos que denominamos grafos accesibles.
 Esta definición de un grafo accesible generaliza la idea de los grafos de Cayley de grupos accesibles.
 En el teorema \ref{teo_treewidth_fin_accesible} probamos que los grupos que tienen treewidth finito tienen grafos de Cayley accesibles. 
 
-En la tercera sección \ref{secc_copt} definimos los cortes óptimos que son una familia de cortes que tienen la propiedad de estar siempre anidados entre sí.
+En la sección \ref{secc_copt} definimos los cortes óptimos que son una familia de cortes que tienen la propiedad de estar siempre anidados entre sí.
 El resultado principal de esta sección es el teorema \ref{teo_copt_anidados}.
 
-En la cuarta sección \ref{secc_arbol_estr} dado un grafo accesible y localmente finito definimos un árbol que denominamos el árbol de estructura.
+En la sección \ref{secc_arbol_estr} dado un grafo accesible y localmente finito definimos un árbol que denominamos el árbol de estructura.
 Este árbol lo definimos a partir de los cortes óptimos del grafo.
 
-En la quinta sección \ref{secc_accion_arbol_estr} construimos una acción del grupo de automorfismos de un grafo accesible y localmente finito sobre su árbol de estructura.
+En la sección \ref{secc_accion_arbol_estr} construimos una acción del grupo de automorfismos de un grafo accesible y localmente finito sobre su árbol de estructura.
 El resultado central es \ref{coro_tw_finito_implica_pi1} que dice que los grupos con treewidth finito son el grupo fundamental de un grafo de grupos con grupos finitos.
 
 
@@ -43,7 +43,7 @@ El resultado central es \ref{coro_tw_finito_implica_pi1} que dice que los grupos
 		\item $C$ y $\ol C$ son conexos y no vacíos.
 		\item $|\delta C| < \infty$.
 	\end{itemize}
-	Si $|\delta C| \le k$ decimos que synctexjs$C$ es un \emph{$k$-corte}.
+	Si $|\delta C| \le k$ decimos que $C$ es un \emph{$k$-corte}.
 \end{deff}	
 
 Equivalentemente un subconjunto de vértices $C$ es un corte si $\Gamma \setminus \delta C$ tiene dos componentes conexas no vacías.
@@ -122,7 +122,7 @@ La siguiente observación elemental va a ser fundamental a los argumentos de est
 En particular nos van a interesar los cortes para separar caminos en grafos y en cierta manera usar los cortes para distinguir caminos infinitos.
 Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo pero esto no siempre es posible.
 
-\begin{ej}
+\begin{ej}\label{ej:grilla_corte}
 	Consideremos $\ZZ \times \ZZ = \langle a,b \mid aba^{-1}b^{-1} \rangle$ y 
 	$\Gamma = \text{Cay}(\ZZ^2, \{ a, b,a^{-1},b^{-1} \})$ su grafo de Cayley.
 	
@@ -133,8 +133,8 @@ Idealmente queremos que nuestros cortes nos separen en partes infinitas al grafo
 	Dado que $\Gamma$ tiene el grado acotado uniformemente obtenemos que  $|B| < \infty$ lo que implica que $|C| < \infty$ o bien que $|\ol C| < \infty$.
 \end{ej}
 
-Una propiedad fundamental de los cortes es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
-Dado un grafo $\Gamma$ y $\{x,y\} \in E(\Gamma)$  usaremos la notación $\Gamma \setminus \{ x,y \}$ para referirnos al grafo no dirigido definido por $V(\Gamma \setminus \{ x,y \}) = V(\Gamma)$ y $E(\Gamma \setminus \{ x,y \}) = E(\Gamma) \setminus \{x,y\}$.
+Probaremos ahora una propiedad fundamental de los cortes que es que fijada una arista solo hay finitos cortes que tienen a esta arista dentro de su borde.	
+Dado un grafo $\Gamma$ y $\{x,y\} \in E(\Gamma)$  usaremos la notación $\Gamma \setminus \{ x,y \}$ para referirnos al grafo no dirigido definido por $V(\Gamma \setminus \{ x,y \}) = V(\Gamma)$ y $E(\Gamma \setminus \{ x,y \}) = E(\Gamma) \setminus \{\{x,y\}\}$.
 
 \begin{lema}\label{obs_kCorte_restriccion}
 	Sea $\Gamma$ un grafo conexo infinito y $k \ge 2$.
@@ -209,7 +209,7 @@ Dado un grafo $\Gamma$ y $\{x,y\} \in E(\Gamma)$  usaremos la notación $\Gamma 
 \begin{deff}
 	Dos cortes $C,D \in V(\Gamma)$ están \emph{anidados} si vale alguna de las cuatro inclusiones $C \subseteq D, C \subseteq \ol D, \ol C \subseteq \ol D, \ol C \subseteq D$.
 	Los conjuntos $C \cap D, C \cap \ol D, \ol C \cap D, \ol C \cap \ol D$ los llamamos las \emph{esquinas}.
-	Dos esquinas $K,K'$ tales que $K' = \ol K$ las llamaremos \emph{esquinas opuestas}.
+	Dos esquinas $C \cap D$ y $\ol C \cap \ol D$ son \emph{esquinas opuestas}.
 	Caso contrario diremos que son \emph{esquinas adyacentes}.
 \end{deff}
 
@@ -223,7 +223,7 @@ Dado un grafo $\Gamma$ y $\{x,y\} \in E(\Gamma)$  usaremos la notación $\Gamma 
 \end{proof}
 
 \begin{lema}\label{lema_corte_borde_anidado}
-	Sean $C,D$ cortes tales que $\beta C \subseteq D$ entonces $C \subseteq D$ o $\ol C \subseteq D$.
+	Sean $C,D$ cortes tales que $\beta C \subseteq D$ entonces $C$ y $D$ están anidados.
 \end{lema}
 \begin{proof}
 	Si $C,D$ no estuvieran anidados tendríamos que $C \cap \ol D \neq \emptyset \neq \ol C \cap \ol D$.
@@ -293,6 +293,7 @@ En particular utilizaremos en varias ocasiones los siguientes resultados.
 
 No necesariamente vale la vuelta.
 Esto es que si tenemos un camino infinito $\alpha$ entonces existe un corte $C$ tal que cumple que $|\alpha \cap C| = \infty = |\alpha \cap \ol C|$.
+Por ejemplo basta tomar la grilla \ref{ej:grilla_corte}.
 
 Esto nos dice que dado un corte podemos tener caminos que son separados por el corte pero no vale que dado un camino tenemos que un corte lo separa.
 Esto nos lleva a dar la siguiente definición.
@@ -350,6 +351,7 @@ Por resultados anteriores \ref{lema_camino_infinito_cortado} tenemos que un graf
 
 Equivalentemente diremos que un grafo $\Gamma$ localmente finito y conexo \emph{tiene más de un end} si existe un conjunto finito $S$ de vértices de manera que $\Gamma \setminus S$ tiene más de dos componentes conexas infinitas.
 
+\TODO{Que quede claro que esto es una curiosidad?}
 Un dato importante es que en el contexto de los grupos la cantidad de ends de sus grafos de Cayley resulta ser un invariante del grupo.
 En \cite{stallings1971group} Stallings probó que dado un \fg con más de un end entonces se parte como el producto amalgamado o producto HNN sobre un subgrupo finito no trivial.
 Si alguno de estos factores resulta tener más de un end este procedimiento continúa.

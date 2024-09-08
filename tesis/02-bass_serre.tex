@@ -41,101 +41,6 @@ En especial nos interesa un teorema que se desprende de este resultado que nos d
 
 \section{Definiciones básicas.}\label{secc_defs_basicas}
 
-
-\begin{deff}
-	Dados conjuntos $V$ y $E$ un \emph{grafo dirigido} es un par ordenado $Y= (V,E)$ junto con funciones
-	$s:E \to V$, $t:E \to V$ y $\ol{(.)}:E \to E$ tales para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, que $\ol{\ol y} = y$ y que $\ol{y} \neq y$.
-	Esto implica que vale la siguiente propiedad $t(\ol y) = s(y)$.
-	
-	Al conjunto $V$ lo nombramos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
-	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
-	Si queremos referirnos a los vértices de un grafo $Y$ en particular notaremos $V(Y)$ a sus vértices y similarmente $E(Y)$ a sus aristas.
-	
-
-	
-	A continuación damos varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
-	\begin{itemize}
-
-		\item Dado un grafo dirigido $Y=(V,E)$ con funciones $s,t, \ol{(.)}$ diremos que $Y'=(V',E')$ con funciones $s',t',\ol{()}'$ es un \emph{subgrafo} de $Y$ si $V' \subseteq V$, $E' \subseteq E$ y si $s'=\left. s \right|_{E'}, t' = \left. s \right|_{E'}$ y $\ol{(.)}' = \left. \ol{(.)} \right|_{E'}$ .
-		
-		\item Decimos que $Y$ es \emph{finito} si $|V| < \infty$ y $|E| < \infty$.	
-		
-		\item Dado un grafo dirigido $Y$ una \emph{orientación} de sus aristas es un subconjunto $A \subset E$ que cumple que para cada arista $y \in E$ tenemos que $y \in A \iff \overline y \notin A$.	
-		
-		\item Dado un vértice $P \in V(Y)$ podemos definir su \emph{star} como el siguiente conjunto de aristas,
-		\[
-		st(P) = \{  y \in E(Y) : s(y) = P  \}
-		\]
-		
-		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k-1$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
-		Por cada camino $c = (y_0, \dots, y_k)$ podemos tomarnos una sucesión de vértices $(s(y_{0}), \dots, s(y_{n}))$, que observamos que no necesariamente determinan al camino.
-		Un camino es \emph{cerrado} si $P = Q$.
-		La \emph{longitud} del camino $l(c) = k$ es la cantidad de aristas que lo componen.
-		
-		\item Dado un grafo dirigido $Y$ y un vértice $P \in V$ notaremos $()$ al \emph{camino constante} en $P$. 
-		En particular los caminos constantes son los únicos caminos que cumplen que tienen longitud igual a $0$.
-
-		\item Un camino $c= (y_0, \dots y_n)$ tiene \emph{backtracking} si existe $ 0 < i \le n$ tal que $y_i = \ol{y_{i-1}}$.		
-		
-		\item Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $c = (y_0, \dots y_n)$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $d = (z_0, \dots, z_m)$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $l(d) \ge l(c)$.
-		Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $(y_0, \dots, y_k)$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
-		
-		\item 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
-		Un grafo es \emph{únicamente geodésico} si para todo par de vértices $P,Q \in V$ existe una única geodésica entre ellos.
-		
-		
-		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todos los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
-		
-				
-		\item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
-		Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
-		Todo árbol $T$ es un únicamente geodésico.
-		
-		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
-		
-		
-	\end{itemize}
-\end{deff}	
-
-En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los no dirigidos pueden tener más de una arista entre dos vértices y pueden tener bucles.
-
-Si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
-\[
-V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
-\]
-
-\begin{deff}
-	Sean $Y, Y'$ grafos dirigidos. 
-	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
-	\begin{itemize}
-		\item Para toda $y \in E(Y)$ vale que $\ol{\phi_{E}(y)} = \phi_{E}(\ol y)$;
-		\item Para toda $y \in E(Y)$ vale que $\phi_{V}(s(y)) = s(\phi_{E}(y))$;
-	\end{itemize}   
-	En particular de esta definición que dimos se desprende que para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$ usando que $s(\ol y) = t(y)$.
-\end{deff}
-
-
-Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera  y para todo vértice $P \in V(X)$:
-\begin{align*}
-	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \  \ \text{para toda arista} \ y \in E(X) \\
-	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)) \  \ \text{para todo vértice} \ P \in V(X). 
-\end{align*}
-En el caso especial de los morfismos de grafos $\phi: Y \to Y$ consideramos la identidad $I: Y \to Y$ como el morfismo que manda toda arista a sí misma y todo vértice a sí mismo.
-Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I$ y $\phi^{-1} \circ \phi = I$.
-Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$ donde la identidad $I$ es el elemento neutro.
-
-Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
-\begin{deff}
-	Sea $G$ un grupo y sea $Y$ un grafo dirigido una \emph{acción} de $G$ sobre $Y$ es un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
-	
-\end{deff}
-
-Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
-Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $g \cdot y \neq \ol y$.
-
-
-Ahora podemos definir los objetos centrales a la teoría de Bass--Serre.
-
 \begin{deff}
 	Dado un grafo dirigido $Y$.
 	Un \emph{grafo de grupos $\cal G$ sobre $Y$} está definido por lo siguiente:
@@ -1673,7 +1578,7 @@ Con esto terminamos de probar que $\psi$ es un morfismo de grafos.
 
 
 \begin{deff}
-	Un morfismo de grafos $\psi:X \to Y$ se dice \emph{localmente inyectivo} si para todo vértice $P \in V(X)$ resulta que la restricción $\psi: st(P) \to E(Y)$ es inyectiva. 
+	Un morfismo de grafos $\psi:X \to Y$ se dice \emph{localmente inyectivo} si para todo vértice $P \in V(X)$ resulta que la restricción $\psi: st^{+}(P) \to E(Y)$ es inyectiva. 
 \end{deff}
 
 Así como el revestimiento de un grafo es un epimorfismo de grafos localmente inyectivo vamos a probar que en el contexto de la teoría de Bass--Serre el morfismo $\psi$ también tiene estas propiedades.
