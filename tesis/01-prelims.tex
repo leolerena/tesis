@@ -1506,7 +1506,7 @@ V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
 
 \begin{deff}
 	Dado un grafo dirigido $X = (V,E,s,t)$, un vértice $a \in V$ es una \emph{raíz} si y solo sí para todo vértice $v \in V$ existe un camino de $a$ a $v$.
-	Un \emph{árbol con raíz} es un grafo dirigido tal que cumple las siguientes dos condiciones:
+	Un \emph{árbol con raíz} es un grafo dirigido tal que cumple las siguientes tres condiciones:
 	\begin{enumerate}
 		\item $|V| \ge 2$.
 		\item Tiene un raíz $a$.
@@ -1532,9 +1532,9 @@ V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
 \begin{deff}
 	Un \emph{árbol binario} $T$ está dado por una tupla $(D,L,l)$ donde:
 	\begin{itemize}
-		\item $D \subseteq \{0,1\}^{*}$ es un lenguaje finito cerrado por prefijos.
-		\item $L$ es un conjunto finito de etiquetas.
-		\item $l:D \to L$ es una asignación de etiquetas.
+		\item $D \subseteq \{0,1\}^{*}$ es un lenguaje finito cerrado por prefijos que llamamos el \emph{dominio} de $T$-
+		\item $L$ es un conjunto finito de \emph{etiquetas}.
+		\item $l:D \to L$ es una \emph{asignación de etiquetas}.
 	\end{itemize}
 	Luego el grafo dirigido se define de la siguiente manera:
 	\begin{itemize}
@@ -1563,14 +1563,17 @@ V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
 \end{proof}
 
 \begin{obs}
-	En el caso que tenga un solo vértice luego resulta que necesariamente $D = \emptyset$.
+	En el caso que tenga un solo vértice luego resulta que necesariamente $D = \{ \epsilon \}$ dado que es el único lenguaje con una sola palabra que es cerrado por prefijos.
 \end{obs}
 
 En el caso de los árboles binarios podemos reescribir las definiciones que dimos para árboles con raíces de las siguiente manera.
-Dado $T$ un árbol binario y $v = (d,l(d)) \in V$ algún vértice de este grafo luego:
+Dado $T$ un árbol binario luego:
 \begin{itemize}
-	\item La altura la podemos calcular como $h(v) = |d|$.
-	\item Una hoja es un vértice $v = (d,s(d))$ tal que $d$ no es el prefijo de ninguna palabra $d'$ tal que $d' \in D$.
+	\item Podemos definir una función $h:V(T) \to \NN_{0}$ que llamaremos la \emph{altura } y la definimos como
+		\[
+			h((d,l(d))) = |d|
+		\]
+	\item Una hoja es un vértice $v = (d,l(d))$ tal que $d$ no es el prefijo de ninguna palabra $d'$ tal que $d' \in D$.
 	\item Un vértice $w = (d',l(d'))$ es un ancestro de $v = (d,l(d))$ si $d'$ es un prefijo de $d$.
 	\item Un \emph{vértice interior} es un vértice tal que no es una hoja.
 \end{itemize}
@@ -1587,75 +1590,188 @@ Algunas observaciones que se despredenden inmediatamente de esta definición.
 Este orden lo podemos extender naturalmente a un orden para los vértices de un árbol binario. 
 Dados vértices $v =(d,l(d))$ y $w = (e,l(e))$ luego $v \preceq w$ si y solo sí $d \preceq e$.
 
-\begin{lema}
-	Dado un árbol binario $T$ sea $\{ v_{1}, \dots, v_{n} \}$ para $n \ge 1$ un conjunto de hojas del árbol entonces existe $w$ vértice interno tal que $w \preceq v_{i}$ para todo $i=1, \dots, n$ y es minimal con esta propiedad.
+\begin{lema}\label{lema:arbol_binario_meet}
+	Dado un árbol binario $T$ 
+	sea $\{ v_{1}, \dots, v_{n} \} \subseteq V(T)$ para $n \ge 1$ un conjunto de hojas del árbol 
+	entonces existe $w$ vértice interno tal que $w \preceq v_{i}$ para todo $i=1, \dots, n$ y es minimal con esta propiedad.
 \end{lema}
 \begin{proof}
 	Consideremos que $v_{i} = (d_{i}, l(d_{i}))$ con $d_{i} \in D$ para todo $1 \le i \le n$ luego nos alcanza con tomar $d$ prefijo en común de todas estas palabras (posiblemente $d = \epsilon$) de manera tal que $w = (d,l(d))$ cumple lo pedido.
 
 \end{proof}
 
-\TODO{Escribir sobre árboles de derivación y traducir bien los resultados que necesito.}
+Denotaremos por $(\{0,1 \}^{*}, \lexorder)$ al conjunto ordenado con el orden lexicográfico.
+
+\begin{deff}
+	Sea $T$ un árbol binario y sea $(d,l(d))$ un vértice interior de este árbol.
+
+	Sea $\{ (dd_{1},l(dd_{1})), \dots, (dd_{k},l(dd_{k})) \}$  el conjunto de todas las hojas de $T$ tales que $(d,l(d))$ es su ancestro y supongamos que están ordenadas de manera tal que: 
+	$d_{1} \lexorder d_{2} \lexorder \dots \lexorder d_{k}$.
+
+	Diremos que \emph{la palabra producida por el vértice $(d,l(d))$} es la palabra 
+	$w = l(dd_{1}) \cdot l(dd_{2}) \cdot \dots \cdot l(dd_{k}) \in L^{*}$.
+\end{deff}
+
+\begin{deff}
+	Dados dos árboles binarios $T_{0} = (D_{0}, L, l_{0}), T_{1} =(D_{1},L,l_{1})$ y un elemento $A \in L$ definimos la \emph{concatenación de árboles binarios} $m(A,T_{0},T_{1})$ como el siguiente árbol (que va a tener el mismo conjunto de etiquetas $L$).
+	\begin{enumerate}
+		\item Si $D_{0} = \emptyset, D_{1} = \emptyset$ entonces definimos el árbol binario $m(A,T_{0},T_{1})$ por medio del dominio 
+		$D = \{ \epsilon \}$ y asignación de etiquetas $l(\epsilon) = A$.
+
+		\item Si $D_{0} = \emptyset, D_{1} \neq \emptyset$ entonces definimos el árbol binario $m(A,T_{0},T_{1})$ por medio del dominio  
+		\[
+			D = \{ \epsilon \} \cup \{ 1d \mid d \in D_{1} \}
+		\]
+		y asignación de etiquetas
+		\[
+			l(\epsilon) = A, \ \ \quad l(1d) = l_{1}(d)
+		\]
+
+		\item Si $D_{0} \neq \emptyset, D_{1} = \emptyset$ entonces definimos el árbol binario $m(A,T_{0},T_{1})$ por medio del dominio  
+		\[
+			D = \{ \epsilon \} \cup \{ 0d \mid d \in D_{0} \}
+		\]
+		y asignación de etiquetas
+		\[
+			l(\epsilon) = A, \ \ \quad l(0d) = l_{0}(d)
+		\]
+
+		\item Si $D_{0} \neq \emptyset, D_{1} \neq \emptyset$ entonces definimos el árbol binario $m(A,T_{0},T_{1})$ por medio del dominio
+		\[
+			D = \{ \epsilon \} \cup \{ 1d \mid d \in D_{1} \} \cup \{ 0d \mid d \in D_{0} \}
+		\]
+		y asignación de etiquetas
+		\[
+			l(\epsilon) = A, \quad l(0d) = l_{0}(d), \quad  l(1d) = l_{1}(d)
+		\]
+	\end{enumerate}
+	% Dado un lenguaje $D$ finito y cerrado por prefijos consideramos los siguientes dos cocientes de este lenguaje 
+\end{deff}
+
+Ahora vamos a definir un objeto central en el estudio de los lenguajes independiente de contexto.
+Razón por la cual introducimos los árboles binarios.
+
+Sea $\gramatica$ una gramática \ic{} en forma normal de Chomsky.
+Sea $A \in V$ una variable.
+Dada una sucesión de producciones de la siguiente pinta:
+\[
+	{\cal D} =  A \deriva u
+\]
+donde $u \in (\Sigma \cup V)^{*}$ definimos inductivamente en la cantidad de producciones un árbol binario asociado a esta sucesión.
+
+Para el caso base supongamos que tenemos una sola producción.
+Dada una producción, por ser una gramática \ic en forma normal de Chomsky existen tres opciones posibles.
+En estos tres casos supongamos que el conjunto de etiquetas está dado por $L = \Sigma \cup V \cup \{ \epsilon \}$. 
+\begin{enumerate}
+	\item Si $A=S$ y la producción es $\deri = S \to \epsilon$.
+		Entonces definimos $T(\deri)$ como el árbol binario dado por:
+		$D = \{ \epsilon, 0 \}, l(\epsilon) = S, 
+		l(0) = \epsilon$.
+		\begin{itemize}
+			\item Los vértices resultan ser: $V(T(\deri)) = \{ (\epsilon,S), (0, \epsilon) \}$.
+			\item Las aristas resultan ser:
+			$E(T(\deri)) =\{ ((\epsilon,S), (0, \epsilon))\}$. 
+		\end{itemize}
+		
+		
+
+	\item Si $A \neq S$ y la produción es $A \to a$ para $a \in \Sigma$.
+		Entonces definimos $T(\deri)$ como el árbol binario dado por:
+		$D = \{ \epsilon, 0 \}, l(\epsilon) = A, l(0) = a$.
+		\begin{itemize}
+			\item Los vértices resultan ser: $V(T(\deri)) = \{ (\epsilon,A), (0, a) \}$ 
+			\item Las aristas resultan ser: $E(T(\deri)) =\{ ((\epsilon,A), (0, a))\}$.
+		\end{itemize}
+		
+
+	\item Si la producción es $A \to BC$ para $B,C \in V$.
+		Entonces definimos $T(\deri)$ como el árbol binario dado por:
+		$D=\{ \epsilon, 0, 1 \}, l(\epsilon) = A, l(0)=B, l(1) = C$.
+		\begin{itemize}
+			\item Los vértices resultan ser: $V(T(\deri)) = \{ (\epsilon,A), (0, B), (1,C) \}$ .
+			\item Las aristas resultan ser: $E(T(\deri)) =\{ ((\epsilon,A), (0, B)); ((\epsilon,A),(1,C))\}$.
+		\end{itemize}
+\end{enumerate}
+
+Sea $n \ge 2$ luego si $A \to_{\cG}^{n} u$ necesariamente tenemos que por ser $\cG$ una gramática independiente de contexto en forma normal de Chomsky que la sucesión de producciones tiene la siguiente forma:
+\begin{equation*}
+	\deri = A \to_{\cG} BC \deriva uv
+\end{equation*}
+donde $u,v \in (\Sigma \cup V)^{*}$ y tal que tenemos las siguientes dos derivaciones: $\deri_{1} = B \deriva u$ y $\deriva = C \deriva v$.
+En este caso por la hipótesis inductiva tenemos que para ambas derivaciones como su longitud es menor que $n$ luego que existen árboles $T(\deri_{1})$ y $T(\deri_{2})$ asociados.
+Definimos el árbol asociado a la sucesión $\deri$ por medio de 
+$T(\deri) = m(A,T(\deri_{1},T(\deri_{2})))$.
+
+
+\begin{deff}
+	Dada una gramática $\gramatica$ \ic en forma normal de Chomsky y sea $w \in L(\cG)$ luego para toda derivación $\deri = S \deriva w$ el árbol binario construido anteriormente lo llamaremos 
+	el \emph{árbol de la derivación} y lo denotaremos $T(\deri)$.
+\end{deff}
+
+Notemos que el árbol de derivación es tal que cada vértice se corresponde con una ocurrencia de alguna variable $A \in V$ en la derivación o bien con alguna letra $a \in \Sigma$ o bien con la palabra vacía $\epsilon$.
+
+\begin{obs}\label{obs:arbol_deri_datos}
+	Dada una gramática $\gramatica$ \ic en forma normal de Chomsky y una derivación $\deri = S \deriva w$ en esta gramática. 
+	Si $T(\deri)$ es el árbol de derivación entonces las siguientes observaciones se desprenden inmediatamente de la construcción.
+	\begin{itemize}
+		\item Sea $v = (d,l(d)) \in V(T(\deri))$ una hoja del árbol de derivación entonces $l(d) \in \Sigma \cup \{ epsilon \}$.
+		\item Sea $v = (d,l(d)) \in V(T(\deri))$ un vértice interior del árbol de derivación entonces $l(d) \in V$.
+		\item Sea $v = (d,l(d)) \in V(T(\deri))$ un vértice interior del árbol de derivación luego la palabra producida por este vértice es una palabra $u \in \Sigma^{*}$ tal que $u$ es una subpalabra de $w$ y cumple que $l(d) \deriva u$. 
+	\end{itemize}
+\end{obs}
+
 
 %Un grafo dirigido es finito si el conjunto de vértices y el conjunto de aristas es finito.
 
-\subsection{Grafos dirigidos según Serre.}
-\TODO{Terminar de revisar esta sección y pasarla al siguiente capítulo.}
-\begin{deff}
-	Un grafo dirigido $X = (V,E,s,t,\ol{(.)})$ según Serre es un grafo dirigido con una asignación $\ol{(.)}:E \to E$ tal que para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, que $\ol{\ol y} = y$ y que $\ol{y} \neq y$.
-	Esto implica que vale la siguiente propiedad $t(\ol y) = s(y)$.
+% \subsection{Grafos dirigidos según Serre.}
+% \begin{deff}
+% 	Un grafo dirigido $X = (V,E,s,t,\ol{(.)})$ según Serre es un grafo dirigido con una asignación $\ol{(.)}:E \to E$ tal que para toda $y \in E$ vale que $s(\ol{y}) = t(y)$, que $\ol{\ol y} = y$ y que $\ol{y} \neq y$.
+% 	Esto implica que vale la siguiente propiedad $t(\ol y) = s(y)$.
 
-	% Dados conjuntos $V$ y $E$ un \emph{grafo dirigido según Serre} es un par ordenado $Y= (V,E)$ junto con funciones
-	% $s:E \to V$, $t:E \to V$ y 
+% 	Al conjunto $V$ lo nombramos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
+% 	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
 	
 	
-	Al conjunto $V$ lo nombramos los \emph{vértices} y al conjunto $E$ las \emph{aristas} del grafo.
-	Dada una arista $y$ diremos que $s(y)$ es el \emph{comienzo} de la arista mientras que $t(y)$ es el \emph{fin} de la arista.
+% 	A continuación damos varias definiciones estándares para este tipo de grafos.
+
+% 	\begin{itemize}
+% 		\item Dado un grafo dirigido $Y$ según Serre una \emph{orientación} de sus aristas es un subconjunto $A \subset E$ que cumple que para cada arista $y \in E$ tenemos que $y \in A \iff \overline y \notin A$.	
+
+% 		\item Un camino $c= (y_0, \dots y_n)$ tiene \emph{backtracking} si existe $ 0 < i \le n$ tal que $y_i = \ol{y_{i-1}}$.	
+% 	\end{itemize}
 	
 	
-	A continuación damos varias definiciones estándares para este tipo de grafos.
+% \end{deff}	
 
-	\begin{itemize}
-		\item Dado un grafo dirigido $Y$ según Serre una \emph{orientación} de sus aristas es un subconjunto $A \subset E$ que cumple que para cada arista $y \in E$ tenemos que $y \in A \iff \overline y \notin A$.	
 
-		\item Un camino $c= (y_0, \dots y_n)$ tiene \emph{backtracking} si existe $ 0 < i \le n$ tal que $y_i = \ol{y_{i-1}}$.	
-	\end{itemize}
+% \begin{deff}
+% 	Sean $Y, Y'$ grafos dirigidos. 
+% 	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
+% 	\begin{itemize}
+% 		\item Para toda $y \in E(Y)$ vale que $\ol{\phi_{E}(y)} = \phi_{E}(\ol y)$;
+% 		\item Para toda $y \in E(Y)$ vale que $\phi_{V}(s(y)) = s(\phi_{E}(y))$;
+% 	\end{itemize}   
+% 	En particular de esta definición que dimos se desprende que para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$ usando que $s(\ol y) = t(y)$.
+% \end{deff}
+
+
+% Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera  y para todo vértice $P \in V(X)$:
+% \begin{align*}
+% 	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \  \ \text{para toda arista} \ y \in E(X) \\
+% 	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)) \  \ \text{para todo vértice} \ P \in V(X). 
+% \end{align*}
+% En el caso especial de los morfismos de grafos $\phi: Y \to Y$ consideramos la identidad $I: Y \to Y$ como el morfismo que manda toda arista a sí misma y todo vértice a sí mismo.
+% Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I$ y $\phi^{-1} \circ \phi = I$.
+% Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$ donde la identidad $I$ es el elemento neutro.
+
+% Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
+% \begin{deff}
+% 	Sea $G$ un grupo y sea $Y$ un grafo dirigido una \emph{acción} de $G$ sobre $Y$ es un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
 	
-	
-\end{deff}	
+% \end{deff}
 
-
-\begin{deff}
-	Sean $Y, Y'$ grafos dirigidos. 
-	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
-	\begin{itemize}
-		\item Para toda $y \in E(Y)$ vale que $\ol{\phi_{E}(y)} = \phi_{E}(\ol y)$;
-		\item Para toda $y \in E(Y)$ vale que $\phi_{V}(s(y)) = s(\phi_{E}(y))$;
-	\end{itemize}   
-	En particular de esta definición que dimos se desprende que para toda $y \in E(Y)$ vale que $\phi(t(y)) = t(\phi(y))$ usando que $s(\ol y) = t(y)$.
-\end{deff}
-
-
-Dados grafos dirigidos $X,Y,Z$ y morfismos de grafos $\phi:X \to Y$ y $\rho:Y \to Z$ podemos definir la composición $\rho \circ \phi : X \to Z$ de la siguiente manera  y para todo vértice $P \in V(X)$:
-\begin{align*}
-	(\rho \circ \phi) (y) = \rho_{E} (\phi_{E} (y)) \  \ \text{para toda arista} \ y \in E(X) \\
-	(\rho \circ \phi) (P) = \rho_{V} (\phi_{V} (P)) \  \ \text{para todo vértice} \ P \in V(X). 
-\end{align*}
-En el caso especial de los morfismos de grafos $\phi: Y \to Y$ consideramos la identidad $I: Y \to Y$ como el morfismo que manda toda arista a sí misma y todo vértice a sí mismo.
-Un \emph{automorfismo} de grafos dirigidos es un morfismo $\phi:Y \to Y$ tal que tiene una inversa $\phi^{-1}:Y \to Y$, esto es que $\phi \circ \phi^{-1} = I$ y $\phi^{-1} \circ \phi = I$.
-Los automorfismos de un grafo dirigido $Y$ forman un grupo con la composición que denotaremos Aut$(Y)$ donde la identidad $I$ es el elemento neutro.
-
-Como tenemos automorfismos de grafos podemos definir una acción de un grupo sobre un grafo dirigido.
-\begin{deff}
-	Sea $G$ un grupo y sea $Y$ un grafo dirigido una \emph{acción} de $G$ sobre $Y$ es un morfismo de grupos $\psi: G \to \text{Aut}(Y)$.
-	
-\end{deff}
-
-Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
-Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $g \cdot y \neq \ol y$.
-
-
-
+% Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
+% Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $g \cdot y \neq \ol y$.
 \end{leoenv}
 
 \end{document}

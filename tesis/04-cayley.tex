@@ -984,69 +984,30 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 
 
 \begin{leoenv}
-	\begin{deff}
-		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky y sea $\deri = S \deriva w$ una derivación luego vamos a definir recursivamente un grafo binario. 
-		Este grafo lo vamos a construir de manera tal que cada arista tenga una única orientación, de manera tal que dado un vértice distinguimos su hijo izquierdo de su hijo derecho y tal que todo vértice tiene una etiqueta.
-		El grafo lo armamos a partir de esta derivación.
-		Para eso, sea una producción $A \to u$ de la gramática $\cG$ luego por ser una gramática en forma normal de Chomsky esta producción tiene tres formas posibles:
-		\begin{enumerate}
-			\item $S \to \epsilon$.
-				En este caso consideramos el grafo que tiene como raíz un vértice con etiqueta $S$ y que tiene como único hijo un vértice con etiqueta $\epsilon$.
-			
-			\item $A \to BC$.
-				En este caso consideramos un grafo que tiene como raíz un vértice con etiqueta $A$ y que tiene un hijo a la izquierda con etiqueta $B$ y otro hijo a la derecha con etiqueta $C$.
-	
-			\item $A \to a$.
-				En este caso consideramos un grafo que tiene como raíz un vértice con etiqueta $A$ y que tiene como hijo a un vértice con etiqueta $a$.
-		\end{enumerate} 
-	
-		Aplicando este procedimiento recursivamente a todas las producciones que aparecen en la derivación $\deri$ obtenemos un árbol binario que denominamos el \emph{árbol de derivación} $T(\deri)$. 
-	\end{deff}
-	
 
-
-	Notemos que este árbol tiene las siguientes propiedades.
-	\begin{itemize}
-		\item Su raíz tiene como etiqueta a $S$ y de hecho por ser un gramática \ic en forma normal de Chomsky es el único vértice que tiene esta etiqueta.
-		\item Los vértices del árbol se corresponden con ocurrencias de las letras que aparecen en la palabra $w$ y con ocurrencias de variables que aparecen en esta derivación $\deri$.
-		\item Los hijos del árbol son los vértices que tienen como etiqueta las letras de $w$ en el orden adecuado.
-		\item Los vértices internos del árbol son los vértices que tienen como etiqueta una ocurrencia de una variable.
-	\end{itemize}
-	
-	\begin{deff}
-		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky y sea $\deri = S \deriva w$ una derivación y $T(\deri)$ el correspondiente árbol de derivación luego para todo vértice interno $t \in V(T(\deri))$ podemos considerar el subárbol $T(\deri, t)$ que tiene como raíz al vértice $t$.
-		Para este subárbol podemos considerar sus hijos que por lo visto forman una subpalabra $u$ de $w$.
-		De esta manera diremos que el vértice $t$ (que se corresponde a una ocurrencia de una variable $A$ en la derivación) \emph{produce} a la subpalabra $u$.
-	\end{deff}
-
-	\begin{obs}
-		Sea $\deri = S \deriva w$ un derivación luego la raíz del árbol $T(\deri)$, que tiene etiqueta $S$, produce la palabra $w$.
-	\end{obs}
-
-	\begin{deff}
-		Sea $\cG$ una gramática independiente de contexto y en forma normal de Chomsky.
-		Sea $\deri$ un derivación en esta gramática luego si $T(\deri)$ es un árbol de derivación luego podemos dar un orden a los vértices internos de la siguiente manera:
-		\[
-			t \preceq s \iff t \in V(T(\deri,s)).	
-		\]
-	\end{deff}
-
-	\begin{lema}
-		\color{brightcerulean}
-		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky y sea $\deri = S \deriva w$ una derivación luego para toda ocurrencia de una subpalabra $u$ de $w$, es decir, $w = u_{1}uu_{2}$ con $u_{1}, u_{2} \in \Sigma^{*}$,  
-		existe un vértice interno $t \in V(T(\deri))$ minimal con respecto al orden $\preceq$ con la siguiente propiedad $P$:
+	\begin{lema}\label{lema:gram_ic_chomsky_variable_chica_deriva}
+		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky.
+		Sea $\deri = S \deriva uvw$ una derivación en esta gramática.
+		Para cada subpalabra $v \in \Sigma^{*}$ tal que $|v| \ge 1$ se tiene que existe una variable $A \in V$ y una subpalabra $v'$ de $uvw$ minimal respecto a la longitud tal que:
 		\begin{itemize}
-			\item El vértice $t$ es tal que produce una subpalabra $v$ de manera que $w = v_{1}vv_{2}$ con $v_{1}, v_{2} \in \Sigma^{*}$ que cumple que $v$ tiene como subpalabra la ocurrencia de $u$, es decir que, 
-			$v = v_{1}'uv_{2}'$ con $v'_{1},v'_{2}$.
+			\item $v$ es subpalabra de $v'$;
+			\item La derivación $\deri$ resulta ser igual a 
+			\[
+				\deri = S \deriva \gamma A \alpha \deriva u'v'w'
+			\]
+			para $\gamma, \alpha \in (V \cup \Sigma)^{*}$, $u',w' \in \Sigma^{*}$ tales que: $\gamma \deriva u', A \deriva u', \alpha \deriva w'$ y  $u'v'w' = uvw$.
 		\end{itemize}
 	\end{lema}
 	\begin{proof}
-		Consideramos el siguiente conjunto 
-		\[
-			\Omega = \{  t \in T(\deri) \mid t \ \text{es interno y satisface} \ P  \}	
-		\]
-		luego como los vértices internos forman un conjunto finito y parcialmente ordenado con respecto al orden $\preceq$ y $\Omega$ es no vacío dado que la raíz de $T(\deri)$ pertenece a $\Omega$ 
-		luego debe existir un elemento minimal con respecto al orden $\preceq$, probando así este lema. 
+		Para probar esto consideramos $T(\deri)$ el árbol de derivación asociado.
+		La ocurrencia de la palabra $v = a_{1} \dots a_{n}$ es tal que está representada por un conjunto finito de vértices del árbol $V(T(\deri))$ (de hecho resultan ser hojas del árbol por la observación \ref{obs:arbol_deri_datos}).
+		Sea este conjunto $V_{u}  = \{ (d_{1},l(d_{1})), \dots, (d_{n},l(d_{n})) \}$ donde $l(d_{i}) = a_{i}$.
+
+		En este caso notemos que el problema se traduce a encontrar un vértice $(d,l(d)) \in V(T(\deri))$ tal que produzca a $v$ como subpalabra.
+		Para esto notemos que aplicando el lema \ref{lema:arbol_binario_meet} al conjunto de hojas $V_{u}$ obtenemos un vértice $(d,l(d))$ interno tal que es el menor vértice con respecto al orden $\preceq$ que produce una palabra $v' \in \Sigma^{*}$ de manera que contiene como subpalabra a la palabra asociada al conjunto $V_{u}$.
+		Como es un vértice interno luego $l(d) = A \in V$ por la observación \ref{obs:arbol_deri_datos} y a su vez resulta ser que no puede haber una palabra de longitud menor tal que cumpla esta propiedad caso contrario negaríamos la minimalidad del vértice $(d,l(d))$.
+
+		
 	\end{proof}
 \end{leoenv}
 
@@ -1128,16 +1089,13 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 	Como $\alpha \tau \gamma$ es un ciclo en el grafo de Cayley entonces $l(\alpha \tau \gamma) = uvw \in  \WP$ por el resultado \ref{obs_grafo_Cayley_palabras} y por lo tanto tenemos alguna derivación $S \deriva uvw$.
 	
 	Ya que tenemos esta derivación $S \deriva uvw$ consideramos la última variable que deriva a $v$ como subpalabra. 
-	Esto es que para la subpalabra $v$ sabemos que existe alguna variable $A$ y palabras posiblemente vacías $v',v''$ tal que $A \deriva v'v''$ donde $v$ es una subpalabra de $v'v''$. 
-	Tomamos la última variable que aparece en la derivación antes de que aparezca $v$ como subpalabra en la derivación.
-	Ésta variable debe existir porque en particular $S$ cumple que deriva a una palabra que contiene a $v$ como subpalabra.
+	Esto es que para la subpalabra $v$ sabemos que existe alguna variable $A$ y palabras posiblemente vacías $v',v''$ tal que $A \deriva v'v''$ donde $v$ es una subpalabra de $v'v''$ como consecuencia directa del lema \ref{lema:gram_ic_chomsky_variable_chica_deriva}.
 	
 	Como la gramática $ \cG $ está en forma normal de Chomsky sabemos que al suponer que $|v| \ge 2$ entonces la derivación tiene la siguiente pinta
 	\begin{equation*}
-		S \deriva u'Aw' \to_{\cal G} u'BC w' \deriva u'v'v''w'
+		S \deriva \gamma A \alpha \to_{\cal G} \gamma BC \alpha \deriva u'v'v''w'
 	\end{equation*}
-	donde $B,C$ son otras variables. 
-	En particular notamos que $A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
+	donde: $\gamma, \alpha \in (\Sigma \cup V)^{*},B,C \in V$ y $\gamma \deriva u', \alpha \deriva w', A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
 	
 	\TODO{Arreglar que $w'$ es un posfijo de $w$ entonces quizá hay que modificar levemente el argumento.}
 	
@@ -1183,7 +1141,7 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 		\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
 		\draw[thick,path picture={
 			\foreach \X in {A,B,C}
-			{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{$g$} to[bend right=10] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:y] {}
+			{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{$g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:y] {}
 		(B) node[above right]{$h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:z] {}
 		(C) node[below]{$1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:x] {} cycle;
 		\draw[line width = 0.8pt] (y) to (z) ;
@@ -1193,9 +1151,8 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 		\node[label=right:C] at (barycentric cs:y=1,z=1) {};
 		\node[label=below:A] at (barycentric cs:x=1,z=1) {};
 		\node[label=right:{\Large{$\alpha$}}] at (2,-2) {};
-		\node[label=right:{\Large{$\tau$}}] at (2.4,2.5) {};
+		\node[label=right:{\Large{$\tau$}}] at (2.4,3.65) {};
 		\node[label=right:{\Large{$\gamma$}}] at (7.5,-1.5) {};
-	
 \end{tikzpicture} 
 	\caption{Diagrama que muestra como acotar la distancia entre $g$ y $h$.}
 \end{figure}
