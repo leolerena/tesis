@@ -76,7 +76,7 @@ Destacamos el caso particular que $L_{1} = \{w\}$ un lenguaje formado con una ú
 En este caso tenemos que $L_{1}/\Sigma^* = \{  x \in \Sigma^*  \mid x \ \text{es prefijo de} \ w  \}$.
 Usaremos para este caso especial la notación $ \textrm{Pre}(w) = \{w\}/\Sigma^*$.
 Análogamente el caso $L_{1} \backslash \Sigma^{*} = \{  x \in \Sigma^*  \mid x \ \text{es sufijo de} \ w  \}$.
-Usaremos para este caso especial la notación $ \textrm{Pos}(w) = \{w\} \backslash \Sigma^*$.
+Usaremos para este caso especial la notación $ \textrm{Suf}(w) = \{w\} \backslash \Sigma^*$.
 
 
 Un \emph{prefijo propio} de $w$ es un prefijo $u$ tal que $u \neq w$ y $u \neq \epsilon$ y definimos similarmente un \emph{sufijo propio} como un sufijo $u$ tal que $u \neq w$ y $u \neq \epsilon$.
@@ -122,18 +122,20 @@ En particular para cada alfabeto podemos definir un lenguaje que es el de los pa
 	Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
 	\begin{itemize}
 		\item $V$ es un conjunto finito denominado las \emph{variables};
-		\item $S \in V$ es el \emph{símbolo inicial};
 		\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
 		\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
+		\item $S \in V$ es el \emph{símbolo inicial};
 	\end{itemize}
 \end{deff}
 
-Dada una gramática ${\cal G} = (V, \Sigma, P, S)$ a cualquiera de sus producciones $(\gamma, \nu) \in P$, la vamos a denotar por medio de la siguiente notación $\gamma \to \nu$. 
+Dada una gramática ${\cal G} = (V, \Sigma, P, S)$ a cualquiera de sus producciones $(\gamma, \nu) \in P$, la vamos a denotar por medio de la siguiente notación $\gamma \to_{\cG} \nu$. 
+Si resulta evidente omitiremos el subíndice que hace referencia a la gramática y simplemente escribiremos $\gamma \to \nu$.
 
 A partir de una gramática $\cGg$ vamos a definir una relación sobre $(\Sigma \cup V)^*$. 
 Dados $x,y \in (\Sigma \cup V)^*$ diremos que $x$ \emph{deriva} en $y$ si existen $u,v,w,z \in (\Sigma \cup V)^*$ tales que $x = uwv$ e $y=uzv$ y tenemos una producción $w \to z \in P$.
-La notación que usaremos es $x \Rightarrow_{\cal G} y$. 
+La notación que usaremos es $x \to_{\cG} y$. 
 Consideremos la clausura transitiva y reflexiva de esta relación que denotaremos por $\deriva$.
+Una \emph{derivación} $\deri = x \deriva y$ entonces es una sucesión de producciones $x = x_{0} \to_{\cG} x_{1} \to_{\cG} \dots \to_{\cG} x_{n} = y$ donde $n \in \NN_{0}$.
 
 
 
@@ -145,6 +147,7 @@ Consideremos la clausura transitiva y reflexiva de esta relación que denotaremo
 \end{deff}
 
 Este lenguaje está formado por las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial.
+
 De esta manera una gramática la podemos pensar como un conjunto de reglas que nos permite generar un lenguaje. 
  
 
@@ -193,20 +196,31 @@ Es posible clasificar los lenguajes a partir de las características de las gram
 \subsection{Lenguajes regulares.}
 
 \begin{deff}
-	Decimos que una gramática $\gramatica$ es \emph{regular} si las producciones son del estilo
+	Decimos que una gramática $\gramatica$ es \emph{regular (a izquierda)} si las producciones son del estilo
 	\begin{enumerate}
 		\item $A \to \epsilon$
 		\item $A \to a$
 		\item $A \to a B$
 	\end{enumerate}
 	donde $A, B \in V$, $a \in \Sigma$ y $\epsilon$ es la palabra vacía. 
-	Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \emph{lenguaje regular}. 
+
+	Decimos que una gramática $\gramatica$ es \emph{regular (a derecha)} si las producciones son del estilo
+	\begin{enumerate}
+		\item $A \to \epsilon$
+		\item $A \to a$
+		\item $A \to Ba$
+	\end{enumerate}
+	donde $A, B \in V$, $a \in \Sigma$ y $\epsilon$ es la palabra vacía. 
+
+	Si $L=\lengderivado$ para alguna gramática $\cal G$  regular a izquierda o a derecha entonces diremos que $L$ es un \emph{lenguaje regular}. 
 \end{deff}
+
+En general omitiremos el detalle de diferenciar las gramáticas regulares a izquierda o a derecha y simplemente diremos que son gramáticas regulares.
 
 
 En particular la gramática del ejemplo \ref{gramatica-regular} es regular. 
-De esta manera $L= \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
-
+De esta manera $L = \{ a^k b : \ k \ge 0  \}$ resulta ser un lenguaje regular.
+Definimos ahora la contracara de las gramáticas regulares que resultan ser los automátas finitos no determinísticos.
 
 \begin{deff}
 	Un \emph{autómata finito no determinístico} es una tupla ${\cal M} = (Q,q_0,\Sigma,\delta,F)$ donde:
@@ -301,9 +315,9 @@ Estas gramáticas reciben el nombre de independientes de contexto porque indepen
 	Sea $w \in L(\cG)$ tal que $|w| = n$. 
 	Separamos en dos casos:
 	Si $|w| = 1$ entonces $w=a$ o $w = b$ y en tal caso tenemos que $w\in L_{\text{PAL}}$.
-	Si $|w| \ge 1$ entonces la derivación de $w$ debería ser de la siguiente forma 
+	Si $|w| \ge 2$ entonces la derivación de $w$ debería ser de la siguiente forma 
 	\[
-		S \to aSa \deriva awa
+		S \to aSa \deriva aw'a
 	\]
 	o bien 
 	\[
@@ -355,6 +369,8 @@ Las gramáticas pueden ser modificadas de manera que sigan generando el mismo le
 
 
 \subsection{Autómatas de pila.}
+Así como definimos los autómatas finitos no determinísticos como la contracara de las gramáticas regulares vamos a definir los \APND como contracara de las gramáticas independiente de contexto.
+
 \begin{deff}\label{deff_apnd}
 	\[
 	{\cal M } = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)
@@ -384,7 +400,8 @@ Para cada $k \in \NN$ notaremos $\vdash^k$ a la aplicación $k$ veces de la deri
 
 Así como en el caso de los autómatas finitos no determinísticos podemos definir una \emph{configuración irreducible} $(q,aw',\gamma)$ como una configuración para la cual no existe ninguna otra configuración $(p,u,\theta)$ tal que $(q,w,\gamma) \vdash (p,u,\theta)$.
 En particular esto podría ser por dos casos: el primero es que $\gamma = \epsilon$ y el segundo es que si $Z$ es el tope de pila de la configuración luego $\delta(q,a,Z) = \emptyset$.
-Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión finita de configuraciones $(q_{0},w,\$) \vdash \dots \vdash (p,u,\theta)$ donde $(p,u,\theta)$ es una configuración irreducible, o escrito de manera equivalente, debe existir $k \in \NN$ tal que $(q_{0},w,\$) \vdash^k (p,u,\theta)$.
+Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión finita de configuraciones $(q_{0},w,\$) \vdash \dots \vdash (p,u,\theta)$ donde $(p,u,\theta)$ es una configuración irreducible.
+Equivalentemente, debe existir $k \in \NN$ tal que $(q_{0},w,\$) \vdash^k (p,u,\theta)$.
 
 \begin{deff}
 	Dado $\cal M$ un autómata de pila no determinístico consideramos el \emph{lenguaje aceptado por estado final} como
@@ -425,7 +442,7 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 	Donde dibujamos una flecha siempre y cuando la función de transición nos permita ir del estado del cual sale la flecha al estado al que llega.
 	A los estados finales los distinguimos dibujandoles el borde dos veces.
 	
-	Sea $Z \in \{ a,b, \$ \}$ algún elemento arbitrario del alfabeto de la pila. 
+	Sea $Z \in \{ a,b, \$ \}$ algún elemento arbitrario del alfabeto de la pila y sea $\Sigma = \{ a,b \}$.
 	Vamos a definir la función de transición en 4 casos que numeramos en la representación gráfica del autómata.
 	\begin{itemize}
 		\item Caso $I$. 
@@ -470,7 +487,7 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 	
 	Intuitivamente el \APND funciona de la siguiente manera. 
 	En el primer estado $q_{0}$ apilamos algun prefijo de la palabra que queremos consumir.
-	Transicionamos al estado $q_{1}$ leyendo alguna letra y en este estado desapilamos el prefijo que leímos anteriormente.
+	Transicionamos al estado $q_{1}$ leyendo alguna letra (o la palabra vacía) y en este estado desapilamos el prefijo que leímos anteriormente.
 	Finalmente cuando nuestra pila está solamente con el símbolo inicial transicionamos	al estado final.
 	
 	Probemos que $L_{\text{PAL}} = L(\cal M)$.
@@ -1579,16 +1596,22 @@ Dado $T$ un árbol binario luego:
 \end{itemize}
 
 En particular notemos que bajo esta definición podemos darle un orden a los vértices de la siguiente manera.
-Dadas palabras $d,e \in \{0,1\}^{*}$ notaremos por $d \preceq e$ si y solo si $d$ es un prefijo de $e$.
+
+\begin{deff}
+	Dadas palabras $d,e \in \{0,1\}^{*}$ notaremos por $d \preceq e$ si y solo si $d$ es un prefijo de $e$.
+\end{deff}
 
 Algunas observaciones que se despredenden inmediatamente de esta definición.
-\begin{itemize}
-	\item La raíz es un elemento minimal respecto al orden $\preceq$.
-	\item Las hojas son elementos maximales respecto al orden $\preceq$.
-\end{itemize}
+	\begin{itemize}
+		\item La raíz es un elemento minimal respecto al orden $\preceq$.
+		\item Las hojas son elementos maximales respecto al orden $\preceq$.
+	\end{itemize}
 
 Este orden lo podemos extender naturalmente a un orden para los vértices de un árbol binario. 
-Dados vértices $v =(d,l(d))$ y $w = (e,l(e))$ luego $v \preceq w$ si y solo sí $d \preceq e$.
+
+\begin{deff}\label{deff:orden_prefijo_arbol_binario}
+	Dados vértices $v =(d,l(d))$ y $w = (e,l(e))$ luego $v \preceq w$ si y solo sí $d \preceq e$.
+\end{deff}
 
 \begin{lema}\label{lema:arbol_binario_meet}
 	Dado un árbol binario $T$ 

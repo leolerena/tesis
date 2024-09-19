@@ -987,27 +987,42 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 
 	\begin{lema}\label{lema:gram_ic_chomsky_variable_chica_deriva}
 		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky.
-		Sea $\deri = S \deriva uvw$ una derivación en esta gramática.
-		Para cada subpalabra $v \in \Sigma^{*}$ tal que $|v| \ge 1$ se tiene que existe una variable $A \in V$ y una subpalabra $v'$ de $uvw$ minimal respecto a la longitud tal que:
+		Sea $\deri = S \deriva w$ una derivación en esta gramática.
+		Para cada $v \in \Sigma^{*}$ tal que $|v| \ge 1$ y $v$ es subpalabra de $w$ por lo tanto $w = w_{1}vw_{2}$ para $w_{1},w_{2} \in \Sigma^{*}$.
+		Bajo estas hipótesis se tiene que existe una variable $A \in V$ y una subpalabra $v' \in \Sigma^{*}$ de $w$ minimal respecto a la longitud tal que:
 		\begin{itemize}
-			\item $v$ es subpalabra de $v'$;
-			\item La derivación $\deri$ resulta ser igual a 
+			\item $v$ es subpalabra de $v'$ y tenemos las siguientes escrituras $v' = v_{1}vv_{2}$, $w_{1} = w_{1}'v_{1}$ y $w_{2} = v_{2}w_{2}'$ para palabras $v_{1},v_{2}w_{1}', w_{2}' \in \Sigma^{*}$.
+
+			\item La derivación $\deri$ tiene la siguiente pinta:
 			\[
-				\deri = S \deriva \gamma A \alpha \deriva u'v'w'
+				\deri = S \deriva \delta A \eta \deriva w_{1}'v_{1}v'v_{2}w_{2}'
 			\]
-			para $\gamma, \alpha \in (V \cup \Sigma)^{*}$, $u',w' \in \Sigma^{*}$ tales que: $\gamma \deriva u', A \deriva u', \alpha \deriva w'$ y  $u'v'w' = uvw$.
+			tal que $A \deriva v'$ y $\delta \deriva w_{1}'v_{1}$ y $\eta \deriva v_{2}w_{2}'$.
 		\end{itemize}
+
+		% Sea $\gramatica$ una gramática \ic en forma normal de Chomsky.
+		% Sea $\deri = S \deriva uvw$ una derivación en esta gramática.
+		% Para cada subpalabra $v \in \Sigma^{*}$ tal que $|v| \ge 1$ se tiene que existe una variable $A \in V$ y una subpalabra $v'$ de $uvw$ minimal respecto a la longitud tal que:
+		% \begin{itemize}
+		% 	\item $v$ es subpalabra de $v'$;
+		% 	\item La derivación $\deri$ resulta ser igual a 
+		% 	\[
+		% 		\deri = S \deriva \delta A \eta \deriva u'v'w'
+		% 	\]
+		% 	para $\delta, \eta \in (V \cup \Sigma)^{*}$, $u',w' \in \Sigma^{*}$ tales que: $\delta \deriva u', A \deriva u', \eta \deriva w'$ y  $u'v'w' = uvw$.
+		% \end{itemize}
 	\end{lema}
 	\begin{proof}
-		Para probar esto consideramos $T(\deri)$ el árbol de derivación asociado.
-		La ocurrencia de la palabra $v = a_{1} \dots a_{n}$ es tal que está representada por un conjunto finito de vértices del árbol $V(T(\deri))$ (de hecho resultan ser hojas del árbol por la observación \ref{obs:arbol_deri_datos}).
-		Sea este conjunto $V_{u}  = \{ (d_{1},l(d_{1})), \dots, (d_{n},l(d_{n})) \}$ donde $l(d_{i}) = a_{i}$.
+		Para probar esto consideramos $T(\deri)$ el árbol de derivación asociado a la derivación $\deri = S \deriva w$.
 
-		En este caso notemos que el problema se traduce a encontrar un vértice $(d,l(d)) \in V(T(\deri))$ tal que produzca a $v$ como subpalabra.
-		Para esto notemos que aplicando el lema \ref{lema:arbol_binario_meet} al conjunto de hojas $V_{u}$ obtenemos un vértice $(d,l(d))$ interno tal que es el menor vértice con respecto al orden $\preceq$ que produce una palabra $v' \in \Sigma^{*}$ de manera que contiene como subpalabra a la palabra asociada al conjunto $V_{u}$.
-		Como es un vértice interno luego $l(d) = A \in V$ por la observación \ref{obs:arbol_deri_datos} y a su vez resulta ser que no puede haber una palabra de longitud menor tal que cumpla esta propiedad caso contrario negaríamos la minimalidad del vértice $(d,l(d))$.
+		Sea $v$ subpalabra de $w$ luego la ocurrencia de la palabra 
+		$v = a_{1} \dots a_{n}$ es tal que está representada por un conjunto finito de vértices del árbol $V(T(\deri))$ (de hecho resultan ser hojas del árbol por la observación \ref{obs:arbol_deri_datos}).
+		Sea este conjunto $X_{v}  = \{ (d_{1},l(d_{1})), \dots, (d_{n},l(d_{n})) \}$ donde $l(d_{i}) = a_{i}$.
 
-		
+		En este caso notemos que el problema se traduce a encontrar un vértice $(d,l(d)) \in V(T(\deri))$ tal que produzca a $v$ como subpalabra y tal que sea minimal respecto al orden sobre los vértices de un árbol binario $\preceq$ definido en \ref{deff:orden_prefijo_arbol_binario}.
+
+		Para esto notemos que aplicando el lema \ref{lema:arbol_binario_meet} al conjunto de hojas $X_{v}$ obtenemos un vértice $(d,l(d))$ interno tal que es el menor vértice con respecto al orden $\preceq$ que produce una palabra $v' \in \Sigma^{*}$ de manera que contiene como subpalabra a la palabra asociada al conjunto $X_{v}$.
+		Como es un vértice interno luego $l(d) = A \in V$ por la observación \ref{obs:arbol_deri_datos} y a su vez resulta ser que no puede haber una palabra de longitud menor que $v'$ tal que cumpla esta propiedad caso contrario negaríamos la minimalidad del vértice $(d,l(d))$.
 	\end{proof}
 \end{leoenv}
 
@@ -1084,7 +1099,7 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 	Para eso consideremos una geodésica $\alpha$ que una $1$ con $g$ y análogamente otra geodésica $\gamma$ que una $1$ con $h$. 
 	Como $C \cup \beta C$ es conexo podemos tomar un camino $\tau$ que una $g$ con $h$ dentro de $C$ exceptuando sus extremos. 
 	Sin pérdida de generalidad supongamos que $|\tau| \ge 2$ caso contrario tendríamos que $g$ y $h$ son adyacentes y no tendríamos nada que probar porque en este caso $d(g,h) =1$.
-	De esta manera tenemos un triángulo tal que tiene los lados tienen las siguientes etiquetas:
+	De esta manera tenemos un triángulo tal que sus lados tienen las siguientes etiquetas:
 	$l(\alpha) = u $, $l(\tau) =v$ y $l(\gamma) = w$.
 	Como $\alpha \tau \gamma$ es un ciclo en el grafo de Cayley entonces $l(\alpha \tau \gamma) = uvw \in  \WP$ por el resultado \ref{obs_grafo_Cayley_palabras} y por lo tanto tenemos alguna derivación $S \deriva uvw$.
 	
@@ -1093,17 +1108,16 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 	
 	Como la gramática $ \cG $ está en forma normal de Chomsky sabemos que al suponer que $|v| \ge 2$ entonces la derivación tiene la siguiente pinta
 	\begin{equation*}
-		S \deriva \gamma A \alpha \to_{\cal G} \gamma BC \alpha \deriva u'v'v''w'
+		S \deriva \delta A \eta \to_{\cal G} \delta BC \eta \deriva u'v'v''w'
 	\end{equation*}
-	donde: $\gamma, \alpha \in (\Sigma \cup V)^{*},B,C \in V$ y $\gamma \deriva u', \alpha \deriva w', A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
-	
-	\TODO{Arreglar que $w'$ es un posfijo de $w$ entonces quizá hay que modificar levemente el argumento.}
+	donde: $\delta, \eta \in (\Sigma \cup V)^{*},B,C \in V$ y $\delta \deriva u', \eta \deriva w', A \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
 	
 	La palabra $u'$ es un prefijo de $u$ luego si consideramos la geodésica $\alpha$ tenemos que al haber leído la etiqueta $u'$ llegamos a un vértice $x$ y por estar sobre la geodésica cumple la siguiente igualdad:
 	\begin{equation*}
 		d(x,g) = d(1,g) - d(1,x).
 	\end{equation*}
-	Análogamente $w'$ es un posfijo de $w$ luego si consideramos la geodésica $\gamma$ en la instancia que ya leímos $w'$ comenzando desde $h$ llegamos a cierto vértice $z$ y por la misma razón que en el caso anterior obtenemos
+	Análogamente $w'$ es un posfijo de $w$ luego existe $w'' \in \Sigma^{*}$ tal que $w = w'' w'$.  
+	Si consideramos la geodésica $\gamma$ en la instancia que ya leímos $w''$ comenzando desde $h$ llegamos a cierto vértice $z$ y por la misma razón que en el caso anterior obtenemos
 	\begin{equation*}
 		d(z,h) = d(1,h) - d(1,z).
 	\end{equation*}

@@ -3,11 +3,15 @@
 \usepackage[spanish]{babel}
 \input{macros}
 
+\renewcommand{\indent}{\hspace*{2em}}
+\makeatletter
+\addtobeamertemplate{block begin}{}{\setlength{\parindent}{1cm}\@afterindentfalse\@afterheading}
+\makeatother
 
 \title{El problema de la palabra de los grupos virtualmente libres.}
 \subtitle{\textbf{Leopoldo Lerena} \\
 		Defensa de tesis de licenciatura.}
-\date{??.}
+\date{Fecha: $\le 2050$.}
 \author{Director: Iván Sadofschi Costa}
 \institute{Universidad de Buenos Aires}
 % \titlegraphic{\hfill\includegraphics[height=1.5cm]{logo.pdf}}
@@ -41,27 +45,56 @@
 
 	\end{frame}
 
-	\begin{frame}[fragile]{Grafo de Cayley.}
-		Dado un grupo $G$ finitamente generado por $A$ podemos considerar un grafo $\Gamma =\cay{G}{A}$ que es el grafo de Cayley.
+\begin{frame}[fragile]{Grafo de Cayley.}
+	Dado un grupo $G$ finitamente generado por $A$ podemos considerar un grafo $\Gamma =\cay{G}{A}$ que es el grafo de Cayley.
 
-		Está definido de manera que 
-		\[
-			V(\Gamma) = G,   \ \ \ E(\Gamma) = \{ \{ g,ga \}  \mid g \in G, a \in A \cup A^{-1}  \}. 	
-		\]
+	Está definido de manera que 
+	\begin{align*}
+		V(\Gamma) &= G   \\ 
+		& \\
+		E(\Gamma) &= \{ \{ g,ga \}  \mid g \in G, a \in A \cup A^{-1}  \}. 
+	\end{align*}
 
+	% \begin{columns}
+	% 	\begin{column}{0.5\textwidth}
+	% 		\tcajita{Ejemplo.}{	Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
+	% 		$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el \\ siguiente grafo.}
+	% 	\end{column}
+	% 	\begin{column}{0.5\textwidth}
+	% 		\[
+	% 			\begin{tikzpicture}
+	% 			[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
+	% 				minimum size=2em,inner sep=2,
+	% 				 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
+	% 						\fill[#1] 
+	% 						(path picture bounding box.south) rectangle
+	% 						(path picture bounding box.north west);
+	% 				}},
+	% 				fill fraction/.default=astral!90
+	% 				]
+	% 		\node[align=center] at (2, -6) {};
+	% 			\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+	% 					\node (1) at (0,0) {$1$};
+	% 					\node (a) at (2,2)  {$a$};
+	% 					\node (b) at (2,-2)     {$b$};
+	% 					\node (ab) at (4,0)    {$ab$};
+	% 			\end{scope}
+				
+	% 			\draw   (1)  edge[-] (a);
+	% 			\draw   (1)  edge[-] (b);
+	% 			\draw   (a)  edge[-] (ab);
+	% 			\draw   (b)  edge[-] (ab);
+	% 	\end{tikzpicture}
+	% 	\]
+	% 	\end{column}
+	% \end{columns}
+\end{frame}
 
-	\begin{columns}
-		\begin{column}{0.4\textwidth}
-			\begin{alertblock}{Ejemplo.}
-
-				\TODO{Indentado.}
-				Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
-				$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo.
-			\end{alertblock}
-		\end{column}
-		\begin{column}{0.6\textwidth}
-			\[
-				\begin{tikzpicture}
+\begin{frame}[fragile]{Ejemplo de grafo de Cayley.}
+	\tcajita{Ejemplo.}{	Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
+			$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo: \\  \\ 
+			\centering
+			\begin{tikzpicture}
 				[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
 					minimum size=2em,inner sep=2,
 					 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
@@ -69,8 +102,7 @@
 							(path picture bounding box.south) rectangle
 							(path picture bounding box.north west);
 					}},
-					fill fraction/.default=astral!90
-					]
+					fill fraction/.default=astral!90]
 			\node[align=center] at (2, -6) {};
 				\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
 						\node (1) at (0,0) {$1$};
@@ -78,40 +110,34 @@
 						\node (b) at (2,-2)     {$b$};
 						\node (ab) at (4,0)    {$ab$};
 				\end{scope}
-				
 				\draw   (1)  edge[-] (a);
 				\draw   (1)  edge[-] (b);
 				\draw   (a)  edge[-] (ab);
 				\draw   (b)  edge[-] (ab);
 		\end{tikzpicture}
-		\]
-		\end{column}
-	\end{columns}
-	
-			
-	
+		}
 \end{frame}
-	
-	\begin{frame}[fragile]{Grupos libres.}
-		Dado un conjunto $A$ notamos $F_{A}$ al \emph{grupo libre} generado por los elementos de $A$. 
 
-		% \onslide<2->
-		El grupo $F_{A}$ viene con una función $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
-		Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
-		\begin{center}
-			\begin{tikzcd}
-				F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
-				&  &   \\
-				A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
-			\end{tikzcd}
-		\end{center}
+\begin{frame}[fragile]{Grupos libres.}
+	Dado un conjunto $A$ notamos $F_{A}$ al \emph{grupo libre} generado por los elementos de $A$. 
 
-		% \onslide<3->
-		Decimos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
+	% \onslide<2->
+	El grupo $F_{A}$ viene con una función $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
+	Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
+	\begin{center}
+		\begin{tikzcd}
+			F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
+			&  &   \\
+			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
+		\end{tikzcd}
+	\end{center}
 
-		% \onslide<4->
-		Podemos identificar los elementos de $F_{A}$ con las palabras reducidas en $A \cup A^{-1}$.
-	\end{frame}
+	% \onslide<3->
+	Decimos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
+
+	% \onslide<4->
+	Podemos identificar los elementos de $F_{A}$ con las palabras reducidas en $A \cup A^{-1}$.
+\end{frame}
 
 	\begin{frame}[fragile]{Grupos virtualmente libres.}
 		Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y si
@@ -130,9 +156,9 @@
 	\begin{frame}[fragile]{Teoría de lenguajes.}
 		Dado un conjunto finito $\Sigma$ notaremos por $\Sigma^*$ al monoide libre sobre $\Sigma$.
 		
-		\begin{deff}
+		
 			Un lenguaje $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
-		\end{deff}	
+			
 		
 		\begin{alertblock}{Ejemplos.}
 			\begin{itemize}
@@ -170,45 +196,38 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Gramáticas (pt.1).}
-		\begin{deff}
-			Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
-				\begin{itemize}
-					\item $V$ es un conjunto finito denominado las \emph{variables};
-					\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
-					\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
-					
-					% Las producciones $(\gamma, \nu) \in P$, las denotamos por medio de la siguiente notación $\gamma \to \nu$.
-					\item $S \in V$ es el \emph{símbolo inicial};
-				\end{itemize}
-				Es usual escribir las producciones $(\gamma, \nu) \in P$ como $\gamma \to \nu$. 
-		\end{deff}
+		\tcajita{Definición}{Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
+		\begin{itemize}
+			\item $V$ es un conjunto finito denominado las \emph{variables};
+			\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
+			\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
+			\item $S \in V$ es el \emph{símbolo inicial};
+		\end{itemize}
+			Es usual escribir las producciones $(\gamma, \nu) \in P$ como $\gamma \to \nu$.}
+		
 	\end{frame}
 	
 	\begin{frame}[fragile]{Gramáticas (pt.2).}
 		Una sucesión de producciones $\gamma_{1} \to \gamma_{2} \to \dots \to \gamma_{n}$ la denotamos $\gamma_{1} \tto \gamma_{n}$ y diremos que es un \emph{derivación}.
+		\medskip 
+		\tcajita{Definición.}{Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
+		\[
+		L({\cal G}) = \{ w \in \Sigma^* \ | \ S \tto w   \}.
+		\]}
 
-
-
-		\begin{deff}
-			Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
-			\[
-			L({\cal G}) = \{ w \in \Sigma^* \ | \ S \tto w   \}.
-			\]
-		\end{deff}		
 	\end{frame}
 
 	\begin{frame}{Gramáticas regulares.}
-		\begin{deff}
-			Decimos que una gramática $\gramatica$ es \emph{regular} si las producciones son del estilo
-	\begin{enumerate}
-		\item $A \to 1$
-		\item $A \to a$
-		\item $A \to a B$
-	\end{enumerate}
-	donde $A, B \in V$, $a \in \Sigma$.
+		\tcajita{Definición.}{Decimos que una gramática $\gramatica$ es \emph{regular} si las producciones son del estilo
+		\begin{enumerate}
+			\item $A \to 1$
+			\item $A \to a$
+			\item $A \to a B$
+		\end{enumerate}
+		donde $A, B \in V$, $a \in \Sigma$.}
 
-	Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \emph{lenguaje regular}.
-		\end{deff}
+		\medskip 
+		Si $L=\lengderivado$ para alguna gramática regular $\cal G$ entonces diremos que $L$ es un \emph{lenguaje regular}.
 	\end{frame}
 
 	\begin{frame}{Gramáticas independiente de contexto.}
@@ -226,11 +245,7 @@
 	\end{frame}
 
 	\begin{frame}{Jerarquía de Chomsky.}
-
-			\centering
-			\includegraphics[scale = 0.65]{Chomsky-hierarchy.png}
-			\TODO{ Saco esto y digo ante que regular implica reg}
-		
+		\lemacajita{Todo lenguaje regular es independiente de contexto.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Clasificación del problema de la palabra.}
@@ -269,9 +284,7 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]{Teorema de Muller--Shupp}
-		\begin{teo}
-			Un grupo $G$ es \vl{} si y solo si $\WP{G}{A}$ es un lenguaje \ic.
-		\end{teo}
+		\teocajita{Un grupo $G$ es \vl{} si y solo si para algún conjunto de generadores $A$ de $G$ vale que el lenguaje $\WP{G}{A}$ es \ic.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Teorema de Muller-Schupp.}
