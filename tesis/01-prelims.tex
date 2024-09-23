@@ -1737,7 +1737,7 @@ Notemos que el árbol de derivación es tal que cada vértice se corresponde con
 	Dada una gramática $\gramatica$ \ic en forma normal de Chomsky y una derivación $\deri = S \deriva w$ en esta gramática. 
 	Si $T(\deri)$ es el árbol de derivación entonces las siguientes observaciones se desprenden inmediatamente de la construcción.
 	\begin{itemize}
-		\item Sea $v = (d,l(d)) \in V(T(\deri))$ una hoja del árbol de derivación entonces $l(d) \in \Sigma \cup \{ epsilon \}$.
+		\item Sea $v = (d,l(d)) \in V(T(\deri))$ una hoja del árbol de derivación entonces $l(d) \in \Sigma \cup \{ \epsilon \}$.
 		\item Sea $v = (d,l(d)) \in V(T(\deri))$ un vértice interior del árbol de derivación entonces $l(d) \in V$.
 		\item Sea $v = (d,l(d)) \in V(T(\deri))$ un vértice interior del árbol de derivación luego la palabra producida por este vértice es una palabra $u \in \Sigma^{*}$ tal que $u$ es una subpalabra de $w$ y cumple que $l(d) \deriva u$. 
 	\end{itemize}
