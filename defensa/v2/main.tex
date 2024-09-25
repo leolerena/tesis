@@ -3,7 +3,10 @@
 \usepackage[spanish]{babel}
 \input{macros}
 
-
+\renewcommand{\indent}{\hspace*{2em}}
+\makeatletter
+\addtobeamertemplate{block begin}{}{\setlength{\parindent}{1cm}\@afterindentfalse\@afterheading}
+\makeatother
 
 \title{El problema de la palabra de los grupos virtualmente libres.}
 \subtitle{\textbf{Leopoldo Lerena} \\
@@ -202,8 +205,7 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]{Gramáticas (pt.2).}
-		Una sucesión de producciones $\gamma_{1} \to \gamma_{2} \to \dots \to \gamma_{n}$ (para $n \ge 1$) la denotamos $\gamma_{1} \tto \gamma_{n}$ y diremos que es un \emph{derivación}.
-
+		Una sucesión de producciones $\gamma_{1} \to \gamma_{2} \to \dots \to \gamma_{n}$ la denotamos $\gamma_{1} \tto \gamma_{n}$ y diremos que es un \emph{derivación}.
 		\medskip 
 		\tcajita{Definición.}{Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
 		\[
@@ -254,7 +256,6 @@
 	
 
 	\begin{frame}[fragile]{Teorema de Muller-Schupp.}
-		El teorema es 	
 		\[	
 			\begin{tikzpicture}{scale = 0.75}
 				\path 
@@ -437,31 +438,33 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky (pt. 3).}
+		\lemacajita{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
+		Sea $w \in L(\cG)$ tal que $w = tuv$ con $t,u,v \in \Sigma^{*}$. 
+		Si fijamos una derivación $S \tto w$ entonces existe un único vértice en el árbol de derivación con la propiedad de ser el más bajo entre aquellos de los que deriva una subpalabra que da lugar a $u$.}
 		
-		asdas
 		\TODO{}
 	\end{frame}
 	
-	% \begin{frame}[fragile]{Independiente de contexto implica treewidth finito (lemas previos).}
-	% 	\begin{lema}[1]
-	% 		Sea $G$ un grupo \ic{} y $\gramatica$ gramática \ic{}  de manera que $L(\cG) = WP(G,\Sigma)$.
-	% 		Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
-	% 		\[
-	% 		L_A = \{ w \in \Sigma^*  \ | \ A \tto w  \}.
-	% 		\]
-	% 		Entonces vale el siguiente resultado:
-	% 		dadas palabras $v,v' \in L_{A}$ luego $v = v'$ en $G$.
-	% 	\end{lema}
+	\begin{frame}[fragile]{Independiente de contexto implica treewidth finito (lemas previos).}
+		\begin{lema}[1]
+			Sea $G$ un grupo \ic{} y $\gramatica$ gramática \ic{}  de manera que $L(\cG) = WP(G,\Sigma)$.
+			Sea $A \in V$ una variable de esta gramática y consideremos el lenguaje
+			\[
+			L_A = \{ w \in \Sigma^*  \ | \ A \tto w  \}.
+			\]
+			Entonces vale el siguiente resultado:
+			dadas palabras $v,v' \in L_{A}$ luego $v = v'$ en $G$.
+		\end{lema}
 
-	% 	\begin{lema}[2]
-	% 		Sea $\Gamma$ un grafo de grado acotado uniformemente y 
-	% 		$(T,f)$ una descomposición en un árbol para $\Gamma$ de manera que existe $M \in \NN$ tal que para todo $t \in V(T)$ tenemos la siguiente cota
-	% 		\[
-	% 			  \diam{f(t)} < M
-	% 		\]   
-	% 		entonces la descomposición $(T,f)$ tiene bagsize finito.
-	% 	\end{lema}
-	% \end{frame}
+		\begin{lema}[2]
+			Sea $\Gamma$ un grafo de grado acotado uniformemente y 
+			$(T,f)$ una descomposición en un árbol para $\Gamma$ de manera que existe $M \in \NN$ tal que para todo $t \in V(T)$ tenemos la siguiente cota
+			\[
+				  \diam{f(t)} < M
+			\]   
+			entonces la descomposición $(T,f)$ tiene bagsize finito.
+		\end{lema}
+	\end{frame}
 
 	% \begin{frame}[fragile]{Independiente de contexto implica treewidth finito (pt.1).}
 	% 	\begin{teo}

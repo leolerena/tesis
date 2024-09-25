@@ -13,6 +13,7 @@
 \usetikzlibrary{graphs} 
 \usetikzlibrary{calc}
 \usetikzlibrary{positioning}
+\usetikzlibrary{quotes}
 \usepackage{tcolorbox}
 \usepackage{enumitem}% http://ctan.org/pkg/enumitem
 \definecolor{ao(english)}{rgb}{0.0, 0.5, 0.0}
@@ -163,6 +164,10 @@
 #1
 \end{tcolorbox}}
 
+\newcommand*{\teocajitados}[2]{\begin{tcolorbox}[colback=rojo!5!white,colframe=rojo!75!black,title=Teorema (#1)]
+  #2
+  \end{tcolorbox}}
+
 \newcommand*{\lemacajita}[1]{\begin{tcolorbox}[colback=rojo!5!white,colframe=rojo!75!black,title=Lema]
     #1
     \end{tcolorbox}}
@@ -170,3 +175,8 @@
 \newcommand*{\defcajita}[1]{\begin{tcolorbox}[colback=green!5!white,colframe=green!35!black,title=Definición]
     #1
     \end{tcolorbox}}    
+
+
+\newcommand{\frameg}[2]{\begin{frame}[fragile]{#1}
+		#2
+\end{frame}}    

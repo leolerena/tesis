@@ -92,10 +92,12 @@
 \end{frame}
 
 \begin{frame}[fragile]{Ejemplo de grafo de Cayley.}
-	\tcajita{Ejemplo.}{	Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
-			$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo: \\  \\ 
-			\centering
-			\begin{tikzpicture}
+	\textbf{Ejemplo.}
+	Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por $G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$.
+	Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo: 
+	
+	\centering
+	\begin{tikzpicture}
 				[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
 					minimum size=2em,inner sep=2,
 					 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
@@ -115,8 +117,8 @@
 				\draw   (1)  edge[-] (b);
 				\draw   (a)  edge[-] (ab);
 				\draw   (b)  edge[-] (ab);
-		\end{tikzpicture}
-		}
+	\end{tikzpicture}
+		
 \end{frame}
 
 \begin{frame}[fragile]{Grupos libres.}
@@ -141,17 +143,17 @@
 \end{frame}
 
 	\begin{frame}[fragile]{Grupos virtualmente libres.}
-		Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y si
+		Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y
 		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.
 
-		\begin{alertblock}{Ejemplos.}
+		\textbf{Ejemplos}.
+
 			\begin{itemize}
 				\item Los grupos finitos.
 				\item Los grupos libres.
 				\item El producto semidirecto de un grupo libre con un grupo finito.
 				\item El producto libre de dos grupos finitos.
 			\end{itemize}
-		\end{alertblock}
 	\end{frame}
 
 	\begin{frame}[fragile]{Teoría de lenguajes.}
@@ -161,7 +163,9 @@
 			Un lenguaje $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
 			
 		
-		\begin{alertblock}{Ejemplos.}
+			\textbf{Ejemplos}.
+
+
 			\begin{itemize}
 				\item 
 					Dado $\Sigma = \{a,b\}$ consideramos el lenguaje de los palíndromos
@@ -174,7 +178,6 @@
 						\WP{G}{A} = \{ w \in (A \cup A^{-1})^{*} \mid w = 1 \ \text{en $G$} \}.	
 					\]
 			\end{itemize}
-		\end{alertblock}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Ejemplo de gramática.}
@@ -224,17 +227,22 @@
 		\[
 			A \to w
 		\]
-		donde $A \in V, w \in (\Sigma \cup V)^*$.  \\
-		Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.}
+		donde $A \in V, w \in (\Sigma \cup V)^*$.}
+
+		\bigskip 
+
+		\defcajita{Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.}
 	\end{frame}
 
 	
-	\begin{frame}[fragile]{Teorema de Muller--Shupp}
-		Si un grupo $G$ es tal que para cierto conjunto de generadores $A$ vale que $\WP{G}{A}$ es independiente de contexto entonces para todo conjunto de generadores $B$ vale que $\WP{G}{B}$ es independiente de contexto.
+	\begin{frame}[fragile]{Teorema de Muller--Schupp}
+		\defcajita{Decimos que un grupo $G$ es independiente de contexto si existe (o equivalentemente, para todo) conjunto de generadores $A$ vale que el lenguaje $\WP{G}{A}$ es independiente de contexto. }
+		
+		%Si un grupo $G$ es tal que para cierto conjunto de generadores $A$ vale que $\WP{G}{A}$ es independiente de contexto entonces para todo conjunto de generadores $B$ vale que $\WP{G}{B}$ es independiente de contexto.
 
 		\bigskip
 
-		\teocajita{Un grupo $G$ es \vl{} si y solo si para algún conjunto de generadores $A$ de $G$ vale que el lenguaje $\WP{G}{A}$ es \ic.}
+		\teocajitados{Muller--Schupp}{Un grupo $G$ es \vl{} si y solo si es \ic.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Teorema de Muller-Schupp.}
@@ -242,18 +250,18 @@
 		\[	
 			\begin{tikzpicture}{scale = 0.75}
 				\path 
-				(0,0) node(a) [rectangle,draw] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
-				(5,-3) node(b) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
-				(0,-6) node(c) [rectangle,draw] {$\WP{G}{A}$ es un lenguaje independiente de contexto}
-				(-5,-3) node (d) [rectangle,draw] {$G$ es virtualmente libre};
+				(0,0) node(a) [rectangle,draw] {$G$ es virtualmente libre
+				}
+				(5,-3) node(b) [rectangle,draw, text width=4.2cm, align=center] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
+				(0,-6) node(c) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
+				(-5,-3) node (d) [rectangle,draw] {$G$ es independiente de contexto};
 				\draw   
-				(d) edge[<-,line width=1.0pt,"Capítulo 2"] (a) 
-				(c) edge[<-,line width=1.0pt,"Capítulo 3"] (d)
-				(b) edge[<-,line width=1.0pt,"Capítulo 4"] (c)
-				(a)  edge[<-,line width=1.0pt,"Capítulo 5"] (b);
+				(d) edge[<-,line width=1.0pt,"Capítulo 3"] (a) 
+				(c) edge[<-,line width=1.0pt,"Capítulo 4"] (d)
+				(b) edge[<-,line width=1.0pt,"Capítulo 5"] (c)
+				(a)  edge[<-,line width=1.0pt,"Capítulo 2"] (b);
 			\end{tikzpicture}
 		\]
-		\TODO{Cambiar el orden del diagrama.}
 	\end{frame}
 
 	
@@ -272,44 +280,89 @@
 		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
 		\item Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
 	\end{enumerate}
-	El \textbf{bagsize} de esta descomposición es el siguiente valor:
-	\begin{equation*}
-		bs(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
-	\end{equation*}
-	Un grafo $\Gamma$ tiene \textbf{treewidth finito} si existe $(T,f)$ tal que $bs(\Gamma,T,f) < \infty$.
 	\end{frame}
 	
-	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
-		Dado $\Gamma = \cay{G}{A}$ donde $G$ es finitamente generado por $A$.
-
-		Sea $C \subseteq V(\Gamma)$ definimos:
-		\begin{itemize}
-			\item  
-				La \textbf{vecindad} de $C$ es el siguiente conjunto:
-
-				$N(C) = C \cup \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.$
-
-			\item 
-				El \textbf{borde} de $C$ es el siguiente conjunto: 
-
-				$\beta C =  N(C) \cap N(C^{c})$.
-		\end{itemize} 
+	\begin{frame}[fragile]{Ejemplo de Descomposición en un árbol.}
+		\centering
+			\begin{tikzpicture}[scale=0.8,V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
+						\fill[#1] 
+						(path picture bounding box.south) rectangle
+						(path picture bounding box.north west);
+				}},
+				fill fraction/.default=gray!50
+	,			]
+				\node[align=center] at (-2.5, 1) {Grafo \textbf{$T$}};
+				\begin{scope}[nodes=V, xshift=-3.5cm, yshift=0cm]
+					\node (1) [fill = brightcerulean!80] {$t_1$};
+					\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
+					\node (3) [below=of 2, fill=brightube!90] {$t_3$};
+				\end{scope}	
+				\draw   (1)  edge[-,] (2)
+				(2)  edge[-] (3);
+				
+				\node[align=center] at (5.5, 1) {Grafo \textbf{$\Gamma$}};
+				\begin{scope}[nodes=V,xshift=4.5cm, yshift=0cm]
+					\node (1)  [fill = brightcerulean!80] {$v_{1}$};
+					\node (2) [below=of 1, fill = brightcerulean!80, fill fraction=cadmiumred!75]{$v_{2}$};
+					\node (3) [right=of 2, fill = brightcerulean!80, fill fraction=cadmiumred!75	]    {$v_{3}$};
+					\node (4) [below=of 2,fill = cadmiumred!75, fill fraction=brightube!90]    {$v_{4}$};
+					\node (5) [below=of 3, fill = cadmiumred!75]    {$v_{5}$};
+					\node (6) [below=of 4,fill = brightube!90]    {$v_{6}$};
+				\end{scope}
+				\draw   (1)  edge[-] (2);
+				\draw   (1)  edge[-] (3);
+				\draw   (2)  edge[-] (3);
+				\draw   (3)  edge[-] (4);
+				\draw   (4)  edge[-] (5);
+				\draw   (2)  edge[-] (5);
+				\draw   (4)  edge[-] (6);
+			\end{tikzpicture}
 	\end{frame}
 
-	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol pt.2}
+	\begin{frame}[fragile]{Treewidth.}
+		\defcajita{Dado $\Gamma$ un grafo y $(T,f)$ una descomposición en un árbol para $\Gamma$ luego diremos que:
+		\begin{itemize}
+			\item La \emph{anchura} de la descomposición es el siguiente valor:
+			\begin{equation*}
+				a(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
+			\end{equation*}
+			\item El \emph{treewidth} de un grafo es el siguiente valor:
+			\begin{equation*}
+				tw(\Gamma) = \min \{  a(\Gamma,t,f)  \mid (T,f) \ \text{descomposición en un árbol de} \Gamma \}
+			\end{equation*}
+			\item $\Gamma$ tiene treewidth finito si $tw(\Gamma) < \infty$.
+		\end{itemize}}
+	\end{frame}
+
+	\begin{frame}[fragile]{Grafos como espacios métricos.}
+		Sea $\Gamma$ un grafo luego podemos considerar el espacio métrico dado por $(V(\Gamma), d)$ donde:
+		\[
+			d(x,y) = \inf \{ \gamma \mid \gamma \ \text{camino de} \ x  \ \text{a} \ y  \}	
+		\]
+		si $\gamma$ es un camino que realiza la distancia entre $x$ e $y$ diremos que $\gamma$ es una \emph{geodésica}.
+
+		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \emph{borde} de $C$ como
+		\[
+			\beta(C) = B_{1}[C] \cap B_{1}[\ol C]	
+		\]}
+	\end{frame}
+
+	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
+		Sea $G$ grupo finitamente generado por $X$ y sea $\Gamma = \cay{G}{X}$.
+
 		Para cada $n \in \NN_{0}$ consideramos:
 		\[
-			V_{n} = V(\Gamma \setminus B_{n}(1))	
+			V_{n} = \Gamma \setminus B_{n}[1]	
 		\]
 
 		Consideramos el siguiente árbol $T$ con raíz $1$:
 		\begin{align*}
-			V(T)  & = \{ \beta C \mid C \in V_{n} \ \text{componente conexa} \}  \cup \{ \{1\} \} \\
+			V(T)  & = \{ \beta C \mid C \subseteq V_{n} \ \text{componente conexa} \}  \cup \{ \{1\} \} \\
 			E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
 			& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
 			& \cup \{ \{\{1\}, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
 		\end{align*}
-		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(\beta C) = \beta C$.
+		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(Y) = Y$ para todo $Y \in V(T)$.
 		
 		\lemacajita{El par $(T,f)$ es una descomposición en un árbol para el grafo $\Gamma$.}
 		
@@ -318,7 +371,6 @@
 	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 1).}
 	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ presentado por 
 	$G \simeq \langle a,b \mid a^2, b^3 \rangle$.
-
 	El grafo $\cay{G}{\{ a,b,b^{-1} \}}$ lo representamos de la siguiente manera:
 	
 		\[
@@ -340,19 +392,32 @@
 					\node (bb) at (-2,-2)    {$b^2$};
 					\node (ab) at (4,2)      {$ab$};
 					\node (abb) at (4,-2)     {$ab^2$};
-					\node (ba) at (-4,2)     {$ba$};
-					\node (bba) at (-4,-2)     {$b^2a$};
-					\node (aba) at (6,2)    {$aba$};
-					\node (abba) at (6,-2)    {$ab^2a$};
-					\node (bab) at (-6,3)    {$bab$};
-					\node (babb) at (-6,1)     {$bab^2$};
-					\node (bbab) at (-6,-3)     {$b^2ab$};
-					\node (bbabb) at (-6,-1)    {$b^2ab^2$};
-					\node (abab) at (8,3)    {$abab$};
-					\node (ababb) at (8,1)    {$abab^2$};
-					\node (abbab) at (8,-1)     {$ab^2ab$};
-					\node (abbabb) at (8,-3)  {$ab^2ab^2$};
+					\node (ba) at (-4,2.75)     {$ba$};
+					\node (bba) at (-4,-2.75)     {$b^2a$};
+					\node (aba) at (6,2.75)    {$aba$};
+					\node (abba) at (6,-2.75)    {$ab^2a$};
+					\node (bab) at (-6,3.75)    {$bab$};
+					\node (babb) at (-6,1.75)     {$bab^2$};
+					\node (bbab) at (-6,-3.75)     {$b^2ab$};
+					\node (bbabb) at (-6,-1.75)    {$b^2ab^2$};
+					\node (abab) at (8,3.75)    {$abab$};
+					\node (ababb) at (8,1.75)    {$abab^2$};
+					\node (abbab) at (8,-1.75)     {$ab^2ab$};
+					\node (abbabb) at (8,-3.75)  {$ab^2ab^2$};
 			\end{scope}
+			
+			
+			\node[above right=.3cm of abbab] (p_abbab) {$\dots$};
+			\node[below right=.3cm of abbabb] (p_abbabb) {$\dots$};
+			\node[above left=.3cm of bab] (p_bab) {$\dots$};
+			\node[below left=.3cm of babb] (p_babb) {$\dots$};
+			\node[above left=.3cm of bbabb] (p_bbabb) {$\dots$};
+			\node[below left=.3cm of bbab] (p_bbab) {$\dots$};
+			\node[above right=.3cm of abab] (p_abab) {$\dots$};
+			\node[below right=.3cm of ababb] (p_ababb) {$\dots$};
+	
+			\foreach \x in {abbab,abbabb,bab,babb,bbabb,bbab,abab,ababb}
+				\draw (\x) edge [-] (p_\x);
 			
 			\draw   (1)  edge[-] (a);
 			\draw   (1)  edge[-] (b);
@@ -384,7 +449,6 @@
 	
 	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 2).}
 		El árbol $T$ de la descomposición lo representamos de la siguiente manera:
-
 	\[
 			\begin{tikzpicture}[scale=0.8, V/.style = {circle, draw,align= center, minimum size=0.5cm,
 			minimum size=3em,inner sep=2,
@@ -408,7 +472,15 @@
 			\node (10) at (8,-3)  {$\{ ab^2, ab^2a \}$};
 		\end{scope}
 		
-		
+		\node[above right=.45cm of 9] (p_9) {$\dots$};
+		\node[below right=.45cm of 10] (p_10) {$\dots$};
+		\node[above left=.45cm of 4] (p_4) {$\dots$};
+		\node[below left=.45cm of 5] (p_5) {$\dots$};
+
+		\foreach \x in {4,5,9,10}
+			\draw (\x) edge[-] (p_\x);
+
+
 		\draw (1) edge[-] (2);
 		\draw (2) edge[-] (3);
 		\draw (1) edge[-] (5);
@@ -433,7 +505,7 @@
 
 		Basta notar que el grafo de Cayley tiene grado acotado por $2|X|$ y así para todo $t \in V(T)$ vale que:
 		\[
-			|f(t)| \le 2|X|^{M} < \infty
+			|f(t)| \le (2|X|)^{M} < \infty
 		\]
 		por lo que $\Gamma$ tiene treewidth finito.
 		\qed 
@@ -476,7 +548,7 @@
 	\begin{frame}[fragile]{Árbol de derivación.}
 		Sea $\cG$ una gramática en forma normal de Chomsky luego si $w \in L(\cG)$ y $\deri = S \deriva w$ es una derivación le asociamos un árbol binario $T(\deri)$ que denominamos \emph{el árbol de derivación}.
 
-		\alert{Ejemplo}.
+		\textbf{Ejemplo}.
 
 		Sea $\gramatica$ tal que $V = \{ S,A,B \}$, $\Sigma = \{ a, b\}$ y las reglas son:
 		$P = \begin{cases}
@@ -572,7 +644,7 @@
 		\begin{itemize}
 			\item Las etiquetas de las hojas del árbol forman la palabra que derivamos.
 			\item Los vértices que no son hojas tienen de etiqueta una variable de la gramática.
-			\item Diremos que el vértice \alert{A} produce la subpalabra \alert{bba}.
+			\item Diremos que el \alert{vértice} con etiqueta A produce la subpalabra \alert{bba}.
 		\end{itemize}
 	\end{frame}
 	
@@ -580,48 +652,59 @@
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky.}
 		\lemacajita{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
 		Sea $uvw \in L(\cG)$. 
-		Si fijamos una derivación $\deri = S \tto uvw$ entonces entonces existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.}
+		Si fijamos una derivación $\deri = S \tto uvw$ entonces existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.}
 
-		\textbf{Ejemplo:}
-		Si consideramos la subpalabra $v = \alert{bb}$ luego el vértice $\alert{A}$ es el vértice que cumple esta propiedad y produce la subpalabra $v' = {bba}$.
-		
+		%Si consideramos la subpalabra $v = \alert{bb}$ luego el vértice $\alert{A}$ es el vértice que cumple esta propiedad y produce la subpalabra $v' = {bba}$.
+		\begin{columns}
+			\begin{column}{0.5 \textwidth}
+				\textbf{Ejemplo:}
+
+				Si consideramos la misma derivación del ejemplo anterior luego sean: $u = \epsilon, v = bb, w=abb$. 
+
+				Entonces el \alert{vértice} con etiqueta $A$ es el vértice más grande que produce una palabra que contiene a $v$.		
+			\end{column}
+
+			\begin{column}{0.5 \textwidth}
+				\begin{center}
+					\begin{adjustbox}{width = 1.05 \textwidth}
+						\begin{tikzpicture}[node distance=0.2cm]
+							\node (s) {$S$};
+							\node[below left=0.15cm and 2.2cm of  s] (0) {\alert{$A$}};
+							\node[below right=0.15cm and 2.2cm of  s] (1) {$B$};
+							\node[below left=0.15cm and 1.0cm of  0] (00) {$B$};
+							\node[below right=0.15cm and 1.0cm of  0] (01) {$A$};
+							\node[below=1cm of  00] (000) {\alert{\bf$b$}};
+							\node[below left=0.15cm and 1.0cm of  01] (010) {$B$};
+							\node[below right=0.15cm and 1.0cm of  01] (011) {$A$};
+							\node[below=1cm of  010] (0100) {\alert{$b$}};
+							\node[below=1cm of  011] (0110) {{$a$}};
+							\node[below left=0.15cm and 1.0cm of  1] (10) {$B$};
+							\node[below right=0.15cm and 1.0cm of  1] (11) {$B$};
+							\node[below=1cm of  10] (100) {$b$};
+							\node[below=1cm of  11] (110) {$b$};
 			
+							\draw (s) -- (0);
+							\draw (s) -- (1);
+							\draw (0) -- (00);
+							\draw (0) -- (01);
+							\draw (1) -- (10);
+							\draw (1) -- (11);
+							\draw (00) -- (000);
+							\draw (01) -- (010);
+							\draw (01) -- (011);
+							\draw (010) -- (0100);
+							\draw (011) -- (0110);
+							\draw (10) -- (100);
+							\draw (11) -- (110);
 			
-			\begin{center}
-				\begin{adjustbox}{width = 0.5 \textwidth}
-					\begin{tikzpicture}[node distance=0.2cm]
-						\node (s) {$S$};
-						\node[below left=0.15cm and 2.2cm of  s] (0) {\alert{$A$}};
-						\node[below right=0.15cm and 2.2cm of  s] (1) {$B$};
-						\node[below left=0.15cm and 1.0cm of  0] (00) {$B$};
-						\node[below right=0.15cm and 1.0cm of  0] (01) {$A$};
-						\node[below=1cm of  00] (000) {\alert{\bf$b$}};
-						\node[below left=0.15cm and 1.0cm of  01] (010) {$B$};
-						\node[below right=0.15cm and 1.0cm of  01] (011) {$A$};
-						\node[below=1cm of  010] (0100) {\alert{$b$}};
-						\node[below=1cm of  011] (0110) {{$a$}};
-						\node[below left=0.15cm and 1.0cm of  1] (10) {$B$};
-						\node[below right=0.15cm and 1.0cm of  1] (11) {$B$};
-						\node[below=1cm of  10] (100) {$b$};
-						\node[below=1cm of  11] (110) {$b$};
+						\end{tikzpicture}
+					\end{adjustbox}
+				\end{center}	
+			\end{column}
+		\end{columns}
 		
-						\draw (s) -- (0);
-						\draw (s) -- (1);
-						\draw (0) -- (00);
-						\draw (0) -- (01);
-						\draw (1) -- (10);
-						\draw (1) -- (11);
-						\draw (00) -- (000);
-						\draw (01) -- (010);
-						\draw (01) -- (011);
-						\draw (010) -- (0100);
-						\draw (011) -- (0110);
-						\draw (10) -- (100);
-						\draw (11) -- (110);
-		
-					\end{tikzpicture}
-				\end{adjustbox}
-			\end{center}
+
+			
 		
 	\end{frame}
 
