@@ -24,14 +24,14 @@
 	
 	
 	\begin{frame}[fragile]{Problema de la palabra.}
-		Sea $G$ un grupo \fg por un conjunto $A$; 
-		tal que $G$ es isomorfo a $\langle A \mid R \rangle$ para un conjunto de relaciones $R$.
+		Sea $G$ un grupo \fg por un conjunto $X$; 
+		tal que $G$ es isomorfo a $\langle X \mid R \rangle$ para un conjunto de relaciones $R$.
 		
 		El \emph{problema de la palabra} consiste en el siguiente problema:
 	
 		\begin{itemize}
 					\item 
-						\textbf{Entrada}: Una palabra $w$ en $A \cup A^{-1}$.
+						\textbf{Entrada}: Una palabra $w$ en $X \cup X^{-1}$.
 					
 					\item 
 						\textbf{Pregunta}: Decidir si vale $w=1$ en $G$.
@@ -47,12 +47,12 @@
 	\end{frame}
 
 \begin{frame}[fragile]{Grafo de Cayley.}
-	\defcajita{Dado un grupo $G$ finitamente generado por $A$ podemos considerar un grafo $\Gamma =\cay{G}{A}$ que es el grafo de Cayley.
+	\defcajita{Dado un grupo $G$ finitamente generado por $X$ podemos considerar un grafo $\Gamma =\cay{G}{X}$ que es el grafo de Cayley.
 	Está definido de manera que:
 	\begin{align*}
 		V(\Gamma) &= G   \\ 
 		& \\
-		E(\Gamma) &= \{ \{ g,ga \}  \mid g \in G, a \in A \cup A^{-1}  \}. 
+		E(\Gamma) &= \{ \{ g,gx \}  \mid g \in G, x \in X \cup X^{-1}  \}. 
 	\end{align*}}
 
 	% \begin{columns}
@@ -121,24 +121,24 @@
 \end{frame}
 
 \begin{frame}[fragile]{Grupos libres.}
-	Dado un conjunto $A$ notamos $F_{A}$ al \emph{grupo libre} generado por los elementos de $A$. 
+	Dado un conjunto $X$ notamos $F_{X}$ al \emph{grupo libre} generado por los elementos de $X$. 
 
 	% \onslide<2->
-	El grupo $F_{A}$ viene con una función $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
-	Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
+	El grupo $F_{X}$ viene con una función $\iota: X \to F_{X}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
+	Para todo grupo $H$ y toda función $f:X \to H$ existe un único morfismo de grupos $\ol f: F_{X} \to H$ tal que $\ol f \circ \iota = f$.
 	\begin{center}
 		\begin{tikzcd}
-			F_{A}  \arrow[rr, "\ol f", dashed]          &  & H \\
+			F_{X}  \arrow[rr, "\ol f", dashed]          &  & H \\
 			&  &   \\
-			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
+			X \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
 		\end{tikzcd}
 	\end{center}
 
 	% \onslide<3->
-	Decimos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
+	Decimos que $X$ genera libremente a $F_{X}$ y que $X$ es una base de $F_{X}$.
 
 	% \onslide<4->
-	Podemos identificar los elementos de $F_{A}$ con las palabras reducidas en $A \cup A^{-1}$.
+	Podemos identificar los elementos de $F_{X}$ con las palabras reducidas en $X \cup X^{-1}$.
 \end{frame}
 
 	\begin{frame}[fragile]{Grupos virtualmente libres.}
@@ -173,7 +173,7 @@
 				\item 
 					Dado un grupo $G$ finitamente generado por $A$ consideramos el lenguaje
 					\[
-						\WP{G}{A} = \{ w \in (A \cup A^{-1})^{*} \mid w = 1 \ \text{en $G$} \}.	
+						\WP{G}{X} = \{ w \in (X \cup X^{-1})^{*} \mid w = 1 \ \text{en $G$} \}.	
 					\]
 			\end{itemize}
 	\end{frame}
@@ -704,10 +704,10 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Lema 3.}
-		Equivalentemente el lema anterior se puede escribir de esta manera.
+		Equivalentemente el lema anterior se puede escribir de esta manera si $|v| \ge 2$.
 
 		\lemacajitados{3}{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$. 
+		Sea $uvw \in L(\cG)$ de modo que $|v| \ge 2$.
 		Si fijamos una derivación $\deri = S \tto uvw$ entonces existe una variable $A$ tal que:
 		\[
 				\deri = S \deriva \delta A \eta \to_{\cG} \delta BC \eta \deriva u'v'v''w'
@@ -813,9 +813,9 @@
 			\begin{column}{0.35 \textwidth}
 				Donde:
 				\begin{itemize}
-					\item $\alpha$ es una geodésica de $1$ a $g$;
-					\item $\gamma$ es una geodésica de $h$ a $1$.
-					\item $\tau$ es un camino de $g$ a $h$ dentro de $C \cup \beta C$;
+					\item $\alpha$ es una geodésica de $1$ a $g$ con etiqueta $u$
+					\item $\gamma$ es una geodésica de $h$ a $1$ con etiqueta $w$
+					\item $\tau$ es un camino de $g$ a $h$ dentro de $C \cup \beta C$ con etiqueta $v$.
 				\end{itemize}
 			\end{column}
 		\end{columns}
@@ -851,7 +851,7 @@
 				\end{center}
 			\end{column}
 			\begin{column}{0.35 \textwidth}
-				Si consideramos el \emph{ciclo} $\alpha \tau \gamma$ luego las etiquetas del camino forman una palabra $uvw \in \WP{G}{X}$.
+				Si consideramos el \emph{ciclo} $\alpha \tau \gamma$ luego las etiquetas del camino forman la palabra $uvw \in \WP{G}{X}$.
 
 				Por lo tanto tenemos una derivación
 				\[
