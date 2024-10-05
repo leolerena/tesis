@@ -8,7 +8,7 @@
 \addtobeamertemplate{block begin}{}{\setlength{\parindent}{1cm}\@afterindentfalse\@afterheading}
 \makeatother
 
-\title{El problema de la palabra de los grupos virtualmente libres.}
+\title{El problema de la palabra para los grupos virtualmente libres.}
 \subtitle{\textbf{Leopoldo Lerena} \\
 		Defensa de tesis de licenciatura.}
 \date{Fecha: ---}
@@ -27,104 +27,77 @@
 		Sea $G$ un grupo \fg por un conjunto $X$; 
 		tal que $G$ es isomorfo a $\langle X \mid R \rangle$ para un conjunto de relaciones $R$.
 		
+		\pause 
+
 		El \emph{problema de la palabra} consiste en el siguiente problema:
-	
+		\pause 
 		\begin{itemize}
 					\item 
 						\textbf{Entrada}: Una palabra $w$ en $X \cup X^{-1}$.
-					
+					\pause 
 					\item 
 						\textbf{Pregunta}: Decidir si vale $w=1$ en $G$.
 		\end{itemize}
 
 		El problema de la palabra no es un problema \alert{decidible}.
+		\pause 
 		\begin{itemize}
 			\item 
 				Existen grupos tales que resulta imposible construir un algoritmo que decida si una palabra representa la identidad o no.
 		\end{itemize}
 		
-
+		
 	\end{frame}
 
 \begin{frame}[fragile]{Grafo de Cayley.}
-	\defcajita{Dado un grupo $G$ finitamente generado por $X$ podemos considerar un grafo $\Gamma =\cay{G}{X}$ que es el grafo de Cayley.
-	Está definido de manera que:
+	\defcajita{Sea $G$ grupo finitamente generado por $X$ diremos que el grafo de Cayley $\Gamma = \cay{G}{X}$ es el siguiente grafo no dirigido.
+	\onslide<2->{
 	\begin{align*}
 		V(\Gamma) &= G   \\ 
-		& \\
-		E(\Gamma) &= \{ \{ g,gx \}  \mid g \in G, x \in X \cup X^{-1}  \}. 
-	\end{align*}}
-
-	% \begin{columns}
-	% 	\begin{column}{0.5\textwidth}
-	% 		\tcajita{Ejemplo.}{	Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por 
-	% 		$G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$. Entonces $\cay{G}{\{a,b\}}$ es el \\ siguiente grafo.}
-	% 	\end{column}
-	% 	\begin{column}{0.5\textwidth}
-	% 		\[
-	% 			\begin{tikzpicture}
-	% 			[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
-	% 				minimum size=2em,inner sep=2,
-	% 				 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
-	% 						\fill[#1] 
-	% 						(path picture bounding box.south) rectangle
-	% 						(path picture bounding box.north west);
-	% 				}},
-	% 				fill fraction/.default=astral!90
-	% 				]
-	% 		\node[align=center] at (2, -6) {};
-	% 			\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
-	% 					\node (1) at (0,0) {$1$};
-	% 					\node (a) at (2,2)  {$a$};
-	% 					\node (b) at (2,-2)     {$b$};
-	% 					\node (ab) at (4,0)    {$ab$};
-	% 			\end{scope}
-				
-	% 			\draw   (1)  edge[-] (a);
-	% 			\draw   (1)  edge[-] (b);
-	% 			\draw   (a)  edge[-] (ab);
-	% 			\draw   (b)  edge[-] (ab);
-	% 	\end{tikzpicture}
-	% 	\]
-	% 	\end{column}
-	% \end{columns}
-\end{frame}
-
-\begin{frame}[fragile]{Ejemplo de grafo de Cayley.}
-	\textbf{Ejemplo.}
-	Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por $G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$.
-	Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo: 
-	
-	\centering
-	\begin{tikzpicture}
-				[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
-					minimum size=2em,inner sep=2,
-					 fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
-							\fill[#1] 
-							(path picture bounding box.south) rectangle
-							(path picture bounding box.north west);
-					}},
-					fill fraction/.default=astral!90]
-			\node[align=center] at (2, -6) {};
-				\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
-						\node (1) at (0,0) {$1$};
-						\node (a) at (2,2)  {$a$};
-						\node (b) at (2,-2)     {$b$};
-						\node (ab) at (4,0)    {$ab$};
-				\end{scope}
-				\draw   (1)  edge[-] (a);
-				\draw   (1)  edge[-] (b);
-				\draw   (a)  edge[-] (ab);
-				\draw   (b)  edge[-] (ab);
-	\end{tikzpicture}
-		
+		E(\Gamma) &= \{ \{ g,gx \}  \mid g \in G, x \in X  \}. 
+	\end{align*}}}
+	 
+	\begin{columns}
+		\begin{column}{0.4 \textwidth}
+			\onslide<3->{
+			\textbf{Ejemplo.}
+			Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por $G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$.
+			Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo:} 
+		\end{column}
+		\begin{column}{0.6 \textwidth}
+			\centering
+			\onslide<4->{
+			\begin{tikzpicture}
+						[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
+							minimum size=2em,inner sep=2,
+							fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
+									\fill[#1] 
+									(path picture bounding box.south) rectangle
+									(path picture bounding box.north west);
+							}},
+							fill fraction/.default=astral!90]
+					\node[align=center] at (2, -6) {};
+						\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+								\node (1) at (0,0) {$1$};
+								\node (a) at (2,2)  {$a$};
+								\node (b) at (2,-2)     {$b$};
+								\node (ab) at (4,0)    {$ab$};
+						\end{scope}
+						\draw   (1)  edge[-] (a);
+						\draw   (1)  edge[-] (b);
+						\draw   (a)  edge[-] (ab);
+						\draw   (b)  edge[-] (ab);
+			\end{tikzpicture}}			
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}[fragile]{Grupos libres.}
 	Dado un conjunto $X$ notamos $F_{X}$ al \emph{grupo libre} generado por los elementos de $X$. 
 
-	% \onslide<2->
+	\onslide<2->
 	El grupo $F_{X}$ viene con una función $\iota: X \to F_{X}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
+	\onslide<3->
 	Para todo grupo $H$ y toda función $f:X \to H$ existe un único morfismo de grupos $\ol f: F_{X} \to H$ tal que $\ol f \circ \iota = f$.
 	\begin{center}
 		\begin{tikzcd}
@@ -134,33 +107,32 @@
 		\end{tikzcd}
 	\end{center}
 
-	% \onslide<3->
+	\onslide<4->
 	Decimos que $X$ genera libremente a $F_{X}$ y que $X$ es una base de $F_{X}$.
 
-	% \onslide<4->
+	\onslide<5->
 	Podemos identificar los elementos de $F_{X}$ con las palabras reducidas en $X \cup X^{-1}$.
 \end{frame}
 
 	\begin{frame}[fragile]{Grupos virtualmente libres.}
 		\defcajita{Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y
 		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.}
-
+		\onslide<2->
 		\textbf{Ejemplos}.
-
 			\begin{itemize}
-				\item Los grupos finitos.
-				\item Los grupos libres.
-				\item El producto semidirecto de un grupo libre con un grupo finito.
-				\item El producto libre de dos grupos finitos.
+				\item \pause Los grupos finitos.
+				\item \pause Los grupos libres.
+				\item \pause El producto semidirecto de un grupo libre con un grupo finito.
+				\item \pause El producto libre de dos grupos finitos.
 			\end{itemize}
 	\end{frame}
 
 	\begin{frame}[fragile]{Teoría de lenguajes.}
 		Dado un conjunto finito $\Sigma$ notaremos por $\Sigma^*$ al monoide libre sobre $\Sigma$.
-
+		\pause 
 		Un lenguaje $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
-			
-		
+		\pause 	
+
 			\textbf{Ejemplos}.
 
 
@@ -170,8 +142,8 @@
 					\[
 						L = \{ w \in \Sigma^{*} \mid w = w^{R}  \}.
 					\]
-				\item 
-					Dado un grupo $G$ finitamente generado por $A$ consideramos el lenguaje
+				\item \pause 
+					Dado un grupo $G$ finitamente generado por $X$ consideramos el lenguaje
 					\[
 						\WP{G}{X} = \{ w \in (X \cup X^{-1})^{*} \mid w = 1 \ \text{en $G$} \}.	
 					\]
@@ -180,7 +152,7 @@
 	
 	\begin{frame}[fragile]{Ejemplo de gramática.}
 		Consideremos las variables $V =\{ S,A \}$ y el alfabeto $\Sigma = \{ a,b \}$.
-
+		\pause 
 		Consideramos las siguientes reglas.
 		\begin{align*}
 			S  & \to aAS  \\
@@ -188,9 +160,9 @@
 			A  & \to baAb \\
 			aA & \to bbb
 		\end{align*}
-
+		\pause 
 		El lenguaje generado por esta gramática es el conjunto de las palabras $w \in \Sigma^{*}$ que podemos obtener a partir de $S$ aplicando las reglas.
-
+		\pause
 		\textbf{Ejemplo}: podemos \emph{derivar} la palabra $abbbbbb$ de la siguiente manera.  
 		\[
 			S \to aAS \to abaAbS \to abaAbb \to abbbbbb	
@@ -199,19 +171,26 @@
 
 	\begin{frame}[fragile]{Gramáticas (pt.1).}
 		\tcajita{Definición}{Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
+		\pause 
 		\begin{itemize}
 			\item $V$ es un conjunto finito denominado las \emph{variables};
+			\pause 
 			\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
-			\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
+			\pause 
+			\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}. 
+			\pause 
 			\item $S \in V$ es el \emph{símbolo inicial};
+			\pause 
 		\end{itemize}
 			Es usual escribir las producciones $(\gamma, \nu) \in P$ como $\gamma \to \nu$.}
-		
+
 	\end{frame}
 	
 	\begin{frame}[fragile]{Gramáticas (pt.2).}
-		Una sucesión de producciones $\gamma_{1} \to \gamma_{2} \to \dots \to \gamma_{n}$ la denotamos $\gamma_{1} \tto \gamma_{n}$ y diremos que es un \emph{derivación}.
-		\medskip 
+		Denotaremos por $\tto$ la clausura reflexiva y transitiva de $\to$.
+		\pause 
+		Si $\gamma \tto \delta$ diremos que $\gamma$ \emph{deriva} en $\delta$.
+		\pause 
 		\tcajita{Definición.}{Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
 		\[
 		L({\cal G}) = \{ w \in \Sigma^* \ | \ S \tto w   \}.
@@ -226,7 +205,7 @@
 			A \to w
 		\]
 		donde $A \in V, w \in (\Sigma \cup V)^*$.}
-
+		\pause 
 		\bigskip 
 
 		\defcajita{Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.}
@@ -234,8 +213,8 @@
 
 	
 	\begin{frame}[fragile]{Teorema de Muller--Schupp}
-		\defcajita{Decimos que un grupo $G$ es independiente de contexto si existe (o equivalentemente, para todo) conjunto de generadores $A$ vale que el lenguaje $\WP{G}{A}$ es independiente de contexto. }
-		
+		\defcajita{Decimos que un grupo $G$ es independiente de contexto si existe un (o equivalentemente, para todo) conjunto de generadores $A$ vale que el lenguaje $\WP{G}{A}$ es independiente de contexto. }
+		\pause 
 		%Si un grupo $G$ es tal que para cierto conjunto de generadores $A$ vale que $\WP{G}{A}$ es independiente de contexto entonces para todo conjunto de generadores $B$ vale que $\WP{G}{B}$ es independiente de contexto.
 
 		\bigskip
@@ -271,11 +250,12 @@
 	\[
 	f: V(T) \to \partes{V(\Gamma)}
 	\]
+	\pause 
 	Que cumple las siguientes condiciones:
 	\begin{enumerate}
-		\item Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. 
+		\item Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. \pause 
 		\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
-		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
+		debe existir $t \in V(T)$ tal que $v,w \in f(t)$. \pause 
 		\item Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
 	\end{enumerate}
 	\end{frame}
@@ -289,23 +269,23 @@
 				}},
 				fill fraction/.default=gray!50
 	,			]
-				\node[align=center] at (-2.5, 1) {Grafo \textbf{$T$}};
-				\begin{scope}[nodes=V, xshift=-3.5cm, yshift=0cm]
-					\node (1) [fill = brightcerulean!80] {$t_1$};
-					\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
-					\node (3) [below=of 2, fill=brightube!90] {$t_3$};
-				\end{scope}	
-				\draw   (1)  edge[-,] (2)
-				(2)  edge[-] (3);
+				% \node[align=center] at (4.5, 1) {Grafo \textbf{$T$}};
+				% \begin{scope}[nodes=V, xshift=4.5cm, yshift=0cm]
+				% 	\node (1) [fill = brightcerulean!80] {$t_1$};
+				% 	\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
+				% 	\node (3) [below=of 2, fill=brightube!90] {$t_3$};
+				% \end{scope}	
+				% \draw   (1)  edge[-,] (2)
+				% (2)  edge[-] (3);
 				
-				\node[align=center] at (5.5, 1) {Grafo \textbf{$\Gamma$}};
-				\begin{scope}[nodes=V,xshift=4.5cm, yshift=0cm]
-					\node (1)  [fill = brightcerulean!80] {$v_{1}$};
-					\node (2) [below=of 1, fill = brightcerulean!80, fill fraction=cadmiumred!75]{$v_{2}$};
-					\node (3) [right=of 2, fill = brightcerulean!80, fill fraction=cadmiumred!75	]    {$v_{3}$};
-					\node (4) [below=of 2,fill = cadmiumred!75, fill fraction=brightube!90]    {$v_{4}$};
-					\node (5) [below=of 3, fill = cadmiumred!75]    {$v_{5}$};
-					\node (6) [below=of 4,fill = brightube!90]    {$v_{6}$};
+				\node[align=center] at (0.5, 1) {Grafo \textbf{$\Gamma$}};
+				\begin{scope}[nodes=V,xshift=0.5cm, yshift=0cm]
+					\node (1)  [] {$v_{1}$};
+					\node (2) [below=of 1]{$v_{2}$};
+					\node (3) [right=of 2]    {$v_{3}$};
+					\node (4) [below=of 2]    {$v_{4}$};
+					\node (5) [below=of 3]    {$v_{5}$};
+					\node (6) [below=of 4]    {$v_{6}$};
 				\end{scope}
 				\draw   (1)  edge[-] (2);
 				\draw   (1)  edge[-] (3);
@@ -315,7 +295,77 @@
 				\draw   (2)  edge[-] (5);
 				\draw   (4)  edge[-] (6);
 			\end{tikzpicture}
-			\TODO{Agregar un vértice para que se vea la tercera condición.}
+	\end{frame}
+	\begin{frame}[fragile]{Ejemplo de descomposición en un árbol.}
+		
+		\centering
+			\begin{tikzpicture}[scale=1.35,V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
+						\fill[#1] 
+						(path picture bounding box.south) rectangle
+						(path picture bounding box.north west);
+				}},
+				fill fraction/.default=gray!50]
+				\node[align=center] at (4.5, 1) {Grafo \textbf{$T$}};
+				\begin{scope}[nodes=V, xshift=4.5cm, yshift=0cm]
+					\node (1) [fill = brightcerulean!80] {$t_1$};
+					\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
+					\node (3) [below=of 2, fill=brightube!90] {$t_3$};
+				\end{scope}	
+				\draw   (1)  edge[-,] (2)
+				(2)  edge[-] (3);
+				
+				\node[align=center] at (-1.5, 1) {Grafo \textbf{$\Gamma$}};
+				\begin{scope}[nodes=V,xshift=-1.5cm, yshift=0cm]
+					\node (1)  [] {$v_{1}$};
+					\node (2) [below=of 1]{$v_{2}$};
+					\node (3) [right=of 2]    {$v_{3}$};
+					\node (4) [below=of 2]    {$v_{4}$};
+					\node (5) [below=of 3]    {$v_{5}$};
+					\node (6) [below=of 4]    {$v_{6}$};
+				\end{scope}
+				\draw   (1)  edge[-] (2);
+				\draw   (1)  edge[-] (3);
+				\draw   (2)  edge[-] (3);
+				\draw   (3)  edge[-] (4);
+				\draw   (4)  edge[-] (5);
+				\draw   (2)  edge[-] (5);
+				\draw   (4)  edge[-] (6);
+			\end{tikzpicture}
+	\end{frame}
+	\begin{frame}[fragile]{Desc.}
+		\centering
+		\begin{tikzpicture}[scale=0.8,V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
+				\fill[#1] 
+				(path picture bounding box.south) rectangle
+				(path picture bounding box.north west);
+		}},
+		fill fraction/.default=gray!50]
+			\node[align=center] at (6.5, 1) {Grafo \textbf{$T$}};
+			\begin{scope}[nodes=V, xshift=6.5cm, yshift=0cm]
+				\node (1) [fill = brightcerulean!80] {$t_1$};
+				\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
+				\node (3) [below=of 2, fill=brightube!90] {$t_3$};
+			\end{scope}	
+			\draw   (1)  edge[-,] (2)
+			(2)  edge[-] (3);
+			
+			\node[align=center] at (-3.5, 1) {Grafo \textbf{$\Gamma$}};
+			\begin{scope}[nodes=V,xshift=-3.5cm, yshift=0cm]
+				\node (1)  [fill = brightcerulean!80] {$v_{1}$};
+				\node (2) [below=of 1, fill = brightcerulean!80, fill fraction=cadmiumred!75]{$v_{2}$};
+				\node (3) [right=of 2, fill = brightcerulean!80, fill fraction=cadmiumred!75	]    {$v_{3}$};
+				\node (4) [below=of 2,fill = cadmiumred!75, fill fraction=brightube!90]    {$v_{4}$};
+				\node (5) [below=of 3, fill = cadmiumred!75]    {$v_{5}$};
+				\node (6) [below=of 4,fill = brightube!90]    {$v_{6}$};
+			\end{scope}
+			\draw   (1)  edge[-] (2);
+			\draw   (1)  edge[-] (3);
+			\draw   (2)  edge[-] (3);
+			\draw   (3)  edge[-] (4);
+			\draw   (4)  edge[-] (5);
+			\draw   (2)  edge[-] (5);
+			\draw   (4)  edge[-] (6);
+		\end{tikzpicture}
 	\end{frame}
 
 	\begin{frame}[fragile]{Treewidth.}
@@ -325,22 +375,25 @@
 			\begin{equation*}
 				a(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
 			\end{equation*}
+			\pause 
 			\item El \emph{treewidth} de un grafo es el siguiente valor:
 			\begin{equation*}
-				tw(\Gamma) = \min \{  a(\Gamma,t,f)  \mid (T,f) \ \text{descomposición en un árbol de} \Gamma \}
+				tw(\Gamma) = \min \{  a(\Gamma,t,f)  \mid (T,f) \ \text{descomposición en un árbol de} \ \Gamma \}
 			\end{equation*}
+			\pause 
 			\item $\Gamma$ tiene treewidth finito si $tw(\Gamma) < \infty$.
 		\end{itemize}}
 	\end{frame}
 
 	\begin{frame}[fragile]{Grafos como espacios métricos.}
-		Sea $\Gamma$ un grafo luego podemos considerar el espacio métrico dado por $(V(\Gamma), d)$ donde:
+		Sea $\Gamma$ un grafo conexo luego podemos considerar el espacio métrico dado por $(V(\Gamma), d)$ donde:
 		\[
-			d(x,y) = \inf \{ \gamma \mid \gamma \ \text{camino de} \ x  \ \text{a} \ y  \}	
+			d(x,y) = \min \{ |\gamma| : \gamma \ \text{camino de} \ x  \ \text{a} \ y  \}	
 		\]
+		\pause 
 		si $\gamma$ es un camino que realiza la distancia entre $x$ e $y$ diremos que $\gamma$ es una \emph{geodésica}.
-
-		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \emph{borde} de $C$ como
+		\pause 
+		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \emph{borde de vértices} de $C$ como
 		\[
 			\beta(C) = B_{1}[C] \cap B_{1}[\ol C]	
 		\]}
@@ -348,20 +401,31 @@
 
 	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
 		Sea $G$ grupo finitamente generado por $X$ y sea $\Gamma = \cay{G}{X}$.
-
+		\pause 
 		Para cada $n \in \NN_{0}$ consideramos:
 		\[
-			V_{n} = \Gamma \setminus B_{n}[1]	
+			V_{n} = \{C : C \ \text{es componente conexa de} \ \Gamma \setminus B_{n}[1]\}	
 		\]
-
-		Consideramos el siguiente árbol $T$ con raíz $1$:
-		\begin{align*}
-			V(T)  & = \{ \beta C \mid C \subseteq V_{n} \ \text{componente conexa} \}  \cup \{ \{1\} \} \\
-			E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
-			& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
-			& \cup \{ \{\{1\}, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
-		\end{align*}
+		\pause 
+		Consideramos el siguiente árbol $T$ con raíz $\{1\}$:
+		\pause 
+		\[
+			V(T) = \{ \{1\}\} \cup \bigcup_{n \in \NN_{0}}  \{ \beta C : C \in V_{n} \}
+		\]
+		\pause 
+		\[
+			E(T) = \{ \{\beta C, \beta D\} : C \in V_{n}, D \in V_{n+1}, D \subseteq C\} \cup 
+			\{ \{1, \beta C\} : C \in V_{0} \}
+		\]
+		\pause 
+		% \begin{align*}
+		% 	V(T)  & = \{ \beta C \mid C \subseteq V_{n} \ \text{componente conexa} \}  \cup \{ \{1\} \} \\
+		% 	E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
+		% 	& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
+		% 	& \cup \{ \{\{1\}, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
+		% \end{align*}
 		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(Y) = Y$ para todo $Y \in V(T)$.
+		\pause 
 		
 		\lemacajita{El par $(T,f)$ es una descomposición en un árbol para el grafo $\Gamma$.}
 		
@@ -494,14 +558,16 @@
 	\begin{frame}[fragile]{Lema descomposición en un árbol treewidth finito.}
 		\lemacajitados{1}{Sea $G$ grupo finitamente generado por $X$,
 		$\Gamma = \cay{G}{X}$ el grafo de Cayley y $(T,f)$ una descomposición en un árbol para $\Gamma$.
+		\pause 
 		Entonces si existe $M \in \NN$ tal que para todo $t \in V(T)$ vale que:
 		\[
 			\diam{f(t)} \le M 
 		\]
+		\pause 
 		luego $\Gamma$ tiene treewidth finito.}
 
 		\textbf{Idea de la demostración.}
-
+		\pause 
 		Basta notar que el grafo de Cayley tiene grado acotado por $2|X|$ y así para todo $t \in V(T)$ vale que:
 		\[
 			|f(t)| \le (2|X|)^{M} < \infty
@@ -514,56 +580,75 @@
 	\begin{frame}[fragile]{Un lema para el lenguaje del problema de la palabra.}
 		\lemacajitados{2}{Sea $G$ un grupo generado por $\Sigma$ tal que $\WP{G}{\Sigma}$ es independiente de contexto. 
 		Sea $\gramatica$ una gramática tal que $L(\cG) = \WP{G}{\Sigma}$. 
+		\pause 
 		Sea $A \in V$ luego si definimos: 
 		\[
 			L_{A} = \{  w \in \Sigma^{*} \mid  A \deriva w \}
 		\]
+		\pause 
 		Entonces para todas $w_{1},w_{2} \in L_{A}$ vale que:
 		$w_{1} = w_{2}$ en $G$}
-
+		\pause 
 		\textbf{Idea de la demostración.}
 
 		Sea una derivación 
 		\[
 			S \deriva uAv
 		\]
+		\pause 
 		luego usando que $w_{1},w_{2} \in L_{A}$ obtenemos que $S \deriva uAv \deriva uw_{1}v $ y que $S \deriva uAv \deriva uw_{2}v$ lo que implica que $w_{1} = w_{2}$ en $G$
 		\qed
 	\end{frame}
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \emph{forma normal de Chomsky} si las producciones son de este tipo:
+			Una gramática $\gramatica$ independiente de contexto está en \emph{forma normal de Chomsky} si las producciones son de este tipo: \pause 
 			\begin{enumerate}
-				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.
-				\item $A \to a$ donde $A \in V, a \in \Sigma$.
-				\item $S \to \epsilon$ 
+				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$. \pause 
+				\item $A \to a$ donde $A \in V, a \in \Sigma$. \pause 
+				\item $S \to \epsilon$  
 			\end{enumerate}}
 		\bigskip 
+	\end{frame}
+
+	\begin{frame}[fragile]{Forma normal de Chomsky.}
+		\defcajita{
+			Una gramática $\gramatica$ independiente de contexto está en \emph{forma normal de Chomsky} si las producciones son de este tipo:  
+			\begin{enumerate}
+				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.  
+				\item $A \to a$ donde $A \in V, a \in \Sigma$.  
+				\item $S \to \epsilon$  
+			\end{enumerate}}
+
 		\teocajita{
 			Sea $\cG$ una gramática \ic{} entonces existe una gramática \ic{} en forma normal de Chosmky $\cG'$ tal que $L(\cG) = L(\cG')$.}
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
 		Sea $\cG$ una gramática en forma normal de Chomsky luego si $w \in L(\cG)$ y $\deri = S \deriva w$ es una derivación le asociamos un árbol binario $T(\deri)$ que denominamos \emph{el árbol de derivación}.
+		\pause 
+
 
 		\textbf{Ejemplo}.
 
 		Sea $\gramatica$ tal que $V = \{ S,A,B \}$, $\Sigma = \{ a, b\}$ y las reglas son:
 		$P = \begin{cases}
-								S \to AB \mid   \\
+								S \to AB   \\
 								A \to  BA \mid a	\\
 								B \to AB \mid BB \mid b 	\\
 		\end{cases}$
+		\pause 
+
 
 		Luego tenemos la siguiente derivación para la palabra $bbbabb \in L(\cG)$.
 		\[
-			\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbbabb.
+			\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbabb.
 		\]
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
 		El árbol de la derivación $\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbbabb$
+		\pause 
 		\[
 			\begin{tikzpicture}[node distance=0.4cm]
 				\node (s) {$S$};
@@ -597,9 +682,9 @@
 
 			\end{tikzpicture}
 		\]
-
+		\pause 
 		\begin{itemize}
-			\item Las etiquetas de las hojas del árbol forman la palabra que derivamos.
+			\item Las etiquetas de las hojas del árbol forman la palabra que derivamos. \pause 
 			\item Los vértices que no son hojas tienen de etiqueta una variable de la gramática.
 		\end{itemize}
 	\end{frame}
@@ -649,21 +734,25 @@
 	
 
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky.}
-		\lemacajita{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$. 
-		Si fijamos una derivación $\deri = S \tto uvw$ entonces existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.}
+		\lemacajita{\onslide<1->{
+		Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
+		Sea $uvw \in L(\cG)$ y una derivación $\deri = S \tto uvw$} 
+		\onslide<2->{luego existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.}
+		}
 
 		%Si consideramos la subpalabra $v = \alert{bb}$ luego el vértice $\alert{A}$ es el vértice que cumple esta propiedad y produce la subpalabra $v' = {bba}$.
 		\begin{columns}
 			\begin{column}{0.5 \textwidth}
+				\onslide<3->{
 				\textbf{Ejemplo:}
 
 				Si consideramos la misma derivación del ejemplo anterior luego sean: $u = \epsilon, v = bb, w=abb$. 
 
-				Entonces el \alert{vértice} con etiqueta $A$ es el vértice más grande que produce una palabra que contiene a $v$.		
+				Entonces el \alert{vértice} con etiqueta $A$ es el vértice más grande que produce una palabra que contiene a $v$.	}	
 			\end{column}
 
 			\begin{column}{0.5 \textwidth}
+				\onslide<4->{
 				\begin{center}
 					\begin{adjustbox}{width = 1.05 \textwidth}
 						\begin{tikzpicture}[node distance=0.2cm]
@@ -698,27 +787,26 @@
 			
 						\end{tikzpicture}
 					\end{adjustbox}
-				\end{center}	
+				\end{center}}	
 			\end{column}
 		\end{columns}
 	\end{frame}
 
 	\begin{frame}[fragile]{Lema 3.}
-		Equivalentemente el lema anterior se puede escribir de esta manera si $|v| \ge 2$.
-
 		\lemacajitados{3}{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$ de modo que $|v| \ge 2$.
-		Si fijamos una derivación $\deri = S \tto uvw$ entonces existe una variable $A$ tal que:
+		Sea $uvw \in L(\cG)$ de modo que $|v| \ge 2$ y una derivación $\deri = S \tto uvw$ \pause 
+		entonces existe una variable $A$ tal que:
 		\[
 				\deri = S \deriva \delta A \eta \to_{\cG} \delta BC \eta \deriva u'v'v''w'
-			\]
+		\]
 			donde:
 			\begin{itemize}
-				\item $u'v'v''w' = uvw$.
+				\item $u'v'v''w' = uvw$. \pause
 				% \item La palabra $v'v''$ es la palabra más chica que contiene a $v$ como subpalabra que deriva de una variable.
-				\item $A \to BC \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
-				\item $\delta \deriva u'$ y $\eta \deriva w'$.
-				\item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra.
+				\item $A \to BC \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$. \pause
+				\item $\delta \deriva u'$ y $\eta \deriva w'$. \pause
+				\item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra. \pause
+				\item $|u| \ge |u'|$ y $|v| \ge |v'|$. 
 			\end{itemize} 
 		}
 	\end{frame}
@@ -745,11 +833,11 @@
 
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
 		\teocajita{Sea $G$ un grupo finitamente generado por $X$ luego si $\WP{G}{X}$ es un lenguaje independiente de contexto entonces el grafo  $\cay{G}{X}$ tiene treewidth finito.}
-
+		\pause 
 		\textbf{Idea de la demostración.}
 		\begin{itemize}
 			\item Vamos a probar que la descomposición en un árbol $(T,f)$ anteriormente construida para un grafo de Cayley arbitrario tiene bagsize finito.
-			
+			\pause 
 			\item Por el \textbf{lema 1} nos alcanza con ver que existe $M \in \NN$ tal que:
 			\[
 				\diam{f(t)} \le M 
@@ -760,23 +848,22 @@
 
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
 		\begin{itemize}
-			\item Queremos encontrar $M \in \NN$ tal que para todo $n \in \NN$, $C$ componente conexa de $\Gamma \setminus B_{n}(1)$
+			\item Queremos encontrar $M \in \NN$ tal que para todo $n \in \NN$, $C$ componente conexa de $\Gamma \setminus B_{n}[1]$
 			y para todos $g,h \in \beta C$ se verifique:
 			\[
 				d(g,h) \le M.
 			\]
-
-			\item Por ser $\WP{G}{X}$ un lenguaje independiente de contexto tenemos una gramática $\cG = (V,X \cup X^{-1}, P, S)$ tal que $L(\cG) = \WP{G}{X}$.
-			Por el \textbf{lema 2} sabemos que para cada variable $A \in V$ vale que si $w_{1},w_{2} \in L_{A}$ luego:
-			\[
-				w_{1} = w_{2} \ \text{en } G
-			\]
+			\pause 
+			\item Por ser $\WP{G}{X}$ un lenguaje independiente de contexto tenemos una gramática $\cG = (V,X \cup X^{-1}, P, S)$ en forma normal de Chomsky 
+			tal que $L(\cG) = \WP{G}{X}$.
+			\pause 
 			Para cada $A \in V$ definimos 
 			\[
 				k_{A} = \underset{w \in L_{A}}{\min} |w|
 			\]
+			\pause 
 			luego sea $k = \underset{A \in V}{\max} \ k_{A}$.
-
+			\pause 
 			\item Proponemos $\alert{M = 3k}$.
 		\end{itemize}
 	\end{frame}
@@ -784,38 +871,42 @@
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
 		\begin{columns}
 			\begin{column}{0.65 \textwidth}
+				\onslide<1->
 				\begin{center}
 					\begin{adjustbox}{width = 
 						0.65\textwidth}
 						\begin{tikzpicture}[font=\sffamily]
-								\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
-								\draw[thick,path picture={
+								\path[] (-1,2) coordinate[cadmiumred] (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+								\draw[
+									thick,path picture={
 									\foreach \X in {A,B,C}
-									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[label={[font=\large]},left]{{\huge $g$}} to[bend left=22] node (B) {}
-								(B) node[above right]{\huge $h$} to[bend right=10] node (C){}
-								(C) node[below]{\huge $1$} to[bend right=8] node (A) {} cycle;
+									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[label={[font=\large]},left]{{\Huge $g$}} to[bend left=22] node (B) {}
+								(B) node[above right]{\Huge $h$} to[bend right=10] node (C){}
+								(C) node[below]{\Huge $1$} to[bend right=8] node (A) {} cycle;
 								% \draw[line width = 0.8pt] (y) to (z) ;
 								% \draw[line width = 0.8pt] (z) to (x) ;
 								% \draw[line width = 0.8pt] (y) to (x) ;
 								% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
 								% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
 								% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
-								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
-								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
-								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+								\onslide<2->
+								{\node[label=right:{\Huge{$\alpha$}}] at (2,-2) {};}
+								\onslide<4->
+								{\node[label=right:{\Huge{$\tau$}}] at (2.4,3.67) {};}
+								\onslide<3->{
+								\node[label=right:{\Huge{$\gamma$}}] at (7.5,-1.5) {};}
 
 								\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
-								\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+								\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}[1]$}}}] at (-3,3) {};
 						\end{tikzpicture}
 					\end{adjustbox}
 				\end{center}
 			\end{column}
 			\begin{column}{0.35 \textwidth}
-				Donde:
 				\begin{itemize}
-					\item $\alpha$ es una geodésica de $1$ a $g$ con etiqueta $u$
-					\item $\gamma$ es una geodésica de $h$ a $1$ con etiqueta $w$
-					\item $\tau$ es un camino de $g$ a $h$ dentro de $C \cup \beta C$ con etiqueta $v$.
+					\item \onslide<2->{$\alpha$ es una geodésica de $1$ a $g$ con etiqueta $u$}
+					\item \onslide<3->{$\gamma$ es una geodésica de $h$ a $1$ con etiqueta $w$}
+					\item \onslide<4->{$\tau$ es un camino de $g$ a $h$ dentro de $C \cup \beta C$ con etiqueta $v$.}
 				\end{itemize}
 			\end{column}
 		\end{columns}
@@ -831,28 +922,26 @@
 								\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
 								\draw[thick,path picture={
 									\foreach \X in {A,B,C}
-									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[label={[font=\large]},left]{{\huge $g$}} to[bend left=22] node (B) {}
-								(B) node[above right]{\huge $h$} to[bend right=10] node (C){}
-								(C) node[below]{\huge $1$} to[bend right=8] node (A) {} cycle;
+									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[label={[font=\large]},left]{{\Huge $g$}} to[bend left=22] node (B) {}
+								(B) node[above right]{\Huge $h$} to[bend right=10] node (C){}
+								(C) node[below]{\Huge $1$} to[bend right=8] node (A) {} cycle;
 								% \draw[line width = 0.8pt] (y) to (z) ;
 								% \draw[line width = 0.8pt] (z) to (x) ;
 								% \draw[line width = 0.8pt] (y) to (x) ;
 								% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
 								% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
 								% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
-								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
-								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
-								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+								\node[label=right:{\Huge{$\alpha$}}] at (2,-2) {};
+								\node[label=right:{\Huge{$\tau$}}] at (2.4,3.67) {};
+								\node[label=right:{\Huge{$\gamma$}}] at (7.5,-1.5) {};
 
-								\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
-								\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
 						\end{tikzpicture}
 					\end{adjustbox}
 				\end{center}
 			\end{column}
 			\begin{column}{0.35 \textwidth}
 				Si consideramos el \emph{ciclo} $\alpha \tau \gamma$ luego las etiquetas del camino forman la palabra $uvw \in \WP{G}{X}$.
-
+				\pause 
 				Por lo tanto tenemos una derivación
 				\[
 				\deri = S \deriva uvw.
@@ -861,56 +950,6 @@
 		\end{columns}
 	\end{frame}
 
-
-	% \begin{frame}[fragile]{Teorema de Muller--Schupp.}
-	% 	Si consideramos el árbol de derivación asociado a $\deri = S \deriva uvw$.
-	% 	\begin{center}
-	% 		\begin{tikzpicture}
-	% 			\node[] (s) {$S$};
-	% 			\node[below = 3cm of s] (A) {$A$};
-	% 			\node[below left = 1cm of A] (B) {$B$};
-	% 			\node[below right= 1cm of A] (C) {$C$};
-	% 			\node[below left =1cm and 0.5cm of B] (v') {};
-	% 			\node[below right =1cm and 0.5cm of C] (v'') {};
-	% 			\node[right of=v'] (x) {};
-	% 			\node[left = 2cm of v'] (u) {};
-	% 			\node[right = 2cm of v''] (w) {};
-
-	% 			\draw (s) -- (A);				
-	% 			\draw (s) -- (u);
-	% 			\draw (s) -- (w);
-	% 			\draw (B) -- (v');
-	% 			\draw (C) -- (v'');
-	% 			\draw (C) -- (A);
-	% 			\draw (B) -- (A);
-	% 			\draw (B) -- (x);
-	% 			\draw (C) -- (x);
-	% 			\draw (v') -- (v'');
-
-	% 		\end{tikzpicture}
-	% 	\end{center}
-
-	% \end{frame}
-
-	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
-		\begin{itemize}
-
-			\item 
-			Si consideramos la derivación $\deri = S \deriva uvw$ luego por el \textbf{lema 3} existe una variable $A \in V$ tal que
-			\[
-				\deri = S \deriva \delta A \eta \to_{\cG} \delta BC \eta \deriva u'v'v''w'
-			\]
-			donde:
-			\begin{itemize}
-				\item $u'v'v''w' = uvw$.
-				% \item La palabra $v'v''$ es la palabra más chica que contiene a $v$ como subpalabra que deriva de una variable.
-				\item $A \to BC \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$.
-				\item $\delta \deriva u'$ y $\eta \deriva w'$.
-				\item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenida en $v'$ ni en $v''$ como subpalabra.
-			\end{itemize} 
-		\end{itemize}
-	\end{frame}
-	
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
 		\begin{columns}
 			\begin{column}{0.65 \textwidth}
@@ -921,76 +960,308 @@
 								\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
 								\draw[thick,path picture={
 									\foreach \X in {A,B,C}
-									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
-								(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
-								(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[label={[font=\large]},left]{{\Huge $g$}} to[bend left=22] node (B) {}
+								(B) node[above right]{\Huge $h$} to[bend right=10] node (C){}
+								(C) node[below]{\Huge $1$} to[bend right=8] node (A) {} cycle;
 								% \draw[line width = 0.8pt] (y) to (z) ;
 								% \draw[line width = 0.8pt] (z) to (x) ;
 								% \draw[line width = 0.8pt] (y) to (x) ;
 								% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
 								% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
 								% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
-								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
-								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
-								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
-
-								%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
-								%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+								 \node[label=right:{\Huge{$\alpha$}}] at (2,-2) {};
+								 \node[label=right:{\Huge{$\tau$}}] at (2.4,3.67) {};
+								 \node[label=right:{\Huge{$\gamma$}}] at (7.5,-1.5) {};
 						\end{tikzpicture}
 					\end{adjustbox}
 				\end{center}
 			\end{column}
 			\begin{column}{0.35 \textwidth}
-				Como $uvw = u'v'v''w'$ y $v$ es subpalabra de $v'v''$ luego:
+				Por el \textbf{lema 3} podemos escribir 
+				\[
+					uvw = u'v'v''w'
+				\]
+				de manera que:
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
+		\begin{columns}
+			\begin{column}{0.65 \textwidth}
+					\begin{center}
+						\begin{adjustbox}{width = 
+							0.65\textwidth}
+							\begin{tikzpicture}[font=\sffamily]
+									\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+									\draw[thick,path picture={
+										\foreach \X in {A,B,C}
+										{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+									(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+									(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+									% \draw[line width = 0.8pt] (y) to (z) ;
+									% \draw[line width = 0.8pt] (z) to (x) ;
+									% \draw[line width = 0.8pt] (y) to (x) ;
+									% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
+									% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
+									% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
+									% \node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+	
+									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+									\draw[ultra thick,cadmiumred] (C) to[bend right = 6.25] (x);
+							\end{tikzpicture}
+						\end{adjustbox}
+					\end{center}
+				\end{column}
+			\begin{column}{0.35 \textwidth}
+				Por el \textbf{lema 3} podemos escribir 
+				\[
+					uvw = u'v'v''w'
+				\]
+				de manera que:
 				\begin{itemize}
 					\item Al leer la etiqueta $u'$  desde $1$ llegamos a un vértice $x$.
-					\item Al leer la etiqueta $v'$  desde $x$ llegamos a un vértice $y$.
-					\item Al leer la etiqueta $v''$ desde $y$ llegamos a un vértice $z$.
-					\item Al leer la etiqueta $w'$ desde $z$ llegamos volvemos a $1$.
 				\end{itemize}
 			\end{column}
 		\end{columns}
 	\end{frame}
-
 
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
 		\begin{columns}
 			\begin{column}{0.65 \textwidth}
-				\begin{center}
-					\begin{adjustbox}{width = 
-						0.65\textwidth}
-						\begin{tikzpicture}[font=\sffamily]
-								\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
-								\draw[thick,path picture={
-									\foreach \X in {A,B,C}
-									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
-								(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
-								(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
-								\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
-								\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
-								\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
-								\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};
-								\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};
-								\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};
-								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
-								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
-								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
-
-								%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
-								%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
-						\end{tikzpicture}
-					\end{adjustbox}
-				\end{center}
-			\end{column}
+					\begin{center}
+						\begin{adjustbox}{width = 
+							0.65\textwidth}
+							\begin{tikzpicture}[font=\sffamily]
+									\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+									\draw[thick,path picture={
+										\foreach \X in {A,B,C}
+										{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+									(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+									(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+									% \draw[line width = 0.8pt] (y) to (z) ;
+									% \draw[line width = 0.8pt] (z) to (x) ;
+									% \draw[line width = 0.8pt] (y) to (x) ;
+									% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
+									% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
+									% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
+									% \node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+	
+									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+									\draw[ultra thick,cadmiumred] (x) to[bend right = 3.25] (A);
+									\draw[ultra thick,cadmiumred] (A) to[bend left = 16.25] (y);
+							\end{tikzpicture}
+						\end{adjustbox}
+					\end{center}
+				\end{column}
 			\begin{column}{0.35 \textwidth}
+				Por el \textbf{lema 3} podemos escribir 
+				\[
+					uvw = u'v'v''w'
+				\]
+				de manera que:
 				\begin{itemize}
-				\item Como $A \deriva v'v''$ luego $v'v'' \in L_{A}$  y así $d(x,z) \le k$.
-				\item Como $B \deriva v'$ luego $v' \in L_{B}$  y así $d(x,y) \le k$.
-				\item Como $C \deriva v''$ luego $v'' \in L_{C}$  y así $d(y,z) \le k$.
+					\item Al leer la etiqueta $u'$  desde $1$ llegamos a un vértice $x$.
+					\item Al leer la etiqueta $v'$ desde $x$ llegamos a un vértice $y$. 
 				\end{itemize}
 			\end{column}
 		\end{columns}
 	\end{frame}
+
+	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
+		\begin{columns}
+			\begin{column}{0.65 \textwidth}
+					\begin{center}
+						\begin{adjustbox}{width = 
+							0.65\textwidth}
+							\begin{tikzpicture}[font=\sffamily]
+									\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+									\draw[thick,path picture={
+										\foreach \X in {A,B,C}
+										{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+									(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+									(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+									% \draw[line width = 0.8pt] (y) to (z) ;
+									% \draw[line width = 0.8pt] (z) to (x) ;
+									% \draw[line width = 0.8pt] (y) to (x) ;
+									% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
+									% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
+									% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
+									% \node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+	
+									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+									\draw[ultra thick,cadmiumred] (B) to[bend right = 4.55] (z);
+									\draw[ultra thick,cadmiumred] (y) to[bend left = 6.25] (B);
+							\end{tikzpicture}
+						\end{adjustbox}
+					\end{center}
+				\end{column}
+			\begin{column}{0.35 \textwidth}
+				Por el \textbf{lema 3} podemos escribir 
+				\[
+					uvw = u'v'v''w'
+				\]
+				de manera que:
+				\begin{itemize}
+					\item Al leer la etiqueta $u'$  desde $1$ llegamos a un vértice $x$.
+					\item Al leer la etiqueta $v'$ desde $x$ llegamos a un vértice $y$. 
+					\item Al leer la etiqueta $v''$ desde $y$ llegamos a un vértice $z$.
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
+		\begin{columns}
+			\begin{column}{0.65 \textwidth}
+					\begin{center}
+						\begin{adjustbox}{width = 
+							0.65\textwidth}
+							\begin{tikzpicture}[font=\sffamily]
+									\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+									\draw[thick,path picture={
+										\foreach \X in {A,B,C}
+										{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+									(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+									(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+									% \draw[line width = 0.8pt] (y) to (z) ;
+									% \draw[line width = 0.8pt] (z) to (x) ;
+									% \draw[line width = 0.8pt] (y) to (x) ;
+									% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
+									% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
+									% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
+									% \node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+	
+									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+									\draw[ultra thick,cadmiumred] (z) to[bend right = 4.55] (C);
+							\end{tikzpicture}
+						\end{adjustbox}
+					\end{center}
+				\end{column}
+			\begin{column}{0.35 \textwidth}
+				Por el \textbf{lema 3} podemos escribir 
+				\[
+					uvw = u'v'v''w'
+				\]
+				de manera que:
+				\begin{itemize}
+					\item Al leer la etiqueta $u'$  desde $1$ llegamos a un vértice $x$.
+					\item Al leer la etiqueta $v'$ desde $x$ llegamos a un vértice $y$. 
+					\item Al leer la etiqueta $v''$ desde $y$ llegamos a un vértice $z$.
+					\item Al leer la etiqueta $w'$ desde $z$ volvemos a $1$.
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
+		\begin{columns}
+			\begin{column}{0.65 \textwidth}
+					\begin{center}
+						\begin{adjustbox}{width = 
+							0.65\textwidth}
+							\begin{tikzpicture}[font=\sffamily]
+									\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+									\draw[thick,path picture={
+										\foreach \X in {A,B,C}
+										{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+									(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+									(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+									% \draw[line width = 0.8pt] (y) to (z) ;
+									% \draw[line width = 0.8pt] (z) to (x) ;
+									% \draw[line width = 0.8pt] (y) to (x) ;
+									% \node[label=left:B] at (barycentric cs:x=1,y=1) {};
+									% \node[label=right:C] at (barycentric cs:y=1,z=1) {};
+									% \node[label=below:A] at (barycentric cs:x=1,z=1) {};
+									% \node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+	
+									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+									% \draw[ultra thick,cadmiumred] (z) to[bend right = 4.55] (C);
+									\onslide<3->{
+									\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
+									\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};}
+
+									\onslide<4->{
+									\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
+									\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};}
+
+									\onslide<5->{
+									\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
+									\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};}
+							\end{tikzpicture}
+						\end{adjustbox}
+					\end{center}
+				\end{column}
+			\begin{column}{0.35 \textwidth}
+				Existen $A,B,C \in V$ que cumplen que:
+				\begin{itemize}
+					\item $A \tto v'v''$
+					\item $B \tto v'$
+					\item $C \tto v''$
+				\end{itemize}
+				\onslide<2->{Por la elección de $k$ y usando el \textbf{lema 2}:}
+				\begin{itemize}
+					\item \onslide<3->{Como $v'$ es la etiqueta de un camino de $x$ a $y$ luego tenemos que $d(x,y) \le k$.}
+					\item \onslide<4->{Similarmente $d(y,z) \le k$}
+					\item \onslide<5->{Similarmente $d(x,z) \le k$}
+				\end{itemize}
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+	% \begin{frame}[fragile]{Teorema de Muller--Schupp.}
+	% 	\begin{columns}
+	% 		\begin{column}{0.65 \textwidth}
+	% 			\begin{center}
+	% 				\begin{adjustbox}{width = 
+	% 					0.65\textwidth}
+	% 					\begin{tikzpicture}[font=\sffamily]
+	% 							\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+	% 							\draw[thick,path picture={
+	% 								\foreach \X in {A,B,C}
+	% 								{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+	% 							(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+	% 							(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+	% 							\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
+	% 							\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
+	% 							\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
+	% 							\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};
+	% 							\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};
+	% 							\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};
+	% 							\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+	% 							\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+	% 							\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+
+	% 							%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+	% 							%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+	% 					\end{tikzpicture}
+	% 				\end{adjustbox}
+	% 			\end{center}
+	% 		\end{column}
+	% 		\begin{column}{0.35 \textwidth}
+	% 			\begin{itemize}
+	% 			\item Como $A \deriva v'v''$ luego $v'v'' \in L_{A}$  y así $d(x,z) \le k$.
+	% 			\item Como $B \deriva v'$ luego $v' \in L_{B}$  y así $d(x,y) \le k$.
+	% 			\item Como $C \deriva v''$ luego $v'' \in L_{C}$  y así $d(y,z) \le k$.
+	% 			\end{itemize}
+	% 		\end{column}
+	% 	\end{columns}
+	% \end{frame}
 
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
 		\begin{columns}
@@ -1023,22 +1294,101 @@
 			\end{column}
 			\begin{column}{0.35 \textwidth}
 				\begin{align*}
-					d(g,h) &\le d(g,x) + d(h,x) \\
-					&\le d(g,x) + d(x,z) + d(h,z)
+					d(g,h) &\le d(g,x) + d(x,z) + d(h,z)
+				\end{align*}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
+		\begin{columns}
+			\begin{column}{0.65 \textwidth}
+				\begin{center}
+					\begin{adjustbox}{width = 
+						0.65\textwidth}
+						\begin{tikzpicture}[font=\sffamily]
+								\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+								\draw[thick,path picture={
+									\foreach \X in {A,B,C}
+									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+								(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+								(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+								\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
+								\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
+								\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
+								\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};
+								\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};
+								\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};
+								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+
+								%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+								%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+						\end{tikzpicture}
+					\end{adjustbox}
+				\end{center}
+			\end{column}
+			\begin{column}{0.35 \textwidth}
+				\pause {Como $\alpha$ y $\gamma$ son geodésicas 
+				\begin{itemize}
+					\item $d(g,x) = d(1,g) - d(1,x)$  
+					\item $d(h,z) = d(1,h) - d(1,z) $
+				\end{itemize}}
+				\pause {Como $y$ está en el camino $\tau$ que lo tomamos dentro de $C$ luego
+				\begin{itemize}
+					\item $d(1,x) \ge d(1,g) $
+					\item $d(1,x) \ge d(1,h) $
+				\end{itemize}
+				}
+				\pause 
+				Entonces: 
+				\begin{align*}
+					d(g,x) &= d(1,y) - d(1,x)  \le d(x,y) \\
+					d(h,z) &= d(1,y) - d(1,z) \le d(z,y) \\ 
 				\end{align*}
 				
-				\medskip 
-				Como $\alpha$ y $\gamma$ son geodésicas e $y \in C$ luego
+			\end{column}
+		\end{columns}
+	\end{frame}
+
+	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
+		\begin{columns}
+			\begin{column}{0.65 \textwidth}
+				\begin{center}
+					\begin{adjustbox}{width = 
+						0.65\textwidth}
+						\begin{tikzpicture}[font=\sffamily]
+								\path (-1,2) coordinate (A) (8,3) coordinate (B) (8,-8) coordinate (C);
+								\draw[thick,path picture={
+									\foreach \X in {A,B,C}
+									{\draw[line width=0.4pt] (\X) circle (0);}}] (A) node[left]{\huge $g$} to[bend left=20] node (y) [draw,circle,fill = black,pos=0.82,minimum size=.1cm, inner sep=0pt,label= above:\huge y] {}
+								(B) node[above right]{\huge $h$} to[bend right=10] node (z) [draw,circle,fill = black,pos=0.62,minimum size=.1cm, inner sep=0pt,label= right:\huge z] {}
+								(C) node[below]{\huge $1$} to[bend right=8] node (x) [draw,circle,fill = black,pos=0.72,minimum size=.1cm, inner sep=0pt,label= left:\huge x] {} cycle;
+								\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
+								\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
+								\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
+								\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};
+								\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};
+								\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};
+								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
+								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
+								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
+
+								%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+								%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
+						\end{tikzpicture}
+					\end{adjustbox}
+				\end{center}
+			\end{column}
+			\begin{column}{0.35 \textwidth}
+				Por lo que concluimos que:
+
 				\begin{align*}
-					d(g,x) &\le d(y,x)  \le k \\
-					d(h,z) &\le d(y,z)  \le k \\
+					d(g,h) & \le d(g,x) + d(h,x) + d(x,z) \\
+					& d(x,y) + d(x,z) + d(z,y) \le 3k.
 				\end{align*}
-				Concluyendo así que:
-				\[
-					d(g,h) \le d(y,x) + d(x,z) + d(y,z) \le  3k
-				\]
-				tal como queríamos ver.
-				\qed
+				\qed 
+				
 			\end{column}
 		\end{columns}
 	\end{frame}
