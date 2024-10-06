@@ -24,49 +24,52 @@
 	
 	
 	\begin{frame}[fragile]{Problema de la palabra.}
-		Sea $G$ un grupo \fg por un conjunto $X$; 
-		tal que $G$ es isomorfo a $\langle X \mid R \rangle$ para un conjunto de relaciones $R$.
+		Sea $ G = \langle X \mid R \rangle$ grupo finitamente presentado.
 		
 		\pause 
 
-		El \emph{problema de la palabra} consiste en el siguiente problema:
+		El \blue{problema de la palabra} consiste en:
 		\pause 
 		\begin{itemize}
 					\item 
 						\textbf{Entrada}: Una palabra $w$ en $X \cup X^{-1}$.
 					\pause 
 					\item 
-						\textbf{Pregunta}: Decidir si vale $w=1$ en $G$.
+						\textbf{Pregunta}: ¿Vale $w=1$ en $G$?
 		\end{itemize}
+		\pause 
 
-		El problema de la palabra no es un problema \alert{decidible}.
+		El problema de la palabra no es \alert{decidible}.
 		\pause 
 		\begin{itemize}
 			\item 
-				Existen grupos tales que resulta imposible construir un algoritmo que decida si una palabra representa la identidad o no.
+				Existen grupos que no admiten un algoritmo que decida si una palabra representa la identidad o no.
 		\end{itemize}
 		
 		
 	\end{frame}
 
 \begin{frame}[fragile]{Grafo de Cayley.}
-	\defcajita{Sea $G$ grupo finitamente generado por $X$ diremos que el grafo de Cayley $\Gamma = \cay{G}{X}$ es el siguiente grafo no dirigido.
+	\defcajita{Sea $G$ grupo finitamente generado por $X$. 
+	El \blue{grafo de Cayley} $\cay{G}{X}$ es el siguiente grafo no dirigido:
 	\onslide<2->{
+	\vspace{-0.15in}	
 	\begin{align*}
-		V(\Gamma) &= G   \\ 
-		E(\Gamma) &= \{ \{ g,gx \}  \mid g \in G, x \in X  \}. 
-	\end{align*}}}
-	 
-	\begin{columns}
-		\begin{column}{0.4 \textwidth}
+		V &= G   \\ 
+		E &= \{ \{ g,gx \}  \mid g \in G, x \in X  \}. 
+	\end{align*}}
+	\vspace*{-0.3 in}
+	}
 			\onslide<3->{
 			\textbf{Ejemplo.}
-			Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por $G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$.
-			Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo:} 
-		\end{column}
-		\begin{column}{0.6 \textwidth}
-			\centering
+			Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por $G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$.}
+
+
 			\onslide<4->{
+			Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo:
+
+			\vspace*{-0.1in}
+			\centering
 			\begin{tikzpicture}
 						[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
 							minimum size=2em,inner sep=2,
@@ -88,34 +91,42 @@
 						\draw   (a)  edge[-] (ab);
 						\draw   (b)  edge[-] (ab);
 			\end{tikzpicture}}			
-		\end{column}
-	\end{columns}
+	
 \end{frame}
 
+
 \begin{frame}[fragile]{Grupos libres.}
-	Dado un conjunto $X$ notamos $F_{X}$ al \emph{grupo libre} generado por los elementos de $X$. 
+	Dado un conjunto $X$ notamos $F_{X}$ al \emph{grupo libre} con base $X$.
 
-	\onslide<2->
-	El grupo $F_{X}$ viene con una función $\iota: X \to F_{X}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
-	\onslide<3->
-	Para todo grupo $H$ y toda función $f:X \to H$ existe un único morfismo de grupos $\ol f: F_{X} \to H$ tal que $\ol f \circ \iota = f$.
-	\begin{center}
-		\begin{tikzcd}
-			F_{X}  \arrow[rr, "\ol f", dashed]          &  & H \\
-			&  &   \\
-			X \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
-		\end{tikzcd}
-	\end{center}
+	% \onslide<2->
+	% El grupo $F_{X}$ viene con una función $\iota: X \to F_{X}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
+	% \onslide<3->
+	% Para todo grupo $H$ y toda función $f:X \to H$ existe un único morfismo de grupos $\ol f: F_{X} \to H$ tal que $\ol f \circ \iota = f$.
+	% \begin{center}
+	% 	\begin{tikzcd}
+	% 		F_{X}  \arrow[rr, "\ol f", dashed]          &  & H \\
+	% 		&  &   \\
+	% 		X \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
+	% 	\end{tikzcd}
+	% \end{center}
 
-	\onslide<4->
-	Decimos que $X$ genera libremente a $F_{X}$ y que $X$ es una base de $F_{X}$.
 
-	\onslide<5->
-	Podemos identificar los elementos de $F_{X}$ con las palabras reducidas en $X \cup X^{-1}$.
+	\onslide<+->
+	Identificamos los elementos de $F_{X}$ con las palabras reducidas en $X \cup X^{-1}$.
+
+	\defcajita{Un grupo $G$ es \blue{virtualmente libre} si es finitamente generado y
+		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.}
+		\textbf{Ejemplos}.
+			\begin{itemize}
+				\item \pause Los grupos finitos.
+				\item \pause Los grupos libres.
+				\item \pause El producto semidirecto de un grupo libre con un grupo finito.
+				\item \pause El producto libre de dos grupos finitos.
+			\end{itemize}
 \end{frame}
 
 	\begin{frame}[fragile]{Grupos virtualmente libres.}
-		\defcajita{Un grupo $G$ es \emph{virtualmente libre} si es finitamente generado y
+		\defcajita{Un grupo $G$ es \blue{virtualmente libre} si es finitamente generado y
 		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.}
 		\onslide<2->
 		\textbf{Ejemplos}.
@@ -130,7 +141,7 @@
 	\begin{frame}[fragile]{Teoría de lenguajes.}
 		Dado un conjunto finito $\Sigma$ notaremos por $\Sigma^*$ al monoide libre sobre $\Sigma$.
 		\pause 
-		Un lenguaje $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
+		Un \blue{lenguaje} $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
 		\pause 	
 
 			\textbf{Ejemplos}.
@@ -153,45 +164,57 @@
 	\begin{frame}[fragile]{Ejemplo de gramática.}
 		Consideremos las variables $V =\{ S,A \}$ y el alfabeto $\Sigma = \{ a,b \}$.
 		\pause 
-		Consideramos las siguientes reglas.
+		Las siguientes reglas determinan una gramática:
 		\begin{align*}
 			S  & \to aAS  \\
 			S  & \to b    \\
 			A  & \to baAb \\
 			aA & \to bbb
 		\end{align*}
+
 		\pause 
-		El lenguaje generado por esta gramática es el conjunto de las palabras $w \in \Sigma^{*}$ que podemos obtener a partir de $S$ aplicando las reglas.
-		\pause
-		\textbf{Ejemplo}: podemos \emph{derivar} la palabra $abbbbbb$ de la siguiente manera.  
+
+		A partir de una gramática podemos derivar palabras.
+
+		\pause 
+		\textbf{Ejemplo}: podemos derivar la palabra $abbbbbb$ de la siguiente manera.  
 		\[
 			S \to aAS \to abaAbS \to abaAbb \to abbbbbb	
 		\]
 	\end{frame}
 
 	\begin{frame}[fragile]{Gramáticas (pt.1).}
-		\tcajita{Definición}{Una \emph{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
+		\tcajita{Definición}{Una \blue{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
 		\pause 
 		\begin{itemize}
-			\item $V$ es un conjunto finito denominado las \emph{variables};
+			\item $V$ es un conjunto finito denominado las \blue{variables};
 			\pause 
-			\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
+			\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos el \blue{alfabeto};
 			\pause 
-			\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}. 
+			\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \blue{producciones}; 
 			\pause 
-			\item $S \in V$ es el \emph{símbolo inicial};
+			\item $S \in V$ es el \blue{símbolo inicial}.
 			\pause 
-		\end{itemize}
-			Es usual escribir las producciones $(\gamma, \nu) \in P$ como $\gamma \to \nu$.}
-
+		\end{itemize}}
+		\onslide<6->{Es usual escribir las producciones $(\gamma, \nu) \in P$ como $\gamma \to \nu$.}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Gramáticas (pt.2).}
+		Podemos considerar la relación sobre 
+		$(V \cup \Sigma)^{*}$ dada por 
+		\[
+		\delta \ \gamma \ \eta \to \delta \  \nu \ \eta 
+		\]
+		si $\gamma \to \nu \in P$ y $\delta, \eta \in (V \cup \Sigma)^{*}$.
+		
+		\pause 
+
+
 		Denotaremos por $\tto$ la clausura reflexiva y transitiva de $\to$.
 		\pause 
-		Si $\gamma \tto \delta$ diremos que $\gamma$ \emph{deriva} en $\delta$.
+		Si $\gamma \tto \delta$ diremos que $\gamma$ \blue{deriva} en $\delta$.
 		\pause 
-		\tcajita{Definición.}{Dada una gramática $\cGg$  definimos el \emph{lenguaje generado por la gramática} como
+		\tcajita{Definición.}{Dada una gramática $\cGg$  definimos el \blue{lenguaje generado por la gramática} como
 		\[
 		L({\cal G}) = \{ w \in \Sigma^* \ | \ S \tto w   \}.
 		\]}
@@ -200,7 +223,7 @@
 
 
 	\begin{frame}[fragile]{Gramáticas independiente de contexto.}
-		\defcajita{Una gramática $\gramatica $ es \emph{independiente de contexto} si las producciones tienen la siguiente forma:
+		\defcajita{Una gramática $\gramatica $ es \blue{independiente de contexto} si las producciones tienen la siguiente forma:
 		\[
 			A \to w
 		\]
@@ -208,12 +231,16 @@
 		\pause 
 		\bigskip 
 
-		\defcajita{Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \emph{lenguaje independiente de contexto}.}
+		% \defcajita{Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \blue{lenguaje independiente de contexto}.}
+		\defcajita{Un lenguaje $L$ es \blue{ independiente de contexto} si existe $\cG$ gramática \ic{} tal que 
+		$L = \lengderivado$.}
+
 	\end{frame}
 
 	
 	\begin{frame}[fragile]{Teorema de Muller--Schupp}
-		\defcajita{Decimos que un grupo $G$ es independiente de contexto si existe un (o equivalentemente, para todo) conjunto de generadores $A$ vale que el lenguaje $\WP{G}{A}$ es independiente de contexto. }
+		\defcajita{Un grupo $G$ es \blue{independiente de contexto} si existe un conjunto de generadores $X$ tal que 
+		$\WP{G}{X}$ es independiente de contexto. }
 		\pause 
 		%Si un grupo $G$ es tal que para cierto conjunto de generadores $A$ vale que $\WP{G}{A}$ es independiente de contexto entonces para todo conjunto de generadores $B$ vale que $\WP{G}{B}$ es independiente de contexto.
 
@@ -245,18 +272,19 @@
 
 	\begin{frame}{Descomposición en un árbol y treewidth de un grafo.}
 	Sea $\Gamma$ un grafo no dirigido.
-	Una \textbf{descomposición en un árbol} de $\Gamma$ es un par $(T,f)$ donde
+	Una \blue{descomposición en un árbol} es un par $(T,f)$ donde
 	$T$ es un árbol y $f$ una función 
 	\[
 	f: V(T) \to \partes{V(\Gamma)}
 	\]
+	que cumple las siguientes condiciones:
 	\pause 
-	Que cumple las siguientes condiciones:
 	\begin{enumerate}
-		\item Para todo vértice $v \in V(\Gamma)$ debe existir $t \in V(T)$ tal que $v \in f(t)$. \pause 
+		\item Para todo vértice $v \in V(\Gamma)$ el subgrafo inducido por $\{ t \in V(T) \mid v \in f(t)\}$ es un árbol.
+
 		\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
-		debe existir $t \in V(T)$ tal que $v,w \in f(t)$. \pause 
-		\item Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
+		 existe $t \in V(T)$ tal que $v,w \in f(t)$. \pause 
+		
 	\end{enumerate}
 	\end{frame}
 	
@@ -310,9 +338,12 @@
 					\node (1) [fill = brightcerulean!80] {$t_1$};
 					\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
 					\node (3) [below=of 2, fill=brightube!90] {$t_3$};
+					\node (4) [below=of 3, fill=orange!90] {$t_4$};
+
 				\end{scope}	
 				\draw   (1)  edge[-,] (2)
-				(2)  edge[-] (3);
+				(2)  edge[-] (3)
+				(4)  edge[-] (3);
 				
 				\node[align=center] at (-1.5, 1) {Grafo \textbf{$\Gamma$}};
 				\begin{scope}[nodes=V,xshift=-1.5cm, yshift=0cm]
@@ -345,9 +376,11 @@
 				\node (1) [fill = brightcerulean!80] {$t_1$};
 				\node (2) [below=of 1, fill=cadmiumred!75] {$t_{2}$};
 				\node (3) [below=of 2, fill=brightube!90] {$t_3$};
+				\node (4) [below=of 3, fill=orange!90] {$t_4$};
 			\end{scope}	
-			\draw   (1)  edge[-,] (2)
-			(2)  edge[-] (3);
+			\draw   (1)  edge[-] (2)
+			(2)  edge[-] (3)
+			(3)  edge[-] (4);
 			
 			\node[align=center] at (-3.5, 1) {Grafo \textbf{$\Gamma$}};
 			\begin{scope}[nodes=V,xshift=-3.5cm, yshift=0cm]
@@ -369,20 +402,20 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Treewidth.}
-		\defcajita{Dado $\Gamma$ un grafo y $(T,f)$ una descomposición en un árbol para $\Gamma$ luego diremos que:
-		\begin{itemize}
-			\item La \emph{anchura} de la descomposición es el siguiente valor:
+		\defcajita{Sea $\Gamma$ un grafo y $(T,f)$ una descomposición en un árbol.
+			La \blue{anchura} de la descomposición es el siguiente valor:
 			\begin{equation*}
-				a(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
-			\end{equation*}
-			\pause 
-			\item El \emph{treewidth} de un grafo es el siguiente valor:
-			\begin{equation*}
-				tw(\Gamma) = \min \{  a(\Gamma,t,f)  \mid (T,f) \ \text{descomposición en un árbol de} \ \Gamma \}
-			\end{equation*}
-			\pause 
-			\item $\Gamma$ tiene treewidth finito si $tw(\Gamma) < \infty$.
-		\end{itemize}}
+				a(T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
+			\end{equation*}}
+		\pause 
+
+		\defcajita{El \blue{treewidth} de un grafo $\Gamma$ es 
+		la mínima anchura posible de una descomposición en un árbol.
+		% \begin{equation*}
+			% tw(\Gamma) = \min \{  a(T,f)  \mid (T,f) \ \text{descomposición en un árbol} \}
+		% \end{equation*}
+		}
+
 	\end{frame}
 
 	\begin{frame}[fragile]{Grafos como espacios métricos.}
@@ -391,16 +424,17 @@
 			d(x,y) = \min \{ |\gamma| : \gamma \ \text{camino de} \ x  \ \text{a} \ y  \}	
 		\]
 		\pause 
-		si $\gamma$ es un camino que realiza la distancia entre $x$ e $y$ diremos que $\gamma$ es una \emph{geodésica}.
+		si $\gamma$ es un camino que realiza la distancia entre $x$ e $y$ diremos que $\gamma$ es una \blue{geodésica}.
 		\pause 
-		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \emph{borde de vértices} de $C$ como
+		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \blue{borde de vértices} de $C$ como
 		\[
-			\beta(C) = B_{1}[C] \cap B_{1}[\ol C]	
+			\beta(C) = B_{1}\left[C\right] \cap B_{1}\left[C^{c}\right]	
 		\]}
 	\end{frame}
 
 	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
-		Sea $G$ grupo finitamente generado por $X$ y sea $\Gamma = \cay{G}{X}$.
+		Sea $G$ grupo finitamente generado por $X$ y sea $\Gamma$ su grafo de Cayley.
+		
 		\pause 
 		Para cada $n \in \NN_{0}$ consideramos:
 		\[
@@ -418,16 +452,11 @@
 			\{ \{1, \beta C\} : C \in V_{0} \}
 		\]
 		\pause 
-		% \begin{align*}
-		% 	V(T)  & = \{ \beta C \mid C \subseteq V_{n} \ \text{componente conexa} \}  \cup \{ \{1\} \} \\
-		% 	E(T)  =  & \{ \{ \beta C, \beta D \}  \mid C \subseteq D \\ 
-		% 	& \text{$C$ es componente conexa de $V_{n+1}$ y $D$ componente conexa de $V_{n}$} \} \\
-		% 	& \cup \{ \{\{1\}, \beta C\} \mid C \ \text{es componente conexa de $V_{0}$} \}
-		% \end{align*}
+		
 		Definimos $f: V(T) \to \partes{V(\Gamma)}$ por medio de $f(Y) = Y$ para todo $Y \in V(T)$.
 		\pause 
 		
-		\lemacajita{El par $(T,f)$ es una descomposición en un árbol para el grafo $\Gamma$.}
+		\lemacajita{$(T,f)$ es una descomposición en un árbol.}
 		
 	\end{frame}
 
@@ -602,7 +631,7 @@
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \emph{forma normal de Chomsky} si las producciones son de este tipo: \pause 
+			Una gramática $\gramatica$ independiente de contexto está en \blue{forma normal de Chomsky} si las producciones son de este tipo: \pause 
 			\begin{enumerate}
 				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$. \pause 
 				\item $A \to a$ donde $A \in V, a \in \Sigma$. \pause 
@@ -613,7 +642,7 @@
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \emph{forma normal de Chomsky} si las producciones son de este tipo:  
+			Una gramática $\gramatica$ independiente de contexto está en \blue{forma normal de Chomsky} si las producciones son de este tipo:  
 			\begin{enumerate}
 				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.  
 				\item $A \to a$ donde $A \in V, a \in \Sigma$.  
@@ -625,7 +654,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
-		Sea $\cG$ una gramática en forma normal de Chomsky luego si $w \in L(\cG)$ y $\deri = S \deriva w$ es una derivación le asociamos un árbol binario $T(\deri)$ que denominamos \emph{el árbol de derivación}.
+		Sea $\cG$ una gramática en forma normal de Chomsky luego si $w \in L(\cG)$ y $\deri = S \deriva w$ es una derivación le asociamos un árbol binario $T(\deri)$ que denominamos el \blue{árbol de derivación}.
 		\pause 
 
 
@@ -640,14 +669,14 @@
 		\pause 
 
 
-		Luego tenemos la siguiente derivación para la palabra $bbbabb \in L(\cG)$.
+		Luego tenemos la siguiente derivación para la palabra $bbabb \in L(\cG)$.
 		\[
 			\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbabb.
 		\]
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
-		El árbol de la derivación $\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbbabb$
+		El árbol de la derivación $\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbabb$
 		\pause 
 		\[
 			\begin{tikzpicture}[node distance=0.4cm]
@@ -728,7 +757,7 @@
 		\begin{itemize}
 			\item Las etiquetas de las hojas del árbol forman la palabra que derivamos.
 			\item Los vértices que no son hojas tienen de etiqueta una variable de la gramática.
-			\item Diremos que el \alert{vértice} con etiqueta A produce la subpalabra \alert{bba}.
+			\item Diremos que el vértice  con etiqueta \alert{A} produce la subpalabra \alert{bba}.
 		\end{itemize}
 	\end{frame}
 	
@@ -736,22 +765,24 @@
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky.}
 		\lemacajita{\onslide<1->{
 		Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$ y una derivación $\deri = S \tto uvw$} 
-		\onslide<2->{luego existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.}
+		Sea $uvw \in L(\cG)$ y una derivación $\deri = S \tto uvw$}.
+		\\
+		\onslide<2->{Luego existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.}
 		}
 
-		%Si consideramos la subpalabra $v = \alert{bb}$ luego el vértice $\alert{A}$ es el vértice que cumple esta propiedad y produce la subpalabra $v' = {bba}$.
+		\hspace{0.18 in}Continuando el ejemplo anterior, sean 
+				$u = \epsilon, v = bb, w=abb$.
+		\vspace{-0.25in}
 		\begin{columns}
+			\begin{column}{0.02 \textwidth}
+				
+			\end{column}
 			\begin{column}{0.5 \textwidth}
 				\onslide<3->{
-				\textbf{Ejemplo:}
-
-				Si consideramos la misma derivación del ejemplo anterior luego sean: $u = \epsilon, v = bb, w=abb$. 
-
-				Entonces el \alert{vértice} con etiqueta $A$ es el vértice más grande que produce una palabra que contiene a $v$.	}	
+				Entonces el vértice con etiqueta \alert{A} es el vértice más grande que produce una palabra que contiene a $v$.	}	
 			\end{column}
 
-			\begin{column}{0.5 \textwidth}
+			\begin{column}{0.48 \textwidth}
 				\onslide<4->{
 				\begin{center}
 					\begin{adjustbox}{width = 1.05 \textwidth}
@@ -794,19 +825,19 @@
 
 	\begin{frame}[fragile]{Lema 3.}
 		\lemacajitados{3}{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$ de modo que $|v| \ge 2$ y una derivación $\deri = S \tto uvw$ \pause 
-		entonces existe una variable $A$ tal que:
+		Sea $uvw \in L(\cG)$ de modo que $|v| \ge 2$ y una derivación $\deri = S \tto uvw$. 
+		Entonces existe una variable $A$ tal que:
 		\[
-				\deri = S \deriva \delta A \eta \to_{\cG} \delta BC \eta \deriva u'v'v''w'
+				\deri = S \tto \delta A \eta \to \delta BC \eta \tto u'v'v''w'
 		\]
 			donde:
 			\begin{itemize}
-				\item $u'v'v''w' = uvw$. \pause
+				\item $u'v'v''w' = uvw$. 
 				% \item La palabra $v'v''$ es la palabra más chica que contiene a $v$ como subpalabra que deriva de una variable.
-				\item $A \to BC \deriva v'v''$, $B \deriva v'$ y $C \deriva v''$. \pause
-				\item $\delta \deriva u'$ y $\eta \deriva w'$. \pause
-				\item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra. \pause
-				\item $|u| \ge |u'|$ y $|v| \ge |v'|$. 
+				\item $A \to BC \tto v'v''$, $B \tto v'$ y $C \tto v''$. 
+				\item $\delta \tto u'$ y $\eta \tto w'$. 
+				\item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra. 
+				\item $|u| \ge |u'|$ y $|w| \ge |w'|$. 
 			\end{itemize} 
 		}
 	\end{frame}
@@ -836,7 +867,7 @@
 		\pause 
 		\textbf{Idea de la demostración.}
 		\begin{itemize}
-			\item Vamos a probar que la descomposición en un árbol $(T,f)$ anteriormente construida para un grafo de Cayley arbitrario tiene bagsize finito.
+			\item Vamos a probar que la descomposición en un árbol $(T,f)$ anteriormente construida para un grafo de Cayley arbitrario tiene anchura finito.
 			\pause 
 			\item Por el \textbf{lema 1} nos alcanza con ver que existe $M \in \NN$ tal que:
 			\[
@@ -848,7 +879,7 @@
 
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
 		\begin{itemize}
-			\item Queremos encontrar $M \in \NN$ tal que para todo $n \in \NN$, $C$ componente conexa de $\Gamma \setminus B_{n}[1]$
+			\item Queremos encontrar $M \in \NN$ tal que para todo $n \in \NN$, $C \in V_{n}$
 			y para todos $g,h \in \beta C$ se verifique:
 			\[
 				d(g,h) \le M.
@@ -859,10 +890,10 @@
 			\pause 
 			Para cada $A \in V$ definimos 
 			\[
-				k_{A} = \underset{w \in L_{A}}{\min} |w|
+				k_{A} = \underset{w \in L_{A}}{\min} |w|.
 			\]
 			\pause 
-			luego sea $k = \underset{A \in V}{\max} \ k_{A}$.
+			Sea $k = \underset{A \in V}{\max} \ k_{A}$.
 			\pause 
 			\item Proponemos $\alert{M = 3k}$.
 		\end{itemize}
@@ -940,7 +971,7 @@
 				\end{center}
 			\end{column}
 			\begin{column}{0.35 \textwidth}
-				Si consideramos el \emph{ciclo} $\alpha \tau \gamma$ luego las etiquetas del camino forman la palabra $uvw \in \WP{G}{X}$.
+				Si consideramos el \blue{ciclo} $\alpha \tau \gamma$ luego las etiquetas del camino forman la palabra $uvw \in \WP{G}{X}$.
 				\pause 
 				Por lo tanto tenemos una derivación
 				\[
@@ -1336,15 +1367,15 @@
 				\end{itemize}}
 				\pause {Como $y$ está en el camino $\tau$ que lo tomamos dentro de $C$ luego
 				\begin{itemize}
-					\item $d(1,x) \ge d(1,g) $
-					\item $d(1,x) \ge d(1,h) $
+					\item $d(1,y) \ge d(1,g) $
+					\item $d(1,y) \ge d(1,h) $
 				\end{itemize}
 				}
 				\pause 
 				Entonces: 
 				\begin{align*}
-					d(g,x) &= d(1,y) - d(1,x)  \le d(x,y) \\
-					d(h,z) &= d(1,y) - d(1,z) \le d(z,y) \\ 
+					d(g,x) &\le d(1,y) - d(1,x)  \le d(x,y) \\
+					d(h,z) &\le d(1,y) - d(1,z) \le d(z,y) \\ 
 				\end{align*}
 				
 			\end{column}
@@ -1385,7 +1416,7 @@
 
 				\begin{align*}
 					d(g,h) & \le d(g,x) + d(h,x) + d(x,z) \\
-					& d(x,y) + d(x,z) + d(z,y) \le 3k.
+					&\le  d(x,y) + d(x,z) + d(z,y) \le 3k.
 				\end{align*}
 				\qed 
 				
