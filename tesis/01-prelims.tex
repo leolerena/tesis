@@ -146,6 +146,26 @@ Una \emph{derivación} $\deri = x \deriva y$ entonces es una sucesión de produc
 	\]
 \end{deff}
 
+
+\begin{deff}
+	Dada una gramática $\gramatica$ una variable $A \in V$ es \emph{alcanzable} si existe una derivación $\deri = S \deriva \delta A \eta$ para $\delta, \eta \in (V \cup \Sigma)^{*}$.
+\end{deff}
+
+\begin{prop}
+	Sea una gramática $\gramatica$ luego existe una gramática $\cG'$ tal que todas sus variables son alcanzables y $L(\cG) = L(\cG')$.
+\end{prop}
+\begin{proof}
+	Sea el conjunto de variables
+	\[
+		I = \{ A \in V : A \ \text{no es alcanzable} \}.
+	\]
+	y sea el subconjunto de producciones
+	\[
+		P_{I} = \{ (\gamma, \eta) \in P : \gamma, \eta \in ((V \setminus I) \cup \Sigma )^{*}  \}
+	\] 
+	Luego $\cG' = (V \setminus I, \Sigma, P_{I},S)$ cumple lo pedido.
+\end{proof}
+
 Este lenguaje está formado por las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial.
 
 De esta manera una gramática la podemos pensar como un conjunto de reglas que nos permite generar un lenguaje. 
