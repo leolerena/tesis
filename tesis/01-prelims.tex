@@ -146,6 +146,11 @@ Una \emph{derivación} $\deri = x \deriva y$ entonces es una sucesión de produc
 	\]
 \end{deff}
 
+Este lenguaje está formado por las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial.
+
+De esta manera una gramática la podemos pensar como un conjunto de reglas que nos permite generar un lenguaje. 
+
+
 
 \begin{deff}
 	Dada una gramática $\gramatica$ una variable $A \in V$ es \emph{alcanzable} si existe una derivación $\deri = S \deriva \delta A \eta$ para $\delta, \eta \in (V \cup \Sigma)^{*}$.
@@ -166,10 +171,7 @@ Una \emph{derivación} $\deri = x \deriva y$ entonces es una sucesión de produc
 	Luego $\cG' = (V \setminus I, \Sigma, P_{I},S)$ cumple lo pedido.
 \end{proof}
 
-Este lenguaje está formado por las palabras en $\Sigma^*$ que se pueden derivar del símbolo inicial.
 
-De esta manera una gramática la podemos pensar como un conjunto de reglas que nos permite generar un lenguaje. 
- 
 
 \medskip
 \begin{ej}\label{gramatica-regular}
@@ -311,6 +313,27 @@ Estas gramáticas reciben el nombre de independientes de contexto porque indepen
 \begin{obs}
 	Todo lenguaje regular en particular resulta ser un lenguaje \ic.
 \end{obs}
+
+\begin{deff}
+	Sea un gramática independiente de contexto $\gramatica$ luego para toda variable $A \in V$ consideramos el siguiente lenguaje
+	\[
+		L_{A} = \{  w \in \Sigma^{*} : A \deriva w \}.
+	\]
+	Si $L_{A} = \emptyset$ luego diremos que la variable $A$ es \emph{improductiva} y caso contrario diremos que $A$ es \emph{productiva}.
+\end{deff}
+
+En particular observemos que $L_{S} = L(\cG)$.
+
+\begin{prop}
+	Sea una gramática $\gramatica$ independiente de contexto luego existe una gramática $\cG'$ tal que todas sus variables son productivas y 
+	$L(\cG) = L(\cG')$.
+\end{prop}
+\begin{proof}
+	Consideramos el subconjunto de variables
+	\[
+		I = \{ A \in V : L_{A} = \emptyset \}
+	\]
+\end{proof}
 
 
 \begin{prop}\label{leng_ej_gram_palindromos}
@@ -1475,7 +1498,6 @@ Utilizaremos en varias ocasiones las siguientes dos observaciones:
 	Esto es que para todo par de vértices $t,s \in V(T)$ existe una única geodésica $\alpha$ que comienza en $s$ y termina en $t$.
 \end{enumerate}
 
-\begin{leoenv}
 
 \subsection{Grafos dirigidos.}
 
@@ -1815,6 +1837,5 @@ Notemos que el árbol de derivación es tal que cada vértice se corresponde con
 
 % Dada una acción de $G$ sobre un grafo $Y$, $g \in G$ y $x \in Y$, donde $x$ podría ser bien una arista o un vértice, utilizaremos la notación estándar $g \cdot x$ para referirnos a $\psi(g)(x)$.
 % Una acción de un grupo $G$ sobre un grafo dirigido $Y$ \emph{no tiene inversiones} si para todo $g \in G$ y para toda $y \in E$ tenemos que $g \cdot y \neq \ol y$.
-\end{leoenv}
 
 \end{document}

@@ -28,7 +28,7 @@
 		
 		\pause 
 
-		El \blue{problema de la palabra} consiste en:
+		El \textbf{problema de la palabra} consiste en:
 		\pause 
 		\begin{itemize}
 					\item 
@@ -39,7 +39,7 @@
 		\end{itemize}
 		\pause 
 
-		El problema de la palabra no es \alert{decidible}.
+		El problema de la palabra no es \emph{decidible}.
 		\pause 
 		\begin{itemize}
 			\item 
@@ -49,99 +49,76 @@
 		
 	\end{frame}
 
-\begin{frame}[fragile]{Grafo de Cayley.}
-	\defcajita{Sea $G$ grupo finitamente generado por $X$. 
-	El \blue{grafo de Cayley} $\cay{G}{X}$ es el siguiente grafo no dirigido:
-	\onslide<2->{
-	\vspace{-0.15in}	
-	\begin{align*}
-		V &= G   \\ 
-		E &= \{ \{ g,gx \}  \mid g \in G, x \in X  \}. 
-	\end{align*}}
-	\vspace*{-0.3 in}
-	}
-			\onslide<3->{
-			\textbf{Ejemplo.}
-			Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por $G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$.}
+	\begin{frame}[fragile]{Grafo de Cayley.}
+		\defcajita{Sea $G$ grupo finitamente generado por $X$. 
+		El \textbf{grafo de Cayley} $\Gamma$ es el siguiente grafo no dirigido:
+		\vspace{-0.15in}	
+		\begin{align*}
+			V &= G   \\ 
+			E &= \{ \{ g,gx \}  \mid g \in G, x \in X  \}. 
+		\end{align*}
+		\vspace*{-0.3 in}
+		}
+				\onslide<2->{
+				\textbf{Ejemplo.}
+				Sea $G = \ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado por $G = \langle a,b \mid aba^{-1}b^{-1}, a^{2}, b^{2}\rangle$.}
 
 
-			\onslide<4->{
-			Entonces $\cay{G}{\{a,b\}}$ es el siguiente grafo:
-
-			\vspace*{-0.1in}
-			\centering
-			\begin{tikzpicture}
-						[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
-							minimum size=2em,inner sep=2,
-							fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
-									\fill[#1] 
-									(path picture bounding box.south) rectangle
-									(path picture bounding box.north west);
-							}},
-							fill fraction/.default=astral!90]
-					\node[align=center] at (2, -6) {};
-						\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
-								\node (1) at (0,0) {$1$};
-								\node (a) at (2,2)  {$a$};
-								\node (b) at (2,-2)     {$b$};
-								\node (ab) at (4,0)    {$ab$};
-						\end{scope}
-						\draw   (1)  edge[-] (a);
-						\draw   (1)  edge[-] (b);
-						\draw   (a)  edge[-] (ab);
-						\draw   (b)  edge[-] (ab);
-			\end{tikzpicture}}			
-	
-\end{frame}
-
-
-\begin{frame}[fragile]{Grupos libres.}
-	Dado un conjunto $X$ notamos $F_{X}$ al \emph{grupo libre} con base $X$.
-
-	% \onslide<2->
-	% El grupo $F_{X}$ viene con una función $\iota: X \to F_{X}$ que denominamos la inclusión de los generadores en el grupo libre y queda caracterizado por la siguiente propiedad universal: 
-	% \onslide<3->
-	% Para todo grupo $H$ y toda función $f:X \to H$ existe un único morfismo de grupos $\ol f: F_{X} \to H$ tal que $\ol f \circ \iota = f$.
-	% \begin{center}
-	% 	\begin{tikzcd}
-	% 		F_{X}  \arrow[rr, "\ol f", dashed]          &  & H \\
-	% 		&  &   \\
-	% 		X \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
-	% 	\end{tikzcd}
-	% \end{center}
-
-
-	\onslide<+->
-	Identificamos los elementos de $F_{X}$ con las palabras reducidas en $X \cup X^{-1}$.
-
-	\defcajita{Un grupo $G$ es \blue{virtualmente libre} si es finitamente generado y
-		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.}
-		\textbf{Ejemplos}.
-			\begin{itemize}
-				\item \pause Los grupos finitos.
-				\item \pause Los grupos libres.
-				\item \pause El producto semidirecto de un grupo libre con un grupo finito.
-				\item \pause El producto libre de dos grupos finitos.
-			\end{itemize}
-\end{frame}
-
-	\begin{frame}[fragile]{Grupos virtualmente libres.}
-		\defcajita{Un grupo $G$ es \blue{virtualmente libre} si es finitamente generado y
-		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.}
-		\onslide<2->
-		\textbf{Ejemplos}.
-			\begin{itemize}
-				\item \pause Los grupos finitos.
-				\item \pause Los grupos libres.
-				\item \pause El producto semidirecto de un grupo libre con un grupo finito.
-				\item \pause El producto libre de dos grupos finitos.
-			\end{itemize}
+				\onslide<3->{
+				\vspace*{-0.1in}
+				
+				\begin{center}
+					\begin{adjustbox}{width = 0.45 \textwidth}
+						\begin{tikzpicture}
+									[scale=0.60,V/.style = {circle, draw,align= center, minimum size=0.5cm,
+										minimum size=2em,inner sep=2,
+										fill=astral!15,font=\scriptsize	},fill fraction/.style={path picture={
+												\fill[#1] 
+												(path picture bounding box.south) rectangle
+												(path picture bounding box.north west);
+										}},
+										fill fraction/.default=astral!90]
+								\node[align=center] at (1.5, -4.5) {\Large{$\Gamma \ \ =$}};
+									\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
+											\node (1) at (0,0) {$1$};
+											\node (a) at (2,2)  {$a$};
+											\node (b) at (2,-2)     {$b$};
+											\node (ab) at (4,0)    {$ab$};
+									\end{scope}
+									\draw   (1)  edge[-] (a);
+									\draw   (1)  edge[-] (b);
+									\draw   (a)  edge[-] (ab);
+									\draw   (b)  edge[-] (ab);
+						\end{tikzpicture}
+					\end{adjustbox}
+				\end{center}}			
 	\end{frame}
 
-	\begin{frame}[fragile]{Teoría de lenguajes.}
+
+	\begin{frame}[fragile]{Grupos virtualmente libres.}
+		\onslide<+->
+		Dado un conjunto $X$ notamos $F_{X}$ al \textbf{grupo libre} con base $X$.
+
+		\onslide<+->
+		Identificamos los elementos de $F_{X}$ con las palabras reducidas en $X \cup X^{-1}$.
+		
+		\onslide<+->
+		\defcajita{Un grupo $G$ es \textbf{virtualmente libre} si es finitamente generado y
+		tiene un subgrupo libre $F$ tal que $[G:F] < \infty$.}
+			\onslide<+->
+			\textbf{Ejemplos}.
+				\begin{itemize}
+					\item Los grupos finitos.
+					\item \pause Los grupos libres.
+					\item \pause El producto semidirecto de un grupo libre con un grupo finito.
+					\item \pause El producto libre de dos grupos finitos.
+				\end{itemize}
+	\end{frame}
+
+	\begin{frame}[fragile]{Lenguajes.}
 		Dado un conjunto finito $\Sigma$ notaremos por $\Sigma^*$ al monoide libre sobre $\Sigma$.
 		\pause 
-		Un \blue{lenguaje} $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
+		Un \textbf{lenguaje} $L$ sobre un alfabeto $\Sigma$ es un subconjunto de $\Sigma^*$.
 		\pause 	
 
 			\textbf{Ejemplos}.
@@ -174,32 +151,32 @@
 
 		\pause 
 
-		A partir de una gramática podemos derivar palabras.
+		A partir de una gramática podemos \emph{generar} palabras sobre $\Sigma$.
 
 		\pause 
-		\textbf{Ejemplo}: podemos derivar la palabra $abbbbbb$ de la siguiente manera.  
+		\textbf{Ejemplo}: la palabra $abbbbbb$ la generamos de la siguiente manera:  
 		\[
 			S \to aAS \to abaAbS \to abaAbb \to abbbbbb	
 		\]
 	\end{frame}
 
-	\begin{frame}[fragile]{Gramáticas (pt.1).}
-		\tcajita{Definición}{Una \blue{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
+	\begin{frame}[fragile]{Gramáticas.}
+		\tcajita{Definición}{Una \textbf{gramática} es una tupla ${\cal G} = (V, \Sigma, P, S)$ donde:
 		\pause 
 		\begin{itemize}
-			\item $V$ es un conjunto finito denominado las \blue{variables};
+			\item $V$ es un conjunto finito denominado las \textbf{variables};
 			\pause 
-			\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos el \blue{alfabeto};
+			\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos el \textbf{alfabeto};
 			\pause 
-			\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \blue{producciones}; 
+			\item $P \subseteq ((V \cup \Sigma)^{*} - \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \textbf{producciones}; 
 			\pause 
-			\item $S \in V$ es el \blue{símbolo inicial}.
+			\item $S \in V$ es el \textbf{símbolo inicial}.
 			\pause 
 		\end{itemize}}
 		\onslide<6->{Es usual escribir las producciones $(\gamma, \nu) \in P$ como $\gamma \to \nu$.}
 	\end{frame}
 	
-	\begin{frame}[fragile]{Gramáticas (pt.2).}
+	\begin{frame}[fragile]{Derivaciones.}
 		Podemos considerar la relación sobre 
 		$(V \cup \Sigma)^{*}$ dada por 
 		\[
@@ -212,9 +189,10 @@
 
 		Denotaremos por $\tto$ la clausura reflexiva y transitiva de $\to$.
 		\pause 
-		Si $\gamma \tto \delta$ diremos que $\gamma$ \blue{deriva} en $\delta$.
+
+		Si $\gamma \tto \delta$ diremos que $\gamma$ \textbf{deriva} en $\delta$.
 		\pause 
-		\tcajita{Definición.}{Dada una gramática $\cGg$  definimos el \blue{lenguaje generado por la gramática} como
+		\tcajita{Definición.}{Dada una gramática $\cGg$  definimos el \textbf{lenguaje generado por la gramática} como
 		\[
 		L({\cal G}) = \{ w \in \Sigma^* \ | \ S \tto w   \}.
 		\]}
@@ -222,8 +200,8 @@
 	\end{frame}
 
 
-	\begin{frame}[fragile]{Gramáticas independiente de contexto.}
-		\defcajita{Una gramática $\gramatica $ es \blue{independiente de contexto} si las producciones tienen la siguiente forma:
+	\begin{frame}[fragile]{Lenguajes independiente de contexto.}
+		\defcajita{Una gramática $\gramatica $ es \textbf{independiente de contexto} si las producciones tienen la siguiente forma:
 		\[
 			A \to w
 		\]
@@ -231,15 +209,15 @@
 		\pause 
 		\bigskip 
 
-		% \defcajita{Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \blue{lenguaje independiente de contexto}.}
-		\defcajita{Un lenguaje $L$ es \blue{ independiente de contexto} si existe $\cG$ gramática \ic{} tal que 
+		% \defcajita{Si $L=\lengderivado$ para alguna gramática independiente de contexto $\cal G$ entonces diremos que $L$ es un \textbf{lenguaje independiente de contexto}.}
+		\defcajita{Un lenguaje $L$ es \textbf{ independiente de contexto} si existe $\cG$ gramática \ic{} tal que 
 		$L = \lengderivado$.}
 
 	\end{frame}
 
 	
-	\begin{frame}[fragile]{Teorema de Muller--Schupp}
-		\defcajita{Un grupo $G$ es \blue{independiente de contexto} si existe un conjunto de generadores $X$ tal que 
+	\begin{frame}[fragile]{Grupos \ic{}.}
+		\defcajita{Un grupo $G$ es \textbf{independiente de contexto} si existe un conjunto de generadores $X$ tal que 
 		$\WP{G}{X}$ es independiente de contexto. }
 		\pause 
 		%Si un grupo $G$ es tal que para cierto conjunto de generadores $A$ vale que $\WP{G}{A}$ es independiente de contexto entonces para todo conjunto de generadores $B$ vale que $\WP{G}{B}$ es independiente de contexto.
@@ -257,7 +235,7 @@
 				(0,0) node(a) [rectangle,draw] {$G$ es virtualmente libre
 				}
 				(5,-3) node(b) [rectangle,draw, text width=4.2cm, align=center] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
-				(0,-6) node(c) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
+				(0,-6) node(c) [rectangle,draw] {Grafo de Cayley tiene treewidth finito}
 				(-5,-3) node (d) [rectangle,draw] {$G$ es independiente de contexto};
 				\draw   
 				(d) edge[<-,line width=1.0pt,"Capítulo 3"] (a) 
@@ -270,9 +248,9 @@
 
 	
 
-	\begin{frame}{Descomposición en un árbol y treewidth de un grafo.}
+	\begin{frame}{Descomposición en un árbol.}
 	Sea $\Gamma$ un grafo no dirigido.
-	Una \blue{descomposición en un árbol} es un par $(T,f)$ donde
+	Una \textbf{descomposición en un árbol} es un par $(T,f)$ donde
 	$T$ es un árbol y $f$ una función 
 	\[
 	f: V(T) \to \partes{V(\Gamma)}
@@ -283,12 +261,12 @@
 		\item Para todo vértice $v \in V(\Gamma)$ el subgrafo inducido por $\{ t \in V(T) \mid v \in f(t)\}$ es un árbol.
 
 		\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
-		 existe $t \in V(T)$ tal que $v,w \in f(t)$. \pause 
+		 existe $t \in V(T)$ tal que $v,w \in f(t)$. 
 		
 	\end{enumerate}
 	\end{frame}
 	
-	\begin{frame}[fragile]{Ejemplo de Descomposición en un árbol.}
+	\begin{frame}[fragile]{Ejemplo de descomposición en un árbol.}
 		\centering
 			\begin{tikzpicture}[scale=1.35,V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
 						\fill[#1] 
@@ -363,7 +341,7 @@
 				\draw   (4)  edge[-] (6);
 			\end{tikzpicture}
 	\end{frame}
-	\begin{frame}[fragile]{Desc.}
+	\begin{frame}[fragile]{Ejemplo de descomposición en un árbol.}
 		\centering
 		\begin{tikzpicture}[scale=0.8,V/.style = {circle, draw, fill=gray!15,font=\footnotesize},fill fraction/.style={path picture={
 				\fill[#1] 
@@ -403,13 +381,13 @@
 
 	\begin{frame}[fragile]{Treewidth.}
 		\defcajita{Sea $\Gamma$ un grafo y $(T,f)$ una descomposición en un árbol.
-			La \blue{anchura} de la descomposición es el siguiente valor:
+			La \textbf{anchura} de la descomposición es el siguiente valor:
 			\begin{equation*}
 				a(T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
 			\end{equation*}}
 		\pause 
 
-		\defcajita{El \blue{treewidth} de un grafo $\Gamma$ es 
+		\defcajita{El \textbf{treewidth} de un grafo $\Gamma$ es 
 		la mínima anchura posible de una descomposición en un árbol.
 		% \begin{equation*}
 			% tw(\Gamma) = \min \{  a(T,f)  \mid (T,f) \ \text{descomposición en un árbol} \}
@@ -424,15 +402,15 @@
 			d(x,y) = \min \{ |\gamma| : \gamma \ \text{camino de} \ x  \ \text{a} \ y  \}	
 		\]
 		\pause 
-		si $\gamma$ es un camino que realiza la distancia entre $x$ e $y$ diremos que $\gamma$ es una \blue{geodésica}.
+		si $\gamma$ es un camino que realiza la distancia entre $x$ e $y$ diremos que $\gamma$ es una \textbf{geodésica}.
 		\pause 
-		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \blue{borde de vértices} de $C$ como
+		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \textbf{borde de vértices} de $C$ como
 		\[
 			\beta(C) = B_{1}\left[C\right] \cap B_{1}\left[C^{c}\right]	
 		\]}
 	\end{frame}
 
-	\begin{frame}[fragile]{Descomponiendo el grafo de Cayley en un árbol.}
+	\begin{frame}[fragile]{Descomposición en un árbol para el grafo de Cayley.}
 		Sea $G$ grupo finitamente generado por $X$ y sea $\Gamma$ su grafo de Cayley.
 		
 		\pause 
@@ -460,10 +438,10 @@
 		
 	\end{frame}
 
-	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 1).}
+	\begin{frame}[fragile]{Ejemplo.}
 	Sea $G = \ZZ / 2\ZZ \ast \ZZ / 3\ZZ $ presentado por 
 	$G \simeq \langle a,b \mid a^2, b^3 \rangle$.
-	El grafo $\cay{G}{\{ a,b,b^{-1} \}}$ lo representamos de la siguiente manera:
+	El grafo de Cayley $\Gamma$ lo representamos de la siguiente manera:
 	
 		\[
 			\begin{tikzpicture}
@@ -539,7 +517,7 @@
 	\]
 	\end{frame}
 	
-	\begin{frame}[fragile]{Ejemplo de la descomposición en un árbol de un grafo de Cayley (pt. 2).}
+	\begin{frame}[fragile]{Ejemplo.}
 		La descomposición en un árbol $(T,f)$ la representamos de la siguiente manera:
 	\[
 			\begin{tikzpicture}[scale=0.8, V/.style = {circle, draw,align= center, minimum size=0.5cm,
@@ -584,18 +562,16 @@
 	\]
 	\end{frame}
 
-	\begin{frame}[fragile]{Lema descomposición en un árbol treewidth finito.}
+	\begin{frame}[fragile]{Lema 1.}
 		\lemacajitados{1}{Sea $G$ grupo finitamente generado por $X$,
-		$\Gamma = \cay{G}{X}$ el grafo de Cayley y $(T,f)$ una descomposición en un árbol para $\Gamma$.
-		\pause 
+		$\Gamma$ el grafo de Cayley y $(T,f)$ una descomposición en un árbol para $\Gamma$.
 		Entonces si existe $M \in \NN$ tal que para todo $t \in V(T)$ vale que:
 		\[
 			\diam{f(t)} \le M 
 		\]
-		\pause 
 		luego $\Gamma$ tiene treewidth finito.}
 
-		\textbf{Idea de la demostración.}
+		\textbf{Idea de la demostración:}
 		\pause 
 		Basta notar que el grafo de Cayley tiene grado acotado por $2|X|$ y así para todo $t \in V(T)$ vale que:
 		\[
@@ -606,35 +582,32 @@
 
 	\end{frame}
 
-	\begin{frame}[fragile]{Un lema para el lenguaje del problema de la palabra.}
+	\begin{frame}[fragile]{Lema 2.}
 		\lemacajitados{2}{Sea $G$ un grupo generado por $\Sigma$ tal que $\WP{G}{\Sigma}$ es independiente de contexto. 
 		Sea $\gramatica$ una gramática tal que $L(\cG) = \WP{G}{\Sigma}$. 
-		\pause 
 		Sea $A \in V$ luego si definimos: 
 		\[
 			L_{A} = \{  w \in \Sigma^{*} \mid  A \deriva w \}
 		\]
-		\pause 
 		Entonces para todas $w_{1},w_{2} \in L_{A}$ vale que:
 		$w_{1} = w_{2}$ en $G$}
+		\textbf{Idea de la demostración:}
 		\pause 
-		\textbf{Idea de la demostración.}
-
 		Sea una derivación 
 		\[
 			S \deriva uAv
 		\]
-		\pause 
+		
 		luego usando que $w_{1},w_{2} \in L_{A}$ obtenemos que $S \deriva uAv \deriva uw_{1}v $ y que $S \deriva uAv \deriva uw_{2}v$ lo que implica que $w_{1} = w_{2}$ en $G$
 		\qed
 	\end{frame}
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \blue{forma normal de Chomsky} si las producciones son de este tipo: \pause 
+			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de este tipo: 
 			\begin{enumerate}
-				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$. \pause 
-				\item $A \to a$ donde $A \in V, a \in \Sigma$. \pause 
+				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$. 
+				\item $A \to a$ donde $A \in V, a \in \Sigma$. 
 				\item $S \to \epsilon$  
 			\end{enumerate}}
 		\bigskip 
@@ -642,7 +615,7 @@
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \blue{forma normal de Chomsky} si las producciones son de este tipo:  
+			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de este tipo:  
 			\begin{enumerate}
 				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.  
 				\item $A \to a$ donde $A \in V, a \in \Sigma$.  
@@ -654,7 +627,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
-		Sea $\cG$ una gramática en forma normal de Chomsky luego si $w \in L(\cG)$ y $\deri = S \deriva w$ es una derivación le asociamos un árbol binario $T(\deri)$ que denominamos el \blue{árbol de derivación}.
+		Sea $\cG$ una gramática en forma normal de Chomsky luego si $w \in L(\cG)$ y $\deri = S \deriva w$ es una derivación le asociamos un árbol binario $T(\deri)$ que denominamos el \textbf{árbol de derivación}.
 		\pause 
 
 
@@ -763,18 +736,17 @@
 	
 
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky.}
-		\lemacajita{\onslide<1->{
+		\lemacajita{
 		Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$ y una derivación $\deri = S \tto uvw$}.
-		\\
-		\onslide<2->{Luego existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.}
+		Sea $uvw \in L(\cG)$ y una derivación $\deri = S \tto uvw$.
+		Luego existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.
 		}
-
+		\pause 
 		\hspace{0.18 in}Continuando el ejemplo anterior, sean 
 				$u = \epsilon, v = bb, w=abb$.
 		\vspace{-0.25in}
 		\begin{columns}
-			\begin{column}{0.02 \textwidth}
+			\begin{column}{0.03 \textwidth}
 				
 			\end{column}
 			\begin{column}{0.5 \textwidth}
@@ -782,7 +754,7 @@
 				Entonces el vértice con etiqueta \alert{A} es el vértice más grande que produce una palabra que contiene a $v$.	}	
 			\end{column}
 
-			\begin{column}{0.48 \textwidth}
+			\begin{column}{0.47 \textwidth}
 				\onslide<4->{
 				\begin{center}
 					\begin{adjustbox}{width = 1.05 \textwidth}
@@ -842,6 +814,26 @@
 		}
 	\end{frame}
 
+	\begin{frame}[fragile]{Lema 3.}
+		\begin{center}
+			\begin{adjustbox}{width = 0.65\textwidth}
+				\begin{tabular}{|c|c|c|c|c|c|}
+					\hline 
+					\multicolumn{6}{|c|}{$S$} \\
+					\hline
+					$\delta$ &  \multicolumn{4}{|c|}{$A$} & $\eta$ \\
+					\hline 
+					$\delta$ & \multicolumn{1}{|c}{} & \multicolumn{1}{c|}{$B$} & \multicolumn{1}{|c}{$C$} & \multicolumn{1}{c|}{} & $\eta$ \\
+					\hline
+					$u'$ & \multicolumn{2}{|c|}{$v'$} & \multicolumn{2}{|c|}{$v''$} & $w'$ \\
+					\hline 
+					\multicolumn{2}{|c|}{$u$} & \multicolumn{2}{|c|}{$v$} &  \multicolumn{2}{|c|}{$w$}\\
+					\hline 
+				\end{tabular}
+			\end{adjustbox}
+		\end{center}
+	\end{frame}
+
 	\begin{frame}[fragile]{Teorema de Muller-Schupp.}
 		
 		\[	
@@ -850,7 +842,7 @@
 				(0,0) node(a) [rectangle,draw] {$G$ es virtualmente libre
 				}
 				(5,-3) node(b) [rectangle,draw, text width=4.2cm, align=center] {$G$ es isomorfo a $\pi_{1}(\cG,P)$ para $\cG$ un grafo de grupos finito con grupos finitos.}
-				(0,-6) node(c) [rectangle,draw] {$\cay{G}{A}$ tiene treewidth finito}
+				(0,-6) node(c) [rectangle,draw] {El grafo de Cayley $\Gamma$ tiene treewidth finito}
 				(-5,-3) node (d) [rectangle,draw] {$G$ es independiente de contexto};
 				\draw   
 				(d) edge[<-,line width=1.0pt,""] (a) 
@@ -863,7 +855,7 @@
 
 
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
-		\teocajita{Sea $G$ un grupo finitamente generado por $X$ luego si $\WP{G}{X}$ es un lenguaje independiente de contexto entonces el grafo  $\cay{G}{X}$ tiene treewidth finito.}
+		\teocajita{Sea $G$ un grupo finitamente generado por $X$ luego si $\WP{G}{X}$ es un lenguaje independiente de contexto entonces el grafo de Cayley $\Gamma$ tiene treewidth finito.}
 		\pause 
 		\textbf{Idea de la demostración.}
 		\begin{itemize}
@@ -971,7 +963,7 @@
 				\end{center}
 			\end{column}
 			\begin{column}{0.35 \textwidth}
-				Si consideramos el \blue{ciclo} $\alpha \tau \gamma$ luego las etiquetas del camino forman la palabra $uvw \in \WP{G}{X}$.
+				Si consideramos el \textbf{ciclo} $\alpha \tau \gamma$ luego las etiquetas del camino forman la palabra $uvw \in \WP{G}{X}$.
 				\pause 
 				Por lo tanto tenemos una derivación
 				\[
