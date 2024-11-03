@@ -139,14 +139,14 @@
 	\end{frame}
 	
 	\begin{frame}[fragile]{Ejemplo de gramática.}
-		Consideremos las variables $V =\{ S,A \}$ y el alfabeto $\Sigma = \{ a,b \}$.
+		Consideremos las variables $V =\{ S,T \}$ y el alfabeto $\Sigma = \{ a,b \}$.
 		\pause 
 		Las siguientes reglas determinan una gramática:
 		\begin{align*}
-			S  & \to aAS  \\
+			S  & \to aTS  \\
 			S  & \to b    \\
-			A  & \to baAb \\
-			aA & \to bbb
+			T  & \to baTb \\
+			aT & \to bbb
 		\end{align*}
 
 		\pause 
@@ -156,7 +156,7 @@
 		\pause 
 		\textbf{Ejemplo}: la palabra $abbbbbb$ la generamos de la siguiente manera:  
 		\[
-			S \to aAS \to abaAbS \to abaAbb \to abbbbbb	
+			S \to aTS \to abaTbS \to abaTbb \to abbbbbb	
 		\]
 	\end{frame}
 
@@ -564,7 +564,7 @@
 
 	\begin{frame}[fragile]{Lema 1.}
 		\lemacajitados{1}{Sea $G$ grupo finitamente generado por $X$,
-		$\Gamma$ el grafo de Cayley y $(T,f)$ una descomposición en un árbol para $\Gamma$.
+		$\Gamma$ el grafo de Cayley y $(T,f)$ una descomposición en un árbol.
 		Entonces si existe $M \in \NN$ tal que para todo $t \in V(T)$ vale que:
 		\[
 			\diam{f(t)} \le M 
@@ -583,13 +583,13 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Lema 2.}
-		\lemacajitados{2}{Sea $G$ un grupo generado por $\Sigma$ tal que $\WP{G}{\Sigma}$ es independiente de contexto. 
-		Sea $\gramatica$ una gramática tal que $L(\cG) = \WP{G}{\Sigma}$. 
+		\lemacajitados{2}{Sea $G$ un grupo generado por $X$ tal que $\WP{G}{X}$ es independiente de contexto. 
+		Sea $\cG = (V,X \cup X^{-1},P,S)$ una gramática tal que $L(\cG) = \WP{G}{X}$. 
 		Sea $A \in V$ luego si definimos: 
 		\[
-			L_{A} = \{  w \in \Sigma^{*} \mid  A \deriva w \}
+			L_{A} = \{  w \in (X \cup X^{-1})^{*} \mid  A \deriva w \}
 		\]
-		Entonces para todas $w_{1},w_{2} \in L_{A}$ vale que:
+		Entonces para todas $w_{1},w_{2} \in L_{A}$ vale que
 		$w_{1} = w_{2}$ en $G$}
 		\textbf{Idea de la demostración:}
 		\pause 
@@ -633,38 +633,38 @@
 
 		\textbf{Ejemplo}.
 
-		Sea $\gramatica$ tal que $V = \{ S,A,B \}$, $\Sigma = \{ a, b\}$ y las reglas son:
+		Sea $\gramatica$ tal que $V = \{ S,T,U \}$, $\Sigma = \{ a, b\}$ y las reglas son:
 		$P = \begin{cases}
-								S \to AB   \\
-								A \to  BA \mid a	\\
-								B \to AB \mid BB \mid b 	\\
+								S \to TU   \\
+								A \to  UT \mid a	\\
+								B \to TU \mid UU \mid b 	\\
 		\end{cases}$
 		\pause 
 
 
 		Luego tenemos la siguiente derivación para la palabra $bbabb \in L(\cG)$.
 		\[
-			\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbabb.
+			\deri = S \to TU \to UTU \to bTU \to bUTB \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.
 		\]
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
-		El árbol de la derivación $\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbabb$
+		El árbol de la derivación $\deri = S \to TU \to UTU \to bTU \to bUTB \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.$
 		\pause 
 		\[
 			\begin{tikzpicture}[node distance=0.4cm]
 				\node (s) {$S$};
-				\node[below left=0.3cm and 3.2cm of  s] (0) {$A$};
-				\node[below right=0.3cm and 3.2cm of  s] (1) {$B$};
-				\node[below left=0.3cm and 1.2cm of  0] (00) {$B$};
-				\node[below right=0.3cm and 1.2cm of  0] (01) {$A$};
+				\node[below left=0.3cm and 3.2cm of  s] (0) {$T$};
+				\node[below right=0.3cm and 3.2cm of  s] (1) {$U$};
+				\node[below left=0.3cm and 1.2cm of  0] (00) {$U$};
+				\node[below right=0.3cm and 1.2cm of  0] (01) {$T$};
 				\node[below=1.2cm of  00] (000) {$b$};
-				\node[below left=0.3cm and 1.2cm of  01] (010) {$B$};
-				\node[below right=0.3cm and 1.2cm of  01] (011) {$A$};
+				\node[below left=0.3cm and 1.2cm of  01] (010) {$U$};
+				\node[below right=0.3cm and 1.2cm of  01] (011) {$T$};
 				\node[below= 1.2cm of  010] (0100) {$b$};
 				\node[below= 1.2cm of  011] (0110) {$a$};
-				\node[below left=0.3cm and 1.2cm of  1] (10) {$B$};
-				\node[below right=0.3cm and 1.2cm of  1] (11) {$B$};
+				\node[below left=0.3cm and 1.2cm of  1] (10) {$U$};
+				\node[below right=0.3cm and 1.2cm of  1] (11) {$U$};
 				\node[below=1.2cm of  10] (100) {$b$};
 				\node[below=1.2cm of  11] (110) {$b$};
 
@@ -692,21 +692,21 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
-		El árbol de la derivación $\deri = S \to AB \to BAB \to bAB \to bBAB \to bbAB \to bbaB \to bbaBB \to bbabB \to bbabb$
+		El árbol de la derivación $\deri = S \to TU \to UTU \to bTU \to bUTB \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.$
 		\[
 			\begin{tikzpicture}[node distance=0.4cm]
 				\node (s) {$S$};
-				\node[below left=0.3cm and 3.2cm of  s] (0) {\alert{$A$}};
-				\node[below right=0.3cm and 3.2cm of  s] (1) {$B$};
-				\node[below left=0.3cm and 1.2cm of  0] (00) {$B$};
-				\node[below right=0.3cm and 1.2cm of  0] (01) {$A$};
+				\node[below left=0.3cm and 3.2cm of  s] (0) {\alert{$T$}};
+				\node[below right=0.3cm and 3.2cm of  s] (1) {$U$};
+				\node[below left=0.3cm and 1.2cm of  0] (00) {$U$};
+				\node[below right=0.3cm and 1.2cm of  0] (01) {$T$};
 				\node[below=1.2cm of  00] (000) {\alert{$b$}};
-				\node[below left=0.3cm and 1.2cm of  01] (010) {$B$};
-				\node[below right=0.3cm and 1.2cm of  01] (011) {$A$};
+				\node[below left=0.3cm and 1.2cm of  01] (010) {$U$};
+				\node[below right=0.3cm and 1.2cm of  01] (011) {$T$};
 				\node[below= 1.2cm of  010] (0100) {\alert{$b$}};
 				\node[below= 1.2cm of  011] (0110) {\alert{$a$}};
-				\node[below left=0.3cm and 1.2cm of  1] (10) {$B$};
-				\node[below right=0.3cm and 1.2cm of  1] (11) {$B$};
+				\node[below left=0.3cm and 1.2cm of  1] (10) {$U$};
+				\node[below right=0.3cm and 1.2cm of  1] (11) {$U$};
 				\node[below=1.2cm of  10] (100) {$b$};
 				\node[below=1.2cm of  11] (110) {$b$};
 
@@ -730,7 +730,7 @@
 		\begin{itemize}
 			\item Las etiquetas de las hojas del árbol forman la palabra que derivamos.
 			\item Los vértices que no son hojas tienen de etiqueta una variable de la gramática.
-			\item Diremos que el vértice  con etiqueta \alert{A} produce la subpalabra \alert{bba}.
+			\item Diremos que el vértice  con etiqueta \alert{T} produce la subpalabra \alert{bba}.
 		\end{itemize}
 	\end{frame}
 	
@@ -743,36 +743,35 @@
 		}
 		\pause 
 		\hspace{0.18 in}Continuando el ejemplo anterior, sean 
-				$u = \epsilon, v = bb, w=abb$.
+				$u = 1, v = bb, w=abb$.
 		\vspace{-0.25in}
 		\begin{columns}
 			\begin{column}{0.03 \textwidth}
 				
 			\end{column}
-			\begin{column}{0.5 \textwidth}
-				\onslide<3->{
-				Entonces el vértice con etiqueta \alert{A} es el vértice más grande que produce una palabra que contiene a $v$.	}	
+			\begin{column}{0.4 \textwidth}
+				
+				Entonces el vértice con etiqueta \alert{T} es el vértice más grande que produce una palabra que contiene a \blue{$v$}.		
 			\end{column}
 
-			\begin{column}{0.47 \textwidth}
-				\onslide<4->{
+			\begin{column}{0.57 \textwidth}
 				\begin{center}
 					\begin{adjustbox}{width = 1.05 \textwidth}
 						\begin{tikzpicture}[node distance=0.2cm]
 							\node (s) {$S$};
-							\node[below left=0.15cm and 2.2cm of  s] (0) {\alert{$A$}};
-							\node[below right=0.15cm and 2.2cm of  s] (1) {$B$};
-							\node[below left=0.15cm and 1.0cm of  0] (00) {$B$};
-							\node[below right=0.15cm and 1.0cm of  0] (01) {$A$};
-							\node[below=1cm of  00] (000) {\alert{\bf$b$}};
-							\node[below left=0.15cm and 1.0cm of  01] (010) {$B$};
-							\node[below right=0.15cm and 1.0cm of  01] (011) {$A$};
-							\node[below=1cm of  010] (0100) {\alert{$b$}};
-							\node[below=1cm of  011] (0110) {{$a$}};
-							\node[below left=0.15cm and 1.0cm of  1] (10) {$B$};
-							\node[below right=0.15cm and 1.0cm of  1] (11) {$B$};
-							\node[below=1cm of  10] (100) {$b$};
-							\node[below=1cm of  11] (110) {$b$};
+							\node[below left=0.3cm and 3.2cm of  s] (0) {\alert{$T$}};
+							\node[below right=0.3cm and 3.2cm of  s] (1) {$U$};
+							\node[below left=0.3cm and 1.2cm of  0] (00) {$U$};
+							\node[below right=0.3cm and 1.2cm of  0] (01) {$T$};
+							\node[below=1.2cm of  00] (000) {\blue{$b$}};
+							\node[below left=0.3cm and 1.2cm of  01] (010) {$U$};
+							\node[below right=0.3cm and 1.2cm of  01] (011) {$T$};
+							\node[below= 1.2cm of  010] (0100) {\blue{$b$}};
+							\node[below= 1.2cm of  011] (0110) {$a$};
+							\node[below left=0.3cm and 1.2cm of  1] (10) {$U$};
+							\node[below right=0.3cm and 1.2cm of  1] (11) {$U$};
+							\node[below=1.2cm of  10] (100) {$b$};
+							\node[below=1.2cm of  11] (110) {$b$};
 			
 							\draw (s) -- (0);
 							\draw (s) -- (1);
@@ -790,7 +789,7 @@
 			
 						\end{tikzpicture}
 					\end{adjustbox}
-				\end{center}}	
+				\end{center}	
 			\end{column}
 		\end{columns}
 	\end{frame}
@@ -855,7 +854,7 @@
 
 
 	\begin{frame}[fragile]{Teorema de Muller--Schupp.}
-		\teocajita{Sea $G$ un grupo finitamente generado por $X$ luego si $\WP{G}{X}$ es un lenguaje independiente de contexto entonces el grafo de Cayley $\Gamma$ tiene treewidth finito.}
+		\teocajita{Sea $G$ un grupo finitamente generado por $X$ luego $G$ es un grupo independiente de contexto entonces su  grafo de Cayley $\Gamma$ tiene treewidth finito.}
 		\pause 
 		\textbf{Idea de la demostración.}
 		\begin{itemize}
@@ -929,7 +928,9 @@
 				\begin{itemize}
 					\item \onslide<2->{$\alpha$ es una geodésica de $1$ a $g$ con etiqueta $u$}
 					\item \onslide<3->{$\gamma$ es una geodésica de $h$ a $1$ con etiqueta $w$}
-					\item \onslide<4->{$\tau$ es un camino de $g$ a $h$ dentro de $C \cup \beta C$ con etiqueta $v$.}
+					\item \onslide<4->{$\tau$ es un camino de $g$ a $h$ dentro de $C \cup \beta C$ con etiqueta $v$. 
+					}
+					\only<5->{\footnotetext{Podemos tomar $\tau$ de manera que exceptuando sus extremos el camino está contenido en $C$.}}
 				\end{itemize}
 			\end{column}
 		\end{columns}
@@ -1215,13 +1216,25 @@
 									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
 									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
 									% \draw[ultra thick,cadmiumred] (z) to[bend right = 4.55] (C);
+									\onslide<3>{\draw[ultra thick,blue] (x) to[bend right = 3.25] (A);
+									\draw[ultra thick,blue] (A) to[bend left = 16.25] (y);
+									\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};}
 									\onslide<3->{
 									\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
-									\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};}
+									}
+
+									\onslide<4>{\draw[ultra thick,blue] (B) to[bend right = 4.55] (z);
+									\draw[ultra thick,blue] (y) to[bend left = 6.25] (B);
+									\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};}
 
 									\onslide<4->{
 									\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
-									\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};}
+									}
+
+									\onslide<5>{\draw[ultra thick,blue] (x) to[bend right = 3.25] (A);
+									\draw[ultra thick,blue] (A) to[bend left = 16.25] (y);
+									\draw[ultra thick,blue] (B) to[bend right = 4.55] (z);
+									\draw[ultra thick,blue] (y) to[bend left = 6.25] (B);}
 
 									\onslide<5->{
 									\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
@@ -1237,9 +1250,10 @@
 					\item $B \tto v'$
 					\item $C \tto v''$
 				\end{itemize}
+				
 				\onslide<2->{Por la elección de $k$ y usando el \textbf{lema 2}:}
 				\begin{itemize}
-					\item \onslide<3->{Como $v'$ es la etiqueta de un camino de $x$ a $y$ luego tenemos que $d(x,y) \le k$.}
+					\item \onslide<3->{Tenemos que $d(x,y) \le k$.}
 					\item \onslide<4->{Similarmente $d(y,z) \le k$}
 					\item \onslide<5->{Similarmente $d(x,z) \le k$}
 				\end{itemize}
