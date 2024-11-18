@@ -39,7 +39,7 @@
 		\end{itemize}
 		\pause 
 
-		El problema de la palabra no es \emph{decidible}.
+		El problema de la palabra no es \textbf{decidible}.
 		\pause 
 		\begin{itemize}
 			\item 
@@ -426,8 +426,8 @@
 		\]
 		\pause 
 		\[
-			E(T) = \{ \{\beta C, \beta D\} : C \in V_{n}, D \in V_{n+1}, D \subseteq C\} \cup 
-			\{ \{1, \beta C\} : C \in V_{0} \}
+			E(T) = \{ \{\beta C, \beta D\} : C \in V_{n} \ \land \ D \in V_{n+1} \ \land \ D \subseteq C\} \cup 
+			\{ \{\{1\}, \beta C\} : C \in V_{0} \}
 		\]
 		\pause 
 		
@@ -591,20 +591,20 @@
 		\]
 		Entonces para todas $w_{1},w_{2} \in L_{A}$ vale que
 		$w_{1} = w_{2}$ en $G$}
-		\textbf{Idea de la demostración:}
-		\pause 
-		Sea una derivación 
-		\[
-			S \deriva uAv
-		\]
+		% \textbf{Idea de la demostración:}
+		% \pause 
+		% Sea una derivación 
+		% \[
+		% 	S \deriva uAv
+		% \]
 		
-		luego usando que $w_{1},w_{2} \in L_{A}$ obtenemos que $S \deriva uAv \deriva uw_{1}v $ y que $S \deriva uAv \deriva uw_{2}v$ lo que implica que $w_{1} = w_{2}$ en $G$
-		\qed
+		% luego usando que $w_{1},w_{2} \in L_{A}$ obtenemos que $S \deriva uAv \deriva uw_{1}v $ y que $S \deriva uAv \deriva uw_{2}v$ lo que implica que $w_{1} = w_{2}$ en $G$
+		% \qed
 	\end{frame}
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de este tipo: 
+			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de alguna de estas tres formas: 
 			\begin{enumerate}
 				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$. 
 				\item $A \to a$ donde $A \in V, a \in \Sigma$. 
@@ -636,8 +636,8 @@
 		Sea $\gramatica$ tal que $V = \{ S,T,U \}$, $\Sigma = \{ a, b\}$ y las reglas son:
 		$P = \begin{cases}
 								S \to TU   \\
-								A \to  UT \mid a	\\
-								B \to TU \mid UU \mid b 	\\
+								T \to  UT \mid a	\\
+								U \to TU \mid UU \mid b 	\\
 		\end{cases}$
 		\pause 
 
