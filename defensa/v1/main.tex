@@ -11,7 +11,7 @@
 \title{El problema de la palabra para los grupos virtualmente libres.}
 \subtitle{\textbf{Leopoldo Lerena} \\
 		Defensa de tesis de licenciatura.}
-\date{Fecha: ---}
+\date{Fecha: 25 de Noviembre 2024.}
 
 \author{Director: Iván Sadofschi Costa}
 \institute{Universidad de Buenos Aires}
@@ -39,7 +39,7 @@
 		\end{itemize}
 		\pause 
 
-		El problema de la palabra no es \emph{decidible}.
+		El problema de la palabra no es \textbf{decidible}. 
 		\pause 
 		\begin{itemize}
 			\item 
@@ -249,21 +249,21 @@
 	
 
 	\begin{frame}{Descomposición en un árbol.}
-	Sea $\Gamma$ un grafo no dirigido.
-	Una \textbf{descomposición en un árbol} es un par $(T,f)$ donde
-	$T$ es un árbol y $f$ una función 
-	\[
-	f: V(T) \to \partes{V(\Gamma)}
-	\]
-	que cumple las siguientes condiciones:
-	\pause 
-	\begin{enumerate}
-		\item Para todo vértice $v \in V(\Gamma)$ el subgrafo inducido por $\{ t \in V(T) \mid v \in f(t)\}$ es un árbol.
+		Sea $\Gamma$ un grafo no dirigido.
+		Una \textbf{descomposición en un árbol} es un par $(T,f)$ donde
+		$T$ es un árbol y $f$ una función 
+		\[
+		f: V(T) \to \partes{V(\Gamma)}
+		\]
+		que cumple las siguientes condiciones:
+		\pause 
+		\begin{enumerate}
+			\item Para todo vértice $v \in V(\Gamma)$ el subgrafo inducido por $\{ t \in V(T) \mid v \in f(t)\}$ es un árbol.
 
-		\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
-		 existe $t \in V(T)$ tal que $v,w \in f(t)$. 
-		
-	\end{enumerate}
+			\item Para toda arista $\{v,w\} \in E(\Gamma)$ 
+			 existe $t \in V(T)$ tal que $v,w \in f(t)$. 
+
+		\end{enumerate}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Ejemplo de descomposición en un árbol.}
@@ -302,6 +302,7 @@
 				\draw   (4)  edge[-] (6);
 			\end{tikzpicture}
 	\end{frame}
+
 	\begin{frame}[fragile]{Ejemplo de descomposición en un árbol.}
 		
 		\centering
@@ -389,9 +390,6 @@
 
 		\defcajita{El \textbf{treewidth} de un grafo $\Gamma$ es 
 		la mínima anchura posible de una descomposición en un árbol.
-		% \begin{equation*}
-			% tw(\Gamma) = \min \{  a(T,f)  \mid (T,f) \ \text{descomposición en un árbol} \}
-		% \end{equation*}
 		}
 
 	\end{frame}
@@ -426,8 +424,8 @@
 		\]
 		\pause 
 		\[
-			E(T) = \{ \{\beta C, \beta D\} : C \in V_{n}, D \in V_{n+1}, D \subseteq C\} \cup 
-			\{ \{1, \beta C\} : C \in V_{0} \}
+			E(T) = \{ \{\beta C, \beta D\} : C \in V_{n} \ \land \ D \in V_{n+1} \ \land \ D \subseteq C\} \cup 
+			\{ \{\{1\}, \beta C\} : C \in V_{0} \}
 		\]
 		\pause 
 		
@@ -590,21 +588,21 @@
 			L_{A} = \{  w \in (X \cup X^{-1})^{*} \mid  A \deriva w \}
 		\]
 		Entonces para todas $w_{1},w_{2} \in L_{A}$ vale que
-		$w_{1} = w_{2}$ en $G$}
-		\textbf{Idea de la demostración:}
-		\pause 
-		Sea una derivación 
-		\[
-			S \deriva uAv
-		\]
-		
-		luego usando que $w_{1},w_{2} \in L_{A}$ obtenemos que $S \deriva uAv \deriva uw_{1}v $ y que $S \deriva uAv \deriva uw_{2}v$ lo que implica que $w_{1} = w_{2}$ en $G$
-		\qed
+		$w_{1} = w_{2}$ en $G$.}
+		% \textbf{Idea de la demostración:}
+		% \pause 
+		% Sea una derivación 
+		% \[
+			% S \deriva uAv
+		% \]
+		% 
+		% luego usando que $w_{1},w_{2} \in L_{A}$ obtenemos que $S \deriva uAv \deriva uw_{1}v $ y que $S \deriva uAv \deriva uw_{2}v$ lo que implica que $w_{1} = w_{2}$ en $G$
+		% \qed
 	\end{frame}
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de este tipo: 
+			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de alguna de estas tres formas: 
 			\begin{enumerate}
 				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$. 
 				\item $A \to a$ donde $A \in V, a \in \Sigma$. 
@@ -615,7 +613,7 @@
 
 	\begin{frame}[fragile]{Forma normal de Chomsky.}
 		\defcajita{
-			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de este tipo:  
+			Una gramática $\gramatica$ independiente de contexto está en \textbf{forma normal de Chomsky} si las producciones son de alguna de estas tres formas:  
 			\begin{enumerate}
 				\item $A \to BC$ donde $A\in V$ y $B,C \in V \setminus \{ S \}$.  
 				\item $A \to a$ donde $A \in V, a \in \Sigma$.  
@@ -636,20 +634,20 @@
 		Sea $\gramatica$ tal que $V = \{ S,T,U \}$, $\Sigma = \{ a, b\}$ y las reglas son:
 		$P = \begin{cases}
 								S \to TU   \\
-								A \to  UT \mid a	\\
-								B \to TU \mid UU \mid b 	\\
+								T \to  UT \mid a	\\
+								U \to TU \mid UU \mid b 	\\
 		\end{cases}$
 		\pause 
 
 
 		Luego tenemos la siguiente derivación para la palabra $bbabb \in L(\cG)$.
 		\[
-			\deri = S \to TU \to UTU \to bTU \to bUTB \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.
+			\deri = S \to TU \to UTU \to bTU \to bUTU \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.
 		\]
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
-		El árbol de la derivación $\deri = S \to TU \to UTU \to bTU \to bUTB \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.$
+		El árbol de la derivación $\deri = S \to TU \to UTU \to bTU \to bUTU \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.$
 		\pause 
 		\[
 			\begin{tikzpicture}[node distance=0.4cm]
@@ -692,7 +690,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Árbol de derivación.}
-		El árbol de la derivación $\deri = S \to TU \to UTU \to bTU \to bUTB \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.$
+		El árbol de la derivación $\deri = S \to TU \to UTU \to bTU \to bUTU \to bbTU \to bbaU \to bbaUU \to bbabU \to bbabb.$
 		\[
 			\begin{tikzpicture}[node distance=0.4cm]
 				\node (s) {$S$};
@@ -739,7 +737,7 @@
 		\lemacajita{
 		Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
 		Sea $uvw \in L(\cG)$ y una derivación $\deri = S \tto uvw$.
-		Luego existe un vértice que es el más grande entre aquellos con la propiedad de producir una palabra que contiene a $v$.
+		Luego existe un vértice en el árbol de derivación $T(\deri)$ que es el más joven entre aquellos con la propiedad de producir una palabra que contiene a $v$.
 		}
 		\pause 
 		\hspace{0.18 in}Continuando el ejemplo anterior, sean 
@@ -807,8 +805,9 @@
 				% \item La palabra $v'v''$ es la palabra más chica que contiene a $v$ como subpalabra que deriva de una variable.
 				\item $A \to BC \tto v'v''$, $B \tto v'$ y $C \tto v''$. 
 				\item $\delta \tto u'$ y $\eta \tto w'$. 
-				\item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra. 
+				% \item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra. 
 				\item $|u| \ge |u'|$ y $|w| \ge |w'|$. 
+				\item $|u'v'| < |uv|$ y $|v''w''| < |vw|$
 			\end{itemize} 
 		}
 	\end{frame}
@@ -920,6 +919,8 @@
 
 								\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
 								\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}[1]$}}}] at (-3,3) {};
+								% \draw [decorate,decoration={brace,amplitude=5pt,mirror,raise=4ex}]
+  											% (-2,2) -- (9,-9) node[midway,yshift=-8em]{Konvergenzbereich};
 						\end{tikzpicture}
 					\end{adjustbox}
 				\end{center}
@@ -1035,9 +1036,11 @@
 	
 									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
 									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
-									\draw[ultra thick,cadmiumred] (C) to[bend right = 6.25] (x);
+									\draw[ultra thick,blue] (C) to[bend right = 6.25] (x);
+									\node[label=right:{\LARGE{\textcolor{blue}{$u'$}}}] at (3,-3) {};
 							\end{tikzpicture}
 						\end{adjustbox}
+						
 					\end{center}
 				\end{column}
 			\begin{column}{0.35 \textwidth}
@@ -1076,10 +1079,11 @@
 									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
 									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
 	
-									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
-									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
-									\draw[ultra thick,cadmiumred] (x) to[bend right = 3.25] (A);
-									\draw[ultra thick,cadmiumred] (A) to[bend left = 16.25] (y);
+									%\draw [very thick, blue, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{blue}{$B_{n}(1)$}}}] at (-3,3) {};
+									\draw[ultra thick,blue] (x) to[bend right = 3.25] (A);
+									\draw[ultra thick,blue] (A) to[bend left = 16.25] (y);
+									\node[label=right:{\LARGE{\textcolor{blue}{$v'$}}}] at (3,4) {};
 							\end{tikzpicture}
 						\end{adjustbox}
 					\end{center}
@@ -1121,10 +1125,11 @@
 									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
 									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
 	
-									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
-									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
-									\draw[ultra thick,cadmiumred] (B) to[bend right = 4.55] (z);
-									\draw[ultra thick,cadmiumred] (y) to[bend left = 6.25] (B);
+									%\draw [very thick, blue, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{blue}{$B_{n}(1)$}}}] at (-3,3) {};
+									\draw[ultra thick,blue] (B) to[bend right = 4.55] (z);
+									\draw[ultra thick,blue] (y) to[bend left = 6.25] (B);
+									\node[label=right:{\LARGE{\textcolor{blue}{$v''$}}}] at (8,1) {};
 							\end{tikzpicture}
 						\end{adjustbox}
 					\end{center}
@@ -1167,9 +1172,10 @@
 									% \node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
 									% \node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
 	
-									%\draw [very thick, cadmiumred, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
-									%\node[label=right:{\huge{\textcolor{cadmiumred}{$B_{n}(1)$}}}] at (-3,3) {};
-									\draw[ultra thick,cadmiumred] (z) to[bend right = 4.55] (C);
+									%\draw [very thick, blue, label= $B_{n}(1)$] (-3,2.25)[bend left=10]  to (10,2.5);
+									%\node[label=right:{\huge{\textcolor{blue}{$B_{n}(1)$}}}] at (-3,3) {};
+									\node[label=right:{\LARGE{\textcolor{blue}{$w'$}}}] at (8,-6) {};
+									\draw[ultra thick,blue] (z) to[bend right = 4.55] (C);
 							\end{tikzpicture}
 						\end{adjustbox}
 					\end{center}
@@ -1218,16 +1224,20 @@
 									% \draw[ultra thick,cadmiumred] (z) to[bend right = 4.55] (C);
 									\onslide<3>{\draw[ultra thick,blue] (x) to[bend right = 3.25] (A);
 									\draw[ultra thick,blue] (A) to[bend left = 16.25] (y);
-									\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};}
-									\onslide<3->{
+									\node[label=left: \huge \color{cadmiumred}$k_{B}$] at (barycentric cs:x=1,y=1) {};
+									\node[label=right:{\LARGE{\textcolor{blue}{$v'$}}}] at (3,4) {};
+									}
+									\onslide<3>{
 									\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
 									}
 
 									\onslide<4>{\draw[ultra thick,blue] (B) to[bend right = 4.55] (z);
 									\draw[ultra thick,blue] (y) to[bend left = 6.25] (B);
-									\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};}
+									\node[label=right:\huge \color{cadmiumred}$k_{C}$] at (barycentric cs:x=0.5,y=0.9,z=0.8) {};
+									\node[label=right:{\LARGE{\textcolor{blue}{$v''$}}}] at (8,1) {};
+									}
 
-									\onslide<4->{
+									\onslide<4>{
 									\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
 									}
 
@@ -1238,7 +1248,9 @@
 
 									\onslide<5->{
 									\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
-									\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};}
+									\node[label=below:\huge \color{cadmiumred}$k_{A}$] at (barycentric cs:x=1,z=1) {};
+									\node[label=right:{\LARGE{\textcolor{blue}{$v'v''$}}}] at (3,4) {};
+									}
 							\end{tikzpicture}
 						\end{adjustbox}
 					\end{center}
@@ -1253,9 +1265,9 @@
 				
 				\onslide<2->{Por la elección de $k$ y usando el \textbf{lema 2}:}
 				\begin{itemize}
-					\item \onslide<3->{Tenemos que $d(x,y) \le k$.}
-					\item \onslide<4->{Similarmente $d(y,z) \le k$}
-					\item \onslide<5->{Similarmente $d(x,z) \le k$}
+					\item \onslide<3->{Tenemos que $d(x,y) \le k_{B} \le k$.}
+					\item \onslide<4->{Similarmente $d(y,z) \le k_{C} \le k$.}
+					\item \onslide<5->{Similarmente $d(x,z) \le k_{A} \le k$.}
 				\end{itemize}
 			\end{column}
 		\end{columns}
@@ -1316,9 +1328,9 @@
 								\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
 								\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
 								\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
-								\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};
-								\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};
-								\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};
+								\node[label=left: \huge \textcolor{cadmiumred}k] at (barycentric cs:x=1,y=1) {};
+								\node[label=right:\huge \textcolor{cadmiumred}k] at (barycentric cs:y=0.9,z=0.8) {};
+								\node[label=below:\huge \textcolor{cadmiumred}k] at (barycentric cs:x=1,z=1) {};
 								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
 								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
 								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
@@ -1352,9 +1364,9 @@
 								\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
 								\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
 								\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
-								\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};
-								\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};
-								\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};
+								\node[label=left: \huge \textcolor{cadmiumred}k] at (barycentric cs:x=1,y=1) {};
+								\node[label=right:\huge \textcolor{cadmiumred}k] at (barycentric cs:y=0.9,z=0.8) {};
+								\node[label=below:\huge \textcolor{cadmiumred}k] at (barycentric cs:x=1,z=1) {};
 								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
 								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
 								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
@@ -1404,9 +1416,9 @@
 								\draw[line width = 0.8pt, cadmiumred] (y) to (z) ;
 								\draw[line width = 0.8pt, cadmiumred] (z) to (x) ;
 								\draw[line width = 0.8pt, cadmiumred] (y) to (x) ;
-								\node[label=left: \huge \textcolor{cadmiumred}B] at (barycentric cs:x=1,y=1) {};
-								\node[label=right:\huge \textcolor{cadmiumred}C] at (barycentric cs:y=0.9,z=0.8) {};
-								\node[label=below:\huge \textcolor{cadmiumred}A] at (barycentric cs:x=1,z=1) {};
+								\node[label=left: \huge \textcolor{cadmiumred}k] at (barycentric cs:x=1,y=1) {};
+								\node[label=right:\huge \textcolor{cadmiumred}k] at (barycentric cs:y=0.9,z=0.8) {};
+								\node[label=below:\huge \textcolor{cadmiumred}k] at (barycentric cs:x=1,z=1) {};
 								\node[label=right:{\huge{$\alpha$}}] at (2,-2) {};
 								\node[label=right:{\huge{$\tau$}}] at (2.4,3.67) {};
 								\node[label=right:{\huge{$\gamma$}}] at (7.5,-1.5) {};
