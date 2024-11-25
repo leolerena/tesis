@@ -264,6 +264,8 @@
 			 existe $t \in V(T)$ tal que $v,w \in f(t)$. 
 
 		\end{enumerate}
+
+		Dado $t \in V(T)$, al conjunto de vértices $f(t)$ lo llamaremos un \textbf{bolsón.}
 	\end{frame}
 	
 	\begin{frame}[fragile]{Ejemplo de descomposición en un árbol.}
@@ -402,7 +404,7 @@
 		\pause 
 		si $\gamma$ es un camino que realiza la distancia entre $x$ e $y$ diremos que $\gamma$ es una \textbf{geodésica}.
 		\pause 
-		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C$ definimos el \textbf{borde de vértices} de $C$ como
+		\defcajita{Sea $\Gamma$ un grafo conexo luego dado un conjunto $C \subseteq V(\Gamma)$ definimos el \textbf{borde de vértices} de $C$ como
 		\[
 			\beta(C) = B_{1}\left[C\right] \cap B_{1}\left[C^{c}\right]	
 		\]}
@@ -735,9 +737,8 @@
 
 	\begin{frame}[fragile]{Un lema para forma normal de Chomsky.}
 		\lemacajita{
-		Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$ y una derivación $\deri = S \tto uvw$.
-		Luego existe un vértice en el árbol de derivación $T(\deri)$ que es el más joven entre aquellos con la propiedad de producir una palabra que contiene a $v$.
+		Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky, $uvw \in L(\cG)$ y $\deri = S \tto uvw$ una derivación.
+		Entonces existe un vértice en el árbol de derivación $T(\deri)$ que es el más joven entre aquellos con la propiedad de producir una palabra que contiene a $v$.
 		}
 		\pause 
 		\hspace{0.18 in}Continuando el ejemplo anterior, sean 
@@ -749,7 +750,7 @@
 			\end{column}
 			\begin{column}{0.4 \textwidth}
 				
-				Entonces el vértice con etiqueta \alert{T} es el vértice más grande que produce una palabra que contiene a \blue{$v$}.		
+				Entonces el vértice con etiqueta \alert{T} es el vértice más joven que produce una palabra que contiene a \blue{$v$}.		
 			\end{column}
 
 			\begin{column}{0.57 \textwidth}
@@ -793,8 +794,7 @@
 	\end{frame}
 
 	\begin{frame}[fragile]{Lema 3.}
-		\lemacajitados{3}{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky.
-		Sea $uvw \in L(\cG)$ de modo que $|v| \ge 2$ y una derivación $\deri = S \tto uvw$. 
+		\lemacajitados{3}{Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky, $uvw \in L(\cG)$ de modo que $|v| \ge 2$ y $\deri = S \tto uvw$ una derivación. 
 		Entonces existe una variable $A$ tal que:
 		\[
 				\deri = S \tto \delta A \eta \to \delta BC \eta \tto u'v'v''w'
@@ -807,7 +807,7 @@
 				\item $\delta \tto u'$ y $\eta \tto w'$. 
 				% \item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra. 
 				\item $|u| \ge |u'|$ y $|w| \ge |w'|$. 
-				\item $|u'v'| < |uv|$ y $|v''w''| < |vw|$
+				\item $|u'v'| < |uv|$ y $|v''w'| < |vw|$
 			\end{itemize} 
 		}
 	\end{frame}
@@ -1440,5 +1440,10 @@
 				
 			\end{column}
 		\end{columns}
+	\end{frame}
+
+	\begin{frame}[fragile]{El fin.}
+		¡¡¡Muchas gracias por la atención!!!
+
 	\end{frame}
 \end{document}
