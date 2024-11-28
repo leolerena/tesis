@@ -19,7 +19,7 @@ Finalmente en \ref{secc_graf_nd} introducimos la notación que usaremos para los
 \section{Teoría de lenguajes.}\label{secc_tlen}	
 
 
-Consideremos un conjunto no vacío $\Sigma$ luego dado $k \in \NN$ denotaremos $\Sigma^k$ al conjunto de palabras en $\Sigma$ de exactamente $k$ elementos.
+Consideremos un conjunto no vacío $\Sigma$, que llamaremos un \emph{alfabeto}, luego dado $k \in \NN$ denotaremos $\Sigma^k$ al conjunto de palabras en $\Sigma$ de exactamente $k$ elementos.
 Hacemos énfasis especial en el caso que $k=0$ denotando $\Sigma^0 = \{\epsilon\}$ a la \emph{palabra vacía}.
 Dada una palabra $w= a_1 \dots a_k \in \Sigma^k$ diremos que su longitud es $k$ y lo denotaremos $|w| = k$. 
 Similarmente si $ \Sigma = \{ a_{i} \}_{i \in I} $ denotaremos $|w|_{i}$ a la cantidad ocurrencias de $a_{i}$ en $w$.
@@ -83,7 +83,7 @@ Un \emph{prefijo propio} de $w$ es un prefijo $u$ tal que $u \neq w$ y $u \neq \
 
 
 \begin{deff}\label{deff_pal_reversa}
-	Sea $\Sigma$ un conjunto finito.
+	Sea $\Sigma$ un alfabeto.
 	Dada una palabra $w \in \Sigma^*$ tal que $w = a_1 \dots a_n$ denotaremos por $w^R \in \Sigma^*$ la \emph{palabra reversa} definida como $w^R = a_{n} \cdots a_{1}$.
 \end{deff}
 
@@ -91,11 +91,13 @@ Dada una palabra $w \in \Sigma^*$ tal que $w = uv$ tenemos que vale la siguiente
 En particular para cada alfabeto podemos definir un lenguaje que es el de los palíndromos.
 
 \begin{deff}
-	Sea $\Sigma = \{a,b\}$ entonces el \emph{lenguaje de los palíndromos sobre $\Sigma$} es el siguiente lenguaje:
+	Sea $\Sigma$ un alfabeto entonces el \emph{lenguaje de los palíndromos sobre $\Sigma$} es el siguiente lenguaje:
 	\[
 		L_{\text{PAL}} = \{  w \in \Sigma^* \mid w = w^R \}.
 	\]
 \end{deff}
+
+En general cuando nos referiremos al lenguaje de los palíndromos asumiremos que el alfabeto es $\Sigma = \{a,b\}$.
 
 
 
@@ -1379,9 +1381,8 @@ Primero una definición útil en este contexto.
 
 
 \begin{deff}
-	Sea $G$ un grupo y $A$ un conjunto de generadores simétrico tal que $1 \notin A$.
+	Sea $G$ un grupo y $A$ un conjunto de generadores tal que $1 \notin A$.
 	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $E(\Gamma) = \{ \{g,ga \} \mid g \in G, a \in A \}$.
-	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta de la arista $e$} al generador $a \in A$.
 \end{deff}
 
 
@@ -1436,7 +1437,7 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	Sea $\Gamma = \text{Cay}(G,A)$ el grafo de Cayley para estos generadores y $l: \Pi(\Gamma) \to (A \cup A^{-1})^*$ 
 %	y sea $\pi:(A \cup A^{-1})^* \to G$ la proyección de monoides entonces vale lo siguiente:
 	\begin{enumerate}
-		\item Si $c$ es un camino cerrado luego $l(c) = 1$.
+		\item Si $c$ es un camino cerrado luego $l(c) = 1$ en $G$.
 		
 		\item Si $c$ es un ciclo entonces $l(c)$ es una palabra reducida vista en el grupo libre $F_{A}$.
 	\end{enumerate}
@@ -1456,7 +1457,7 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	\] 
 	dado por lo visto en la proposición \ref{lema_grp_acc_libre_cayley} el grupo $G$ actúa libremente sobre su grafo de Cayley, por lo tanto el estabilizador de todo vértice tiene que ser trivial.
 	Esto nos dice que 
-	$g_{0} a_{0} \dots a_{n-1} g_{0}^{-1}  = 1$ lo que implica que $a_{0} \dots a_{n-1} = 1$ , esto es que $l(c) = 1$ tal como queríamos ver.
+	$g_{0} a_{0} \dots a_{n-1} g_{0}^{-1}  = 1$ lo que implica que $a_{0} \dots a_{n-1} = 1$ , esto es que $l(c) = 1$ en $G$ tal como queríamos ver.
 	
 	Probemos \textbf{2}.
 	Si $c = (g_{0}, \dots, g_{n})$ es un ciclo tal que $l(c) = (a_{0}, \dots, a_{n-1})$ luego va a ser reducida porque caso contrario existiría $i$ tal que $a_{i}^{-1} = a_{i+1}$ lo que implica que $g_{i}a_{i} = g_{i+1}$ y que $g_{i+1}a_{i}^{-1} = g_{i+2}$ y de esta manera obtenemos que $g_{i+2}a_{i} = g_{i+1} = g_{i}a_{i}$ y por lo tanto $g_{i+2} = g_{i}$ por lo que el camino $c$ no es un ciclo.
