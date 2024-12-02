@@ -373,7 +373,7 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 \end{deff}
 \begin{obs}
 	\label{obs:beta_separa_componentes}
-	Sea $\Gamma$ grafo no dirigido tal que $C \subseteq V(\Gamma)$ luego si  $C = \bigcup_{i \in I} C_{i}$ donde $C_{i} \cap C_{j} = \emptyset$ para todos $i,j \in I$ tales que $i \neq j$ entonces $\beta C = \bigcup_{i \in I} \beta(C_{i})$.
+	Sea $\Gamma$ grafo no dirigido tal que $C \subseteq V(\Gamma)$ luego si  $C = \bigcup_{i \in I} C_{i}$ donde $N(C_{i}) \cap C_{j} = \emptyset$ para todos $i,j \in I$ tales que $i \neq j$ entonces $\beta C = \bigcup_{i \in I} \beta(C_{i})$.
 \end{obs}
 
 Construyamos una descomposición en un árbol que podemos hacer en general para todos los grafos de Cayley de grupos finitamente generados. 
@@ -388,20 +388,25 @@ Primero probamos un lema auxiliar.
 	Sea $G$ un grupo finitamente generado por $A$ y $\Gamma = \text{Cay}(G,A)$ el respectivo grafo de Cayley de $G$. 
 	
 
-	Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ tal que $V_0 = \Gamma \setminus \{1\}$. 
+	Definimos para cada $l \ge 0$ el siguiente conjunto:
+	\[
+			V_{l} = \{C : C \ \text{es componente conexa de} \ \Gamma \setminus N^{l}(\{1\})\}	
+	\]
+	
 	Los vértices del árbol $T$ van a estar dados por los siguientes conjuntos:
 	\[
-	V(T) = \{  \beta C : \exists l \in \NN / C \subseteq V_l \ \text{componente conexa} \} \cup \{ 1 \}.
+			V(T) = \{ \{1\}\} \cup \bigcup_{l \in \NN_{0}}  \{ \beta C : C \in V_{l} \}
 	\]
 	estamos tomando todos los posibles bordes de vértices 
 	de todas las componentes conexas de todos los $V_l$ con $l \in \NN$.
 	 
 	Antes de definir las aristas notemos lo siguiente.
-	Si $C$ es una componente conexa de $V_{l+1}$ entonces tiene que existir $D$ componente conexa de $V_{l}$ de manera tal que $C \subseteq D$.
+	Si $C \in V_{l+1}$ entonces tiene que existir $D$ componente conexa de $V_{l}$ de manera tal que $C \subseteq D$.
 	Esto se debe a que $V_{l+1} \subseteq V_{l}$ y a su vez como $C$ es conexo si interseca a una componente conexa necesariamente tiene que estar incluido en esta componente.
 	Las aristas van a estar dadas por lo siguiente:
 	\[
-	E(T) = \{ \{ \beta C, \beta D \} : \exists l \in \NN / \ C \subseteq D \subseteq V_l \land \ C \subseteq V_{l+1}  \} \cup \{  \{1,\beta C\} : C \subseteq V_0  \}
+			E(T) = \{ \{\beta C, \beta D\} : C \in V_{n} \ \land \ D \in V_{n+1} \ \land \ D \subseteq C\} \cup 
+			\{ \{\{1\}, \beta C\} : C \in V_{0} \}
 	\]
 	
 	% Definimos $V_l = \Gamma \setminus N^l(\{1\}) $ para todo $l \ge -1$ donde $N^{-1}(\{1\}) = \emptyset$ por lo tanto $V_{-1} = \Gamma \setminus \emptyset = \Gamma$. 
@@ -427,17 +432,21 @@ Primero probamos un lema auxiliar.
 	
 	Sea $\rho:V(T) \to \NN_{0}$ definida por
 	\[
-	\rho(t) = 	l+1  \ \  \text{si} \ \  t = \beta C \ \text{y}  \ C \ \text{componente conexa de $V_{l}$} \\
+	\rho(t) = 	
+	\begin{cases}
+		l+1 & \text{si $t = \beta C, \ \ C \in V_{l}$} \\
+		0 & \text{si $t = \{1\}$   } \\
+	\end{cases}
 	\]
 	Probamos que $\rho$ cumple las tres propiedades del lema \ref{lemma:grado_arbol}.
 	\begin{enumerate}
-		\item El único $t \in V(T)$ que cumple que $\rho(t) = 0$ es $t = \emptyset$.
+		\item El único $t \in V(T)$ que cumple que $\rho(t) = 0$ es $t = \{1\}$.
 		\item 
-			Si $\{t,s\} \in E(T)$ luego $t = \beta C$ tal que $C$ es componente conexa de $V_{l}$ por lo que $\rho(\beta C) = l$. 
-			Por otro lado $s = \beta D$ para $D$ componente conexa de $V_{l-1}$ o $V_{l+1}$ y así $\rho(\beta D) = l-1$ o $\rho(\beta D) = l+1$ y vemos que $|\rho(\beta C) - \rho(\beta D)| = 1$ tal como queríamos.
+			Si $\{t,s\} \in E(T)$ luego $t = \beta C$ tal que $C \in V_{l}$ por lo que $\rho(\beta C) = l$. 
+			Por otro lado $s = \beta D$ para $D \in V_{l-1}$ o $V_{l+1}$ y así $\rho(\beta D) = l-1$ o $\rho(\beta D) = l+1$ y vemos que $|\rho(\beta C) - \rho(\beta D)| = 1$ tal como queríamos.
 			
 		\item 
-			Sea $t \in V(T) \setminus \{\emptyset \}$ luego $t = \beta C$ para $C$ una componente conexa de $V_{l}$ para cierto $l \ge 0$. Entonces necesariamente por ser conexo debe existir una única $D$ componente conexa de $V_{l-1}$ tal que $C \subseteq D$. 
+			Sea $t \in V(T) \setminus \{\emptyset \}$ luego $t = \beta C$ para $C$ una componente conexa de $V_{l}$ para cierto $l \ge 0$. Entonces necesariamente por ser conexo debe existir una única $D \in V_{l-1}$ tal que $C \subseteq D$. 
 	\end{enumerate}
 	
 	% \begin{enumerate}[$\bullet$]
@@ -479,8 +488,7 @@ Primero probamos un lema auxiliar.
 	Para verlo debemos ver que cumple las tres condiciones \ref{desc-arbol} de la definición. 
 	\begin{enumerate}
 		\item[\textbf{T1.}] Sea $g \in V(\Gamma)$ luego si $d(1,g) = l$
-		tenemos que $g \in \beta C$ para cierta $C$ componente conexa de 
-		$V_{l-1}$.		 
+		tenemos que $g \in \beta C$ para cierta $C \in V_{l-1}$.		 
 		
 		
 		\item[\textbf{T2.}] Sea una arista $\{g,h\} \in E(\Gamma)$. 
@@ -491,7 +499,7 @@ Primero probamos un lema auxiliar.
 		\[
 			d(g,1)= l = d(h,1)
 		\] 
-		luego tiene que existir $C$ componente conexa de $V_{l-1}$ 
+		luego tiene que existir $C \in V_{l-1}$ 
 		tal que $g,h \in \beta C$ dado que ambos vértices están conectados.
 		
 		El otro caso es que las distancias al vértice $1$ son distintas aunque necesariamente están restringidas a que sean del tipo
@@ -505,7 +513,7 @@ Primero probamos un lema auxiliar.
 		
 		Por la observación \ref{obs:beta_separa_componentes} tenemos que:
 		\[
-			\beta V_{l} = \underset{\text{\scriptsize $C_{i}$ componente conexa de $V_{l}$}}{\bigcup} \beta(C_{i}).
+			\beta V_{l} = \underset{\text{\scriptsize $C_{i} \in V_{l}$}}{\bigcup} \beta(C_{i}).
 		\]
 		Entonces existe una única componente conexa $D \in V_{l-1}$ de manera que $g \in \beta D$. 
 		Por otro lado como el grafo de Cayley de un \fg es localmente finito entonces existen finitas componentes conexas $C_{1}, \dots, C_{k}$ de $V_{l}$ de manera que $g \in \beta C_{1}, \dots, g \in \beta C_{k}$.
@@ -810,7 +818,7 @@ Intuitivamente una cuasi-isometría entre espacios métricos nos dice que estos 
 	\end{itemize}
 \end{prop}
 \begin{proof}
-	Ver \cite[pp.84-85]{loh2017geometric}.
+	Ver \cite{bridson2013metric}.
 \end{proof}
 
 \begin{prop}\label{prop_qi_transitiva}
@@ -818,7 +826,7 @@ Intuitivamente una cuasi-isometría entre espacios métricos nos dice que estos 
 	 entonces $\psi \circ \phi: X \to Z$ es una cuasi-isometría.
 \end{prop}
 \begin{proof}
-	Ver \cite[p.86]{loh2017geometric}.
+	Ver \cite{bridson2013metric}.
 \end{proof}
 
 
@@ -993,31 +1001,21 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 
 
 	\begin{lema}\label{lema:gram_ic_chomsky_variable_chica_deriva}
-		Sea $\gramatica$ una gramática \ic en forma normal de Chomsky.
-		Sea $\deri = S \deriva w$ una derivación en esta gramática.
-		Para cada $v \in \Sigma^{*}$ tal que $|v| \ge 1$ y $v$ es subpalabra de $w$ por lo tanto $w = w_{1}vw_{2}$ para $w_{1},w_{2} \in \Sigma^{*}$.
-		Bajo estas hipótesis se tiene que existe una variable $A \in V$ y una subpalabra $v' \in \Sigma^{*}$ de $w$ minimal respecto a la longitud tal que:
-		\begin{itemize}
-			\item $v$ es subpalabra de $v'$ y tenemos las siguientes escrituras $v' = v_{1}vv_{2}$, $w_{1} = w_{1}'v_{1}$ y $w_{2} = v_{2}w_{2}'$ para palabras $v_{1},v_{2}w_{1}', w_{2}' \in \Sigma^{*}$.
-
-			\item La derivación $\deri$ tiene la siguiente pinta:
-			\[
-				\deri = S \deriva \delta A \eta \deriva w_{1}'v_{1}v'v_{2}w_{2}'
-			\]
-			tal que $A \deriva v'$ y $\delta \deriva w_{1}'v_{1}$ y $\eta \deriva v_{2}w_{2}'$.
-		\end{itemize}
-
-		% Sea $\gramatica$ una gramática \ic en forma normal de Chomsky.
-		% Sea $\deri = S \deriva uvw$ una derivación en esta gramática.
-		% Para cada subpalabra $v \in \Sigma^{*}$ tal que $|v| \ge 1$ se tiene que existe una variable $A \in V$ y una subpalabra $v'$ de $uvw$ minimal respecto a la longitud tal que:
-		% \begin{itemize}
-		% 	\item $v$ es subpalabra de $v'$;
-		% 	\item La derivación $\deri$ resulta ser igual a 
-		% 	\[
-		% 		\deri = S \deriva \delta A \eta \deriva u'v'w'
-		% 	\]
-		% 	para $\delta, \eta \in (V \cup \Sigma)^{*}$, $u',w' \in \Sigma^{*}$ tales que: $\delta \deriva u', A \deriva u', \eta \deriva w'$ y  $u'v'w' = uvw$.
-		% \end{itemize}
+		Sea $\gramatica$ una gramática independiente de contexto en forma normal de Chomsky, $uvw \in L(\cG)$ de modo que $|v| \ge 2$ y $\deri = S \tto uvw$ una derivación. 
+		Entonces existe una variable $A$ tal que:
+		\[
+				\deri = S \tto \delta A \eta \to \delta BC \eta \tto u'v'v''w'
+		\]
+			donde:
+			\begin{itemize}
+				\item $u'v'v''w' = uvw$. 
+				% \item La palabra $v'v''$ es la palabra más chica que contiene a $v$ como subpalabra que deriva de una variable.
+				\item $A \to BC \tto v'v''$, $B \tto v'$ y $C \tto v''$. 
+				\item $\delta \tto u'$ y $\eta \tto w'$. 
+				% \item $v$ está contenida en $v'v''$ como subpalabra y $v$ no está contenido en $v'$ ni en $v''$ como subpalabra. 
+				\item $|u| \ge |u'|$ y $|w| \ge |w'|$. 
+				\item $|u'v'| < |uv|$ y $|v''w'| < |vw|$
+			\end{itemize}
 	\end{lema}
 	\begin{proof}
 		Para probar esto consideramos $T(\deri)$ el árbol de derivación asociado a la derivación $\deri = S \deriva w$.
@@ -1026,12 +1024,34 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 		$v = a_{1} \dots a_{n}$ es tal que está representada por un conjunto finito de vértices del árbol $V(T(\deri))$ (de hecho resultan ser hojas del árbol por la observación \ref{obs:arbol_deri_datos}).
 		Sea este conjunto $X_{v}  = \{ (d_{1},l(d_{1})), \dots, (d_{n},l(d_{n})) \}$ donde $l(d_{i}) = a_{i}$.
 
-		En este caso notemos que el problema se traduce a encontrar un vértice $(d,l(d)) \in V(T(\deri))$ tal que produzca a $v$ como subpalabra y tal que sea minimal respecto al orden sobre los vértices de un árbol binario $\preceq$ definido en \ref{deff:orden_prefijo_arbol_binario}.
+		En este caso notemos que el problema se traduce a encontrar un vértice $(d,l(d)) \in V(T(\deri))$ tal que produzca a $v$ como subpalabra y tal que sea minimal respecto al orden sobre los vértices de un árbol binario $\preceq$ definido en \ref{deff:orden_prefijo_arbol_binario}. 
+		
 
 		Para esto notemos que aplicando el lema \ref{lema:arbol_binario_meet} al conjunto de hojas $X_{v}$ obtenemos un vértice $(d,l(d))$ interno tal que es el menor vértice con respecto al orden $\preceq$ que produce una palabra $v' \in \Sigma^{*}$ de manera que contiene como subpalabra a la palabra asociada al conjunto $X_{v}$.
 		Como es un vértice interno luego $l(d) = A \in V$ por la observación \ref{obs:arbol_deri_datos} y a su vez resulta ser que no puede haber una palabra de longitud menor que $v'$ tal que cumpla esta propiedad caso contrario negaríamos la minimalidad del vértice $(d,l(d))$.
 	\end{proof}
 
+	
+	\begin{figure}
+		\begin{center}
+			\begin{adjustbox}{width = 0.55\textwidth}
+				\begin{tabular}{|c|c|c|c|c|c|}
+					\hline 
+					\multicolumn{6}{|c|}{$S$} \\
+					\hline
+					$\delta$ &  \multicolumn{4}{|c|}{$A$} & $\eta$ \\
+					\hline 
+					$\delta$ & \multicolumn{1}{|c}{} & \multicolumn{1}{c|}{$B$} & \multicolumn{1}{|c}{$C$} & \multicolumn{1}{c|}{} & $\eta$ \\
+					\hline
+					$u'$ & \multicolumn{2}{|c|}{$v'$} & \multicolumn{2}{|c|}{$v''$} & $w'$ \\
+					\hline 
+					\multicolumn{2}{|c|}{$u$} & \multicolumn{2}{|c|}{$v$} &  \multicolumn{2}{|c|}{$w$}\\
+					\hline 
+				\end{tabular}
+			\end{adjustbox}
+		\end{center}
+		\caption{Representación gráfica del lema \ref*{lema:gram_ic_chomsky_variable_chica_deriva}.}
+	\end{figure}
 
 \begin{lema}\label{palabras-wp}
 	Sea $G$ un grupo \ic con gramática $\gramatica$ de manera que $L(\cG) = WP(G,\Sigma)$.
