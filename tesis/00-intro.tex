@@ -3,14 +3,23 @@
 	\chapter*{Introducción.}
 	
 	Si $G$ es un \fg el problema de la palabra es el siguiente problema: dada una palabra $w$ en los generadores y sus inversos el objetivo es decidir si $w$ representa la identidad del grupo.
-	Este problema no resulta ser un problema fácil, de hecho existen grupos finitamente presentados tales que su problema de la palabra no es decidible.
-	A pesar de la existencia de estos resultados negativos, para muchos grupos el problema de la palabra es decidible.
-	Esto hace que resulte interesante estudiar el problema de la palabra desde un punto de vista de la complejidad computacional.
-	En nuestro trabajo, siguiendo la teoría de lenguajes formales, el problema de la palabra de un grupo finitamente generado es el conjunto de palabras sobre los generadores y sus inversos tales que representan a la identidad del grupo.
-	Bajo esta definición el problema de la palabra resulta ser un lenguaje formal.
-	El primer trabajo que abordó el problema de la palabra con esta perspectiva fue el trabajo de Animisov \cite{anisimov1971languages} en el cual probó que los grupos finitos son exactamente los grupos que su problema de la palabra resulta ser un lenguaje regular.
+	Este problema no resulta ser un problema fácil, de hecho existen grupos finitamente presentados tales que su problema de la palabra no es algorítimicamente decidible.
+	A pesar de la existencia de estos resultados negativos, para muchos grupos es algorítimicamente decidible.
+	Esto hace que resulte interesante estudiar este problema con un enfoque en la complejidad computacional.
+	En este trabajo estudiamos el problema de la palabra desde el punto de vista de los lenguajes formales.
+	Esto quiere decir que dado un grupo finitamente generado le asociamos el conjunto de palabras sobre los generadores y sus inversos tales que representan a la identidad del grupo.
+	Este lenguaje formal es el lenguaje asociado al problema de la palabra.
 
+	% Una manera de definir los lenguajes regulares es un lenguaje que es aceptado por un autómata finito.
+
+	% El primer trabajo que abordó el problema de la palabra con esta perspectiva fue el trabajo de Animisov \cite{anisimov1971languages} en el cual probó que los grupos finitos son exactamente los grupos que su problema de la palabra resulta ser un lenguaje regular.
 	
+	El primer trabajo que abordó el problema de la palabra con esta perspectiva fue el trabajo de Animisov \cite{anisimov1971languages}. 
+	En este trabajo consideró la familia de los lenguajes regulares,
+	que son los lenguajes aceptados por un aútomata finito.
+	El logro del trabajo fue conectar la teoría de lenguajes con la teoría de los grupos. 
+	Para esto probó que un grupo es tal que el lenguaje asociado a su problema de la palabra es un lenguaje regular si y solo si este grupo es finito.
+		
 	\begin{figure}[H]
 		\centering
 		\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=3.5cm,
@@ -31,19 +40,26 @@
 			\end{tikzpicture}
 		\caption{Este autómata acepta el problema de la palabra del grupo $\ZZ/2\ZZ \times \ZZ/2\ZZ$ presentado como $\langle a, b \mid a^2, b^2, abab \rangle$. Observar la semejanza con el grafo de Cayley para la misma presentación.}
 	\end{figure}
-	En ese trabajo Animisov preguntó: "Si el problema de la palabra de un grupo $G$ es un lenguaje independiente de contexto qué dice esto sobre la estructura algebraica del grupo?".
+	Este resultado abrió un abanico de posibilidades. 
+	Si uno considera una familia de lenguajes, ¿qué grupos tienen el lenguaje asociado al problema de la palabra en esa familia?
+	En particular en ese trabajo Animisov preguntó: "Si el problema de la palabra de un grupo $G$ es un lenguaje independiente de contexto, ¿qué dice esto sobre la estructura algebraica del grupo?".
 	Esta pregunta fue resuelta en un trabajo influyente de Muller y Schupp \cite{muller1983groups}.
-	Su respuesta es que los grupos virtualmente libres son exactamente los grupos que tienen un problema de la palabra independiente de contexto.
-	Desde aquel entonces se encontraron una enorme cantidad de caracterizaciones equivalentes para los grupos virtualmente libres. 
-	Estas caracterizaciones emplean las más diversas áreas de matemática demostrando la riqueza detrás de los grupos virtualmente libres.
-    Para ejemplificar listamos algunas de estas posibles caracterizaciones de los grupos virtualmente libres: (1) grupos fundamentales de grafos de grupos finitos, (2) grupos finitamente generados tales que sus grafos de Cayley tienen treewidth finito, (3) grupos universales de pregrupos finitos, (4) grupos con presentaciones finitas dadas por sistemas geodésicos de reescritura, y (6) grupos finitamente generados con teoría monádica de segundo orden decidible. 
-	Para el lector interesado en ver aún más caracterizaciones consultar los siguientes trabajos \cite{diekert2017context}, \cite{antolin2011cayley} y \cite{araujo2017geometric}.
+	Su respuesta es que los grupos virtualmente libres son exactamente los grupos que tienen un lenguaje asociado al problema de la palabra independiente de contexto.
+	A diferencia del caso de los lenguajes regulares, el caso de los lenguajes independientes de contexto resultó ser mucho más complejo de probarlo.
+	Esta dificultad radica en que no resultó posible probar el teorema de forma directa.
+	Para probar este resultado Muller-Schupp se valieron de varias áreas de la matemática y varias caracterizaciones equivalentes de los grupos virtualmente libres.
 
-	El objetivo de esta tesis es estudiar algunas de estas posibles caracterizaciones de los grupos virtualmente libres y probar un camino de equivalencias entre todas estas caracterizaciones.
-	Para este objetivo utilizamos caracterizaciones provenientes de la topología, de la teoría de grupos, de la teoría de lenguajes formales y de la teoría de grafos, 
-	mostrando así cómo todas estas áreas de matemática se ponen en común para describir un objeto.
+	Desde aquel entonces aparecieron aún más demostraciones del teorema de Muller-Schupp, todas ellas con su riqueza y sus nuevas caracterizaciones de los grupos virtualmente libres.
+	Todas estas demostraciones emplean las más diversas áreas de matemática probando así la riqueza detrás de estos grupos.
+    Para ejemplificar listamos algunas de estas posibles caracterizaciones de los grupos virtualmente libres: (1) grupos fundamentales de grafos de grupos finitos, (2) grupos finitamente generados tales que sus grafos de Cayley tienen treewidth finito, (3) grupos universales de pregrupos finitos, (4) grupos con presentaciones finitas dadas por sistemas geodésicos de reescritura, (5) grupos finitamente generados con teoría monádica de segundo orden decidible, etc. 
+	Para el lector interesado en entender algunas de estas construcciones consultar los siguientes trabajos \cite{diekert2017context}, \cite{diekert2013context}, \cite{khukhro_characterisation_2020}, \cite{kuske2005logical}, \cite{muller1985theory}, \cite{muller1983groups}, \cite{antolin2011cayley} y \cite{araujo2017geometric}.
+
+	El objetivo de esta tesis es estudiar una parte de todas estas posibles caracterizaciones de los grupos virtualmente libres y probar un camino de equivalencias entre ellas.
+	El camino de equivalencias elegido está basado en el camino propuesto por los trabajos \cite{diekert2013context} y \cite{diekert2017context}.
+	Para este objetivo utilizamos herramientas de topología, de teoría de grupos, de teoría de lenguajes formales y de teoría de grafos, 
+	mostrando así cómo todas estas áreas de matemática se ponen en común para describir a los grupos virtualmente libres.
 	Es particularmente interesante ver cómo las propiedades sintácticas de un grupo afectan la geometría de su grafo de Cayley y  también entender cómo las acciones del grupo repercuten en su problema de la palabra.
-	Muchos de los resultados y construcciones que aparecen en este trabajo son resultados conocidos que no aparecen detallados en la literatura.
+	
 
 	El trabajo está estructurado de manera que en cada capítulo (exceptuando el de 
 	preliminares) probamos una caracterización equivalente de los grupos \vls.
@@ -54,33 +70,36 @@
 			Estos temas tratados son en su gran mayoría temas clásicos y pueden encontrarse por ejemplo en los siguientes libros \cite{lyndon1977combinatorial}, \cite{diestel2005graph}, \cite{gallier2022mathematical} y \cite{hopcraft-ullman}.
 		
 		\item 
-			En el segundo capítulo damos una introducción a la teoría de Bass--Serre que conecta la estructura de un grupo con sus acciones en árboles.
-			A partir de una acción de un grupo sobre un árbol nos define un grafo de grupos y viceversa, a partir de un grafo de grupos podemos armarnos un grupo (denominado el grupo fundamental del grafo de grupos) y un árbol en el cuál actúa.
-			Uno de los resultados centrales de la teoría de Bass--Serre es que estas construcciones son inversas y esto lo probamos en el teorema \ref{teo_Serre}.
+			En el segundo capítulo damos una introducción a la teoría de Bass--Serre. 
+			Esta área conecta la estructura de un grupo con sus acciones en árboles.
+			A partir de una acción de un grupo sobre un árbol definimos un grafo de grupos y viceversa, a partir de un grafo de grupos construimos un grupo (denominado el grupo fundamental del grafo de grupos) y un árbol (denominado el árbol de Bass--Serre) en el cuál actúa.
+			Uno de los resultados centrales del área es que estas dos construcciones son inversas \ref{teo_Serre}.
 			El resultado central de este capítulo para nuestro trabajo es \ref{teo_karrass_solitar} que prueba que el grupo fundamental de los grafos de grupos con grupos finitos resulta ser un grupo virtualmente libre.
 
 		\item 
-			En el tercer capítulo introducimos los grupos independientes de contexto, que son los grupos que el lenguaje del problema de la palabra, esto es las palabras en los generadores que representan la identidad, resulta ser un lenguaje independiente de contexto.
-			 
-			En principio, como este lenguaje depende del conjunto de generadores elegido esta definición no está justificada.
-			Entonces nos vemos obligados a probar que si un grupo tiene un lenguaje del problema de la palabra independiente de contexto entonces para cualquier conjunto de generadores también resulta ser un lenguaje independiente de contexto.
+			En el tercer capítulo introducimos los grupos independientes de contexto.
+			Estos son grupos que el lenguaje asociado a su problema de la palabra resulta ser un lenguaje independiente de contexto.
+			En principio, como este lenguaje depende del conjunto de generadores elegido esta definición depende del conjunto de generadores.
+			Probamos que si un grupo tiene un lenguaje del problema de la palabra independiente de contexto entonces para cualquier conjunto de generadores también resulta ser un lenguaje independiente de contexto.
 			Esta propiedad es válida porque los lenguajes independientes de contexto resultan ser un cono de lenguajes.
 			Finalmente probamos el teorema central del capítulo que es el de Muller--Schupp \ref{teo_Muller_Schupp} que todo grupo virtualmente libre es \ic porque existe un autómata de pila que acepta el lenguaje correspondiente a su problema de la palabra. 
 			
 			
 		
 		\item 
-			En el cuarto capítulo introducimos para grafos no dirigidos las descomposiciones en un árbol y a partir de estas descomposiciones definimos un número natural o infinito que es el treewidth de un grafo.
-			Probamos varios propiedades elementales que tienen estas descomposiciones y construimos una descomposición en un árbol para un grafo de Cayley de un grupo finitamente generado arbitrario.
-			Para que el treewidth finito sea un invariante para un grupo y no dependa del grafo de Cayley utilizamos cuasisometrías para probar que el treewidth finito es un invariante por cuasisometría y así como todos los grafos de Cayley de un grupo finitamente generado son cuasisométricos entre sí obtenemos que está bien definida la noción de un grupo con treewidth finito.
-			Finalmente probamos el resultado central del capítulo \ref{teo_ic_implica_tw} que nos dice que los grupos \ic resultan tener treewidth finito.
+			En el cuarto capítulo introducimos las descomposiciones en un árbol y a partir de estas descomposiciones definimos un número natural o infinito que es el treewidth de un grafo.
+			Probamos varios propiedades elementales que tienen estas descomposiciones. 
+			La construcción principal es una descomposición en un árbol para un grafo de Cayley de un grupo finitamente generado arbitrario.
+			Definimos los grupos de treewidth finito que son los grupos para los cuales esta descomposición tiene treewidth finito.
+			% Probamos que si para un grupo y un conjunto finito de generadores del grupo esta descomposición en un árbol tiene treewidth finito entonces para cualquier otro conjunto de generadores la descomposición en un árbol también va a tener treewidth finito.
+			Finalmente probamos el resultado central del capítulo \ref{teo_ic_implica_tw} que dice que los grupos \ic resultan tener treewidth finito.
 			
 		\item 
-			En el quinto capítulo terminamos de cerrar las equivalencias de los grupos virtualmente libres.
+			En el quinto capítulo terminamos de cerrar el camino de equivalencias de caracterizaciones de los grupos virtualmente libres.
 			Para esto esbozamos rápidamente la teoría de los cortes de los grafos y nos enfocamos en los grafos accesibles que resultan ser una familia que contiene a los grafos que tienen treewidth finito.
-			Probamos que bajo estas hipótesis podemos construirnos a partir de los cortes de los grafos un árbol que denominamos el árbol de estructura del grafo.
+			Probamos que bajo estas hipótesis podemos construirnos un árbol que denominamos el árbol de estructura del grafo.
 			El resultado central del capítulo es \ref{coro_tw_finito_implica_pi1} que dice que el grupo de automorfismos de un grafo con treewidth finito actúa con finitas órbitas sobre su árbol de estructura. 
-			De esta manera por medio del resultado central de la teoría de Bass--Serre  \ref{teo_Serre} obtenemos que los grupos con treewidth finito son grupos fundamentales de grafos de grupos finitos y así terminamos de probar todas estas equivalencias.
+			De esta manera por medio del resultado central de la teoría de Bass--Serre  \ref{teo_Serre} obtenemos que los grupos con treewidth finito son isomorfos a grupos fundamentales de grafos de grupos finitos y así terminamos de probar todas estas equivalencias.
 	\end{itemize}
 		
 	
