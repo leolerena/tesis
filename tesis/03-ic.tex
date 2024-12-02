@@ -377,7 +377,7 @@ Este resultado es una consecuencia del teorema de Nielsen--Schreier \ref{coro_ni
 	\begin{equation*}
 		N_G(H) = \{ g\in G : gHg^{-1} = H  \}.
 	\end{equation*}
-	Denotaremos por $S= \{ g \in G :  gHg^{-1} \}$ al \emph{conjunto de conjugados del subgrupo $H$}.
+	Denotaremos por $S= \{ gHg^{-1} : g \in G  \}$ al \emph{conjunto de conjugados del subgrupo $H$}.
 
 \end{deff}
 
@@ -466,7 +466,7 @@ Este lema nos garantiza que tomar subgrupos de índice finito preserva la propie
 	$K$ es un subgrupo porque la intersección de subgrupos es un subgrupo.
 	Para ver que $K$ es normal notemos que dado $h \in G$ luego 
 	\[
-		 hKh^{-1} = \bigcap_{g \in G} hgHg^{-1}h^{-1} = \bigcap_{hg \in G} (hg)H(g^{-1}h^{-1}) =  K. 	
+		 hKh^{-1} = \bigcap_{g \in G} hgHg^{-1}h^{-1} = \bigcap_{g' \in G} g'H(g')^{-1} =  K. 	
 	\]
 \end{proof}
 
@@ -590,7 +590,7 @@ Finalmente podemos probar que la clase de grupos que son virtualmente libres res
 		A partir de la proposición \ref{prop:presentacion_vl} podemos concluir que $G$ está presentado como un monoide por $\langle A \cup A^{-1} \cup T \mid R \rangle$.
 	\end{obs}
 
-	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{prop:presentacion_vl} respetando la misma notación que introducimos en esta proposición.
+	Sea $G$ grupo \vl  \ y consideremos una presentación $\langle W  \mid  R \rangle$ como la que construimos en \ref{prop:presentacion_vl} respetando la misma notación que introdujimos en esta proposición.
 	
 	Por nuestra definición del conjunto de relaciones $R$ tenemos que $R = \{t_ia_{l}t_i^{-1} = u_{il},  t_it_j = z_{ij}t_k \quad \forall (i,j,k,l) :   1 \le i,j,k \le m, 1 \le l  \le n \}$. 
 	Sea entonces el conjunto finito 

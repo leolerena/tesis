@@ -10,7 +10,7 @@ En la primer sección \ref{secc_tw} introducimos las descomposiciones en árbole
 El ejemplo \ref{desc-grafo-cayley} de la descomposición en un árbol para el grafo de Cayley de un grupo finitamente generado va a ser crucial en la demostración del teorema principal de este capítulo.
 
 
-En la segundo sección \ref{secc_qi} introducimos brevemente ideas elementales detrás de las cuasisometrías (en nuestro caso restringidas al contexto de grafos).
+En la segundo sección \ref{secc_qi} introducimos brevemente ideas elementales detrás de las cuasi-isometrías (en nuestro caso restringidas al contexto de grafos).
 La idea es poder usar estas herramientas para probar que la definición de treewidth no depende de los generadores.
 
 Finalmente en la sección \ref{secc_MuSch} probamos uno de los resultados centrales del trabajo que establece que todo grupo independiente de contexto tiene treewidth finito.
@@ -36,11 +36,12 @@ Vamos a dar una primera definición que nos permite formalizar esta idea de que 
 		debe existir $t \in V(T)$ tal que $v,w \in f(t)$.
 		\item[\textbf{T3.}] Si $v \in V(\Gamma)$ es tal que $v \in f(t) \cap f(s)$ luego $v \in f(r)$ para todo $r \in V(T)$ en la geodésica que va desde $s$ a $t$.  
 	\end{enumerate}
-	Dado $t \in V(T)$ llamaremos a $f(t) \in 2^{V(\Gamma)}$ un \emph{bolsón}.
+	Dado $t \in V(T)$ llamaremos a $f(t) \in \partes{V(\Gamma)}$ un \emph{bolsón}.
 	 
 \end{deff}
 Notemos que la tercer condición \textbf{T3} se puede reescribir de la siguiente manera:
-dado $v \in V(\Gamma)$ entonces el conjunto $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ forma un subgrafo conexo de $T$.
+dado $v \in V(\Gamma)$ entonces el conjunto de vértices 
+$T_{v} = \{ t \in V(T) :  v \in f(t) \}$ induce un subgrafo conexo de $T$.
 \smallskip
 De esta manera tenemos la siguiente definición equivalente.
 
@@ -49,7 +50,8 @@ De esta manera tenemos la siguiente definición equivalente.
 	Sea $\Gamma$ un grafo no dirigido y $T$ un árbol.
 	Sea $f:V(T) \to \partes{V(\Gamma)}$ entonces $(T,f)$ es una descomposición en un árbol si y solamente si:
 	\begin{enumerate}
-		\item[\textbf{T'1.}] Para todo $v \in V(\Gamma)$ el subgrafo $T_{v} = \{ t \in V(T) :  v \in f(t) \}$ es un subgrafo conexo y no vacío de $T$.
+		\item[\textbf{T'1.}] Para todo $v \in V(\Gamma)$ el subgrafo inducido por 
+		$T_{v} = \{ t \in V(T) :  v \in f(t) \}$ es un subgrafo conexo y no vacío de $T$.
 		\item[\textbf{T'2.}] Si $\{ v,w \} \in E(\Gamma)$ es una arista entonces $T_{v} \cap T_{w} \neq \emptyset$.
 	\end{enumerate} 
 \end{prop}
@@ -69,11 +71,11 @@ Esto nos conduce a la siguiente definición.
 
 
 \begin{deff}
-	Dado $\Gamma$ un grafo no dirigido y $(T,f)$ una descomposición en un árbol de $\Gamma$ el \emph{bagsize} de esta descomposición es el siguiente valor:
+	Dado $\Gamma$ un grafo no dirigido y $(T,f)$ una descomposición en un árbol de $\Gamma$ la \emph{anchura} de esta descomposición es el siguiente valor:
 	\begin{equation*}
 		bs(\Gamma,T,f) = \sup_{t \in V(T)} |f(t)| - 1 \in \  \NN \cup \{ +\infty \}.
 	\end{equation*}
-	Un grafo $\Gamma$ tiene \emph{treewidth finito} si existe una descomposición en un árbol de bagsize finito.	
+	Un grafo $\Gamma$ tiene \emph{treewidth finito} si existe una descomposición en un árbol de anchura finito.	
 \end{deff}
 
 \begin{ej}
@@ -133,8 +135,10 @@ Esto nos conduce a la siguiente definición.
 \begin{proof}
 	Sea $T$ un árbol con un único elemento definido de la siguiente manera $V(T) = \{ t \}$ y $E(T) = \emptyset$.
 	Luego definimos $f: V(T) \to \partes{V(\Gamma)}$ por $f(t) = V(\Gamma)$.
-	Notemos que $(T,f)$ es una descomposición en un árbol para $\Gamma$ con bagsize $|V(\Gamma)| - 1$.	
+	Notemos que $(T,f)$ es una descomposición en un árbol para $\Gamma$ con anchura $|V(\Gamma)| - 1$.	
 \end{proof}
+
+% En el caso que $\Gamma$ no es conexo podemos adaptar esta demostración tomando un árbol con tantos vértices como componentes conexas tenga $\Gamma$.
 
 
 \begin{deff}
@@ -182,9 +186,12 @@ Esto nos conduce a la siguiente definición.
 	\end{enumerate}
 	
 \end{proof}
-	
-	
 
+
+\begin{obs}
+	Si $\Gamma$ es un grafo conexo tal que tiene al menos dos vértices y treewidth exactamente $1$ entonces $\Gamma$ es un árbol.
+	Ver \cite{diestel2005graph}[pp.334-335]
+\end{obs}
 
 Probaremos algunas proposiciones útiles de las descomposiciones en árboles de grafos.
 Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposición.
@@ -227,11 +234,11 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 \begin{prop}\label{prop_tw_finitos_bolsones}
 	Sea $\Gamma$ un grafo no dirigido localmente finito con treewidth finito entonces podemos tomar una descomposición en un árbol $(T,f)$ de $\Gamma$ de manera que para todo $v \in V(\Gamma)$ valga que:
 	\[
-	|T_{v}| = | \{  t \in V(T) : \ v \in f'(t)  \} | < \infty.
+	|T_{v}| = | \{  t \in V(T) : \ v \in f(t)  \} | < \infty.
 	\]
 \end{prop}
 \begin{proof}
-	Sea $(T,f')$ una descomposición en un árbol de $\Gamma$ de bagsize finito.
+	Sea $(T,f')$ una descomposición en un árbol de $\Gamma$ de anchura finito.
 	Por la propiedad \textbf{T2} tenemos que para cada arista 
 	$\{u,v\} \in E(\Gamma)$ existe al menos un vértice $t_{\{u,v\}} \in V(T)$ de manera que $u,v \in f'(t_{\{u,v\}})$.
 	
@@ -267,14 +274,14 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 			En este caso $T_{v} = T'$ y éste es un subárbol de $T$ por construcción.
 	\end{itemize}
 	
-	Con esto probamos que $(T,f_{v})$ es una descomposición en un árbol y como $|f_{v}(t)| \le |f'(t)|$ para todo $t \in V(T)$ luego obtenemos que el bagsize de $(T,f_{v})$ también es finito.
+	Con esto probamos que $(T,f_{v})$ es una descomposición en un árbol y como $|f_{v}(t)| \le |f'(t)|$ para todo $t \in V(T)$ luego obtenemos que la anchura de $(T,f_{v})$ también es finito.
 	
 	Hacemos este procedimiento para cada vértice $v \in V(\Gamma)$ de manera iterativa para obtener la descomposición en un árbol que buscábamos.
 	
 \end{proof}
 
 \begin{deff}
-	Sea $\Gamma$ un grafo no dirigido y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces definimos la \emph{vecindad de $C$} es una función 
+	Sea $\Gamma$ un grafo no dirigido y $C \subseteq V(\Gamma)$ un conjunto de vértices entonces la \emph{vecindad de $C$} es una función 
 	$N: \partes{V(\Gamma)} \to \partes{V(\Gamma)}$ definida por medio de:
 	\[
 	N(C) = C \cup \{ v \in V(\Gamma) \mid \exists w \in C, \ \{v,w \} \in E(\Gamma) \}.
@@ -342,8 +349,9 @@ Esta primer proposición generaliza la propiedad \textbf{T3} de una descomposici
 
 \medskip
 
-\begin{coro}\label{coro_vecinos_bagsize_grado}
-	Sea $\Gamma$ un grafo no dirigido con grado acotado uniformemente y con treewidth finito si $(T,f)$ es una descomposición en un árbol para $\Gamma$ tal que tiene bagsize finito luego dado $l \in \NN$ consideramos $(T,g)$ tal que $g(t) = N^l(f(t))$ entonces $(T,g)$ resulta ser una descomposición en un árbol para $\Gamma$ con bagsize finito.
+\begin{coro}\label{coro_vecinos_anchura_grado}
+	Sea $\Gamma$ un grafo no dirigido con grado acotado uniformemente y con treewidth finito. Sea $(T,f)$ es una descomposición en un árbol para $\Gamma$ tal que tiene anchura finita. Dado $l \in \NN$ consideramos $(T,g)$ descomposición en un árbol tal que 
+	$g(t) = N^l(f(t))$  entonces $(T,g)$ tiene anchura finita.
 \end{coro}
 \begin{proof}
 	Para ver esto basta notar que si existe $k \in \NN$ de manera que  $|f(t)| \le k$ para todo $t \in V(T)$ entonces como $\Gamma$ tiene grado acotado uniformemente por $n \in \NN$ luego para todo $t \in V(T)$ vale que
@@ -860,7 +868,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 %	d(w,\phi(v)) \le C.
 %	\]
 %	
-%	Sea $(T,f)$ una descomposición en un árbol para $\Gamma_{1}$ tal que tiene bagsize finito.
+%	Sea $(T,f)$ una descomposición en un árbol para $\Gamma_{1}$ tal que tiene anchura finito.
 %	Si consideramos a $g: V(T) \mapsto 2^{V(\Gamma_{1})}$ definida por $g(t) = N^{A(2C+1)}(f(t))$
 %	luego $(T,g)$ es una descomposición en un árbol para $\Gamma_{1}$ por el lema \ref{prop-vecinos-desc}.
 %	Consideremos entonces la siguiente función 
@@ -869,7 +877,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 %	h(t) =& N^{C+1}(\phi(g(t)).) 
 %	\end{align*}
 %	
-%	Afirmamos que $(T,h)$ es una descomposición en un árbol para $\Gamma_{2}$ tal que tiene bagsize finito.
+%	Afirmamos que $(T,h)$ es una descomposición en un árbol para $\Gamma_{2}$ tal que tiene anchura finito.
 %	
 %	
 %	Para ver esto debemos ver que cumple las tres condiciones que definen a una descomposición en un árbol.
@@ -900,8 +908,8 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 %		Esto implica que $w \in h(r)$ tal como queríamos ver.
 %	\end{enumerate}
 %	
-%	Por el resultado \ref{coro_vecinos_bagsize_grado} tenemos que $(T,g)$ tiene bagsize finito dado que $(T,f)$ lo tiene. 
-%	De esta manera también concluimos que $(T,h)$ tiene bagsize finito por lo que $ \Gamma_{2} $ tiene treewidth finito tal como queríamos ver.
+%	Por el resultado \ref{coro_vecinos_anchura_grado} tenemos que $(T,g)$ tiene anchura finito dado que $(T,f)$ lo tiene. 
+%	De esta manera también concluimos que $(T,h)$ tiene anchura finito por lo que $ \Gamma_{2} $ tiene treewidth finito tal como queríamos ver.
 %\end{proof}
 
 \begin{proof}
@@ -949,7 +957,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 	
 	Finalmente debemos ver que el tamaño de los bolsones está acotado uniformemente para probar que $\Gamma_{1}$ tiene treewidth finito.
 	Dado que $\Gamma_2$ tiene treewidth finito entonces existe $M \in \NN$ de manera que  $|f(t)| \le M$ uniformemente para todo $t \in V(T)$. 
-	Como el grado de los grafos está acotado uniformemente tenemos que por el resultado \ref{coro_vecinos_bagsize_grado} que esta descomposición tiene el bagsize finito por lo que
+	Como el grado de los grafos está acotado uniformemente tenemos que por el resultado \ref{coro_vecinos_anchura_grado} que esta descomposición tiene la anchura finito por lo que
 	\[
 	\exists N \in \NN, \forall t \in V(T). \  |N^l(f(t))| \le N.
 	\]
@@ -1047,13 +1055,13 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 	tal como queríamos ver.
 \end{proof}
 
-\begin{lema}\label{lema_tw_diam_bagsize}
+\begin{lema}\label{lema_tw_diam_anchura}
 	Sea $\Gamma$ un grafo de grado acotado uniformemente y 
 	$(T,f)$ una descomposición en un árbol para $\Gamma$ de manera que existe $M \in \NN$ tal que para todo $t \in V(T)$ tenemos la siguiente cota
 	\[
 		\text{diam}( f(t)) < M
 	\]   
-	entonces la descomposición $(T,f)$ tiene bagsize finito.
+	entonces la descomposición $(T,f)$ tiene anchura finito.
 \end{lema}
 \begin{proof}
 	Buscamos $k \in \NN$ tal que nos permita acotar $|f(t)| \le k$ para todo $t \in V(T)$. 
@@ -1066,7 +1074,7 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 	\[
 		|f(t)| \le n^{M} < \infty
 	\]
-	para todo $t \in V(T)$ así probando que $(T,f)$ es una descomposición con bagsize finito.
+	para todo $t \in V(T)$ así probando que $(T,f)$ es una descomposición con anchura finito.
 \end{proof}
 
 
@@ -1078,7 +1086,7 @@ La demostración que presentamos sigue la exposición del trabajo \cite{diekert2
 	Sea $\Sigma$ un conjunto finito de generadores de $G$.
 	La descomposición en un árbol $(T,f)$ que hicimos en \ref{desc-grafo-cayley} es válida para todo grafo de Cayley en particular resulta serlo para $\text{Cay}(G,\Sigma)$.
 	Veamos que esta descomposición para $G$ tiene treewidth finito. 
-	Para esto vamos a usar el lema \ref{lema_tw_diam_bagsize} para probar que todo $\beta C \in V(T)$ cumple que $\text{diam}(\beta C) < \infty$.
+	Para esto vamos a usar el lema \ref{lema_tw_diam_anchura} para probar que todo $\beta C \in V(T)$ cumple que $\text{diam}(\beta C) < \infty$.
 	
 	
 	Dado que $G$ es un grupo independiente de contexto entonces el lenguaje del problema de la palabra para estos generadores $\WP$ tiene una gramática $ \gramatica$ independiente de contexto que lo genera. 

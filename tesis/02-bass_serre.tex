@@ -67,6 +67,15 @@ Esta definición es original del trabajo de Serre \cite{serre2002trees}.
 
 De ahora en más en este capítulo cuando nos referimos a un grafo dirigido nos vamos a referir a un grafo dirigido con involución.
 
+Si $\Gamma = (V,E)$ es un grafo no dirigido simple luego podemos considerar $X$ un grafo dirigido tal que lo represente.
+Lo definimos de manera tal que $V(X) = V$ y si $e = \{x,x'\} \in E$ luego tenemos dos aristas $e,d \in E(X)$ definidas de manera tal que $s(e) = x, t(e) = y$ y $\ol{e} = d$.
+
+
+Si $Y$ es un grafo dirigido tal que no tiene bucles y tal que dados dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
+\[
+V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
+\]
+
 \begin{deff}
 	Sean $Y, Y'$ grafos dirigidos. 
 	Un par de funciones $\phi_V:V(Y) \to V(Y')$ y $\phi_E: E(Y) \to E(Y')$ que denotaremos $\phi:Y \to Y'$ es un \emph{morfismo de grafos} si:
@@ -350,7 +359,7 @@ En esta subsección vamos a caracterizar las palabras reducidas de los grupos fu
 El objetivo aparte de ejemplificar en unos casos en particular, es que más en adelante nos va a servir para reducir proposiciones sobre grafos de grupos arbitrarios a grafos de grupos donde sus grafos sean de estas formas.
 
 \subsubsection{Bucles.}\label{subsub_bucle}
-Por lo visto en el ejemplo \ref{ej_pi1_bucle} tenemos que dado $Y = (\{P\}, \{y,\ol y\})$ un bucle, entonces entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento 
+Por lo visto en el ejemplo \ref{ej_pi1_bucle} tenemos que dado $Y = (\{P\}, \{y,\ol y\})$ un bucle, entonces toda estructura de grafo de grupos $\cG$ que le demos a este segmento 
 hace que el grupo fundamental sea isomorfo a un producto HNN, es decir que $\pi_1(\cG) = G_P^{\ast G_y}$. 
 
 \begin{deff}\label{deff_hnn_fn}
@@ -977,14 +986,14 @@ t(gG_{y}) = gg_{y}G_{t(y)}
 Probemos que esta definición no depende de los representantes elegidos.
 Si tenemos que $hG_{y} = gG_{y}$ luego queremos ver que $hg_{y}G_{t(y)} = gg_{y}G_{t(y)}$y esto ocurre si y solo sí $g^{-1}_y h^{-1}g g_{y} G_{t(y)} = G_{t(y)}$.
 Usando una de las relaciones del grupo tenemos que $g_{y}^{-1} G_{y} g_{y} \subseteq G_{\ol y}$ y como $h^{-1}g \in G_{y}$ luego obtenemos que $g^{-1}_y h^{-1}g g_{y} \in G_{\ol y}$.
-Por como definimos a los grafos de grupos tenemos que $G_{\ol y}$ es un subgrupo $G_{s(\ol y)}$ y como $s(\ol y) = t(y)$ terminamos de probar que $g^{-1}_y h^{-1}g g_{y} \in G_{t(y)}$ tal como queríamos ver.
+Por como definimos a los grafos de grupos tenemos que $G_{\ol y}$ es un subgrupo de $G_{s(\ol y)}$ y como $s(\ol y) = t(y)$ terminamos de probar que $g^{-1}_y h^{-1}g g_{y} \in G_{t(y)}$ tal como queríamos ver.
 
 
 Usando estas dos definiciones tenemos que la arista inversa $\ol{(.)}:E(\Xm) \to E(\Xm)$ tiene que ser:
 \[
 \ol{gG_{y}} = gg_{y} G_{\ol y}.
 \]
-tal que $s(gg_{y}G_{\ol y}) = gg_{y}G_{t(y)}$ y $t(gg_{y}G_{\ol y}) = gg_{y}g_{\ol y}G_{s(y)}$ y como $g_{y}g_{\ol y} = 1$ obtenemos así que $t(gg_{y}G_{\ol y}) = gG_{s(y)}$.
+Tal que $s(gg_{y}G_{\ol y}) = gg_{y}G_{t(y)}$ y $t(gg_{y}G_{\ol y}) = gg_{y}g_{\ol y}G_{s(y)}$ y como $g_{y}g_{\ol y} = 1$ obtenemos así que $t(gg_{y}G_{\ol y}) = gG_{s(y)}$.
 A su vez por una cuenta similar vemos que $\ol{\ol{gG_{y}}} = gG_{y}$.
 
 De esta manera ya tenemos definido el grafo dirigido $\Xm$.
@@ -1225,9 +1234,10 @@ Antes de probar el resultado central de esta sección vamos a enunciar un lema q
 
 Sea $X$ un grafo conexo finito y sea $G$ un grupo finitamente generado que actúa sobre $X$.
 Llamemos $Y = X / G$ y $T$ árbol generador de $Y$.
+Sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
 Nuestro objetivo es construir un grafo de grupos $\cG$ sobre $Y$ de manera que se corresponda a esta acción.
  
-Sea la proyección $\pi: X \to Y$ tal que es un epimorfismo de grafos.
+
 Este grafo está dado por el conjunto de vértices
 \[
 	V(Y) = \{ G P :  P \in V(X)    \}
@@ -1365,7 +1375,7 @@ Veamos un ejemplo de esta construcción.
 	Un comentario importante es que podríamos haber tomado varias secciones $\iota: Y \to X$. 
 	En particular usando la proposición \ref{prop_levantado_accion_arbol} como el grafo $Y$ es un árbol podríamos haber tomado una sección $\iota$ de manera que $\iota(Y)$ sea un subárbol de $X$.
 	En tal caso tendríamos que $g_y = 1$ para todo $y \in E(Y)$.
-	Más en adelante probaremos que no importa qué sección tomemos el grafo de grupos que vamos a construir va a tener el mismo grupo fundamental.
+	Más adelante probaremos que no importa qué sección tomemos el grafo de grupos que vamos a construir va a tener el mismo grupo fundamental.
 \end{ej}
 
 \bigskip
@@ -1455,7 +1465,7 @@ En particular si consideramos que para toda arista $y \in E(X)$ el grupo $G_y$ e
 	g = (ge_k^{-1}) e_k
 	\]
 	entonces como $ge_k^{-1} \in G_P$ tenemos que usando el resultado \ref{coro_pal_red_1} que vale lo siguiente: $ge_k^{-1} \in \pi_1(\cG,P)$.
-	Como $ \varphi(ge_{k}^{-1}) = ge_{k}^{-1}$ obtenemos que  $ge_{k}^{-1} \le \varphi(\pi_1(\cG, P))$.  
+	Como $ \varphi(ge_{k}^{-1}) = ge_{k}^{-1}$ obtenemos que  $ge_{k}^{-1} \subseteq \varphi(\pi_1(\cG, P))$.  
 	Si vemos que $e_k \in \varphi(\pi_1(\cG, P))$ probaríamos que $g \in \varphi (\pi_1(\cG,P))$ tal como queríamos ver.
 		
 	Probaremos por inducción en el camino que tomamos anteriormente que $e_i \in \varphi(\Pi_1(\cG, P, P_i))$ para todo $i = 0 \dots n$.
@@ -1535,25 +1545,25 @@ Primero una observación sobre uniones de árboles.
 		Tomamos $y \in E(T)$ alguna arista de $T$ y tomamos el subárbol $S = (\{ s(y), t(y) \}, \{y\})$. 
 		Definimos $\iota(y) = 1 \cdot y$ y $\iota(\ol y) = g_{y} \cdot \ol{y}$ que por como la definimos es una sección.
 		De esta manera vemos que $\iota(S)$ es un subárbol de $X$ por lo tanto $(S, \iota) \in \Omega$.
-		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in \NN} \in \Omega$ tiene un supremo en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
+		\item Probamos ahora que toda cadena $(S_i, \iota_i)_{i \in I} \in \Omega$ tiene una cota superior en $\Omega$ por lo tanto por el lema de Zorn concluiríamos que existe un elemento maximal de $\Omega$.
 		Si tomamos la unión de todos los subgrafos $S_{i}$ obtenemos el siguiente subgrafo
 		\begin{equation*}
-			S = \bigcup_{i \in \NN} S_{i}.
+			S = \bigcup_{i \in I} S_{i}.
 		\end{equation*}
 		Similarmente tomamos la unión de todas las secciones,
 		\[
-		\iota = \bigcup_{i = 0}^{k} \iota_i
+		\iota = \bigcup_{i \in I} \iota_i
 		\]
-		donde $\iota(y) = g \cdot y$ si existe $i \in \NN$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
+		donde $\iota(y) = g \cdot y$ si existe $i \in I$ tal que $y \in S_{i}$ y en ese caso $\iota_{i}(y) = g\cdot y$.
 		Por esta definición tenemos que $\iota$ es una sección de $\pi$ y por la observación \ref{lema_union_arboles} tenemos que $S$ y $\iota(S)$ resultan ser árboles.
-		El supremo para esta cadena resulta ser $(S, \iota) \in \Omega$.
+		Una cota superior para esta cadena resulta ser $(S, \iota) \in \Omega$.
 	\end{itemize}
 	
 	
 	Por el lema de Zorn tenemos un elemento maximal $(M,j)$.
-	Veamos que $(\pi \circ j)(M) = T$.
+	Veamos que $M = T$.
 	Caso contrario como $M \in \Omega$ tenemos que es un subgrafo de $T$ y así como hicimos anteriormente podríamos levantar una arista $y \in E(T) \setminus E(M)$ a $g\cdot y \in E(X)$ de manera que $s(g\cdot y ) \in V(j(M))$.
-	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) \le (M',j')$ contradiciendo la maximalidad de $(M,j)$.
+	Si consideramos $M' =M \cup \{y\}$ luego $(M', j')$ con $j'(y) = g \cdot y$ y $j'(z) = j(z)$ para todo $z \in E(M)$ es tal que $(M',j') \in \Omega$ y $(M,j) < (M',j')$ contradiciendo la maximalidad de $(M,j)$.
 	Concluimos así que $M = T$ tal como queríamos ver.	
 \end{proof}
 
@@ -1772,7 +1782,7 @@ Como corolario directo obtenemos una caracterización para los grupos libres.
 \end{coro}
 
 \begin{proof}
-	Si $G$ es libre  y generado por un conjunto finito $A$ entonces $Cay(G,A)$ es un árbol y $G$ actúa libremente sobre su grafo de Cayley y sin invertir aristas.
+	Si $G$ es libre  y generado por un conjunto finito $A$ entonces $\cay{G}{A}$ es un árbol y $G$ actúa libremente sobre su grafo de Cayley y sin invertir aristas.
 	
 	Si $G$ actúa libremente sobre un árbol sin inversiones entonces usando \ref{teo_Serre} obtenemos que $G$ es isomorfo a $\pi_1(\cG, T)$.
 	Este grupo es libre por ser el grupo fundamental de un grafo de grupos en el cual los grupos correspondientes a las aristas y a los vértices son triviales dado que la acción de $G$ es libre.

@@ -19,8 +19,9 @@ Finalmente en \ref{secc_graf_nd} introducimos la notación que usaremos para los
 \section{Teoría de lenguajes.}\label{secc_tlen}	
 
 
-Consideremos un conjunto no vacío $\Sigma$ luego dado $k \in \NN$ denotaremos $\Sigma^k$ al conjunto de palabras en $\Sigma$ de exactamente $k$ elementos.
-Hacemos énfasis especial en el caso que $k=0$ denotando $\Sigma^0 = \{\epsilon\}$ a la \emph{palabra vacía}.
+Consideremos un conjunto no vacío $\Sigma$, que llamaremos un \emph{alfabeto}.
+Dado $k \in \NN$ denotaremos $\Sigma^k$ al conjunto de palabras en $\Sigma$ de exactamente $k$ elementos.
+Hacemos énfasis especial en el caso que $k=0$ denotando $\Sigma^0 = \epsilon$ a la \emph{palabra vacía}.
 Dada una palabra $w= a_1 \dots a_k \in \Sigma^k$ diremos que su longitud es $k$ y lo denotaremos $|w| = k$. 
 Similarmente si $ \Sigma = \{ a_{i} \}_{i \in I} $ denotaremos $|w|_{i}$ a la cantidad ocurrencias de $a_{i}$ en $w$.
 
@@ -56,7 +57,7 @@ Este monoide también puede ser caracterizado salvo isomorfismo por una propieda
 \end{obs}
 
 Una \emph{palabra} sobre $\Sigma$ es un $w \in \Sigma^*$.
-Si $w $ es una palabra sobre el alfabeto $\Sigma$ luego una \emph{subpalabra} $u$ de $w$ es una palabra $u \in \Sigma^*$ tal que $w = vuz$ para algunas $v, z \in \Sigma^*$. 
+Si $w $ es una palabra sobre el alfabeto $\Sigma$, luego una \emph{subpalabra} $u$ de $w$ es una palabra $u \in \Sigma^*$ tal que $w = vuz$ para algunas $v, z \in \Sigma^*$. 
 Si $w = vu$ entonces $v$ es un \emph{prefijo} de $w$ y $u$ es un \emph{sufijo} de $w$.
 
 
@@ -83,7 +84,7 @@ Un \emph{prefijo propio} de $w$ es un prefijo $u$ tal que $u \neq w$ y $u \neq \
 
 
 \begin{deff}\label{deff_pal_reversa}
-	Sea $\Sigma$ un conjunto finito.
+	Sea $\Sigma$ un alfabeto.
 	Dada una palabra $w \in \Sigma^*$ tal que $w = a_1 \dots a_n$ denotaremos por $w^R \in \Sigma^*$ la \emph{palabra reversa} definida como $w^R = a_{n} \cdots a_{1}$.
 \end{deff}
 
@@ -91,11 +92,13 @@ Dada una palabra $w \in \Sigma^*$ tal que $w = uv$ tenemos que vale la siguiente
 En particular para cada alfabeto podemos definir un lenguaje que es el de los palíndromos.
 
 \begin{deff}
-	Sea $\Sigma = \{a,b\}$ entonces el \emph{lenguaje de los palíndromos sobre $\Sigma$} es el siguiente lenguaje:
+	Sea $\Sigma$ un alfabeto entonces el \emph{lenguaje de los palíndromos sobre $\Sigma$} es el siguiente lenguaje:
 	\[
 		L_{\text{PAL}} = \{  w \in \Sigma^* \mid w = w^R \}.
 	\]
 \end{deff}
+
+En general cuando nos referiremos al lenguaje de los palíndromos asumiremos que el alfabeto es $\Sigma = \{a,b\}$.
 
 
 
@@ -123,12 +126,14 @@ En particular para cada alfabeto podemos definir un lenguaje que es el de los pa
 	\begin{itemize}
 		\item $V$ es un conjunto finito denominado las \emph{variables};
 		\item $\Sigma$ es un conjunto finito disjunto de $V$ que denominamos \emph{símbolos terminales};
-		\item $P \subseteq (V \cup \Sigma)^*V(V \cup \Sigma)^* \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
+		\item $P \subseteq ((V \cup \Sigma)^{*} \setminus \Sigma^{*}) \times (V \cup \Sigma)^*$ es un conjunto finito de \emph{producciones}.
 		\item $S \in V$ es el \emph{símbolo inicial};
 	\end{itemize}
 \end{deff}
 
-Dada una gramática ${\cal G} = (V, \Sigma, P, S)$ a cualquiera de sus producciones $(\gamma, \nu) \in P$, la vamos a denotar por medio de la siguiente notación $\gamma \to_{\cG} \nu$. 
+Dada una gramática ${\cal G} = (V, \Sigma, P, S)$ a cualquiera de sus producciones $(\gamma, \nu) \in P$, la vamos a denotar por medio de la siguiente notación $\gamma \to_{\cG} \nu$.
+La interpretación que le damos a una producción $\gamma \to_{\cG} \nu$ es que dada la palabra $\gamma$ la podemos reescribir por la palabra $\nu$.
+Observar que la definición de producción garantiza que la palabra $\gamma$ es una palabra no vacía tal que al menos una de sus letras es una variable.
 Si resulta evidente omitiremos el subíndice que hace referencia a la gramática y simplemente escribiremos $\gamma \to \nu$.
 
 A partir de una gramática $\cGg$ vamos a definir una relación sobre $(\Sigma \cup V)^*$. 
@@ -157,7 +162,8 @@ De esta manera una gramática la podemos pensar como un conjunto de reglas que n
 \end{deff}
 
 \begin{prop}
-	Sea una gramática $\gramatica$ luego existe una gramática $\cG'$ tal que todas sus variables son alcanzables y $L(\cG) = L(\cG')$.
+	Para toda gramática $\gramatica$
+	existe una gramática $\cG' =  (V', \Sigma, P', S)$ tal que todas sus variables son alcanzables, $V' \subseteq V$, $P' \subseteq P$ y $L(\cG) = L(\cG')$.
 \end{prop}
 \begin{proof}
 	Sea el conjunto de variables
@@ -166,9 +172,9 @@ De esta manera una gramática la podemos pensar como un conjunto de reglas que n
 	\]
 	y sea el subconjunto de producciones
 	\[
-		P_{I} = \{ (\gamma, \eta) \in P : \gamma, \eta \in ((V \setminus I) \cup \Sigma )^{*}  \}
+		P' = \{ (\gamma, \eta) \in P : \gamma, \eta \in ((V \setminus I) \cup \Sigma )^{*}  \}
 	\] 
-	Luego $\cG' = (V \setminus I, \Sigma, P_{I},S)$ cumple lo pedido.
+	Luego si $V' = V \setminus I$ podemos definir la gramática $\cG' = (V', \Sigma, P',S)$ tal que cumple lo pedido.
 \end{proof}
 
 
@@ -195,7 +201,7 @@ De esta manera una gramática la podemos pensar como un conjunto de reglas que n
 	Probemos por inducción en la longitud de la palabra $w$ que $w \in L$.
 	En el caso base $|w| = 1$ entonces la única opción es que $w = b$ dada por la siguiente derivación de un solo paso $S \to b$.
 	Para el paso inductivo supongamos que vale que toda palabra $u \in L(\cG)$ tal que $|u| \le n-1$ es tal que $u \in L$.
-	Sea $|w| = n$ entonces tenemos que la derivación tiene la siguiente pinta
+	Sea $|w| = n$ entonces tenemos que la derivación es de la siguiente forma
 	\[
 		S \to aS \deriva aw'
 	\]
@@ -256,7 +262,7 @@ Definimos ahora la contracara de las gramáticas regulares que resultan ser los 
 \end{deff}
 
 Un par $(q,w) \in Q \times \Sigma^*$ lo llamaremos una \emph{configuración} del autómata.
-Consideremos que $w = aw'$ donde $a \in \Sigma$ y $w' \in \Sigma^*$ luego si tenemos que $p \in \delta(q,a) $ entonces denotaremos esto así $(q,w) \vdash (p,w')$ y diremos que la configuración $(q,w)$ \emph{deriva} en la configuración $(p,w')$.
+Consideremos que $w = aw'$ donde $a \in \Sigma$ y $w' \in \Sigma^*$, luego si tenemos que $p \in \delta(q,a) $ entonces denotaremos esto así $(q,w) \vdash (p,w')$ y diremos que la configuración $(q,w)$ \emph{deriva} en la configuración $(p,w')$.
 Esto nos define una relación $\vdash$ sobre $Q \times \Sigma^*$ tal que su clausura transitiva y reflexiva la denotaremos $\vdash^*_{\cal M}$.
 
 Una configuración $(q,w)$ se dice \emph{irreducible} si no existe ninguna configuración $(p,u)$ tal que $(q,w) \vdash (p,u)$.
@@ -315,7 +321,8 @@ Estas gramáticas reciben el nombre de independientes de contexto porque indepen
 \end{obs}
 
 \begin{deff}
-	Sea un gramática independiente de contexto $\gramatica$ luego para toda variable $A \in V$ consideramos el siguiente lenguaje
+	Sea $\gramatica$ una gramática independiente de contexto. 
+	Para cada variable $A \in V$ consideramos el siguiente lenguaje
 	\[
 		L_{A} = \{  w \in \Sigma^{*} : A \deriva w \}.
 	\]
@@ -325,7 +332,7 @@ Estas gramáticas reciben el nombre de independientes de contexto porque indepen
 En particular observemos que $L_{S} = L(\cG)$.
 
 \begin{prop}
-	Sea una gramática $\gramatica$ independiente de contexto luego existe una gramática $\cG'$ tal que todas sus variables son productivas y 
+	Sea una gramática $\gramatica$ independiente de contexto, luego existe una gramática $\cG'$ tal que todas sus variables son productivas y 
 	$L(\cG) = L(\cG')$.
 \end{prop}
 \begin{proof}
@@ -436,13 +443,13 @@ tal que $\gamma \neq \epsilon$ y en tal caso $\gamma = Z \gamma'$ diremos que $Z
 Intuitivamente el tope de la pila es lo último que apilamos y es lo único que podemos leer de la pila.
 
 Sea una configuración $(q,w,\gamma)$ tal que $Z$ es el tope de la pila de esta configuración por lo tanto $\gamma = Z \gamma'$ y $w = aw'$ con $a \in \Sigma \cup \{\epsilon\}$ 
-entonces si $(p,\theta) \in \delta(q,a,Z)$ luego denotaremos $(q,aw', Z\gamma') \vdash (p,w',\theta\gamma')$ y diremos que la configuración $(q,w,\gamma)$ \emph{deriva} en la configuración $(p,w',\theta\gamma')$.
+entonces si $(p,\theta) \in \delta(q,a,Z)$, luego denotaremos $(q,aw', Z\gamma') \vdash (p,w',\theta\gamma')$ y diremos que la configuración $(q,w,\gamma)$ \emph{deriva} en la configuración $(p,w',\theta\gamma')$.
 Así como en el caso anterior de los autómatas finitos consideremos la relación generada por la clausura transitiva y reflexiva de esta operación tal que la denotaremos $\vdash^*_{\cal M}$.
 Para cada $k \in \NN$ notaremos $\vdash^k$ a la aplicación $k$ veces de la derivación $\vdash$ y así tenemos que $\vdash^* = \bigcup_{k \in \NN} \vdash^k$.
 
 
 Así como en el caso de los autómatas finitos no determinísticos podemos definir una \emph{configuración irreducible} $(q,aw',\gamma)$ como una configuración para la cual no existe ninguna otra configuración $(p,u,\theta)$ tal que $(q,w,\gamma) \vdash (p,u,\theta)$.
-En particular esto podría ser por dos casos: el primero es que $\gamma = \epsilon$ y el segundo es que si $Z$ es el tope de pila de la configuración luego $\delta(q,a,Z) = \emptyset$.
+En particular esto podría ser por dos casos: el primero es que $\gamma = \epsilon$ y el segundo es que si $Z$ es el tope de pila de la configuración, luego $\delta(q,a,Z) = \emptyset$.
 Una manera de \emph{consumir} una palabra $w \in \Sigma^*$ es una sucesión finita de configuraciones $(q_{0},w,\$) \vdash \dots \vdash (p,u,\theta)$ donde $(p,u,\theta)$ es una configuración irreducible.
 Equivalentemente, debe existir $k \in \NN$ tal que $(q_{0},w,\$) \vdash^k (p,u,\theta)$.
 
@@ -452,7 +459,7 @@ Equivalentemente, debe existir $k \in \NN$ tal que $(q_{0},w,\$) \vdash^k (p,u,\
 		L( {\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,\$) \vdash^* (q, \epsilon, \gamma), \ \ q \in F, \ \gamma \in \Gamma^*      \}.
 	\end{equation*}
 \end{deff}
-Las \emph{configuraciones finales} para el lenguaje aceptado por estado final de un \APND van a ser las configuraciones que tienen la pinta $(q,\epsilon,\gamma)$ donde $q \in F$.
+Las \emph{configuraciones finales} para el lenguaje aceptado por estado final de un \APND van a ser las configuraciones que son de la forma $(q,\epsilon,\gamma)$ donde $q \in F$.
 Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pila no determinístico son las palabras que pueden ser consumidas de manera que terminan en una configuración final.
 
 
@@ -483,7 +490,7 @@ Expresado de otra manera tenemos que el lenguaje aceptado por un autómata de pi
 		\end{tikzpicture}
 	\end{center}
 	Donde dibujamos una flecha siempre y cuando la función de transición nos permita ir del estado del cual sale la flecha al estado al que llega.
-	A los estados finales los distinguimos dibujandoles el borde dos veces.
+	A los estados finales los distinguimos dibujándoles el borde dos veces.
 	
 	Sea $Z \in \{ a,b, \$ \}$ algún elemento arbitrario del alfabeto de la pila y sea $\Sigma = \{ a,b \}$.
 	Vamos a definir la función de transición en 4 casos que numeramos en la representación gráfica del autómata.
@@ -586,7 +593,7 @@ Es decir que una vez que consumimos la palabra $w$ de entrada llegamos a una con
 	N({\cal M}) = \{ w \in \Sigma^* \ | \ (q_0,w,\$) \vdash^* (q, \epsilon, \epsilon), \ q \in Q, u \in \Sigma^*    \}
 \end{equation*}
 donde arrancamos en el estado inicial y llegamos a algún estado $q$ cualquiera sin importar que sea final o no.
-Dicho de otra manera la configuración final para el lenguaje aceptado por pila vacía de un \APND es una configuración de la pinta $(q, \epsilon, \epsilon)$.
+Dicho de otra manera la configuración final para el lenguaje aceptado por pila vacía de un \APND es una configuración $(q, \epsilon, \epsilon)$.
 Así tenemos que la diferencia entre el lenguaje aceptado por estado final o por pila vacía radica en las configuraciones que tomamos para que sean finales. 
 
 
@@ -976,7 +983,7 @@ Ahora probemos que la familia de los lenguajes \ic determinísticos especiales e
 %		Con esto probamos que $L$ es aceptado por un autómata de pila determinístico.
 		
 		Para ver que no es aceptado por un \APD por estado final y una palabra $\gamma$ en la pila consideremos que ${\cal M} = (Q,\Sigma, \Gamma, \delta, q_0, F, \$)$ \APD y $\gamma \in \Gamma^{*} \setminus \{ \epsilon \}$ tal que $L({\cal M}, \gamma) = L$.
-		En este caso sea $m > |Q|$ luego si consideramos las palabras de la pinta $\{ a^mb, \dots, a^mb^m  \} \subseteq L$ por el principio del palomar tienen que existir $1 \le i < j \le m$ tales que $(q_{0},a^mb^i, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ y $(q_{0},a^mb^j, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ para un mismo estado final $q \in F$.
+		En este caso sea $m > |Q|$, luego si consideramos las palabras de la forma $\{ a^mb, \dots, a^mb^m  \} \subseteq L$ por el principio del palomar tienen que existir $1 \le i < j \le m$ tales que $(q_{0},a^mb^i, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ y $(q_{0},a^mb^j, \$) \overset{*}{\vdash} (q,\epsilon,\gamma)$ para un mismo estado final $q \in F$.
 		Entonces notemos que necesariamente $m - i > 0$ y que $m-i+j > m$ por lo que
 		\[
 			(q_{0},a^mb^{i+m-i}, \$) \overset{*}{\vdash} (p,\epsilon,\gamma)
@@ -994,7 +1001,7 @@ Dado $\Gamma$ conjunto finito y $k \in \NN$
 definimos $\Gamma^{\le k} = \{ \gamma \in \Gamma^{*} \mid |\gamma| \le k \}$.
 
 \begin{deff}
-	Sea $k \in \NN_{\ge 1}$ luego un \emph{k-autómata de pila finito determinístico} es una tupla 
+	Si $k \in \NN_{\ge 1}$ definimos un \emph{k-autómata de pila finito determinístico} por medio de una tupla 
 	\[
 	{\cal N } = (Q, \Sigma, \Gamma, \delta, q_0, F, \$)
 	\]
@@ -1135,7 +1142,7 @@ Enunciamos y damos definiciones estándares de la teoría de grupos que usaremos
 
 
 \begin{deff}
-	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función  $\iota: A \to F_{A}$ que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
+	Dado un conjunto $A$ podemos definir a $F_{A}$ el \emph{grupo libre} generado por los elementos de $A$ como un grupo que tiene una función  $\iota: A \to F_{A}$ inyectiva que denominamos la inclusión de los generadores en el grupo libre y que está definido por la siguiente propiedad universal: 
 	Para todo grupo $H$ y toda función $f:A \to H$ existe un único morfismo de grupos $\ol f: F_{A} \to H$ tal que $\ol f \circ \iota = f$.
 	Equivalentemente el siguiente diagrama conmuta,
 	\begin{center}
@@ -1145,18 +1152,24 @@ Enunciamos y damos definiciones estándares de la teoría de grupos que usaremos
 			A \arrow[uu, "\iota"] \arrow[rruu, "f", swap] &  &  
 		\end{tikzcd}
 	\end{center}
-	En este diremos que $A$ genera libremente a $F_{A}$ y que $A$ es una base de $F_{A}$.
+	En este caso diremos que $A$ genera libremente a $F_{A}$ y que $A$ es una \emph{base} de $F_{A}$.
 \end{deff}
 
-\begin{obs}
-	Una observación que se desprende de la definición de un grupo libre es que si tenemos dos conjuntos $A, A'$ tales que $|A| = |A'|$ luego $F_{A} \simeq F_{A'}$.
-	En particular si $|A|=k < \infty$ tenemos que $F_{A} \simeq F_{ \{1, \dots, k \} }$.
-	Introduciremos la notación $F_{k}$ para referirnos a un grupo libre generado por algún conjunto $A$ tal que $|A| = k$.
-	En particular si $F$ es un grupo libre tal que $F \simeq F_{\{ 1, \dots, k \}}$ luego diremos que $k$ es el \emph{rango} de $F$.
-\end{obs}
+\begin{prop}
+	Sean $F,F'$ grupos libres con respectivas bases $X, X'$.
+	Entonces $F \simeq F'$ si y solo si $X$ y $X'$ tienen el mismo cardinal.
+\end{prop}
+\begin{proof}
+	Ver \cite[p.13]{lyndon1977combinatorial}.
+\end{proof}
+
+\begin{deff}
+	Dado $F$ grupo libre con base $X$ diremos que el cardinal $|X|$ es el \emph{rango de $F$}.
+\end{deff}
+	% Lo denotaremos $rg(F)$.
 
 Todo grupo en particular es un monoide.
-En el caso que $F_{A}$ es un grupo libre si miramos el \emph{conjunto simétrico de generadores} $B = A \cup A^{-1}$ donde $A^{-1} = \{ a^{-1} : a \in A \}$ luego tenemos que el grupo libre $F_{A}$ es un cociente del monoide libre $B^*$.
+En el caso que $F_{A}$ es un grupo libre si miramos el \emph{conjunto simétrico de generadores} $B = A \cup A^{-1}$ donde $A^{-1} = \{ a^{-1} : a \in A \}$, luego tenemos que el grupo libre $F_{A}$ es un cociente del monoide libre $B^*$.
 Esto es porque $F_{A} \simeq B^{*} / \{ aa^{-1} : a \in A \}$.
 Sea $\pi: B^{*} \to F_{A}$ el epimorfismo de monoides al cociente.
 
@@ -1238,9 +1251,9 @@ Notemos en particular que un grupo virtualmente libre cumple que es finitamente 
 		Vamos a probarlo por reducción al absurdo. 
 		Sea entonces $F$ un subgrupo que es isomorfo a $\ZZ$.
 		Sea $(n,m) \in \ZZ \times \ZZ$ el generador de $F$.
-		Probaremos que $\ZZ \times \ZZ / F$ tiene orden infinito.
+		Probaremos que $(\ZZ \times \ZZ )/ F$ tiene orden infinito.
 		Para eso consideraremos $(p,q) \in \ZZ \times \ZZ$	tal que $p,q$ son primos distintos y ambos coprimos con $m$ y con $n$.
-		Veamos que $[(p,q)] \in \ZZ \times \ZZ / F$ tiene orden infinito.
+		Veamos que $[(p,q)] \in (\ZZ \times \ZZ )/ F$ tiene orden infinito.
 		Si no lo fuera deberían existir $\alpha, \beta \in \ZZ$ de manera que 
 		\begin{align*}
 			\alpha (p,q) = \beta(n,m) 
@@ -1262,8 +1275,8 @@ Notemos en particular que un grupo virtualmente libre cumple que es finitamente 
 		\[
 		\alpha q  = \beta m
 		\]
-		acá tenemos que al ser $m$ coprimo con $p$ luego la multiplicidad de $p$ en la descomposición en primos de lo que está a la izquierda es $r_1$ mientras que lo que está a la derecha es $r_2$.
-		De acá concluimos que $r_{1} = r_{1} + 1$ y esto es una contradicción que vino de suponer que $[(p,q)] \in \ZZ \times \ZZ / F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
+		acá tenemos que al ser $m$ coprimo con $p$, luego la multiplicidad de $p$ en la descomposición en primos de lo que está a la izquierda es $r_1$ mientras que lo que está a la derecha es $r_2$.
+		De acá concluimos que $r_{1} = r_{1} + 1$ y esto es una contradicción que vino de suponer que $[(p,q)] \in (\ZZ \times \ZZ )/ F$ tenía orden finito por lo tanto tenemos que $\ZZ \times \ZZ$ no puede ser \vl.
 		
 	\end{enumerate}
 \end{ej}
@@ -1309,7 +1322,7 @@ Al valor $|E(v)|$ lo llamaremos el \emph{grado} de $v$.
 \end{obs}
 
 Un \emph{camino} $c$ en un grafo no dirigido es una sucesión de vértices $c=(v_{0}, \dots, v_{n})$ de manera tal que $v_{i}$ es adyacente con $v_{i+1}$ para todo $0 \le i < n$.
-Dado un grafo no dirigido $\Gamma$ entonces $\Pi (\Gamma) = \{  c \mid c \ \text{es un camino en } \ \Gamma \}$.
+Dado un grafo no dirigido $\Gamma$ denotaremos por  $\Pi (\Gamma) = \{  c \mid c \ \text{es un camino en } \ \Gamma \}$ el conjunto de caminos en el grafo $\Gamma$.
 Dado un camino $c = (v_{0}, \dots, v_{n})$ denotaremos por su \emph{longitud} al número entero positivo $|c|= n$.
 Un grafo es \emph{conexo} si para todo par de vértices $(v,w) \in V \times V$ existe un camino $c = (v_{0}, \dots, v_{n})$ tal que $v_{0} = v$ y $w=v_{n}$.
 Diremos que el camino $c$ \emph{une los vértices} $v$ y $w$.
@@ -1322,13 +1335,14 @@ Equivalentemente tenemos la siguiente caracterización de los árboles.
 
 \begin{lema}
 	\label{lemma:grado_arbol}
-	Sea $\Gamma = (V,E)$ un grafo no dirigido y sea $\rho:V(\Gamma) \to \NN_{0}$ función tal que cumple las siguientes propiedades.
+	Sea $\Gamma = (V,E)$ un grafo no dirigido. 
+	Existe $\rho:V(\Gamma) \to \NN_{0}$ función tal que cumple las siguientes propiedades.
 	\begin{enumerate}
 		\item Existe un único $v_{0} \in V$ tal que $\rho(v_{0}) = 0$;
 		\item Para cada arista $\{v,w\} \in E$ vale que $|\rho(v) - \rho(w)|  = 1$;
 		\item Para todo $v \in V \setminus \{v_{0}\}$ existe un único $w \in V$ de manera tal que $\{v,w\} \in E$ y $\rho(w) = \rho(v) - 1$.
 	\end{enumerate}
-	Entonces $\Gamma$ es un árbol.
+	si y solo sí $\Gamma$ es un árbol.
 \end{lema}
 \begin{proof}
 	Para ver que es un árbol debemos ver que es conexo y sin ciclos.
@@ -1336,18 +1350,22 @@ Equivalentemente tenemos la siguiente caracterización de los árboles.
 	\begin{itemize}
 		\item \textbf{$\Gamma$ es conexo.}
 			Dado $v \in V \setminus \{v_{0}\}$ vamos a ver que hay un camino que une a $v$ con $v_{0}$.
-			El camino que tomamos es $(v, s(v), p^{2}(v), \dots, p^{\rho(v)}(v))$.
-			Tal que está bien definido porque $\{v,s(v)\}$ es una arista para todo $v \in V \setminus \{v_{0}\}$ y como $\rho(s(v)) = \rho(v) - 1$ luego necesariamente $s^{\rho(v)}(v) = v_{0}$.
+			El camino que tomamos es $(v, s(v), s^{2}(v), \dots, s^{\rho(v)}(v))$.
+			Tal que está bien definido porque $\{v,s(v)\}$ es una arista para todo $v \in V \setminus \{v_{0}\}$ y como $\rho(s(v)) = \rho(v) - 1$ entonces necesariamente $s^{\rho(v)}(v) = v_{0}$.
 
 
 		\item \textbf{$\Gamma$ es acíclico.}
-			Sea $\gamma = (v_{0}, \dots, v_{k})$ un camino cerrado luego sea $v_{i}$ el vértice en el camino tal que $\rho(v_{i})$ es maximal dentro de todos los vértices de $\gamma$.
+			Sea $\gamma = (v_{0}, \dots, v_{k})$ un camino cerrado, luego sea $v_{i}$ el vértice en el camino tal que $\rho(v_{i})$ es maximal dentro de todos los vértices de $\gamma$.
 			Consideramos $v_{i-1}, v_{i+1}$ (podemos asumir que $i \neq 0$ y que $i \neq k$ por ser un camino cerrado) tales que por la propiedad \textbf{2} y por la elección de $v_{i}$ tenemos que
 			$\rho(v_{i}) = \rho(v_{i-1}) + 1 = \rho(v_{i+1}) + 1$.
 			Por la propiedad \textbf{3} concluimos que $v_{i-1} = v_{i+1}$ y así probamos que el camino no es simple.
-
 	\end{itemize}
+
+	Para la vuelta nos basta notar que si $\Gamma$ es un árbol luego podemos tomar $v_{0} \in V(T)$ dado que todo árbol es un grafo no vacío. 
+	La función que definimos es $\rho(v) = d(v_{0},v)$ de manera tal que va a cumplir las tres propiedades.
+
 \end{proof}
+
 
 
 \begin{deff}
@@ -1379,11 +1397,14 @@ Primero una definición útil en este contexto.
 
 
 \begin{deff}
-	Sea $G$ un grupo y $A$ un conjunto de generadores simétrico tal que $1 \notin A$.
+	Sea $G$ un grupo y $A$ un conjunto de generadores tal que $1 \notin A$.
 	Definimos el \emph{grafo de Cayley} $\Gamma = \text{Cay}(G,A)$ como el grafo que tiene como vértices $V(\Gamma) = G$ y aristas $E(\Gamma) = \{ \{g,ga \} \mid g \in G, a \in A \}$.
-	Para una arista $e = \{g,ga\}$ llamaremos la \emph{etiqueta de la arista $e$} al generador $a \in A$.
 \end{deff}
 
+\begin{obs}
+	Esta definición que tomamos de grafo de Cayley no es la usual.
+	Por ejemplo en \cite{bridson2013metric} los grafos de Cayley son grafos dirigidos en vez de ser grafos no dirigidos.
+\end{obs}
 
 En particular el grupo $G$ tiene una acción bastante natural sobre sus grafos de Cayley tal que es una acción libre.
 
@@ -1419,8 +1440,8 @@ Veamos ahora que características necesariamente tiene que cumplir un grafo no d
 	De esta manera obtenemos la siguiente cota  $|E(g)| \le 2|A| < \infty$ usando que $A$ es un conjunto finito.
 \end{proof}
 
-Si $G$ es un grupo finitamente generado por $A$ tomaremos $B = A \cup A^{-1}$ otro conjunto finito de generadores que llamaremos el \emph{simétrico} de $A$.
-Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de generadores de $G$ no como grupo sino como monoide.
+% Si $G$ es un grupo finitamente generado por $A$ tomaremos $B = A \cup A^{-1}$ otro conjunto finito de generadores que llamaremos el \emph{simétrico} de $A$.
+% Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de generadores de $G$ no como grupo sino como monoide.
 
 \begin{deff}
 	Sea $G$ grupo finitamente generado por $A$ tal que $1 \notin A$.
@@ -1436,7 +1457,7 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	Sea $\Gamma = \text{Cay}(G,A)$ el grafo de Cayley para estos generadores y $l: \Pi(\Gamma) \to (A \cup A^{-1})^*$ 
 %	y sea $\pi:(A \cup A^{-1})^* \to G$ la proyección de monoides entonces vale lo siguiente:
 	\begin{enumerate}
-		\item Si $c$ es un camino cerrado luego $l(c) = 1$.
+		\item Si $c$ es un camino cerrado luego $l(c) = 1$ en $G$.
 		
 		\item Si $c$ es un ciclo entonces $l(c)$ es una palabra reducida vista en el grupo libre $F_{A}$.
 	\end{enumerate}
@@ -1456,7 +1477,7 @@ Otra manera equivalente de pensar esto es que $B$ es un conjunto finito de gener
 	\] 
 	dado por lo visto en la proposición \ref{lema_grp_acc_libre_cayley} el grupo $G$ actúa libremente sobre su grafo de Cayley, por lo tanto el estabilizador de todo vértice tiene que ser trivial.
 	Esto nos dice que 
-	$g_{0} a_{0} \dots a_{n-1} g_{0}^{-1}  = 1$ lo que implica que $a_{0} \dots a_{n-1} = 1$ , esto es que $l(c) = 1$ tal como queríamos ver.
+	$g_{0} a_{0} \dots a_{n-1} g_{0}^{-1}  = 1$ lo que implica que $a_{0} \dots a_{n-1} = 1$ , esto es que $l(c) = 1$ en $G$ tal como queríamos ver.
 	
 	Probemos \textbf{2}.
 	Si $c = (g_{0}, \dots, g_{n})$ es un ciclo tal que $l(c) = (a_{0}, \dots, a_{n-1})$ luego va a ser reducida porque caso contrario existiría $i$ tal que $a_{i}^{-1} = a_{i+1}$ lo que implica que $g_{i}a_{i} = g_{i+1}$ y que $g_{i+1}a_{i}^{-1} = g_{i+2}$ y de esta manera obtenemos que $g_{i+2}a_{i} = g_{i+1} = g_{i}a_{i}$ y por lo tanto $g_{i+2} = g_{i}$ por lo que el camino $c$ no es un ciclo.
@@ -1488,10 +1509,16 @@ $ (V(\Gamma), d )$ con $d$ la distancia definida como
 	\gamma=(v,\dots, w)  \}.
 \] 
 A los caminos $\gamma$ tales que realizan la distancia las llamaremos \emph{geodésicas}.
-Dado un grupo finitamente generado por $A$ un conjunto simétrico notaremos $(\text{Cay}(G,A), d_{A})$ al grafo de Cayley visto como espacio métrico.
 
-Utilizaremos en varias ocasiones las siguientes dos observaciones:
+En particular si $G$ es un grupo finitamente generado por $A$ luego si consideramos esta misma distancia sobre $\cay{G}{A}$ entonces coincide con la siguiente distancia sobre el grupo $G$ (dado que el conjunto de vértices del grafo de Cayley es exactamente el grupo $G$).
+Si $g,h \in G$ luego definimos
+% Dado un grupo $G$ finitamente generado por $A$ podremos ver a $G$ como un espacio métrico con la siguiente métrica
+\[
+	d(g,h) = \min \ \{ |w| : w \in (A \cup A^{-1})^{*}, \ gw=h\}.
+\]
 
+
+Para finalizar notamos las siguientes dos observaciones:
 \begin{enumerate}
 	\item Si $\alpha = (v_{0}, \dots, v_{n})$ es una geodésica entonces para todo $0 \le i,j \le n$ vale que  $d(v_{i}, v_{j}) = |j-i|$.
 	\item Si $T$ es un árbol entonces es \emph{únicamente geodésico}.
@@ -1511,7 +1538,7 @@ Utilizaremos en varias ocasiones las siguientes dos observaciones:
 	A continuación damos varias definiciones estándares de teoría de grafos bajo esta definición de un grafo dirigido.
 	\begin{itemize}
 
-		\item Dado un grafo dirigido $Y=(V,E)$ con funciones $s,t, \ol{(.)}$ diremos que $Y'=(V',E')$ con funciones $s',t',\ol{()}'$ es un \emph{subgrafo} de $Y$ si $V' \subseteq V$, $E' \subseteq E$ y si $s'=\left. s \right|_{E'}, t' = \left. s \right|_{E'}$ 
+		\item Dado un grafo dirigido $Y=(V,E)$ con funciones $s,t, \ol{(.)}$ diremos que $Y'=(V',E')$ con funciones $s',t'$ es un \emph{subgrafo} de $Y$ si $V' \subseteq V$, $E' \subseteq E$ y si $s'=\left. s \right|_{E'}, t' = \left. s \right|_{E'}$ 
 		%y $\ol{(.)}' = \left. \ol{(.)} \right|_{E'}$ .
 		
 		\item Decimos que $Y$ es \emph{finito} si $|V| < \infty$ y $|E| < \infty$.	
@@ -1526,7 +1553,7 @@ Utilizaremos en varias ocasiones las siguientes dos observaciones:
 		\]
 		y 
 		\[
-			st^{-}(P) = \{  y \in E(Y) : t(y) = P \}
+			st^{-}(P) = \{  y \in E(Y) : t(y) = P \}.
 		\]
 		
 		\item Dado un grafo dirigido $Y$ y dos vértices $P, Q \in V$ un \emph{camino}  entre $P$ y $Q$ es una sucesión finita de aristas $c = (y_0, \dots, y_k)$ de manera que $s(y_0) = P, t(y_k) = Q$ y tal que para todo $0 \le i \le k-1$ vale que $y_i \in E$ y que $t(y_i) = s(y_{i+1})$.
@@ -1537,31 +1564,31 @@ Utilizaremos en varias ocasiones las siguientes dos observaciones:
 		\item Dado un grafo dirigido $Y$ y un vértice $P \in V$ notaremos $()$ al \emph{camino constante} en $P$. 
 		En particular los caminos constantes son los únicos caminos que cumplen que tienen longitud igual a $0$.
 
-		\item Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $c = (y_0, \dots y_n)$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $d = (z_0, \dots, z_m)$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $l(d) \ge l(c)$.
-		Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $(y_0, \dots, y_k)$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
+		% \item Dado un grafo dirigido $Y$ una \emph{geodésica} es un camino $c = (y_0, \dots y_n)$ tal que si $s(y_0)=P$ y $t(y_n)=Q$ luego para todo camino $d = (z_0, \dots, z_m)$ tal que $s(z_0) = P$ y $t(z_m) = Q$ resulta que $l(d) \ge l(c)$.
+		% Un grafo $Y$ dirigido que cumple que para todo par de vértices $P,Q$ exista una única geodésica $(y_0, \dots, y_k)$ tal que $s(y_0) = P$ y tal que $t(y_k) = Q$ diremos que es \emph{únicamente geodésico.}
 		
-		\item 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
-		Un grafo es \emph{únicamente geodésico} si para todo par de vértices $P,Q \in V$ existe una única geodésica entre ellos.
+		% \item 	Un grafo es \emph{conexo} si para todo par de vértices $P, Q \in V$ existe un camino entre ellos.
+		% Un grafo es \emph{únicamente geodésico} si para todo par de vértices $P,Q \in V$ existe una única geodésica entre ellos.
 		
 		
 		\item Un \emph{ciclo} en un grafo dirigido es un camino cerrado $c = (y_0, y_1, \dots, y_k)$ tal que si consideramos todos los vértices que recorre $(s(y_0),s(y_{1}), \dots, s(y_{k}))$ luego esta sucesión de vértices no tiene repeticiones.
 		
 				
-		\item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
-		Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
-		Todo árbol $T$ es un únicamente geodésico.
+		% \item Un grafo $T$ es un \emph{árbol} si es conexo y no tiene ciclos.
+		% Dado $Y$ un grafo dirigido, diremos que $T$ es un \emph{subárbol} de $Y$ si $T$ es un subgrafo y es un árbol. 
+		% Todo árbol $T$ es un únicamente geodésico.
 		
-		\item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
+		% \item Dado $Y$ un grafo dirigido, un \emph{árbol generador} $T$ de $Y$ es un subárbol de $Y$ que cumple que $V(T) = V(Y)$ y que $T$ es un árbol.
 		
 	\end{itemize}
 \end{deff}
 
-En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los grafos no dirigidos simples pueden tener más de una arista entre dos vértices y pueden tener bucles.
+% En particular bajo esta definición tenemos que los grafos dirigidos a diferencia de los grafos no dirigidos simples pueden tener más de una arista entre dos vértices y pueden tener bucles.
 
-Si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
-\[
-V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
-\]
+% Si $Y$ es un grafo dirigido tal que no tiene bucles y dado dos vértices distintos existe una única arista que los une (salvo orientación) entonces podemos considerar a $\Gamma$ un grafo no dirigido tal que representa a $Y$ de la siguiente manera:
+% \[
+% V(\Gamma) = V(Y), \ \ \ E(\Gamma) = \{ \{s(y), t(y) \} \mid y \in E(Y) \}.
+% \]
 
 \begin{deff}
 	Dado un grafo dirigido $X = (V,E,s,t)$, un vértice $a \in V$ es una \emph{raíz} si y solo sí para todo vértice $v \in V$ existe un camino de $a$ a $v$.
@@ -1718,7 +1745,7 @@ Razón por la cual introducimos los árboles binarios.
 
 Sea $\gramatica$ una gramática \ic{} en forma normal de Chomsky.
 Sea $A \in V$ una variable.
-Dada una sucesión de producciones de la siguiente pinta:
+Dada una sucesión de producciones de la siguiente forma:
 \[
 	{\cal D} =  A \deriva u
 \]
