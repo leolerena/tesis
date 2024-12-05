@@ -745,7 +745,7 @@ El árbol $T$ lo representamos de la siguiente manera:
 		\node[align=center] at (9, 2) {};
 		\begin{scope}[nodes=V,xshift=4.5cm, yshift=-4cm]
 			\node (1) at (0,0)  {$\{ b,b^2,1 \}$};
-			\node (2) at (2,0)  {$1$};
+			\node (2) at (2,0)  {$\{1\}$};
 			\node (3) at (4,0)  {$\{ 1,a \}$};
 			\node (4) at (-2,3)     {$\{ b,ba \}$};
 			\node (5) at (-2,-3)   {$\{b^2,b^2a\}$};
@@ -805,7 +805,7 @@ Esta subsección sigue los textos de \cite{bridson2013metric} y de \cite{loh2017
 	\end{itemize}
 \end{deff}
 
-Intuitivamente una cuasi-isometría entre espacios métricos nos dice que estos resultan ser globalmente similares y las diferencias que tienen localmente están uniformemente acotadas. 
+Intuitivamente una cuasi-isometría entre espacios métricos nos dice que estos resultan ser  similares vistos "desde lejos" y las diferencias que tienen localmente están uniformemente acotadas. 
 
 \medskip
 \begin{prop}\label{prop_qi_simetrica}
@@ -818,7 +818,7 @@ Intuitivamente una cuasi-isometría entre espacios métricos nos dice que estos 
 	\end{itemize}
 \end{prop}
 \begin{proof}
-	Ver \cite{bridson2013metric}.
+	Ver \cite{bridson2013metric}[p.138].
 \end{proof}
 
 \begin{prop}\label{prop_qi_transitiva}
@@ -826,7 +826,7 @@ Intuitivamente una cuasi-isometría entre espacios métricos nos dice que estos 
 	 entonces $\psi \circ \phi: X \to Z$ es una cuasi-isometría.
 \end{prop}
 \begin{proof}
-	Ver \cite{bridson2013metric}.
+	Ver \cite{bridson2013metric}[p.138].
 \end{proof}
 
 
@@ -837,7 +837,7 @@ La proposición \ref{prop_qi_simetrica} nos dice que la relación de cuasi-isome
 Por la proposición \ref{prop_qi_transitiva} tenemos que esta relación es transitiva también. 
 Esto nos dice que la relación de cuasi-isometría es una relación de equivalencia entre los espacios métricos.
 \begin{deff}
-	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos diremos que son espacios métricos \emph{cuasisométricos} si existe $\phi:X \to Y$ cuasi-isometría. 
+	Dados $(X,d_{X})$ y $(Y,d_{Y})$ espacios métricos diremos que son espacios métricos \emph{cuasi-isométricos} si existe $\phi:X \to Y$ cuasi-isometría. 
 	%	y denotaremos $X \overset{q.i}{\sim} Y$ la relación de cuasi-isometría entre espacios métricos.
 \end{deff}
 
@@ -845,13 +845,14 @@ Esto nos dice que la relación de cuasi-isometría es una relación de equivalen
 
 En nuestro caso en particular los espacios métricos que nos van a interesar son los grafos no dirigidos.
 Más aún nos vamos a interesar en los grafos de Cayley de grupos finitamente generados.
-El siguiente resultado que enunciamos sin demostración nos garantiza que todos los grafos de Cayley para un grupo finitamente generado son cuasisométricos entre sí.
+El siguiente resultado que enunciamos sin demostración nos garantiza que todos los grafos de Cayley para un grupo finitamente generado son cuasi-isométricos entre sí.
 \begin{prop}
-	Sea $G$ grupo finitamente generado por $\Sigma$ y por $\Delta$ entonces $(\text{Cay}(G,\Sigma), d_{\Sigma})$ y $(\text{Cay}(G, \Delta), d_{\Delta})$ son cuasisométricos entre sí.
+	Sea $G$ grupo finitamente generado y sean $A$ y $B$ conjuntos finitos de generadores de $G$. 
+	Entonces $(\text{Cay}(G,A), d_{A})$ y $(\text{Cay}(G, B), d_{B})$ son cuasi-isométricos entre sí.
 \end{prop}
 
 \begin{proof}
-	Ver \cite[p.89]{bridson2013metric}.
+	Ver \cite[p.143]{bridson2013metric}.
 \end{proof}
 
 Este resultado deja de ser cierto en el contexto que tomamos un conjunto de generadores que no es finito.
@@ -862,7 +863,7 @@ En nuestro caso en particular la propiedad $P$ que nos va a interesar es la de t
 
 
 \begin{prop} \label{treewidth-inv}
-	Sean $(\Gamma_{1},d_{1}), (\Gamma_{2}, d_{2})$ grafos no dirigidos de grado uniformemente acotado cuasisométricos entre sí y $\Gamma_{2}$ grafo con treewidth finito.
+	Sean $(\Gamma_{1},d_{1}), (\Gamma_{2}, d_{2})$ grafos no dirigidos de grado uniformemente acotado cuasi-isométricos entre sí y $\Gamma_{2}$ grafo con treewidth finito.
 	Entonces $\Gamma_{1}$ tiene treewidth finito.
 \end{prop}
 %
